@@ -1,28 +1,52 @@
 {
   "compilerOptions": {
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "allowJs": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api/*": ["api/*"],
+      "@com/*": ["components/*"],
+      "@configs/*": ["configs/*"],
+      "@contexts/*": ["contexts/*"],
+      "@hooks/*": ["hooks/*"],
+      "@logics/*": ["logics/*"],
+      "@static/*": ["public/static/*"],
+      "@redux/*": ["redux/*"],
+      "@routes/*": ["routes/*"],
+      "@styles/*": ["styles/*"],
+      "@tools/*": ["tools/*"],
+      "@utilities/*": ["utilities/*"]
+    },
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "strict": false,
+    "forceConsistentCasingInFileNames": true,
+    "downlevelIteration": true,
     "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
     "esModuleInterop": true,
+    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "allowJs": true
   },
   "include": [
     "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
+    "next.config.js",
+    "app",
+    "pages",
+    "components",
+    "context",
+    "redux",
+    "lib",
+    "img",
+    "api",
+    "assets",
+    "store",
+    "../../styles",
+    "routes",
+    "hooks",
+    "configs"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

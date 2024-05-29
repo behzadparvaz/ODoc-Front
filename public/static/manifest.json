@@ -1,0 +1,55 @@
+{
+  "theme_color": "#fb4b63",
+  "background_color": "#fff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/?source=pwa",
+  "name": "اُدکتر",
+  "short_name": "ODoctor",
+  "description": "",
+  "icons": [
+    {
+      "src": "/static/images/icons/okala36x36.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/images/icons/okala512x512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose":"maskable any"
+    }
+  ],
+  "splash_pages": null
+}
