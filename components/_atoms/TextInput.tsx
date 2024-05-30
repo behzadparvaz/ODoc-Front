@@ -9,7 +9,7 @@ const InputVariants = cva([], {
   variants: {
     variant: {
       default:
-        'flex item-center justify-start bg-white px-4 py-3 focus:outline-none focus:border focus:border-grey-200 placeholder-grey-300',
+        'flex item-center justify-start bg-white px-4 py-3 outline-none border border-grey-200 placeholder-grey-300',
     },
     rounded: {
       none: 'rounded-0',

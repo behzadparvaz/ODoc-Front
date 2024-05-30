@@ -1,12 +1,17 @@
 import TextInput from "@com/_atoms/TextInput"
-import Button from "@com/_atoms/Button.od"
+import Button from "@com/_atoms/Button"
 import { useFormik } from "formik";
 import { useODocSendMobileNumber } from "@api/auth/oDocAuth.rq";
 import { loginSchema } from "@lib/validationSchemas";
 import { convertPersianNumbersToEnglishNumbers } from "@lib/utils";
 import SectionTitle from "./SectionTitle.nd";
 
-const AuthMobileNumber = () => {
+
+interface Props {
+    handleChangeForm: (formStatus: 'otp' | 'password') => void;
+}
+
+const AuthMobileNumber = ({ handleChangeForm }: Props) => {
     const { mutate: mutateODocSendMobileNumber, isLoading: oDocSendMobileNumberLoding } = useODocSendMobileNumber();
     const formik = useFormik({
         initialValues: {
@@ -19,8 +24,14 @@ const AuthMobileNumber = () => {
                 values,
                 {
                     onSuccess: (responseData: any) => {
-                        if (responseData?.success) {
-                            alert('good')
+                        const data = responseData?.data;
+                        if (data?.message === "succeeded") {
+                            if (data?.hasPassword) {
+                                handleChangeForm('password')
+                            }
+                            else {
+                                handleChangeForm('otp')
+                            }
                         }
                     },
                 }
@@ -55,12 +66,12 @@ const AuthMobileNumber = () => {
                 />
 
                 <Button
-                    type="contained"
+                    buttonType="contained"
                     variant="primary"
                     className="w-full mt-3"
                     size="large"
                     disabled={oDocSendMobileNumberLoding}
-                    handleClick={formik.submitForm}
+                    type="submit"
                     isLoading={oDocSendMobileNumberLoding}
                 >
                     <p>تــــایید</p>
