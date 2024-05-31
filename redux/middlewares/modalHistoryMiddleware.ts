@@ -1,4 +1,4 @@
-import { ModalType } from '@lib/types';
+import { ModalType } from '@utilities/interfaces/modal';
 import { Store } from 'redux';
 import { ModalActions } from '@redux/modal/modalActions';
 

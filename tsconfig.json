@@ -2,52 +2,21 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@api/*": [
-        "api/*"
-      ],
-      "@com/*": [
-        "components/*"
-      ],
-      "@lib/*": [
-        "lib/*"
-      ],
-      "@configs/*": [
-        "configs/*"
-      ],
-      "@contexts/*": [
-        "contexts/*"
-      ],
-      "@hooks/*": [
-        "hooks/*"
-      ],
-      "@logics/*": [
-        "logics/*"
-      ],
-      "@static/*": [
-        "public/static/*"
-      ],
-      "@redux/*": [
-        "redux/*"
-      ],
-      "@routes/*": [
-        "routes/*"
-      ],
-      "@styles/*": [
-        "styles/*"
-      ],
-      "@tools/*": [
-        "tools/*"
-      ],
-      "@utilities/*": [
-        "utilities/*"
-      ]
+      "@api/*": ["api/*"],
+      "@com/*": ["components/*"],
+      "@configs/*": ["configs/*"],
+      "@contexts/*": ["contexts/*"],
+      "@hooks/*": ["hooks/*"],
+      "@logics/*": ["logics/*"],
+      "@static/*": ["public/static/*"],
+      "@redux/*": ["redux/*"],
+      "@routes/*": ["routes/*"],
+      "@styles/*": ["styles/*"],
+      "@tools/*": ["tools/*"],
+      "@utilities/*": ["utilities/*"]
     },
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "skipLibCheck": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -70,17 +39,13 @@
     "components",
     "context",
     "redux",
-    "lib",
-    "img",
+    "static",
     "api",
-    "assets",
-    "store",
-    "../../styles",
+    "styles",
     "routes",
     "hooks",
-    "configs"
+    "configs",
+    "utilities"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

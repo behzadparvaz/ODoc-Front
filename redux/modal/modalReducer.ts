@@ -1,4 +1,4 @@
-import { ModalType } from '@lib/types';
+import { ModalType } from '@utilities/interfaces/modal';
 import { Reducer } from 'react';
 import { ModalActions } from './modalActions';
 import modalTypes from './modalTypes';

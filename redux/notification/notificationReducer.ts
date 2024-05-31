@@ -1,4 +1,4 @@
-import { NotificationTypes } from '@lib/types';
+import { NotificationTypes } from '@utilities/interfaces/notification';
 import { Reducer } from 'redux';
 import { NotificationActions } from './notificationActions';
 import notificationTypes from './notificationTypes';

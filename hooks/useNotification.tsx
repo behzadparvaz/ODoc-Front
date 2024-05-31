@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { useRef, useCallback } from 'react';
-import { RootState } from '@lib/types';
 import {
   closeNotificationAction,
   openNotificationAction,
@@ -9,6 +8,7 @@ import {
 } from '@redux/notification/notificationActions';
 import { DangerIcon, TickSquareIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import { RootState } from '@utilities/interfaces/redux';
 
 const useNotification = () => {
   const dispatch = useDispatch();
@@ -18,7 +18,7 @@ const useNotification = () => {
     (message, type, notifType) => {
       dispatch(openNotificationAction(message, type, notifType));
     },
-    [dispatch]
+    [dispatch],
   );
 
   const closeNotification = useCallback(() => {
@@ -35,7 +35,9 @@ const useNotification = () => {
     }: OpenNotificationAction['payload']) {
       let icon = null;
       if (type === 'success') {
-        icon = <TickSquareIcon width={16} height={16} fill={colors?.teal[500]} />;
+        icon = (
+          <TickSquareIcon width={16} height={16} fill={colors?.teal[500]} />
+        );
       } else if (type === 'error' || type === 'warning') {
         icon = <DangerIcon width={16} height={16} fill={colors?.orange[500]} />;
       }

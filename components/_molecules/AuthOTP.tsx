@@ -1,11 +1,11 @@
 import Button from "@com/_atoms/Button.od"
 import { useFormik } from "formik";
 import { useODocSendVerifyCode } from "@api/auth/oDocAuth.rq";
-import { loginSchema } from "@lib/validationSchemas";
 import { loginTexts } from "@com/texts/loginTexts";
 import OTPInput from "@com/_atoms/OTPInput";
 import { useState } from "react";
 import SectionTitle from "./SectionTitle.nd";
+import { loginSchema } from "@utilities/validationSchemas";
 
 const AuthOTP = () => {
     const [otpCode, setOtpCode] = useState('');

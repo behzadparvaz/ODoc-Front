@@ -1,9 +1,9 @@
 import React, { FC, ReactElement, forwardRef } from 'react';
 import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
-import { getColors } from '@lib/utils';
 import classNames from 'classnames';
 import clsx from 'clsx';
+import { getColors } from '@configs/Theme';
 
 const InputVariants = cva([], {
   variants: {
