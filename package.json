@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@next/bundle-analyzer": "^14.2.3",
-    "@tailwindcss/line-clamp": "^0.2.1",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",

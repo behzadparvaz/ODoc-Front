@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import SingleInput from './SingleOTPInput';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
-import { getDataFromCookies } from '@lib/utils';
+import { getDataFromCookies } from '@utilities/cookiesUtils';
 
 export interface OTPInputProps {
   length: number;

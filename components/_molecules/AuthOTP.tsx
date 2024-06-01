@@ -1,12 +1,12 @@
 import Button from "@com/_atoms/Button"
 import { useFormik } from "formik";
 import { useODocSendVerifyCode } from "@api/auth/oDocAuth.rq";
-import { loginSchema } from "@lib/validationSchemas";
 import { loginTexts } from "@com/texts/loginTexts";
 import OTPInput from "@com/_atoms/OTPInput";
 import { useState } from "react";
 import SectionTitle from "./SectionTitle.nd";
 import useAuthTimer from "@hooks/useAuthTimer";
+import { loginSchema } from "@utilities/validationSchemas";
 
 
 interface Props {
