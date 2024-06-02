@@ -31,8 +31,6 @@ const userReducer: Reducer<any, any> = (state = INITIAL_STATE, actions) => {
       };
     case userLogoutType.Logout_User:
       localStorage.removeItem('token');
-      localStorage.removeItem('tokenMS');
-      localStorage.removeItem('refresh_token');
       return {
         ...state,
         user: null,

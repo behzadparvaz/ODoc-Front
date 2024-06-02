@@ -23,28 +23,9 @@ const reducer = (state, action) => {
       ...state, // use previous state
       ...action.payload, // apply delta from hydration
     };
-    if (
-      state.user.user ||
-      state.cart.totalCartsCount > 0 ||
-      state.cart.cartTotalPrice > 0 ||
-      state.mapInfo ||
-      state.wallet.selectedPriceState ||
-      state.route.fromRoute !== '' ||
-      state.search.searchText !== '' ||
-      state.search.searchBoxIsVisible
-    ) {
+    if (state.user.user) {
       nextState.user = state.user;
-      nextState.cart.totalCartsCount = state.cart.totalCartsCount;
-      nextState.cart.cartTotalPrice = state.cart.cartTotalPrice;
-      nextState.mapInfo = state.mapInfo;
-      nextState.wallet = state.wallet;
-      nextState.route = state.route;
-      nextState.search.searchText = state.search.searchText;
-      nextState.search.searchBoxIsVisible = false;
     }
-    // if (state.user.user) nextState.user.user = state.user.user; // preserve count value on client side navigation
-    // if (state.cart.cartItems.length > 0)
-    //   nextState.cart.cartItems = state.cart.cartItems;
     return nextState;
   } else {
     return rootReducer(state, action);

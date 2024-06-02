@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
     "@next/bundle-analyzer": "^14.2.3",
     "@tailwindcss/line-clamp": "^0.4.4",
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "classnames": "^2.5.1",
     "formik": "^2.2.9",
+    "framer-motion": "^4.1.17",
     "js-cookie": "^3.0.5",
     "next": "12.3.4",
     "next-compose-plugins": "^2.2.1",
@@ -37,7 +39,7 @@
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/node": "^20.12.12",
-    "@types/react": "^18.3.3",
+    "@types/react": "^17.0.15",
     "autoprefixer": "^10.3.1",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.3",
