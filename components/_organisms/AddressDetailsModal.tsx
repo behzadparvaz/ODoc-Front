@@ -5,14 +5,12 @@ import dynamic from 'next/dynamic';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { useFormik } from 'formik';
-import { responseType, RootState } from 'utilities/types';
+import {  RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
 import { useAddLocation } from '@api/user/user.rq';
-import { useRouter } from 'next/router';
 import { addressSeparator, cedarAddressFixedPartCreator } from '@utilities/addressUtils';
 import useModal from '@hooks/useModal';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
-import { convertPersianNumbersToEnglishNumbers } from '@utilities/mainUtils';
 import useNotification from '@hooks/useNotification';
 import { FullModalContainer } from '@com/modal/containers/fullMobileContainer';
 import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/ControlMobileView';
@@ -20,17 +18,15 @@ import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/Cont
 const Button = dynamic(() => import('@com/_atoms/Button'));
 const Input = dynamic(() => import('@com/_atoms/Input.nd'));
 
-type Props = { addressData?: any; addressId?: number };
+type Props = { addressData?: any };
 
-export default function AddressDetailsModal({ addressData, addressId }: Props) {
-  const router = useRouter();
+export default function AddressDetailsModal({ addressData }: Props) {
   const dispatch = useDispatch();
   const addressInputRef = useRef(null);
-  const { addModal, removeLastModal, removeAllModalAction } = useModal();
+  const { removeLastModal } = useModal();
   const { openNotification } = useNotification();
   const [addressTitle, setAddressTitle] = useState<string>('');
-  const { viewport, eventStartTime, defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
-  const { user } = useSelector((state: RootState) => state.user);
+  const { viewport, defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
   const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
     useAddLocation();
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
@@ -101,18 +97,7 @@ export default function AddressDetailsModal({ addressData, addressId }: Props) {
         Description: `${addressReadonlyPart}${addressEditablePart} پلاک ${values?.plaque} واحد ${values?.unit}`,
         postalCode: String(values?.postalCode)
       }
-      mutateAddLocation(body,
-        {
-          onSuccess: () => {
-            removeLastModal()
-            openNotification({
-              message: `${selectStoreTexts?.successAddAddress}`,
-              type: 'success',
-              notifType: 'successOrFailedMessage',
-            });
-          },
-        }
-      );
+      mutateAddLocation(body);
     },
   });
 

@@ -26,7 +26,6 @@ const AuthPassword = ({ handleChangeForm }: Props) => {
         enableReinitialize: true,
         validationSchema: loginSchema,
         onSubmit: (values) => {
-            console.log(values);
 
             // mutatesendVerifyCode(
             //     values,
