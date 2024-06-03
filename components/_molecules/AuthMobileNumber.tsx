@@ -1,18 +1,18 @@
 import TextInput from "@com/_atoms/TextInput"
 import Button from "@com/_atoms/Button"
 import { useFormik } from "formik";
-import { useODocSendMobileNumber } from "@api/auth/oDocAuth.rq";
+import { useSendMobileNumber } from "@api/auth/oDocAuth.rq";
 import SectionTitle from "./SectionTitle.nd";
 import { loginSchema } from "@utilities/validationSchemas";
 import { convertPersianNumbersToEnglishNumbers } from "@utilities/mainUtils";
 
 
 interface Props {
-    handleChangeForm: (formStatus: 'otp' | 'password') => void;
+    handleChangeForm: (registerData:any,formStatus: 'otp' | 'password') => void;
 }
 
 const AuthMobileNumber = ({ handleChangeForm }: Props) => {
-    const { mutate: mutateODocSendMobileNumber, isLoading: oDocSendMobileNumberLoding } = useODocSendMobileNumber();
+    const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } = useSendMobileNumber();
     const formik = useFormik({
         initialValues: {
             PhoneNumber: '',
@@ -20,17 +20,17 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
         enableReinitialize: true,
         validationSchema: loginSchema,
         onSubmit: (values) => {
-            mutateODocSendMobileNumber(
+            mutatesendMobileNumber(
                 values,
                 {
                     onSuccess: (responseData: any) => {
                         const data = responseData?.data;
                         if (data?.message === "succeeded") {
                             if (data?.hasPassword) {
-                                handleChangeForm('password')
+                                handleChangeForm(data,'password')
                             }
                             else {
-                                handleChangeForm('otp')
+                                handleChangeForm(data,'otp')
                             }
                         }
                     },
@@ -80,9 +80,9 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
                     variant="primary"
                     className="w-full mt-3"
                     size="large"
-                    disabled={oDocSendMobileNumberLoding}
+                    disabled={sendMobileNumberLoding}
                     type="submit"
-                    isLoading={oDocSendMobileNumberLoding}
+                    isLoading={sendMobileNumberLoding}
                 >
                     <p>تــــایید</p>
                 </Button>

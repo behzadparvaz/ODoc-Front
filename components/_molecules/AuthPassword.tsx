@@ -1,13 +1,13 @@
 import Button from "@com/_atoms/Button"
 import { useFormik } from "formik";
-import { useODocSendVerifyCode } from "@api/auth/oDocAuth.rq";
-import { loginSchema } from "@lib/validationSchemas";
+import { useSendVerifyCode } from "@api/auth/oDocAuth.rq";
 import { loginTexts } from "@com/texts/loginTexts";
 import SectionTitle from "./SectionTitle.nd";
 import TextInput from "@com/_atoms/TextInput";
 import { useState } from "react";
 import { CloseEyeIconFill, OpenEyeIconFill } from "@com/icons";
 import { colors } from "@configs/Theme";
+import { loginSchema } from "@utilities/validationSchemas";
 
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 const AuthPassword = ({ handleChangeForm }: Props) => {
     const [hidePassword, setHidePassword] = useState(true);
-    const { mutate: mutateODocSendVerifyCode, isLoading: oDocSendVerifyCodeLoading } = useODocSendVerifyCode();
+    const { mutate: mutatesendVerifyCode, isLoading: sendVerifyCodeLoading } = useSendVerifyCode();
 
     const formik = useFormik({
         initialValues: {
@@ -28,7 +28,7 @@ const AuthPassword = ({ handleChangeForm }: Props) => {
         onSubmit: (values) => {
             console.log(values);
 
-            // mutateODocSendVerifyCode(
+            // mutatesendVerifyCode(
             //     values,
             //     {
             //         onSuccess: (responseData: any) => {
@@ -83,9 +83,9 @@ const AuthPassword = ({ handleChangeForm }: Props) => {
                     variant="primary"
                     className="w-full mt-3"
                     size="large"
-                    disabled={oDocSendVerifyCodeLoading}
+                    disabled={sendVerifyCodeLoading}
                     type="submit"
-                    isLoading={oDocSendVerifyCodeLoading}
+                    isLoading={sendVerifyCodeLoading}
                 >
                     <p>{loginTexts.login}</p>
                 </Button>
