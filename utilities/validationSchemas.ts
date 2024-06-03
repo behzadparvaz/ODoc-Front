@@ -17,3 +17,11 @@ export const addNewAddressSchema = Yup.object().shape({
     .min(10, 'کد پستی 10 رقم می باشد')
     .max(10, 'کد پستی 10 رقم می باشد')
 });
+
+export const userInfoSchema = Yup.object().shape({
+  firstName: Yup.string().required('این فیلد الزامی است'),
+  lastName: Yup.string().required('این فیلد الزامی است'),
+  nationalCode: Yup.string().required('این فیلد الزامی است')
+    .min(10, 'شماره ملی 10 رقم می باشد')
+    .max(10, 'شماره ملی 10 رقم می باشد')
+});
