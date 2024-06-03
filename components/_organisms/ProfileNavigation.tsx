@@ -30,7 +30,7 @@ export default function ProfileNavigation({ className = '' }) {
                         src={'/static/images/staticImages/sample-avatar.svg'}
                         className={'inline-block mb-1 rounded-full'}
                     />
-                    {profileDataLoding === false && <p className="text-gray-900 text-sm font-medium text-center truncate">{profileInfo ? `${profileInfo?.firstName} ${profileInfo?.lastName}` : 'فاقد اطلاعات '}</p>}
+                    {profileDataLoding === false && <p className="text-grey-600 text-sm font-medium text-center truncate">{profileInfo ? `${profileInfo?.firstName} ${profileInfo?.lastName}` : 'فاقد اطلاعات '}</p>}
 
                     <Button isLoading={profileDataLoding} handleClick={() => {
                         push('/profile/user-info')
@@ -42,9 +42,9 @@ export default function ProfileNavigation({ className = '' }) {
                     const isActive = asPath === item?.link;
                     return (
                         <>
-                            <li className={`${isActive ? ' text-teal-700 active' : 'text-gray-600'} w-full py-2 text-lg relative border-b border-grey-100`} key={item?.id}>
+                            <li className={`${isActive ? ' text-teal-700 active' : 'text-grey-500'} w-full py-2 text-md relative border-b border-grey-100`} key={item?.id}>
                                 <NextLink href={item?.link}>
-                                    <a className={`${isActive ? 'cursor-default' : ''} py-2 gap-x-1 items-center relative flex transition-all duration-200`}>
+                                    <a className={`${isActive ? 'cursor-default' : ''} py-2 gap-x-1 relative flex transition-all duration-200`}>
                                         {item?.icon}
                                         {item?.text}
                                     </a>
@@ -54,7 +54,7 @@ export default function ProfileNavigation({ className = '' }) {
                     )
                 })}
 
-                <li className={` mb-3 py-2 block mx-auto text-lg relative`}>
+                <li className={` mb-3 py-2 block mx-auto text-md relative`}>
                     <Link href={'/logout'}>
                         <a className={`text-red-600 z-10 py-2 flex items-center gap-x-2 relative transition-all duration-200`}>
 

@@ -1,27 +1,31 @@
+import { ArrowLeftIconOutline, ArrowRightIconOutline } from "@com/icons"
+import { colors } from "@configs/Theme"
+import { useRouter } from "next/router"
 
 interface Props {
     children: React.ReactNode,
-    header?: React.ReactNode,
+    hasBackBtn?: React.ReactNode,
     title?: string
     className?: string
 }
 
-const ProfileLayout = ({ children, header, title, className = '' }: Props) => {
+const ProfileLayout = ({ children, hasBackBtn = false, title, className = '' }: Props) => {
+    const { back } = useRouter()
     return (
         <>
             <div className={'w-full bg-teal-600 pt-11'}>
                 <div className="w-full rounded-t-xl bg-white min-h-[calc(100vh-44px)]">
-                    {header && <div className='w-full flex justify-between items-center mb-4'>
-                        {header && <div className="flex-auto flex relative">
-                            {header}
-                        </div>}
-                    </div>}
+
+
                     <div className={className}>
-                        {title && <h1 className="text-teal-700 pb-6 font-semibold">{title}</h1>}
+                        {(title || hasBackBtn) && <div className="flex items-center gap-x-2 pb-6">
+                            {hasBackBtn && <span onClick={back} className="border-2 rounded-md border-teal-600"><ArrowRightIconOutline height={24} width={24} fill={colors?.teal[600]} /></span>}
+                            {title && <h1 className="text-teal-700 font-semibold">{title}</h1>}
+                        </div>}
                         {children}
                     </div>
                 </div>
-            </div>
+            </div >
         </>
     )
 }

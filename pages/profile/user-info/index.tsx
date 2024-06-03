@@ -12,7 +12,6 @@ const Profile = () => {
     const { data, isLoading: profileDataLoding } = useGetProfile()
     const profileData: any = data;
     const profileInfo = profileData?.queryResult[0];
-    console.log(profileInfo);
 
     const { mutate: mutateAddProfileInfo } = useAddProfileInfo()
     const { mutate: mutateUpdateProfileInfo } = useUpdateProfileInfo()
@@ -33,10 +32,9 @@ const Profile = () => {
             }
         },
     });
-    console.log(formik);
 
     return (
-        <ProfileLayout className=" px-6 py-6" title={profileText?.userInfo}>
+        <ProfileLayout hasBackBtn className=" px-6 py-6" title={profileText?.userInfo}>
 
             <form onSubmit={formik.handleSubmit} className="flex gap-y-7 flex-col mb-[86px]">
                 <Input

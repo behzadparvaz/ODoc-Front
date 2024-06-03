@@ -663,7 +663,7 @@ export const LocationIcon = ({ width, height, stroke }: IconType) => {
         clipRule="evenodd"
         d="M7.50515 5.35525C7.50515 4.6646 6.9455 4.10498 6.25485 4.10498C5.56475 4.10498 5.00513 4.6646 5.00513 5.35525C5.00513 6.04535 5.56475 6.605 6.25485 6.605C6.9455 6.605 7.50515 6.04535 7.50515 5.35525Z"
         stroke={stroke}
-        strokeWidth="1.2"
+        strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
@@ -673,7 +673,7 @@ export const LocationIcon = ({ width, height, stroke }: IconType) => {
         clipRule="evenodd"
         d="M6.24975 10.5C4.80074 10.5 2.5 7.97935 2.5 5.2993C2.5 3.20123 4.17855 1.5 6.24975 1.5C8.32095 1.5 10 3.20123 10 5.2993C10 7.97935 7.69925 10.5 6.24975 10.5Z"
         stroke={stroke}
-        strokeWidth="1.2"
+        strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
