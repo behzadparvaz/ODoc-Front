@@ -67,6 +67,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
                         const data = responseData?.data
                         if (data?.message === 'succeeded') {
                             Cookies.set('token', data?.token, { expires: 365 });
+                            localStorage.setItem('token', data?.token);
                             push('/')
                             openNotification({
                                 message: loginTexts?.loginSuccessfully,
@@ -99,9 +100,6 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
 
     const handleResendOtp = () => {
         setResetOtp(true)
-        console.log(data);
-        console.log({ PhoneNumber: data?.PhoneNumber });
-
         mutateSendOtpForLoginWithOtp(
             { PhoneNumber: data?.phoneNumber },
             {

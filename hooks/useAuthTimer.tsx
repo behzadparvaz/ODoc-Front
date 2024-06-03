@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 
 function useAuthTimer() {
   const [timer, setTimer] = useState({
-    min: 0,
-    sec: 10,
+    min: 3,
+    sec: 0,
   });
 
   useEffect(() => {
