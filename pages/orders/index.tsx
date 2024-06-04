@@ -11,28 +11,10 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 
 const Map = () => {
-    const { addModal } = useModal()
-    const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
-    const dispatch = useDispatch()
-    const handleClickOpenModal = () => {
-        dispatch(setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false }));
-        addModal({
-            modal: ParsiMapBottomSheet,
-            props: { latitude: defaultViewPort.latitude, longitude: defaultViewPort.longitude, addressId: 0 },
-        });
-
-    }
-    const { data: addressData, isLoading } = useGetUserLocations()
-    const addressItem: any = addressData
 
     return (
         <MainLayout>
-            <div className="w-full px-4">
-                <div onClick={() => handleClickOpenModal()}>افزودن آدرس</div>
-                {addressItem?.map((item) => {
-                    return (<AddressItem addressInfo={item} key={item?.id} />)
-                })}
-            </div>
+            order
         </MainLayout>
     )
 }

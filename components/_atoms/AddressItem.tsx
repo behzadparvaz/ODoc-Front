@@ -23,7 +23,7 @@ const AddressItem = ({ addressInfo, className = '' }: Props) => {
                     <div className="w-full text-xs line-clamp-2 text-grey-600 mb-1">{addressInfo?.description}</div>
                 </div>
                 <div className="flex-auto flex justify-end pr-2">
-                    <span onClick={() => handleDeleteAddress()} >
+                    <span className='cursor-pointer' onClick={() => handleDeleteAddress()} >
                         <DeleteIconOutline width={16} height={16} fill={colors?.red?.[600]} />
                     </span>
                 </div>
