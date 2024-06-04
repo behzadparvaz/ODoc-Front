@@ -140,7 +140,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
         <form className="flex flex-col mb-[86px]">
           <p className="text-sm font-normal text-grey-800 mb-2 mt-4">{selectStoreTexts?.AddressDetail}</p>
           <textarea
-            className="w-full h-[72px] rounded-md border border-grey-300 outline-none text-sm text-grey-600 font-normal px-4 py-3"
+            className="w-full h-[72px] resize-none rounded-md border border-grey-300 outline-none text-sm text-grey-600 font-normal px-4 py-3"
             id="address"
             name="address"
             value={addressReadonlyPart + addressEditablePart}
