@@ -2,6 +2,7 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import createWebStorage from 'redux-persist/lib/storage/createWebStorage';
 import userReducer from './user/userReducer';
+import mapReducer from './map/mapReducer';
 import modalReducer from './modal/modalReducer';
 import notificationReducer from './notification/notificationReducer';
 
@@ -30,6 +31,7 @@ const rootReducer = combineReducers({
   user: userReducer,
   modals: modalReducer,
   notification: notificationReducer,
+  mapInfo: mapReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);

@@ -9,3 +9,11 @@ export const loginSchema = Yup.object().shape({
     .max(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .required('شماره تماس وارد شده صحیح نمی‌باشد!'),
 });
+
+export const addNewAddressSchema = Yup.object().shape({
+  plaque: Yup.string().required('این فیلد الزامی است'),
+  unit: Yup.string().required('این فیلد الزامی است'),
+  postalCode: Yup.string().required('این فیلد الزامی است')
+    .min(10, 'کد پستی 10 رقم می باشد')
+    .max(10, 'کد پستی 10 رقم می باشد')
+});
