@@ -1,7 +1,7 @@
 "use client"
 import Link from 'next/link'
 import Image from 'next/image'
-import { ProfileNavigationMenuItems } from "@utilities/profileNavigationItem";
+import { ProfileNavigationMenuItems } from "@utilities/staticNavigationItem";
 import { useRouter } from "next/router";
 import { profileText } from "@com/texts/profileText";
 import { } from "@com/texts/profileText";
