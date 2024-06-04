@@ -1,42 +1,72 @@
 import Button from "@com/_atoms/Button"
 import { useFormik } from "formik";
-import { useSendVerifyCode } from "@api/auth/oDocAuth.rq";
+import { useSendOtpForLoginWithOtp, useSendOtpForLoginWithPassword, useSendVerifyCode } from "@api/auth/oDocAuth.rq";
 import { loginTexts } from "@com/texts/loginTexts";
 import SectionTitle from "./SectionTitle.nd";
 import TextInput from "@com/_atoms/TextInput";
 import { useState } from "react";
 import { CloseEyeIconFill, OpenEyeIconFill } from "@com/icons";
 import { colors } from "@configs/Theme";
-import { loginSchema } from "@utilities/validationSchemas";
+import { loginWithPassword } from "@utilities/validationSchemas";
+import Cookies from 'js-cookie';
+import { useRouter } from "next/router";
+import useNotification from "@hooks/useNotification";
+import { generalTexts } from "@com/texts/generalTexts";
 
 
 interface Props {
     handleChangeForm: (formStatus: 'otp') => void;
+    data: any
 }
 
-const AuthPassword = ({ handleChangeForm }: Props) => {
+const AuthPassword = ({ handleChangeForm, data }: Props) => {
     const [hidePassword, setHidePassword] = useState(true);
-    const { mutate: mutatesendVerifyCode, isLoading: sendVerifyCodeLoading } = useSendVerifyCode();
+    const { mutate: mutateSendPasswordForLoginWithPassword, isLoading: sendVerifyCodeLoading } = useSendOtpForLoginWithPassword();
+    const { push } = useRouter()
+    const { openNotification } = useNotification()
+    const { mutate: mutateSendOtpForLoginWithOtp, isLoading: sendOtpForLoginWithOtp } = useSendOtpForLoginWithOtp();
 
     const formik = useFormik({
         initialValues: {
-            PhoneNumber: "09129151055",
+            PhoneNumber: data?.phoneNumber,
             password: ''
         },
         enableReinitialize: true,
-        validationSchema: loginSchema,
+        validationSchema: loginWithPassword,
         onSubmit: (values) => {
 
-            // mutatesendVerifyCode(
-            //     values,
-            //     {
-            //         onSuccess: (responseData: any) => {
-            //             if (responseData?.success) {
-            //                 alert('good')
-            //             }
-            //         },
-            //     }
-            // );
+            mutateSendPasswordForLoginWithPassword(
+                values,
+                {
+                    onSuccess: (responseData: any) => {
+                        const data = responseData?.data
+                        if (data?.message === 'succeeded') {
+                            Cookies.set('token', data?.token, { expires: 365 });
+                            localStorage.setItem('token', data?.token);
+                            push('/')
+                            openNotification({
+                                message: loginTexts?.loginSuccessfully,
+                                type: 'success',
+                                notifType: 'successOrFailedMessage',
+                            });
+                        }
+                        else {
+                            openNotification({
+                                message: generalTexts?.error,
+                                type: 'error',
+                                notifType: 'successOrFailedMessage',
+                            });
+                        }
+                    },
+                    onError: () => {
+                        openNotification({
+                            message: generalTexts?.error,
+                            type: 'error',
+                            notifType: 'successOrFailedMessage',
+                        });
+                    }
+                }
+            );
         },
     });
 
@@ -45,10 +75,42 @@ const AuthPassword = ({ handleChangeForm }: Props) => {
             formik.submitForm();
         }
     };
+    const handleLoginWithOtp = () => {
+        mutateSendOtpForLoginWithOtp(
+            { PhoneNumber: data?.phoneNumber },
+            {
+                onSuccess: (responseData: any) => {
+                    const data = responseData?.data
+                    if (data?.message === 'succeeded') {
+                        openNotification({
+                            message: loginTexts?.resendOtpCodeSuccessfully,
+                            type: 'success',
+                            notifType: 'successOrFailedMessage',
+                        });
+                        handleChangeForm('otp')
+                    }
+                    else {
+                        openNotification({
+                            message: generalTexts?.error,
+                            type: 'error',
+                            notifType: 'successOrFailedMessage',
+                        });
+                    }
+                },
+                onError: () => {
+                    openNotification({
+                        message: generalTexts?.error,
+                        type: 'error',
+                        notifType: 'successOrFailedMessage',
+                    });
+                }
+            }
+        );
+    }
     return (
 
         <>
-            <SectionTitle actionButton={<Button handleClick={() => handleChangeForm('otp')} className="text-teal-700 text-xs !p-0">{loginTexts?.loginByOTP}</Button>} descriptionClassName="text-md" description={loginTexts?.enterPassword} titleClassName="text-sm text-grey-600" title={loginTexts.loginByPassword} />
+            <SectionTitle actionButton={<Button handleClick={() => handleLoginWithOtp()} className="text-teal-700 text-xs !p-0">{loginTexts?.loginByOTP}</Button>} descriptionClassName="text-md" description={loginTexts?.enterPassword} titleClassName="text-sm text-grey-600" title={loginTexts.loginByPassword} />
             <form onSubmit={formik.handleSubmit}>
                 <TextInput
                     type={hidePassword ? 'password' : 'text'}
@@ -80,7 +142,7 @@ const AuthPassword = ({ handleChangeForm }: Props) => {
                 <Button
                     buttonType="contained"
                     variant="primary"
-                    className="w-full mt-3"
+                    className="w-full mt-8"
                     size="large"
                     disabled={sendVerifyCodeLoading}
                     type="submit"

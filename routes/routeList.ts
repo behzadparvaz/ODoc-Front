@@ -1,6 +1,6 @@
 export const routeList = {
   homeRoute: '/',
-  loginRoute: '/login',
+  loginRoute: '/auth',
   logoutRoute: '/logout',
   checkoutRoute: '/checkout',
 };

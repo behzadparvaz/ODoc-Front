@@ -6,5 +6,5 @@ export const loginTexts = {
   resend: 'ارسال مجدد کد',
   enterPassword: 'برای ورود رمز عبور خود را وارد کنید',
   loginSuccessfully: 'ورود با موفقیت انجام شد',
-  resendOtpCodeSuccessfully: 'ارسال ک با موفقیت انجام شد',
+  resendOtpCodeSuccessfully: 'ارسال کد با موفقیت انجام شد',
 };

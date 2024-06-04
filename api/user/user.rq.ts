@@ -1,8 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AddLocation, DeleteUserLocations, GetUserLocations } from "./user";
+import { AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo, UserSetPassword } from "./user";
 import useNotification from "@hooks/useNotification";
 import useModal from "@hooks/useModal";
 import { selectStoreTexts } from "@com/texts/selectStoreTexts";
+import { useRouter } from "next/router";
 
 export const useAddLocation = () => {
   const { openNotification } = useNotification()
@@ -43,4 +44,61 @@ export const useGetUserLocations = () => {
   );
 
   return { data, isLoading };
+};
+
+export const useGetProfile = () => {
+
+  const { data, isLoading } = useQuery(
+    ['getProfile'],
+    () => GetProfile(),
+  );
+
+  return { data, isLoading };
+};
+
+export const useAddProfileInfo = () => {
+  const { openNotification } = useNotification()
+  const queryClient = useQueryClient()
+  const { push } = useRouter()
+  return useMutation(AddProfileInfo, {
+    onSuccess: () => {
+      queryClient?.invalidateQueries('getProfile')
+      openNotification({
+        message: 'اطلاعات شما با موفقیت ثبت شد',
+        type: 'success',
+        notifType: 'successOrFailedMessage',
+      })
+      push('/profile')
+    }
+  });
+};
+export const useUpdateProfileInfo = () => {
+  const { openNotification } = useNotification()
+  const queryClient = useQueryClient()
+  const { push } = useRouter()
+  return useMutation(UpdateProfileInfo, {
+    onSuccess: () => {
+      queryClient?.invalidateQueries('getProfile')
+      openNotification({
+        message: 'اطلاعات شما با موفقیت ویرایش شد',
+        type: 'success',
+        notifType: 'successOrFailedMessage',
+      })
+      push('/profile')
+    }
+  });
+};
+export const useUserSetPassword = () => {
+  const { openNotification } = useNotification()
+  const { push } = useRouter()
+  return useMutation(UserSetPassword, {
+    onSuccess: () => {
+      openNotification({
+        message: 'رمز عبور شما با موفقیت ثبت شد',
+        type: 'success',
+        notifType: 'successOrFailedMessage',
+      })
+      push('/profile')
+    }
+  });
 };

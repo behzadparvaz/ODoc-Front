@@ -65,7 +65,7 @@ const Button = ({
   const secondaryClassName =
     variant === 'secondary'
       ? `${buttonType === 'contained'
-        ? `${weight === 100 ? 'bg-teal-100' : weight === 200 ? 'bg-teal-200' : ''} text-teal-500`
+        ? `${weight === 100 ? 'bg-teal-50' : weight === 200 ? 'bg-teal-100' : ''} text-teal-600`
         : `${weight === 100
           ? 'border border-teal-100 text-teal-100'
           : weight === 200

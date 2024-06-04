@@ -112,7 +112,7 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       className: `flex flex-col relative ${props?.wrapperClassName ? props?.wrapperClassName : ''}`,
     };
     const helperTextProps = {
-      className: `text-red-800 typo-body-2 mt-1 ${props?.helperClassName ? props?.helperClassName : ''}`,
+      className: `text-red-800 text-2xs mt-1 ${props?.helperClassName ? props?.helperClassName : ''}`,
     };
     const leftIconProps = {
       className: 'absolute left-4 h-10 bottom-0 flex flex-col justify-center',
