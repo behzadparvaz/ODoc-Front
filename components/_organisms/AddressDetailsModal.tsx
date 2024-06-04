@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import { useDispatch, useSelector } from 'react-redux';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { useFormik } from 'formik';
-import {  RootState } from 'utilities/types';
+import { RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
 import { useAddLocation } from '@api/user/user.rq';
 import { addressSeparator, cedarAddressFixedPartCreator } from '@utilities/addressUtils';
@@ -233,11 +233,9 @@ export default function AddressDetailsModal({ addressData }: Props) {
             />
           )}
           <div
-            className={`fixed inset-x-0 px-6  bottom-4 truncate mx-auto z-10 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
-              }`}
           >
             <Button
-              className="w-full"
+              className="w-full mt-11"
               color={colors.grey[50]}
               size="large"
               variant="primary"

@@ -1,4 +1,4 @@
-import { LocationIcon } from "@com/icons";
+import { CloseEyeIconFill, HouseOutline, LocationIcon, OrderOutline, RefundOrderIcon, UserOutline } from "@com/icons";
 import { colors } from "@configs/Theme";
 
 export const ProfileNavigationMenuItems = () => {
@@ -11,7 +11,8 @@ export const ProfileNavigationMenuItems = () => {
         },
         {
             id: 2,
-            icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
+            icon: <CloseEyeIconFill width={24} height={24} fill={colors.teal[600]} />
+            ,
             text: 'تنظیمات رمز عبور',
             link: '/profile/password-setting'
         },
@@ -22,25 +23,25 @@ export const BottomNavigationMenuItems = () => {
     return ([
         {
             id: 1,
-            icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
+            icon: <HouseOutline width={24} height={24} fill={colors?.teal?.[600]} />,
             text: 'خانه',
             link: '/',
-            hasSubRouet:false
+            hasSubRouet: false
         },
         {
             id: 2,
-            icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
-            text: 'پروفایل',
-            link: '/profile',
-            hasSubRouet:true
-
+            icon: <OrderOutline width={24} height={24} fill={colors?.teal?.[600]} />,
+            text: 'سفارش ها',
+            link: '/orders',
+            hasSubRouet: false
         },
         {
             id: 3,
-            icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
-            text: 'سفارش ها',
-            link: '/orders',
-            hasSubRouet:false
+            icon: <UserOutline width={24} height={24} fill={colors?.teal?.[600]} />,
+            text: 'پروفایل',
+            link: '/profile',
+            hasSubRouet: true
+
         },
 
     ])

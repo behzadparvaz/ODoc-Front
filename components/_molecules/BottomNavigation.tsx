@@ -13,12 +13,12 @@ const BottomNavigation = () => {
     <div
       className={`w-full py-5 border-t flex bg-white border-grey-100 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} fixed inset-x-0 bottom-0`}
     >
-      {navigationMenuItems?.map((item, index) => {
+      {navigationMenuItems?.map((item) => {
         const activeItem = item?.hasSubRouet
           ? asPath.includes(item?.link)
           : asPath === item?.link;
         return (
-          <Link href={item?.link} key={index + 1}>
+          <Link href={item?.link} key={item?.id}>
             <a className="flex-col text-sm flex-auto">
               <div className="flex justify-center">
                 <span
