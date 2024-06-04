@@ -20,7 +20,7 @@ export default function ProfileNavigation({ className = '' }) {
     const profileInfo = profileData?.queryResult[0];
     return (
         <div className={`${className} bg-white w-full sticky right-0 top-20 py-6 rounded-t-2xl shadowMdBlue profile-navigation`}>
-            <div className="w-full px-6">
+            <div className="w-full">
                 <div className="w-full my-3 text-center">
                     <Image
                         alt="profileImage"
@@ -36,7 +36,7 @@ export default function ProfileNavigation({ className = '' }) {
                     }} className='w-full mt-3' size='large' buttonType='contained' variant={profileInfo ? 'secondary' : 'primary'}>{profileInfo ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
                 </div>
             </div>
-            <ul className="w-full items px-6">
+            <ul className="w-full items">
                 {navigaitionItemsVal?.map((item: any) => {
                     const isActive = asPath === item?.link;
                     return (
