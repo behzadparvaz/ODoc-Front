@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from 'react-query'
 import '../styles/globals.css'
 import { useState } from 'react';
+import { wrapper } from '../redux/store';
 
 function MyApp({ Component, pageProps }) {
   const [queryClient] = useState(
@@ -26,4 +27,4 @@ function MyApp({ Component, pageProps }) {
   )
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp);

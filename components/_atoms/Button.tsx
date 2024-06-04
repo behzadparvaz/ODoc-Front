@@ -1,5 +1,4 @@
 import { CSSProperties, ReactNode, ReactElement } from 'react';
-// import WaveLoading from './WaveLoading';
 
 type IconConditionProp =
   | {
@@ -12,7 +11,7 @@ type IconConditionProp =
   };
 interface ButtonProps {
   children?: ReactNode | ReactElement;
-  type?: 'contained' | 'text' | 'outlined';
+  buttonType?: 'contained' | 'text' | 'outlined';
   variant?: 'primary' | 'secondary' | 'tertiary';
   disabled?: boolean;
   handleClick?: (e) => void;
@@ -25,11 +24,13 @@ interface ButtonProps {
   ref?: React.MutableRefObject<any>;
   isLoading?: boolean;
   loadingColor?: string;
+  type?: "submit" | "reset" | "button"
 }
 type Props = ButtonProps & IconConditionProp;
 const Button = ({
   children = null,
-  type = 'contained',
+  type = 'button',
+  buttonType = 'contained',
   variant,
   handleClick,
   disabled = false,
@@ -47,7 +48,7 @@ const Button = ({
 }: Props) => {
   const primaryClassName =
     variant === 'primary'
-      ? `${type === 'contained'
+      ? `${buttonType === 'contained'
         ? `${weight === 100 ? 'bg-teal-600' : weight === 200 ? 'bg-teal-700' : weight === 300 ? 'bg-teal-800' : ''
         } text-teal-50`
         : `${weight === 100
@@ -63,7 +64,7 @@ const Button = ({
 
   const secondaryClassName =
     variant === 'secondary'
-      ? `${type === 'contained'
+      ? `${buttonType === 'contained'
         ? `${weight === 100 ? 'bg-teal-100' : weight === 200 ? 'bg-teal-200' : ''} text-teal-500`
         : `${weight === 100
           ? 'border border-teal-100 text-teal-100'
@@ -77,7 +78,7 @@ const Button = ({
     variant === 'tertiary'
       ? `border ${weight === 100 ? 'border-grey-300' : weight === 200 ? 'border-grey-800' : ''} text-grey-800`
       : '';
-  const linkClassName = type === 'text' ? 'text-grey-800' : '';
+  const linkClassName = buttonType === 'text' ? 'text-grey-800' : '';
   const sizeClassName =
     size === 'large'
       ? `h-10 ${!children ? 'w-10' : ''} typo-subtitle-3`
@@ -105,24 +106,25 @@ const Button = ({
     ? 'rounded-lg'
     : `${size === 'large' ? 'rounded-2xl' : size === 'medium' ? 'rounded-xl' : 'rounded-lg'}`;
   const disabledClassName = `${variant === 'primary'
-      ? 'bg-grey-200 text-white [&_*]:fill-white'
-      : variant === 'secondary'
-        ? 'bg-grey-100 text-grey-300 [&_*]:fill-grey-300'
-        : variant === 'tertiary'
-          ? 'border border-grey-200 text-grey-200 [&_*]:fill-grey-200'
-          : 'text-grey-300'
+    ? 'bg-grey-200 text-white [&_*]:fill-white'
+    : variant === 'secondary'
+      ? 'bg-grey-100 text-grey-300 [&_*]:fill-grey-300'
+      : variant === 'tertiary'
+        ? 'border border-grey-200 text-grey-200 [&_*]:fill-grey-200'
+        : 'text-grey-300'
     }`;
 
-  const classNames = `${disabled ? disabledClassName : varientClassName}  ${sizeClassName} ${children && type !== 'text' ? sidesDistance : ''
+  const classNames = `${disabled ? disabledClassName : varientClassName}  ${sizeClassName} ${children && buttonType !== 'text' ? sidesDistance : ''
     } ${roundedClassName}`;
   const backgroundColorStyle = backgroundColor && !disabled ? { backgroundColor: backgroundColor } : null;
   const colorStyle = color && !disabled ? { color: color } : null;
 
   return (
     <button
+      type={type}
       className={`flex items-center justify-center ${classNames} font-semibold ${className}`}
       disabled={isLoading ? true : disabled}
-      onClick={(e) => handleClick(e)}
+      onClick={type === 'submit' ? null : (e) => handleClick(e)}
       style={{ ...style, ...backgroundColorStyle, ...colorStyle }}
       ref={ref}
     >

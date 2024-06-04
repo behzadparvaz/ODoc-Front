@@ -1,32 +1,43 @@
-import TextInput from '@com/_atoms/TextInput';
-import Button from '@com/_atoms/Button.od';
-import { useFormik } from 'formik';
-import { useODocSendMobileNumber } from '@api/auth/oDocAuth.rq';
-import SectionTitle from './SectionTitle.nd';
-import { loginSchema } from '@utilities/validationSchemas';
-import { convertPersianNumbersToEnglishNumbers } from '@utilities/mainUtils';
+import TextInput from "@com/_atoms/TextInput"
+import Button from "@com/_atoms/Button"
+import { useFormik } from "formik";
+import { useSendMobileNumber } from "@api/auth/oDocAuth.rq";
+import SectionTitle from "./SectionTitle.nd";
+import { loginSchema } from "@utilities/validationSchemas";
+import { convertPersianNumbersToEnglishNumbers } from "@utilities/mainUtils";
 
-const AuthMobileNumber = () => {
-  const {
-    mutate: mutateODocSendMobileNumber,
-    isLoading: oDocSendMobileNumberLoding,
-  } = useODocSendMobileNumber();
-  const formik = useFormik({
-    initialValues: {
-      PhoneNumber: '',
-    },
-    enableReinitialize: true,
-    validationSchema: loginSchema,
-    onSubmit: (values) => {
-      mutateODocSendMobileNumber(values, {
-        onSuccess: (responseData: any) => {
-          if (responseData?.success) {
-            alert('good');
-          }
+
+interface Props {
+    handleChangeForm: (registerData:any,formStatus: 'otp' | 'password') => void;
+}
+
+const AuthMobileNumber = ({ handleChangeForm }: Props) => {
+    const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } = useSendMobileNumber();
+    const formik = useFormik({
+        initialValues: {
+            PhoneNumber: '',
         },
-      });
-    },
-  });
+        enableReinitialize: true,
+        validationSchema: loginSchema,
+        onSubmit: (values) => {
+            mutatesendMobileNumber(
+                values,
+                {
+                    onSuccess: (responseData: any) => {
+                        const data = responseData?.data;
+                        if (data?.message === "succeeded") {
+                            if (data?.hasPassword) {
+                                handleChangeForm(data,'password')
+                            }
+                            else {
+                                handleChangeForm(data,'otp')
+                            }
+                        }
+                    },
+                }
+            );
+        },
+    });
 
   const onKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -64,19 +75,19 @@ const AuthMobileNumber = () => {
           autoComplete="off"
         />
 
-        <Button
-          type="contained"
-          variant="primary"
-          className="w-full mt-3"
-          size="large"
-          disabled={oDocSendMobileNumberLoding}
-          handleClick={formik.submitForm}
-          isLoading={oDocSendMobileNumberLoding}
-        >
-          <p>تــــایید</p>
-        </Button>
-      </form>
-    </>
-  );
-};
-export default AuthMobileNumber;
+                <Button
+                    buttonType="contained"
+                    variant="primary"
+                    className="w-full mt-3"
+                    size="large"
+                    disabled={sendMobileNumberLoding}
+                    type="submit"
+                    isLoading={sendMobileNumberLoding}
+                >
+                    <p>تــــایید</p>
+                </Button>
+            </form>
+        </>
+    )
+}
+export default AuthMobileNumber

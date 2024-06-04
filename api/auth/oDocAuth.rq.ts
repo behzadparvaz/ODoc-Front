@@ -1,5 +1,6 @@
 import { useMutation } from "react-query";
-import { oDocSendMobileNumber, oDocSendVerifyCode } from "./oDocAuth";
+import { loginWithOtp, sendMobileNumber, sendVerifyCode } from "./oDocAuth";
 
-export const useODocSendMobileNumber = () => useMutation('user', oDocSendMobileNumber);
-export const useODocSendVerifyCode = () => useMutation('user', oDocSendVerifyCode);
+export const useSendMobileNumber = () => useMutation('user', sendMobileNumber);
+export const useSendVerifyCode = () => useMutation('user', sendVerifyCode);
+export const useSendOtpForLoginWithOtp = () => useMutation('user', loginWithOtp);

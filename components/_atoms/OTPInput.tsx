@@ -192,27 +192,13 @@ export function OTPInputComponent(props: OTPInputProps) {
     });
     setOTPValues(updatedOTPValues);
     setActiveInput(0);
-    setState((prev) => ({
-      ...prev,
-      handleReset: false,
-    }));
   }, [otpValues, setState]);
-
-  const handleAutoOtp = () => {
-    const otpToArray = autoOtp ? autoOtp?.split('') : [];
-    setOTPValues(otpToArray);
-    setState((prev) => ({
-      ...prev,
-      code: autoOtp,
-    }));
-    Cookies.set('autoOtpInserted', true, { expires: 1 / 720 });
-  };
 
   useEffect(() => {
     if (reset) {
       handleReset();
     }
-  }, [reset, handleReset]);
+  }, [reset]);
 
   return (
     <div className="flex flex-col relative">
