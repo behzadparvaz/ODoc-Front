@@ -19,7 +19,7 @@ const ProfileLayout = ({ children, hasBackBtn = false, title, className = '' }: 
                 <div className="w-full rounded-t-xl bg-white min-h-[calc(100vh-44px)]">
 
 
-                    <div className={className}>
+                    <div className={` px-6 py-6 ${className}`}>
                         {(title || hasBackBtn) && <div className="flex items-center gap-x-2 pb-6">
                             {hasBackBtn && <span onClick={back} className="border-2 rounded-md border-teal-600 cursor-pointer"><ArrowRightIconOutline height={24} width={24} fill={colors?.teal[600]} /></span>}
                             {title && <h1 className="text-teal-700 font-semibold">{title}</h1>}

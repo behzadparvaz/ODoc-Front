@@ -7,7 +7,7 @@ export const ProfileNavigationMenuItems = () => {
             id: 1,
             icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
             text: 'آدرس ها',
-            link: '/profile/dashboard'
+            link: '/profile/address-list'
         },
         {
             id: 2,
@@ -24,19 +24,23 @@ export const BottomNavigationMenuItems = () => {
             id: 1,
             icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
             text: 'خانه',
-            link: '/'
+            link: '/',
+            hasSubRouet:false
         },
         {
             id: 2,
             icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
             text: 'پروفایل',
-            link: '/profile'
+            link: '/profile',
+            hasSubRouet:true
+
         },
         {
             id: 3,
             icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
             text: 'سفارش ها',
-            link: '/orders'
+            link: '/orders',
+            hasSubRouet:false
         },
 
     ])

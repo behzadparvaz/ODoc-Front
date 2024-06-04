@@ -21,7 +21,6 @@ export default function ProfileNavigation({ className = '' }) {
     return (
         <div className={`${className} bg-white w-full sticky right-0 top-20 py-6 rounded-t-2xl shadowMdBlue profile-navigation`}>
             <div className="w-full px-6">
-                <p className="font-bold text-teal-700 text-xl">{profileText.profile}</p>
                 <div className="w-full my-3 text-center">
                     <Image
                         alt="profileImage"

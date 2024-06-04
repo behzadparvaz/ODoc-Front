@@ -9,7 +9,7 @@ const Profile = () => {
     const profileData: any = data;
     const profileInfo = profileData?.queryResult[0];
     return (
-        <ProfileLayout hasBackBtn className=" px-6 py-6" title={profileText?.passwordSetting}>
+        <ProfileLayout hasBackBtn title={profileText?.passwordSetting}>
             {profileDataLoding === false && <UserPasswordForm data={profileInfo} />}
         </ProfileLayout>
     )
