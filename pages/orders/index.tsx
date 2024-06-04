@@ -1,6 +1,7 @@
 import { useGetUserLocations } from "@api/user/user.rq"
 import AddressItem from "@com/_atoms/AddressItem"
 import ParsiMapBottomSheet from "@com/_organisms/ParsiMapBottomSheet"
+import MainLayout from "@com/_template/MainLayout"
 import { selectStoreTexts } from "@com/texts/selectStoreTexts"
 import useModal from "@hooks/useModal"
 import useNotification from "@hooks/useNotification"
@@ -25,12 +26,14 @@ const Map = () => {
     const addressItem: any = addressData
 
     return (
-        <div className="w-full px-4">
-            <div onClick={() => handleClickOpenModal()}>افزودن آدرس</div>
-            {addressItem?.map((item) => {
-                return (<AddressItem addressInfo={item} key={item?.id} />)
-            })}
-        </div>
+        <MainLayout>
+            <div className="w-full px-4">
+                <div onClick={() => handleClickOpenModal()}>افزودن آدرس</div>
+                {addressItem?.map((item) => {
+                    return (<AddressItem addressInfo={item} key={item?.id} />)
+                })}
+            </div>
+        </MainLayout>
     )
 }
 export default Map

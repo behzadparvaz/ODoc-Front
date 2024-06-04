@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import MainLayout from "@com/_template/MainLayout";
 
 export default function Home() {
   return (
-    <div>homePage</div>
+    <MainLayout>
+      <div>homePage</div>
+    </MainLayout>
   )
 }

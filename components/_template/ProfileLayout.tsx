@@ -1,3 +1,4 @@
+import BottomNavigation from "@com/_molecules/BottomNavigation"
 import { ArrowRightIconOutline } from "@com/icons"
 import { mobileModeMaxWidthClassName, shouldShowMobileMode } from "@configs/ControlMobileView"
 import { colors } from "@configs/Theme"
@@ -26,6 +27,7 @@ const ProfileLayout = ({ children, hasBackBtn = false, title, className = '' }: 
                         {children}
                     </div>
                 </div>
+                <BottomNavigation />
             </div >
         </>
     )
