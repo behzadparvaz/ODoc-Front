@@ -8,3 +8,4 @@ export const DeleteUserLocations = async (body) => await request.post(`${oDocUrl
 export const GetProfile = async () => await request.get(`${oDocUrl}Profile/GetProfile`);
 export const AddProfileInfo = async (body) => await request.post(`${oDocUrl}Profile/AddProfile`, body);
 export const UpdateProfileInfo = async (body) => await request.post(`${oDocUrl}Profile/UpdateProfile`, body);
+export const UserSetPassword = async (body) => await request.put(`${oDocUrl}user/SetPassword`, body);

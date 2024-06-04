@@ -74,3 +74,21 @@
 .Toastify__toast-icon {
   align-self: start !important;
 }
+
+
+
+.max-w-412 {
+  max-width: 412px;
+}
+.max-w-600 {
+  max-width: 600px;
+}
+.max-w-768 {
+  max-width: 768px;
+}
+.max-w-840 {
+  max-width: 840px;
+}
+.max-w-960 {
+  max-width: 960px;
+}

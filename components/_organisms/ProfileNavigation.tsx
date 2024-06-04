@@ -11,13 +11,13 @@ import { useGetProfile } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import { ExitIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import { routeList } from '@routes/routeList';
 export default function ProfileNavigation({ className = '' }) {
     const navigaitionItemsVal = ProfileNavigationMenuItems()
     const { asPath, push } = useRouter();
     const { data, isLoading: profileDataLoding } = useGetProfile()
     const profileData: any = data;
     const profileInfo = profileData?.queryResult[0];
-    
     return (
         <div className={`${className} bg-white w-full sticky right-0 top-20 py-6 rounded-t-2xl shadowMdBlue profile-navigation`}>
             <div className="w-full px-6">
@@ -55,7 +55,7 @@ export default function ProfileNavigation({ className = '' }) {
                 })}
 
                 <li className={` mb-3 py-2 block mx-auto text-md relative`}>
-                    <Link href={'/logout'}>
+                    <Link href={routeList?.logoutRoute}>
                         <a className={`text-red-600 z-10 py-2 flex items-center gap-x-2 relative transition-all duration-200`}>
 
                             <ExitIcon width={24} height={24} fill={colors?.red[600]} />

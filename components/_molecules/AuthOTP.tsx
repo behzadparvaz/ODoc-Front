@@ -6,7 +6,6 @@ import OTPInput from "@com/_atoms/OTPInput";
 import { useState } from "react";
 import SectionTitle from "./SectionTitle.nd";
 import useAuthTimer from "@hooks/useAuthTimer";
-import { loginSchema } from "@utilities/validationSchemas";
 import Cookies from 'js-cookie';
 import useNotification from "@hooks/useNotification";
 import { generalTexts } from "@com/texts/generalTexts";
@@ -58,7 +57,6 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
             Code: otpCode
         },
         enableReinitialize: true,
-        validationSchema: loginSchema,
         onSubmit: (values) => {
             mutateSendVerifyCode(
                 values,
@@ -174,7 +172,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
                 <Button
                     buttonType="contained"
                     variant="primary"
-                    className="w-full mt-3"
+                    className="w-full mt-8"
                     size="large"
                     disabled={sendVerifyCodeLoading}
                     type="submit"

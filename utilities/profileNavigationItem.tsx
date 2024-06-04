@@ -9,6 +9,12 @@ export const ProfileNavigationMenuItems = () => {
             text: 'آدرس ها',
             link: '/profile/dashboard'
         },
+        {
+            id: 2,
+            icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
+            text: 'تنظیمات رمز عبور',
+            link: '/profile/password-setting'
+        },
 
     ])
 };

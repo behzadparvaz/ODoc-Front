@@ -224,7 +224,7 @@ export function OTPInputComponent(props: OTPInputProps) {
             />
           ))}
       </div>
-      {helperText ? <p className="text-red-800 typo-body-2 mt-1 mb-2">{`*${helperText}!`}</p> : null}
+      {helperText ? <p className="text-red-800 text-2xs mt-1 mb-2">{`*${helperText}!`}</p> : null}
     </div>
   );
 }

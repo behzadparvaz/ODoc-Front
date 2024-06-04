@@ -78,7 +78,7 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
                 <Button
                     buttonType="contained"
                     variant="primary"
-                    className="w-full mt-3"
+                    className="w-full mt-8"
                     size="large"
                     disabled={sendMobileNumberLoding}
                     type="submit"

@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo } from "./user";
+import { AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo, UserSetPassword } from "./user";
 import useNotification from "@hooks/useNotification";
 import useModal from "@hooks/useModal";
 import { selectStoreTexts } from "@com/texts/selectStoreTexts";
@@ -81,6 +81,20 @@ export const useUpdateProfileInfo = () => {
       queryClient?.invalidateQueries('getProfile')
       openNotification({
         message: 'اطلاعات شما با موفقیت ویرایش شد',
+        type: 'success',
+        notifType: 'successOrFailedMessage',
+      })
+      push('/profile')
+    }
+  });
+};
+export const useUserSetPassword = () => {
+  const { openNotification } = useNotification()
+  const { push } = useRouter()
+  return useMutation(UserSetPassword, {
+    onSuccess: () => {
+      openNotification({
+        message: 'رمز عبور شما با موفقیت ثبت شد',
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
