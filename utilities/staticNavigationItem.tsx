@@ -38,7 +38,7 @@ export const BottomNavigationMenuItems = () => {
         {
             id: 3,
             icon: <UserOutline width={24} height={24} fill={colors?.teal?.[600]} />,
-            text: 'پروفایل',
+            text: 'حساب کاربری',
             link: '/profile',
             hasSubRouet: true
 
