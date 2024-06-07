@@ -4,6 +4,7 @@ import { createRef, useMemo, useState } from 'react';
 import { wrapper } from '../redux/store';
 import dynamic from 'next/dynamic';
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
+import ToggleRedirectLoginOrNotLogin from '@com/_atoms/ToggleRedirectLoginStatus';
 
 function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
@@ -28,6 +29,7 @@ function MyApp({ Component, pageProps }) {
       <NotificationWrapper />
 
       <ModalCreator ref={modalNode} />
+      <ToggleRedirectLoginOrNotLogin />
       <div dir='rtl'>
         <Component {...pageProps} />
         <div id="modal-root"></div>
