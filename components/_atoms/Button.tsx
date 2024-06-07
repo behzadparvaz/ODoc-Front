@@ -122,7 +122,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`flex items-center justify-center ${classNames} font-semibold ${className}`}
+      className={`${isLoading ? '!bg-grey-50' : ''} flex items-center justify-center ${classNames} font-semibold ${className}`}
       disabled={isLoading ? true : disabled}
       onClick={type === 'submit' ? null : (e) => handleClick(e)}
       style={{ ...style, ...backgroundColorStyle, ...colorStyle }}

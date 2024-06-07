@@ -29,11 +29,11 @@ export default function ProfileNavigation({ className = '' }) {
                         src={'/static/images/staticImages/sample-avatar.svg'}
                         className={'inline-block mb-1 rounded-full'}
                     />
-                    {profileDataLoding === false && <p className="text-grey-600 text-sm font-medium text-center truncate">{profileInfo ? `${profileInfo?.firstName} ${profileInfo?.lastName}` : 'فاقد اطلاعات '}</p>}
+                    <p className="text-grey-600 text-sm font-medium text-center truncate h-5">{profileDataLoding === false ? profileInfo ? `${profileInfo?.firstName} ${profileInfo?.lastName}` : 'فاقد اطلاعات ' : ''}</p>
 
                     <Button isLoading={profileDataLoding} handleClick={() => {
                         push('/profile/user-info')
-                    }} className='w-full mt-3' size='large' buttonType='contained' variant={profileInfo ? 'secondary' : 'primary'}>{profileInfo ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
+                    }} className='w-full mt-3' size='large' buttonType='contained' variant={profileInfo ? 'secondary' : 'primary'}>{!profileDataLoding ? profileInfo ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری' : ''}</Button>
                 </div>
             </div>
             <ul className="w-full items">
