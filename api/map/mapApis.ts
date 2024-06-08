@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-const NESHAN_API_URL = process.env.NEXT_PUBLIC_NESHAN_API_URL;
-const neshanAccessToken = process.env.NEXT_PUBLIC_NESHAN_MAP_API_TOKEN;
-
 const PARSI_API_URL = process.env.NEXT_PUBLIC_PARSI_MAP_API_URL;
 const parsiMapAccessToken = process.env.NEXT_PUBLIC_PARSI_MAP_API_TOKEN;
 

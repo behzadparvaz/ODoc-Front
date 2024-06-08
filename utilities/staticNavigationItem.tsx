@@ -7,7 +7,7 @@ export const ProfileNavigationMenuItems = () => {
             id: 1,
             icon: <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />,
             text: 'آدرس ها',
-            link: '/profile/address-list'
+            link: '/profile/addresses'
         },
         {
             id: 2,

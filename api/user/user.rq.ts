@@ -29,7 +29,7 @@ export const useDeleteLocation = () => {
 
       queryClient?.invalidateQueries('getUserLocations')
       openNotification({
-        message: 'ادرس شما با موفقیت حذف شد',
+        message: 'آدرس شما با موفقیت حذف شد',
         type: 'info',
         notifType: 'successOrFailedMessage',
       })
@@ -56,7 +56,7 @@ export const useGetProfile = () => {
   return { data, isLoading };
 };
 
-export const useAddProfileInfo = () => {
+export const useAddProfileInfo = (inOrderPage) => {
   const { openNotification } = useNotification()
   const queryClient = useQueryClient()
   const { push } = useRouter()
@@ -68,11 +68,11 @@ export const useAddProfileInfo = () => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      push('/profile')
+      !inOrderPage&&push('/profile')
     }
   });
 };
-export const useUpdateProfileInfo = () => {
+export const useUpdateProfileInfo = (inOrderPage) => {
   const { openNotification } = useNotification()
   const queryClient = useQueryClient()
   const { push } = useRouter()
@@ -84,7 +84,7 @@ export const useUpdateProfileInfo = () => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      push('/profile')
+      !inOrderPage&&push('/profile')
     }
   });
 };

@@ -1,20 +1,16 @@
 import ProfileLayout from "@com/_template/ProfileLayout"
 import { profileText } from "@com/texts/profileText"
 import { useGetUserLocations } from "@api/user/user.rq"
-import AddressItem from "@com/_atoms/AddressItem"
 import ParsiMapBottomSheet from "@com/_organisms/ParsiMapBottomSheet"
-import MainLayout from "@com/_template/MainLayout"
-import { selectStoreTexts } from "@com/texts/selectStoreTexts"
 import useModal from "@hooks/useModal"
-import useNotification from "@hooks/useNotification"
 import { setMapStateAction } from "@redux/map/mapActions"
 import { RootState } from "@utilities/types"
-import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import Button from "@com/_atoms/Button"
+import AddressList from "@com/_organisms/AddressList"
 
 
-const AddressList = () => {
+const Addresses = () => {
 
     const { addModal } = useModal()
     const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
@@ -37,15 +33,10 @@ const AddressList = () => {
                 <Button handleClick={() => handleClickOpenModal()} className={`${addressItem?.length ? 'mb-4' : 'w-full'} mt-4`} size='large' buttonType='contained' variant={'primary'}>افزودن آدرس</Button>
 
                 {addressItem?.length ?
-
-                    <div className="w-full">
-                        {addressItem?.map((item) => {
-                            return (<AddressItem addressInfo={item} key={item?.id} />)
-                        })}
-                    </div>
+                    <AddressList data={addressItem} />
                     : null}
             </>}
         </ProfileLayout>
     )
 }
-export default AddressList
+export default Addresses
