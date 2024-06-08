@@ -21,7 +21,7 @@ const AddressList = ({ data, handleClickItem, inOrderPage = false }: Props) => {
         <div className="w-full">
             {data?.map((item) => {
                 const activeItem = addressSelected === item?.id
-                return (<div onClick={(e) => handleClick(item)}><AddressItem activeItem={activeItem} className={`${activeItem ? 'border-teal-600 bg-teal-100' : ''} transition-all duration-300`} addressInfo={item} key={item?.id} /></div>)
+                return (<div key={item?.id} onClick={(e) => handleClick(item)}><AddressItem activeItem={activeItem} className={`${activeItem ? 'border-teal-600 bg-teal-100' : ''} transition-all duration-300`} addressInfo={item} /></div>)
             })}
         </div>
     )
