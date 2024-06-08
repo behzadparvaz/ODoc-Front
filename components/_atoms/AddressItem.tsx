@@ -1,14 +1,13 @@
 import { useDeleteLocation } from "@api/user/user.rq";
 import { DeleteIconOutline } from "@com/icons";
 import { colors } from "@configs/Theme";
-import useNotification from "@hooks/useNotification";
-import { useQueryClient } from "react-query";
 
 interface Props {
     addressInfo: any
-    className?: string
+    className?: string,
+    activeItem?:boolean
 }
-const AddressItem = ({ addressInfo, className = '' }: Props) => {
+const AddressItem = ({ addressInfo, className = '' ,activeItem}: Props) => {
     const { mutate: mutateDeleteLocation, isLoading: mutateDeleteLocationLoading } = useDeleteLocation()
     const handleDeleteAddress = () => {
         mutateDeleteLocation({
@@ -22,11 +21,11 @@ const AddressItem = ({ addressInfo, className = '' }: Props) => {
                     {addressInfo?.name && <div className="w-full text-sm text-grey-600 mb-1 font-semibold">{addressInfo?.name}</div>}
                     <div className="w-full text-xs line-clamp-2 text-grey-600 mb-1">{addressInfo?.description}</div>
                 </div>
-                <div className="flex-auto flex justify-end pr-2">
+                {!activeItem&&<div className="flex-auto flex justify-end pr-2">
                     <span className='cursor-pointer' onClick={() => handleDeleteAddress()} >
                         <DeleteIconOutline width={16} height={16} fill={colors?.red?.[600]} />
                     </span>
-                </div>
+                </div>}
             </div>
         </div>
     )

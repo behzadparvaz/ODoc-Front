@@ -6,10 +6,17 @@ import { userInfoSchema } from "@utilities/validationSchemas";
 import { useFormik } from "formik";
 import { useState } from "react";
 
-const UserInfoForm = ({ data }) => {
+interface Props {
+    data: any,
+    inOrderPage?: boolean
+    handleRegisterOrder?: (value) => void
+}
 
-    const { mutate: mutateAddProfileInfo } = useAddProfileInfo()
-    const { mutate: mutateUpdateProfileInfo } = useUpdateProfileInfo()
+const UserInfoForm = ({ data, inOrderPage, handleRegisterOrder }: Props) => {
+
+    const { mutate: mutateAddProfileInfo } = useAddProfileInfo(inOrderPage)
+    const { mutate: mutateUpdateProfileInfo } = useUpdateProfileInfo(inOrderPage)
+    const [disabledForm, setDisabledForm] = useState<boolean>(true)
     const [initialValues] = useState({
         firstName: data ? data?.firstName : "",
         lastName: data ? data?.lastName : "",
@@ -20,14 +27,20 @@ const UserInfoForm = ({ data }) => {
         validationSchema: userInfoSchema,
         onSubmit: (values) => {
             if (data) {
-                mutateUpdateProfileInfo(values);
+                mutateUpdateProfileInfo(values, {});
             }
             else {
                 mutateAddProfileInfo(values);
             }
+            setDisabledForm(true)
         },
     });
-
+    const handleChangeForm = (field, e) => {
+        formik?.setFieldValue(field, e?.target?.value)
+        if (inOrderPage) {
+            setDisabledForm(false)
+        }
+    }
     return (
 
         <form onSubmit={formik.handleSubmit} className="flex gap-y-7 flex-col mb-[86px]">
@@ -40,7 +53,7 @@ const UserInfoForm = ({ data }) => {
                 id="firstName"
                 name="firstName"
                 value={formik.values.firstName}
-                onChange={formik.handleChange}
+                onChange={(e) => handleChangeForm('firstName', e)}
                 isTouched={formik.touched.firstName && Boolean(formik.errors.firstName)}
                 errorMessage={formik.errors.firstName}
             />
@@ -53,7 +66,7 @@ const UserInfoForm = ({ data }) => {
                 id="lastName"
                 name="lastName"
                 value={formik.values.lastName}
-                onChange={formik.handleChange}
+                onChange={(e) => handleChangeForm('lastName', e)}
                 isTouched={formik.touched.lastName && Boolean(formik.errors.lastName)}
                 errorMessage={formik.errors.lastName}
             />
@@ -65,12 +78,20 @@ const UserInfoForm = ({ data }) => {
                 inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
                 id="nationalCode"
                 name="nationalCode"
+                type="number"
                 value={formik.values.nationalCode}
-                onChange={formik.handleChange}
+                onChange={(e) => handleChangeForm('nationalCode', e)}
                 isTouched={formik.touched.nationalCode && Boolean(formik.errors.nationalCode)}
                 errorMessage={formik.errors.nationalCode}
             />
-            <Button type="submit" className='w-full mt-3' size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
+            {inOrderPage && <div className="flex justify-between">
+                <Button disabled={disabledForm} type="submit" size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
+                <Button disabled={!data || !disabledForm ? true : false} size='large' buttonType='contained' handleClick={() => handleRegisterOrder(data)} variant={'primary'}>ثبت سفارش</Button>
+
+            </div>}
+            {!inOrderPage &&
+                <Button type="submit" className='w-full mt-3' size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
+            }
 
         </form>
     )
