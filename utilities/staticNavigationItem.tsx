@@ -32,7 +32,7 @@ export const BottomNavigationMenuItems = () => {
             id: 2,
             icon: <OrderOutline width={24} height={24} fill={colors?.teal?.[600]} />,
             text: 'سفارش ها',
-            link: '/orders',
+            link: '/orders-history',
             hasSubRouet: false
         },
         {

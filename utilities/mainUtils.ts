@@ -1,3 +1,5 @@
+
+import * as shamsi from 'shamsi-date-converter';
 export const convertPersianNumbersToEnglishNumbers = (persianNumbers) => {
     const persianNumbersString =
       typeof persianNumbers === 'number'
@@ -12,3 +14,8 @@ export const convertPersianNumbersToEnglishNumbers = (persianNumbers) => {
       });
   };
   
+  
+export const convertGregorianToJalali = (date: string) => {
+  const shamsiDate = date ? shamsi?.gregorianToJalali(new Date(date))?.join('/') : null;
+  return shamsiDate
+}

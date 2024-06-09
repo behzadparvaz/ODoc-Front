@@ -22,7 +22,7 @@ const BottomNavigation = () => {
             <a className="flex-col text-sm flex-auto">
               <div className="flex justify-center">
                 <span
-                  className={`pb-1 px-3 border-b-2 ${activeItem ? ' border-teal-600' : 'border-transparent'}`}
+                  className={`pb-1 px-3`}
                 >
                   <span
                     className={`${activeItem ? '' : 'brightness-0 opacity-40'}`}

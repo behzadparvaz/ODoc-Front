@@ -24,7 +24,7 @@ const ODocAuth = () => {
     })
     
     return (
-        <div className={`bg-teal-50 gap-y-20 min-h-screen justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
+        <div className={`bg-teal-50 gap-y-11 min-h-screen justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
             <div className="flex justify-center">
                 <NextImage
                     width={220}
