@@ -5,7 +5,7 @@ import MainLayout from "@com/_template/MainLayout"
 const HomePage = () => {
   const { data, isLoading: profileDataLoding } = useGetProfile()
   return (
-    <MainLayout>
+    <MainLayout className="px-4" title="ثبت سفارش">
       {profileDataLoding===false && <OrderRegisterSteps data={data} />}
     </MainLayout>
   )
