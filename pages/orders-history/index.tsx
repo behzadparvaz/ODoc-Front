@@ -7,7 +7,7 @@ const Map = () => {
 
     return (
         <MainLayout title="تاریخچه سفارش ها">
-            <div className="w-full px-4 py-8">
+            <div className="w-full px-6 py-8">
 
                 {orderHistoryData?.map((item) => {
                     return <div key={item?.id} className="w-full border overflow-hidden mb-4 border-grey-200 rounded-lg">
