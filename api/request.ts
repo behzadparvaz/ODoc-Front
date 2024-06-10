@@ -8,6 +8,7 @@ interface optionsLayout {
   auth?;
   err?: boolean;
   withOutToken?: boolean;
+  orderRegister?: boolean
 }
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -34,15 +35,15 @@ class Request {
     console.log(title, {
       data: error.response
         ? {
-            url: `${error?.response?.config?.baseURL}${error?.response?.config?.url}`,
-            data: error?.response?.data,
-            status: error?.response?.status,
-          }
+          url: `${error?.response?.config?.baseURL}${error?.response?.config?.url}`,
+          data: error?.response?.data,
+          status: error?.response?.status,
+        }
         : {
-            url: `${error?.config?.baseURL ? error?.config?.baseURL : ''}${error?.config?.url}`,
-            status: 'no status',
-            error: JSON.stringify(error),
-          },
+          url: `${error?.config?.baseURL ? error?.config?.baseURL : ''}${error?.config?.url}`,
+          status: 'no status',
+          error: JSON.stringify(error),
+        },
     });
   }
 
@@ -82,6 +83,10 @@ class Request {
             );
             if (error?.response?.status === 401) {
               router.push(routeList.logoutRoute);
+            }
+            if (options?.orderRegister) {
+              const data = JSON.parse(error?.request?.response)
+              return { data: data }
             }
           } catch {
             console.log(
