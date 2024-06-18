@@ -11,7 +11,7 @@ const BottomNavigation = () => {
   const { asPath } = useRouter();
   return (
     <div
-      className={`w-full py-5 border-t flex bg-white border-grey-100 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} fixed inset-x-0 bottom-0`}
+      className={`w-full h-24 py-5 border-t flex bg-white border-grey-100 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} fixed inset-x-0 bottom-0`}
     >
       {navigationMenuItems?.map((item) => {
         const activeItem = item?.hasSubRouet
