@@ -15,7 +15,13 @@ const OrderRegisterSteps = ({ data }) => {
             phoneNumber: userInfo ? userInfo?.phoneNumber : null,
             latitude: null,
             longitude: null,
-            vendorSelects: []
+            vendorSelects: [],
+            nationalCode: userInfo ? userInfo?.nationalCode : null,
+            customerName: userInfo ? `${userInfo?.firstName} ${userInfo?.lastName}` : null,
+            valueAddress: "تهران",
+            titleAddress: "خانه",
+            houseNumber: "12",
+            homeUnit: 2,
         }
     )
 
@@ -53,17 +59,19 @@ const OrderRegisterSteps = ({ data }) => {
                 }
                 } />}
                 {step === 2 && <SelectAddress handleNextStep={(step, value) => {
-                    setStep(step); setState({ ...state, latitude: value?.latitude, longitude: value?.longitude });
-
+                    setStep(step); setState({
+                        ...state,
+                        latitude: value?.latitude,
+                        longitude: value?.longitude,
+                        valueAddress: value?.description,
+                        titleAddress: value?.name,
+                        houseNumber: value?.houseNumber,
+                        homeUnit: value?.homeUnit,
+                    });
                 }
                 } />}
                 {step === 3 && <UserInfoForm handleRegisterOrder={(value) => {
-
                     handleRegisterOrder(value)
-
-
-
-
                 }} inOrderPage={true} data={userInfo} />}
             </div>
                 : <div className="pt-36 text-center text-md text-red-600">برای ثبت سفارش ابتدا اطلاعات کاربری خود را تکمیل کنید!</div>}

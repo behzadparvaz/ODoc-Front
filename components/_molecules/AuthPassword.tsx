@@ -39,10 +39,9 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
                 values,
                 {
                     onSuccess: (responseData: any) => {
-                        const data = responseData?.data
-                        if (data?.message === 'succeeded') {
-                            Cookies.set('token', data?.token, { expires: 365 });
-                            localStorage.setItem('token', data?.token);
+                        if (responseData?.message === 'succeeded') {
+                            Cookies.set('token', responseData?.token, { expires: 365 });
+                            localStorage.setItem('token', responseData?.token);
                             push('/')
                             openNotification({
                                 message: loginTexts?.loginSuccessfully,
@@ -80,8 +79,7 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
             { PhoneNumber: data?.phoneNumber },
             {
                 onSuccess: (responseData: any) => {
-                    const data = responseData?.data
-                    if (data?.message === 'succeeded') {
+                    if (responseData?.message === 'succeeded') {
                         openNotification({
                             message: loginTexts?.resendOtpCodeSuccessfully,
                             type: 'success',

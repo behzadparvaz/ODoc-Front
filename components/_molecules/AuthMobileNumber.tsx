@@ -24,13 +24,12 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
                 values,
                 {
                     onSuccess: (responseData: any) => {
-                        const data = responseData?.data;
-                        if (data?.message === "succeeded") {
-                            if (data?.hasPassword) {
-                                handleChangeForm(data,'password')
+                        if (responseData?.message === "succeeded") {
+                            if (responseData?.hasPassword) {
+                                handleChangeForm(responseData,'password')
                             }
                             else {
-                                handleChangeForm(data,'otp')
+                                handleChangeForm(responseData,'otp')
                             }
                         }
                     },

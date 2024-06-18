@@ -1,4 +1,4 @@
-import { HomeIconOutline, MoreSquareIconOutLine, TickIcon, WorkIcon } from '@com/icons';
+import { HomeIconOutline, MoreSquareIconOutLine, WorkIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
@@ -9,11 +9,8 @@ import { RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
 import { useAddLocation } from '@api/user/user.rq';
 import { addressSeparator, cedarAddressFixedPartCreator } from '@utilities/addressUtils';
-import useModal from '@hooks/useModal';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
-import useNotification from '@hooks/useNotification';
 import { FullModalContainer } from '@com/modal/containers/fullMobileContainer';
-import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/ControlMobileView';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
 const Input = dynamic(() => import('@com/_atoms/Input.nd'));
@@ -23,8 +20,6 @@ type Props = { addressData?: any };
 export default function AddressDetailsModal({ addressData }: Props) {
   const dispatch = useDispatch();
   const addressInputRef = useRef(null);
-  const { removeLastModal } = useModal();
-  const { openNotification } = useNotification();
   const [addressTitle, setAddressTitle] = useState<string>('');
   const { viewport, defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
   const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
@@ -94,7 +89,9 @@ export default function AddressDetailsModal({ addressData }: Props) {
         longitude: viewport?.longitude,
         name: values?.name !== '' ? values?.name : addressTitle,
         city: addressData?.subdivision_prefix,
-        Description: `${addressReadonlyPart}${addressEditablePart} پلاک ${values?.plaque} واحد ${values?.unit}`,
+        Description: `${addressReadonlyPart}${addressEditablePart}`,
+        HouseNumber: values?.plaque,
+        HomeUnit: values?.unit,
         postalCode: String(values?.postalCode)
       }
       mutateAddLocation(body);
