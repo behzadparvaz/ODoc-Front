@@ -11,4 +11,6 @@ export const profileText = {
     enterReEnterNewPassword: 'تکرار رمز عبور جدید را وارد کنید',
     reEnterNewPassword: 'تکرار رمز عبور جدید',
     addresses: 'آدرس ها',
+    plaque: 'پلاک',
+    unit: 'واحد',
 }

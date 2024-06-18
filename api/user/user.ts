@@ -1,11 +1,9 @@
 import request from "@api/request";
 
-export const oDocUrl = 'https://sap.okcs.com/td/'
-
-export const AddLocation = async (body) => await request.post(`${oDocUrl}Location/AddLocation`, body);
-export const GetUserLocations = async () => await request.get(`${oDocUrl}Location/GetLocations`);
-export const DeleteUserLocations = async (body) => await request.post(`${oDocUrl}Location/DeleteLocation`, body);
-export const GetProfile = async () => await request.get(`${oDocUrl}Profile/GetProfile`);
-export const AddProfileInfo = async (body) => await request.post(`${oDocUrl}Profile/AddProfile`, body);
-export const UpdateProfileInfo = async (body) => await request.post(`${oDocUrl}Profile/UpdateProfile`, body);
-export const UserSetPassword = async (body) => await request.put(`${oDocUrl}user/SetPassword`, body);
+export const AddLocation = async (body) => await request.post(`/Location/AddLocation`, body);
+export const GetUserLocations = async () => await request.get(`/Location/GetLocations`);
+export const DeleteUserLocations = async (body) => await request.post(`/Location/DeleteLocation`, body);
+export const GetProfile = async () => await request.get(`/Profile/GetProfile`);
+export const AddProfileInfo = async (body) => await request.post(`/Profile/AddProfile`, body);
+export const UpdateProfileInfo = async (body) => await request.post(`/Profile/UpdateProfile`, body);
+export const UserSetPassword = async (body) => await request.put(`/user/SetPassword`, body);
