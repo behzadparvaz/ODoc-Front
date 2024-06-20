@@ -22,7 +22,7 @@ const OrderRegisterSteps = ({ data }) => {
     houseNumber: '12',
     homeUnit: 2,
   });
-
+  const hasFamilyMember = userInfo?.familyMembers?.length > 0;
   const stepProgressBarItem = [
     {
       title: 'کد رهگیری',
@@ -33,7 +33,7 @@ const OrderRegisterSteps = ({ data }) => {
       step: 2,
     },
     {
-      title: 'اطلاعات کاربر',
+      title: hasFamilyMember ? 'اطلاعات کاربر' : 'ثبت سفارش',
       step: 3,
     },
   ];

@@ -18,9 +18,9 @@ export default function ChooseReceiverType({ userInfo, initialState }: Props) {
     nationalCode: 0,
     customerName: '',
   });
-  const familyMembers = userInfo?.familyMembers?.[0];
+  const familyMembers = userInfo?.familyMembers;
+  const hasFamilyMember = userInfo?.familyMembers?.length > 0;
   const { mutate: mutateCreateOrderInsurance } = useCreateOrderInsurance();
-
   const handleRegisterOrder = (personalValue) => {
     const body = {
       ...initialState,
@@ -40,10 +40,13 @@ export default function ChooseReceiverType({ userInfo, initialState }: Props) {
     });
   };
 
-  return (
+  return hasFamilyMember ? (
     <div className="flex flex-col cursor-pointer select-none mr-5">
       <div
-        onClick={() => setSelectFamilyPerson(false)}
+        onClick={() => {
+          setSelectFamilyPerson(false),
+            setFamilyPersonInfo({ nationalCode: 0, customerName: '' });
+        }}
         className={`bg-white rounded-xl mt-4 p-4 mb-1 border select-none ${selectFamilyPerson ? 'border-grey-100 flex items-center' : 'border-teal-600'} `}
       >
         <div
@@ -62,56 +65,75 @@ export default function ChooseReceiverType({ userInfo, initialState }: Props) {
           />
         </div>
       </div>
-      {userInfo?.familyMembers?.length && (
-        <div
-          onClick={() => setSelectFamilyPerson(true)}
-          className={`bg-white rounded-xl p-4 mt-4 mb-1 border select-none ${selectFamilyPerson ? 'border-teal-600' : 'border-grey-100'}`}
-        >
-          <div className="w-full border-b border-grey-100 pb-4">
-            <div className="flex items-center">
-              <div className="flex flex-col pr-2">
-                <p className="typo-body-6 text-grey-800">
-                  سفارش برای افراد تحت تکفل
-                </p>
+      <div
+        onClick={() => {
+          setSelectFamilyPerson(true),
+            familyMembers?.length === 1 &&
+              handleClickOnFamilyPerson(familyMembers?.[0]);
+        }}
+        className={`bg-white rounded-xl p-4 mt-4 mb-1 border select-none ${selectFamilyPerson ? 'border-teal-600' : 'border-grey-100'}`}
+      >
+        <div className="w-full border-b border-grey-100 pb-4">
+          <div className="flex items-center">
+            <div className="flex flex-col pr-2">
+              <p className="typo-body-6 text-grey-800">
+                سفارش برای افراد تحت تکفل
+              </p>
+            </div>
+          </div>
+        </div>
+        {familyMembers?.map((item, index) => {
+          return (
+            <div className="flex flex-col mr-1 pt-4" key={index}>
+              <div className={`flex justify-between `}>
+                <CheckBox
+                  handleChange={(e) => {
+                    handleClickOnFamilyPerson(item);
+                  }}
+                  label={`${item?.fisrtname} ${item?.lastName}`}
+                  labelClassName="typo-body-6 mr-[30px] font-semibold text-grey-700"
+                  icon={
+                    <TickIcon
+                      width={15}
+                      height={15}
+                      stroke={colors.white}
+                      className="mx-auto mt-[1px]"
+                    />
+                  }
+                  checkedClassName="!bg-grey-500"
+                  boxClassName="w-5 h-5 rounded-full border-grey-800"
+                  checked={
+                    (selectFamilyPerson && familyMembers?.length === 1) ||
+                    familyPersonInfo?.customerName ===
+                      `${item?.fisrtname} ${item?.lastName}`
+                  }
+                  className="w-full"
+                />
               </div>
             </div>
-          </div>
-          {/* {userInfo?.familyMembers?.map((item) => { */}
-          <div className="flex flex-col mr-1 pt-4">
-            <div className={`flex justify-between `}>
-              <CheckBox
-                handleChange={(e) => {
-                  handleClickOnFamilyPerson(familyMembers);
-                }}
-                label={`${familyMembers?.fisrtname} ${familyMembers?.lastName}`}
-                labelClassName="typo-body-6 mr-[30px] font-semibold text-grey-700"
-                icon={
-                  <TickIcon
-                    width={15}
-                    height={15}
-                    stroke={colors.white}
-                    className="mx-auto mt-[1px]"
-                  />
-                }
-                checkedClassName="!bg-grey-500"
-                boxClassName="w-5 h-5 rounded-full border-grey-800"
-                checked={selectFamilyPerson}
-                className="w-full"
-              />
-            </div>
-          </div>
-          {/* })} */}
-        </div>
-      )}
+          );
+        })}
+      </div>
+
       <Button
         size="large"
         buttonType="contained"
         handleClick={() => handleRegisterOrder(userInfo)}
         variant={'primary'}
-        className="mt-5"
+        className="my-5"
       >
         ثبت سفارش
       </Button>
     </div>
+  ) : (
+    <Button
+      size="large"
+      buttonType="contained"
+      handleClick={() => handleRegisterOrder(userInfo)}
+      variant={'primary'}
+      className="mt-5 mx-auto"
+    >
+      ثبت سفارش
+    </Button>
   );
 }
