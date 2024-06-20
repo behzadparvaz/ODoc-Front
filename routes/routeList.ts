@@ -4,4 +4,5 @@ export const routeList = {
   logoutRoute: '/logout',
   checkoutRoute: '/checkout',
   orderRegisteration: '/order-registeration',
+  profileUserInfoRoute:'/profile/user-info',
 };
