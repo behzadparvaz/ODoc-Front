@@ -33,7 +33,7 @@ export default function ProfileNavigation({ className = '' }) {
 
                     <Button isLoading={profileDataLoding} handleClick={() => {
                         push('/profile/user-info')
-                    }} className='w-full mt-3' size='large' buttonType='contained' variant={profileInfo ? 'secondary' : 'primary'}>{!profileDataLoding ? profileInfo ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری' : ''}</Button>
+                    }} className='w-full mt-3' size='large' buttonType='contained' variant={profileInfo ? 'secondary' : 'primary'}>{!profileDataLoding ? profileInfo ? 'ویرایش اطلاعات کاربری' : profileText?.registerUserInfo : ''}</Button>
                 </div>
             </div>
             <ul className="w-full items">

@@ -85,12 +85,12 @@ const UserInfoForm = ({ data, inOrderPage, handleRegisterOrder }: Props) => {
                 errorMessage={formik.errors.nationalCode}
             />
             {inOrderPage && <div className="flex justify-between">
-                <Button disabled={disabledForm} type="submit" size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش  ' : 'ثبت اطلاعات کاربری'}</Button>
+                <Button disabled={disabledForm} type="submit" size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش  ' : profileText?.registerUserInfo}</Button>
                 <Button disabled={!data || !disabledForm ? true : false} size='large' buttonType='contained' handleClick={() => handleRegisterOrder(data)} variant={'primary'}>ثبت سفارش</Button>
 
             </div>}
             {!inOrderPage &&
-                <Button type="submit" className='w-full mt-3' size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}</Button>
+                <Button type="submit" className='w-full mt-3' size='large' buttonType='contained' variant={'primary'}>{data ? 'ویرایش اطلاعات کاربری' : profileText?.registerUserInfo}</Button>
             }
 
         </form>

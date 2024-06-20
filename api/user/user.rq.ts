@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo, UserSetPassword } from "./user";
+import { AddFamilyMembers, AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo, UserSetPassword } from "./user";
 import useNotification from "@hooks/useNotification";
 import useModal from "@hooks/useModal";
 import { selectStoreTexts } from "@com/texts/selectStoreTexts";
@@ -69,6 +69,20 @@ export const useAddProfileInfo = (inOrderPage) => {
         notifType: 'successOrFailedMessage',
       })
       !inOrderPage&&push('/profile')
+    }
+  });
+};
+export const useAddFamilyMembers = () => {
+  const { openNotification } = useNotification()
+  const queryClient = useQueryClient()
+  return useMutation(AddFamilyMembers, {
+    onSuccess: () => {
+      queryClient?.invalidateQueries('getProfile')
+      openNotification({
+        message: 'اطلاعات فرد تحت تکلف شما با موفقیت ثبت شد',
+        type: 'success',
+        notifType: 'successOrFailedMessage',
+      })
     }
   });
 };
