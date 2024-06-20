@@ -16,9 +16,7 @@ const ProfileLayout = ({ children, hasBackBtn = false, title, className = '' }: 
     return (
         <>
             <div className={`w-full bg-teal-600 pt-11 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
-                <div className="w-full rounded-t-xl bg-white min-h-[calc(100vh-44px)]">
-
-
+                <div className="w-full rounded-t-xl bg-white min-h-[calc(100vh-44px)] pb-24">
                     <div className={` px-6 py-6 ${className}`}>
                         {(title || hasBackBtn) && <div className="flex items-center gap-x-2 pb-6">
                             {hasBackBtn && <span onClick={back} className="border-2 rounded-md border-teal-600 cursor-pointer"><ArrowRightIconOutline height={24} width={24} fill={colors?.teal[600]} /></span>}
