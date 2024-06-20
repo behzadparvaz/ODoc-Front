@@ -1,4 +1,4 @@
-import { CloseEyeIconFill, HouseOutline, LocationIcon, OrderOutline, RefundOrderIcon, UserOutline } from "@com/icons";
+import { CloseEyeIconFill, HelmetIconOutline, HouseOutline, LocationIcon, OrderOutline, RefundOrderIcon, UserOutline } from "@com/icons";
 import { colors } from "@configs/Theme";
 
 export const ProfileNavigationMenuItems = () => {
@@ -11,6 +11,12 @@ export const ProfileNavigationMenuItems = () => {
         },
         {
             id: 2,
+            icon: <HelmetIconOutline width={24} height={24} fill={colors?.teal?.[600]} />,
+            text: 'افراد تحت تکلف',
+            link: '/profile/family-members'
+        },
+        {
+            id: 3,
             icon: <CloseEyeIconFill width={24} height={24} fill={colors.teal[600]} />
             ,
             text: 'تنظیمات رمز عبور',
