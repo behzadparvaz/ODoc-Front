@@ -6,7 +6,7 @@ export const profileText = {
     lastName: "نام خانوادگی",
     nationalCode: "شماره ملی",
     userInfo: 'اطلاعات کاربری',
-    familyMembers: 'افراد تحت تکلف',
+    familyMembers: 'افراد تحت تکفل',
     passwordSetting: 'تنظیمات رمز عبور',
     newPassword: 'رمز عبور جدید',
     enterNewPassword: 'رمز عبور جدید را وارد کنید',

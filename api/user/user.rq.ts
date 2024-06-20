@@ -79,7 +79,7 @@ export const useAddFamilyMembers = () => {
     onSuccess: () => {
       queryClient?.invalidateQueries('getProfile')
       openNotification({
-        message: 'اطلاعات فرد تحت تکلف شما با موفقیت ثبت شد',
+        message: 'اطلاعات فرد تحت تکفل شما با موفقیت ثبت شد',
         type: 'success',
         notifType: 'successOrFailedMessage',
       })

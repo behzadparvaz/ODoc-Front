@@ -12,7 +12,7 @@ export const ProfileNavigationMenuItems = () => {
         {
             id: 2,
             icon: <HelmetIconOutline width={24} height={24} fill={colors?.teal?.[600]} />,
-            text: 'افراد تحت تکلف',
+            text: 'افراد تحت تکفل',
             link: '/profile/family-members'
         },
         {

@@ -70,7 +70,7 @@ const FamilyMembers = () => {
                         </div>
                     :
                     <div className="pt-36 flex flex-col items-center">
-                        <p className="text-center text-md text-red-600">برای ثبت افراد تحت تکلف ابتدا اطلاعات کاربری خود را تکمیل کنید!</p>
+                        <p className="text-center text-md text-red-600">برای ثبت افراد تحت تکفل ابتدا اطلاعات کاربری خود را تکمیل کنید!</p>
                         <Button
                             buttonType="contained"
                             variant="primary"
