@@ -50,6 +50,7 @@ const OrderHistory = () => {
             buttonType="contained"
             handleClick={() => push(routeList?.orderRegisteration)}
             variant={'primary'}
+            className='w-full'
           >
             ثبت سفارش جدید
           </Button>
