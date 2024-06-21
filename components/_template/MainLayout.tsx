@@ -4,6 +4,8 @@ import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
 
 interface Props {
   children: React.ReactNode;
@@ -12,6 +14,7 @@ interface Props {
 }
 
 const MainLayout = ({ children, className = '', title }: Props) => {
+  const { asPath } = useRouter();
   return (
     <div
       className={`w-full h-screen ${title ? 'pt-[78px]' : ''} overflow-auto pb-[95px] bg-white ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
@@ -26,7 +29,7 @@ const MainLayout = ({ children, className = '', title }: Props) => {
       <div className={className} style={{ minHeight: 'calc(100vh - 222px)' }}>
         {children}
       </div>
-      <Footer />
+      {asPath === routeList?.homeRoute && <Footer />}
       <BottomNavigation />
     </div>
   );

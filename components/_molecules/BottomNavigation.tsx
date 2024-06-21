@@ -11,7 +11,7 @@ const BottomNavigation = () => {
   const { asPath } = useRouter();
   return (
     <div
-      className={`w-full h-24 py-5 border-t flex bg-white border-grey-100 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} fixed inset-x-0 bottom-0`}
+      className={`w-full h-24 py-5 border-t flex bg-white border-grey-100 z-999 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} fixed inset-x-0 bottom-0`}
     >
       {navigationMenuItems?.map((item) => {
         const activeItem = item?.hasSubRouet
@@ -21,9 +21,7 @@ const BottomNavigation = () => {
           <Link href={item?.link} key={item?.id}>
             <a className="flex-col text-sm flex-auto">
               <div className="flex justify-center">
-                <span
-                  className={`pb-1 px-3`}
-                >
+                <span className={`pb-1 px-3`}>
                   <span
                     className={`${activeItem ? '' : 'brightness-0 opacity-40'}`}
                   >

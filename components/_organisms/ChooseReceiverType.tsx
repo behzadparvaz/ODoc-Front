@@ -21,15 +21,15 @@ export default function ChooseReceiverType({ userInfo, initialState }: Props) {
   const familyMembers = userInfo?.familyMembers;
   const hasFamilyMember = userInfo?.familyMembers?.length > 0;
   const { mutate: mutateCreateOrderInsurance } = useCreateOrderInsurance();
-  const handleRegisterOrder = (personalValue) => {
+  const handleRegisterOrder = (userInfo) => {
     const body = {
       ...initialState,
       nationalCode: selectFamilyPerson
         ? familyPersonInfo?.customerName
-        : personalValue?.nationalCode,
+        : userInfo?.nationalCode,
       customerName: selectFamilyPerson
         ? familyPersonInfo?.customerName
-        : `${personalValue?.firstName} ${personalValue?.lastName}`,
+        : `${userInfo?.firstName} ${userInfo?.lastName}`,
     };
     mutateCreateOrderInsurance(body);
   };
@@ -46,24 +46,14 @@ export default function ChooseReceiverType({ userInfo, initialState }: Props) {
         onClick={() => {
           setSelectFamilyPerson(false),
             setFamilyPersonInfo({ nationalCode: 0, customerName: '' });
+          handleRegisterOrder(userInfo);
         }}
-        className={`bg-white rounded-xl mt-4 p-4 mb-1 border select-none ${selectFamilyPerson ? 'border-grey-100 flex items-center' : 'border-teal-600'} `}
+        className={`bg-white rounded-xl mt-4 p-4 mb-1 border select-none ${selectFamilyPerson ? 'border-grey-100' : 'border-teal-600'} `}
       >
-        <div
-          className={`w-full ${selectFamilyPerson ? '' : 'border-b border-grey-100 pb-4'}`}
-        >
-          <p className="typo-body-6 text-grey-800 pr-2">سفارش برای خودم</p>
+        <div className="w-full border-b border-grey-100">
+          <p className="typo-body-6 text-grey-800 pr-2 pb-4">سفارش برای خودم</p>
         </div>
-        <div className={`flex flex-col mr-1 pt-4`}>
-          <UserInfoForm
-            handleRegisterOrder={(value) => {
-              handleRegisterOrder(value);
-            }}
-            inOrderPage={true}
-            data={userInfo}
-            className={`${selectFamilyPerson ? 'hidden' : 'block'}`}
-          />
-        </div>
+        <p className="typo-body-6 text-grey-700 pr-2 pt-4">{`${userInfo?.firstName} ${userInfo?.lastName}`}</p>
       </div>
       <div
         onClick={() => {
