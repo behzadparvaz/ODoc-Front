@@ -43,16 +43,17 @@ const OrderHistory = () => {
 
   return (
     <MainLayout title="تاریخچه سفارش ها">
-      <div className="w-full px-6 py-8">
-        <Button
-          size="medium"
-          buttonType="contained"
-          handleClick={() => push(routeList?.orderRegisteration)}
-          variant={'primary'}
-          className="w-full mx-auto mb-5"
-        >
-          ثبت سفارش جدید
-        </Button>
+      <div className="w-full px-6 pb-8 relative">
+        <div className="py-4 sticky w-full flex justify-end inset-x-0 top-0 bg-white">
+          <Button
+            size="medium"
+            buttonType="contained"
+            handleClick={() => push(routeList?.orderRegisteration)}
+            variant={'primary'}
+          >
+            ثبت سفارش جدید
+          </Button>
+        </div>
         {orderHistoryData?.map((item) => {
           return (
             <div
