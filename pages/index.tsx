@@ -22,7 +22,7 @@ const HomePage = () => {
   };
 
   return (
-    <MainLayout className="flex justify-center items-center" title="ثبت سفارش">
+    <MainLayout className="flex justify-center items-center">
       <div className="">
         <Button
           buttonType="contained"
