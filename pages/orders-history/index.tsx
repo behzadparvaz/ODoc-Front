@@ -4,8 +4,11 @@ import {
 } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import MainLayout from '@com/_template/MainLayout';
+import { routeList } from '@routes/routeList';
 import { convertGregorianToJalali } from '@utilities/mainUtils';
-const Map = () => {
+import { useRouter } from 'next/router';
+const OrderHistory = () => {
+  const { push } = useRouter();
   const { data, isLoading } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
@@ -41,6 +44,15 @@ const Map = () => {
   return (
     <MainLayout title="تاریخچه سفارش ها">
       <div className="w-full px-6 py-8">
+        <Button
+          size="medium"
+          buttonType="contained"
+          handleClick={() => push(routeList?.orderRegisteration)}
+          variant={'primary'}
+          className="w-full mx-auto mb-5"
+        >
+          ثبت سفارش جدید
+        </Button>
         {orderHistoryData?.map((item) => {
           return (
             <div
@@ -58,7 +70,7 @@ const Map = () => {
               </div>
               <div className="flex items-center justify-between py-2 px-4">
                 <div className="flex items-center">
-                  وضعیت پرداخت:{' '}
+                  وضعیت سفارش:{' '}
                   <p className="text-teal-600 mr-1">
                     {renderStatusMessage(item?.orderStatus?.id)}
                   </p>
@@ -84,4 +96,4 @@ const Map = () => {
     </MainLayout>
   );
 };
-export default Map;
+export default OrderHistory;
