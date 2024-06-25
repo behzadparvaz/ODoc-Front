@@ -13,15 +13,22 @@ const ToggleRedirectLoginOrNotLogin = () => {
   const loginRedirectConditions =
     token && asPath?.includes(routeList?.loginRoute);
 
+  // useEffect(() => {
+  //   if (!isNotLoginPages) {
+  //     if (notLoginRedirectConditions) {
+  //       replace('/auth');
+  //     } else if (loginRedirectConditions) {
+  //       replace('/');
+  //     }
+  //   }
+  // }, []);
   useEffect(() => {
-    if (!isNotLoginPages) {
-      if (notLoginRedirectConditions) {
-        replace('/auth');
-      } else if (loginRedirectConditions) {
-        replace('/');
-      }
+    if (notLoginRedirectConditions) {
+      replace('/auth');
+    } else if (loginRedirectConditions) {
+      replace('/');
     }
-  }, []);
+  });
 
   return null;
 };

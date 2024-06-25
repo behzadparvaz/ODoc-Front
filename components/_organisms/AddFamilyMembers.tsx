@@ -1,4 +1,3 @@
-
 import { useAddFamilyMembers } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Input from '@com/_atoms/Input.nd';
@@ -11,40 +10,35 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 
 export default function AddFamilyMembers({ data }) {
-
-  const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers()
-  let familyArr = []
+  const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers();
+  let familyArr = [];
   data?.map((item) => {
     familyArr.push({
       FirstName: item?.fisrtname,
       LastName: item?.lastName,
       NationlaCode: item?.nationalCode,
-      PhoneNumber: item?.phoneNumber
-    })
-  })
-  const { removeLastModal } = useModal()
-  const [initialValues] = useState(
-    {
-      FirstName: '',
-      LastName: '',
-      NationlaCode: '',
-      PhoneNumber: ''
-    }
-
-  )
+      PhoneNumber: item?.phoneNumber,
+    });
+  });
+  const { removeLastModal } = useModal();
+  const [initialValues] = useState({
+    FirstName: '',
+    LastName: '',
+    NationlaCode: '',
+    PhoneNumber: '',
+  });
   const formik = useFormik({
     initialValues,
     validationSchema: addFamilyMemberSchema,
     onSubmit: (values) => {
       const body = {
-        FamilyModels: [...familyArr, values]
-      }
+        FamilyModels: [...familyArr, values],
+      };
       mutateAddFamilyMembers(body, {
         onSuccess: () => {
-          removeLastModal()
-        }
+          removeLastModal();
+        },
       });
-
     },
   });
   return (
@@ -53,8 +47,10 @@ export default function AddFamilyMembers({ data }) {
       hasCloseButton={true}
       title={generalTexts?.add}
     >
-
-      <form onSubmit={formik.handleSubmit} className="flex gap-y-4 pt-6 flex-col">
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex gap-y-4 pt-6 flex-col"
+      >
         <Input
           placeholder={profileText?.firstName}
           label={profileText?.firstName}
@@ -65,7 +61,9 @@ export default function AddFamilyMembers({ data }) {
           name="FirstName"
           value={formik.values.FirstName}
           onChange={formik?.handleChange}
-          isTouched={formik.touched.FirstName && Boolean(formik.errors.FirstName)}
+          isTouched={
+            formik.touched.FirstName && Boolean(formik.errors.FirstName)
+          }
           errorMessage={formik.errors.FirstName}
         />
         <Input
@@ -92,7 +90,9 @@ export default function AddFamilyMembers({ data }) {
           type="string"
           value={formik.values.NationlaCode}
           onChange={formik?.handleChange}
-          isTouched={formik.touched.NationlaCode && Boolean(formik.errors.NationlaCode)}
+          isTouched={
+            formik.touched.NationlaCode && Boolean(formik.errors.NationlaCode)
+          }
           errorMessage={formik.errors.NationlaCode}
         />
         <Input
@@ -106,11 +106,20 @@ export default function AddFamilyMembers({ data }) {
           type="strin"
           value={formik.values.PhoneNumber}
           onChange={formik?.handleChange}
-          isTouched={formik.touched.PhoneNumber && Boolean(formik.errors.PhoneNumber)}
+          isTouched={
+            formik.touched.PhoneNumber && Boolean(formik.errors.PhoneNumber)
+          }
           errorMessage={formik.errors.PhoneNumber}
         />
-        <Button type="submit" className='w-full mt-3' size='large' buttonType='contained' variant={'primary'}>{generalTexts?.register}</Button>
-
+        <Button
+          type="submit"
+          className="w-full mt-3"
+          size="large"
+          buttonType="contained"
+          variant={'primary'}
+        >
+          {generalTexts?.register}
+        </Button>
       </form>
     </BottomModalContainer>
   );

@@ -150,7 +150,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
           ) : null
         }
         descriptionClassName="text-md"
-        description={`کد تایید 5 رقمی برای شماره موبایل  ${data?.phoneNumber} ارسال شد`}
+        description={`کد تایید ۶ رقمی برای شماره موبایل  ${data?.phoneNumber} ارسال شد`}
         titleClassName="text-sm text-grey-600"
         title="کد تــــایید را وارد کــــنید"
       />
