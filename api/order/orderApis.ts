@@ -2,7 +2,7 @@ import request from '@api/request';
 
 export const CreateOrderInsurance = async (body) =>
   await request.post(`/order/CreateOrderInsurance`, body, {
-    orderRegister: true,
+    returnError: true,
   });
 
 export const GetOrdersHistory = async () =>

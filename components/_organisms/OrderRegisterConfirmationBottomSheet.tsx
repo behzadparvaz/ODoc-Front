@@ -1,6 +1,7 @@
 import { useCreateOrderInsurance } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
+import { generalTexts } from '@com/texts/generalTexts';
 import { orderText } from '@com/texts/orderText';
 import useModal from '@hooks/useModal';
 import React from 'react';
@@ -22,7 +23,7 @@ export default function OrderRegisterConfirmationBottomSheet({ data }: Props) {
       className="!overflow-hidden"
       title={orderText?.orderConfirmationQuestion}
     >
-      <p className="text-sm text text-grey-800 my-3">{`کد رهگیری: ${data?.ReferenceNumber}`}</p>
+      <p className="text-sm text text-grey-800 my-3">{`کد رهگیری: ${data?.referenceNumber}`}</p>
       <p className="text-sm text text-grey-800 mb-3">{`نام تحویل گیرنده: ${data?.customerName}`}</p>
       <p className="text-sm text text-grey-800 mb-3">{`کدملی: ${data?.nationalCode}`}</p>
       <p className="text-sm text text-grey-800 mb-3">{`آدرس: ${data?.valueAddress}`}</p>
@@ -36,7 +37,7 @@ export default function OrderRegisterConfirmationBottomSheet({ data }: Props) {
             }}
             size="large"
           >
-            انصراف
+            {generalTexts?.cancel}
           </Button>
         </div>
         <div>

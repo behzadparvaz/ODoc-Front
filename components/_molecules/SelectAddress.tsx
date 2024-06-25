@@ -34,24 +34,23 @@ const SelectAddress = ({ stepOneValue, userInfo }: Props) => {
   };
   const { data: addressData, isLoading } = useGetUserLocations();
   const addressItem: any = addressData;
-  const [state, setState] = useState({
-    ReferenceNumber: '',
-    phoneNumber: userInfo ? userInfo?.phoneNumber : null,
+  const [state] = useState({
+    referenceNumber: null,
     latitude: null,
     longitude: null,
     vendorSelects: [],
     nationalCode: null,
     customerName: null,
-    valueAddress: 'تهران',
-    titleAddress: 'خانه',
-    houseNumber: '12',
-    homeUnit: 2,
+    valueAddress: null,
+    titleAddress: null,
+    houseNumber: null,
+    homeUnit: null,
   });
   useState<boolean>(false);
   const handleRegisterOrder = () => {
     const body = {
       ...state,
-      ReferenceNumber: stepOneValue?.orderCode,
+      referenceNumber: String(stepOneValue?.referenceNumber),
       nationalCode: stepOneValue?.nationalCode,
       customerName: stepOneValue?.customerName,
       doctorName: stepOneValue?.doctorName,

@@ -10,14 +10,24 @@ export const useAddLocation = () => {
   const { removeLastModal } = useModal()
   const queryClient = useQueryClient()
   return useMutation(AddLocation, {
-    onSuccess: () => {
-      queryClient?.invalidateQueries('getUserLocations')
-      removeLastModal()
-      openNotification({
-        message: `${selectStoreTexts?.successAddAddress}`,
-        type: 'success',
-        notifType: 'successOrFailedMessage',
-      });
+    onSuccess: (data: any) => {
+      if (data?.length) {
+        openNotification({
+          message: data?.[0],
+          type: 'error',
+          notifType: 'successOrFailedMessage',
+        });
+      }
+      else {
+        queryClient?.invalidateQueries('getUserLocations')
+        removeLastModal()
+        openNotification({
+          message: `${selectStoreTexts?.successAddAddress}`,
+          type: 'success',
+          notifType: 'successOrFailedMessage',
+        });
+      }
+
     }
   });
 };
@@ -68,7 +78,7 @@ export const useAddProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      !inOrderPage&&push('/profile')
+      !inOrderPage && push('/profile')
     }
   });
 };
@@ -98,7 +108,7 @@ export const useUpdateProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      !inOrderPage&&push('/profile')
+      !inOrderPage && push('/profile')
     }
   });
 };
