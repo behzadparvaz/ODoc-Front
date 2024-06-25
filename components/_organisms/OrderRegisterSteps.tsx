@@ -2,11 +2,18 @@ import OrderForm from '@com/_molecules/OrderCodeForm';
 import SelectAddress from '@com/_molecules/SelectAddress';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
-import ChooseReceiverType from './ChooseReceiverType';
 
 const OrderRegisterSteps = ({ data }) => {
   const userInfo = data?.queryResult[0];
   const [step, setStep] = useState(1);
+  const [stepOneValue, setStepOneValue] = useState({
+    orderCode: '',
+    nationalCode: 0,
+    customerName: '',
+    doctorName: '',
+    comment: '',
+    insuranceTypeId: 0,
+  });
   const [state, setState] = useState({
     orderCode: '',
     phoneNumber: userInfo ? userInfo?.phoneNumber : null,
@@ -22,7 +29,7 @@ const OrderRegisterSteps = ({ data }) => {
     houseNumber: '12',
     homeUnit: 2,
   });
-  const hasFamilyMember = userInfo?.familyMembers?.length > 0;
+
   const stepProgressBarItem = [
     {
       title: 'کد رهگیری',
@@ -31,10 +38,6 @@ const OrderRegisterSteps = ({ data }) => {
     {
       title: 'انتخاب آدرس',
       step: 2,
-    },
-    {
-      title: hasFamilyMember ? 'اطلاعات کاربر' : 'ثبت سفارش',
-      step: 3,
     },
   ];
 
@@ -47,33 +50,26 @@ const OrderRegisterSteps = ({ data }) => {
         items={stepProgressBarItem}
       />
       {userInfo ? (
-        <div className="w-full pt-16">
+        <div className="w-full mt-8">
           {step === 1 && (
             <OrderForm
               handleNextStep={(step, value) => {
+                setStepOneValue({
+                  orderCode: value?.orderCode,
+                  nationalCode: value?.nationalCode,
+                  customerName: value?.customerName,
+                  doctorName: value?.doctorName,
+                  comment: value?.comment,
+                  insuranceTypeId: Number(value?.insuranceTypeId),
+                });
                 setStep(step);
-                setState({ ...state, orderCode: String(value) });
+                setState({ ...state, orderCode: String(value?.orderCode) });
               }}
+              userInfo={userInfo}
             />
           )}
           {step === 2 && (
-            <SelectAddress
-              handleNextStep={(step, value) => {
-                setStep(step);
-                setState({
-                  ...state,
-                  latitude: value?.latitude,
-                  longitude: value?.longitude,
-                  valueAddress: value?.description,
-                  titleAddress: value?.name,
-                  houseNumber: value?.houseNumber,
-                  homeUnit: value?.homeUnit,
-                });
-              }}
-            />
-          )}
-          {step === 3 && (
-            <ChooseReceiverType userInfo={userInfo} initialState={state} />
+            <SelectAddress stepOneValue={stepOneValue} userInfo={userInfo} />
           )}
         </div>
       ) : (

@@ -3,6 +3,7 @@ import {
   CreateOrderInsurance,
   FinishOrderPayment,
   GetOrdersHistory,
+  getInsurances,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -59,4 +60,12 @@ export const useFinishOrderPayment = () => {
       }
     },
   });
+};
+
+export const useGetInsurances = () => {
+  const { data, isLoading } = useQuery(['getInsurances'], () =>
+    getInsurances(),
+  );
+
+  return { data: data as any, isLoading };
 };

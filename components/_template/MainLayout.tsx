@@ -29,7 +29,7 @@ const MainLayout = ({ children, className = '', title }: Props) => {
       <div className={className} style={{ minHeight: 'calc(100vh - 222px)' }}>
         {children}
       </div>
-      {asPath === routeList?.homeRoute && <Footer />}
+      {/* {asPath === routeList?.homeRoute && <Footer />} */}
       <BottomNavigation />
     </div>
   );

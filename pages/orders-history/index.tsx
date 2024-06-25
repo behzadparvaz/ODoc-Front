@@ -4,12 +4,10 @@ import {
 } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import MainLayout from '@com/_template/MainLayout';
-import { routeList } from '@routes/routeList';
 import { convertGregorianToJalali } from '@utilities/mainUtils';
-import { useRouter } from 'next/router';
+
 const OrderHistory = () => {
-  const { push } = useRouter();
-  const { data, isLoading } = useGetOrdersHistory();
+  const { data } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
   const renderStatusMessage = (statusId) => {
@@ -19,7 +17,7 @@ const OrderHistory = () => {
       case 2:
         return 'در انتظار پرداخت';
       case 3:
-        return 'شروع جمع آوری';
+        return 'در حال جمع‌آوری نسخه';
       case 5:
         return 'اتمام جمع‌آوری';
       case 6:
@@ -44,16 +42,6 @@ const OrderHistory = () => {
   return (
     <MainLayout title="تاریخچه سفارش ها">
       <div className="w-full px-6 pb-8 relative">
-        <div className="py-4 sticky w-full flex justify-end inset-x-0 top-0 bg-white">
-          <Button
-            size="medium"
-            buttonType="contained"
-            handleClick={() => push(routeList?.orderRegisteration)}
-            variant={'primary'}
-          >
-            ثبت سفارش جدید
-          </Button>
-        </div>
         {orderHistoryData?.map((item) => {
           return (
             <div
