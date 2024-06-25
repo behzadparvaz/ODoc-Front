@@ -8,7 +8,7 @@ interface optionsLayout {
   auth?;
   err?: boolean;
   withOutToken?: boolean;
-  orderRegister?: boolean
+  returnError?: boolean
 }
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -84,7 +84,7 @@ class Request {
             if (error?.response?.status === 401) {
               router.push(routeList.logoutRoute);
             }
-            if (options?.orderRegister) {
+            if (options?.returnError) {
               const data = JSON.parse(error?.request?.response)
               return { data: data }
             }

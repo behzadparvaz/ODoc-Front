@@ -1,4 +1,5 @@
 import { useGetProfile } from '@api/user/user.rq';
+import Spinner from '@com/_atoms/Spinner';
 import OrderRegisterSteps from '@com/_organisms/OrderRegisterSteps';
 import MainLayout from '@com/_template/MainLayout';
 
@@ -18,7 +19,9 @@ const HomePage = () => {
 
   return (
     <MainLayout className="px-6" title="ثبت سفارش">
-      {profileDataLoding === false && <OrderRegisterSteps data={data} />}
+      {profileDataLoding === false ? <OrderRegisterSteps data={data} /> : <div className='h-80 w-full flex justify-center items-center'>
+        <Spinner />
+      </div>}
     </MainLayout>
   );
 };

@@ -1,6 +1,6 @@
 import request from "@api/request";
 
-export const AddLocation = async (body) => await request.post(`/Location/AddLocation`, body);
+export const AddLocation = async (body) => await request.post(`/Location/AddLocation`, body, { returnError: true });
 export const GetUserLocations = async () => await request.get(`/Location/GetLocations`);
 export const DeleteUserLocations = async (body) => await request.post(`/Location/DeleteLocation`, body);
 export const GetProfile = async () => await request.get(`/Profile/GetProfile`);

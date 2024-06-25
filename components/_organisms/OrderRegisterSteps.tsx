@@ -1,22 +1,21 @@
-import OrderForm from '@com/_molecules/OrderCodeForm';
+import OrderInfoForm from '@com/_molecules/OrderInfoForm';
 import SelectAddress from '@com/_molecules/SelectAddress';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
 
-const OrderRegisterSteps = ({ data }) => {
+const OrderRegisterSteps = ({ data,className='' }) => {
   const userInfo = data?.queryResult[0];
   const [step, setStep] = useState(1);
   const [stepOneValue, setStepOneValue] = useState({
-    orderCode: '',
-    nationalCode: 0,
-    customerName: '',
-    doctorName: '',
-    comment: '',
+    referenceNumber: null,
+    nationalCode: null,
+    customerName: null,
+    doctorName: null,
+    comment: null,
     insuranceTypeId: 0,
   });
   const [state, setState] = useState({
-    orderCode: '',
-    phoneNumber: userInfo ? userInfo?.phoneNumber : null,
+    referenceNumber: null,
     latitude: null,
     longitude: null,
     vendorSelects: [],
@@ -24,15 +23,15 @@ const OrderRegisterSteps = ({ data }) => {
     customerName: userInfo
       ? `${userInfo?.firstName} ${userInfo?.lastName}`
       : null,
-    valueAddress: 'تهران',
-    titleAddress: 'خانه',
-    houseNumber: '12',
-    homeUnit: 2,
+    valueAddress: null,
+    titleAddress: null,
+    houseNumber: null,
+    homeUnit: null,
   });
 
   const stepProgressBarItem = [
     {
-      title: 'کد رهگیری',
+      title: 'ثبت اطلاعات',
       step: 1,
     },
     {
@@ -42,20 +41,21 @@ const OrderRegisterSteps = ({ data }) => {
   ];
 
   return (
-    <>
+    <div className='relative'>
       <StepProgressBar
+      className='sticky top-0 inset-x-0 bg-white'
         currentStep={step}
         handleChangeStep={(step: number) => setStep(step)}
         activeItem={step}
         items={stepProgressBarItem}
       />
       {userInfo ? (
-        <div className="w-full mt-8">
+        <div className={`w-full py-8`}>
           {step === 1 && (
-            <OrderForm
+            <OrderInfoForm
               handleNextStep={(step, value) => {
                 setStepOneValue({
-                  orderCode: value?.orderCode,
+                  referenceNumber: value?.referenceNumber,
                   nationalCode: value?.nationalCode,
                   customerName: value?.customerName,
                   doctorName: value?.doctorName,
@@ -63,7 +63,7 @@ const OrderRegisterSteps = ({ data }) => {
                   insuranceTypeId: Number(value?.insuranceTypeId),
                 });
                 setStep(step);
-                setState({ ...state, orderCode: String(value?.orderCode) });
+                setState({ ...state, referenceNumber: String(value?.referenceNumber) });
               }}
               userInfo={userInfo}
             />
@@ -77,7 +77,7 @@ const OrderRegisterSteps = ({ data }) => {
           برای ثبت سفارش ابتدا اطلاعات کاربری خود را تکمیل کنید!
         </div>
       )}
-    </>
+    </div>
   );
 };
 export default OrderRegisterSteps;

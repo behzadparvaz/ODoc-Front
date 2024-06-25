@@ -5,5 +5,6 @@ export const generalTexts = {
     confirm: 'تــاییـد',
     add: 'اضافه کردن',
     register:  'ثبت',
+    cancel:  'انصراف',
     phoneNumber:'شماره موبایل'
 }

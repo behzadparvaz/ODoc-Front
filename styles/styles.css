@@ -1,3 +1,15 @@
+@keyframes spinnerDot {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 0.5;
+    transform: translateY(8px);
+  }
+}
+
 .odOtpContainer {
   direction: ltr;
   width: 100%;
@@ -21,6 +33,7 @@
 .odOtpContainer .otpInput:last-child {
   border-right: 0;
 }
+
 /* -----------------Toastify__toast---------------- */
 @media (min-width: 320px) and (max-width: 768px) {
   .Toastify__toast-container--top-center {
@@ -68,9 +81,11 @@
   width: auto;
   min-width: 300px;
 }
+
 .Toastify__close-button {
   align-self: center !important;
 }
+
 .Toastify__toast-icon {
   align-self: start !important;
 }
@@ -80,15 +95,31 @@
 .max-w-412 {
   max-width: 412px;
 }
+
 .max-w-600 {
   max-width: 600px;
 }
+
 .max-w-768 {
   max-width: 768px;
 }
+
 .max-w-840 {
   max-width: 840px;
 }
+
 .max-w-960 {
   max-width: 960px;
+}
+
+.spinner>div:first-child {
+  animation: spinnerDot 0.4s 0s infinite linear alternate;
+}
+
+.spinner>div:nth-child(2) {
+  animation: spinnerDot 0.4s 0.2s infinite linear alternate;
+}
+
+.spinner>div:last-child {
+  animation: spinnerDot 0.4s 0.4s infinite linear alternate;
 }

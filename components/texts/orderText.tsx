@@ -1,6 +1,6 @@
 export const orderText = {
-  orderCode: 'شماره رهگیری',
-  enterOrderCode: 'شماره رهگیری را وارد کنید',
+  referenceNumber: 'شماره رهگیری',
+  enterReferenceNumber: 'شماره رهگیری را وارد کنید',
   enterDoctorName: 'نام پزشک را وارد کنید',
   insuranceType: 'نوع بیمه',
   doctorName: 'نام پزشک',

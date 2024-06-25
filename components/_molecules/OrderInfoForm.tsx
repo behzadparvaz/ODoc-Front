@@ -8,7 +8,7 @@ import { TickIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import { OrderCodeSchema } from '@utilities/validationSchemas';
+import { OrderRegistrationSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 
@@ -17,23 +17,23 @@ interface Props {
   userInfo: any;
 }
 
-const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
+const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { addModal } = useModal();
   const { data: insurances } = useGetInsurances();
   const [selectFamilyPerson, setSelectFamilyPerson] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<boolean>(false);
   const familyMembers = userInfo?.familyMembers;
   const [initialValues] = useState({
-    orderCode: '',
-    nationalCode: 0,
-    customerName: '',
-    doctorName: '',
-    comment: '',
-    insuranceTypeId: 0,
+    referenceNumber: null,
+    nationalCode: null,
+    customerName: null,
+    doctorName: null,
+    comment: null,
+    insuranceTypeId: 1,
   });
   const [selectedReceiver, setSelectedReceiver] = useState({
-    nationalCode: 0,
-    customerName: '',
+    nationalCode: null,
+    customerName: null,
   });
   const handleSelectFamilyMember = (item) => {
     setSelectFamilyPerson(true);
@@ -55,10 +55,10 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
   };
   const formik = useFormik({
     initialValues,
-    validationSchema: OrderCodeSchema,
+    validationSchema: OrderRegistrationSchema,
     onSubmit: (value) => {
       const body = {
-        orderCode: value?.orderCode,
+        referenceNumber: value?.referenceNumber,
         nationalCode: selectedReceiver?.nationalCode,
         customerName: selectedReceiver?.customerName,
         doctorName: value?.doctorName,
@@ -72,18 +72,19 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <Input
+        required
         type="number"
-        placeholder={orderText?.enterOrderCode}
-        label={orderText?.orderCode}
+        placeholder={orderText?.enterReferenceNumber}
+        label={orderText?.referenceNumber}
         className="flex-auto"
         labelClassName="font-semibold text-sm"
         inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-        id="orderCode"
-        name="orderCode"
-        value={formik.values.orderCode}
+        id="referenceNumber"
+        name="referenceNumber"
+        value={formik.values.referenceNumber}
         onChange={formik.handleChange}
-        isTouched={formik.touched.orderCode && Boolean(formik.errors.orderCode)}
-        errorMessage={formik.errors.orderCode}
+        isTouched={formik.touched.referenceNumber && Boolean(formik.errors.referenceNumber)}
+        errorMessage={formik.errors.referenceNumber}
       />
       <Input
         type="text"
@@ -102,15 +103,16 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
       </label>
       <select
         name="insuranceTypeId"
-        required
         value={formik?.values?.insuranceTypeId}
         className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
         onChange={formik.handleChange}
       >
         {insurances?.map((item, index) => {
+          console.log(item);
+          
           return (
             <>
-              <option value={item?.id} key={index} selected>
+              <option value={item?.id} key={index} selected={index === 0 ? true : false}>
                 {item?.name}
               </option>
             </>
@@ -122,7 +124,7 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
       </label>
       <textarea
         placeholder={orderText?.description}
-        className="block p-2.5 w-full text-sm border border-grey-300 text-grey-600 rounded-md outline-none"
+        className="block p-2.5 w-full resize-none h-20 text-sm border border-grey-300 text-grey-600 rounded-md outline-none"
         id="comment"
         name="comment"
         value={formik.values.comment}
@@ -219,7 +221,7 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
                 checked={
                   (selectFamilyPerson && familyMembers?.length === 1) ||
                   selectedReceiver?.customerName ===
-                    `${item?.fisrtname} ${item?.lastName}`
+                  `${item?.fisrtname} ${item?.lastName}`
                 }
                 className="w-full mt-3 z-0"
                 value={`${item?.fisrtname} ${item?.lastName}`}
@@ -227,12 +229,12 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
             </div>
           );
         })}
-        <p
-          className="text-sm text-grey-500 mx-auto"
+        {familyMembers?.length > 5 && <p
+          className="text-sm text-grey-500 mx-auto cursor-pointer"
           onClick={() => handleClickOnSeeMore()}
         >
           نمایش بیشتر
-        </p>
+        </p>}
       </div>
       <div className="w-full flex justify-end mt-10">
         <Button
@@ -247,4 +249,4 @@ const OrderCodeForm = ({ handleNextStep, userInfo }: Props) => {
     </form>
   );
 };
-export default OrderCodeForm;
+export default OrderInfoForm;

@@ -11,6 +11,8 @@ import { useAddLocation } from '@api/user/user.rq';
 import { addressSeparator, cedarAddressFixedPartCreator } from '@utilities/addressUtils';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { FullModalContainer } from '@com/modal/containers/fullMobileContainer';
+import { generalTexts } from '@com/texts/generalTexts';
+import useModal from '@hooks/useModal';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
 const Input = dynamic(() => import('@com/_atoms/Input.nd'));
@@ -24,6 +26,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
   const { viewport, defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
   const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
     useAddLocation();
+  const { removeLastModal } = useModal()
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
   const [addressReadonlyPart, setAddressReadonlyPart] = useState<string>('');
   const [addressEditablePart, setAddressEditablePart] = useState<string>('');
@@ -229,10 +232,19 @@ export default function AddressDetailsModal({ addressData }: Props) {
               onChange={formik.handleChange}
             />
           )}
-          <div
+          <div className='flex gap-x-3'
           >
             <Button
-              className="w-full mt-11"
+              className="flex-1 mt-11"
+              color={colors.grey[700]}
+              size="large"
+              variant="tertiary"
+              handleClick={removeLastModal}
+            >
+              {generalTexts?.cancel}
+            </Button>
+            <Button
+              className="flex-1 mt-11"
               color={colors.grey[50]}
               size="large"
               variant="primary"
