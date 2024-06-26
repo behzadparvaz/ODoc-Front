@@ -107,9 +107,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
         onChange={formik.handleChange}
       >
-        {insurances?.map((item, index) => {
-          console.log(item);
-          
+        {insurances?.map((item, index) => {          
           return (
             <>
               <option value={item?.id} key={index} selected={index === 0 ? true : false}>

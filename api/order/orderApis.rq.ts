@@ -2,6 +2,7 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
   CreateOrderInsurance,
   FinishOrderPayment,
+  GetOrderState,
   GetOrdersHistory,
   getInsurances,
 } from './orderApis';
@@ -14,18 +15,28 @@ export const useCreateOrderInsurance = () => {
   const { openNotification } = useNotification();
   return useMutation(CreateOrderInsurance, {
     onSuccess: (data: any) => {
-      if (data?.status === 400) {
+      if (Array.isArray(data)) {
         openNotification({
           type: 'error',
-          message: data?.errors?.message
-            ? data?.errors?.message
-            : 'خطایی رخ داده است',
+          message: 'خطایی رخ داده است',
           notifType: 'successOrFailedMessage',
         });
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
-        push('/success-order');
+        push({
+          pathname: '/success-order',
+          query: { order_Code: data },
+        });
       }
+    },
+    onError: (data: any) => {
+      openNotification({
+        type: 'error',
+        message: data?.errors?.message
+          ? data?.errors?.message
+          : 'خطایی رخ داده است',
+        notifType: 'successOrFailedMessage',
+      });
     },
   });
 };
@@ -66,6 +77,12 @@ export const useGetInsurances = () => {
   const { data, isLoading } = useQuery(['getInsurances'], () =>
     getInsurances(),
   );
+  return { data: data as any, isLoading };
+};
 
+export const useGetOrderState = (orderCode) => {
+  const { data, isLoading } = useQuery(['getOrderState', orderCode], () =>
+    GetOrderState(orderCode),
+  );
   return { data: data as any, isLoading };
 };
