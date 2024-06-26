@@ -15,12 +15,10 @@ export const useCreateOrderInsurance = () => {
   const { openNotification } = useNotification();
   return useMutation(CreateOrderInsurance, {
     onSuccess: (data: any) => {
-      if (data?.status === 400) {
+      if (Array.isArray(data)) {
         openNotification({
           type: 'error',
-          message: data?.errors?.message
-            ? data?.errors?.message
-            : 'خطایی رخ داده است',
+          message: 'خطایی رخ داده است',
           notifType: 'successOrFailedMessage',
         });
       } else {
