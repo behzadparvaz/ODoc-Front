@@ -13,3 +13,6 @@ export const FinishOrderPayment = async (body) =>
 
 export const getInsurances = async () =>
   await request.get(`Order/GetInsurances`, {});
+
+export const GetOrderState = async (orderCode) =>
+  await request.get(`/Order/${orderCode}/CurrentState`);

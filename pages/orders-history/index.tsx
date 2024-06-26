@@ -4,36 +4,14 @@ import {
 } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import MainLayout from '@com/_template/MainLayout';
+import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { convertGregorianToJalali } from '@utilities/mainUtils';
 
 const OrderHistory = () => {
   const { data } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
-  const renderStatusMessage = (statusId) => {
-    switch (statusId) {
-      case 0:
-        return 'ثبت شده';
-      case 2:
-        return 'در انتظار پرداخت';
-      case 3:
-        return 'در حال جمع‌آوری نسخه';
-      case 5:
-        return 'اتمام جمع‌آوری';
-      case 6:
-        return 'در انتظار بایکر';
-      case 7:
-        return 'در حال ارسال توسط بایکر';
-      case 8:
-        return 'تحویل شده به مشتری';
-      case 9:
-        return 'مرجوع شده';
-      case 10:
-        return 'کنسل شده';
-      default:
-        return '';
-    }
-  };
+
   const handleClikOnPaymentButton = (orderCode) => {
     const body = { orderCode: orderCode };
     mutatePayment(body);
@@ -61,7 +39,7 @@ const OrderHistory = () => {
                 <div className="flex items-center">
                   وضعیت سفارش:{' '}
                   <p className="text-teal-600 mr-1">
-                    {renderStatusMessage(item?.orderStatus?.id)}
+                    {getOrderStatusMessage(item?.orderStatus?.id)}
                   </p>
                 </div>
 
