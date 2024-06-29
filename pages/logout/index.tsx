@@ -27,7 +27,7 @@ function Logout({ }: Props): ReactElement {
     removeItem('persist:root', 'local');
     Cookies.remove('token');
     queryClient.clear();
-    router.replace(routeList?.homeRoute);
+    router.replace(routeList?.loginRoute);
   }, [dispatch]);
 
   return null;
