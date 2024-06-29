@@ -28,7 +28,7 @@ const ToggleRedirectLoginOrNotLogin = () => {
     } else if (loginRedirectConditions) {
       replace('/');
     }
-  });
+  },[]);
 
   return null;
 };
