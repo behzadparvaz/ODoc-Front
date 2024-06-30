@@ -5,23 +5,12 @@ import MainLayout from '@com/_template/MainLayout';
 
 const HomePage = () => {
   const { data, isLoading: profileDataLoding } = useGetProfile();
-
-  // const handleClickOnRegisterOrderButton = () => {
-  //   isEmpty(user)
-  //     ? push({
-  //         pathname: routeList?.loginRoute,
-  //         query: {
-  //           from_url: routeList?.orderRegisteration,
-  //         },
-  //       })
-  //     : push(routeList?.orderRegisteration);
-  // };
-
+  const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
   return (
-    <MainLayout className="px-6" title="ثبت سفارش">
-      {profileDataLoding === false ? <OrderRegisterSteps data={data} /> : <div className='h-80 w-full flex justify-center items-center'>
-        <Spinner />
-      </div>}
+    <MainLayout headerChildren={headerChildrenElement} className="px-6" title="ثبت سفارش">
+      {profileDataLoding === false ? <OrderRegisterSteps data={data} /> :
+        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />
+      }
     </MainLayout>
   );
 };

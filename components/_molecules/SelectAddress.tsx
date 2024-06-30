@@ -1,5 +1,6 @@
 import { useGetUserLocations } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
+import Spinner from '@com/_atoms/Spinner';
 import AddressList from '@com/_organisms/AddressList';
 import OrderRegisterConfirmationBottomSheet from '@com/_organisms/OrderRegisterConfirmationBottomSheet';
 import ParsiMapBottomSheet from '@com/_organisms/ParsiMapBottomSheet';
@@ -11,10 +12,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
   stepOneValue: any;
-  userInfo: any;
 }
 
-const SelectAddress = ({ stepOneValue, userInfo }: Props) => {
+const SelectAddress = ({ stepOneValue }: Props) => {
   const { addModal } = useModal();
   const [addressSelected, setAddressSelected] = useState(null);
   const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
@@ -74,7 +74,7 @@ const SelectAddress = ({ stepOneValue, userInfo }: Props) => {
   return (
     <>
       <div className="w-full">
-        {isLoading === false && (
+        {isLoading === false ? (
           <>
             {!addressItem?.length ? (
               <div className="text-red text-sm text-red-600 text-center py-8">
@@ -92,7 +92,8 @@ const SelectAddress = ({ stepOneValue, userInfo }: Props) => {
               />
             ) : null}
           </>
-        )}
+        ) :
+          <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
       </div>
       <div className="w-full flex justify-between mt-5">
         <Button

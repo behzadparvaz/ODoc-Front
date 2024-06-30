@@ -69,7 +69,7 @@ const OrderRegisterSteps = ({ data,className='' }) => {
             />
           )}
           {step === 2 && (
-            <SelectAddress stepOneValue={stepOneValue} userInfo={userInfo} />
+            <SelectAddress stepOneValue={stepOneValue} />
           )}
         </div>
       ) : (

@@ -3,12 +3,13 @@ import {
   useGetOrdersHistory,
 } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
+import Spinner from '@com/_atoms/Spinner';
 import MainLayout from '@com/_template/MainLayout';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { convertGregorianToJalali } from '@utilities/mainUtils';
 
 const OrderHistory = () => {
-  const { data } = useGetOrdersHistory();
+  const { data, isLoading } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
 
@@ -16,10 +17,11 @@ const OrderHistory = () => {
     const body = { orderCode: orderCode };
     mutatePayment(body);
   };
+  const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
 
   return (
-    <MainLayout title="تاریخچه سفارش ها">
-      <div className="w-full px-6 pb-8 relative">
+    <MainLayout headerChildren={headerChildrenElement} title="تاریخچه سفارش ها">
+      {isLoading === false ? <div className="w-full px-6 pb-8 relative pt-8">
         {orderHistoryData?.map((item) => {
           return (
             <div
@@ -31,9 +33,9 @@ const OrderHistory = () => {
                 <div>{convertGregorianToJalali(item?.createDateTime)}</div>
               </div>
               <div className="w-full flex flex-col gap-y-3 py-2 px-4">
-                <div>کد سفارش:{item?.orderCode}</div>
+                <div>کد سفارش:{item?.referenceNumber}</div>
+                <div>کد رهگیری:{item?.orderCode}</div>
                 <div>نام ثبت کننده:{item?.customer?.name}</div>
-                <div>شماره ملی ثبت کننده:{item?.customer?.nationalCode}</div>
               </div>
               <div className="flex items-center justify-between py-2 px-4">
                 <div className="flex items-center">
@@ -60,6 +62,8 @@ const OrderHistory = () => {
           );
         })}
       </div>
+        :
+        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
     </MainLayout>
   );
 };
