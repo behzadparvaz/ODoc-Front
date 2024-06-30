@@ -1,5 +1,6 @@
 import { useGetProfile } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
+import Spinner from '@com/_atoms/Spinner';
 import UserInfoForm from '@com/_molecules/UserInfoForm';
 import AddFamilyMembers from '@com/_organisms/AddFamilyMembers';
 import ProfileLayout from '@com/_template/ProfileLayout';
@@ -17,7 +18,7 @@ const FamilyMembers = () => {
 
   return (
     <ProfileLayout hasBackBtn title={profileText?.familyMembers}>
-      {!profileDataLoding && (
+      {profileDataLoding === false ? (
         <>
           {profileInfo ? (
             profileInfo?.familyMembers?.length ? (
@@ -93,7 +94,8 @@ const FamilyMembers = () => {
             </div>
           )}
         </>
-      )}
+      ) :
+        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
     </ProfileLayout>
   );
 };
