@@ -12,9 +12,12 @@ const OrderHistory = () => {
   const { data, isLoading } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
-
-  const handleClikOnPaymentButton = (orderCode) => {
-    const body = { orderCode: orderCode };
+  
+  const handleClikOnPaymentButton = (orderCode, finalPrice) => {
+    const body = {
+      orderCode: orderCode,
+      finalPrice: finalPrice
+    };
     mutatePayment(body);
   };
   const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
@@ -50,7 +53,7 @@ const OrderHistory = () => {
                     size="medium"
                     buttonType="contained"
                     handleClick={() =>
-                      handleClikOnPaymentButton(item?.orderCode)
+                      handleClikOnPaymentButton(item?.orderCode, item?.finalPrice)
                     }
                     variant={'primary'}
                   >
