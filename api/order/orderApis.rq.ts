@@ -4,6 +4,7 @@ import {
   FinishOrderPayment,
   GetOrderState,
   GetOrdersHistory,
+  VerifyPaymentOrder,
   getInsurances,
 } from './orderApis';
 import { useRouter } from 'next/router';
@@ -46,7 +47,7 @@ export const useGetOrdersHistory = () => {
     ['getOrdersHistory'],
     () => GetOrdersHistory(),
     {
-      refetchInterval: 600000,
+      refetchInterval: 20000,
     },
   );
 
@@ -67,10 +68,13 @@ export const useFinishOrderPayment = () => {
           notifType: 'successOrFailedMessage',
         });
       } else {
-        push('/orders-history');
+        push(data);
       }
     },
   });
+};
+export const useVerifyPaymentOrder = () => {
+  return useMutation(VerifyPaymentOrder);
 };
 
 export const useGetInsurances = () => {

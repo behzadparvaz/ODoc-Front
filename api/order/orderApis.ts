@@ -9,10 +9,13 @@ export const GetOrdersHistory = async () =>
   await request.get(`/order/GetOrdersHistory`);
 
 export const FinishOrderPayment = async (body) =>
-  await request.post(`Order/FinishPayment`, body);
+  await request.post(`Order/PaymentOrder`, body,{returnError:true});
+
+export const VerifyPaymentOrder = async (body) =>
+  await request.post(`Order/VerifyPaymentOrder`, body,{returnError:true});
 
 export const getInsurances = async () =>
-  await request.get(`Order/GetInsurances`, {});
+  await request.get(`Order/GetInsurances`);
 
 export const GetOrderState = async (orderCode) =>
   await request.get(`/Order/${orderCode}/CurrentState`);
