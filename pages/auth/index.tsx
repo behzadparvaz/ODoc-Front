@@ -22,10 +22,11 @@ const ODocAuth = () => {
             replace('/');
         }
     })
-    
+
     return (
         <div className={`bg-teal-50 gap-y-11 min-h-screen justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center">
+                <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
                 <NextImage
                     width={220}
                     height={220}
