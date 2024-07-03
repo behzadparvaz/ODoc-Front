@@ -19,7 +19,7 @@ const BottomNavigation = () => {
           : asPath === item?.link;
         return (
           <Link href={item?.link} key={item?.id}>
-            <a className="flex-col text-sm flex-auto">
+            <a className="flex-col text-sm flex-1">
               <div className="flex justify-center">
                 <span className={`pb-1 px-3`}>
                   <span
