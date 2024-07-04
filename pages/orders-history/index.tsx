@@ -6,67 +6,76 @@ import Button from '@com/_atoms/Button';
 import Spinner from '@com/_atoms/Spinner';
 import MainLayout from '@com/_template/MainLayout';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
-import { convertGregorianToJalali } from '@utilities/mainUtils';
+import { convertGregorianToJalali, getTime } from '@utilities/mainUtils';
 
 const OrderHistory = () => {
   const { data, isLoading } = useGetOrdersHistory();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const orderHistoryData: any = data;
-  
+
   const handleClikOnPaymentButton = (orderCode, finalPrice) => {
     const body = {
       orderCode: orderCode,
-      finalPrice: finalPrice
+      finalPrice: finalPrice,
     };
     mutatePayment(body);
   };
-  const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
+  const headerChildrenElement = (
+    <div className="text-[#ff5722] text-2xl font-bold">
+      TAPSI <span className="text-teal-600">Doctor</span>
+    </div>
+  );
 
   return (
     <MainLayout headerChildren={headerChildrenElement} title="تاریخچه سفارش ها">
-      {isLoading === false ? <div className="w-full px-6 pb-8 relative pt-8">
-        {orderHistoryData?.map((item) => {
-          return (
-            <div
-              key={item?.id}
-              className="w-full border overflow-hidden mb-4 border-grey-200 rounded-lg"
-            >
-              <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
-                <div>تاریخ ثبت</div>
-                <div>{convertGregorianToJalali(item?.createDateTime)}</div>
-              </div>
-              <div className="w-full flex flex-col gap-y-3 py-2 px-4">
-                <div>کد سفارش:{item?.referenceNumber}</div>
-                <div>کد رهگیری:{item?.orderCode}</div>
-                <div>نام ثبت کننده:{item?.customer?.name}</div>
-              </div>
-              <div className="flex items-center justify-between py-2 px-4">
-                <div className="flex items-center">
-                  وضعیت سفارش:{' '}
-                  <p className="text-teal-600 mr-1">
-                    {getOrderStatusMessage(item?.orderStatus?.id)}
-                  </p>
+      {isLoading === false ? (
+        <div className="w-full px-6 pb-8 relative pt-8">
+          {orderHistoryData?.map((item) => {
+            return (
+              <div
+                key={item?.id}
+                className="w-full border overflow-hidden mb-4 border-grey-200 rounded-lg"
+              >
+                <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
+                  <div>تاریخ ثبت</div>
+                  <div>{`${convertGregorianToJalali(item?.createDateTime)} - ${getTime(item?.createDateTime)}`}</div>
                 </div>
+                <div className="w-full flex flex-col gap-y-3 py-2 px-4">
+                  <div>کد سفارش:{item?.referenceNumber}</div>
+                  <div>کد رهگیری:{item?.orderCode}</div>
+                  <div>نام ثبت کننده:{item?.customer?.name}</div>
+                </div>
+                <div className="flex items-center justify-between py-2 px-4">
+                  <div className="flex items-center">
+                    وضعیت سفارش:{' '}
+                    <p className="text-teal-600 mr-1">
+                      {getOrderStatusMessage(item?.orderStatus?.id)}
+                    </p>
+                  </div>
 
-                {item?.orderStatus?.id === 2 && (
-                  <Button
-                    size="medium"
-                    buttonType="contained"
-                    handleClick={() =>
-                      handleClikOnPaymentButton(item?.orderCode, item?.finalPrice)
-                    }
-                    variant={'primary'}
-                  >
-                    پرداخت
-                  </Button>
-                )}
+                  {item?.orderStatus?.id === 2 && (
+                    <Button
+                      size="medium"
+                      buttonType="contained"
+                      handleClick={() =>
+                        handleClikOnPaymentButton(
+                          item?.orderCode,
+                          item?.finalPrice,
+                        )
+                      }
+                      variant={'primary'}
+                    >
+                      پرداخت
+                    </Button>
+                  )}
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
-        :
-        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
+            );
+          })}
+        </div>
+      ) : (
+        <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
+      )}
     </MainLayout>
   );
 };
