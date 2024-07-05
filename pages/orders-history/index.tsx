@@ -14,11 +14,15 @@ const OrderHistory = () => {
   const handleClikOnPaymentButton = (orderCode, finalPrice) => {
     const body = {
       orderCode: orderCode,
-      finalPrice: finalPrice
+      finalPrice: finalPrice,
     };
     mutatePayment(body);
   };
-  const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
+  const headerChildrenElement = (
+    <div className="text-[#ff5722] text-2xl font-bold">
+      TAPSI <span className="text-teal-600">Doctor</span>
+    </div>
+  );
 
   return (
     <MainLayout headerChildren={headerChildrenElement} title="تاریخچه سفارش ها">

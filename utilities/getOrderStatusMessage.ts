@@ -1,7 +1,7 @@
 export const getOrderStatusMessage = (statusId) => {
   switch (statusId) {
     case 0:
-      return 'ثبت شده';
+      return 'در انتظار تایید داروخانه';
     case 2:
       return 'در انتظار پرداخت';
     case 3:

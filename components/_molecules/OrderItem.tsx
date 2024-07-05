@@ -3,7 +3,7 @@ import OrderCancelConfirmationBottomSheet from "@com/_organisms/OrderCancelConfi
 import { orderText } from "@com/texts/orderText"
 import useModal from "@hooks/useModal"
 import { getOrderStatusMessage } from "@utilities/getOrderStatusMessage"
-import { convertGregorianToJalali, convertRialToToman } from "@utilities/mainUtils"
+import { convertGregorianToJalali, convertRialToToman, getTime } from "@utilities/mainUtils"
 
 interface Props {
     className?: string,
@@ -20,7 +20,7 @@ const OrderItem = ({ data, handleClikOnPaymentButton, className = '' }: Props) =
         >
             <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
                 <div>تاریخ ثبت</div>
-                <div>{convertGregorianToJalali(data.createDateTime)}</div>
+                  <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
             </div>
             <div className="w-full flex flex-col gap-y-3 py-2 px-4">
                 <div>کد سفارش:{data.referenceNumber}</div>

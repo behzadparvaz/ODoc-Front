@@ -5,4 +5,5 @@ export const routeList = {
   checkoutRoute: '/checkout',
   orderRegisteration: '/order-registeration',
   profileUserInfoRoute:'/profile/user-info',
+  ordersHistory:'orders-history'
 };
