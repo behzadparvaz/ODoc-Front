@@ -35,7 +35,7 @@ const OrderItem = ({ data, handleClikOnPaymentButton, className = '' }: Props) =
                     </p>
                 </div>
             </div>
-            {data?.orderStatus?.id === 2 && <>
+            {data?.orderStatus?.id === 2 &&
                 <div className="flex items-center justify-between py-2 px-4">
                     <div className="flex items-center">
                         مبلغ سفارش:
@@ -43,37 +43,37 @@ const OrderItem = ({ data, handleClikOnPaymentButton, className = '' }: Props) =
                             {convertRialToToman(data?.finalPrice)}
                         </p>
                     </div>
-                </div>
-                <div className="flex px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50">
-                    <Button
-                        className="flex-1"
-                        size="large"
-                        buttonType="contained"
-                        handleClick={() =>
-                            handleClikOnPaymentButton()
-                        }
-                        variant={'primary'}
-                    >
-                        پرداخت
-                    </Button>
-                    <Button
-                        className="flex-1 bg-red-200 text-red-700"
-                        size="large"
-                        buttonType="contained"
-                        handleClick={() =>
-                            addModal({
-                                modal: OrderCancelConfirmationBottomSheet,
-                                props: {
-                                    orderCode: data?.referenceNumber
-                                }
-                            })
-                        }
-                    >
-                        {orderText?.orderCancelation}
-                    </Button>
-                </div>
-            </>}
-        </div>
+                </div>}
+            {data?.orderStatus?.id === 2 || data?.orderStatus?.id === 0 && <div className="flex px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50">
+                {data?.orderStatus?.id === 2 && <Button
+                    className="flex-1"
+                    size="large"
+                    buttonType="contained"
+                    handleClick={() =>
+                        handleClikOnPaymentButton()
+                    }
+                    variant={'primary'}
+                >
+                    پرداخت
+                </Button>}
+                <Button
+                    className="flex-1 bg-red-200 text-red-700"
+                    size="large"
+                    buttonType="contained"
+                    handleClick={() =>
+                        addModal({
+                            modal: OrderCancelConfirmationBottomSheet,
+                            props: {
+                                orderCode: data?.referenceNumber
+                            }
+                        })
+                    }
+                >
+                    {orderText?.orderCancelation}
+                </Button>
+            </div>
+            }
+        </div >
     )
 }
 export default OrderItem
