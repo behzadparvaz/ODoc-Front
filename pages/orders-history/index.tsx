@@ -38,7 +38,7 @@ const OrderHistory = () => {
               >
                 <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
                   <div>تاریخ ثبت</div>
-                  <div>{`${convertGregorianToJalali(item?.createDateTime)} - ${getTime(item?.createDateTime)}`}</div>
+                  <div>{`${getTime(item?.createDateTime)} - ${convertGregorianToJalali(item?.createDateTime)}`}</div>
                 </div>
                 <div className="w-full flex flex-col gap-y-3 py-2 px-4">
                   <div>کد سفارش:{item?.referenceNumber}</div>
