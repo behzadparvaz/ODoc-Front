@@ -19,7 +19,7 @@ export default function OrderRegisterConfirmationBottomSheet({ data }: Props) {
   return (
     <BottomModalContainer
       height={'auto'}
-      hasCloseButton={true}
+      hasCloseButton={false}
       className="!overflow-hidden"
       title={orderText?.orderConfirmationQuestion}
     >

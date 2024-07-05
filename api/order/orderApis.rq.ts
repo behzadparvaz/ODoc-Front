@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import {
+  CancelOrder,
   CreateOrderInsurance,
   FinishOrderPayment,
   GetOrderState,
@@ -73,6 +74,26 @@ export const useFinishOrderPayment = () => {
     },
   });
 };
+export const useCancelOrder = () => {
+  const queryClient = useQueryClient();
+  const { openNotification } = useNotification();
+  return useMutation(CancelOrder, {
+    onSuccess: (data: any) => {
+      if (data?.status === 400) {
+        openNotification({
+          type: 'error',
+          message: data?.errors?.message
+            ? data?.errors?.message
+            : 'خطایی رخ داده است',
+          notifType: 'successOrFailedMessage',
+        });
+      } else {
+        queryClient?.invalidateQueries('getOrdersHistory');
+      }
+    },
+  });
+};
+
 export const useVerifyPaymentOrder = () => {
   return useMutation(VerifyPaymentOrder);
 };

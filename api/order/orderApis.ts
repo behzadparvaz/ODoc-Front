@@ -14,6 +14,9 @@ export const FinishOrderPayment = async (body) =>
 export const VerifyPaymentOrder = async (body) =>
   await request.post(`Order/VerifyPaymentOrder`, body,{returnError:true});
 
+export const CancelOrder = async (body) =>
+  await request.post(`Order/CancelOrder`, body,{returnError:true});
+
 export const getInsurances = async () =>
   await request.get(`Order/GetInsurances`);
 

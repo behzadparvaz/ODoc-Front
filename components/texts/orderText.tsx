@@ -7,6 +7,8 @@ export const orderText = {
   description: 'توضیحات',
   selectInsuranceType: 'نوع بیمه را وارد کنید',
   orderConfirmationQuestion: 'آیا از ثبت سفارش با اطلاعات زیر اطمینان دارید؟',
+  orderCancelConfirmationQuestion: 'آیا از لغو سفارش {orderCode} اطمینان دارید؟',
+  orderCancelation: 'لغو سفارش',
   familyMembers: 'افراد تحت تکفل',
   failurePaymentText: 'پرداخت شما با خطا مواجه شد',
   successPaymentText: 'پرداخت شما با موفقیت انجام شد',
