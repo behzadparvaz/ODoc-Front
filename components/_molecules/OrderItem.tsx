@@ -65,6 +65,25 @@ const OrderItem = ({
           توضیحات مسئول فنی(کلیک کنید)
         </p>
       )}
+      <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
+        <div>تاریخ ثبت</div>
+        <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
+      </div>
+      <div className="w-full flex flex-col gap-y-3 py-2 px-4">
+        <div>کد سفارش:{data.referenceNumber}</div>
+        <div>کد رهگیری:{data.orderCode}</div>
+        <div>نام صاحب نسخه:{data.customer?.name}</div>
+      </div>
+      <div className="flex items-center justify-between py-2 px-4">
+        <div className="flex items-center">
+          وضعیت سفارش:
+          <p
+            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 ? 'text-red-600' : 'text-teal-600'} mr-1`}
+          >
+            {getOrderStatusMessage(data.orderStatus?.id)}
+          </p>
+        </div>
+      </div>
       {data?.orderStatus?.id === 2 && (
         <div className="flex items-center justify-between py-2 px-4">
           <div className="flex items-center">

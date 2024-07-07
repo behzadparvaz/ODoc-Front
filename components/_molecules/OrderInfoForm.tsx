@@ -11,10 +11,12 @@ import useModal from '@hooks/useModal';
 import { OrderRegistrationSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import classNames from 'classnames';
+import { Profile } from '@utilities/interfaces/user';
 
 interface Props {
   handleNextStep?: (step, value) => void;
-  userInfo: any;
+  userInfo: Profile;
 }
 
 const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
@@ -29,6 +31,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     customerName: null,
     doctorName: null,
     comment: null,
+    isSpecialPatient: false,
     insuranceTypeId: 1,
   });
   const [selectedReceiver, setSelectedReceiver] = useState({
@@ -63,6 +66,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         customerName: selectedReceiver?.customerName,
         doctorName: value?.doctorName,
         comment: value?.comment,
+        isSpecialPatient: value?.isSpecialPatient,
         insuranceTypeId: Number(value?.insuranceTypeId),
       };
       handleNextStep(2, body);
@@ -107,10 +111,10 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
         onChange={formik.handleChange}
       >
-        {insurances?.map((item, index) => {          
+        {insurances?.map((item, index) => {
           return (
             <>
-              <option value={item?.id} key={index} selected={index === 0 ? true : false}>
+              <option value={item?.id} key={index} selected={index === 0}>
                 {item?.name}
               </option>
             </>
@@ -128,11 +132,12 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         value={formik.values.comment}
         onChange={formik.handleChange}
       />
-      <p className="text-grey-800 font-semibold text-sm mt-4">تحویل گیرنده</p>
+      <p className="text-grey-800 font-semibold text-sm mt-4">صاحب نسخه</p>
       <div
         className={`flex flex-col border rounded-xl p-4 mt-3 ${selectUser ? 'border-teal-600' : 'border-grey-100'}`}
         onClick={() => {
-          setSelectFamilyPerson(false), setSelectUser(true);
+          setSelectFamilyPerson(false);
+          setSelectUser(true);
         }}
       >
         <p className="text-base text-grey-800 border-b border-grey-100 pr-2 pb-3">
@@ -141,12 +146,12 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         <CheckBox
           handleChange={formik.handleChange}
           onClick={() => {
-            setSelectFamilyPerson(false),
-              setSelectUser(true),
-              setSelectedReceiver({
-                nationalCode: userInfo?.nationalCode,
-                customerName: `${userInfo?.firstName} ${userInfo?.lastName}`,
-              });
+            setSelectFamilyPerson(false);
+            setSelectUser(true);
+            setSelectedReceiver({
+              nationalCode: userInfo?.nationalCode,
+              customerName: `${userInfo?.firstName} ${userInfo?.lastName}`,
+            });
           }}
           label={`${userInfo?.firstName} ${userInfo?.lastName}`}
           labelClassName="typo-body-6 mr-6 font-normal text-grey-700"
@@ -169,10 +174,11 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       <div
         className={`flex flex-col border rounded-xl p-4 mt-3  ${selectFamilyPerson ? 'border-teal-600' : 'border-grey-100'}`}
         onClick={() => {
-          setSelectFamilyPerson(true), setSelectUser(false);
+          setSelectFamilyPerson(true);
+          setSelectUser(false);
         }}
       >
-        <div className="flex justify-between items-center border-b border-grey-100 pr-2 pb-3">
+        <div className={classNames("flex justify-between items-center pr-2", familyMembers.length && 'border-b border-grey-100 pb-3')}>
           <p className="text-base text-grey-800">سفارش برای افراد تحت تکفل</p>
           <Button
             size="small"
@@ -196,12 +202,12 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
               <CheckBox
                 handleChange={formik.handleChange}
                 onClick={() => {
-                  setSelectFamilyPerson(true),
-                    setSelectUser(false),
-                    setSelectedReceiver({
-                      nationalCode: item?.nationalCode,
-                      customerName: `${item?.fisrtname} ${item?.lastName}`,
-                    });
+                  setSelectFamilyPerson(true);
+                  setSelectUser(false);
+                  setSelectedReceiver({
+                    nationalCode: item?.nationalCode,
+                    customerName: `${item?.fisrtname} ${item?.lastName}`,
+                  });
                 }}
                 label={`${item?.fisrtname} ${item?.lastName}`}
                 labelClassName="typo-body-6 mr-6 font-normal text-grey-700"
@@ -234,6 +240,29 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           نمایش بیشتر
         </p>}
       </div>
+
+      <div>
+        <CheckBox
+          handleChange={formik.handleChange}
+          onClick={() => {}}
+          label="نسخه بیماری خاص"
+          labelClassName="text-sm mr-6 font-normal text-grey-700"
+          name="isSpecialPatient"
+          icon={
+            <TickIcon
+              width={15}
+              height={15}
+              stroke={colors.white}
+              className="mx-auto mt-[1px]"
+            />
+          }
+          checkedClassName="!bg-grey-500"
+          boxClassName="w-4 h-4 rounded-full border-grey-800"
+          checked={formik.values.isSpecialPatient}
+          className="w-full mt-5 z-0"
+        />
+      </div>
+
       <div className="w-full flex justify-end mt-10">
         <Button
           type="submit"

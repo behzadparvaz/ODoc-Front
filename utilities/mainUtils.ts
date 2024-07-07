@@ -1,5 +1,5 @@
 import * as shamsi from 'shamsi-date-converter';
-import moment from 'moment-jalaali';
+import moment from 'jalali-moment';
 
 export const convertPersianNumbersToEnglishNumbers = (persianNumbers) => {
   const persianNumbersString =
