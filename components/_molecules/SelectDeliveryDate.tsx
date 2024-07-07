@@ -21,7 +21,7 @@ const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
 
 
   return <Box>
-    <div className="text-sm mb-2">انتخاب زمان</div>
+    <div className="text-sm mb-2">زمان تحویل</div>
 
     {makeDates.map(item =>
       <div
