@@ -25,7 +25,7 @@ const OrderItem = ({ data, handleClikOnPaymentButton, className = '' }: Props) =
             <div className="w-full flex flex-col gap-y-3 py-2 px-4">
                 <div>کد سفارش:{data.referenceNumber}</div>
                 <div>کد رهگیری:{data.orderCode}</div>
-                <div>نام ثبت کننده:{data.customer?.name}</div>
+                <div>نام صاحب نسخه:{data.customer?.name}</div>
             </div>
             <div className="flex items-center justify-between py-2 px-4">
                 <div className="flex items-center">

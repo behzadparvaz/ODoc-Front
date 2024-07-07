@@ -132,7 +132,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         value={formik.values.comment}
         onChange={formik.handleChange}
       />
-      <p className="text-grey-800 font-semibold text-sm mt-4">تحویل گیرنده</p>
+      <p className="text-grey-800 font-semibold text-sm mt-4">صاحب نسخه</p>
       <div
         className={`flex flex-col border rounded-xl p-4 mt-3 ${selectUser ? 'border-teal-600' : 'border-grey-100'}`}
         onClick={() => {
