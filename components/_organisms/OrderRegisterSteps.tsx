@@ -13,6 +13,7 @@ const OrderRegisterSteps = ({ data,className='' }) => {
     doctorName: null,
     comment: null,
     insuranceTypeId: 0,
+    isSpecialPatient: false,
   });
   const [state, setState] = useState({
     referenceNumber: null,
@@ -61,6 +62,7 @@ const OrderRegisterSteps = ({ data,className='' }) => {
                   doctorName: value?.doctorName,
                   comment: value?.comment,
                   insuranceTypeId: Number(value?.insuranceTypeId),
+                  isSpecialPatient: value?.isSpecialPatient,
                 });
                 setStep(step);
                 setState({ ...state, referenceNumber: String(value?.referenceNumber) });

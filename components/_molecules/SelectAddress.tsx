@@ -55,6 +55,7 @@ const SelectAddress = ({ stepOneValue }: Props) => {
       customerName: stepOneValue?.customerName,
       doctorName: stepOneValue?.doctorName,
       comment: stepOneValue?.comment,
+      isSpecialPatient: stepOneValue?.isSpecialPatient,
       insuranceTypeId: Number(stepOneValue?.insuranceTypeId),
       latitude: addressSelected?.latitude,
       longitude: addressSelected?.longitude,
