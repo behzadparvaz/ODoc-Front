@@ -44,3 +44,7 @@ export const getTime = (time: string) => {
   const formattedTime = time ? moment(time).format('HH:mm') : null;
   return formattedTime;
 };
+
+export const formattingDate = (date: Date) => {
+  return moment(date).format('jYYYY/jMM/jDD')
+}

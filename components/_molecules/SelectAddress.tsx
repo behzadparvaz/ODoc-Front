@@ -1,121 +1,75 @@
-import { useGetUserLocations } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
-import Spinner from '@com/_atoms/Spinner';
 import AddressList from '@com/_organisms/AddressList';
-import OrderRegisterConfirmationBottomSheet from '@com/_organisms/OrderRegisterConfirmationBottomSheet';
 import ParsiMapBottomSheet from '@com/_organisms/ParsiMapBottomSheet';
 import useModal from '@hooks/useModal';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { RootState } from '@utilities/types';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import Box from '@com/_atoms/Box';
+import { useGetUserLocations } from '@api/user/user.rq';
+import Spinner from '@com/_atoms/Spinner';
 
 interface Props {
-  stepOneValue: any;
+  setAddressSelected: (data: any) => void;
 }
 
-const SelectAddress = ({ stepOneValue }: Props) => {
+const SelectAddress = ({ setAddressSelected }: Props) => {
   const { addModal } = useModal();
-  const [addressSelected, setAddressSelected] = useState(null);
   const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
   const dispatch = useDispatch();
+  const { data: addressData, isLoading } = useGetUserLocations();
+
   const handleClickOpenModal = () => {
     dispatch(
-      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false }),
+      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false })
     );
     addModal({
       modal: ParsiMapBottomSheet,
       props: {
         latitude: defaultViewPort.latitude,
         longitude: defaultViewPort.longitude,
-        addressId: 0,
-      },
+        addressId: 0
+      }
     });
   };
-  const { data: addressData, isLoading } = useGetUserLocations();
+
   const addressItem: any = addressData;
-  const [state] = useState({
-    referenceNumber: null,
-    latitude: null,
-    longitude: null,
-    vendorSelects: [],
-    nationalCode: null,
-    customerName: null,
-    valueAddress: null,
-    titleAddress: null,
-    houseNumber: null,
-    homeUnit: null,
-  });
-  useState<boolean>(false);
-  const handleRegisterOrder = () => {
-    const body = {
-      ...state,
-      referenceNumber: String(stepOneValue?.referenceNumber),
-      nationalCode: stepOneValue?.nationalCode,
-      customerName: stepOneValue?.customerName,
-      doctorName: stepOneValue?.doctorName,
-      comment: stepOneValue?.comment,
-      isSpecialPatient: stepOneValue?.isSpecialPatient,
-      insuranceTypeId: Number(stepOneValue?.insuranceTypeId),
-      latitude: addressSelected?.latitude,
-      longitude: addressSelected?.longitude,
-      valueAddress: addressSelected?.description,
-      titleAddress: addressSelected?.name,
-      houseNumber: addressSelected?.houseNumber,
-      homeUnit: addressSelected?.homeUnit,
-    };
-    addModal({
-      modal: OrderRegisterConfirmationBottomSheet,
-      props: {
-        data: body,
-      },
-    });
-  };
 
   return (
-    <>
-      <div className="w-full">
-        {isLoading === false ? (
-          <>
-            {!addressItem?.length ? (
-              <div className="text-red text-sm text-red-600 text-center py-8">
-                در حال حاضر آدرسی برای شما ثبت نشده است
-              </div>
-            ) : null}
-
-            {addressItem?.length ? (
-              <AddressList
-                inOrderPage={true}
-                handleClickItem={(addressData) =>
-                  setAddressSelected(addressData)
-                }
-                data={addressItem}
-              />
-            ) : null}
-          </>
-        ) :
-          <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
-      </div>
-      <div className="w-full flex justify-between mt-5">
+    <Box>
+      <div className="flex items-center justify-between mb-2">
+        <span className="text-sm">انتخاب آدرس</span>
         <Button
           handleClick={() => handleClickOpenModal()}
-          size="large"
+          size="small"
+          className="text-xs"
           buttonType="contained"
           variant={'primary'}
         >
-          افزودن آدرس
-        </Button>
-        <Button
-          size="large"
-          disabled={addressSelected ? false : true}
-          buttonType="contained"
-          handleClick={() => handleRegisterOrder()}
-          variant="primary"
-        >
-          ثبت سفارش
+          افزودن
         </Button>
       </div>
-    </>
+
+
+      {isLoading
+        ? <Spinner className="h-28 -my-0.5 w-full flex justify-center items-center"/>
+        : <>
+          {addressItem?.length ?
+            <AddressList
+              inOrderPage={true}
+              handleClickItem={(addressData) =>
+                setAddressSelected(addressData)
+              }
+              data={addressItem}
+            /> :
+            (
+              <div className="text-red text-sm text-red-600 text-center py-11">
+                در حال حاضر آدرسی برای شما ثبت نشده است
+              </div>
+            )}
+        </>
+      }
+    </Box>
   );
 };
 export default SelectAddress;
