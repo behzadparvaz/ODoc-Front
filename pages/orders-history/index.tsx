@@ -26,7 +26,7 @@ const OrderHistory = () => {
 
   return (
     <MainLayout headerChildren={headerChildrenElement} title="تاریخچه سفارش ها">
-      {isLoading === false ? <div className="w-full px-6 pb-8 relative pt-8">
+      {isLoading === false ? <div className="w-full px-6 pb-8 relative pt-10">
         {orderHistoryData?.map((item) => {
           return (
             <OrderItem key={item?.id} handleClikOnPaymentButton={() => handleClikOnPaymentButton(item?.orderCode, item?.finalPrice)} data={item} />

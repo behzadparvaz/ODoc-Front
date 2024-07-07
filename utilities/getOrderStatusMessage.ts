@@ -6,6 +6,8 @@ export const getOrderStatusMessage = (statusId) => {
       return 'در انتظار پرداخت';
     case 3:
       return 'در حال جمع‌آوری نسخه';
+    case 4:
+      return 'مغایرت محصول';
     case 5:
       return 'اتمام جمع‌آوری';
     case 6:
@@ -18,6 +20,10 @@ export const getOrderStatusMessage = (statusId) => {
       return 'مرجوع شده';
     case 10:
       return 'کنسل شده';
+    case 11:
+      return 'کنسل شد توسط داروخانه';
+    case 12:
+      return 'کنسل شد توسط مشتری';
     default:
       return '';
   }
