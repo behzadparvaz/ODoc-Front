@@ -25,6 +25,7 @@ const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
 
     {makeDates.map(item =>
       <div
+        key={item.value}
         className={classNames(
           'w-full bg-grey-50 bg-opacity-30 text-sm rounded-md border border-grey-200 my-2 py-2 px-2 transition-all duration-300 leading-5',
           deliveryDate === item.value && 'border-teal-600 bg-teal-100'
