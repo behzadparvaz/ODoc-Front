@@ -34,37 +34,7 @@ const OrderItem = ({
 
   return (
     <div
-      className={`w-full border overflow-hidden mb-4 border-grey-200 rounded-lg ${className}`}
-    >
-      <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
-        <div>تاریخ ثبت</div>
-        <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
-      </div>
-      <div className="w-full flex flex-col gap-y-3 py-2 px-4">
-        <div>کد سفارش:{data.referenceNumber}</div>
-        <div>کد رهگیری:{data.orderCode}</div>
-        <div>نام ثبت کننده:{data.customer?.name}</div>
-      </div>
-      <div className="flex items-center justify-between py-2 px-4">
-        <div className="flex items-center">
-          وضعیت سفارش:
-          <p
-            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 ? 'text-red-600' : 'text-teal-600'} mr-1`}
-          >
-            {getOrderStatusMessage(data.orderStatus?.id)}
-          </p>
-        </div>
-      </div>
-      {data?.orderStatus?.id === 4 && (
-        <p
-          className="flex items-center text-teal-600 cursor-pointer select-none py-2 px-4"
-          onClick={() =>
-            handleClickOnCommentBottomSheet(data?.alternative?.comment)
-          }
-        >
-          توضیحات مسئول فنی(کلیک کنید)
-        </p>
-      )}
+      className={`w-full border overflow-hidden mb-4 border-grey-200 rounded-lg ${className}`}>
       <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
         <div>تاریخ ثبت</div>
         <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
@@ -84,6 +54,16 @@ const OrderItem = ({
           </p>
         </div>
       </div>
+      {data?.orderStatus?.id === 0 && (
+        <p
+          className="flex items-center text-teal-600 cursor-pointer select-none py-2 px-4"
+          onClick={() =>
+            handleClickOnCommentBottomSheet(data?.alternative?.comment)
+          }
+        >
+          توضیحات مسئول فنی(کلیک کنید)
+        </p>
+      )}
       {data?.orderStatus?.id === 2 && (
         <div className="flex items-center justify-between py-2 px-4">
           <div className="flex items-center">
@@ -96,7 +76,7 @@ const OrderItem = ({
       )}
       {data?.orderStatus?.id === 2 ||
         (data?.orderStatus?.id === 0 && (
-          <div className="flex px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50">
+          <div className={`flex justify-end px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50`}>
             {data?.orderStatus?.id === 2 && (
               <Button
                 className="flex-1"
@@ -109,7 +89,7 @@ const OrderItem = ({
               </Button>
             )}
             <Button
-              className="flex-1 bg-red-200 text-red-700"
+              className={`${data?.orderStatus?.id===0?'':'flex-1'} bg-red-200 text-red-700`}
               size="large"
               buttonType="contained"
               handleClick={() =>
