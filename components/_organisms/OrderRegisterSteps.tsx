@@ -1,7 +1,7 @@
 import OrderInfoForm from '@com/_molecules/OrderInfoForm';
-import SelectAddress from '@com/_molecules/SelectAddress';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
+import AddressAndDeliveryDate from '@com/_organisms/AddressAndDeliveryDate';
 
 const OrderRegisterSteps = ({ data,className='' }) => {
   const userInfo = data?.queryResult[0];
@@ -36,7 +36,7 @@ const OrderRegisterSteps = ({ data,className='' }) => {
       step: 1,
     },
     {
-      title: 'انتخاب آدرس',
+      title: 'ثبت سفارش',
       step: 2,
     },
   ];
@@ -71,7 +71,7 @@ const OrderRegisterSteps = ({ data,className='' }) => {
             />
           )}
           {step === 2 && (
-            <SelectAddress stepOneValue={stepOneValue} />
+            <AddressAndDeliveryDate stepOneValue={stepOneValue} />
           )}
         </div>
       ) : (
