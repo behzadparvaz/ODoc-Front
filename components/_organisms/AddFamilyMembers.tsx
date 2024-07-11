@@ -1,4 +1,4 @@
-import { useAddFamilyMembers } from '@api/user/user.rq';
+import { useAddFamilyMembers, useGetProfileRelation } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Input from '@com/_atoms/Input.nd';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
@@ -8,6 +8,7 @@ import useModal from '@hooks/useModal';
 import { addFamilyMemberSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
 import { useState } from 'react';
+import Select from '@com/_atoms/Select';
 
 export default function AddFamilyMembers({ data }) {
   const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers();
@@ -18,32 +19,36 @@ export default function AddFamilyMembers({ data }) {
       LastName: item?.lastName,
       NationlaCode: item?.nationalCode,
       PhoneNumber: item?.phoneNumber,
+      relation: item?.relation
     });
   });
+
+  const { data: relations } = useGetProfileRelation();
   const { removeLastModal } = useModal();
   const [initialValues] = useState({
     FirstName: '',
     LastName: '',
     NationlaCode: '',
     PhoneNumber: '',
+    relation: null
   });
   const formik = useFormik({
     initialValues,
     validationSchema: addFamilyMemberSchema,
     onSubmit: (values) => {
       const body = {
-        FamilyModels: [...familyArr, values],
+        FamilyModels: [...familyArr, values]
       };
       mutateAddFamilyMembers(body, {
         onSuccess: () => {
           removeLastModal();
-        },
+        }
       });
-    },
+    }
   });
   return (
     <BottomModalContainer
-      height={'500px'}
+      height={'560px'}
       hasCloseButton={true}
       title={generalTexts?.add}
     >
@@ -51,6 +56,12 @@ export default function AddFamilyMembers({ data }) {
         onSubmit={formik.handleSubmit}
         className="flex gap-y-4 pt-6 flex-col"
       >
+        <Select name="relation"
+                labelClassName="font-normal text-sm"
+                selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+                options={relations} label={'نسبت'} onChange={formik.handleChange}
+                value={formik?.values?.relation}
+        />
         <Input
           placeholder={profileText?.firstName}
           label={profileText?.firstName}
@@ -103,7 +114,7 @@ export default function AddFamilyMembers({ data }) {
           inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
           id="PhoneNumber"
           name="PhoneNumber"
-          type="strin"
+          type="string"
           value={formik.values.PhoneNumber}
           onChange={formik?.handleChange}
           isTouched={

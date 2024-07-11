@@ -15,3 +15,8 @@ export interface Profile extends Person{
   modifiedDateTime: string
   phoneNumber: string
 }
+
+export interface Relation {
+  name: string;
+  id: number
+}

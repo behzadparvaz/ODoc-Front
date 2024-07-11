@@ -8,3 +8,4 @@ export const AddProfileInfo = async (body) => await request.post(`/Profile/AddPr
 export const UpdateProfileInfo = async (body) => await request.post(`/Profile/UpdateProfile`, body);
 export const AddFamilyMembers = async (body) => await request.post(`/Profile/AddFamilyMembers`, body);
 export const UserSetPassword = async (body) => await request.put(`/user/SetPassword`, body);
+export const GetProfileRelation = (): Promise<any> => request.get(`/Profile/GetRelation`);

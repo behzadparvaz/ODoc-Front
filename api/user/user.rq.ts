@@ -1,9 +1,20 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AddFamilyMembers, AddLocation, AddProfileInfo, DeleteUserLocations, GetProfile, GetUserLocations, UpdateProfileInfo, UserSetPassword } from "./user";
+import { useMutation, useQuery, useQueryClient, UseQueryResult } from "react-query";
+import {
+  AddFamilyMembers,
+  AddLocation,
+  AddProfileInfo,
+  DeleteUserLocations,
+  GetProfile,
+  GetProfileRelation,
+  GetUserLocations,
+  UpdateProfileInfo,
+  UserSetPassword
+} from "./user";
 import useNotification from "@hooks/useNotification";
 import useModal from "@hooks/useModal";
 import { selectStoreTexts } from "@com/texts/selectStoreTexts";
 import { useRouter } from "next/router";
+import { Relation } from '@utilities/interfaces/user';
 
 export const useAddLocation = () => {
   const { openNotification } = useNotification()
@@ -61,6 +72,15 @@ export const useGetProfile = () => {
   const { data, isLoading } = useQuery(
     ['getProfile'],
     () => GetProfile(),
+  );
+
+  return { data, isLoading };
+};
+
+export const useGetProfileRelation = () => {
+  const { data, isLoading } = useQuery<Relation[], unknown>(
+    ['getProfileRelation'],
+    () => GetProfileRelation(),
   );
 
   return { data, isLoading };
