@@ -34,7 +34,8 @@ const OrderItem = ({
 
   return (
     <div
-      className={`w-full border overflow-hidden mb-4 border-grey-200 rounded-lg ${className}`}>
+      className={`w-full border overflow-hidden mb-4 border-grey-200 rounded-lg ${className}`}
+    >
       <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
         <div>تاریخ ثبت</div>
         <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
@@ -74,37 +75,38 @@ const OrderItem = ({
           </div>
         </div>
       )}
-      {data?.orderStatus?.id === 2 ||
-        (data?.orderStatus?.id === 0 && (
-          <div className={`flex justify-end px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50`}>
-            {data?.orderStatus?.id === 2 && (
-              <Button
-                className="flex-1"
-                size="large"
-                buttonType="contained"
-                handleClick={() => handleClikOnPaymentButton()}
-                variant={'primary'}
-              >
-                پرداخت
-              </Button>
-            )}
+      {(data?.orderStatus?.id === 2 || data?.orderStatus?.id === 0) && (
+        <div
+          className={`flex justify-end px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50`}
+        >
+          {data?.orderStatus?.id === 2 && (
             <Button
-              className={`${data?.orderStatus?.id===0?'':'flex-1'} bg-red-200 text-red-700`}
+              className="flex-1"
               size="large"
               buttonType="contained"
-              handleClick={() =>
-                addModal({
-                  modal: OrderCancelConfirmationBottomSheet,
-                  props: {
-                    orderCode: data?.referenceNumber,
-                  },
-                })
-              }
+              handleClick={() => handleClikOnPaymentButton()}
+              variant={'primary'}
             >
-              {orderText?.orderCancelation}
+              پرداخت
             </Button>
-          </div>
-        ))}
+          )}
+          <Button
+            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700`}
+            size="large"
+            buttonType="contained"
+            handleClick={() =>
+              addModal({
+                modal: OrderCancelConfirmationBottomSheet,
+                props: {
+                  orderCode: data?.referenceNumber,
+                },
+              })
+            }
+          >
+            {orderText?.orderCancelation}
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
