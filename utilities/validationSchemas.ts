@@ -20,6 +20,7 @@ export const addFamilyMemberSchema = Yup.object().shape({
     .min(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .max(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .required('شماره تماس وارد شده صحیح نمی‌باشد!'),
+  dateOfBirth: Yup.string().required('تاریخ تولد الزامی می باشد!')
 });
 export const loginWithPassword = Yup.object().shape({
   password: Yup.string().required('این فیلد الزامی است'),

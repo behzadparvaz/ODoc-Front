@@ -9,6 +9,8 @@ import { addFamilyMemberSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import Select from '@com/_atoms/Select';
+import Calender from '@com/_atoms/Calender';
+import { formattingDate } from '@utilities/mainUtils';
 
 export default function AddFamilyMembers({ data }) {
   const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers();
@@ -19,7 +21,8 @@ export default function AddFamilyMembers({ data }) {
       LastName: item?.lastName,
       NationlaCode: item?.nationalCode,
       PhoneNumber: item?.phoneNumber,
-      relation: item?.relation
+      relation: item?.relation,
+      dateOfBirth: item?.dateOfBirth
     });
   });
 
@@ -30,14 +33,18 @@ export default function AddFamilyMembers({ data }) {
     LastName: '',
     NationlaCode: '',
     PhoneNumber: '',
-    relation: null
+    relation: 1,
+    dateOfBirth: null
   });
   const formik = useFormik({
     initialValues,
     validationSchema: addFamilyMemberSchema,
     onSubmit: (values) => {
       const body = {
-        FamilyModels: [...familyArr, values]
+        FamilyModels: [...familyArr, {
+          ...values,
+          dateOfBirth: values?.dateOfBirth ? formattingDate(new Date(values?.dateOfBirth)) : null
+        }]
       };
       mutateAddFamilyMembers(body, {
         onSuccess: () => {
@@ -61,6 +68,7 @@ export default function AddFamilyMembers({ data }) {
                 selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
                 options={relations} label={'نسبت'} onChange={formik.handleChange}
                 value={formik?.values?.relation}
+                errorMessage={formik.errors.relation}
         />
         <Input
           placeholder={profileText?.firstName}
@@ -122,6 +130,15 @@ export default function AddFamilyMembers({ data }) {
           }
           errorMessage={formik.errors.PhoneNumber}
         />
+        <Calender
+          labelClassName="font-normal text-sm"
+          label={'تاریخ تولد'}
+          name={'dateOfBirth'}
+          value={formik?.values.dateOfBirth}
+          errorMessage={formik.errors.dateOfBirth}
+          onChange={(val) => {
+            formik?.setValues({ ...formik?.values, dateOfBirth: val })
+          }}/>
         <Button
           type="submit"
           className="w-full mt-3"

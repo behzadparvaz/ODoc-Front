@@ -21,3 +21,7 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.rmdp-calendar-container-mobile {
+  z-index: 9999 !important;
+}

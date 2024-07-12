@@ -15,7 +15,7 @@ type SelectProps = {
   className?: string
   selectClassName?: string
   required?: boolean
-  errorMessage?: string
+  errorMessage?: any
 }
 
 const Select: React.FC<SelectProps> = ({
