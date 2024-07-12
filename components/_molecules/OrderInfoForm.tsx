@@ -13,6 +13,7 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import classNames from 'classnames';
 import { Profile } from '@utilities/interfaces/user';
+import useNotification from '@hooks/useNotification';
 
 interface Props {
   handleNextStep?: (step, value) => void;
@@ -24,9 +25,10 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
   const [selectFamilyPerson, setSelectFamilyPerson] = useState<boolean>(false);
   const [selectUser, setSelectUser] = useState<boolean>(false);
+  const { openNotification } = useNotification()
   const familyMembers = userInfo?.familyMembers;
   const [initialValues] = useState({
-    referenceNumber: null,
+    referenceNumber: '',
     nationalCode: null,
     customerName: null,
     doctorName: null,
@@ -69,7 +71,16 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         isSpecialPatient: value?.isSpecialPatient,
         insuranceTypeId: Number(value?.insuranceTypeId),
       };
-      handleNextStep(2, body);
+      if (selectedReceiver?.nationalCode) {
+        handleNextStep(2, body);
+      }
+      else {
+        openNotification({
+          type: 'error',
+          message: 'صاحب نسخه را مشخص کنید',
+          notifType: 'successOrFailedMessage',
+        });
+      }
     },
   });
 
@@ -132,7 +143,10 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         value={formik.values.comment}
         onChange={formik.handleChange}
       />
-      <p className="text-grey-800 font-semibold text-sm mt-4">صاحب نسخه</p>
+      <p className="text-grey-800 font-semibold text-sm mt-4">صاحب نسخه
+      
+      <span className='text-red-600'>*</span>
+      </p>
       <div
         className={`flex flex-col border rounded-xl p-4 mt-3 ${selectUser ? 'border-teal-600' : 'border-grey-100'}`}
         onClick={() => {

@@ -3,7 +3,7 @@ import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
 import AddressAndDeliveryDate from '@com/_organisms/AddressAndDeliveryDate';
 
-const OrderRegisterSteps = ({ data,className='' }) => {
+const OrderRegisterSteps = ({ data, className = '' }) => {
   const userInfo = data?.queryResult[0];
   const [step, setStep] = useState(1);
   const [stepOneValue, setStepOneValue] = useState({
@@ -42,9 +42,9 @@ const OrderRegisterSteps = ({ data,className='' }) => {
   ];
 
   return (
-    <div className='relative'>
+    <div className={`relative ${className}`}>
       <StepProgressBar
-      className='sticky top-0 inset-x-0 bg-white'
+        className='sticky top-0 inset-x-0 bg-white'
         currentStep={step}
         handleChangeStep={(step: number) => setStep(step)}
         activeItem={step}
