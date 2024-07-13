@@ -7,10 +7,13 @@ import { profileText } from '@com/texts/profileText';
 import useModal from '@hooks/useModal';
 import { addFamilyMemberSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Select from '@com/_atoms/Select';
 import Calender from '@com/_atoms/Calender';
 import { formattingDate } from '@utilities/mainUtils';
+import { TickIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
+import CheckBox from '@com/_atoms/CheckBox.nd';
 
 export default function AddFamilyMembers({ data }) {
   const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers();
@@ -21,8 +24,9 @@ export default function AddFamilyMembers({ data }) {
       LastName: item?.lastName,
       NationlaCode: item?.nationalCode,
       PhoneNumber: item?.phoneNumber,
-      relation: item?.relation,
-      dateOfBirth: item?.dateOfBirth
+      relation: item?.relation?.id,
+      dateOfBirth: item?.dateOfBirth,
+      gender: item?.gender?.id
     });
   });
 
@@ -34,7 +38,8 @@ export default function AddFamilyMembers({ data }) {
     NationlaCode: '',
     PhoneNumber: '',
     relation: 1,
-    dateOfBirth: null
+    dateOfBirth: null,
+    gender: 1
   });
   const formik = useFormik({
     initialValues,
@@ -63,13 +68,49 @@ export default function AddFamilyMembers({ data }) {
         onSubmit={formik.handleSubmit}
         className="flex gap-y-4 pt-6 flex-col"
       >
-        <Select name="relation"
-                labelClassName="font-normal text-sm"
-                selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-                options={relations} label={'نسبت'} onChange={formik.handleChange}
-                value={formik?.values?.relation}
-                errorMessage={formik.errors.relation}
-        />
+        <div>
+          <label className={`text-grey-800 mb-2 font-normal text-sm`}>
+            جنسیت
+          </label>
+          <div className="flex">
+            <CheckBox
+              handleChange={() => formik?.setValues({ ...formik?.values, gender: 1 }, false)}
+              label={`مرد`}
+              labelClassName="text-sm mr-6 font-normal text-grey-700"
+              name="gender"
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              checkedClassName="!bg-grey-500"
+              boxClassName="w-4 h-4 rounded-full border-grey-800"
+              checked={formik?.values.gender === 1}
+              className="w-full mt-3 z-0"
+            />
+            <CheckBox
+              handleChange={() => formik?.setValues({ ...formik?.values, gender: 2 }, false)}
+              label={`زن`}
+              labelClassName="text-sm mr-6 font-normal text-grey-700"
+              name="gender"
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              checkedClassName="!bg-grey-500"
+              boxClassName="w-4 h-4 rounded-full border-grey-800"
+              checked={formik?.values.gender === 2}
+              className="w-full mt-3 z-0"
+            />
+          </div>
+        </div>
         <Input
           placeholder={profileText?.firstName}
           label={profileText?.firstName}
@@ -97,6 +138,15 @@ export default function AddFamilyMembers({ data }) {
           onChange={formik?.handleChange}
           isTouched={formik.touched.LastName && Boolean(formik.errors.LastName)}
           errorMessage={formik.errors.LastName}
+        />
+        <Select name="relation"
+                labelClassName="font-normal text-sm"
+                selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+                options={relations}
+                label={'نسبت'}
+                onChange={formik.handleChange}
+                value={formik?.values?.relation}
+                errorMessage={formik.errors.relation}
         />
         <Input
           placeholder={profileText?.nationalCode}
@@ -137,7 +187,7 @@ export default function AddFamilyMembers({ data }) {
           value={formik?.values.dateOfBirth}
           errorMessage={formik.errors.dateOfBirth}
           onChange={(val) => {
-            formik?.setValues({ ...formik?.values, dateOfBirth: val })
+            formik?.setValues({ ...formik?.values, dateOfBirth: val }, false);
           }}/>
         <Button
           type="submit"
