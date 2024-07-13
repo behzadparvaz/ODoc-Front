@@ -2,18 +2,15 @@ import { useGetInsurances } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
-import AddFamilyMembers from '@com/_organisms/AddFamilyMembers';
-import SeeAllFamilyMembersBottomSheet from '@com/_organisms/SeeAllFamilyMembersBottomSheet';
 import { TickIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
-import useModal from '@hooks/useModal';
 import { OrderRegistrationSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
-import { useState } from 'react';
-import classNames from 'classnames';
+import { useMemo, useState } from 'react';
 import { Profile } from '@utilities/interfaces/user';
 import useNotification from '@hooks/useNotification';
+import Select from '@com/_atoms/Select';
 
 interface Props {
   handleNextStep?: (step, value) => void;
@@ -21,12 +18,22 @@ interface Props {
 }
 
 const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
-  const { addModal } = useModal();
   const { data: insurances } = useGetInsurances();
-  const [selectFamilyPerson, setSelectFamilyPerson] = useState<boolean>(false);
-  const [selectUser, setSelectUser] = useState<boolean>(false);
-  const { openNotification } = useNotification()
+  const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
+
+  const optionsForCustomer = useMemo(() => {
+    const customerList = [{ ...userInfo, relation: 'خودم' }];
+    if (familyMembers.length > 0) {
+      familyMembers.forEach((item: any) =>
+        !customerList.map(customer => customer.nationalCode).includes(item.nationalCode)
+        && customerList.push({ ...item, firstName: item.fisrtname, relation: item?.relation.name } as any)
+      );
+    }
+
+    return customerList.map(item => ({ name: `${item?.firstName} ${item?.lastName} (${item?.relation})`, id: item?.nationalCode }));
+  }, [familyMembers, userInfo]);
+
   const [initialValues] = useState({
     referenceNumber: '',
     nationalCode: null,
@@ -34,58 +41,45 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     doctorName: null,
     comment: null,
     isSpecialPatient: false,
-    insuranceTypeId: 1,
+    insuranceTypeId: 1
   });
-  const [selectedReceiver, setSelectedReceiver] = useState({
-    nationalCode: null,
-    customerName: null,
-  });
-  const handleSelectFamilyMember = (item) => {
-    setSelectFamilyPerson(true);
-    setSelectUser(false);
-    setSelectedReceiver({
-      nationalCode: item?.nationalCode,
-      customerName: `${item?.fisrtname} ${item?.lastName}`,
-    });
-  };
 
-  const handleClickOnSeeMore = () => {
-    addModal({
-      modal: SeeAllFamilyMembersBottomSheet,
-      props: {
-        data: familyMembers,
-        handleSelectFamilyMember
-      },
-    });
-  };
   const formik = useFormik({
     initialValues,
     validationSchema: OrderRegistrationSchema,
     onSubmit: (value) => {
       const body = {
         referenceNumber: value?.referenceNumber,
-        nationalCode: selectedReceiver?.nationalCode,
-        customerName: selectedReceiver?.customerName,
+        nationalCode: value?.nationalCode,
+        customerName: optionsForCustomer.find(item => item.id === value?.nationalCode).name,
         doctorName: value?.doctorName,
         comment: value?.comment,
         isSpecialPatient: value?.isSpecialPatient,
-        insuranceTypeId: Number(value?.insuranceTypeId),
+        insuranceTypeId: Number(value?.insuranceTypeId)
       };
-      if (selectedReceiver?.nationalCode) {
+      if (value?.nationalCode) {
         handleNextStep(2, body);
-      }
-      else {
+      } else {
         openNotification({
           type: 'error',
           message: 'صاحب نسخه را مشخص کنید',
-          notifType: 'successOrFailedMessage',
+          notifType: 'successOrFailedMessage'
         });
       }
-    },
+    }
   });
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
+      <Select options={optionsForCustomer}
+              selectClassName='px-4'
+              className='pb-4'
+              name="nationalCode"
+              label="صاحب نسخه"
+              labelClassName="font-semibold text-sm"
+              onChange={formik.handleChange}
+              value={formik.values.nationalCode}/>
+
       <Input
         required
         type="number"
@@ -143,122 +137,12 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         value={formik.values.comment}
         onChange={formik.handleChange}
       />
-      <p className="text-grey-800 font-semibold text-sm mt-4">صاحب نسخه
-      
-      <span className='text-red-600'>*</span>
-      </p>
-      <div
-        className={`flex flex-col border rounded-xl p-4 mt-3 ${selectUser ? 'border-teal-600' : 'border-grey-100'}`}
-        onClick={() => {
-          setSelectFamilyPerson(false);
-          setSelectUser(true);
-        }}
-      >
-        <p className="text-base text-grey-800 border-b border-grey-100 pr-2 pb-3">
-          سفارش برای خودم
-        </p>
-        <CheckBox
-          handleChange={formik.handleChange}
-          onClick={() => {
-            setSelectFamilyPerson(false);
-            setSelectUser(true);
-            setSelectedReceiver({
-              nationalCode: userInfo?.nationalCode,
-              customerName: `${userInfo?.firstName} ${userInfo?.lastName}`,
-            });
-          }}
-          label={`${userInfo?.firstName} ${userInfo?.lastName}`}
-          labelClassName="typo-body-6 mr-6 font-normal text-grey-700"
-          name="customerName"
-          icon={
-            <TickIcon
-              width={15}
-              height={15}
-              stroke={colors.white}
-              className="mx-auto mt-[1px]"
-            />
-          }
-          checkedClassName="!bg-grey-500"
-          boxClassName="w-4 h-4 rounded-full border-grey-800"
-          checked={selectUser}
-          className="w-full mt-3 z-0"
-          value={`${userInfo?.firstName} ${userInfo?.lastName}`}
-        />
-      </div>
-      <div
-        className={`flex flex-col border rounded-xl p-4 mt-3  ${selectFamilyPerson ? 'border-teal-600' : 'border-grey-100'}`}
-        onClick={() => {
-          setSelectFamilyPerson(true);
-          setSelectUser(false);
-        }}
-      >
-        <div className={classNames("flex justify-between items-center pr-2", familyMembers.length && 'border-b border-grey-100 pb-3')}>
-          <p className="text-base text-grey-800">سفارش برای افراد تحت تکفل</p>
-          <Button
-            size="small"
-            handleClick={() =>
-              addModal({
-                modal: AddFamilyMembers,
-                props: {
-                  data: userInfo?.familyMembers,
-                },
-              })
-            }
-            variant="primary"
-            className="text-xs"
-          >
-            افزودن
-          </Button>
-        </div>
-        {familyMembers?.slice(0, 4)?.map((item, index) => {
-          return (
-            <div key={index}>
-              <CheckBox
-                handleChange={formik.handleChange}
-                onClick={() => {
-                  setSelectFamilyPerson(true);
-                  setSelectUser(false);
-                  setSelectedReceiver({
-                    nationalCode: item?.nationalCode,
-                    customerName: `${item?.fisrtname} ${item?.lastName}`,
-                  });
-                }}
-                label={`${item?.fisrtname} ${item?.lastName}`}
-                labelClassName="typo-body-6 mr-6 font-normal text-grey-700"
-                name="customerName"
-                icon={
-                  <TickIcon
-                    width={15}
-                    height={15}
-                    stroke={colors.white}
-                    className="mx-auto mt-[1px]"
-                  />
-                }
-                checkedClassName="!bg-grey-500"
-                boxClassName="w-4 h-4 rounded-full border-grey-800"
-                checked={
-                  (selectFamilyPerson && familyMembers?.length === 1) ||
-                  selectedReceiver?.customerName ===
-                  `${item?.fisrtname} ${item?.lastName}`
-                }
-                className="w-full mt-3 z-0"
-                value={`${item?.fisrtname} ${item?.lastName}`}
-              />
-            </div>
-          );
-        })}
-        {familyMembers?.length > 5 && <p
-          className="text-sm text-grey-500 mx-auto cursor-pointer"
-          onClick={() => handleClickOnSeeMore()}
-        >
-          نمایش بیشتر
-        </p>}
-      </div>
 
       <div>
         <CheckBox
           handleChange={formik.handleChange}
-          onClick={() => {}}
+          onClick={() => {
+          }}
           label="نسخه بیماری خاص"
           labelClassName="text-sm mr-6 font-normal text-grey-700"
           name="isSpecialPatient"
