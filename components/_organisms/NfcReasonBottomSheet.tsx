@@ -2,6 +2,7 @@ import { useFinishOrderPayment } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import useModal from '@hooks/useModal';
+import { convertRialToToman } from '@utilities/mainUtils';
 import React from 'react';
 
 type Props = { comment: string; orderCode: number; finalPrice: number };
@@ -28,7 +29,7 @@ export default function NfcReasonBottomSheet({
       title="توضیحات مسئول فنی"
     >
       <p className="text-grey-600 mt-5">{comment}</p>
-      <p className="text-grey-600 mt-1">{finalPrice}</p>
+      <p className="text-grey-600 mt-1">{convertRialToToman(finalPrice)}</p>
       <div className="flex justify-center">
         <Button
           handleClick={removeLastModal}
