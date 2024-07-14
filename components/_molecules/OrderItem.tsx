@@ -23,11 +23,13 @@ const OrderItem = ({
 }: Props) => {
   const { addModal } = useModal();
 
-  const handleClickOnCommentBottomSheet = (comment) => {
+  const handleClickOnCommentBottomSheet = (comment, orderCode, finalPrice) => {
     addModal({
       modal: NfcReasonBottomSheet,
       props: {
         comment: comment,
+        orderCode: orderCode,
+        finalPrice: finalPrice,
       },
     });
   };
@@ -55,16 +57,6 @@ const OrderItem = ({
           </p>
         </div>
       </div>
-      {data?.orderStatus?.id === 0 && (
-        <p
-          className="flex items-center text-teal-600 cursor-pointer select-none py-2 px-4"
-          onClick={() =>
-            handleClickOnCommentBottomSheet(data?.alternative?.comment)
-          }
-        >
-          توضیحات مسئول فنی(کلیک کنید)
-        </p>
-      )}
       {data?.orderStatus?.id === 2 && (
         <div className="flex items-center justify-between py-2 px-4">
           <div className="flex items-center">
@@ -75,7 +67,9 @@ const OrderItem = ({
           </div>
         </div>
       )}
-      {(data?.orderStatus?.id === 2 || data?.orderStatus?.id === 0) && (
+      {(data?.orderStatus?.id === 2 ||
+        data?.orderStatus?.id === 0 ||
+        data?.orderStatus?.id === 4) && (
         <div
           className={`flex justify-end px-3 py-3 border-t border-grey-200 gap-x-2 bg-grey-50`}
         >
@@ -105,6 +99,23 @@ const OrderItem = ({
           >
             {orderText?.orderCancelation}
           </Button>
+          {data?.orderStatus?.id === 4 && (
+            <Button
+              className="flex-1"
+              size="large"
+              buttonType="contained"
+              handleClick={() =>
+                handleClickOnCommentBottomSheet(
+                  data?.alternative?.comment,
+                  data?.orderCode,
+                  data?.finalPrice,
+                )
+              }
+              variant={'primary'}
+            >
+              توضیحات مسئول فنی{' '}
+            </Button>
+          )}
         </div>
       )}
     </div>
