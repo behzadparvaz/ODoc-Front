@@ -7,7 +7,7 @@ export const getOrderStatusMessage = (statusId) => {
     case 3:
       return 'در حال جمع‌آوری نسخه';
     case 4:
-      return 'مغایرت محصول';
+      return 'توضیحات داروخانه';
     case 5:
       return 'اتمام جمع‌آوری';
     case 6:
