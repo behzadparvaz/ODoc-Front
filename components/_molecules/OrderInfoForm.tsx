@@ -21,17 +21,17 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
   const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
-
+  
   const optionsForCustomer = useMemo(() => {
     const customerList = [{ ...userInfo, relation: 'خودم' }];
     if (familyMembers.length > 0) {
       familyMembers.forEach((item: any) =>
         !customerList.map(customer => customer.nationalCode).includes(item.nationalCode)
-        && customerList.push({ ...item, firstName: item.fisrtname, relation: item?.relation.name } as any)
+        && customerList.push({ ...item, firstName: item.fisrtname, relation: item?.relation?.name } as any)
       );
     }
 
-    return customerList.map(item => ({ name: `${item?.firstName} ${item?.lastName} (${item?.relation})`, id: item?.nationalCode }));
+    return customerList.map(item => ({ name: `${item?.firstName} ${item?.lastName} ${item?.relation ? `(${item?.relation})` : ''}`, id: item?.nationalCode }));
   }, [familyMembers, userInfo]);
 
   const [initialValues] = useState({
@@ -72,13 +72,13 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <Select options={optionsForCustomer}
-              selectClassName='px-4'
-              className='pb-4'
-              name="nationalCode"
-              label="صاحب نسخه"
-              labelClassName="font-semibold text-sm"
-              onChange={formik.handleChange}
-              value={formik.values.nationalCode}/>
+        selectClassName='px-4'
+        className='pb-4'
+        name="nationalCode"
+        label="صاحب نسخه"
+        labelClassName="font-semibold text-sm"
+        onChange={formik.handleChange}
+        value={formik.values.nationalCode}/>
 
       <Input
         required
