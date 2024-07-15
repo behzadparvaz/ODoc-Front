@@ -46,5 +46,9 @@ export const getTime = (time: string) => {
 };
 
 export const formattingDate = (date: Date) => {
-  return moment(date).format('jYYYY/jMM/jDD')
-}
+  return moment(date).format('jYYYY/jMM/jDD');
+};
+
+export const convertDateToTimestamp = (date: string) => {
+  return (new Date(moment.from(date, 'fa', 'YYYY/MM/DD').format())).getTime();
+};

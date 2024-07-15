@@ -4,7 +4,10 @@ import Input from '@com/_atoms/Input.nd';
 import { profileText } from '@com/texts/profileText';
 import { userInfoSchema } from '@utilities/validationSchemas';
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import Gender from '@com/_molecules/Gender';
+import Calender from '@com/_atoms/Calender';
+import { convertDateToTimestamp, formattingDate } from '@utilities/mainUtils';
 
 interface Props {
   data: any;
@@ -26,15 +29,22 @@ const UserInfoForm = ({
     firstName: data ? data?.firstName : '',
     lastName: data ? data?.lastName : '',
     nationalCode: data ? data?.nationalCode : '',
+    gender: data ? data?.gender?.id : 1,
+    dateOfBirth: data && data?.dateOfBrith ? convertDateToTimestamp(data?.dateOfBrith) : null,
   });
+
   const formik = useFormik({
     initialValues,
     validationSchema: userInfoSchema,
     onSubmit: (values) => {
+      const newValues = {
+        ...values,
+        dateOfBirth: values?.dateOfBirth ? formattingDate(new Date(values?.dateOfBirth)) : null
+      }
       if (data) {
-        mutateUpdateProfileInfo(values, {});
+        mutateUpdateProfileInfo(newValues, {});
       } else {
-        mutateAddProfileInfo(values);
+        mutateAddProfileInfo(newValues);
       }
       setDisabledForm(true);
     },
@@ -50,6 +60,8 @@ const UserInfoForm = ({
       onSubmit={formik.handleSubmit}
       className={`flex gap-y-7 flex-col ${className}`}
     >
+      <Gender value={formik?.values.gender} name={'gender'} onChange={formik?.handleChange} label='جنسیت' />
+
       <Input
         placeholder={profileText?.firstName}
         label={profileText?.firstName}
@@ -92,6 +104,14 @@ const UserInfoForm = ({
         }
         errorMessage={formik.errors.nationalCode}
       />
+      <Calender
+        labelClassName="font-normal text-sm"
+        label={'تاریخ تولد'}
+        name={'dateOfBirth'}
+        value={formik?.values.dateOfBirth}
+        errorMessage={formik.errors.dateOfBirth}
+        onChange={formik?.handleChange}/>
+
       {inOrderPage && (
         <div className="flex justify-between">
           <Button

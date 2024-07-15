@@ -11,9 +11,7 @@ import React, { useState } from 'react';
 import Select from '@com/_atoms/Select';
 import Calender from '@com/_atoms/Calender';
 import { formattingDate } from '@utilities/mainUtils';
-import { TickIcon } from '@com/icons';
-import { colors } from '@configs/Theme';
-import CheckBox from '@com/_atoms/CheckBox.nd';
+import Gender from '@com/_molecules/Gender';
 
 export default function AddFamilyMembers({ data }) {
   const { mutate: mutateAddFamilyMembers } = useAddFamilyMembers();
@@ -58,59 +56,17 @@ export default function AddFamilyMembers({ data }) {
       });
     }
   });
+
   return (
     <BottomModalContainer
       height={'560px'}
       hasCloseButton={true}
       title={generalTexts?.add}
     >
-      <form
-        onSubmit={formik.handleSubmit}
-        className="flex gap-y-4 pt-6 flex-col"
-      >
-        <div>
-          <label className={`text-grey-800 mb-2 font-normal text-sm`}>
-            جنسیت
-          </label>
-          <div className="flex">
-            <CheckBox
-              handleChange={() => formik?.setValues({ ...formik?.values, gender: 1 }, false)}
-              label={`مرد`}
-              labelClassName="text-sm mr-6 font-normal text-grey-700"
-              name="gender"
-              icon={
-                <TickIcon
-                  width={15}
-                  height={15}
-                  stroke={colors.white}
-                  className="mx-auto mt-[1px]"
-                />
-              }
-              checkedClassName="!bg-grey-500"
-              boxClassName="w-4 h-4 rounded-full border-grey-800"
-              checked={formik?.values.gender === 1}
-              className="w-full mt-3 z-0"
-            />
-            <CheckBox
-              handleChange={() => formik?.setValues({ ...formik?.values, gender: 2 }, false)}
-              label={`زن`}
-              labelClassName="text-sm mr-6 font-normal text-grey-700"
-              name="gender"
-              icon={
-                <TickIcon
-                  width={15}
-                  height={15}
-                  stroke={colors.white}
-                  className="mx-auto mt-[1px]"
-                />
-              }
-              checkedClassName="!bg-grey-500"
-              boxClassName="w-4 h-4 rounded-full border-grey-800"
-              checked={formik?.values.gender === 2}
-              className="w-full mt-3 z-0"
-            />
-          </div>
-        </div>
+      <form onSubmit={formik.handleSubmit} className="flex gap-y-4 pt-6 flex-col">
+
+        <Gender value={formik?.values.gender} name={'gender'} onChange={formik?.handleChange} label='جنسیت' />
+
         <Input
           placeholder={profileText?.firstName}
           label={profileText?.firstName}
@@ -186,9 +142,7 @@ export default function AddFamilyMembers({ data }) {
           name={'dateOfBirth'}
           value={formik?.values.dateOfBirth}
           errorMessage={formik.errors.dateOfBirth}
-          onChange={(val) => {
-            formik?.setValues({ ...formik?.values, dateOfBirth: val }, false);
-          }}/>
+          onChange={formik?.handleChange}/>
         <Button
           type="submit"
           className="w-full mt-3"
