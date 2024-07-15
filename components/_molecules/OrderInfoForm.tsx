@@ -21,7 +21,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
   const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
-  
+
   const optionsForCustomer = useMemo(() => {
     const customerList = [{ ...userInfo, relation: 'خودم' }];
     if (familyMembers.length > 0) {
@@ -36,8 +36,8 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
 
   const [initialValues] = useState({
     referenceNumber: '',
-    nationalCode: null,
-    customerName: null,
+    nationalCode: userInfo?.nationalCode,
+    customerName: optionsForCustomer?.[0]?.name,
     doctorName: null,
     comment: null,
     isSpecialPatient: false,
