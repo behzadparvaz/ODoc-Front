@@ -2,8 +2,12 @@ import OrderInfoForm from '@com/_molecules/OrderInfoForm';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
 import AddressAndDeliveryDate from '@com/_organisms/AddressAndDeliveryDate';
+import Button from '@com/_atoms/Button';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
 
 const OrderRegisterSteps = ({ data, className = '' }) => {
+  const router = useRouter()
   const userInfo = data?.queryResult[0];
   const [step, setStep] = useState(1);
   const [stepOneValue, setStepOneValue] = useState({
@@ -75,8 +79,10 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
           )}
         </div>
       ) : (
-        <div className="pt-36 text-center text-md text-red-600">
-          برای ثبت سفارش ابتدا اطلاعات کاربری خود را تکمیل کنید!
+        <div className="pt-36 text-center text-md flex gap-2 items-center justify-center">
+          <span>برای ثبت سفارش ابتدا</span>
+          <Button handleClick={() => router.push(routeList.profileUserInfoRoute)} variant={'primary'} buttonType={'text'} className={'border-0 text-primary'}>اطلاعات کاربری</Button>
+          <span>خود را تکمیل کنید!</span>
         </div>
       )}
     </div>

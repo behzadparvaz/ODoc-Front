@@ -53,6 +53,7 @@ module.exports = {
       white: colors.white,
       background: '#F6F6F6',
       primary: {
+        DEFAULT: '#02A0A4',
         default: '#02A0A4',
         dark: '#046b6d',
         light: 'rgba(2, 160, 164, 0.04)',
