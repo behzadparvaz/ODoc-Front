@@ -4,7 +4,8 @@ export const generalTexts = {
     logout: 'خروج',
     confirm: 'تــاییـد',
     add: 'اضافه کردن',
-    register:  'ثبت',
-    cancel:  'انصراف',
-    phoneNumber:'شماره موبایل'
+    register: 'ثبت',
+    cancel: 'انصراف',
+    phoneNumber: 'شماره موبایل',
+    pharmacy: 'داروخانه'
 }

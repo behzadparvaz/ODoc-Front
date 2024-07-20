@@ -12,7 +12,7 @@ const AddressAndDeliveryDate = ({ stepOneValue }) => {
 
   const handleRegisterOrder = () => {
     const body = {
-      vendorSelects: [],
+      vendorSelects: stepOneValue?.vendorSelects,
       referenceNumber: String(stepOneValue?.referenceNumber),
       nationalCode: stepOneValue?.nationalCode,
       customerName: stepOneValue?.customerName,
