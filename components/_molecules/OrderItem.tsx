@@ -92,7 +92,7 @@ const OrderItem = ({
               addModal({
                 modal: OrderCancelConfirmationBottomSheet,
                 props: {
-                  orderCode: data?.referenceNumber,
+                  orderCode: data?.orderCode,
                 },
               })
             }
