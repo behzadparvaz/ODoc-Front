@@ -11,6 +11,8 @@ import { useMemo, useState } from 'react';
 import { Profile } from '@utilities/interfaces/user';
 import useNotification from '@hooks/useNotification';
 import Select from '@com/_atoms/Select';
+import { useGetVendors } from '@api/vendor/vendor.rq';
+import { generalTexts } from '@com/texts/generalTexts';
 
 interface Props {
   handleNextStep?: (step, value) => void;
@@ -19,6 +21,8 @@ interface Props {
 
 const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
+  const { data: vendors } = useGetVendors();
+
   const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
 
@@ -34,6 +38,17 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     return customerList.map(item => ({ name: `${item?.firstName} ${item?.lastName} ${item?.relation ? `(${item?.relation})` : ''}`, id: item?.nationalCode }));
   }, [familyMembers, userInfo]);
 
+  const vendorOptions = useMemo(() => {
+    const vendorList = [{
+      name: 'لطفا انتخاب کنید',
+      id: null
+    }]
+    vendors?.map((item) => {
+      vendorList?.push({ name: item?.vendorName, id: item?.vendorCode })
+    })
+    return vendorList
+  }, [])
+
   const [initialValues] = useState({
     referenceNumber: '',
     nationalCode: userInfo?.nationalCode,
@@ -41,7 +56,8 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     doctorName: null,
     comment: null,
     isSpecialPatient: false,
-    insuranceTypeId: 1
+    insuranceTypeId: 1,
+    vendorCode: null
   });
 
   const formik = useFormik({
@@ -55,16 +71,29 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         doctorName: value?.doctorName,
         comment: value?.comment,
         isSpecialPatient: value?.isSpecialPatient,
-        insuranceTypeId: Number(value?.insuranceTypeId)
+        insuranceTypeId: Number(value?.insuranceTypeId),
+        vendorSelects: [
+          {
+            vendorCode: value?.vendorCode,
+          }
+        ]
       };
-      if (value?.nationalCode) {
-        handleNextStep(2, body);
-      } else {
+      if (!value?.nationalCode) {
         openNotification({
           type: 'error',
           message: 'صاحب نسخه را مشخص کنید',
           notifType: 'successOrFailedMessage'
         });
+      }
+      else if (value?.isSpecialPatient && !value?.vendorCode) {
+        openNotification({
+          type: 'error',
+          message: 'لطفا داروخانه را مشخص کنید',
+          notifType: 'successOrFailedMessage'
+        });
+      }
+      else {
+        handleNextStep(2, body);
       }
     }
   });
@@ -141,8 +170,6 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       <div>
         <CheckBox
           handleChange={formik.handleChange}
-          onClick={() => {
-          }}
           label="نسخه بیماری خاص"
           labelClassName="text-sm mr-6 font-normal text-grey-700"
           name="isSpecialPatient"
@@ -159,6 +186,19 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           checked={formik.values.isSpecialPatient}
           className="w-full mt-5 z-0"
         />
+        {formik?.getFieldProps('isSpecialPatient')?.value &&
+          <>
+            <Select options={vendorOptions}
+              selectClassName='px-4'
+              className='pb-4 mt-3'
+              name="vendorCode"
+              required
+              label={generalTexts?.pharmacy}
+              labelClassName="font-semibold text-sm"
+              onChange={formik.handleChange}
+              value={formik.values.vendorCode} />
+          </>
+        }
       </div>
 
       <div className="w-full flex justify-end mt-10">

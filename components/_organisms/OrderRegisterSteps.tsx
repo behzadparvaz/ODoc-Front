@@ -2,11 +2,9 @@ import OrderInfoForm from '@com/_molecules/OrderInfoForm';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
 import { useState } from 'react';
 import AddressAndDeliveryDate from '@com/_organisms/AddressAndDeliveryDate';
-import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
 
 const OrderRegisterSteps = ({ data, className = '' }) => {
-  const router = useRouter()
   const userInfo = data?.queryResult[0];
   const [step, setStep] = useState(1);
   const [stepOneValue, setStepOneValue] = useState({
@@ -17,6 +15,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
     comment: null,
     insuranceTypeId: 0,
     isSpecialPatient: false,
+    vendorSelects: null
   });
   const [state, setState] = useState({
     referenceNumber: null,
@@ -66,6 +65,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
                   comment: value?.comment,
                   insuranceTypeId: Number(value?.insuranceTypeId),
                   isSpecialPatient: value?.isSpecialPatient,
+                  vendorSelects: value?.vendorSelects,
                 });
                 setStep(step);
                 setState({ ...state, referenceNumber: String(value?.referenceNumber) });
