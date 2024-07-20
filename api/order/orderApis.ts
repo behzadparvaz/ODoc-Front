@@ -5,8 +5,11 @@ export const CreateOrderInsurance = async (body) =>
     returnError: true,
   });
 
-export const GetOrdersHistory = async () =>
-  await request.get(`/order/GetOrdersHistory`);
+export const GetOrdersHistory = async (statusId: number) =>
+  await request.get(`/order/GetOrdersHistory`, null,{ params: { statusId } });
+
+export const GetOrderStatuses = async () =>
+  await request.get(`/order/GetOrderStatues`);
 
 export const FinishOrderPayment = async (body) =>
   await request.post(`Order/PaymentOrder`, body,{returnError:true});

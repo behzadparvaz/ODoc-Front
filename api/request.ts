@@ -1,6 +1,6 @@
 import { getLocalStorageToken } from '@utilities/localStorageUtils';
 import { routeList } from '@routes/routeList';
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -155,9 +155,8 @@ class Request {
     });
   }
 
-  get(url: string, options?: optionsLayout) {
+  get(url: string, options?: optionsLayout, config: AxiosRequestConfig = {}) {
     return new Promise<{ data: any }>((resolve, reject) => {
-      const config: any = {};
 
       this.axiosInstance(options)
         .get(`${url}`, config)

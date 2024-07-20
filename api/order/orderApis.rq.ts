@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient, UseQueryOptions, UseQueryResult } from 'react-query';
 import {
   CancelOrder,
   CreateOrderInsurance,
@@ -7,9 +7,11 @@ import {
   GetOrdersHistory,
   VerifyPaymentOrder,
   getInsurances,
+  GetOrderStatuses
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
+import { OrderStatuses } from '@utilities/interfaces/order';
 
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
@@ -43,17 +45,19 @@ export const useCreateOrderInsurance = () => {
   });
 };
 
-export const useGetOrdersHistory = () => {
-  const { data, isLoading } = useQuery(
-    ['getOrdersHistory'],
-    () => GetOrdersHistory(),
+export const useGetOrdersHistory: (statusId: number, options?: UseQueryOptions<unknown, unknown, any[]>) => UseQueryResult<any[]>
+  = (statusId, options) =>
+  useQuery(
+    ['getOrdersHistory', statusId],
+    () => GetOrdersHistory(statusId),
     {
       refetchInterval: 20000,
+      ...options
     },
   );
 
-  return { data, isLoading };
-};
+export const useGetOrderStatuses: (options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>) => UseQueryResult<OrderStatuses[]>
+  = (options) => useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
 
 export const useFinishOrderPayment = () => {
   const { push } = useRouter();
