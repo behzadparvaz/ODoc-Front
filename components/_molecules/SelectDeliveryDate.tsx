@@ -6,17 +6,24 @@ import { TickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { formattingDate } from '@utilities/mainUtils';
 
+const cutoffHour = 14
+
 const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
 
   const makeDates = useMemo(() => {
     const currentDate = new Date();
-    return [...Array(3)].map(() => {
+    const currentHour = Number(currentDate.toLocaleTimeString('en-UK', { timeZone: 'Asia/Tehran', hour: 'numeric' }));
+
+    return [...Array(3)].map((_, index) => {
       const day = new Date(currentDate.setDate(currentDate.getDate() + 1));
+
+      // we ignore tomorrow, If the current time was after cutoff time
+      if(currentHour >= cutoffHour && index === 0) return null
       return {
         label: day.toLocaleDateString('fa-IR'),
         value: formattingDate(day)
       };
-    });
+    }).filter(item => !!item);
   }, []);
 
 
