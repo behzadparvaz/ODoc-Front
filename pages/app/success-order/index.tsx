@@ -13,9 +13,9 @@ const SuccessOrder = () => {
   const { data } = useGetOrderState(orderCode);
 
   return (
-    <MainLayout className="relative w-full min-h-screen flex justify-center flex-col items-center">
+    <MainLayout className="relative w-full !min-h-[calc(100vh-96px)] flex gap-2 justify-center flex-col items-center pt-10">
       <Button
-        handleClick={() => push('/')}
+        handleClick={() => push(routeList.homeRoute)}
         size="small"
         buttonType="contained"
         variant="primary"
@@ -29,23 +29,25 @@ const SuccessOrder = () => {
         fill={colors?.teal[600]}
         stroke="red"
       />
-      <h1 className="text-md text-grey-700 mt-4">سفارش شما با موفقیت ثبت شد</h1>
+      <h1 className="text-md text-grey-700 mt-2">سفارش شما با موفقیت ثبت شد</h1>
       <p className="mt-4">مشخصات سفارش:</p>
       <p className="text-sm text text-grey-800">{`کد سفارش: ${data?.orderCode}`}</p>
       <p className="text-sm text text-grey-800">{`نام تحویل گیرنده: ${data?.customer?.name}`}</p>
+
+      <p className="mt-4">وضعیت سفارش:</p>
+      <p className="text-sm text text-grey-800 mb-3">
+        {getOrderStatusMessage(data?.orderStatus?.id)}
+      </p>
+
       <Button
         handleClick={() => push(routeList?.ordersHistory)}
-        size="small"
+        size="medium"
         buttonType="contained"
         variant="primary"
-        className="text-sm mb-3 mt-2"
+        className="text-sm mt-4"
       >
         پیگیری سفارش
       </Button>
-      <p className="mt-4">وضعیت سفارش:</p>
-      <p className="text-sm text text-grey-800">
-        {getOrderStatusMessage(data?.orderStatus?.id)}
-      </p>
     </MainLayout>
   );
 };

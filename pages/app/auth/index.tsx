@@ -5,6 +5,7 @@ import useStorage from "@hooks/useStorage";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { routeList } from '@routes/routeList';
 
 const AuthMobileNumber = dynamic(() => import("@com/_molecules/AuthMobileNumber"))
 const AuthOTP = dynamic(() => import("@com/_molecules/AuthOTP"))
@@ -19,7 +20,7 @@ const ODocAuth = () => {
 
     useEffect(() => {
         if ((token)) {
-            replace('/');
+            replace(routeList.homeRoute);
         }
     })
 

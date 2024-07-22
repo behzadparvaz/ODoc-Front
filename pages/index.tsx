@@ -1,17 +1,87 @@
-import { useGetProfile } from '@api/user/user.rq';
-import Spinner from '@com/_atoms/Spinner';
-import OrderRegisterSteps from '@com/_organisms/OrderRegisterSteps';
-import MainLayout from '@com/_template/MainLayout';
+import MobileLayout from '@com/_template/MobileLayout';
+import NextImage from '@com/_core/NextImage';
+import { IconButton } from '@material-ui/core';
+import { ArrowLeftIconOutline, HamburgerMenu, ProfileIconOutline } from '@com/icons';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
 
-const HomePage = () => {
-  const { data, isLoading: profileDataLoding } = useGetProfile();
-  const headerChildrenElement = <div className='text-[#ff5722] text-2xl font-bold'>TAPSI <span className='text-teal-600'>Doctor</span></div>
-  return (
-    <MainLayout headerChildren={headerChildrenElement} className="px-6" title="ثبت سفارش">
-      {profileDataLoding === false ? <OrderRegisterSteps data={data} /> :
-        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />
-      }
-    </MainLayout>
-  );
+import tapsiLogo from '@static/images/staticImages/tapsi-logo.png';
+import firstSlidePNG from '@static/images/staticImages/first-slide.png';
+import secondSlidePNG from '@static/images/staticImages/second-slide.png';
+import NextLink from '@com/_core/NextLink';
+
+const Landing = () => {
+  const { push } = useRouter();
+  const isLogin = true;
+
+  const onClickProfile = () => {
+    push(routeList.profile);
+  };
+
+  return <MobileLayout>
+    <div className="bg-primary-800 w-full flex justify-between items-center p-4 sticky top-0 z-50">
+      <div className="flex items-center gap-4">
+        <IconButton className="rounded-full !p-0" size={'small'}>
+          <HamburgerMenu fill={'white'} width={24} height={24}/>
+        </IconButton>
+        <NextImage src={tapsiLogo} height={20} width={85}/>
+      </div>
+      <div className="text-white">
+        <IconButton className="!bg-white rounded-full" size={'small'} onClick={onClickProfile}>
+          <ProfileIconOutline fill={isLogin ? '#FF5622' : '#01A0A3'} width={12} height={12}/>
+        </IconButton>
+      </div>
+    </div>
+
+    <div className="flex flex-col items-center justify-center gap-3 w-full bg-primary-100 h-[calc(100vh-56px)]">
+      <h1 className="text-[28px] font-semibold">تپسی دارو پلتفرم ارسال دارو</h1>
+      <h3 className="text-xl font-semibold">در سریع‌تـرین زمان داروهاتـو دریافت کـن</h3>
+      <div className="w-11/12 my-5">
+        <NextImage src={firstSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill
+                   quality={20}/>
+      </div>
+      <NextLink href={routeList.loginRoute}>
+        <div className="flex gap-2 bg-primary rounded-md p-2.5 w-11/12 justify-center">
+          <span className="text-white font-medium">ثبت سفارش</span>
+          <ArrowLeftIconOutline width={24} height={24} fill={'white'}/>
+        </div>
+      </NextLink>
+    </div>
+
+    <div className="flex flex-col items-center justify-center gap-3 w-full bg-primary-400 h-[calc(100vh-56px)]">
+      <h2 className="text-[28px] font-semibold">اگر داروخانه دارید...</h2>
+      <h3 className="w-10/12 text-center">با ثبت‌نـام در تپســی دارو، به میلیون‌هــا کاربر دسترسی پیدا کنید و به
+        جمع داروخانه‌های ما بپیوندید.</h3>
+      <div className="w-full my-5">
+        <NextImage src={secondSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill
+                   quality={20}/>
+      </div>
+      <NextLink href={routeList.loginRoute}>
+        <div className="flex gap-2 bg-primary rounded-md p-2.5 w-11/12 justify-center">
+          <span className="text-white font-medium">ثبت‌نام داروخانه</span>
+          <ArrowLeftIconOutline width={24} height={24} fill={'white'}/>
+        </div>
+      </NextLink>
+    </div>
+
+    <div className='h-[36px] bg-primary'>
+
+    </div>
+
+    <div className='bg-[#1E1E1E] py-6 px-4 text-white font-light'>
+      <NextImage src={tapsiLogo} height={20} width={85}/>
+
+      <p className='py-5'>تپسی دکتر، پلتفرم تهیه سریع و آسان داروهای مورد نیاز است. با استفاده از خدمات ما، داروهای خود را از نزدیک ترین داروخانه به سرعت و با اطمینان درب منزل دریافت کنید. تیم پشتیبانی ما همواره آماده پاسخگویی به سوالات و رفع نیازهای شماست.</p>
+
+      <div className='flex justify-between items-start'>
+        <p className='whitespace-pre-line w-full pl-24'>آدرس: تهران، سعادت‌آباد، بالاتر از میدان کاج، بلوار بهزاد، نبش کوچه باغستان، پلاک ۲
+          کد پستی: ۱۹۹۸۶۳۵۸۲۰</p>
+        <div className='w-[86px] h-[86px] bg-white rounded-2xl'></div>
+      </div>
+
+    </div>
+
+  </MobileLayout>;
 };
-export default HomePage;
+
+export default Landing;

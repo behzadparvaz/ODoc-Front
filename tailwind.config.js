@@ -57,6 +57,9 @@ module.exports = {
         default: '#02A0A4',
         dark: '#046b6d',
         light: 'rgba(2, 160, 164, 0.04)',
+        100: '#D0E5E6',
+        400: '#A9DBDC',
+        800: '#008385'
       },
       red: {
         50: '#FAECEE',
@@ -170,7 +173,8 @@ module.exports = {
     padding: ['responsive', 'important'],
     boxShadow: ['responsive', 'important'],
     fill: ['hover', 'focus'],
-    height: ['responsive', 'hover', 'focus'],
+    height: ['responsive', 'hover', 'focus', 'important'],
+    minHeight: ['responsive', 'hover', 'focus', 'important'],
   },
   plugins: [
     clamp,

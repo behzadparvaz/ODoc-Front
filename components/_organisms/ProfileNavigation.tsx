@@ -42,7 +42,7 @@ export default function ProfileNavigation({ className = '' }) {
           <Button
             isLoading={profileDataLoding}
             handleClick={() => {
-              push('/profile/user-info');
+              push(routeList.profileUserInfoRoute);
             }}
             className="w-full mt-3"
             size="large"
@@ -108,3 +108,4 @@ export default function ProfileNavigation({ className = '' }) {
     </div>
   );
 }
+

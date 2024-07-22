@@ -21,7 +21,7 @@ export const ProfileNavigationMenuItems = () => {
         <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />
       ),
       text: 'آدرس ها',
-      link: '/profile/addresses',
+      link: routeList.profileAddresses,
     },
     {
       id: 2,
@@ -29,13 +29,13 @@ export const ProfileNavigationMenuItems = () => {
         <HelmetIconOutline width={24} height={24} fill={colors?.teal?.[600]} />
       ),
       text: 'افراد تحت تکفل',
-      link: '/profile/family-members',
+      link: routeList.profileFamilyMembers,
     },
     {
       id: 3,
       icon: <CloseEyeIconFill width={24} height={24} fill={colors.teal[600]} />,
       text: 'تنظیمات رمز عبور',
-      link: '/profile/password-setting',
+      link: routeList.profilePasswordSetting,
     },
   ];
 };
@@ -46,21 +46,21 @@ export const BottomNavigationMenuItems = () => {
       id: 1,
       icon: <HouseOutline width={24} height={24} fill={colors?.teal?.[600]} />,
       text: 'خانه',
-      link: '/',
+      link: routeList.homeRoute,
       hasSubRouet: false,
     },
     {
       id: 2,
       icon: <OrderOutline width={24} height={24} fill={colors?.teal?.[600]} />,
       text: 'سفارش ها',
-      link: isEmpty(user) ? routeList?.loginRoute : '/orders-history',
+      link: isEmpty(user) ? routeList?.loginRoute : routeList.ordersHistory,
       hasSubRouet: false,
     },
     {
       id: 3,
       icon: <UserOutline width={24} height={24} fill={colors?.teal?.[600]} />,
       text: isEmpty(user) ? 'ورود' : 'حساب کاربری',
-      link: isEmpty(user) ? routeList?.loginRoute : '/profile',
+      link: isEmpty(user) ? routeList?.loginRoute : routeList.profile,
       hasSubRouet: true,
     },
   ];

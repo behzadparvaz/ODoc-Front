@@ -12,6 +12,7 @@ import {
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
 import { OrderStatuses } from '@utilities/interfaces/order';
+import { routeList } from '@routes/routeList';
 
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
@@ -28,7 +29,7 @@ export const useCreateOrderInsurance = () => {
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
         push({
-          pathname: '/success-order',
+          pathname: routeList.successOrder,
           query: { order_Code: data },
         });
       }

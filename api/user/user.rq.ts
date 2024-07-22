@@ -15,6 +15,7 @@ import useModal from "@hooks/useModal";
 import { selectStoreTexts } from "@com/texts/selectStoreTexts";
 import { useRouter } from "next/router";
 import { Relation } from '@utilities/interfaces/user';
+import { routeList } from '@routes/routeList';
 
 export const useAddLocation = () => {
   const { openNotification } = useNotification()
@@ -98,7 +99,7 @@ export const useAddProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      !inOrderPage && push('/profile')
+      !inOrderPage && push(routeList.profile)
     }
   });
 };
@@ -128,7 +129,7 @@ export const useUpdateProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      !inOrderPage && push('/profile')
+      !inOrderPage && push(routeList.profile)
     }
   });
 };
@@ -142,7 +143,7 @@ export const useUserSetPassword = () => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       })
-      push('/profile')
+      push(routeList.profile)
     }
   });
 };
