@@ -47,7 +47,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       vendorList?.push({ name: item?.vendorName, id: item?.vendorCode })
     })
     return vendorList
-  }, [])
+  }, [vendors])
 
   const [initialValues] = useState({
     referenceNumber: '',
