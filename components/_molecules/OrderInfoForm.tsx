@@ -27,27 +27,39 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const familyMembers = userInfo?.familyMembers;
 
   const optionsForCustomer = useMemo(() => {
-    const customerList = [{ ...userInfo, relation: 'خودم' }];
+    const customerList = [{ ...userInfo }];
     if (familyMembers.length > 0) {
-      familyMembers.forEach((item: any) =>
-        !customerList.map(customer => customer.nationalCode).includes(item.nationalCode)
-        && customerList.push({ ...item, firstName: item.fisrtname, relation: item?.relation?.name } as any)
+      familyMembers.forEach(
+        (item: any) =>
+          !customerList
+            .map((customer) => customer.nationalCode)
+            .includes(item.nationalCode) &&
+          customerList.push({
+            ...item,
+            firstName: item.fisrtname,
+            relation: item?.relation?.name,
+          } as any),
       );
     }
 
-    return customerList.map(item => ({ name: `${item?.firstName} ${item?.lastName} ${item?.relation ? `(${item?.relation})` : ''}`, id: item?.nationalCode }));
+    return customerList.map((item) => ({
+      name: `${item?.firstName} ${item?.lastName}`,
+      id: item?.nationalCode,
+    }));
   }, [familyMembers, userInfo]);
 
   const vendorOptions = useMemo(() => {
-    const vendorList = [{
-      name: 'لطفا انتخاب کنید',
-      id: null
-    }]
+    const vendorList = [
+      {
+        name: 'لطفا انتخاب کنید',
+        id: null,
+      },
+    ];
     vendors?.map((item) => {
-      vendorList?.push({ name: item?.vendorName, id: item?.vendorCode })
-    })
-    return vendorList
-  }, [vendors])
+      vendorList?.push({ name: item?.vendorName, id: item?.vendorCode });
+    });
+    return vendorList;
+  }, [vendors]);
 
   const [initialValues] = useState({
     referenceNumber: '',
@@ -57,7 +69,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     comment: null,
     isSpecialPatient: false,
     insuranceTypeId: 1,
-    vendorCode: null
+    vendorCode: null,
   });
 
   const formik = useFormik({
@@ -67,7 +79,9 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       const body = {
         referenceNumber: value?.referenceNumber,
         nationalCode: value?.nationalCode,
-        customerName: optionsForCustomer.find(item => item.id === value?.nationalCode).name,
+        customerName: optionsForCustomer.find(
+          (item) => item.id === value?.nationalCode,
+        ).name,
         doctorName: value?.doctorName,
         comment: value?.comment,
         isSpecialPatient: value?.isSpecialPatient,
@@ -75,39 +89,39 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         vendorSelects: [
           {
             vendorCode: value?.vendorCode,
-          }
-        ]
+          },
+        ],
       };
       if (!value?.nationalCode) {
         openNotification({
           type: 'error',
           message: 'صاحب نسخه را مشخص کنید',
-          notifType: 'successOrFailedMessage'
+          notifType: 'successOrFailedMessage',
         });
-      }
-      else if (value?.isSpecialPatient && !value?.vendorCode) {
+      } else if (value?.isSpecialPatient && !value?.vendorCode) {
         openNotification({
           type: 'error',
           message: 'لطفا داروخانه را مشخص کنید',
-          notifType: 'successOrFailedMessage'
+          notifType: 'successOrFailedMessage',
         });
-      }
-      else {
+      } else {
         handleNextStep(2, body);
       }
-    }
+    },
   });
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
-      <Select options={optionsForCustomer}
-        selectClassName='px-4'
-        className='pb-4'
+      <Select
+        options={optionsForCustomer}
+        selectClassName="px-4"
+        className="pb-4"
         name="nationalCode"
         label="صاحب نسخه"
         labelClassName="font-semibold text-sm"
         onChange={formik.handleChange}
-        value={formik.values.nationalCode}/>
+        value={formik.values.nationalCode}
+      />
 
       <Input
         required
@@ -121,7 +135,10 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         name="referenceNumber"
         value={formik.values.referenceNumber}
         onChange={formik.handleChange}
-        isTouched={formik.touched.referenceNumber && Boolean(formik.errors.referenceNumber)}
+        isTouched={
+          formik.touched.referenceNumber &&
+          Boolean(formik.errors.referenceNumber)
+        }
         errorMessage={formik.errors.referenceNumber}
       />
       <Input
@@ -141,6 +158,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       </label>
       <select
         name="insuranceTypeId"
+        id="insuranceTypeId"
         value={formik?.values?.insuranceTypeId}
         className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
         onChange={formik.handleChange}
@@ -173,6 +191,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           label="نسخه بیماری خاص"
           labelClassName="text-sm mr-6 font-normal text-grey-700"
           name="isSpecialPatient"
+          id="isSpecialPatient"
           icon={
             <TickIcon
               width={15}
@@ -186,19 +205,21 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           checked={formik.values.isSpecialPatient}
           className="w-full mt-5 z-0"
         />
-        {formik?.getFieldProps('isSpecialPatient')?.value &&
+        {formik?.getFieldProps('isSpecialPatient')?.value && (
           <>
-            <Select options={vendorOptions}
-              selectClassName='px-4'
-              className='pb-4 mt-3'
+            <Select
+              options={vendorOptions}
+              selectClassName="px-4"
+              className="pb-4 mt-3"
               name="vendorCode"
               required
               label={generalTexts?.pharmacy}
               labelClassName="font-semibold text-sm"
               onChange={formik.handleChange}
-              value={formik.values.vendorCode} />
+              value={formik.values.vendorCode}
+            />
           </>
-        }
+        )}
       </div>
 
       <div className="w-full flex justify-end mt-10">

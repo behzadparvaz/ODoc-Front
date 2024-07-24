@@ -11,6 +11,7 @@ body {
   margin: 0;
   font-family: 'Yekan Bakh FaNum';
   background-color: #f6f6f6;
+  direction: rtl;
 }
 
 a {
@@ -20,6 +21,8 @@ a {
 
 * {
   box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .rmdp-calendar-container-mobile {
