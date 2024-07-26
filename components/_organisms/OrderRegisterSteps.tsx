@@ -14,8 +14,9 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
     doctorName: null,
     comment: null,
     insuranceTypeId: 0,
+    supplementaryInsuranceTypeId: 0,
     isSpecialPatient: false,
-    vendorSelects: null
+    vendorSelects: null,
   });
   const [state, setState] = useState({
     referenceNumber: null,
@@ -46,7 +47,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
   return (
     <div className={`relative ${className}`}>
       <StepProgressBar
-        className='sticky top-0 inset-x-0 bg-white'
+        className="sticky top-0 inset-x-0 bg-white"
         currentStep={step}
         handleChangeStep={(step: number) => setStep(step)}
         activeItem={step}
@@ -64,23 +65,33 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
                   doctorName: value?.doctorName,
                   comment: value?.comment,
                   insuranceTypeId: Number(value?.insuranceTypeId),
+                  supplementaryInsuranceTypeId: Number(
+                    value?.supplementaryInsuranceTypeId,
+                  ),
                   isSpecialPatient: value?.isSpecialPatient,
                   vendorSelects: value?.vendorSelects,
                 });
                 setStep(step);
-                setState({ ...state, referenceNumber: String(value?.referenceNumber) });
+                setState({
+                  ...state,
+                  referenceNumber: String(value?.referenceNumber),
+                });
               }}
               userInfo={userInfo}
             />
           )}
-          {step === 2 && (
-            <AddressAndDeliveryDate stepOneValue={stepOneValue} />
-          )}
+          {step === 2 && <AddressAndDeliveryDate stepOneValue={stepOneValue} />}
         </div>
       ) : (
         <div className="pt-36 text-center text-md">
           برای ثبت سفارش ابتدا
-          <a href={routeList.profileUserInfoRoute} className={'font-semibold border-0 text-primary'}> اطلاعات کاربری </a>
+          <a
+            href={routeList.profileUserInfoRoute}
+            className={'font-semibold border-0 text-primary'}
+          >
+            {' '}
+            اطلاعات کاربری{' '}
+          </a>
           خود را تکمیل کنید!
         </div>
       )}
