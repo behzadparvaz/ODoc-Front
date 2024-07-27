@@ -16,9 +16,6 @@ const OrderTourGuide = () => {
     setItem('orderTour', JSON.stringify(true), 'local');
   }
 
-  console.log('orderTourStorage', orderTour);
-  console.log('run', run);
-
   const steps: Step[] = [
     {
       content: <p>{orderTourText.referenceNumberContent}</p>,
