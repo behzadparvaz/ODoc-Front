@@ -146,7 +146,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
     );
     const credentials: CredentialsContainer = navigator.credentials;
     credentials
-      .get({
+      ?.get({
         otp: { transport: ['sms'] },
         signal: controler.signal,
       })
