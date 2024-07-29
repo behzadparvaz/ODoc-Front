@@ -57,7 +57,7 @@ export const useGetOrdersHistory: (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ) => UseQueryResult<any[]> = (statusId, options) =>
   useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
-    refetchInterval: 5000,
+    refetchInterval: 20000,
     ...options,
   });
 
