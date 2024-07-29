@@ -30,7 +30,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const familyMembers = userInfo?.familyMembers;
 
   const optionsForCustomer = useMemo(() => {
-    const customerList = [{ ...userInfo, relation: 'خودم' }];
+    const customerList = [{ ...userInfo }];
     if (familyMembers.length > 0) {
       familyMembers.forEach(
         (item: any) =>
@@ -46,7 +46,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     }
 
     return customerList.map((item) => ({
-      name: `${item?.firstName} ${item?.lastName} ${item?.relation ? `(${item?.relation})` : ''}`,
+      name: `${item?.firstName} ${item?.lastName}`,
       id: item?.nationalCode,
     }));
   }, [familyMembers, userInfo]);
@@ -165,6 +165,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       </label>
       <select
         name="insuranceTypeId"
+        id="insuranceTypeId"
         value={formik?.values?.insuranceTypeId}
         className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
         onChange={formik.handleChange}
@@ -216,6 +217,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           label="نسخه بیماری خاص"
           labelClassName="text-sm mr-6 font-normal text-grey-700"
           name="isSpecialPatient"
+          id="isSpecialPatient"
           icon={
             <TickIcon
               width={15}

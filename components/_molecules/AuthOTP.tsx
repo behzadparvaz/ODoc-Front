@@ -6,7 +6,7 @@ import {
 } from '@api/auth/oDocAuth.rq';
 import { loginTexts } from '@com/texts/loginTexts';
 import OTPInput from '@com/_atoms/OTPInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SectionTitle from './SectionTitle.nd';
 import useAuthTimer from '@hooks/useAuthTimer';
 import Cookies from 'js-cookie';
@@ -135,6 +135,37 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
       },
     );
   };
+
+  const handleAutoReadSMS = () => {
+    const controler = new AbortController();
+    setTimeout(
+      () => {
+        controler.abort();
+      },
+      1 * 60 * 1000,
+    );
+    const credentials: CredentialsContainer = navigator.credentials;
+    credentials
+      ?.get({
+        otp: { transport: ['sms'] },
+        signal: controler.signal,
+      })
+      .then((otp) => {
+        formik.setFieldValue('Code', otp?.id);
+        formik.handleSubmit();
+      })
+      .catch((err) => {
+        openNotification({
+          type: 'error',
+          message: err.message,
+          notifType: 'successOrFailedMessage',
+        });
+      });
+  };
+
+  useEffect(() => {
+    handleAutoReadSMS();
+  }, []);
 
   return (
     <>

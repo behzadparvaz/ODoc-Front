@@ -1,7 +1,9 @@
+import { useState } from 'react';
+
 import OrderInfoForm from '@com/_molecules/OrderInfoForm';
 import StepProgressBar from '@com/_molecules/StepProgressBar';
-import { useState } from 'react';
 import AddressAndDeliveryDate from '@com/_organisms/AddressAndDeliveryDate';
+import OrderTourGuide from '@com/_organisms/OrderTourGuide';
 import { routeList } from '@routes/routeList';
 
 const OrderRegisterSteps = ({ data, className = '' }) => {
@@ -54,34 +56,40 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
         items={stepProgressBarItem}
       />
       {userInfo ? (
-        <div className={`w-full py-8`}>
-          {step === 1 && (
-            <OrderInfoForm
-              handleNextStep={(step, value) => {
-                setStepOneValue({
-                  referenceNumber: value?.referenceNumber,
-                  nationalCode: value?.nationalCode,
-                  customerName: value?.customerName,
-                  doctorName: value?.doctorName,
-                  comment: value?.comment,
-                  insuranceTypeId: Number(value?.insuranceTypeId),
-                  supplementaryInsuranceTypeId: Number(
-                    value?.supplementaryInsuranceTypeId,
-                  ),
-                  isSpecialPatient: value?.isSpecialPatient,
-                  vendorSelects: value?.vendorSelects,
-                });
-                setStep(step);
-                setState({
-                  ...state,
-                  referenceNumber: String(value?.referenceNumber),
-                });
-              }}
-              userInfo={userInfo}
-            />
-          )}
-          {step === 2 && <AddressAndDeliveryDate stepOneValue={stepOneValue} />}
-        </div>
+        <>
+          <div className={`w-full py-8`}>
+            {step === 1 && (
+              <OrderInfoForm
+                handleNextStep={(step, value) => {
+                  setStepOneValue({
+                    referenceNumber: value?.referenceNumber,
+                    nationalCode: value?.nationalCode,
+                    customerName: value?.customerName,
+                    doctorName: value?.doctorName,
+                    comment: value?.comment,
+                    insuranceTypeId: Number(value?.insuranceTypeId),
+                    supplementaryInsuranceTypeId: Number(
+                      value?.supplementaryInsuranceTypeId,
+                    ),
+                    isSpecialPatient: value?.isSpecialPatient,
+                    vendorSelects: value?.vendorSelects,
+                  });
+                  setStep(step);
+                  setState({
+                    ...state,
+                    referenceNumber: String(value?.referenceNumber),
+                  });
+                }}
+                userInfo={userInfo}
+              />
+            )}
+            {step === 2 && (
+              <AddressAndDeliveryDate stepOneValue={stepOneValue} />
+            )}
+          </div>
+
+          <OrderTourGuide />
+        </>
       ) : (
         <div className="pt-36 text-center text-md">
           برای ثبت سفارش ابتدا
