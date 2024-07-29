@@ -20,39 +20,47 @@ const AddressAndDeliveryDate = ({ stepOneValue }) => {
       comment: stepOneValue?.comment,
       isSpecialPatient: stepOneValue?.isSpecialPatient,
       insuranceTypeId: Number(stepOneValue?.insuranceTypeId),
+      supplementaryInsuranceTypeId: Number(
+        stepOneValue?.supplementaryInsuranceTypeId,
+      ),
       latitude: addressSelected?.latitude,
       longitude: addressSelected?.longitude,
       valueAddress: addressSelected?.description,
       titleAddress: addressSelected?.name,
       houseNumber: addressSelected?.houseNumber,
       homeUnit: addressSelected?.homeUnit,
-      deliveryDate: deliveryDate
+      deliveryDate: deliveryDate,
     };
     addModal({
       modal: OrderRegisterConfirmationBottomSheet,
       props: {
-        data: body
-      }
+        data: body,
+      },
     });
   };
 
-  return <>
-    <div className="w-full">
-      <SelectAddress setAddressSelected={setAddressSelected}/>
-      <SelectDeliveryDate deliveryDate={deliveryDate} setDeliveryDate={setDeliveryDate}/>
-    </div>
-    <div className="w-full flex justify-end mt-5">
-      <Button
-        size="large"
-        disabled={!addressSelected || !deliveryDate}
-        buttonType="contained"
-        handleClick={() => handleRegisterOrder()}
-        variant="primary"
-      >
-        ثبت سفارش
-      </Button>
-    </div>
-  </>;
+  return (
+    <>
+      <div className="w-full">
+        <SelectAddress setAddressSelected={setAddressSelected} />
+        <SelectDeliveryDate
+          deliveryDate={deliveryDate}
+          setDeliveryDate={setDeliveryDate}
+        />
+      </div>
+      <div className="w-full flex justify-end mt-5">
+        <Button
+          size="large"
+          disabled={!addressSelected || !deliveryDate}
+          buttonType="contained"
+          handleClick={() => handleRegisterOrder()}
+          variant="primary"
+        >
+          ثبت سفارش
+        </Button>
+      </div>
+    </>
+  );
 };
 
 export default AddressAndDeliveryDate;

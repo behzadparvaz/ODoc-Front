@@ -30,6 +30,7 @@ export default function ProfileNavigation({ className = '' }) {
             height={128}
             src={'/static/images/staticImages/sample-avatar.svg'}
             className={'inline-block mb-1 rounded-full'}
+            priority
           />
           <p className="text-grey-600 text-sm font-medium text-center truncate h-5">
             {profileDataLoding === false
@@ -61,10 +62,9 @@ export default function ProfileNavigation({ className = '' }) {
         {navigaitionItemsVal?.map((item: any) => {
           const isActive = asPath === item?.link;
           return (
-            <>
+            <div key={item?.id}>
               <li
                 className={`${isActive ? ' text-teal-700 active' : 'text-grey-500'} w-full py-2 text-md relative border-b border-grey-100`}
-                key={item?.id}
               >
                 <NextLink href={item?.link}>
                   <a
@@ -75,7 +75,7 @@ export default function ProfileNavigation({ className = '' }) {
                   </a>
                 </NextLink>
               </li>
-            </>
+            </div>
           );
         })}
 

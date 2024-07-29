@@ -1,4 +1,10 @@
-import { useMutation, useQuery, useQueryClient, UseQueryOptions, UseQueryResult } from 'react-query';
+import {
+  useMutation,
+  useQuery,
+  useQueryClient,
+  UseQueryOptions,
+  UseQueryResult,
+} from 'react-query';
 import {
   CancelOrder,
   CreateOrderInsurance,
@@ -7,7 +13,8 @@ import {
   GetOrdersHistory,
   VerifyPaymentOrder,
   getInsurances,
-  GetOrderStatuses
+  GetOrderStatuses,
+  getSupplementaryInsurances,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -45,19 +52,19 @@ export const useCreateOrderInsurance = () => {
   });
 };
 
-export const useGetOrdersHistory: (statusId: number, options?: UseQueryOptions<unknown, unknown, any[]>) => UseQueryResult<any[]>
-  = (statusId, options) =>
-  useQuery(
-    ['getOrdersHistory', statusId],
-    () => GetOrdersHistory(statusId),
-    {
-      refetchInterval: 20000,
-      ...options
-    },
-  );
+export const useGetOrdersHistory: (
+  statusId: number,
+  options?: UseQueryOptions<unknown, unknown, any[]>,
+) => UseQueryResult<any[]> = (statusId, options) =>
+  useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
+    refetchInterval: 20000,
+    ...options,
+  });
 
-export const useGetOrderStatuses: (options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>) => UseQueryResult<OrderStatuses[]>
-  = (options) => useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
+export const useGetOrderStatuses: (
+  options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>,
+) => UseQueryResult<OrderStatuses[]> = (options) =>
+  useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
 
 export const useFinishOrderPayment = () => {
   const { push } = useRouter();
@@ -78,6 +85,7 @@ export const useFinishOrderPayment = () => {
     },
   });
 };
+
 export const useCancelOrder = () => {
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
@@ -112,6 +120,13 @@ export const useGetInsurances = () => {
 export const useGetOrderState = (orderCode) => {
   const { data, isLoading } = useQuery(['getOrderState', orderCode], () =>
     GetOrderState(orderCode),
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useGetSupplementaryInsurances = () => {
+  const { data, isLoading } = useQuery(['getSupplementaryInsurances'], () =>
+    getSupplementaryInsurances(),
   );
   return { data: data as any, isLoading };
 };
