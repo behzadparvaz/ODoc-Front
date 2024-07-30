@@ -16,6 +16,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
     doctorName: null,
     comment: null,
     insuranceTypeId: 0,
+    supplementaryInsuranceTypeId: 0,
     isSpecialPatient: false,
     vendorSelects: null,
   });
@@ -67,6 +68,9 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
                     doctorName: value?.doctorName,
                     comment: value?.comment,
                     insuranceTypeId: Number(value?.insuranceTypeId),
+                    supplementaryInsuranceTypeId: Number(
+                      value?.supplementaryInsuranceTypeId,
+                    ),
                     isSpecialPatient: value?.isSpecialPatient,
                     vendorSelects: value?.vendorSelects,
                   });

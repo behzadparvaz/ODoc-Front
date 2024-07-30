@@ -1,4 +1,7 @@
-import { useGetInsurances } from '@api/order/orderApis.rq';
+import {
+  useGetInsurances,
+  useGetSupplementaryInsurances,
+} from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
@@ -21,8 +24,8 @@ interface Props {
 
 const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
+  const { data: supplementaryInsurances } = useGetSupplementaryInsurances();
   const { data: vendors } = useGetVendors();
-
   const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
 
@@ -69,6 +72,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     comment: null,
     isSpecialPatient: false,
     insuranceTypeId: 1,
+    supplementaryInsuranceTypeId: 1,
     vendorCode: null,
   });
 
@@ -86,6 +90,9 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         comment: value?.comment,
         isSpecialPatient: value?.isSpecialPatient,
         insuranceTypeId: Number(value?.insuranceTypeId),
+        supplementaryInsuranceTypeId: Number(
+          value?.supplementaryInsuranceTypeId,
+        ),
         vendorSelects: [
           {
             vendorCode: value?.vendorCode,
@@ -164,6 +171,25 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         onChange={formik.handleChange}
       >
         {insurances?.map((item, index) => {
+          return (
+            <>
+              <option value={item?.id} key={index} selected={index === 0}>
+                {item?.name}
+              </option>
+            </>
+          );
+        })}
+      </select>
+      <label className="font-semibold text-sm mb-2 text-gray-800">
+        {orderText?.additionalInsuranceType}
+      </label>
+      <select
+        name="supplementaryInsuranceTypeId"
+        value={formik?.values?.supplementaryInsuranceTypeId}
+        className="w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 mb-5"
+        onChange={formik.handleChange}
+      >
+        {supplementaryInsurances?.map((item, index) => {
           return (
             <>
               <option value={item?.id} key={index} selected={index === 0}>

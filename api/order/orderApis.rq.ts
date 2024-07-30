@@ -14,6 +14,7 @@ import {
   VerifyPaymentOrder,
   getInsurances,
   GetOrderStatuses,
+  getSupplementaryInsurances,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -56,7 +57,7 @@ export const useGetOrdersHistory: (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ) => UseQueryResult<any[]> = (statusId, options) =>
   useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
-    refetchInterval: 5000,
+    refetchInterval: 20000,
     ...options,
   });
 
@@ -84,6 +85,7 @@ export const useFinishOrderPayment = () => {
     },
   });
 };
+
 export const useCancelOrder = () => {
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
@@ -118,6 +120,13 @@ export const useGetInsurances = () => {
 export const useGetOrderState = (orderCode) => {
   const { data, isLoading } = useQuery(['getOrderState', orderCode], () =>
     GetOrderState(orderCode),
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useGetSupplementaryInsurances = () => {
+  const { data, isLoading } = useQuery(['getSupplementaryInsurances'], () =>
+    getSupplementaryInsurances(),
   );
   return { data: data as any, isLoading };
 };
