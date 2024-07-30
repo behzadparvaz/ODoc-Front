@@ -19,11 +19,11 @@ This project is a web application developed using React and Next.js, offering a 
 
 ## 📦 Framework and Packages
 
-Next.js builds on React with robust features like server-side rendering (SSR) and static site generation (SSG), which are crucial for enhancing web application performance and SEO. SSR pre-renders pages on the server, reducing load times and improving the user experience, particularly on slower networks. SSG creates HTML at build time, ensuring fast-loading pages and further boosting SEO, allowing developers to create high-performance applications that are easily discoverable by search engines.
+**Next.js** builds on React with robust features like server-side rendering (SSR) and static site generation (SSG), which are crucial for enhancing web application performance and SEO. SSR pre-renders pages on the server, reducing load times and improving the user experience, particularly on slower networks. SSG creates HTML at build time, ensuring fast-loading pages and further boosting SEO, allowing developers to create high-performance applications that are easily discoverable by search engines.
 
-State Manager: We use Redux Persist to effortlessly manage state persistence across sessions, ensuring that user data and preferences are retained even after page refreshes or browser restarts. It simplifies the process with an easy-to-use API that integrates directly with Redux Toolkit, reducing the complexity of manual state saving and rehydration. This ensures that important state information is reliably maintained, enhancing the user experience with consistent and robust application behavior.
+**State Manager**: We use Redux Persist to effortlessly manage state persistence across sessions, ensuring that user data and preferences are retained even after page refreshes or browser restarts. It simplifies the process with an easy-to-use API that integrates directly with Redux Toolkit, reducing the complexity of manual state saving and rehydration. This ensures that important state information is reliably maintained, enhancing the user experience with consistent and robust application behavior.
 
-Data Fetching: We use React Query and Axios together to streamline data fetching and state management in our React applications. React Query enhances data handling by automating caching, background updates, and synchronization, ensuring efficient and up-to-date data access. Paired with Axios, a powerful and flexible HTTP client, we can easily make API requests and manage server responses. This combination reduces boilerplate code, simplifies error handling, and improves overall performance and user experience by ensuring seamless and reliable data interactions.
+**Data Fetching**: We use React Query and Axios together to streamline data fetching and state management in our React applications. React Query enhances data handling by automating caching, background updates, and synchronization, ensuring efficient and up-to-date data access. Paired with Axios, a powerful and flexible HTTP client, we can easily make API requests and manage server responses. This combination reduces boilerplate code, simplifies error handling, and improves overall performance and user experience by ensuring seamless and reliable data interactions.
 
 ## 🤔 Prerequisites
 
@@ -110,11 +110,18 @@ ODoc-Front/
 
 Please follow these steps to contribute:
 
-Fork the repository.
-Create a new branch from main branch (git checkout -b branch-name).
-Make your changes.
-Commit your changes (git commit -m 'type(instance): commit message').
-types: fix | feat | build | chore | ci | docs | style | refactor | perf | test
-You can check for more: https://www.conventionalcommits.org/en/v1.0.0/
-Push to the branch (git push origin branch-name).
-Open a Pull Request.
+1. Fork the repository.
+
+2. Create a new branch from **main branch** (git checkout -b branch-name).
+
+3. Make your changes.
+
+4. Commit your changes (git commit -m **'type(instance): commit message'**).
+
+5. types: **fix | feat | build | chore | ci | docs | style | refactor | perf | test**
+
+6. You can check for more: https://www.conventionalcommits.org/en/v1.0.0/
+
+7. Push to the branch (git push origin branch-name).
+
+8. Open a Pull Request.
