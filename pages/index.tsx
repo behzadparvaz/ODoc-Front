@@ -1,4 +1,3 @@
-import MobileLayout from '@com/_template/MobileLayout';
 import NextImage from '@com/_core/NextImage';
 import { IconButton } from '@material-ui/core';
 import { ArrowLeftIconOutline, HamburgerMenu, ProfileIconOutline } from '@com/icons';
@@ -10,6 +9,7 @@ import firstSlidePNG from '@static/images/staticImages/first-slide.png';
 import secondSlidePNG from '@static/images/staticImages/second-slide.png';
 import enemadPNG from '@static/images/staticImages/enemad.png';
 import NextLink from '@com/_core/NextLink';
+import MainLayout from '@com/_template/MainLayout';
 
 const Landing = () => {
   const { push } = useRouter();
@@ -19,7 +19,7 @@ const Landing = () => {
     push(routeList.profile);
   };
 
-  return <MobileLayout>
+  return <MainLayout className="px-6" title=" ">
     <div className="bg-primary-800 w-full flex justify-between items-center p-4 sticky top-0 z-50">
       <div className="flex items-center gap-4">
         <IconButton className="rounded-full !p-0" size={'small'}>
@@ -67,22 +67,24 @@ const Landing = () => {
       </NextLink>
     </div>
 
-    <div className='h-[36px] bg-primary'>
+    <div className="h-[36px] bg-primary">
 
     </div>
 
-    <div className='bg-[#1E1E1E] py-6 px-4 text-white font-light text-xs leading-6'>
+    <div className="bg-[#1E1E1E] py-6 px-4 text-white font-light text-xs leading-6">
       <NextImage src={tapsiLogo} height={20} width={85}/>
 
-      <p className='py-5 text-justify'>تپسی دکتر، پلتفرم تهیه سریع و آسان داروهای مورد نیاز است. با استفاده از خدمات ما، داروهای خود را از نزدیک ترین داروخانه به سرعت و با اطمینان درب منزل دریافت کنید. تیم پشتیبانی ما همواره آماده پاسخگویی به سوالات و رفع نیازهای شماست.</p>
+      <p className="py-5 text-justify">تپسی دکتر، پلتفرم تهیه سریع و آسان داروهای مورد نیاز است. با استفاده از خدمات ما،
+        داروهای خود را از نزدیک ترین داروخانه به سرعت و با اطمینان درب منزل دریافت کنید. تیم پشتیبانی ما همواره آماده
+        پاسخگویی به سوالات و رفع نیازهای شماست.</p>
 
-      <div className='grid grid-cols-6 justify-between items-start'>
-        <div className='col-span-4'>
+      <div className="grid grid-cols-6 justify-between items-start">
+        <div className="col-span-4">
           <p>آدرس: تهران، سعادت‌آباد، بالاتر از میدان کاج، بلوار بهزاد، نبش کوچه باغستان، پلاک ۲</p>
           <p>کد پستی: ۱۹۹۸۶۳۵۸۲۰</p>
         </div>
-        <div className='col-span-2 flex justify-end items-end h-full'>
-          <span className='p-3 bg-white rounded-2xl flex'>
+        <div className="col-span-2 flex justify-end items-end h-full">
+          <span className="p-3 bg-white rounded-2xl flex">
             <NextImage src={enemadPNG} height={61} width={58}/>
           </span>
         </div>
@@ -90,7 +92,7 @@ const Landing = () => {
 
     </div>
 
-  </MobileLayout>;
+  </MainLayout>;
 };
 
 export default Landing;
