@@ -1,64 +1,22 @@
 {
-  "name": "odoc-web-app",
-  "version": "0.1.0",
+  "name": "monorepo-doctor",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "prod-start": "next start -p PORT",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.12.4",
-    "@next/bundle-analyzer": "^14.2.3",
-    "@tailwindcss/line-clamp": "^0.4.4",
-    "axios": "^1.7.2",
-    "class-variance-authority": "^0.7.0",
-    "classnames": "^2.5.1",
-    "formik": "^2.2.9",
-    "framer-motion": "^4.1.17",
-    "jalali-moment": "^3.3.11",
-    "js-cookie": "^3.0.5",
-    "mapbox-gl": "^1.13.0",
-    "next": "12.3.4",
-    "next-compose-plugins": "^2.2.1",
-    "next-pwa": "^5.4.0",
-    "next-redux-wrapper": "^7.0.2",
-    "nextjs-progressbar": "^0.0.13",
-    "react": "17.0.2",
-    "react-dom": "17.0.2",
-    "react-joyride": "^2.8.2",
-    "react-media-hook": "^0.4.9",
-    "react-multi-date-picker": "^4.5.2",
-    "react-query": "^3.26.0",
-    "react-redux": "^7.2.4",
-    "react-toastify": "^8.1.0",
-    "redux": "^4.1.0",
-    "redux-persist": "^6.0.0",
-    "redux-state-sync": "^3.1.2",
-    "redux-thunk": "^2.3.0",
-    "shamsi-date-converter": "^1.0.5",
-    "uuid": "^9.0.1",
-    "yup": "^0.32.9"
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "dev:customer": "yarn workspace customer run dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
-    "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@types/mapbox-gl": "^2.7.10",
-    "@types/node": "^20.12.12",
-    "@types/react": "^17.0.15",
-    "autoprefixer": "^10.3.1",
-    "eslint": "^8.57.0",
-    "eslint-config-next": "^14.2.3",
-    "husky": "^7.0.1",
-    "lint-staged": "^11.1.2",
-    "next-sitemap": "^1.6.192",
-    "postcss": "^8.3.6",
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.4.5"
+    "turbo": "^1.9.7"
   },
-  "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
-  }
+  "packageManager": "yarn@1.22.15",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

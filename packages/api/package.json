@@ -1,0 +1,36 @@
+{
+  "name": "@repo/api",
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "main": "./index.ts",
+  "module": "./dist/index.mjs",
+  "types": "./index.ts",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "dev": "tsup index.ts --watch",
+    "test": "jest"
+  },
+  "peerDependencies": {
+    "react": "18.2.0",
+    "react-dom": "ˆ18.2.0"
+  },
+  "devDependencies": {
+    "@babel/preset-env": "^7.22.5",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@repo/utils": "*",
+    "@types/node": "^20.12.12",
+    "@types/react": "^17.0.15",
+    "@types/react-dom": "^17.0.15",
+    "eslint-config-custom": "*",
+    "tsup": "^6.5.0",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "0.21.2"
+  }
+}
