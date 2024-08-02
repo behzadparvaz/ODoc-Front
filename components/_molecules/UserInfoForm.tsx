@@ -11,6 +11,7 @@ import { convertDateToTimestamp, formattingDate } from '@utilities/mainUtils';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { TickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import ImageUpload from '@com/_atoms/fileUploader/ImageUpload';
 
 interface Props {
   data: any;
@@ -28,6 +29,7 @@ const UserInfoForm = ({
   const { mutate: mutateAddProfileInfo } = useAddProfileInfo(inOrderPage);
   const { mutate: mutateUpdateProfileInfo } = useUpdateProfileInfo(inOrderPage);
   const [disabledForm, setDisabledForm] = useState<boolean>(true);
+  const [uploadedFile, setUploadedFile] = useState(null);
   const [initialValues] = useState({
     firstName: data ? data?.firstName : '',
     lastName: data ? data?.lastName : '',
@@ -38,6 +40,7 @@ const UserInfoForm = ({
       data && data?.dateOfBrith
         ? convertDateToTimestamp(data?.dateOfBrith)
         : null,
+    formFile: null,
   });
 
   const formik = useFormik({
@@ -49,6 +52,7 @@ const UserInfoForm = ({
         dateOfBirth: values?.dateOfBirth
           ? formattingDate(new Date(values?.dateOfBirth))
           : null,
+        formFile: uploadedFile?.formFile,
       };
       if (data) {
         mutateUpdateProfileInfo(newValues, {});
@@ -64,6 +68,11 @@ const UserInfoForm = ({
       setDisabledForm(false);
     }
   };
+
+  const handleFileUpload = (file) => {
+    setUploadedFile(file);
+  };
+
   return (
     <form
       onSubmit={formik.handleSubmit}
@@ -75,7 +84,6 @@ const UserInfoForm = ({
         onChange={formik?.handleChange}
         label="جنسیت"
       />
-
       <Input
         placeholder={profileText?.firstName}
         label={profileText?.firstName}
@@ -147,6 +155,14 @@ const UserInfoForm = ({
           className="w-full mt-5 z-0"
         />
       </div>
+      {formik.values.isSpecialPatient && (
+        <ImageUpload
+          name="formFile"
+          title="آپلود عکس کارت ملی"
+          previewImageUrl={uploadedFile}
+          setPreviewImageUrl={handleFileUpload}
+        />
+      )}
       {inOrderPage && (
         <div className="flex justify-between">
           <Button
@@ -174,4 +190,5 @@ const UserInfoForm = ({
     </form>
   );
 };
+
 export default UserInfoForm;

@@ -1,3 +1,6 @@
+// import { ButtonProps } from 'antd/lib/button';
+import { EditIcon, PlusIconOutline } from '@com/icons';
+import { colors } from '@configs/Theme';
 import {
   Dispatch,
   SetStateAction,
@@ -5,7 +8,7 @@ import {
   useState,
   createRef,
 } from 'react';
-import Button from '../Button';
+// import { EditIcon, PlusIcon } from '../icons';
 
 type Props = {
   name: string;
@@ -14,50 +17,53 @@ type Props = {
   defaultImage?: string;
   inputClassName?: string;
   inputWrapperClassName?: string;
-  addButtonProps?: any;
-  changeButtonProps?: any;
-  removeButtonProps?: any;
+  // addButtonProps?: ButtonProps;
+  // changeButtonProps?: ButtonProps;
+  // removeButtonProps?: ButtonProps;
   disabled?: boolean;
+  title: string;
+  className?: string;
 };
 
 function ImageUpload({
   name,
+  className = '',
   previewImageUrl,
   setPreviewImageUrl,
-  defaultImage = '/icons/placeholder.png',
-  addButtonProps,
-  changeButtonProps,
-  removeButtonProps,
+  // addButtonProps,
+  // changeButtonProps,
+  // removeButtonProps,
   inputClassName,
   inputWrapperClassName,
   disabled = false,
+  title = '',
 }: Props) {
   const [fileState, setFile] = useState(null);
   const [imageUrlState, setImageUrlState] = useState(null);
 
   let fileInput = createRef<HTMLInputElement>();
 
-  // useEffect(() => {
-  //   previewImageUrl
-  //     ? setImageUrlState(previewImageUrl)
-  //     : setImageUrlState(null);
-  // }, [previewImageUrl]);
+  useEffect(() => {
+    previewImageUrl
+      ? setImageUrlState(previewImageUrl)
+      : setImageUrlState(null);
+  }, [previewImageUrl]);
 
-  // const handleImageChange = (e) => {
-  //   e.preventDefault();
-  //   let reader = new FileReader();
-  //   let file = e.target.files[0];
+  const handleImageChange = (e) => {
+    e.preventDefault();
+    let reader = new FileReader();
+    let file = e.target.files[0];
 
-  //   reader.onloadend = () => {
-  //     setFile(file);
-  //     setImageUrlState(reader.result);
-  //   };
-  //   setPreviewImageUrl((prev) => ({
-  //     ...prev,
-  //     [name]: file,
-  //   }));
-  //   reader.readAsDataURL(file);
-  // };
+    reader.onloadend = () => {
+      setFile(file);
+      setImageUrlState(reader.result);
+    };
+    setPreviewImageUrl((prev) => ({
+      ...prev,
+      [name]: file,
+    }));
+    reader.readAsDataURL(file);
+  };
 
   const handleClick = () => {
     fileInput.current.click();
@@ -65,24 +71,16 @@ function ImageUpload({
 
   const handleRemove = () => {
     setFile(null);
-    setImageUrlState(defaultImage);
+    setImageUrlState(null);
     fileInput.current.value = null;
     setPreviewImageUrl((prev) => ({
       ...prev,
       [name]: '',
     }));
   };
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [preview, setPreview] = useState(null);
-
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
-    setSelectedFile(file);
-    setPreview(URL.createObjectURL(file));
-  };
   return (
-    <div className="fileUpload">
-      {/* <input
+    <div className={`fileUpload ${className}`}>
+      <input
         name={name}
         type="file"
         onChange={handleImageChange}
@@ -90,74 +88,40 @@ function ImageUpload({
         className={'!hidden'}
         disabled={disabled}
       />
-      <div className={`mx-auto py-3 my-3 ${inputWrapperClassName ?? ''}`}>
-        <img
-          src={(imageUrlState as string) || defaultImage}
-          alt="..."
-          className={inputClassName ?? ''}
-        />
-      </div>
-      <div className="flex items-center justify-center">
+      <div className="flex justify-between mb-2 items-center">
+        <div className="text-sm font-semibold">{title}</div>
         {(fileState === null && !previewImageUrl) || disabled ? (
-          <Button
-            type="primary"
+          <span
+            className=" text-2xs cursor-pointer text-grey-400 flex gap-x-1 items-center"
             onClick={() => handleClick()}
-            {...addButtonProps}
-            disabled={disabled}
           >
-            انتخاب تصویر
-          </Button>
+            <PlusIconOutline width={12} height={12} fill={colors.grey[800]} />
+            اضافه کردن تصویر
+          </span>
         ) : (
-          <>
-            <Button
-              className="mx-3"
-              onClick={() => handleClick()}
-              {...changeButtonProps}
-            >
-              ویرایش
-            </Button>
-            <Button
-              danger
-              onClick={() => handleRemove()}
-              {...removeButtonProps}
-            >
-              حذف
-            </Button>
-          </>
+          <span
+            className=" text-2xs cursor-pointer text-grey-400 flex gap-x-1 items-center"
+            onClick={() => handleClick()}
+          >
+            <EditIcon width={12} height={12} stroke="#FF6136" />
+            ویرایش تصویر
+          </span>
         )}
-      </div> */}
-      <input
-        name={name}
-        type="file"
-        onChange={handleFileChange}
-        ref={fileInput}
-        className={'!hidden'}
-        disabled={disabled}
-      />
-      {preview && (
-        <div className={`mx-auto py-3 my-3 ${inputWrapperClassName ?? ''}`}>
-          <img src={preview} alt="Preview" width="100" height="100" />
-        </div>
-      )}
-      <div className="flex items-center justify-center">
-        <Button
-          buttonType="outlined"
-          variant="primary"
-          className="ml-1"
-          handleClick={() => handleClick()}
-          // {...addButtonProps}
-          disabled={disabled}
-        >
-          انتخاب تصویر
-        </Button>
-        <Button
-          buttonType="outlined"
-          variant="tertiary"
-          handleClick={() => handleRemove()}
-          // {...removeButtonProps}
-        >
-          حذف
-        </Button>
+      </div>
+      <div
+        className={`mx-auto ${!imageUrlState ? 'border-grey-200 border-2 h-44 border-dashed items-center justify-center flex text-sm font-semibold text-grey-300' : ''} overflow-hidden rounded-xl ${
+          inputWrapperClassName ?? ''
+        }`}
+      >
+        {imageUrlState ? (
+          <img
+            src={imageUrlState as string}
+            alt="..."
+            className={inputClassName ?? ''}
+          />
+        ) : (
+          title
+        )}
       </div>
     </div>
   );
