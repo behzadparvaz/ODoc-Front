@@ -21,7 +21,7 @@ const MainLayout = ({
 }: Props) => {
   return (
     <div
-      className={`w-full h-screen ${title ? 'pt-[78px]' : ''} pb-[61px] bg-white flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+      className={`w-full h-screen ${title ? 'pt-[78px]' : ''} pb-[57px] bg-white flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
     >
       {(title || headerChildren) && (
         <div
