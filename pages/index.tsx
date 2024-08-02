@@ -16,40 +16,40 @@ const Landing = () => {
   }>
     <div className="grid grid-cols-11 items-center bg-primary-100 rounded-lg py-6">
       <div className="col-span-6 flex flex-col items-center p-3">
-        <div className={'w-[122px]'}>
-          <h1 className="font-semibold">پلتفرم ارسال دارو</h1>
+        <div className="xs:w-[122px] sm:w-auto text-center sm:pb-2">
+        <h1 className="font-semibold pb-1">پلتفرم ارسال دارو</h1>
           <h3 className="text-sm text-justify font-light">در سـریـعتــرین زمــان داروهاتو دریافت کن</h3>
         </div>
-        <NextLink href={routeList.loginRoute}>
-          <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 justify-center items-center mt-2">
+        <NextLink href={routeList.homeRoute}>
+          <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 sm:w-9/12 justify-center items-center mt-2">
             <span className="text-white font-medium text-sm leading-4">ثبت سفارش دارو</span>
             <NewArrowLeftIconOutline width={24} height={24} stroke={'white'}/>
           </div>
         </NextLink>
       </div>
-      <div className="col-span-5 pl-2">
-        <NextImage src={firstSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw" fill
+      <div className="col-span-5 pl-2 text-center">
+        <NextImage src={firstSlidePNG}
+                   width={160} height={160}
                    quality={20}/>
       </div>
     </div>
 
     <div className="grid grid-cols-11 items-center bg-primary-300 rounded-lg py-6">
       <div className="col-span-6 flex flex-col items-center p-3">
-        <div className={'w-[122px]'}>
-          <h2 className="font-semibold">به وسعـــت ایـــران</h2>
+        <div className="xs:w-[122px] sm:w-auto text-center sm:pb-2">
+          <h2 className="font-semibold pb-1">به وسعـــت ایـــران</h2>
           <h3 className="text-sm text-justify font-light">به میـلیـون‌هـا کاربر دسترسی پیدا کنید.</h3>
         </div>
-        <NextLink href={routeList.loginRoute}>
-          <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 justify-center items-center mt-2">
+        <NextLink href={routeList.vmsRoute}>
+          <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 sm:w-9/12 justify-center items-center mt-2">
             <span className="text-white font-medium text-sm leading-4">ثبت‌نام داروخانه</span>
             <NewArrowLeftIconOutline width={24} height={24} stroke={'white'}/>
           </div>
         </NextLink>
       </div>
-      <div className="col-span-5 pl-2">
+      <div className="col-span-5 pl-2 text-center">
         <NextImage src={secondSlidePNG}
-                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                   fill
+                   width={160} height={160}
                    quality={20}/>
       </div>
     </div>
