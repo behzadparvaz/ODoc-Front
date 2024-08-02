@@ -54,7 +54,7 @@ export const BottomNavigationMenuItems = () => {
       id: 2,
       icon: ({ color = colors?.grey?.[400] }) => <PharmacyOutline width={24} height={24} fill={color}/>,
       text: 'داروخانه',
-      link: 'https://vms.tapsi.doctor',
+      link: routeList.vmsRoute,
       hasSubRouet: false
     }, {
       id: 3,

@@ -20,7 +20,7 @@ const Landing = () => {
         <h1 className="font-semibold pb-1">پلتفرم ارسال دارو</h1>
           <h3 className="text-sm text-justify font-light">در سـریـعتــرین زمــان داروهاتو دریافت کن</h3>
         </div>
-        <NextLink href={routeList.loginRoute}>
+        <NextLink href={routeList.homeRoute}>
           <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 sm:w-9/12 justify-center items-center mt-2">
             <span className="text-white font-medium text-sm leading-4">ثبت سفارش دارو</span>
             <NewArrowLeftIconOutline width={24} height={24} stroke={'white'}/>
@@ -40,7 +40,7 @@ const Landing = () => {
           <h2 className="font-semibold pb-1">به وسعـــت ایـــران</h2>
           <h3 className="text-sm text-justify font-light">به میـلیـون‌هـا کاربر دسترسی پیدا کنید.</h3>
         </div>
-        <NextLink href={routeList.loginRoute}>
+        <NextLink href={routeList.vmsRoute}>
           <div className="flex gap-1 bg-primary rounded-md py-2 pr-3 pl-1 sm:w-9/12 justify-center items-center mt-2">
             <span className="text-white font-medium text-sm leading-4">ثبت‌نام داروخانه</span>
             <NewArrowLeftIconOutline width={24} height={24} stroke={'white'}/>

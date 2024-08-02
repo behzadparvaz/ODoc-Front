@@ -1,4 +1,6 @@
 export const routeList = {
+  vmsRoute: 'https://vms.tapsi.doctor',
+
   landingRoute: '/',
   homeRoute: '/app/',
   loginRoute: '/app/auth',
