@@ -15,6 +15,7 @@ import { generalTexts } from '@com/texts/generalTexts';
 import { useRouter } from 'next/router';
 import { setUserAction } from '@redux/user/userActions';
 import { useDispatch } from 'react-redux';
+import { routeList } from '@routes/routeList';
 
 interface Props {
   data: any;
@@ -76,7 +77,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
                 token: data?.token,
               }),
             );
-            fromUrl ? push(`${fromUrl}`) : push('/');
+            fromUrl ? push(`${fromUrl}`) : push(routeList.homeRoute);
             openNotification({
               message: loginTexts?.loginSuccessfully,
               type: 'success',
