@@ -1,4 +1,5 @@
 export const routeList = {
+  landingRoute: '/',
   homeRoute: '/app/',
   loginRoute: '/app/auth',
   logoutRoute: '/app/logout',

@@ -58,6 +58,7 @@ module.exports = {
         dark: '#046b6d',
         light: 'rgba(2, 160, 164, 0.04)',
         100: '#D0E5E6',
+        300: '#CBE4EB',
         400: '#A9DBDC',
         800: '#008385'
       },

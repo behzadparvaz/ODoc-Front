@@ -15,7 +15,7 @@ interface Props {
 const MainLayout = ({ children, className = '', title, headerChildren }: Props) => {
   return (
     <div
-      className={`w-full h-screen ${title ? 'pt-[78px]' : ''} overflow-auto pb-[95px] bg-white ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+      className={`w-full h-screen ${title ? 'pt-[78px]' : ''} overflow-auto pb-[61px] bg-white ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
     >
       {(title || headerChildren) && (
         <div

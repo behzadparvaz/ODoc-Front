@@ -97,6 +97,15 @@ export const NewArrowLeftIconFill = ({ width, height, fill }: IconType) => {
   );
 };
 
+export const NewArrowLeftIconOutline = ({ width, height, stroke }: IconType) => {
+  return (
+    <svg width={width} height={height} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M15.5 7L10.5 12" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+      <path d="M15.5 17L10.5 12" stroke={stroke} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+    </svg>
+  );
+};
+
 export const ArrowDownIconOutLine = ({ width, height, stroke }: IconType) => {
   return (
     <svg width={width} height={height} viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -545,6 +554,20 @@ export const PlusIconOutline = ({ width, height, fill, className = '' }: IconTyp
         fill={fill}
       />
     </svg>
+  );
+};
+
+export const NewPlusIconOutline = ({ width, height, fill, className = '' }: IconType) => {
+  return (
+    <svg width={width} height={height} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd"
+            d="M12.7143 0C11.7675 0 11 0.767512 11 1.71429V10.2857H2.21429C1.26751 10.2857 0.5 11.0532 0.5 12C0.5 12.9468 1.26751 13.7143 2.21429 13.7143H11V22.2857C11 23.2325 11.7675 24 12.7143 24C13.6611 24 14.4286 23.2325 14.4286 22.2857V13.7143H22.7857C23.7325 13.7143 24.5 12.9468 24.5 12C24.5 11.0532 23.7325 10.2857 22.7857 10.2857H14.4286V1.71429C14.4286 0.767512 13.6611 0 12.7143 0Z"
+            fill={fill}/>
+      <path fillRule="evenodd" clipRule="evenodd"
+            d="M12.7143 0C11.7675 0 11 0.767512 11 1.71429V10.2857H2.21429C1.26751 10.2857 0.5 11.0532 0.5 12C0.5 12.9468 1.26751 13.7143 2.21429 13.7143H11V22.2857C11 23.2325 11.7675 24 12.7143 24C13.6611 24 14.4286 23.2325 14.4286 22.2857V13.7143H22.7857C23.7325 13.7143 24.5 12.9468 24.5 12C24.5 11.0532 23.7325 10.2857 22.7857 10.2857H14.4286V1.71429C14.4286 0.767512 13.6611 0 12.7143 0Z"
+            fill={fill}/>
+    </svg>
+
   );
 };
 
@@ -2279,7 +2302,7 @@ export const HamburgerMenu = ({ width, height, fill }: IconType) => {
 };
 
 
-export const PharmecyOutline = ({ width = 24, height = 24, fill = "#9A9A9A" }) =>
+export const PharmacyOutline = ({ width = 24, height = 24, fill = "#9A9A9A" }) =>
   <svg width={width} height={height} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M15.7854 5.69408H14.429C14.429 4.39538 13.39 3.35642 12.0913 3.35642C10.7926 3.35642 9.75364 4.39538 9.75364 5.69408H8.39722C8.39722 3.64502 10.0711 2 12.0913 2C14.1115 2 15.7854 3.64502 15.7854 5.69408Z"
@@ -2328,7 +2351,7 @@ export const MyOrderOutline = ({ width = 24, height = 24, fill = '#9A9A9A' }) =>
   </svg>;
 
 
-export const ProfileCircleOutline = ({width= 24, height = 24, stroke="#9A9A9A"}) =>
+export const ProfileCircleOutline = ({ width = 24, height = 24, stroke = "#9A9A9A" }) =>
   <svg width={width} height={height} viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M18.5 18.7023C18.5 15.6706 15 15 12.5 15C10 15 6.5 15.6706 6.5 18.7023M21.5 12C21.5 16.9706 17.4706 21 12.5 21C7.52944 21 3.5 16.9706 3.5 12C3.5 7.02944 7.52944 3 12.5 3C17.4706 3 21.5 7.02944 21.5 12ZM15.5 9C15.5 10.6569 14.1569 12 12.5 12C10.8431 12 9.5 10.6569 9.5 9C9.5 7.34315 10.8431 6 12.5 6C14.1569 6 15.5 7.34315 15.5 9Z"
