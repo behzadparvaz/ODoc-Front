@@ -6,20 +6,21 @@ import { TickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { formattingDate } from '@utilities/mainUtils';
 
+const cutoffHour = 14
+
+const makeDates = (() => {
+  const currentDate = new Date();
+  const currentHour = Number(currentDate.toLocaleTimeString('en-UK', { timeZone: 'Asia/Tehran', hour: 'numeric' }));
+
+  const day = new Date(currentDate.setDate(currentDate.getDate() + (currentHour >= cutoffHour ? 2 : 1)));
+
+  return [{
+    label: day.toLocaleDateString('fa-IR'),
+    value: formattingDate(day)
+  }];
+})()
+
 const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
-
-  const makeDates = useMemo(() => {
-    const currentDate = new Date();
-    return [...Array(3)].map(() => {
-      const day = new Date(currentDate.setDate(currentDate.getDate() + 1));
-      return {
-        label: day.toLocaleDateString('fa-IR'),
-        value: formattingDate(day)
-      };
-    });
-  }, []);
-
-
   return <Box>
     <div className="text-sm mb-2">زمان تحویل</div>
 

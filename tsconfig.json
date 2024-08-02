@@ -34,6 +34,7 @@
   "include": [
     "next-env.d.ts",
     "next.config.js",
+    "global.d.ts",
     "app",
     "pages",
     "components",

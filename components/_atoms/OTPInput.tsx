@@ -1,4 +1,11 @@
-import React, { memo, useState, useCallback, CSSProperties, Dispatch, SetStateAction } from 'react';
+import React, {
+  memo,
+  useState,
+  useCallback,
+  CSSProperties,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 import { useEffect } from 'react';
 import SingleInput from './SingleOTPInput';
 import { useRouter } from 'next/router';
@@ -9,7 +16,9 @@ export interface OTPInputProps {
   length: number;
   onChangeOTP?: (otp: string) => any;
   onPasteOtp?: (otp: string) => any;
-  setState?: Dispatch<SetStateAction<{ mobileNumber: string; code: string; handleReset: boolean }>>;
+  setState?: Dispatch<
+    SetStateAction<{ mobileNumber: string; code: string; handleReset: boolean }>
+  >;
   autoFocus?: boolean;
   isNumberInput?: boolean;
   disabled?: boolean;
@@ -42,7 +51,8 @@ export function OTPInputComponent(props: OTPInputProps) {
   const autoOtp = getDataFromCookies('otp');
   const [activeInput, setActiveInput] = useState(0);
   const [otpValues, setOTPValues] = useState(Array<string>(length).fill(''));
-  const appVersion = router.query.app_version || getDataFromCookies('app_version');
+  const appVersion =
+    router.query.app_version || getDataFromCookies('app_version');
 
   // Helper to return OTP from inputs
   const handleOtpChange = useCallback(
@@ -50,7 +60,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       const otpValue = otp.join('');
       onChangeOTP(otpValue);
     },
-    [onChangeOTP]
+    [onChangeOTP],
   );
 
   // Helper to return value with the right type: 'text' or 'number'
@@ -62,7 +72,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       }
       return !changedValue || /\d/.test(changedValue) ? changedValue : '';
     },
-    [isNumberInput]
+    [isNumberInput],
   );
 
   // Change OTP value at focussing input
@@ -73,7 +83,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       setOTPValues(updatedOTPValues);
       handleOtpChange(updatedOTPValues);
     },
-    [activeInput, handleOtpChange, otpValues]
+    [activeInput, handleOtpChange, otpValues],
   );
 
   // Focus `inputIndex` input
@@ -82,7 +92,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       const selectedIndex = Math.max(Math.min(length - 1, inputIndex), 0);
       setActiveInput(selectedIndex);
     },
-    [length]
+    [length],
   );
 
   const focusPrevInput = useCallback(() => {
@@ -98,7 +108,7 @@ export function OTPInputComponent(props: OTPInputProps) {
     (index: number) => () => {
       focusInput(index);
     },
-    [focusInput]
+    [focusInput],
   );
 
   // Handle onChange value for each input
@@ -112,7 +122,7 @@ export function OTPInputComponent(props: OTPInputProps) {
       changeCodeAtFocus(val);
       focusNextInput();
     },
-    [changeCodeAtFocus, focusNextInput, getRightValue]
+    [changeCodeAtFocus, focusNextInput, getRightValue],
   );
 
   // Hanlde onBlur input
@@ -153,7 +163,7 @@ export function OTPInputComponent(props: OTPInputProps) {
           break;
       }
     },
-    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues]
+    [activeInput, changeCodeAtFocus, focusNextInput, focusPrevInput, otpValues],
   );
 
   const handleOnPaste = useCallback(
@@ -182,7 +192,7 @@ export function OTPInputComponent(props: OTPInputProps) {
         setActiveInput(Math.min(nextFocusIndex + 1, length - 1));
       }
     },
-    [activeInput, getRightValue, length, otpValues]
+    [activeInput, getRightValue, length, otpValues],
   );
 
   const handleReset = useCallback(() => {
@@ -221,10 +231,13 @@ export function OTPInputComponent(props: OTPInputProps) {
               disabled={disabled}
               inputMode="numeric"
               type="text"
+              autoComplete="one-time-code"
             />
           ))}
       </div>
-      {helperText ? <p className="text-red-800 text-2xs mt-1 mb-2">{`*${helperText}!`}</p> : null}
+      {helperText ? (
+        <p className="text-red-800 text-2xs mt-1 mb-2">{`*${helperText}!`}</p>
+      ) : null}
     </div>
   );
 }

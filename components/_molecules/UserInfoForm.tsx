@@ -8,6 +8,9 @@ import React, { useState } from 'react';
 import Gender from '@com/_molecules/Gender';
 import Calender from '@com/_atoms/Calender';
 import { convertDateToTimestamp, formattingDate } from '@utilities/mainUtils';
+import CheckBox from '@com/_atoms/CheckBox.nd';
+import { TickIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
 
 interface Props {
   data: any;
@@ -30,7 +33,11 @@ const UserInfoForm = ({
     lastName: data ? data?.lastName : '',
     nationalCode: data ? data?.nationalCode : '',
     gender: data ? data?.gender?.id : 1,
-    dateOfBirth: data && data?.dateOfBrith ? convertDateToTimestamp(data?.dateOfBrith) : null,
+    isSpecialPatient: false,
+    dateOfBirth:
+      data && data?.dateOfBrith
+        ? convertDateToTimestamp(data?.dateOfBrith)
+        : null,
   });
 
   const formik = useFormik({
@@ -39,8 +46,10 @@ const UserInfoForm = ({
     onSubmit: (values) => {
       const newValues = {
         ...values,
-        dateOfBirth: values?.dateOfBirth ? formattingDate(new Date(values?.dateOfBirth)) : null
-      }
+        dateOfBirth: values?.dateOfBirth
+          ? formattingDate(new Date(values?.dateOfBirth))
+          : null,
+      };
       if (data) {
         mutateUpdateProfileInfo(newValues, {});
       } else {
@@ -60,7 +69,12 @@ const UserInfoForm = ({
       onSubmit={formik.handleSubmit}
       className={`flex gap-y-7 flex-col ${className}`}
     >
-      <Gender value={formik?.values.gender} name={'gender'} onChange={formik?.handleChange} label='جنسیت' />
+      <Gender
+        value={formik?.values.gender}
+        name={'gender'}
+        onChange={formik?.handleChange}
+        label="جنسیت"
+      />
 
       <Input
         placeholder={profileText?.firstName}
@@ -110,8 +124,29 @@ const UserInfoForm = ({
         name={'dateOfBirth'}
         value={formik?.values.dateOfBirth}
         errorMessage={formik.errors.dateOfBirth}
-        onChange={formik?.handleChange}/>
+        onChange={formik?.handleChange}
+      />
 
+      <div>
+        <CheckBox
+          handleChange={formik.handleChange}
+          label="بیمار خاص"
+          labelClassName="text-sm mr-6 font-normal text-grey-700"
+          name="isSpecialPatient"
+          icon={
+            <TickIcon
+              width={15}
+              height={15}
+              stroke={colors.white}
+              className="mx-auto mt-[1px]"
+            />
+          }
+          checkedClassName="!bg-grey-500"
+          boxClassName="w-4 h-4 rounded-full border-grey-800"
+          checked={formik.values.isSpecialPatient}
+          className="w-full mt-5 z-0"
+        />
+      </div>
       {inOrderPage && (
         <div className="flex justify-between">
           <Button
