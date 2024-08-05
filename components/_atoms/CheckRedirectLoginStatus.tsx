@@ -3,11 +3,16 @@ import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
-const ToggleRedirectLoginOrNotLogin = () => {
-  const { asPath, replace } = useRouter();
-
+const CheckRedirectLoginOrNotLogin = () => {
+  const { asPath } = useRouter();
   // Ignore protected routes if they are not in app directory
-  if (!asPath?.includes('/app/')) return null
+  return (asPath?.includes('/app/')) ? <ToggleRedirectLoginStatus /> : null
+
+};
+export default CheckRedirectLoginOrNotLogin;
+
+const ToggleRedirectLoginStatus = () => {
+  const { asPath, replace } = useRouter();
 
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
@@ -25,5 +30,4 @@ const ToggleRedirectLoginOrNotLogin = () => {
   },[]);
 
   return null;
-};
-export default ToggleRedirectLoginOrNotLogin;
+}
