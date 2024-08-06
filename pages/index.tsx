@@ -25,8 +25,7 @@ const Landing = () => {
       <h1 className="text-[24px] font-semibold">تپسی دارو پلتفرم ارسال دارو</h1>
       <h3 className="font-semibold">در سریع‌تـرین زمان داروهاتـو دریافت کـن</h3>
       <div className="xs:w-10/12 sm:w-7/12 xs:my-5">
-        <NextImage src={firstSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                   fill
+        <NextImage alt={'دارو'} src={firstSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                    quality={20}/>
       </div>
       <NextLink href={routeList.loginRoute}>
@@ -42,8 +41,7 @@ const Landing = () => {
       <h3 className="w-10/12 text-center">با ثبت‌نـام در تپســی دارو، به میلیون‌هــا کاربر دسترسی پیدا کنید و به
         جمع داروخانه‌های ما بپیوندید.</h3>
       <div className="xs:w-9/12 sm:w-7/12 my-5">
-        <NextImage src={secondSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                   fill
+        <NextImage alt={'داروخانه'} src={secondSlidePNG} sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                    quality={20}/>
       </div>
       <NextLink href={routeList.vmsRoute}>
