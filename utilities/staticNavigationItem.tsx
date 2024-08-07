@@ -1,11 +1,9 @@
 import {
   CloseEyeIconFill,
   HelmetIconOutline,
-  HouseOutline,
   LocationIcon,
   MyOrderOutline,
   NewPlusIconOutline,
-  PharmacyOutline,
   ProfileCircleOutline
 } from '@com/icons';
 import { colors } from '@configs/Theme';
@@ -44,30 +42,17 @@ export const BottomNavigationMenuItems = () => {
   const { user } = useSelector((state: RootState) => state.user);
   return [
     {
-      id: 1,
-      icon: ({ color = colors?.grey?.[400] }) => <HouseOutline width={24} height={24} fill={color}/>,
-      text: 'خانه',
-      link: routeList.landingRoute,
-      hasSubRouet: false
-    },
-    {
-      id: 2,
-      icon: ({ color = colors?.grey?.[400] }) => <PharmacyOutline width={24} height={24} fill={color}/>,
-      text: 'داروخانه',
-      link: routeList.vmsRoute,
-      hasSubRouet: false
-    }, {
-      id: 3,
-      icon: ({ color = 'white' }) => <NewPlusIconOutline width={24} height={24} fill={color}/>,
-      text: 'سفارش',
-      link: isEmpty(user) ? routeList?.loginRoute : routeList.homeRoute,
-      hasSubRouet: false
-    },
-    {
       id: 4,
       icon: ({ color = colors?.grey?.[400] }) => <MyOrderOutline width={24} height={24} fill={color}/>,
       text: 'سفارشات من',
       link: isEmpty(user) ? routeList?.loginRoute : routeList.ordersHistory,
+      hasSubRouet: false
+    },
+    {
+      id: 3,
+      icon: ({ color = 'white' }) => <NewPlusIconOutline width={24} height={24} fill={color}/>,
+      text: 'سفارش',
+      link: isEmpty(user) ? routeList?.loginRoute : routeList.homeRoute,
       hasSubRouet: false
     },
     {
