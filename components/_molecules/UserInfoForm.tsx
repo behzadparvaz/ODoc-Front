@@ -14,9 +14,10 @@ import { colors } from '@configs/Theme';
 import ImageUpload from '@com/_atoms/fileUploader/ImageUpload';
 
 interface Props {
-  data: any;
+  data?: any;
   inOrderPage?: boolean;
   handleRegisterOrder?: (value) => void;
+  isRegisterInOrderPage?: boolean;
   className?: string;
 }
 
@@ -24,9 +25,13 @@ const UserInfoForm = ({
   data,
   inOrderPage,
   handleRegisterOrder,
+  isRegisterInOrderPage,
   className = '',
 }: Props) => {
-  const { mutate: mutateAddProfileInfo } = useAddProfileInfo(inOrderPage);
+  const { mutate: mutateAddProfileInfo } = useAddProfileInfo(
+    inOrderPage,
+    isRegisterInOrderPage,
+  );
   const { mutate: mutateUpdateProfileInfo } = useUpdateProfileInfo(inOrderPage);
   const [disabledForm, setDisabledForm] = useState<boolean>(true);
   const [uploadedFile, setUploadedFile] = useState(null);
@@ -76,7 +81,7 @@ const UserInfoForm = ({
   return (
     <form
       onSubmit={formik.handleSubmit}
-      className={`flex gap-y-7 flex-col ${className}`}
+      className={`flex gap-y-7 flex-col ${className} w-full`}
     >
       <Gender
         value={formik?.values.gender}

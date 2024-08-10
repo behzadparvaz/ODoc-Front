@@ -55,54 +55,38 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
         activeItem={step}
         items={stepProgressBarItem}
       />
-      {userInfo ? (
-        <>
-          <div className={`w-full py-8`}>
-            {step === 1 && (
-              <OrderInfoForm
-                handleNextStep={(step, value) => {
-                  setStepOneValue({
-                    referenceNumber: value?.referenceNumber,
-                    nationalCode: value?.nationalCode,
-                    customerName: value?.customerName,
-                    doctorName: value?.doctorName,
-                    comment: value?.comment,
-                    insuranceTypeId: Number(value?.insuranceTypeId),
-                    supplementaryInsuranceTypeId: Number(
-                      value?.supplementaryInsuranceTypeId,
-                    ),
-                    isSpecialPatient: value?.isSpecialPatient,
-                    vendorSelects: value?.vendorSelects,
-                  });
-                  setStep(step);
-                  setState({
-                    ...state,
-                    referenceNumber: String(value?.referenceNumber),
-                  });
-                }}
-                userInfo={userInfo}
-              />
-            )}
-            {step === 2 && (
-              <AddressAndDeliveryDate stepOneValue={stepOneValue} />
-            )}
-          </div>
-
-          <OrderTourGuide />
-        </>
-      ) : (
-        <div className="pt-36 text-center text-md">
-          برای ثبت سفارش ابتدا
-          <a
-            href={routeList.profileUserInfoRoute}
-            className={'font-semibold border-0 text-primary'}
-          >
-            {' '}
-            اطلاعات کاربری{' '}
-          </a>
-          خود را تکمیل کنید!
+      <>
+        <div className={`w-full py-8`}>
+          {step === 1 && (
+            <OrderInfoForm
+              handleNextStep={(step, value) => {
+                setStepOneValue({
+                  referenceNumber: value?.referenceNumber,
+                  nationalCode: value?.nationalCode,
+                  customerName: value?.customerName,
+                  doctorName: value?.doctorName,
+                  comment: value?.comment,
+                  insuranceTypeId: Number(value?.insuranceTypeId),
+                  supplementaryInsuranceTypeId: Number(
+                    value?.supplementaryInsuranceTypeId,
+                  ),
+                  isSpecialPatient: value?.isSpecialPatient,
+                  vendorSelects: value?.vendorSelects,
+                });
+                setStep(step);
+                setState({
+                  ...state,
+                  referenceNumber: String(value?.referenceNumber),
+                });
+              }}
+              userInfo={userInfo}
+            />
+          )}
+          {step === 2 && <AddressAndDeliveryDate stepOneValue={stepOneValue} />}
         </div>
-      )}
+
+        <OrderTourGuide />
+      </>
     </div>
   );
 };
