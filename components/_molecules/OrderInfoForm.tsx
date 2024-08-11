@@ -5,7 +5,7 @@ import {
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
-import { TickIcon } from '@com/icons';
+import { NewPlusIconOutline, TickIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
 import { OrderRegistrationSchema } from '@utilities/validationSchemas';
@@ -16,6 +16,8 @@ import useNotification from '@hooks/useNotification';
 import Select from '@com/_atoms/Select';
 import { useGetVendors } from '@api/vendor/vendor.rq';
 import { generalTexts } from '@com/texts/generalTexts';
+import useModal from '@hooks/useModal';
+import AddUserModal from '@com/_organisms/AddUserModal';
 
 interface Props {
   handleNextStep?: (step, value) => void;
@@ -26,29 +28,32 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const { data: insurances } = useGetInsurances();
   const { data: supplementaryInsurances } = useGetSupplementaryInsurances();
   const { data: vendors } = useGetVendors();
+  const { addModal } = useModal();
   const { openNotification } = useNotification();
   const familyMembers = userInfo?.familyMembers;
 
   const optionsForCustomer = useMemo(() => {
-    const customerList = [{ ...userInfo }];
-    if (familyMembers.length > 0) {
-      familyMembers.forEach(
-        (item: any) =>
-          !customerList
-            .map((customer) => customer.nationalCode)
-            .includes(item.nationalCode) &&
-          customerList.push({
-            ...item,
-            firstName: item.fisrtname,
-            relation: item?.relation?.name,
-          } as any),
-      );
+    console.log('userInfo', userInfo);
+    if (userInfo) {
+      const customerList = [{ ...userInfo }];
+      if (familyMembers?.length > 0) {
+        familyMembers.forEach(
+          (item: any) =>
+            !customerList
+              .map((customer) => customer.nationalCode)
+              .includes(item.nationalCode) &&
+            customerList.push({
+              ...item,
+              firstName: item.fisrtname,
+              relation: item?.relation?.name,
+            } as any),
+        );
+      }
+      return customerList.map((item) => ({
+        name: `${item?.firstName} ${item?.lastName}`,
+        id: item?.nationalCode,
+      }));
     }
-
-    return customerList.map((item) => ({
-      name: `${item?.firstName} ${item?.lastName}`,
-      id: item?.nationalCode,
-    }));
   }, [familyMembers, userInfo]);
 
   const vendorOptions = useMemo(() => {
@@ -72,7 +77,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
     comment: null,
     isSpecialPatient: false,
     insuranceTypeId: 1,
-    supplementaryInsuranceTypeId: 1,
+    supplementaryInsuranceTypeId: 0,
     vendorCode: null,
   });
 
@@ -116,19 +121,40 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       }
     },
   });
-
+  console.log('supplementaryInsurances', supplementaryInsurances);
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
-      <Select
-        options={optionsForCustomer}
-        selectClassName="px-4"
-        className="pb-4"
-        name="nationalCode"
-        label="صاحب نسخه"
-        labelClassName="font-semibold text-sm"
-        onChange={formik.handleChange}
-        value={formik.values.nationalCode}
-      />
+      <div className="flex flex-col w-full gap-y-2 pb-4">
+        <Select
+          required
+          options={optionsForCustomer}
+          selectClassName="px-4"
+          className=" w-full"
+          name="nationalCode"
+          label="صاحب نسخه"
+          labelClassName="font-semibold text-sm"
+          onChange={formik.handleChange}
+          value={formik.values.nationalCode}
+        />
+        {!optionsForCustomer && (
+          <span
+            onClick={() => {
+              addModal({
+                modal: AddUserModal,
+              });
+            }}
+            className="flex items-center gap-x-2 cursor-pointer"
+          >
+            <NewPlusIconOutline
+              width={10}
+              height={10}
+              fill={colors.teal[400]}
+            />
+
+            <p className="text-xs text-teal-400">تکمیل پروفایل کاربری</p>
+          </span>
+        )}
+      </div>
 
       <Input
         required

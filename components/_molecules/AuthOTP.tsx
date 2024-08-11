@@ -152,7 +152,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
         signal: controler.signal,
       })
       .then((otp) => {
-        formik.setFieldValue('Code', otp?.id);
+        formik.setFieldValue('Code', otp?.code);
         formik.handleSubmit();
       })
       .catch((err) => {

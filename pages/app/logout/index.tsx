@@ -13,18 +13,18 @@ import { routeList } from '@routes/routeList';
 
 interface Props {}
 
-function Logout({ }: Props): ReactElement {
+function Logout({}: Props): ReactElement {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { removeItem, clearStorage } = useStorage();
+  const { removeItem } = useStorage();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     dispatch(logoutUser());
     dispatch(resetMapStateAction());
     request.setToken(null);
-    clearStorage();
     removeItem('persist:root', 'local');
+    removeItem('token', 'local');
     Cookies.remove('token');
     queryClient.clear();
     router.replace(routeList?.loginRoute);
