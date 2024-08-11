@@ -13,20 +13,30 @@ function useMapApiCalls(addressId: number) {
   const [mapAddressesText, setMapAddressesText] = useState<string>();
   const { viewport } = useSelector((state: RootState) => state.mapInfo);
 
-  const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } = useGetParsiMapLocation(
-    `${[viewport.longitude, viewport.latitude]}`
-  );
+  const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } =
+    useGetParsiMapLocation(`${[viewport.longitude, viewport.latitude]}`);
 
   const handleClickOnSaveMyLocation = async () => {
-    const locationAddress =ParsiMapAddressData?.address
+    if (
+      ParsiMapAddressData?.subdivisions?.shahrestan?.code !== '2301' ||
+      ParsiMapAddressData?.subdivisions?.shahr?.code !== '2301021576' ||
+      ParsiMapAddressData?.subdivisions?.bakhsh?.code !== '230102'
+    ) {
+      openNotification({
+        message: 'در حال حاضر خدمات این سرویس تنها در شهر تهران فعال میباشد.',
+        type: 'error',
+        notifType: 'successOrFailedMessage',
+      });
+      return;
+    }
+    const locationAddress = ParsiMapAddressData?.address;
     if (locationAddress || !isEmpty(ParsiMapAddressData)) {
-
-      const locationAddress =  ParsiMapAddressData?.address;
+      const locationAddress = ParsiMapAddressData?.address;
 
       const errorInSelectedLocation = ParsiMapAddressData?.status !== 'OK';
 
       if (locationAddress || !isEmpty(ParsiMapAddressData)) {
-        const data =ParsiMapAddressData;
+        const data = ParsiMapAddressData;
 
         if (errorInSelectedLocation) {
           openNotification({
@@ -37,13 +47,13 @@ function useMapApiCalls(addressId: number) {
           return;
         }
         {
-            replaceLastModal({
-              modal: AddressDetailsModal,
-              props: {
-                addressData: data,
-                addressId,
-              },
-            });
+          replaceLastModal({
+            modal: AddressDetailsModal,
+            props: {
+              addressData: data,
+              addressId,
+            },
+          });
         }
       }
     }
