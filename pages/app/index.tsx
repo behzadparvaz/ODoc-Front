@@ -5,12 +5,17 @@ import MainLayout from '@com/_template/MainLayout';
 import NextImage from '@com/_core/NextImage';
 
 import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
+import ProductCard from '@com/_molecules/productCard';
 
 const HomePage = () => {
   const { data, isLoading: profileDataLoding } = useGetProfile();
   const headerChildrenElement = (
     <NextImage src={tapsiLogo} height={20} width={85} />
   );
+  const product = {
+    name: 'ژلوفن',
+    imageUrl: 'https://via.placeholder.com/150', // Replace with actual image URL
+  };
 
   return (
     <MainLayout
@@ -18,6 +23,7 @@ const HomePage = () => {
       className="px-6"
       title="ثبت سفارش"
     >
+      <ProductCard product={product} />
       {profileDataLoding === false ? (
         <OrderRegisterSteps data={data} />
       ) : (
