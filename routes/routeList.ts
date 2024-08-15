@@ -1,6 +1,5 @@
 export const routeList = {
   vmsRoute: 'https://vms.tapsi.doctor',
-
   landingRoute: '/',
   homeRoute: '/app/',
   loginRoute: '/app/auth',
@@ -14,4 +13,7 @@ export const routeList = {
   profilePasswordSetting: '/app/profile/password-setting',
   ordersHistory: '/app/orders-history',
   successOrder: '/app/success-order',
+  mobileSearch: '/app/mobileSearch',
+  search: '/app/search',
+  searchByImage: '/app/searchByImage',
 };

@@ -2703,7 +2703,7 @@ export const CategoryVarietyIcon = ({
 export const ArrowRightBoxIcon = ({
   width,
   height,
-  fill,
+  stroke,
   className,
 }: IconType) => {
   return (
@@ -2717,14 +2717,14 @@ export const ArrowRightBoxIcon = ({
     >
       <path
         d="M23.4 12C23.4 7.5336 22.6477 4.74667 20.9505 3.04951C19.2533 1.35235 16.4664 0.599999 12 0.6C7.5336 0.6 4.74667 1.35235 3.04951 3.04951C1.35235 4.74667 0.6 7.5336 0.600001 12C0.600001 16.4664 1.35235 19.2533 3.04951 20.9505C4.74667 22.6476 7.5336 23.4 12 23.4C16.4664 23.4 19.2533 22.6476 20.9505 20.9505C22.6477 19.2533 23.4 16.4664 23.4 12Z"
-        stroke="white"
+        stroke={stroke}
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
         d="M9.95833 7.91665C9.95833 7.91665 14.0417 10.334 14.0417 12C14.0417 13.6654 9.95833 16.0833 9.95833 16.0833"
-        stroke="white"
+        stroke={stroke}
         strokeWidth="1.2"
         strokeLinecap="round"
         strokeLinejoin="round"

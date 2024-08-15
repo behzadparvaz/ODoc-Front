@@ -1,4 +1,3 @@
-import CarouselLine from '@com/_molecules/CarouselLine';
 import dynamic from 'next/dynamic';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
@@ -7,6 +6,7 @@ const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
+const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 
 const HomePage = () => {
   const banners = [
@@ -29,7 +29,7 @@ const HomePage = () => {
   ];
 
   return (
-    <MainPageLayout headerClassName="!justify-center">
+    <MainPageLayout className='pb-11' headerClassName="!justify-center">
       <div className="px-6">
         <SearchBox className=" my-4" />
         <MainSlider data={banners} />
