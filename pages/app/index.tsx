@@ -7,6 +7,7 @@ const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
+const OrderTracking = dynamic(() => import('@com/_molecules/OrderTracking'));
 
 const HomePage = () => {
   const banners = [
@@ -32,6 +33,13 @@ const HomePage = () => {
     <MainPageLayout className="pb-11" headerClassName="!justify-center">
       <div className="px-6">
         <SearchBox className=" my-4" />
+        <div className="flex justify-between items-center border-b pb-2 mb-4">
+          <h2 className="text-lg font-bold">سفارشهای جاری</h2>
+          <a href="#" className="text-blue-500">
+            بیشتر
+          </a>
+        </div>
+        <OrderTracking />
         <MainSlider data={banners} />
         <div className="flex gap-x-4 mt-4">
           <Button
