@@ -1,2 +1,3 @@
-export const globalText = {
+export const homePageText = {
+  selectAddress: 'انتخاب آدرس',
 };
