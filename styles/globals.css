@@ -28,3 +28,7 @@ a {
 .rmdp-calendar-container-mobile {
   z-index: 9999 !important;
 }
+
+input {
+  outline: none;
+}

@@ -33,7 +33,6 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const familyMembers = userInfo?.familyMembers;
 
   const optionsForCustomer = useMemo(() => {
-    console.log('userInfo', userInfo);
     if (userInfo) {
       const customerList = [{ ...userInfo }];
       if (familyMembers?.length > 0) {
