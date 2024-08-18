@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import { routeList } from '@routes/routeList';
+import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/ControlMobileView';
 
 const EmptyContentMobileSearch = dynamic(
   () => import('@com/_atoms/EmptyContentMobileSearch'),
@@ -24,23 +25,23 @@ const MobileSearch = () => {
     : null;
 
   const [searchText, setSearchText] = useState<string>('');
-  console.log(searchTextQuery);
-
   useEffect(() => {
-    if(searchTextQuery!==null){
+    if (searchTextQuery !== null) {
       setSearchText(searchTextQuery);
     }
   }, [query]);
-  console.log(searchText,'msd');
-
   const handleSearchByImage = (e) => {
     // console.log(e?.target?.files?.[0]);
     push(`${routeList?.searchByImage}/${1236}`);
   };
 
   return (
-    <div className="w-full pt-4 min-h-screen bg-white">
-      <div className="flex pl-4 pr-3 items-center gap-x-2">
+    <div
+      className={`w-full pt-4 min-h-screen bg-white ${
+        shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
+      }`}
+    >
+      <div className="flex relative pl-4 pr-3 items-center gap-x-2">
         <Button className="!p-0" handleClick={back}>
           <ArrowRightIconOutline
             height={24}
@@ -50,7 +51,7 @@ const MobileSearch = () => {
         </Button>
         <SearchBox
           defualtValue={searchText}
-          handleChange={(value) => value!==undefined&&setSearchText(value)}
+          handleChange={(value) => value !== undefined && setSearchText(value)}
         />
         <Button
           variant="primary"

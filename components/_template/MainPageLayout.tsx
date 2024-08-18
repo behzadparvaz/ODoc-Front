@@ -1,11 +1,17 @@
 import NextImage from '@com/_core/NextImage';
-import BottomNavigation from '@com/_molecules/BottomNavigation';
 import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
 import classNames from 'classnames';
 import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
+import dynamic from 'next/dynamic';
+const HomePageAddressBox = dynamic(
+  () => import('@com/_molecules/HomePageAddressBox'),
+);
+const BottomNavigation = dynamic(
+  () => import('@com/_molecules/BottomNavigation'),
+);
 
 interface Props {
   children: React.ReactNode;
@@ -20,7 +26,6 @@ const MainPageLayout = ({
   headerClassName = '',
   hasBottomNavigation = true,
 }: Props) => {
-  
   return (
     <div
       className={classNames(
@@ -29,19 +34,18 @@ const MainPageLayout = ({
         shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
       )}
     >
-        <div
-          className={classNames(
-            `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-6 top-0 border-b border-grey-100 flex justify-between items-center ${headerClassName}`,
-            shouldShowMobileMode
-              ? mobileModeMaxWidthClassName + ' mx-auto'
-              : '',
-          )}
-        >
-          <NextImage src={tapsiLogo} height={20} width={85} />
-        </div>
       <div
         className={classNames(
-          `overflow-auto min-h-[calc(100vh - 222px)]`,
+          `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-6 top-0 border-b border-grey-100 flex justify-between items-center ${headerClassName}`,
+          shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
+        )}
+      >
+        <NextImage src={tapsiLogo} height={20} width={85} />
+      </div>
+      <HomePageAddressBox />
+      <div
+        className={classNames(
+          `overflow-auto min-h-[calc(100vh-222px)]`,
           className,
         )}
       >

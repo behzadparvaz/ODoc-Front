@@ -19,7 +19,7 @@ function ScrollSlider({ children, style, scrollToX, className = '' }: Props) {
     <div
       ref={targetComponentRef}
       style={style}
-      className={`${className} overflow-x-auto hidden-scroll-bar flex w-full [&_div]:flex-none`}
+      className={`${className} overflow-x-auto hidden-scroll-bar flex w-full [&_>div]:flex-none`}
     >
       {children}
     </div>

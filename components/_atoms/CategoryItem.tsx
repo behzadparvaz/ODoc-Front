@@ -10,8 +10,6 @@ interface Props {
 
 const CategoryItem = ({ name, latinName, imageUrl, className = '' }: Props) => {
   const url = `category/${latinName}`;
-  console.log(name);
-  
   return (
     <NextLink href={url}>
       <a className={`flex flex-col items-center gap-y-1 py-2 rounded-lg ${className}`}>

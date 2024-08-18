@@ -9,4 +9,7 @@ export const generalTexts = {
   phoneNumber: 'شماره موبایل',
   pharmacy: 'داروخانه',
   drugSearch: 'جستـجوی دارو',
+  yes: 'بله',
+  no: 'خیر',
+  sendTo: 'ارسال به',
 };

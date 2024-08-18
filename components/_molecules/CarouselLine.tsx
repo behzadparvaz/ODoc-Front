@@ -63,7 +63,7 @@ const CarouselLine = ({ className = '' }) => {
   return (
     <div className={`${className} flex flex-col gap-y-3`}>
       <SectionTitle
-      className='px-6'
+        className='px-6'
         title="لورم ایپسوم"
         actionButton={
           <Button
@@ -76,19 +76,19 @@ const CarouselLine = ({ className = '' }) => {
         }
       />
       <ScrollSlider className='px-6'>
-        {carouselMockData?.map((item) => {
+        {carouselMockData?.map((item,index) => {
           return (
-            <div className='w-[130px] ml-2 last:ml-0'>
+            <div key={index} className='w-[130px] ml-2 last:ml-0'>
               <NextLink href={'/'}>
                 <a
                   className={`flex flex-col items-center gap-y-2 bg-grey-50 py-2 rounded-lg`}
                 >
                   <NextImage
-                    width={70}
+                                        width={70}
                     height={70}
                     src={item?.imageUrl}
                     alt={item?.name}
-                  />
+                                      />
                   <p className="text-sm text-grey-600">{item?.name}</p>
                 </a>
               </NextLink>
