@@ -102,7 +102,7 @@ export const useAddProfileInfo = (
       if (isRegisterInOrderPage) {
         removeLastModal();
       }
-      !inOrderPage && push(routeList.profile);
+      !isRegisterInOrderPage && !inOrderPage && push(routeList.profile);
     },
   });
 };

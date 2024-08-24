@@ -140,26 +140,28 @@ const UserInfoForm = ({
         onChange={formik?.handleChange}
       />
 
-      <div>
-        <CheckBox
-          handleChange={formik.handleChange}
-          label="بیمار خاص"
-          labelClassName="text-sm mr-6 font-normal text-grey-700"
-          name="isSpecialPatient"
-          icon={
-            <TickIcon
-              width={15}
-              height={15}
-              stroke={colors.white}
-              className="mx-auto mt-[1px]"
-            />
-          }
-          checkedClassName="!bg-grey-500"
-          boxClassName="w-4 h-4 rounded-full border-grey-800"
-          checked={formik.values.isSpecialPatient}
-          className="w-full mt-5 z-0"
-        />
-      </div>
+      {!isRegisterInOrderPage && (
+        <div>
+          <CheckBox
+            handleChange={formik.handleChange}
+            label="بیمار خاص"
+            labelClassName="text-sm mr-6 font-normal text-grey-700"
+            name="isSpecialPatient"
+            icon={
+              <TickIcon
+                width={15}
+                height={15}
+                stroke={colors.white}
+                className="mx-auto mt-[1px]"
+              />
+            }
+            checkedClassName="!bg-grey-500"
+            boxClassName="w-4 h-4 rounded-full border-grey-800"
+            checked={formik.values.isSpecialPatient}
+            className="w-full mt-5 z-0"
+          />
+        </div>
+      )}
       {formik.values.isSpecialPatient && (
         <ImageUpload
           name="formFile"
