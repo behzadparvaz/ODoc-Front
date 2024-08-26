@@ -7,19 +7,21 @@ interface Props {
   className?: string;
 }
 const MainSlider = ({ data, className = '' }: Props) => {
-  return (
+    return (
     <Slider className={className}>
-      {data?.map((item, index) => (
-        <SwiperSlide key={item.id}>
-          <MainSliderItem
-            title={item?.title}
-            index={index}
-            imageLink={item?.imageLink}
-            imageUrl={item?.imageUrl}
-            key={item?.id}
-          />
-        </SwiperSlide>
-      ))}
+      {data?.map((item, index) => {
+        return (
+          <SwiperSlide key={index}>
+            <MainSliderItem
+              title={'item?.title'}
+              index={index}
+              // imageLink={'item?.imageLink'}
+              imageLink={'/'}
+              imageUrl={item}
+            />
+          </SwiperSlide>
+        );
+      })}
     </Slider>
   );
 };

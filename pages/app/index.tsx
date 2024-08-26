@@ -1,4 +1,6 @@
+import { useGetSliderAndCarouselData } from '@api/homePage/homePage.rq';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
 const MainPageLayout = dynamic(() => import('@com/_template/MainPageLayout'));
@@ -9,30 +11,13 @@ const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 
 const HomePage = () => {
-  const banners = [
-    {
-      imageUrl:
-        'https://pharmacyforme.org/wp-content/uploads/2023/10/Pharm4Me-Newsletter-Banner-5-1080x608.png',
-      imageLink:
-        'https://pharmacyforme.org/wp-content/uploads/2023/10/Pharm4Me-Newsletter-Banner-5-1080x608.png',
-      id: 1,
-      title: 'test',
-    },
-    {
-      imageUrl:
-        'https://pharmacyforme.org/wp-content/uploads/2023/10/Pharm4Me-Newsletter-Banner-5-1080x608.png',
-      imageLink:
-        'https://pharmacyforme.org/wp-content/uploads/2023/10/Pharm4Me-Newsletter-Banner-5-1080x608.png',
-      id: 2,
-      title: 'test',
-    },
-  ];
+  const { data } = useGetSliderAndCarouselData();
 
   return (
-    <MainPageLayout className='pb-11' headerClassName="!justify-center">
+    <MainPageLayout className="pb-11" headerClassName="!justify-center">
       <div className="px-6">
         <SearchBox className=" my-4" />
-        <MainSlider data={banners} />
+        <MainSlider data={data?.banner} />
         <div className="flex gap-x-4 mt-4">
           <Button
             size="large"
