@@ -28,7 +28,8 @@ const SelectAddress = ({ setAddressSelected }: Props) => {
       props: {
         latitude: defaultViewPort.latitude,
         longitude: defaultViewPort.longitude,
-        addressId: 0
+        addressId: 0,
+        onChangeLoc: (latLng) => dispatch(setMapStateAction({ viewport: latLng, defaultViewPort: latLng, mapIsTouched: true }))
       }
     });
   };
