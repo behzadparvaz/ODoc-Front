@@ -4,6 +4,7 @@ export type TenderDrugStoreDataModel = {
   id: number;
   name: string;
   type: string;
+  rate?: number;
 };
 
 export type TenderShipmentDataModel = {

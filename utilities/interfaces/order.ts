@@ -3,6 +3,12 @@ export interface OrderStatuses {
   id: number;
 }
 
+export type OrderCompanyCountryDataModel = {
+  id: number | string;
+  name: string;
+  price?: number;
+};
+
 export type OrderDetailsItemDataModel = {
   id: number;
   image: string;
@@ -12,9 +18,9 @@ export type OrderDetailsItemDataModel = {
   price: number;
   quantityType: string;
   total: number;
-  companyCountry: string | string[];
+  companyCountry: OrderCompanyCountryDataModel[];
   unavaiable: boolean;
-  sugesstedItems?: OrderDetailsItemDataModel[];
+  sugesstedItem?: OrderDetailsItemDataModel;
 };
 
 export type OrderDetailsDataModel = {

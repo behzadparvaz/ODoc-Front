@@ -3113,7 +3113,11 @@ export const TruckOutline = ({ width = 14, height = 12, fill = '#000000' }) => (
   </svg>
 );
 
-export const ClockOutline = ({ width = 14, height = 14, fill = '#000000' }) => (
+export const ClockOutlineIcon = ({
+  width = 18,
+  height = 18,
+  fill = '#000000',
+}) => (
   <svg
     width={width}
     height={height}
@@ -3123,7 +3127,41 @@ export const ClockOutline = ({ width = 14, height = 14, fill = '#000000' }) => (
     <path
       fill-rule="evenodd"
       clip-rule="evenodd"
-      d="M.333 7C.333 3.327 3.327.333 7 .333c3.674 0 6.667 2.994 6.667 6.667 0 3.673-2.993 6.667-6.667 6.667C3.327 13.667.333 10.673.333 7zm1 0A5.67 5.67 0 0 0 7 12.667 5.67 5.67 0 0 0 12.667 7 5.67 5.67 0 0 0 7 1.333 5.67 5.67 0 0 0 1.333 7zm5.947.18 2.267 1.353h.006a.5.5 0 0 1 .174.687c-.1.16-.26.247-.434.247a.505.505 0 0 1-.253-.074l-2.513-1.5a.493.493 0 0 1-.247-.426V4.233c0-.273.227-.5.5-.5s.5.227.5.5V7.18z"
+      d="M9 16A7 7 0 1 0 9 2a7 7 0 0 0 0 14zm0 2A9 9 0 1 0 9 0a9 9 0 0 0 0 18zm1-9.43V3.4H8v5.995l-.001.002.001.001V9.4h.002l3.124 3.124 1.414-1.414L10 8.57z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const StarFillIcon = ({ width = 16, height = 15, fill = '#FF7140' }) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="m8 12.392 3.458 2.091a.831.831 0 0 0 1.242-.9l-.917-3.933L14.842 7c.558-.483.258-1.4-.475-1.458L10.342 5.2 8.767 1.483c-.284-.675-1.25-.675-1.534 0L5.658 5.192l-4.025.341C.9 5.592.6 6.508 1.158 6.992l3.059 2.65-.917 3.933a.831.831 0 0 0 1.242.9L8 12.392z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const BikerOutlineIcon = ({
+  width = 20,
+  height = 16,
+  fill = '#000000',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M.002 12c0-6.627 5.373-12 12-12a8 8 0 1 1 0 16h-10a2 2 0 0 1-2-2v-2zm12 2h-10v-2c0-.338.017-.671.05-1h6.404a3.544 3.544 0 0 0 1.638-6.687L7.606 3.016A9.96 9.96 0 0 1 12.002 2a6 6 0 0 1 0 12zM2.46 9h5.996a1.544 1.544 0 0 0 .713-2.914l-3.5-1.825A10.013 10.013 0 0 0 2.46 9z"
       fill={fill}
     />
   </svg>

@@ -4,83 +4,52 @@ import Image from 'next/image';
 
 type OrderItemCardProps = {
   item: OrderDetailsItemDataModel;
-  index: number;
-  dataLength: number;
 };
 
-const OrderItemCard = ({ item, index, dataLength }: OrderItemCardProps) => {
+const OrderItemCard = ({ item }: OrderItemCardProps) => {
   return (
-    <>
-      <div className="flex gap-2 items-center justify-between">
-        <div className="flex gap-3">
-          <div className="rounded-xl overflow-hidden flex justify-center items-center border border-grey-100">
-            <Image
-              src={item.image}
-              alt="order-details"
-              width={68}
-              height={68}
-            />
-          </div>
-          <div className="flex flex-col gap-2 justify-center">
-            <p
-              className={classNames(
-                'text-md',
-                item?.unavaiable && 'text-grey-200',
-              )}
-            >
-              {item.drugName}
-            </p>
-            <span
-              className={classNames(
-                'flex items-center text-xs gap-1',
-                item?.unavaiable ? 'text-grey-200' : 'text-grey-400',
-              )}
-            >
-              شرکت سازنده:
-              <p
-                className={classNames(
-                  'text-md',
-                  item?.unavaiable ? 'text-grey-200' : 'text-grey-800',
-                )}
-              >
-                {item.companyName}
-              </p>
-            </span>
-          </div>
+    <div className="h-[84px] flex gap-2 items-center justify-between ">
+      <div className="flex gap-3 items-center">
+        <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
+          <Image src={item?.image} alt="order-details" width={68} height={68} />
         </div>
-        <div className="flex flex-col gap-2 w-max items-end">
-          <span
+        <div className="flex flex-col gap-1">
+          <p
             className={classNames(
-              'text-md flex items-center gap-1',
-              item?.unavaiable && 'text-grey-200',
+              'text-sm font-medium leading-6',
+              item?.unavaiable && 'text-grey-400',
             )}
           >
-            {item?.quantity}
-            <p
-              className={classNames(
-                'text-xs',
-                item?.unavaiable ? 'text-grey-200' : 'text-grey-400',
-              )}
-            >
-              {item?.quantityType}
-            </p>
+            {item?.drugName}
+          </p>
+          <span
+            className={classNames(
+              'flex items-center text-xs leading-5 gap-1',
+              item?.unavaiable ? 'text-grey-400' : 'text-grey-500',
+            )}
+          >
+            {`شرکت سازنده: ${item?.companyName}`}
           </span>
-          {item?.unavaiable ? (
-            <p className="text-xs text-grey-200">عدم موجودی</p>
-          ) : (
-            <>
-              <span className="text-md flex items-center gap-1">
-                {item?.price}
-                <p className="text-xs text-grey-400">تومان</p>
-              </span>
-            </>
-          )}
+          <span
+            className={classNames(
+              'text-xs leading-5 text-grey-500',
+              item?.unavaiable && 'text-grey-400',
+            )}
+          >
+            {`${item?.quantity} ${item?.quantityType}`}
+          </span>
         </div>
       </div>
-      {dataLength - 1 !== index && !item?.unavaiable && (
-        <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
-      )}
-    </>
+      <div className="self-end">
+        {item?.unavaiable ? (
+          <span className="text-xs text-grey-400 leading-5 h-5">
+            عدم موجودی
+          </span>
+        ) : (
+          <span className="text-xs leading-5 text-grey-500">{`${item?.price} تومان`}</span>
+        )}
+      </div>
+    </div>
   );
 };
 

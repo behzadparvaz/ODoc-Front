@@ -5,23 +5,27 @@ type TenderDescriptionProps = {
 };
 const TenderDescription = ({ description }: TenderDescriptionProps) => {
   return (
-    <div className="w-full h-max flex flex-col items-start gap-y-5">
-      <span className="flex justify-center items-center">توضیحات شما</span>
+    <div className="w-full h-max flex flex-col items-start gap-y-3 text-base leading-6">
+      <div className="w-full h-max flex flex-col items-start gap-y-2 py-3 px-4">
+        <span className="font-bold">توضیحات شما</span>
 
-      <div className="text-sm w-full h-max border rounded-xl p-4">
-        <p>{description.customerNotes}</p>
+        <div className="w-full h-max rounded-xl p-4 bg-grey-50">
+          <p>{description.customerNotes}</p>
+        </div>
       </div>
 
-      <span className="flex justify-center items-center">توضیحات داروخانه</span>
+      <div className="w-full h-max flex flex-col items-start gap-y-2 py-3 px-4">
+        <span className="font-bold">توضیحات داروخانه</span>
 
-      <div className="flex flex-col gap-y-2text-sm w-full h-max border rounded-xl p-4">
-        <p>{description.drugStoreNotes} </p>
+        <div className="flex flex-col gap-y-2 w-full h-max rounded-xl p-4 bg-grey-50">
+          <p>{description.drugStoreNotes} </p>
 
-        <span className="flex justify-end items-center">
-          <audio controls>
-            <source src={description.drugStoreVoice} type="audio/mpeg" />
-          </audio>
-        </span>
+          <span className="flex justify-end items-center">
+            <audio controls>
+              <source src={description.drugStoreVoice} type="audio/mpeg" />
+            </audio>
+          </span>
+        </div>
       </div>
     </div>
   );
