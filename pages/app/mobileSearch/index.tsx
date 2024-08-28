@@ -35,6 +35,10 @@ const MobileSearch = () => {
     push(`${routeList?.searchByImage}/${1236}`);
   };
 
+  const handleGetSearchSuggestion = (value) => {
+    setSearchText(value);
+  };
+
   return (
     <div
       className={`w-full pt-4 min-h-screen bg-white ${
@@ -51,11 +55,13 @@ const MobileSearch = () => {
         </Button>
         <SearchBox
           defualtValue={searchText}
-          handleChange={(value) => value !== undefined && setSearchText(value)}
+          handleChange={(value) =>
+            value !== undefined && handleGetSearchSuggestion(value)
+          }
         />
         <Button
           variant="primary"
-          className="absolute left-6 !px-1.5"
+          className="absolute left-6 !px-1.5 hidden"
           size="small"
           buttonType="contained"
           handleClick={(e) => e.prventDefault}
