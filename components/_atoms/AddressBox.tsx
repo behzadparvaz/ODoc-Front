@@ -45,19 +45,19 @@ const AddressBox = ({ data, className = '' }: Props) => {
       }}
       className="flex justify-between items-center"
     >
-      <div className="w-[14px]">
-        <ArrowDownIconOutLine
-          width={14}
-          height={14}
-          stroke={colors?.grey?.[400]}
-        />
-      </div>
       <div
-        className={`w-[calc(100%-14px)] pr-2 text-grey-800 text-xs truncate ${className}`}
+        className={`w-[calc(100%-24px)] pr-2 text-grey-800 text-sm truncate ${className}`}
       >
         {defaultAddress
           ? defaultAddress?.description
           : homePageText?.selectAddress}
+      </div>
+      <div className="w-[24px]">
+        <ArrowDownIconOutLine
+          width={24}
+          height={24}
+          stroke={'#000'}
+        />
       </div>
     </div>
   );
