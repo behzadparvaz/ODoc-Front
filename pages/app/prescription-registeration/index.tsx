@@ -9,7 +9,7 @@ import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
 const HomePage = () => {
   const { data, isLoading: profileDataLoding } = useGetProfile();
   const headerChildrenElement = (
-    <NextImage src={tapsiLogo} height={20} width={85} />
+    <NextImage src={tapsiLogo} height={20} width={110} />
   );
 
   return (

@@ -1,4 +1,5 @@
 import NextLink from '@com/_core/NextLink';
+import { ChevronLeftIconOutline } from '@com/icons';
 
 interface Props {
   className?: string;
@@ -8,7 +9,12 @@ interface Props {
 const Chips = ({ className, link, text }: Props) => {
   return (
     <NextLink href={link}>
-      <a className={`px-2 border border-grey-200 py-0.5 text-sm rounded-full inline-block ${className}`}>{text}</a>
+      <a
+        className={`px-2 border border-grey-200 py-1 text-sm rounded-full items-center justify-between gap-x-2 flex ${className}`}
+      >
+        {text}
+        <ChevronLeftIconOutline width={24} height={24} fill="#000" />
+      </a>
     </NextLink>
   );
 };

@@ -35,6 +35,10 @@ const MobileSearch = () => {
     push(`${routeList?.searchByImage}/${1236}`);
   };
 
+  const handleGetSearchSuggestion = (value) => {
+    setSearchText(value);
+  };
+
   return (
     <div
       className={`w-full pt-4 min-h-screen bg-white ${
@@ -48,14 +52,17 @@ const MobileSearch = () => {
             width={24}
             fill={colors?.grey[600]}
           />
+          
         </Button>
         <SearchBox
           defualtValue={searchText}
-          handleChange={(value) => value !== undefined && setSearchText(value)}
+          handleChange={(value) =>
+            value !== undefined && handleGetSearchSuggestion(value)
+          }
         />
-        <Button
+        {searchText?.length?<Button
           variant="primary"
-          className="absolute left-6 !px-1.5"
+          className="absolute left-6 !px-1.5 hidden"
           size="small"
           buttonType="contained"
           handleClick={(e) => e.prventDefault}
@@ -67,11 +74,11 @@ const MobileSearch = () => {
             accept="image/*;capture=camera"
           />
           {mobileSearchTexts?.searchByImage}
-        </Button>
+        </Button>:null}
       </div>
-      {searchText?.length >= 2 && (
+      {/* {searchText?.length >= 2 && (
         <SearchSuggestion className="mt-4" searchText={searchText} />
-      )}
+      )} */}
 
       {searchText?.length < 2 && (
         <>
