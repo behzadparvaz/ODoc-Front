@@ -42,12 +42,10 @@ const OrderDetails = ({ data }: OrderDetailsProps) => {
           />
         </div>
 
-        <div className="w-full h-max rounded-t-lg -translate-y-[5px] bg-white flex flex-col gap-5">
-          <div className="flex justify-center items-center py-3 px-4">
-            <ProgressStepper activeStepId={4} />
-          </div>
+        <div className="w-full h-max rounded-t-lg -translate-y-[5px] bg-white flex flex-col">
+          <ProgressStepper activeStepId={2} hasIcons />
 
-          <div className="px-4 py-3">
+          <div className="px-4">
             <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
           </div>
 
