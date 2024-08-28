@@ -16,7 +16,7 @@ const Landing = () => {
     hasBottomNavigation={false}
     headerChildren={
       <div className="bg-primary-800 w-full flex flex-1 -mx-4 -my-6 p-4">
-        <NextImage src={tapsiLogo} height={20} width={92}/>
+        <NextImage src={tapsiLogo} height={20} width={110}/>
       </div>
     }
   >
