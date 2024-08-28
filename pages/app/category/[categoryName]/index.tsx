@@ -1,4 +1,3 @@
-import ProductCard from '@com/_molecules/productCard';
 import ProdictListPage from '@com/_organisms/ProdictListPage';
 import React, { useState } from 'react';
 

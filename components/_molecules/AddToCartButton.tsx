@@ -1,3 +1,5 @@
+import { MinusIconOutline, PlusIconOutline } from '@com/icons';
+import { colors } from '@configs/Theme';
 import React, { useState } from 'react';
 
 type Props = {
@@ -20,23 +22,23 @@ const AddToCartButton = ({}: Props) => {
   };
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" style={{ direction: 'ltr' }}>
       {quantity > 0 ? (
         <>
           <button
             onClick={handleDecrement}
-            className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-xl font-bold"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold"
           >
-            -
+            <MinusIconOutline width={20} height={20} fill={colors.black} />
           </button>
-          <span className="mx-2">{quantity}</span>
+          <span className="mx-4">{quantity}</span>
         </>
       ) : null}
       <button
         onClick={handleIncrement}
-        className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-xl font-bold"
+        className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold"
       >
-        +
+        <PlusIconOutline width={20} height={20} fill={colors.black} />
       </button>
     </div>
   );
