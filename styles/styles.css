@@ -125,3 +125,11 @@
 .scroll-drag * {
   pointer-events: none;
 }
+
+
+.swiper-button-prev, .swiper-button-next{
+  color: #FF652D!important;
+}
+.swiper-pagination-bullet{
+  background: #FF652D!important;
+}
