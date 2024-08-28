@@ -52,6 +52,7 @@ const MobileSearch = () => {
             width={24}
             fill={colors?.grey[600]}
           />
+          
         </Button>
         <SearchBox
           defualtValue={searchText}
@@ -59,7 +60,7 @@ const MobileSearch = () => {
             value !== undefined && handleGetSearchSuggestion(value)
           }
         />
-        <Button
+        {searchText?.length?<Button
           variant="primary"
           className="absolute left-6 !px-1.5 hidden"
           size="small"
@@ -73,11 +74,11 @@ const MobileSearch = () => {
             accept="image/*;capture=camera"
           />
           {mobileSearchTexts?.searchByImage}
-        </Button>
+        </Button>:null}
       </div>
-      {searchText?.length >= 2 && (
+      {/* {searchText?.length >= 2 && (
         <SearchSuggestion className="mt-4" searchText={searchText} />
-      )}
+      )} */}
 
       {searchText?.length < 2 && (
         <>

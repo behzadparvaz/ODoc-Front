@@ -11,19 +11,14 @@ const Chips = dynamic(() => import('@com/_atoms/Chips'));
 
 const PapularSearch = ({ className }: Props) => {
   const mockData = [
-    { text: 'تست1', id: 0 },
-    { text: 'تست2', id: 1 },
-    { text: 'تست3', id: 2 },
-    { text: 'تست4', id: 3 },
-    { text: 'تست5', id: 4 },
-    { text: 'تست6', id: 5 },
-    { text: 'تست7', id: 6 },
-    { text: 'تست8', id: 7 },
+    { text: 'آموکسی سیلین', id: 0 },
+    { text: 'کلردیازپوکساید', id: 1 },
+    { text: 'ستیریزین', id: 2 },
   ];
 
   return (
     <div className={`${className}`}>
-      <SectionTitle className="px-4 mb-2" title="جستجوهای پرطرفدار" />
+      <SectionTitle className="px-4 mb-2" titleClassName='font-bold' title="جستجوهای پرطرفدار" />
       <ScrollSlider className="gap-x-2 px-4">
         {mockData?.map((item) => {
           return (

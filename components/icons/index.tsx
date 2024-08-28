@@ -75,8 +75,8 @@ export const ArrowLeftIconOutline = ({ width, height, fill }: IconType) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M11.0711 4.92892L4 12L11.0711 19.0711L12.4853 17.6568L7.83 12.9999L21 13V11L7.83 10.9999L12.4853 6.34314L11.0711 4.92892Z"
         fill={fill}
       />
@@ -96,13 +96,31 @@ export const ArrowRightIconOutline = ({ width, height, fill }: IconType) => {
       <path
         fillRule="evenodd"
         clipRule="evenodd"
-        d="M16.08 12C16.08 15.1354 10.0896 18.8362 8.88863 19.5456C8.43263 19.8163 7.84415 19.6647 7.57439 19.2087C7.30271 18.7517 7.45631 18.1632 7.91135 17.8944C10.4314 16.4016 14.16 13.4976 14.16 12C14.16 10.5005 10.4314 7.59649 7.91135 6.10561C7.45631 5.83585 7.30271 5.24545 7.57439 4.79137C7.84319 4.33537 8.43167 4.18369 8.88863 4.45441C10.0896 5.16385 16.08 8.86465 16.08 12Z"
+        d="M13.9289 4.92892L21 12L13.9289 19.0711L12.5147 17.6568L17.17 12.9999L4 13V11L17.17 10.9999L12.5147 6.34314L13.9289 4.92892Z"
         fill={fill}
       />
     </svg>
   );
 };
 
+export const ChevronLeftIconOutline = ({ width, height, fill }: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M11.5953 7.05372L8.6496 9.99941L11.5953 12.9463L10.4168 14.1248L6.29199 10L10.4168 5.87521L11.5953 7.05372Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 export const ArrowLeftIconFill = ({ width, height, fill }: IconType) => {
   return (
     <svg
