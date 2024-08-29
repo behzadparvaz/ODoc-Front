@@ -10,29 +10,55 @@ import {
 } from '@configs/ControlMobileView';
 import Button from '@com/_atoms/Button';
 import { productListPageTexts } from '@com/texts/productListPageTexts';
+import {
+  useGetPlpInfiniteContent,
+} from '@api/plp/plpApi.rq';
 
 const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
 
-type Props = {
-  products: any;
-};
+type Props = {};
 
-export default function ProdictListPage({ products }: Props) {
+export default function ProdictListPage({}: Props) {
   const router = useRouter();
   const searchTerm = router?.query?.search_text;
   const categoryName = router?.query?.categoryName;
+  const body = {
+    ...(searchTerm
+      ? {
+          productName: searchTerm,
+        }
+      : { category: categoryName }),
+    pageNumber: 1,
+    pageSize: 10,
+  };
+
+  const { plpData } = useGetPlpInfiniteContent(body);
+  const items = plpData
+    ? plpData?.data?.pages
+      ? plpData?.data?.pages?.reduce(
+          (prev, current) => [
+            ...prev,
+            ...(current?.queryResult ? current?.queryResult : []),
+          ],
+          [],
+        )
+      : []
+    : [];
+
 
   return (
     <div>
-      <div className="flex items-center pt-4">
+      <div className="fixed inset-x-0 top-0 flex items-center bg-white pt-4">
         <div className="mr-4" onClick={() => router?.back()}>
           <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
         </div>
-        {searchTerm && (
+        {searchTerm ? (
           <div className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg mx-4">
             <p className="mr-4"></p>
             {searchTerm}
           </div>
+        ) : (
+          <p className="mr-4">{categoryName}</p>
         )}
       </div>
       {/* <div className="flex items-center justify-between m-4">
@@ -46,14 +72,15 @@ export default function ProdictListPage({ products }: Props) {
         scrollableTarget="orderListScrollParent"
         style={{ overflow: 'hidden' }}
         next={() => {
-          console.log('sss');
+          plpData?.fetchNextPage();
         }}
-        hasMore={true}
-        loader={<div style={{ height: '100px' }}>'sss'</div>}
-        dataLength={5}
+        hasMore={plpData?.hasNextPage}
+        loader={<div style={{ height: '100px' }}>در حال بارگذاری...</div>}
+        dataLength={items?.length}
+        className="pt-[68px]"
       >
         <div className="p-4 space-y-4">
-          {products.map((product, index) => (
+          {items?.map((product, index) => (
             <ProductCard key={index} product={product} hasAddToCartButton />
           ))}
         </div>

@@ -11,7 +11,7 @@ const ProductCard = ({ product, hasAddToCartButton }: Props) => {
     <div className="border-b border-grey-200 p-4 flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <div className="w-[68px] h-[68px] bg-grey-300 rounded-lg ml-2" />
-        <span className="text-sm font-medium">{product.name}</span>
+        <span className="text-sm font-medium">{product.persianName}</span>
       </div>
       {hasAddToCartButton ? (
         <AddToCartButton initialQuantity={0} />
