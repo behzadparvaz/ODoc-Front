@@ -21,7 +21,7 @@ export const getOrderStatusMessage = (statusId) => {
     case 10:
       return 'کنسل شده';
     case 11:
-      return 'کنسل شد توسط داروخانه';
+      return 'کنسل شده توسط داروخانه';
     case 12:
       return 'کنسل شد توسط مشتری';
     default:
