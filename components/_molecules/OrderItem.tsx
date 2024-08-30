@@ -109,7 +109,7 @@ const OrderItem = ({
             </Button>
           )}
           <Button
-            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 px-0 text-sm`}
+            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
             size="medium"
             buttonType="contained"
             handleClick={() =>
