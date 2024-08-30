@@ -90,8 +90,6 @@
   align-self: start !important;
 }
 
-
-
 .max-w-412 {
   max-width: 412px;
 }
@@ -112,14 +110,26 @@
   max-width: 960px;
 }
 
-.spinner>div:first-child {
+.spinner > div:first-child {
   animation: spinnerDot 0.4s 0s infinite linear alternate;
 }
 
-.spinner>div:nth-child(2) {
+.spinner > div:nth-child(2) {
   animation: spinnerDot 0.4s 0.2s infinite linear alternate;
 }
 
-.spinner>div:last-child {
+.spinner > div:last-child {
   animation: spinnerDot 0.4s 0.4s infinite linear alternate;
+}
+
+.scroll-drag * {
+  pointer-events: none;
+}
+
+
+.swiper-button-prev, .swiper-button-next{
+  color: #FF652D!important;
+}
+.swiper-pagination-bullet{
+  background: #FF652D!important;
 }

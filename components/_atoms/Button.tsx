@@ -101,7 +101,7 @@ const Button = ({
         ? 'pr-6 pl-4'
         : icon && iconDirection === 'right'
           ? 'pl-6 pr-4'
-          : 'px-6';
+          : 'px-4';
 
   const varientClassName = primaryClassName + secondaryClassName + tertiaryClassName + linkClassName;
   const roundedClassName = children
