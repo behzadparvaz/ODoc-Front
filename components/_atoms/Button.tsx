@@ -17,7 +17,7 @@ interface ButtonProps {
   handleClick?: (e) => void;
   className?: string;
   weight?: 100 | 200 | 300;
-  size?: 'small' | 'medium' | 'large';
+  size?: 'xSmall' | 'small' | 'medium' | 'large';
   style?: CSSProperties;
   backgroundColor?: string;
   color?: string;
@@ -89,7 +89,9 @@ const Button = ({
           : '';
 
   const sidesDistance =
-    size === 'small'
+    size === 'xSmall'
+    ? ''
+    : size === 'small'
       ? icon && iconDirection === 'left'
         ? 'pr-4 pl-2'
         : icon && iconDirection === 'right'

@@ -571,9 +571,9 @@ export const NewPlusIconOutline = ({ width, height, fill, className = '' }: Icon
   );
 };
 
-export const MinusIconOutline = ({ width, height, fill }: IconType) => {
+export const MinusIconOutline = ({ width, height, fill, className }: IconType) => {
   return (
-    <svg width={width} height={height} viewBox={`0 0 10 10`} fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width={width} height={height} viewBox={`0 0 10 10`} fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
       <path
         fillRule="evenodd"
         clipRule="evenodd"

@@ -43,7 +43,7 @@ const MainLayout = ({
       )}
       <div
         className={classNames(
-          `overflow-auto min-h-[calc(100vh - 222px)]`,
+          `overflow-auto min-h-[calc(100vh-222px)]`,
           className,
         )}
       >
