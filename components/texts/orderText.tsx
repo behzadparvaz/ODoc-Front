@@ -6,6 +6,7 @@ export const orderText = {
   additionalInsuranceType: 'نوع بیمه تکمیلی',
   doctorName: 'نام پزشک',
   description: 'توضیحات',
+  reasonCancelationOrder: 'دلیل لغو سفارش',
   selectInsuranceType: 'نوع بیمه را وارد کنید',
   orderConfirmationQuestion: 'آیا از ثبت سفارش با اطلاعات زیر اطمینان دارید؟',
   orderCancelConfirmationQuestion:
