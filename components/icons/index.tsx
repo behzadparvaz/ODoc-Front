@@ -796,9 +796,21 @@ export const NewPlusIconOutline = ({
   );
 };
 
-export const MinusIconOutline = ({ width, height, fill, className }: IconType) => {
+export const MinusIconOutline = ({
+  width,
+  height,
+  fill,
+  className,
+}: IconType) => {
   return (
-    <svg width={width} height={height} viewBox={`0 0 10 10`} fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <svg
+      width={width}
+      height={height}
+      viewBox={`0 0 10 10`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
       <path
         fillRule="evenodd"
         clipRule="evenodd"
@@ -3095,6 +3107,160 @@ export const ProfileCircleOutline = ({
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const TimerOutlineIcon = ({
+  width = 10,
+  height = 11,
+  fill = '#747575',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M6.5.5h-3v1h3v-1zM4.5 7h1V4h-1v3zm4.015-3.305.71-.71a5.524 5.524 0 0 0-.705-.705l-.71.71A4.481 4.481 0 0 0 5 2a4.5 4.5 0 1 0 4.47 3.996 4.497 4.497 0 0 0-.955-2.301zM5 10a3.497 3.497 0 0 1-3.5-3.5C1.5 4.565 3.065 3 5 3s3.5 1.565 3.5 3.5S6.935 10 5 10z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const HeadsetOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#000',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12 2a8 8 0 0 1 7.996 7.75l.005.421a2.997 2.997 0 0 1 1.963 2.38l.027.222L22 13v2a2.993 2.993 0 0 1-2.551 2.964l-.222.027L19 18h-1.126a4.002 4.002 0 0 1-3.674 2.995L14 21h-.667l-.333.5h-1.5a1.5 1.5 0 0 1 0-3H13l.333.5H14a2 2 0 0 0 1.995-1.85L16 17v-7h2a6 6 0 0 0-11.996-.225L6 10h2v8H5a2.993 2.993 0 0 1-2.964-2.551l-.027-.222L2 15v-2a2.993 2.993 0 0 1 2-2.825V10a8 8 0 0 1 8-8z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const PhoneOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#000',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M3.99 15.38c1.23 0 2.42-.2 3.53-.56.35-.12.74-.03 1.01.24l1.57 1.97c2.83-1.35 5.48-3.9 6.89-6.83l-1.95-1.66a1.02 1.02 0 0 1-.24-1.02c.37-1.11.56-2.3.56-3.53 0-.54.45-.99.99-.99h3.46c.54 0 1.19.24 1.19.99C21 13.28 13.27 21 3.99 21c-.71 0-.99-.63-.99-1.18v-3.45c0-.54.45-.99.99-.99z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const NoteOutlineIcon = ({
+  width = 16,
+  height = 21,
+  fill = '#FF7140',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M10.82 2C10.4.84 9.3 0 8 0 6.7 0 5.6.84 5.18 2H2C.9 2 0 2.9 0 4v15c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4c0-1.1-.9-2-2-2h-3.18zM14 19V4h-3v3H5V4H2v15h12zM7 3c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1z"
+      fill={fill}
+    />
+  </svg>
+);
+export const ShopOutlineIcon = ({
+  width = 20,
+  height = 18,
+  fill = '#FF7140',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M18.958 8.05V16c0 .55-.195 1.02-.585 1.413-.39.391-.858.587-1.406.587H3.033a1.912 1.912 0 0 1-1.406-.587A1.93 1.93 0 0 1 1.042 16V8.05C.661 7.7.366 7.25.159 6.7-.05 6.15-.053 5.55.146 4.9l1.045-3.4a2.21 2.21 0 0 1 .71-1.075C2.24.142 2.635 0 3.082 0h13.835c.448 0 .838.138 1.17.412.332.276.572.638.722 1.088l1.045 3.4c.199.65.195 1.242-.013 1.775a3.954 3.954 0 0 1-.883 1.375zM12.19 7c.448 0 .788-.154 1.02-.463a1.37 1.37 0 0 0 .274-1.037L12.936 2h-1.94v3.7c0 .35.115.654.348.912.232.259.514.388.846.388zM7.71 7c.382 0 .693-.13.934-.388.24-.258.36-.562.36-.912V2h-1.94l-.548 3.5c-.066.4.021.75.262 1.05.24.3.551.45.933.45zM3.283 7c.298 0 .56-.108.783-.325a1.4 1.4 0 0 0 .41-.825L5.024 2h-1.94l-.996 3.35c-.1.333-.045.692.162 1.075.207.383.551.575 1.033.575zm13.436 0c.482 0 .83-.192 1.046-.575.215-.383.265-.742.149-1.075L16.868 2h-1.891l.547 3.85a1.4 1.4 0 0 0 .41.825c.225.217.486.325.784.325zM3.033 16h13.934V8.95a.6.6 0 0 1-.161.05h-.088c-.447 0-.841-.075-1.181-.225-.34-.15-.677-.392-1.008-.725-.299.3-.639.533-1.02.7-.382.167-.788.25-1.22.25-.448 0-.867-.083-1.256-.25-.39-.167-.734-.4-1.033-.7-.282.3-.61.533-.983.7-.373.167-.775.25-1.207.25-.48 0-.916-.083-1.306-.25-.39-.167-.734-.4-1.033-.7-.348.35-.692.596-1.032.737-.34.142-.726.213-1.157.213H3.17a.252.252 0 0 1-.137-.05V16z"
+      fill={fill}
+    />
+  </svg>
+);
+export const PaymentOutlineIcon = ({
+  width = 22,
+  height = 14,
+  fill = '#FF7140',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M22 0v11h-4v3H0V4l3-.001V0h19zm-6 6H2v6h14V6zm-7 .75a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5zM13.5 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-9 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4.5.25a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zM20 2H5v1.999L18 4v5h2V2z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const BagOutlineIcon = ({
+  width = 18,
+  height = 21,
+  fill = '#FF7140',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M16 5h-2c0-2.76-2.24-5-5-5S4 2.24 4 5H2C.9 5 0 5.9 0 7v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zM9 2c1.66 0 3 1.34 3 3H6c0-1.66 1.34-3 3-3zm7 17H2V7h14v12zm-7-8c-1.66 0-3-1.34-3-3H4c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const BikerOutlineIcon = ({
+  width = 20,
+  height = 16,
+  fill = '#FF7140',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M.002 12c0-6.627 5.373-12 12-12a8 8 0 1 1 0 16h-10a2 2 0 0 1-2-2v-2zm12 2h-10v-2c0-.338.017-.671.05-1h6.404a3.544 3.544 0 0 0 1.638-6.687L7.606 3.016A9.96 9.96 0 0 1 12.002 2a6 6 0 0 1 0 12zM2.46 9h5.996a1.544 1.544 0 0 0 .713-2.914l-3.5-1.825A10.013 10.013 0 0 0 2.46 9z"
+      fill={fill}
     />
   </svg>
 );

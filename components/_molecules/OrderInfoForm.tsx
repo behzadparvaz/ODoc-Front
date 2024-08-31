@@ -1,7 +1,4 @@
-import {
-  useGetInsurances,
-  useGetSupplementaryInsurances,
-} from '@api/order/orderApis.rq';
+import { useGetInsurances, useGetSupplementaryInsurances } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
@@ -38,9 +35,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       if (familyMembers?.length > 0) {
         familyMembers.forEach(
           (item: any) =>
-            !customerList
-              .map((customer) => customer.nationalCode)
-              .includes(item.nationalCode) &&
+            !customerList.map((customer) => customer.nationalCode).includes(item.nationalCode) &&
             customerList.push({
               ...item,
               firstName: item.fisrtname,
@@ -87,16 +82,12 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       const body = {
         referenceNumber: value?.referenceNumber,
         nationalCode: value?.nationalCode,
-        customerName: optionsForCustomer.find(
-          (item) => item.id === value?.nationalCode,
-        ).name,
+        customerName: optionsForCustomer.find((item) => item.id === value?.nationalCode).name,
         doctorName: value?.doctorName,
         comment: value?.comment,
         isSpecialPatient: value?.isSpecialPatient,
         insuranceTypeId: Number(value?.insuranceTypeId),
-        supplementaryInsuranceTypeId: Number(
-          value?.supplementaryInsuranceTypeId,
-        ),
+        supplementaryInsuranceTypeId: Number(value?.supplementaryInsuranceTypeId),
         vendorSelects: [
           {
             vendorCode: value?.vendorCode,
@@ -120,7 +111,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       }
     },
   });
-  console.log('supplementaryInsurances', supplementaryInsurances);
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <div className="flex flex-col w-full gap-y-2 pb-4">
@@ -144,11 +135,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
             }}
             className="flex items-center gap-x-2 cursor-pointer"
           >
-            <NewPlusIconOutline
-              width={10}
-              height={10}
-              fill={colors.teal[400]}
-            />
+            <NewPlusIconOutline width={10} height={10} fill={colors.teal[400]} />
 
             <p className="text-xs text-teal-400">تکمیل پروفایل کاربری</p>
           </span>
@@ -167,10 +154,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         name="referenceNumber"
         value={formik.values.referenceNumber}
         onChange={formik.handleChange}
-        isTouched={
-          formik.touched.referenceNumber &&
-          Boolean(formik.errors.referenceNumber)
-        }
+        isTouched={formik.touched.referenceNumber && Boolean(formik.errors.referenceNumber)}
         errorMessage={formik.errors.referenceNumber}
       />
       <Input
@@ -185,9 +169,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
         value={formik.values.doctorName}
         onChange={formik.handleChange}
       />
-      <label className="font-semibold text-sm mb-2 text-gray-800">
-        {orderText?.insuranceType}
-      </label>
+      <label className="font-semibold text-sm mb-2 text-gray-800">{orderText?.insuranceType}</label>
       <select
         name="insuranceTypeId"
         id="insuranceTypeId"
@@ -205,9 +187,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           );
         })}
       </select>
-      <label className="font-semibold text-sm mb-2 text-gray-800">
-        {orderText?.additionalInsuranceType}
-      </label>
+      <label className="font-semibold text-sm mb-2 text-gray-800">{orderText?.additionalInsuranceType}</label>
       <select
         name="supplementaryInsuranceTypeId"
         value={formik?.values?.supplementaryInsuranceTypeId}
@@ -224,9 +204,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           );
         })}
       </select>
-      <label className="font-semibold text-sm mb-2 text-gray-800">
-        {orderText?.description}
-      </label>
+      <label className="font-semibold text-sm mb-2 text-gray-800">{orderText?.description}</label>
       <textarea
         placeholder={orderText?.description}
         className="block p-2.5 w-full resize-none h-20 text-sm border border-grey-300 text-grey-600 rounded-md outline-none"
@@ -243,14 +221,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
           labelClassName="text-sm mr-6 font-normal text-grey-700"
           name="isSpecialPatient"
           id="isSpecialPatient"
-          icon={
-            <TickIcon
-              width={15}
-              height={15}
-              stroke={colors.white}
-              className="mx-auto mt-[1px]"
-            />
-          }
+          icon={<TickIcon width={15} height={15} stroke={colors.white} className="mx-auto mt-[1px]" />}
           checkedClassName="!bg-grey-500"
           boxClassName="w-4 h-4 rounded-full border-grey-800"
           checked={formik.values.isSpecialPatient}
@@ -274,12 +245,7 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       </div>
 
       <div className="w-full flex justify-end mt-10">
-        <Button
-          type="submit"
-          buttonType="contained"
-          size="large"
-          variant="primary"
-        >
+        <Button type="submit" buttonType="contained" size="large" variant="primary">
           ادامه
         </Button>
       </div>
