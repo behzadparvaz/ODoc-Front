@@ -16,4 +16,5 @@ export const routeList = {
   mobileSearch: '/app/mobileSearch',
   search: '/app/search',
   searchByImage: '/app/searchByImage',
+  basket: '/app/basket',
 };

@@ -1,28 +1,64 @@
 import MainLayout from '@com/_template/MainLayout';
-import NextImage from '@com/_core/NextImage';
 import Button from '@com/_atoms/Button';
 import {
-  useAddProductToBasket,
   useDeleteCurrentBasket,
-  useDeleteProductBasket,
   useGetCurrentBasket
 } from '@api/basket/basketApis.rq';
-import React, { useMemo } from 'react';
-import AddButton from '@com/_atoms/AddButton';
+import React, { useEffect, useMemo } from 'react';
+import { useGetProfile, useGetUserLocations } from '@api/user/user.rq';
+import SelectAddress from '@com/_organisms/SelectAddress';
+import useModal from '@hooks/useModal';
+import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@utilities/types';
+import { setUserAction } from '@redux/user/userActions';
+import { homePageText } from '@com/texts/homePage';
+import ProductCard from '@com/_molecules/productCard';
+import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 
 const Page = () => {
-
-  // const { data: basket } = useGetProducts();
-  const { data: basket, refetch: refetGetBasket } = useGetCurrentBasket();
-  const { mutate: addToCart, isLoading: isAddingToCart } = useAddProductToBasket({
-    onSuccess: () => {
-      refetGetBasket()
-    }
-  });
-  const { mutate: popProductOfCart } = useDeleteProductBasket();
+  const { user } = useSelector((state: RootState) => state.user);
+  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
+  const { mutate: createOrderDraft } = useCreateOrderDraft();
+  const { data: profileQuery } = useGetProfile();
+  const profile: any = profileQuery?.queryResult?.[0]
 
-  const products = useMemo(() => basket?.products ?? [], [basket])
+  const onSubmitBasket = () => {
+    const { defaultAddress } = user
+    const products = basket?.products.map(pr => ({
+      description: pr.name,
+      irc: pr.irc,
+      quantity: pr.quantity,
+      gtin: pr.gtin,
+      productName: pr.name
+    })) ?? []
+
+    createOrderDraft({
+      comment:'',
+      customerName: [profile.firstName, profile.lastName].join(' '),
+      nationalCode: profile.nationalCode,
+
+      deliveryDate: '',
+      fromDeliveryTime: '',
+      toDeliveryTime: '',
+
+      homeUnit: defaultAddress?.homeUnit,
+      houseNumber: defaultAddress?.houseNumber,
+      latitude: defaultAddress?.latitude,
+      longitude: defaultAddress?.longitude,
+      titleAddress: defaultAddress?.name,
+      valueAddress: defaultAddress?.description,
+
+      referenceNumber: '',
+      insuranceTypeId: 0,
+      supplementaryInsuranceTypeId: 0,
+
+      items: products
+    })
+  }
+
+  const products = useMemo(() => basket?.products ?? [], [basket]);
 
   return <MainLayout className="px-6" title="سبد خرید" hasBottomNavigation={false}>
     <div className="relative h-[calc(100vh-79px)]">
@@ -31,22 +67,16 @@ const Page = () => {
           products.map(pr =>
             <ProductCard prInfo={{ ...pr }}
                          key={pr.irc}
-                         isLoading={isAddingToCart}
-                         onChangeCount={({ irc, quantity }) => addToCart({
-                           type: 'IRC',
-                           orderType: 'OTC',
-                           irc: irc,
-                           quantity: quantity
-                         })}
-                         onDeleteProduct={({ irc }) => popProductOfCart({ type: 'IRC', irc: irc })}/>
+                         onSuccessChanged={refetchGetBasket}
+                         hasAddToCartButton/>
           )
         }
       </div>
 
-      <Address />
+      <Address/>
 
-      <div className="sticky bottom-0 bg-white px-6 py-4 -mx-6 flex justify-between gap-4">
-        <Button variant={'primary'} className="flex-1" size={'large'}>ثبت سفارش</Button>
+      <div className="absolute w-full bottom-0 bg-white px-6 py-4 -mx-6 flex justify-between gap-4">
+        <Button variant={'primary'} className="flex-1" size={'large'} handleClick={onSubmitBasket}>ارسال به داروخانه</Button>
         <Button variant={'primary'}
                 className="flex-1"
                 size={'large'}
@@ -59,44 +89,53 @@ const Page = () => {
 
 export default Page;
 
-type ProductCardProps<PrT> = {
-  prInfo: PrT
-  isLoading?: boolean;
-  onChangeCount?: (prInfo: PrT) => void,
-  onDeleteProduct?: (prInfo: PrT) => void
-}
+const Address = () => {
+  const { addModal } = useModal();
+  const { data: addressDate, isLoading } = useGetUserLocations();
+  const { user } = useSelector((state: RootState) => state.user);
+  const { addressSelected } = useSelectAddressByCurrentLocation(addressDate);
+  const dispatch = useDispatch();
 
-const ProductCard: React.FC<ProductCardProps<ProductInBasket>> =
-  ({ prInfo, isLoading, onChangeCount, onDeleteProduct }) => {
+  const defaultAddress: any = user?.defaultAddress ?? null;
 
-    const onChange = (count: number) => {
-      if (count > 0) {
-        onChangeCount?.({ ...prInfo, quantity: count });
+  useEffect(() => {
+    if (!defaultAddress) {
+      if (addressSelected) {
+        dispatch(
+          setUserAction({
+            defaultAddress: addressSelected
+          })
+        );
       } else {
-        onDeleteProduct?.(prInfo);
+        dispatch(
+          setUserAction({
+            defaultAddress: null
+          })
+        );
       }
-    };
+    }
+  }, [dispatch, addressSelected]);
 
-    return <div className="p-3 rounded border-b border-grey-100 flex gap-3">
-      <div className=""><NextImage src={prInfo?.image ?? ''} width={70} height={70} alt={prInfo.name}/></div>
-      <div className="flex-1 flex gap-3 items-center">
-        <h3 className="flex-1">{prInfo.name}</h3>
-        <AddButton count={prInfo.quantity} onChangeCount={onChange} isLoading={isLoading}/>
-      </div>
-    </div>;
+  const onClickOpenModal = () => {
+    addModal({
+      modal: SelectAddress
+    });
   };
 
-
-const Address = () => {
   return (
-    <div className='border border-grey-200 rounded-lg py-3 px-4'>
-      <h3 className='font-medium text-right'>ارسال به</h3>
-      <div className='text-grey-400 font-normal py-2'>
-        کوی نصر، خیابان صائمی، خیابان ایزدی، واحد ۱۲، پلاک ۱۴
+    <div className="border border-grey-200 rounded-lg py-3 px-4">
+      <h3 className="font-medium text-right">ارسال به</h3>
+      <div className="text-grey-500 font-normal py-2">
+        {!!defaultAddress
+          ? defaultAddress?.description
+          : homePageText?.selectAddress}
       </div>
-      <div className='flex justify-end'>
-        <Button buttonType={'contained'} className={'bg-grey-100 !rounded-full !h-11 mt-3'}>ویرایش یا تغییر آدرس</Button>
+      <div className="flex justify-end">
+        <Button buttonType={'contained'} className={'bg-grey-100 !rounded-full !h-11 mt-3'}
+                handleClick={onClickOpenModal}>
+          ویرایش یا تغییر آدرس
+        </Button>
       </div>
     </div>
-  )
-}
+  );
+};

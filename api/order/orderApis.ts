@@ -1,8 +1,9 @@
 import request from '@api/request';
+import { CreateOrderDraftPayload } from '@utilities/interfaces/order';
 
 export const CreateOrderInsurance = async (body) =>
   await request.post(`/order/CreateOrderInsurance`, body, {
-    returnError: true,
+    returnError: true
   });
 
 export const GetOrdersHistory = async (statusId: number) =>
@@ -28,3 +29,6 @@ export const GetOrderState = async (orderCode) =>
 
 export const getSupplementaryInsurances = async () =>
   await request.get(`Order/GetSupplementaryInsurances`);
+
+export const createOrderDraft = async (payload: CreateOrderDraftPayload) =>
+  await request.post(`Order/CreateOrderDraft'`, payload);

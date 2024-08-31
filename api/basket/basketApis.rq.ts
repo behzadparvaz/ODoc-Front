@@ -14,9 +14,9 @@ import {
   updateCountProductBasket, UpdateCountProductBasketPayload
 } from '@api/basket/basketApis';
 
-export const useGetCurrentBasket: (
-  options?: UseQueryOptions<unknown, unknown, Basket>,
-) => UseQueryResult<Basket> = ( options) =>
+export const useGetCurrentBasket: <TQuery = Basket>(
+  options?: UseQueryOptions<unknown, unknown, TQuery>,
+) => UseQueryResult<TQuery> = ( options) =>
   useQuery(['getCurrentBasket'], () => getCurrentBasket(), {
     refetchInterval: 10000,
     ...options,

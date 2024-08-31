@@ -72,19 +72,16 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
         </div>
       ) : (
         <div className='flex gap-3 items-center justify-center'>
-          <Button
-            size="xSmall"
-            buttonType="contained"
-            className='!w-7 !h-7 !rounded-full'
-            variant={'primary'}
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
             disabled={max <= count || isLoading}
-            handleClick={(e) => {
+            onClick={(e) => {
               e.stopPropagation();
               onChange(e, count + STEP_INC_DEC);
             }}
           >
-            <PlusIconOutline width={20} height={20} fill={'white'} />
-          </Button>
+            <PlusIconOutline width={20} height={20} fill={'black'} />
+          </button>
 
           <div className=''>
             {count}
@@ -98,19 +95,16 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             </div>
           )}
 
-          <Button
-            size="xSmall"
-            buttonType="outlined"
-            variant={'primary'}
-            className='!w-7 !h-7 !rounded-full'
+          <button
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
             disabled={isLoading}
-            handleClick={(e) => {
+            onClick={(e) => {
               e.stopPropagation();
               onChange(e, count - STEP_INC_DEC);
             }}
           >
-            <MinusIconOutline width={20} height={20} className={'fill-primary'} />
-          </Button>
+            <MinusIconOutline width={20} height={20} fill={'black'} />
+          </button>
         </div>
       )}
     </>

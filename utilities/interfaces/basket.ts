@@ -1,15 +1,16 @@
 type ProductInBasket =  {
-  irc: string,
-  gtin: string,
-  name: string,
-  price: number,
-  image?: string,
-  discount: number,
-  tax: number,
-  quantity: number,
-  createDateTime: null,
-  modifiedDateTime: null,
-  createBy: null,
+  irc: string
+  gtin: string
+  name?: string
+  persianName?: string
+  price: number
+  image?: string
+  discount: number
+  tax: number
+  quantity: number
+  createDateTime: null
+  modifiedDateTime: null
+  createBy: null
   modifiedBy: null
 }
 

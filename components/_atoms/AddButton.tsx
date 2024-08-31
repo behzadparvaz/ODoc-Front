@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import ProductCounter from '@com/_atoms/ProductCounter';
 import Button from '@com/_atoms/Button';
+import { PlusIconOutline } from '@com/icons';
 
 interface AddButtonProps {
   count: number;
@@ -41,7 +42,7 @@ const AddButton: React.FC<AddButtonProps> = ({
         </Button>
       ) : (
         <button
-          className=""
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
           disabled={Boolean(isLoading)}
           onClick={(event) => {
             event.stopPropagation();
@@ -49,7 +50,7 @@ const AddButton: React.FC<AddButtonProps> = ({
             setTooltipVisible(true);
           }}
         >
-          افزودن
+          <PlusIconOutline width={20} height={20} fill={'black'} />
         </button>
       )}
     </div>
