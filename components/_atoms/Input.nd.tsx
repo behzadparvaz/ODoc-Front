@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 type InputConditionProp =
   | {
@@ -16,12 +16,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   required?: boolean;
   errorMessage?: any;
-  ref?: React.RefObject<any>;
 }
 
-type Props = InputProps & InputConditionProp;
+export type Props = InputProps & InputConditionProp;
 
-export default function Input({
+const Input = forwardRef(({
   label,
   className = '',
   labelClassName = '',
@@ -29,9 +28,8 @@ export default function Input({
   isTouched = false,
   required = false,
   errorMessage = '',
-  ref = null,
   ...props
-}: Props) {
+}: Props, ref: React.RefObject<any>) => {
   return (
     <div className={`flex flex-col ${className}`}>
       {label && <label className={`text-[11px] text-grey-800 mb-2 ${labelClassName}`}>{label}
@@ -45,4 +43,6 @@ export default function Input({
       {isTouched && <p className="text-xs font-normal text-red-800 mx-1 mt-2">{errorMessage}</p>}
     </div>
   );
-}
+})
+
+export default Input

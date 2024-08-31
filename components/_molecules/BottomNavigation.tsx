@@ -23,7 +23,7 @@ const BottomNavigation = () => {
 
         return isMainItem ?
           (
-            <div className="p-3 bg-grey-0 rounded-full -mt-4 mx-3">
+            <div key={index} className="p-3 bg-grey-0 rounded-full -mt-4 mx-3">
               <Link href={item?.link} key={item?.id}>
                 <a className={`flex text-sm ${activeItem ? 'bg-primary-800' : 'bg-primary'} rounded-full p-2.5`}>
                   {item.icon({})}

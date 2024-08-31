@@ -1,9 +1,9 @@
 import {
-  useMutation,
+  useMutation, UseMutationOptions, UseMutationResult,
   useQuery,
   useQueryClient,
   UseQueryOptions,
-  UseQueryResult,
+  UseQueryResult
 } from 'react-query';
 import {
   CancelOrder,
@@ -14,12 +14,13 @@ import {
   VerifyPaymentOrder,
   getInsurances,
   GetOrderStatuses,
-  getSupplementaryInsurances,
+  getSupplementaryInsurances, createOrderDraft
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
-import { OrderStatuses } from '@utilities/interfaces/order';
+import { CreateOrderDraftPayload, OrderStatuses } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
+import { addProductToBasket, AddProductToBasketPayload } from '@api/basket/basketApis';
 
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
@@ -131,3 +132,11 @@ export const useGetSupplementaryInsurances = () => {
   );
   return { data: data as any, isLoading };
 };
+
+export const useCreateOrderDraft: (
+  options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
+) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = ( options) =>
+  useMutation({
+    mutationFn: (variables) => createOrderDraft(variables),
+    ...options,
+  });

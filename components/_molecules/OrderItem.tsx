@@ -1,7 +1,10 @@
 import Button from '@com/_atoms/Button';
 import NfcReasonBottomSheet from '@com/_organisms/NfcReasonBottomSheet';
 import OrderCancelConfirmationBottomSheet from '@com/_organisms/OrderCancelConfirmationBottomSheet';
+import OrderCancelationDetailModal from '@com/_organisms/OrderCancelationDetailModal';
+import { OpenEyeIconFill } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
+import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import {
@@ -51,9 +54,30 @@ const OrderItem = ({
         <div className="flex items-center">
           وضعیت سفارش:
           <p
-            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 ? 'text-red-600' : 'text-teal-600'} mr-1`}
+            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 || data.orderStatus?.id === 11 ? 'text-red-600' : 'text-teal-600'} mr-1`}
           >
-            {getOrderStatusMessage(data.orderStatus?.id)}
+            <span
+              onClick={() =>
+                data.orderStatus?.id === 11
+                  ? addModal({
+                      modal: OrderCancelationDetailModal,
+                      props: {
+                        reason: data?.declineType?.name,
+                      },
+                    })
+                  : null
+              }
+              className={`flex gap-x-1 items-center`}
+            >
+              {getOrderStatusMessage(data.orderStatus?.id)}
+              {data.orderStatus?.id === 11 ? (
+                <OpenEyeIconFill
+                  width={18}
+                  height={18}
+                  fill={colors?.red[600]}
+                />
+              ) : null}
+            </span>
           </p>
         </div>
       </div>
@@ -76,7 +100,7 @@ const OrderItem = ({
           {data?.orderStatus?.id === 2 && (
             <Button
               className="flex-1"
-              size="large"
+              size="medium"
               buttonType="contained"
               handleClick={() => handleClikOnPaymentButton()}
               variant={'primary'}
@@ -85,8 +109,8 @@ const OrderItem = ({
             </Button>
           )}
           <Button
-            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700`}
-            size="large"
+            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
+            size="medium"
             buttonType="contained"
             handleClick={() =>
               addModal({
@@ -101,8 +125,8 @@ const OrderItem = ({
           </Button>
           {data?.orderStatus?.id === 4 && (
             <Button
-              className="flex-1"
-              size="large"
+              className="flex-1 px-0 text-sm"
+              size="medium"
               buttonType="contained"
               handleClick={() =>
                 handleClickOnCommentBottomSheet(

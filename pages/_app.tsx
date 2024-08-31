@@ -1,5 +1,5 @@
-import { QueryClient, QueryClientProvider } from 'react-query'
-import '../styles/globals.css'
+import { QueryClient, QueryClientProvider } from 'react-query';
+import '../styles/globals.css';
 import { createRef, useMemo, useState } from 'react';
 import { wrapper } from '../redux/store';
 import dynamic from 'next/dynamic';
@@ -20,21 +20,17 @@ function MyApp({ Component, pageProps }) {
             retry: 3,
           },
         },
-      })
+      }),
   );
   return (
     <>
-
       <Head>
         <meta name="application-name" content="tapsiDoctor" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-touch-fullscreen" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="#e5f8f8" />
         <meta name="apple-mobile-web-app-title" content="tapsiDoctor" />
-        <meta
-          name="description"
-          content="سامانه ثبت آنلاین نسخه"
-        />
+        <meta name="description" content="سامانه ثبت آنلاین نسخه" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="none" />
         <meta name="theme-color" content="#e5f8f8" />
@@ -45,22 +41,36 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
         />
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/static/images/staticImages/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/static/images/staticImages/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/static/images/staticImages/favicon-16x16.png" />
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/static/images/staticImages/apple-touch-icon.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="32x32"
+          href="/static/images/staticImages/favicon-32x32.png"
+        />
+        <link
+          rel="icon"
+          type="image/png"
+          sizes="16x16"
+          href="/static/images/staticImages/favicon-16x16.png"
+        />
       </Head>
       <QueryClientProvider client={queryClient}>
         <NotificationWrapper />
 
         <ModalCreator ref={modalNode} />
         <CheckRedirectLoginOrNotLogin />
-        <div dir='rtl'>
+        <div dir="rtl">
           <Component {...pageProps} />
           <div id="modal-root"></div>
         </div>
       </QueryClientProvider>
     </>
-  )
+  );
 }
 
 export default wrapper.withRedux(MyApp);

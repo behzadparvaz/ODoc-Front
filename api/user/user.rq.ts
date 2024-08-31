@@ -1,8 +1,8 @@
 import {
   useMutation,
   useQuery,
-  useQueryClient,
-  UseQueryResult,
+  useQueryClient, UseQueryOptions,
+  UseQueryResult
 } from 'react-query';
 import {
   AddFamilyMembers,
@@ -13,7 +13,7 @@ import {
   GetProfileRelation,
   GetUserLocations,
   UpdateProfileInfo,
-  UserSetPassword,
+  UserSetPassword
 } from './user';
 import useNotification from '@hooks/useNotification';
 import useModal from '@hooks/useModal';
@@ -32,7 +32,7 @@ export const useAddLocation = () => {
         openNotification({
           message: data?.[0],
           type: 'error',
-          notifType: 'successOrFailedMessage',
+          notifType: 'successOrFailedMessage'
         });
       } else {
         queryClient?.invalidateQueries('getUserLocations');
@@ -40,10 +40,10 @@ export const useAddLocation = () => {
         openNotification({
           message: `${selectStoreTexts?.successAddAddress}`,
           type: 'success',
-          notifType: 'successOrFailedMessage',
+          notifType: 'successOrFailedMessage'
         });
       }
-    },
+    }
   });
 };
 export const useDeleteLocation = () => {
@@ -55,29 +55,30 @@ export const useDeleteLocation = () => {
       openNotification({
         message: 'آدرس شما با موفقیت حذف شد',
         type: 'info',
-        notifType: 'successOrFailedMessage',
+        notifType: 'successOrFailedMessage'
       });
-    },
+    }
   });
 };
-export const useGetUserLocations = () => {
-  const { data, isLoading } = useQuery(['getUserLocations'], () =>
-    GetUserLocations(),
+export const useGetUserLocations = (options?: UseQueryOptions<unknown, unknown, any[]>): UseQueryResult<any[]> => {
+  return useQuery(['getUserLocations'], () =>
+    GetUserLocations()
   );
-
-  return { data, isLoading };
 };
 
-export const useGetProfile = () => {
-  const { data, isLoading } = useQuery(['getProfile'], () => GetProfile());
-
-  return { data, isLoading };
-};
+export const useGetProfile = <TQuery = {
+  queryResult: any
+}>(options?: UseQueryOptions<unknown, unknown, TQuery>): UseQueryResult<TQuery> =>
+  useQuery({
+    queryKey: ['getProfile'],
+    queryFn: () => GetProfile(),
+    ...options
+  });
 
 export const useGetProfileRelation = () => {
   const { data, isLoading } = useQuery<Relation[], unknown>(
     ['getProfileRelation'],
-    () => GetProfileRelation(),
+    () => GetProfileRelation()
   );
 
   return { data, isLoading };
@@ -85,7 +86,7 @@ export const useGetProfileRelation = () => {
 
 export const useAddProfileInfo = (
   inOrderPage?: boolean,
-  isRegisterInOrderPage?: boolean,
+  isRegisterInOrderPage?: boolean
 ) => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
@@ -97,13 +98,13 @@ export const useAddProfileInfo = (
       openNotification({
         message: 'اطلاعات شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage',
+        notifType: 'successOrFailedMessage'
       });
       if (isRegisterInOrderPage) {
         removeLastModal();
       }
-      !inOrderPage && push(routeList.profile);
-    },
+      !isRegisterInOrderPage && !inOrderPage && push(routeList.profile);
+    }
   });
 };
 export const useAddFamilyMembers = () => {
@@ -115,9 +116,9 @@ export const useAddFamilyMembers = () => {
       openNotification({
         message: 'اطلاعات فرد تحت تکفل شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage',
+        notifType: 'successOrFailedMessage'
       });
-    },
+    }
   });
 };
 export const useUpdateProfileInfo = (inOrderPage) => {
@@ -130,10 +131,10 @@ export const useUpdateProfileInfo = (inOrderPage) => {
       openNotification({
         message: 'اطلاعات شما با موفقیت ویرایش شد',
         type: 'success',
-        notifType: 'successOrFailedMessage',
+        notifType: 'successOrFailedMessage'
       });
       !inOrderPage && push(routeList.profile);
-    },
+    }
   });
 };
 export const useUserSetPassword = () => {
@@ -144,9 +145,9 @@ export const useUserSetPassword = () => {
       openNotification({
         message: 'رمز عبور شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage',
+        notifType: 'successOrFailedMessage'
       });
       push(routeList.profile);
-    },
+    }
   });
 };
