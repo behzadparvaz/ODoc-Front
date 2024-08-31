@@ -2,7 +2,7 @@ import MainLayout from '@com/_template/MainLayout';
 import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
-  useGetCurrentBasket
+  useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import React, { useEffect, useMemo } from 'react';
 import { useGetProfile, useGetUserLocations } from '@api/user/user.rq';
@@ -22,20 +22,21 @@ const Page = () => {
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
   const { mutate: createOrderDraft } = useCreateOrderDraft();
   const { data: profileQuery } = useGetProfile();
-  const profile: any = profileQuery?.queryResult?.[0]
+  const profile: any = profileQuery?.queryResult?.[0];
 
   const onSubmitBasket = () => {
-    const { defaultAddress } = user
-    const products = basket?.products.map(pr => ({
-      description: pr.name,
-      irc: pr.irc,
-      quantity: pr.quantity,
-      gtin: pr.gtin,
-      productName: pr.name
-    })) ?? []
+    const { defaultAddress } = user;
+    const products =
+      basket?.products.map((pr) => ({
+        description: pr.name,
+        irc: pr.irc,
+        quantity: pr.quantity,
+        gtin: pr.gtin,
+        productName: pr.name,
+      })) ?? [];
 
     createOrderDraft({
-      comment:'',
+      comment: '',
       customerName: [profile.firstName, profile.lastName].join(' '),
       nationalCode: profile.nationalCode,
 
@@ -54,37 +55,50 @@ const Page = () => {
       insuranceTypeId: 0,
       supplementaryInsuranceTypeId: 0,
 
-      items: products
-    })
-  }
+      items: products,
+    });
+  };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
-  return <MainLayout className="px-6" title="سبد خرید" hasBottomNavigation={false}>
-    <div className="relative h-[calc(100vh-79px)]">
-      <div className="flex flex-col py-4">
-        {
-          products.map(pr =>
-            <ProductCard prInfo={{ ...pr }}
-                         key={pr.irc}
-                         onSuccessChanged={refetchGetBasket}
-                         hasAddToCartButton/>
-          )
-        }
-      </div>
+  return (
+    <MainLayout className="px-6" title="سبد خرید" hasBottomNavigation={false}>
+      <div className="relative h-[calc(100vh-79px)]">
+        <div className="flex flex-col py-4">
+          {products.map((pr) => (
+            <ProductCard
+              prInfo={{ ...pr }}
+              key={pr.irc}
+              onSuccessChanged={refetchGetBasket}
+              hasAddToCartButton
+            />
+          ))}
+        </div>
 
-      <Address/>
+        <Address />
 
-      <div className="absolute w-full bottom-0 bg-white px-6 py-4 -mx-6 flex justify-between gap-4">
-        <Button variant={'primary'} className="flex-1" size={'large'} handleClick={onSubmitBasket}>ارسال به داروخانه</Button>
-        <Button variant={'primary'}
-                className="flex-1"
-                size={'large'}
-                buttonType={'outlined'}
-                handleClick={deleteBasket}>حذف سبد خرید</Button>
+        <div className="absolute w-full bottom-0 bg-white px-6 py-4 -mx-6 flex justify-between gap-4">
+          <Button
+            variant={'primary'}
+            className="flex-1"
+            size={'large'}
+            handleClick={onSubmitBasket}
+          >
+            ارسال به داروخانه
+          </Button>
+          <Button
+            variant={'primary'}
+            className="flex-1"
+            size={'large'}
+            buttonType={'outlined'}
+            handleClick={deleteBasket}
+          >
+            حذف سبد خرید
+          </Button>
+        </div>
       </div>
-    </div>
-  </MainLayout>;
+    </MainLayout>
+  );
 };
 
 export default Page;
@@ -103,14 +117,14 @@ const Address = () => {
       if (addressSelected) {
         dispatch(
           setUserAction({
-            defaultAddress: addressSelected
-          })
+            defaultAddress: addressSelected,
+          }),
         );
       } else {
         dispatch(
           setUserAction({
-            defaultAddress: null
-          })
+            defaultAddress: null,
+          }),
         );
       }
     }
@@ -118,7 +132,7 @@ const Address = () => {
 
   const onClickOpenModal = () => {
     addModal({
-      modal: SelectAddress
+      modal: SelectAddress,
     });
   };
 
@@ -131,8 +145,11 @@ const Address = () => {
           : homePageText?.selectAddress}
       </div>
       <div className="flex justify-end">
-        <Button buttonType={'contained'} className={'bg-grey-100 !rounded-full !h-11 mt-3'}
-                handleClick={onClickOpenModal}>
+        <Button
+          buttonType={'contained'}
+          className={'bg-grey-100 !rounded-full !h-11 mt-3'}
+          handleClick={onClickOpenModal}
+        >
           ویرایش یا تغییر آدرس
         </Button>
       </div>
