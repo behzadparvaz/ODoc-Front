@@ -43,7 +43,7 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({ prInfo, hasA
   };
 
   return (
-    <div className="border-b border-grey-200 p-4 flex items-center justify-between">
+    <div className="border-b border-grey-100 py-4 flex items-center justify-between">
       <div className="flex items-center space-x-4">
         <div className="w-[68px] h-[68px] bg-grey-300 rounded-lg ml-2"/>
         <span className="text-sm font-medium">{prInfo?.persianName ?? prInfo.name}</span>
