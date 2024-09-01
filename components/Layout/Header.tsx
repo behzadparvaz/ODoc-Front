@@ -1,6 +1,7 @@
-import classNames from 'classnames';
-import { IconButton } from '@com/_atoms/IconButton';
 import { MouseEvent, ReactNode } from 'react';
+import classNames from 'classnames';
+
+import { IconButton } from '@com/_atoms/InputButton';
 
 type Headerprops = {
   title?: string;

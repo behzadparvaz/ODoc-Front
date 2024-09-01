@@ -3,12 +3,13 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import OrderItemCard from '@com/_molecules/OrderItemCard';
-import MainLayout from '@com/_template/MainLayout';
 import { CloseIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useMapApiCalls from '@hooks/useMapApiCalls';
 import { OrderDetailsDataModel } from '@utilities/interfaces/order';
 import OrderStatus from '@com/_molecules/OrderStatus';
+import { MainLayout } from '@com/Layout';
+import ProgressStepper from '@com/_molecules/ProgressBar';
 
 type OrderDetailsProps = {
   data?: OrderDetailsDataModel;
@@ -23,15 +24,15 @@ const OrderDetails = ({ data }: OrderDetailsProps) => {
 
   return (
     <MainLayout>
-      <div className="relative flex flex-col gap-5 py-5 px-4">
+      <div className="relative">
         <div
           onClick={() => back()}
-          className="absolute right-6 top-7 z-10 h-6 w-6 bg-grey-500 flex justify-center items-center rounded-full cursor-pointer"
+          className="absolute right-4 top-2 z-10 h-10 w-10 bg-white flex justify-center items-center rounded-full cursor-pointer shadow-xl"
         >
-          <CloseIconOutline width={24} height={24} stroke={colors.white} />
+          <CloseIconOutline width={24} height={24} stroke={colors.black} />
         </div>
 
-        <div className="w-full h-48 rounded-xl flex justify-center items-center overflow-hidden">
+        <div className="w-full h-[460px]  flex justify-center items-center overflow-hidden after:bg-gradient-to-b after:from-white after:absolute after:inset-0 after:h-40 after:w-full">
           <Map
             addressData={parsiMapLocationAddress}
             loadingAddress={isLoadingMapsAddress}
@@ -41,19 +42,33 @@ const OrderDetails = ({ data }: OrderDetailsProps) => {
           />
         </div>
 
-        <OrderStatus data={data} />
+        <div className="w-full h-max rounded-t-lg -translate-y-[5px] bg-white flex flex-col">
+          <ProgressStepper activeStepId={2} hasIcons />
 
-        <div className="flex flex-col gap-3">
-          <p className="text-base">جزییات سفارش</p>
-          <p className="text-md text-grey-400">{data?.orderCreatedAt}</p>
-          {data?.items?.map((item, index) => (
-            <OrderItemCard
-              key={item.id}
-              item={item}
-              index={index}
-              dataLength={data?.items?.length}
-            />
-          ))}
+          <div className="px-4">
+            <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
+          </div>
+
+          <OrderStatus data={data} />
+
+          <div className="flex flex-col gap-3">
+            <div className="h-24 flex flex-col gap-y-3 bg-grey-100 py-3 px-4 ">
+              <span className="text-base font-semibold">جزییات سفارش</span>
+              <span className="text-md text-grey-400">
+                {data?.orderCreatedAt}
+              </span>
+            </div>
+            <div className="flex flex-col gap-3 p-4">
+              {data?.items?.map((item, index) => (
+                <OrderItemCard
+                  key={item.id}
+                  item={item}
+                  index={index}
+                  dataLength={data?.items?.length}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </MainLayout>
@@ -64,8 +79,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   const data: OrderDetailsDataModel = {
     address: 'کوی نصر، خیابان صائمی، خیابان ایزدی',
     pharmacyName: 'داروخانه دکتر ستاری (بهشتی)',
-    // orderStatus: 'ارسال شده',
-    orderStatus: 'در حال آماده سازی سفارش',
+    orderStatus: 'ارسال شده',
+    // orderStatus: 'در حال آماده سازی سفارش',
     remaingTime: '29:05',
     orderCreatedAt: 'سه شنبه ۲۳ مرداد، ساعت ۱۴:۱۷',
     bikerDetails: {

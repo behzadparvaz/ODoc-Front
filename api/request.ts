@@ -190,9 +190,8 @@ class Request {
     });
   }
 
-  delete(url: string, options?: optionsLayout) {
+  delete(url: string, options?: optionsLayout, config: AxiosRequestConfig = {}) {
     return new Promise<{ data: any }>((resolve, reject) => {
-      const config: any = {};
 
       this.axiosInstance(options)
         .delete(`${url}`, config)
