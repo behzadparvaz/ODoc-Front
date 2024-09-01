@@ -4,11 +4,15 @@ import classNames from 'classnames';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
+import { ArrowRightIconOutline } from '@com/icons';
+import { useRouter } from 'next/router';
+import { colors } from '@configs/Theme';
 
 export interface MainLayoutProps {
   hasHeader?: boolean;
   hasBottomGap?: boolean;
   hasBottomNavigation?: boolean;
+  hasBackButton?: boolean;
   title?: string;
   headerClassName?: string;
   footerClassName?: string;
@@ -25,25 +29,25 @@ export const MainLayout = ({
   hasHeader,
   hasBottomGap,
   hasBottomNavigation,
+  hasBackButton,
   title,
   headerClassName,
   footerClassName,
   mainClassName,
   rightIcon,
-  leftIcon,
-  handleClickLeftIcon,
   handleClickRightIcon,
   pathname,
   children,
   fixBottomChildren,
 }: PropsWithChildren<MainLayoutProps>) => {
+  const { back } = useRouter();
   const renderGridTemplate = () => {
     switch (hasHeader) {
       case true:
         if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[52px_35px_1fr_60px]';
+          return 'grid-rows-[56px_1fr_60px]';
         }
-        return 'grid-rows-[52px_35px_1fr]';
+        return 'grid-rows-[56px_1fr]';
       default:
         if (hasBottomNavigation || hasBottomGap) {
           return 'grid-rows-[52px_1fr_60px]';
@@ -53,38 +57,49 @@ export const MainLayout = ({
   };
 
   return (
-    <div className="w-full h-svh flex justify-center">
+    <div className="w-full h-svh flex justify-center bg-grey-50">
       <div
         className={classNames(
           'bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh sm:rounded-3xl overflow-hidden ',
           renderGridTemplate(),
         )}
       >
-        <div className="w-full col-span-full row-start-1 row-end-2 flex items-center justify-start p-5">
-          <Image
-            src={'/static/images/staticImages/tapsi-daroo-logo.png'}
-            width={91}
-            height={20}
-            alt="tapsi-daroo-logo"
-          />
-        </div>
+        {!hasHeader && (
+          <div className="w-full col-span-full row-start-1 row-end-2 flex items-center justify-start p-5">
+            <Image
+              src={'/static/images/staticImages/daroo-logo.svg'}
+              width={111}
+              height={20}
+              alt="tapsi-daroo-logo"
+            />
+          </div>
+        )}
         {hasHeader && (
           <Header
             title={title}
-            leftIcon={leftIcon}
-            rightIcon={rightIcon}
+            rightIcon={
+              hasBackButton ? (
+                <ArrowRightIconOutline
+                  width={24}
+                  height={24}
+                  fill={colors?.black}
+                />
+              ) : (
+                rightIcon
+              )
+            }
             className={classNames(
-              'col-span-full row-start-2 row-end-3',
+              'col-span-full row-start-1 row-end-2',
               headerClassName,
             )}
-            handleClickLeftIcon={handleClickLeftIcon}
-            handleClickRightIcon={handleClickRightIcon}
+            handleClickRightIcon={
+              hasBackButton ? () => back() : handleClickRightIcon
+            }
           />
         )}
         <div
           className={classNames(
-            'col-span-full scroll-smooth overflow-y-scroll',
-            hasHeader ? 'row-start-3 row-end-4' : 'row-start-2 row-end-3',
+            'col-span-full scroll-smooth overflow-y-scroll row-start-2 row-end-3',
             mainClassName,
           )}
         >
@@ -93,8 +108,7 @@ export const MainLayout = ({
         {(hasBottomGap || hasBottomNavigation) && (
           <div
             className={classNames(
-              'col-span-full border-t border-grey-100',
-              hasHeader ? 'row-start-4 row-end-5' : 'row-start-3 row-end-4',
+              'col-span-full border-t border-grey-100 row-start-3 row-end-4',
               footerClassName,
             )}
           >

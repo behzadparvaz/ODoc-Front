@@ -1,4 +1,4 @@
-import MainLayout from '@com/_template/MainLayout';
+import { MainLayout } from '@com/Layout';
 import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
@@ -62,7 +62,7 @@ const Page = () => {
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
   return (
-    <MainLayout className="px-6" title="سبد خرید" hasBottomNavigation={false}>
+    <MainLayout>
       <div className="relative h-[calc(100vh-79px)]">
         <div className="flex flex-col py-4">
           {products.map((pr) => (

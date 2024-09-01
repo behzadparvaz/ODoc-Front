@@ -2,7 +2,7 @@ import { useVerifyPaymentOrder } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 import FailurePayment from '@com/_organisms/FailurePayment';
 import SuccessPayment from '@com/_organisms/SuccessPayment';
-import MainLayout from '@com/_template/MainLayout';
+import { MainLayout } from '@com/Layout';
 import { isEmpty } from '@utilities/isEmptyObject';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -39,11 +39,7 @@ const CallBack = () => {
   );
 
   return (
-    <MainLayout
-      headerChildren={headerChildrenElement}
-      title="وضعیت پرداخت"
-      className="w-full min-h-screen flex justify-center flex-col items-center"
-    >
+    <MainLayout hasHeader title="وضعیت پرداخت">
       {isLoading ? (
         <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
       ) : (

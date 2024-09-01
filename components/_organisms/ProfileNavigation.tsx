@@ -12,6 +12,7 @@ import Button from '@com/_atoms/Button';
 import { ExitIcon, HeadsetIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
+
 export default function ProfileNavigation({ className = '' }) {
   const navigaitionItemsVal = ProfileNavigationMenuItems();
   const { asPath, push } = useRouter();
@@ -20,10 +21,10 @@ export default function ProfileNavigation({ className = '' }) {
   const profileInfo = profileData?.queryResult[0];
   return (
     <div
-      className={`${className} bg-white w-full sticky right-0 top-20 py-6 rounded-t-2xl shadowMdBlue profile-navigation`}
+      className={`${className} bg-white w-full sticky right-0 top-20 px-4 rounded-t-2xl shadowMdBlue profile-navigation`}
     >
       <div className="w-full">
-        <div className="w-full my-3 text-center">
+        <div className="w-full text-center">
           <Image
             alt="profileImage"
             width={128}
@@ -108,4 +109,3 @@ export default function ProfileNavigation({ className = '' }) {
     </div>
   );
 }
-

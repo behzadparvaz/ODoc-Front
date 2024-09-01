@@ -1,23 +1,13 @@
 import { useGetProfile } from '@api/user/user.rq';
 import Spinner from '@com/_atoms/Spinner';
 import OrderRegisterSteps from '@com/_organisms/OrderRegisterSteps';
-import MainLayout from '@com/_template/MainLayout';
-import NextImage from '@com/_core/NextImage';
-
-import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
+import { MainLayout } from '@com/Layout';
 
 const HomePage = () => {
   const { data, isLoading: profileDataLoding } = useGetProfile();
-  const headerChildrenElement = (
-    <NextImage src={tapsiLogo} height={20} width={110} />
-  );
 
   return (
-    <MainLayout
-      headerChildren={headerChildrenElement}
-      className="px-6"
-      title="ثبت سفارش"
-    >
+    <MainLayout title="ثبت سفارش">
       {profileDataLoding === false ? (
         <OrderRegisterSteps data={data} />
       ) : (

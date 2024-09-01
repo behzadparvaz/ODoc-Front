@@ -1,10 +1,11 @@
 import { useGetSliderAndCarouselData } from '@api/homePage/homePage.rq';
 import NextLink from '@com/_core/NextLink';
+import HomePageAddressBox from '@com/_molecules/HomePageAddressBox';
 import { ArrowLeftIconOutline } from '@com/icons';
+import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
 import dynamic from 'next/dynamic';
 
-const MainPageLayout = dynamic(() => import('@com/_template/MainPageLayout'));
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
@@ -16,7 +17,9 @@ const HomePage = () => {
   const { data } = useGetSliderAndCarouselData();
 
   return (
-    <MainPageLayout className="pb-11">
+    <MainLayout hasBottomNavigation>
+      <HomePageAddressBox />
+
       <div className="px-4">
         <SearchBox className="px-4 mb-4" />
         {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
@@ -51,7 +54,7 @@ const HomePage = () => {
         <Categories />
       </div>
       <CarouselLine className="mt-8 mb-11" />
-    </MainPageLayout>
+    </MainLayout>
   );
 };
 export default HomePage;

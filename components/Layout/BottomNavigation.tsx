@@ -7,9 +7,9 @@ const tabs = {
 };
 
 enum Routes {
-  home = '/',
-  orders = '/orders-history',
-  profile = '/profile',
+  home = '/app',
+  orders = '/app/orders-history',
+  profile = '/app/profile',
 }
 
 type BottomNavigationProps = {
