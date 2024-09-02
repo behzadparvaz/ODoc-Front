@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ArrowRightIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
-import router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   mobileModeMaxWidthClassName,
@@ -14,7 +14,6 @@ import {
   useGetPlpInfiniteContent
 } from '@api/plp/plpApi.rq';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import Basket from '../../pages/app/basket';
 import { routeList } from '@routes/routeList';
 
 const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
@@ -58,10 +57,9 @@ export default function ProdictListPage({}: Props) {
         : []
     , [plpData]);
 
-console.log(basket?.productsById, items)
   return (
-    <div>
-      <div className="fixed inset-x-0 top-0 flex items-center bg-white pt-4">
+    <div className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white`}>
+      <div className={`fixed inset-x-0 top-0 flex items-center bg-white pt-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
         <div className="mr-4" onClick={() => router?.back()}>
           <ArrowRightIconOutline height={24} width={24} fill={colors.black}/>
         </div>

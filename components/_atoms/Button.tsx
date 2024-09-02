@@ -81,7 +81,7 @@ const Button = ({
   const linkClassName = buttonType === 'text' ? 'text-grey-800' : '';
   const sizeClassName =
     size === 'large'
-      ? `h-12 ${!children ? 'w-10' : ''} typo-subtitle-3`
+      ? `h-[52px] ${!children ? 'w-10' : ''} typo-subtitle-3`
       : size === 'medium'
         ? `h-8 ${!children ? 'w-8' : ''} typo-subtitle-3`
         : size === 'small'
