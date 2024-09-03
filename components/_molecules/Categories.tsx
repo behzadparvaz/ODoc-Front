@@ -2,39 +2,22 @@ import CategoryItem from '@com/_atoms/CategoryItem';
 
 import secondSlidePNG from '@static/images/staticImages/sample-category.png';
 import ScrollSlider from './ScrollSlider.nd';
+import { useGetMainCategories } from '@api/category/categoryApis.rq';
 
 const Categories = () => {
-  const mockData = [
-    {
-      id: 1,
-      name: ' داروی ضد درد',
-      latinName: 'test',
-      imageUrl: secondSlidePNG,
-    },
-    {
-      id: 2,
-      name: 'داروی معده',
-      latinName: 'test',
-      imageUrl: secondSlidePNG,
-    },
-    {
-      id: 3,
-      name: 'داروی انتی بیوتیک',
-      latinName: 'test',
-      imageUrl: secondSlidePNG,
-    },
-  ];
+  const { data, isLoading } = useGetMainCategories();
+  const categoryDate = data?.value;
+
   return (
     <div className="flex ">
-      <ScrollSlider className='px-4 gap-x-2'>
-        {mockData?.map((item) => {
+      <ScrollSlider className="px-4 gap-x-2">
+        {categoryDate?.map((item) => {
           return (
             <div className="w-[104px] bg-grey-100 rounded-md">
               <CategoryItem
-                key={item?.id}
-                imageUrl={item?.imageUrl}
-                latinName={item?.latinName}
-                name={item?.name}
+                key={item?.categoryCodeLevel1}
+                imageUrl={secondSlidePNG}
+                name={item?.categoryNameLevel1}
               />
             </div>
           );
