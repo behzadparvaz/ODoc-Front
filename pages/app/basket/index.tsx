@@ -15,8 +15,14 @@ import { setUserAction } from '@redux/user/userActions';
 import { homePageText } from '@com/texts/homePage';
 import ProductCard from '@com/_molecules/productCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
+import { ArrowRightIconOutline } from '@com/icons';
+import { colors } from '@configs/Theme';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
+import Footer from '@com/Layout/Footer';
 
 const Page = () => {
+  const router = useRouter();
   const { user } = useSelector((state: RootState) => state.user);
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
@@ -62,22 +68,14 @@ const Page = () => {
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
   return (
-    <MainLayout>
-      <div className="relative h-[calc(100vh-79px)]">
-        <div className="flex flex-col py-4">
-          {products.map((pr) => (
-            <ProductCard
-              prInfo={{ ...pr }}
-              key={pr.irc}
-              onSuccessChanged={refetchGetBasket}
-              hasAddToCartButton
-            />
-          ))}
-        </div>
-
-        <Address />
-
-        <div className="absolute w-full bottom-0 bg-white px-6 py-4 -mx-6 flex justify-between gap-4">
+    <MainLayout
+      title="سبد خرید"
+      hasHeader
+      hasBackButton
+      handleClickRightIcon={() => router?.push(routeList.homeRoute)}
+      hasBottomGap
+      footer={
+        <div className="w-full h-full flex justify-between items-center px-4 gap-3">
           <Button
             variant={'primary'}
             className="flex-1"
@@ -95,6 +93,21 @@ const Page = () => {
           >
             حذف سبد خرید
           </Button>
+        </div>
+      }
+    >
+      <div className="relative h-[calc(100vh-73px)] mt-[73px] pb-14 md:pb-20 overflow-auto">
+        <div className="flex flex-col px-4 md:px-0">
+          {products.map((pr) => (
+            <ProductCard
+              prInfo={{ ...pr }}
+              key={pr.irc}
+              onSuccessChanged={refetchGetBasket}
+              hasAddToCartButton
+            />
+          ))}
+
+          <Address />
         </div>
       </div>
     </MainLayout>
@@ -137,7 +150,7 @@ const Address = () => {
   };
 
   return (
-    <div className="border border-grey-200 rounded-lg py-3 px-4">
+    <div className="border border-grey-200 rounded-lg py-3 px-4 my-4">
       <h3 className="font-medium text-right">ارسال به</h3>
       <div className="text-grey-500 font-normal py-2">
         {!!defaultAddress

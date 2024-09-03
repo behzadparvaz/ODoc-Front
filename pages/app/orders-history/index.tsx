@@ -60,7 +60,7 @@ const OrderHistory = () => {
   };
 
   return (
-    <MainLayout title="تاریخچه سفارش ها">
+    <MainLayout title="تاریخچه سفارش ها" hasBottomNavigation>
       <div className="my-10 px-6 flex justify-end items-center gap-3">
         <span>فیلتر:</span>
         <Select

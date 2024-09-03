@@ -7,26 +7,28 @@ import BottomNavigation from './BottomNavigation';
 import { ArrowRightIconOutline } from '@com/icons';
 import { useRouter } from 'next/router';
 import { colors } from '@configs/Theme';
+import Footer from './Footer';
 
 export interface MainLayoutProps {
   hasHeader?: boolean;
+  hasSerachSection?: boolean;
   hasBottomGap?: boolean;
   hasBottomNavigation?: boolean;
   hasBackButton?: boolean;
-  title?: string;
+  title?: string | string[];
   headerClassName?: string;
   footerClassName?: string;
   mainClassName?: string;
   leftIcon?: ReactNode;
-  handleClickLeftIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   rightIcon?: ReactNode;
   handleClickRightIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
-  fixBottomChildren?: ReactNode;
-  pathname?: string;
+  footer?: ReactNode;
+  searchSection?: ReactNode;
 }
 
 export const MainLayout = ({
   hasHeader,
+  hasSerachSection,
   hasBottomGap,
   hasBottomNavigation,
   hasBackButton,
@@ -36,31 +38,31 @@ export const MainLayout = ({
   mainClassName,
   rightIcon,
   handleClickRightIcon,
-  pathname,
   children,
-  fixBottomChildren,
+  footer,
+  searchSection,
 }: PropsWithChildren<MainLayoutProps>) => {
   const { back } = useRouter();
   const renderGridTemplate = () => {
     switch (hasHeader) {
       case true:
         if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[56px_1fr_60px]';
+          return 'grid-rows-[56px_1fr_85px]';
         }
         return 'grid-rows-[56px_1fr]';
       default:
         if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[52px_1fr_60px]';
+          return 'grid-rows-[52px_1fr_85px]';
         }
         return 'grid-rows-[52px_1fr]';
     }
   };
 
   return (
-    <div className="w-full h-svh flex justify-center bg-grey-50">
+    <div className="w-full h-svh flex justify-center bg-grey-100">
       <div
         className={classNames(
-          'bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh sm:rounded-3xl overflow-hidden ',
+          'bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh  overflow-hidden ',
           renderGridTemplate(),
         )}
       >
@@ -74,9 +76,10 @@ export const MainLayout = ({
             />
           </div>
         )}
-        {hasHeader && (
+        {(hasHeader || hasSerachSection) && (
           <Header
-            title={title}
+            title={!hasSerachSection && title}
+            searchSection={hasSerachSection && searchSection}
             rightIcon={
               hasBackButton ? (
                 <ArrowRightIconOutline
@@ -93,7 +96,9 @@ export const MainLayout = ({
               headerClassName,
             )}
             handleClickRightIcon={
-              hasBackButton ? () => back() : handleClickRightIcon
+              hasBackButton && !handleClickRightIcon
+                ? () => back()
+                : handleClickRightIcon
             }
           />
         )}
@@ -108,14 +113,15 @@ export const MainLayout = ({
         {(hasBottomGap || hasBottomNavigation) && (
           <div
             className={classNames(
-              'col-span-full border-t border-grey-100 row-start-3 row-end-4',
+              'col-span-full row-start-3 row-end-4',
+              hasBottomNavigation && 'bg-grey-50 border-t border-grey-100',
               footerClassName,
             )}
           >
             {hasBottomNavigation ? (
-              <BottomNavigation pathname={pathname} />
+              <BottomNavigation />
             ) : (
-              fixBottomChildren
+              <Footer>{footer}</Footer>
             )}
           </div>
         )}

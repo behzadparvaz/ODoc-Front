@@ -5,7 +5,11 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import { routeList } from '@routes/routeList';
-import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/ControlMobileView';
+import {
+  mobileModeMaxWidthClassName,
+  shouldShowMobileMode,
+} from '@configs/ControlMobileView';
+import { MainLayout } from '@com/Layout';
 
 const EmptyContentMobileSearch = dynamic(
   () => import('@com/_atoms/EmptyContentMobileSearch'),
@@ -40,53 +44,51 @@ const MobileSearch = () => {
   };
 
   return (
-    <div
-      className={`w-full pt-4 min-h-screen bg-white ${
-        shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
-      }`}
-    >
-      <div className="flex relative pl-4 pr-3 items-center gap-x-2">
-        <Button className="!p-0" handleClick={back}>
-          <ArrowRightIconOutline
-            height={24}
-            width={24}
-            fill={colors?.grey[600]}
-          />
-          
-        </Button>
+    <MainLayout
+      hasHeader
+      hasBackButton
+      hasSerachSection
+      searchSection={
         <SearchBox
           defualtValue={searchText}
           handleChange={(value) =>
             value !== undefined && handleGetSearchSuggestion(value)
           }
         />
-        {searchText?.length?<Button
-          variant="primary"
-          className="absolute left-6 !px-1.5 hidden"
-          size="small"
-          buttonType="contained"
-          handleClick={(e) => e.prventDefault}
-        >
-          <input
-            onChange={(e) => handleSearchByImage(e)}
-            type="file"
-            className="absolute opacity-0 inset-0 w-full h-full"
-            accept="image/*;capture=camera"
-          />
-          {mobileSearchTexts?.searchByImage}
-        </Button>:null}
-      </div>
-      {/* {searchText?.length >= 2 && (
+      }
+    >
+      <div className="w-full">
+        <div className="flex relative pl-4 pr-3 items-center gap-x-2">
+          {searchText?.length ? (
+            <Button
+              variant="primary"
+              className="absolute left-6 !px-1.5 hidden"
+              size="small"
+              buttonType="contained"
+              handleClick={(e) => e.prventDefault}
+            >
+              <input
+                onChange={(e) => handleSearchByImage(e)}
+                type="file"
+                className="absolute opacity-0 inset-0 w-full h-full"
+                accept="image/*;capture=camera"
+              />
+              {mobileSearchTexts?.searchByImage}
+            </Button>
+          ) : null}
+        </div>
+        {/* {searchText?.length >= 2 && (
         <SearchSuggestion className="mt-4" searchText={searchText} />
-      )} */}
+        )} */}
 
-      {searchText?.length < 2 && (
-        <>
-          <PapularSearch className="mt-6" />
-          <EmptyContentMobileSearch />
-        </>
-      )}
-    </div>
+        {searchText?.length < 2 && (
+          <>
+            <PapularSearch className="mt-6" />
+            <EmptyContentMobileSearch />
+          </>
+        )}
+      </div>
+    </MainLayout>
   );
 };
 export default MobileSearch;

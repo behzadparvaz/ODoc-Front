@@ -3264,3 +3264,57 @@ export const BikerOutlineIcon = ({
     />
   </svg>
 );
+
+export const HomeFillIcon = ({ width = 24, height = 24, fill = '#747575' }) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="m22.515 9.143-10.507-6.31-10.522 6.31 1.028 1.715.486-.292V18l.006.15A2 2 0 0 0 5 20h4.5v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6H19l.15-.006A2 2 0 0 0 21 18v-7.434l.485.291 1.03-1.714z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const OrderNotesOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#747575',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M19 5v9h-5v5H5V5h14zm0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10l6-6V5c0-1.1-.9-2-2-2zm-7 11H7v-2h5v2zm5-4H7V8h10v2z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const ProfileOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#747575',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M9 7a3 3 0 1 0 6 0 3 3 0 0 0-6 0zm3-5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM16.5 16h-9a2 2 0 1 0 0 4h9a2 2 0 1 0 0-4zm-9-2a4 4 0 0 0 0 8h9a4 4 0 0 0 0-8h-9z"
+      fill={fill}
+    />
+  </svg>
+);

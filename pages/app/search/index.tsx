@@ -8,32 +8,32 @@ const ProdictListPage = dynamic(
 type Props = {};
 
 export default function SearchPage({}: Props) {
-    const products = [
-        {
-          name: 'ژلوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-        {
-          name: 'استامینوفن',
-        },
-      ];
+  const products = [
+    {
+      name: 'ژلوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+    {
+      name: 'استامینوفن',
+    },
+  ];
   return (
     <div>
       <ProdictListPage products={products} />

@@ -3,23 +3,26 @@ import { IconButton } from '@com/_atoms/InputButton';
 import { MouseEvent, ReactNode } from 'react';
 
 type Headerprops = {
-  title?: string;
+  title?: string | string[];
   handleClickLeftIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   rightIcon?: ReactNode;
   handleClickRightIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  searchSection?: ReactNode;
 };
 
 const Header = ({
   title,
   rightIcon,
   className,
+  searchSection,
   handleClickRightIcon,
 }: Headerprops) => {
   return (
     <div
       className={classNames(
-        'relative flex items-center border-b border-grey-200',
+        'relative flex items-center',
+        title && 'border-b border-grey-200',
         className,
       )}
     >
@@ -36,7 +39,11 @@ const Header = ({
         </div>
       )}
 
-      <span className="text-base font-medium leading-7">{title}</span>
+      {searchSection ? (
+        <div className="w-full pl-4">{searchSection}</div>
+      ) : (
+        <span className="text-base font-medium leading-7">{title}</span>
+      )}
     </div>
   );
 };
