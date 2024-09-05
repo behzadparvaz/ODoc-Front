@@ -3,6 +3,7 @@ type ProductInBasket =  {
   gtin: string
   name?: string
   persianName?: string
+  productName?: string
   price: number
   image?: string
   discount: number

@@ -6,70 +6,80 @@ import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import {
   mobileModeMaxWidthClassName,
-  shouldShowMobileMode
+  shouldShowMobileMode,
 } from '@configs/ControlMobileView';
 import Button from '@com/_atoms/Button';
 import { productListPageTexts } from '@com/texts/productListPageTexts';
-import {
-  useGetPlpInfiniteContent
-} from '@api/plp/plpApi.rq';
+import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { routeList } from '@routes/routeList';
+import useCheckPage from '@hooks/useCheckPage';
+import NextLink from '@com/_core/NextLink';
+import EmptyContent from '@com/_atoms/EmptyContent';
+import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
 const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
 
 type Props = {};
 
 export default function ProdictListPage({}: Props) {
-  const router = useRouter();
-  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<Basket & { productsById: any }>({
+  const { push, back, query } = useRouter();
+  const { isInSearchPage } = useCheckPage();
+  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
+    Basket & { productsById: any }
+  >({
     select: (res: Basket) => ({
       ...res,
-      productsById: Object.fromEntries(res.products.map(pr => [pr.irc, pr]))
+      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
     }),
-    enabled: true
+    enabled: true,
   });
 
-  const searchTerm = router?.query?.search_text;
-  const categoryName = router?.query?.categoryName;
+  const searchTerm = query?.search;
+
+  const categoryName = query?.category||query?.search;
   const body = {
-    ...(searchTerm
-      ? {
-        productName: searchTerm
-      }
-      : { category: categoryName }),
+    ...query,
     pageNumber: 1,
-    pageSize: 10
+    pageSize: 10,
   };
 
   const { plpData } = useGetPlpInfiniteContent(body);
-  const items = useMemo(() =>
+
+  const items = useMemo(
+    () =>
       plpData
         ? plpData?.data?.pages
           ? plpData?.data?.pages?.reduce(
-            (prev, current) => [
-              ...prev,
-              ...(current?.queryResult ? current?.queryResult : [])
-            ],
-            []
-          )
+              (prev, current) => [
+                ...prev,
+                ...(current?.queryResult ? current?.queryResult : []),
+              ],
+              [],
+            )
           : []
-        : []
-    , [plpData]);
+        : [],
+    [plpData],
+  );
 
   return (
-    <div className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white`}>
-      <div className={`fixed inset-x-0 top-0 flex items-center bg-white pt-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}>
-        <div className="mr-4" onClick={() => router?.back()}>
-          <ArrowRightIconOutline height={24} width={24} fill={colors.black}/>
+    <div
+      className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white h-screen`}
+    >
+      <div
+        className={`${!isInSearchPage?'border border-grey-100':''} fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+      >
+        <div onClick={() => back()}>
+          <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
         </div>
-        {searchTerm ? (
-          <div className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg mx-4">
-            <p className="mr-4"></p>
-            {searchTerm}
-          </div>
+        {isInSearchPage ? (
+          <NextLink href={routeList?.mobileSearch}>
+            <a className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg px-3">
+              {searchTerm}
+            </a>
+          </NextLink>
         ) : (
-          <p className="mr-4">{categoryName}</p>
+          <p>{categoryName}</p>
         )}
       </div>
       {/* <div className="flex items-center justify-between m-4">
@@ -86,16 +96,33 @@ export default function ProdictListPage({}: Props) {
           plpData?.fetchNextPage();
         }}
         hasMore={plpData?.hasNextPage}
-        loader={<div style={{ height: '100px' }}>در حال بارگذاری...</div>}
+        loader={
+          <div className="flex items-center justify-center h-16">
+            در حال بارگذاری...
+          </div>
+        }
         dataLength={items?.length}
         className="pt-[68px]"
       >
         <div className="p-4 space-y-4">
-          {items?.map((product, index) => (
-              <ProductCard key={index}
-                           prInfo={{ ...product, quantity: basket?.productsById?.[Number(product.irc)]?.quantity ?? 0 }}
-                           hasAddToCartButton onSuccessChanged={refetchGetBasket}/>
-            )
+          {items?.length ? (
+            items?.map((product, index) => (
+              <ProductCard
+                key={index}
+                prInfo={{
+                  ...product,
+                  quantity:
+                    basket?.productsById?.[Number(product.irc)]?.quantity ?? 0,
+                }}
+                hasAddToCartButton
+                onSuccessChanged={refetchGetBasket}
+              />
+            ))
+          ) : (
+            <EmptyContent
+              imgSrc="/static/images/staticImages/search-empty-content.png"
+              title={mobileSearchTexts?.noSearchResult}
+            />
           )}
         </div>
       </InfiniteScroll>
@@ -111,7 +138,7 @@ export default function ProdictListPage({}: Props) {
           backgroundColor={colors.black}
           color={colors.white}
           handleClick={() => {
-            router.push(routeList.basket);
+            push(routeList.basket);
           }}
         >
           {productListPageTexts?.seeBasket}

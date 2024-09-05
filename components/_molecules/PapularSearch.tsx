@@ -24,7 +24,7 @@ const PapularSearch = ({ className }: Props) => {
           return (
             <div>
               <Chips
-                link={`${routeList?.search}?search_text=${item?.text}`}
+                link={`${routeList?.search}?search=${item?.text}`}
                 key={item?.id}
                 text={item?.text}
               />
