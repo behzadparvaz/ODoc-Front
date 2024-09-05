@@ -39,7 +39,7 @@ const SearchBox = ({ className = '', handleChange, defualtValue }: Props) => {
             ? push({
                 pathname: routeList?.search,
                 query: {
-                  search_text: e?.target?.value,
+                  search: e?.target?.value,
                 },
               })
             : null;

@@ -139,6 +139,22 @@ export const ArrowLeftIconFill = ({ width, height, fill }: IconType) => {
     </svg>
   );
 };
+export const ArrowTopRighttIconFill = ({ width, height, fill }: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M6 16H8V9.41L16.59 18L18 16.59L9.41 8H16V6H6L6 16Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 
 export const NewArrowLeftIconFill = ({ width, height, fill }: IconType) => {
   return (
@@ -621,32 +637,32 @@ export const ReceiptIconOutline = ({ width, height, fill }: IconType) => {
   );
 };
 
-export const CloseSquareIconOutline = ({ width, height, fill }: IconType) => {
+export const CloseSquareIconOutline = ({
+  width,
+  height,
+  fill,
+  stroke,
+}: IconType) => {
   return (
     <svg
-      xmlns="http://www.w3.org/2000/svg"
       width={width}
       height={height}
-      viewBox="0 0 96 96"
+      viewBox="0 0 32 32"
       fill="none"
+      xmlns="http://www.w3.org/2000/svg"
     >
-      <path
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M58.295 59.3578C57.7344 59.9184 56.9971 60.2026 56.2598 60.2026C55.5187 60.2026 54.7853 59.9184 54.2208 59.3578L47.0285 52.1655L39.8592 59.3348C39.2985 59.8992 38.5613 60.1796 37.824 60.1796C37.0905 60.1796 36.3494 59.8992 35.7888 59.3348C34.6637 58.2096 34.6637 56.3895 35.7888 55.2644L42.9542 48.0912L35.7888 40.9258C34.6637 39.8007 34.6637 37.9804 35.7888 36.8553C36.9139 35.7302 38.7341 35.7302 39.8592 36.8553L47.0246 44.0208L54.1824 36.863C55.3075 35.7378 57.1277 35.7378 58.2528 36.863C59.3779 37.9881 59.3779 39.8084 58.2528 40.9335L51.0989 48.0912L58.295 55.2836C59.4201 56.4087 59.4201 58.2327 58.295 59.3578ZM47.04 10.6934C19.3997 10.6934 9.59998 20.493 9.59998 48.1335C9.59998 75.7738 19.3997 85.5735 47.04 85.5735C74.6841 85.5735 84.48 75.7738 84.48 48.1335C84.48 20.493 74.6841 10.6934 47.04 10.6934Z"
-        fill={fill}
-      />
-      <path
-        opacity="0.4"
-        fillRule="evenodd"
-        clipRule="evenodd"
-        d="M47.04 10.6934C19.3997 10.6934 9.59998 20.493 9.59998 48.1335C9.59998 75.7738 19.3997 85.5735 47.04 85.5735C74.6841 85.5735 84.48 75.7738 84.48 48.1335C84.48 20.493 74.6841 10.6934 47.04 10.6934Z"
-        fill={fill}
-      />
-      <path
-        d="M56.2575 60.2023C56.9948 60.2023 57.7321 59.9182 58.2927 59.3575C59.4179 58.2324 59.4179 56.4084 58.2927 55.2833L51.0966 48.091L58.2505 40.9332C59.3756 39.8081 59.3756 37.9879 58.2505 36.8627C57.1254 35.7376 55.3052 35.7376 54.1801 36.8627L47.0223 44.0206L39.8569 36.8551C38.7318 35.73 36.9115 35.73 35.7863 36.8551C34.6612 37.9802 34.6612 39.8004 35.7863 40.9255L42.9519 48.091L35.7863 55.2641C34.6612 56.3892 34.6612 58.2094 35.7863 59.3345C36.347 59.899 37.0881 60.1793 37.8215 60.1793C38.559 60.1793 39.2963 59.899 39.8569 59.3345L47.0262 52.1652L54.2185 59.3575C54.783 59.9182 55.5164 60.2023 56.2575 60.2023Z"
-        fill="white"
-      />
+      <g clipPath="url(#clip0_1517_244)">
+        <path
+          d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z"
+          fill={fill}
+        />
+        <path
+          fillRule="evenodd"
+          clipRule="evenodd"
+          d="M20.7142 12.4645L17.1787 16L20.7142 19.5355L19.5357 20.714L16.0002 17.1785L12.4646 20.714L11.2861 19.5355L14.8217 16L11.2861 12.4645L12.4646 11.286L16.0002 14.8215L19.5357 11.286L20.7142 12.4645Z"
+          fill={stroke}
+        />
+      </g>
     </svg>
   );
 };
@@ -3123,8 +3139,8 @@ export const TimerOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M6.5.5h-3v1h3v-1zM4.5 7h1V4h-1v3zm4.015-3.305.71-.71a5.524 5.524 0 0 0-.705-.705l-.71.71A4.481 4.481 0 0 0 5 2a4.5 4.5 0 1 0 4.47 3.996 4.497 4.497 0 0 0-.955-2.301zM5 10a3.497 3.497 0 0 1-3.5-3.5C1.5 4.565 3.065 3 5 3s3.5 1.565 3.5 3.5S6.935 10 5 10z"
       fill={fill}
     />
@@ -3143,8 +3159,8 @@ export const HeadsetOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M12 2a8 8 0 0 1 7.996 7.75l.005.421a2.997 2.997 0 0 1 1.963 2.38l.027.222L22 13v2a2.993 2.993 0 0 1-2.551 2.964l-.222.027L19 18h-1.126a4.002 4.002 0 0 1-3.674 2.995L14 21h-.667l-.333.5h-1.5a1.5 1.5 0 0 1 0-3H13l.333.5H14a2 2 0 0 0 1.995-1.85L16 17v-7h2a6 6 0 0 0-11.996-.225L6 10h2v8H5a2.993 2.993 0 0 1-2.964-2.551l-.027-.222L2 15v-2a2.993 2.993 0 0 1 2-2.825V10a8 8 0 0 1 8-8z"
       fill={fill}
     />
@@ -3163,8 +3179,8 @@ export const PhoneOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M3.99 15.38c1.23 0 2.42-.2 3.53-.56.35-.12.74-.03 1.01.24l1.57 1.97c2.83-1.35 5.48-3.9 6.89-6.83l-1.95-1.66a1.02 1.02 0 0 1-.24-1.02c.37-1.11.56-2.3.56-3.53 0-.54.45-.99.99-.99h3.46c.54 0 1.19.24 1.19.99C21 13.28 13.27 21 3.99 21c-.71 0-.99-.63-.99-1.18v-3.45c0-.54.45-.99.99-.99z"
       fill={fill}
     />
@@ -3183,8 +3199,8 @@ export const NoteOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M10.82 2C10.4.84 9.3 0 8 0 6.7 0 5.6.84 5.18 2H2C.9 2 0 2.9 0 4v15c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V4c0-1.1-.9-2-2-2h-3.18zM14 19V4h-3v3H5V4H2v15h12zM7 3c0-.55.45-1 1-1s1 .45 1 1-.45 1-1 1-1-.45-1-1z"
       fill={fill}
     />
@@ -3219,8 +3235,8 @@ export const PaymentOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M22 0v11h-4v3H0V4l3-.001V0h19zm-6 6H2v6h14V6zm-7 .75a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5zM13.5 8a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm-9 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm4.5.25a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5zM20 2H5v1.999L18 4v5h2V2z"
       fill={fill}
     />
@@ -3257,8 +3273,8 @@ export const BikerOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M.002 12c0-6.627 5.373-12 12-12a8 8 0 1 1 0 16h-10a2 2 0 0 1-2-2v-2zm12 2h-10v-2c0-.338.017-.671.05-1h6.404a3.544 3.544 0 0 0 1.638-6.687L7.606 3.016A9.96 9.96 0 0 1 12.002 2a6 6 0 0 1 0 12zM2.46 9h5.996a1.544 1.544 0 0 0 .713-2.914l-3.5-1.825A10.013 10.013 0 0 0 2.46 9z"
       fill={fill}
     />

@@ -1,7 +1,12 @@
 import React from 'react';
 import AddToCartButton from './AddToCartButton';
 import AddButton from '@com/_atoms/AddButton';
-import { useAddProductToBasket, useDeleteProductBasket } from '@api/basket/basketApis.rq';
+import {
+  useAddProductToBasket,
+  useDeleteProductBasket,
+} from '@api/basket/basketApis.rq';
+import NextImage from '@com/_core/NextImage';
+import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -9,32 +14,36 @@ type ProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
 };
 
-const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({ prInfo, hasAddToCartButton, onSuccessChanged }) => {
-  const { mutate: addToCart, isLoading: isAddingToCart } = useAddProductToBasket({
-    onSuccess: () => {
-      onSuccessChanged?.();
-    }
-  });
-
-  const { mutate: popProductOfCart } = useDeleteProductBasket(
-    {
+const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
+  prInfo,
+  hasAddToCartButton,
+  onSuccessChanged,
+}) => {
+  const { mutate: addToCart, isLoading: isAddingToCart } =
+    useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();
-      }
-    }
-  );
+      },
+    });
 
-  const onDeleteProduct = ({ irc }) => popProductOfCart({ type: 'IRC', irc: irc });
-
-  const onChangeCount = ({ irc, quantity }) => addToCart({
-    type: 'IRC',
-    orderType: 'OTC',
-    irc: irc,
-    quantity: quantity
+  const { mutate: popProductOfCart } = useDeleteProductBasket({
+    onSuccess: () => {
+      onSuccessChanged?.();
+    },
   });
 
+  const onDeleteProduct = ({ irc }) =>
+    popProductOfCart({ type: 'IRC', irc: irc });
+
+  const onChangeCount = ({ irc, quantity }) =>
+    addToCart({
+      type: 'IRC',
+      orderType: 'OTC',
+      irc: irc,
+      quantity: quantity,
+    });
+
   const onChange = (count: number) => {
-    console.log(count)
     if (count > 0) {
       onChangeCount({ ...prInfo, quantity: count });
     } else {
@@ -43,19 +52,33 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({ prInfo, hasA
   };
 
   return (
-    <div className="border-b border-grey-100 py-4 flex items-center justify-between">
-      <div className="flex items-center space-x-4">
-        <div className="w-[68px] h-[68px] bg-grey-300 rounded-lg ml-2"/>
-        <span className="text-sm font-medium">{prInfo?.persianName ?? prInfo.name}</span>
+    <div className="w-full flex gap-x-2 items-center">
+      <div className="w-[68px] border border-grey-500 rounded-xl flex">
+        <NextImage
+          unoptimized
+          src={prInfo?.image}
+          alt={prInfo?.productName}
+          width={66}
+          height={66}
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(66, 66))}`}
+        />
       </div>
-      {hasAddToCartButton ? (
-        <AddButton count={prInfo.quantity} onChangeCount={onChange} isLoading={isAddingToCart}/>
-      ) : (
-        <div className="flex flex-col items-end">
-          <div className="text-sm">{prInfo.quantity} ورق</div>
-          <div className="text-base">{prInfo.price} تومان</div>
-        </div>
-      )}
+      <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">
+        <h2 className="text-sm font-medium line-clamp-2">{prInfo?.productName}</h2>
+        {hasAddToCartButton ? (
+          <AddButton
+            count={prInfo.quantity}
+            onChangeCount={onChange}
+            isLoading={isAddingToCart}
+          />
+        ) : (
+          <div className="flex flex-col items-end">
+            <div className="text-sm">{prInfo.quantity} ورق</div>
+            <div className="text-base">{prInfo.price} تومان</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

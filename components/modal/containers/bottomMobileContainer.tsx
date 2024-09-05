@@ -2,11 +2,13 @@ import useModal from '@hooks/useModal';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { useModalBottomMobileStyles } from './modalStyles';
 import { CloseSquareIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { CSSProperties } from 'react';
-import { mobileModeWidth, shouldShowMobileMode } from '@configs/ControlMobileView';
+import {
+  mobileModeWidth,
+  shouldShowMobileMode,
+} from '@configs/ControlMobileView';
 
 const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 
@@ -40,12 +42,6 @@ export const BottomModalContainer: React.FC<Props> = ({
   style = {},
   titleClassName = '',
 }) => {
-  const classes = useModalBottomMobileStyles({
-    height,
-    padding,
-    minHeight,
-    bottom,
-  });
   const { removeLastModal } = useModal();
   const bottomModalRef = useRef(null);
   const [touchY, setTouchY] = useState<number | undefined>();
@@ -63,14 +59,21 @@ export const BottomModalContainer: React.FC<Props> = ({
   };
 
   const handleTouchEnd = (e) => {
-    const computedModalHeight = parseInt(getComputedStyle(bottomModalRef.current).height.replace(/[^\d.]/g, ''));
-    let translateY = bottomModalRef.current.style.transform.replace(/[^\d.]/g, '');
+    const computedModalHeight = parseInt(
+      getComputedStyle(bottomModalRef.current).height.replace(/[^\d.]/g, ''),
+    );
+    let translateY = bottomModalRef.current.style.transform.replace(
+      /[^\d.]/g,
+      '',
+    );
     if (translateY > computedModalHeight * 0.35) {
-      bottomModalRef.current.style.transition = 'all 0.3s cubic-bezier(0.67, 0.19, 0.61, 0.83)';
+      bottomModalRef.current.style.transition =
+        'all 0.3s cubic-bezier(0.67, 0.19, 0.61, 0.83)';
       bottomModalRef.current.style.transform = `translateY(${computedModalHeight}px`;
       setTimeout(() => removeLastModal(), 300);
     } else {
-      bottomModalRef.current.style.transition = 'all 0.26s cubic-bezier(0.54, 0.1, 0.48, 0.9)';
+      bottomModalRef.current.style.transition =
+        'all 0.26s cubic-bezier(0.54, 0.1, 0.48, 0.9)';
       bottomModalRef.current.style.transform = 'translateY(0px)';
       setTouchY(undefined);
     }
@@ -80,9 +83,9 @@ export const BottomModalContainer: React.FC<Props> = ({
     <motion.div
       layout
       layoutId="bottomModal"
-      className={`${classes.container} ${className} ${shouldShowMobileMode ? 'mx-auto' : ''} relative ${
-        isDraggable ? '!pt-9' : ''
-      }`}
+      className={`bg-grey-50 w-full !fixed inset-x-0 overflow-y-auto overflow-x-hidden rounded-t-[20px] ${className} ${
+        shouldShowMobileMode ? 'mx-auto' : ''
+      } relative`}
       initial={{ y: '100%', opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: '110%', opacity: 0 }}
@@ -90,6 +93,9 @@ export const BottomModalContainer: React.FC<Props> = ({
       ref={bottomModalRef}
       style={{
         direction: 'rtl',
+        height: height ? height : '100%',
+        minHeight: minHeight ? minHeight : 'fit-content',
+        bottom: 0,
         maxWidth: shouldShowMobileMode ? mobileModeWidth - 16 : 'auto',
         ...style,
       }}
@@ -99,12 +105,17 @@ export const BottomModalContainer: React.FC<Props> = ({
         actionButton={
           hasCloseButton ? (
             <div onClick={removeLastModal}>
-              <CloseSquareIconOutline height={24} width={24} fill={colors.black} />
+              <CloseSquareIconOutline
+                height={32}
+                width={32}
+                stroke={colors?.black}
+                fill={colors.grey[100]}
+              />
             </div>
           ) : null
         }
         style={{ direction: 'rtl' }}
-        className={`cursor-pointer select-none ${titleClassName}`}
+        className={`cursor-pointer select-none border-b px-4 py-2.5 border-grey-200 ${titleClassName}`}
       />
       {isDraggable && (
         <>
@@ -118,7 +129,7 @@ export const BottomModalContainer: React.FC<Props> = ({
           ></span>
         </>
       )}
-      {children}
+      <div className="px-4">{children}</div>
     </motion.div>
   );
 };

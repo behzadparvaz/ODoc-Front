@@ -15,6 +15,7 @@ export const routeList = {
   successOrder: '/app/success-order',
   mobileSearch: '/app/mobileSearch',
   search: '/app/search',
+  category: '/app/category',
   searchByImage: '/app/searchByImage',
   basket: '/app/basket',
 };
