@@ -49,14 +49,14 @@ const Button = ({
   const primaryClassName =
     variant === 'primary'
       ? `${buttonType === 'contained'
-        ? `${weight === 100 ? 'bg-teal-600' : weight === 200 ? 'bg-teal-700' : weight === 300 ? 'bg-teal-800' : ''
+        ? `${weight === 100 ? 'bg-black' : weight === 200 ? 'bg-black' : weight === 300 ? 'bg-black' : ''
         } text-teal-50`
         : `${weight === 100
-          ? 'border border-teal-600 text-teal-600'
+          ? 'border border-black text-black bg-white'
           : weight === 200
-            ? 'border border-teal-700 text-teal-700'
+            ? 'border border-black text-black bg-white'
             : weight === 300
-              ? 'border border-teal-800 text-teal-800'
+              ? 'border border-black text-black bg-white'
               : ''
         }`
       }`
@@ -81,7 +81,7 @@ const Button = ({
   const linkClassName = buttonType === 'text' ? 'text-grey-800' : '';
   const sizeClassName =
     size === 'large'
-      ? `h-10 ${!children ? 'w-10' : ''} typo-subtitle-3`
+      ? `h-[52px] ${!children ? 'w-10' : ''} typo-subtitle-3`
       : size === 'medium'
         ? `h-8 ${!children ? 'w-8' : ''} typo-subtitle-3`
         : size === 'small'
@@ -105,8 +105,8 @@ const Button = ({
 
   const varientClassName = primaryClassName + secondaryClassName + tertiaryClassName + linkClassName;
   const roundedClassName = children
-    ? 'rounded-lg'
-    : `${size === 'large' ? 'rounded-2xl' : size === 'medium' ? 'rounded-xl' : 'rounded-lg'}`;
+    ? 'rounded-full'
+    : `${size === 'large' ? 'rounded-full' : size === 'medium' ? 'rounded-full' : 'rounded-full'}`;
   const disabledClassName = `${variant === 'primary'
     ? 'bg-grey-200 text-white [&_*]:fill-white'
     : variant === 'secondary'

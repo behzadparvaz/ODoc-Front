@@ -13,9 +13,9 @@ const NextImage = ({ src, unoptimized, ...otherProps }: ImageProps): JSX.Element
       src={
         src
           ? imageError
-            ? '/static/images/siteImages/backgrounds/IconforDefaultProductImage.svg'
+            ? '/static/images/staticImages/DefaultProductImage.png'
             : src
-          : '/static/images/siteImages/backgrounds/IconforDefaultProductImage.svg'
+          : '/static/images/staticImages/DefaultProductImage.png'
       }
       onError={handleImageError}
     />

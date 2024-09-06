@@ -33,7 +33,7 @@ const MainLayout = ({
       {(title || headerChildren) && (
         <div
           className={classNames(
-            `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-6 top-0 border-b border-grey-100 flex justify-between items-center`,
+            `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-6 top-0 flex justify-between items-center`,
             shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
           )}
         >
