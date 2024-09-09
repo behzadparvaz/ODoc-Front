@@ -1,8 +1,9 @@
 import {
   useMutation,
   useQuery,
-  useQueryClient, UseQueryOptions,
-  UseQueryResult
+  useQueryClient,
+  UseQueryOptions,
+  UseQueryResult,
 } from 'react-query';
 import {
   AddFamilyMembers,
@@ -12,8 +13,9 @@ import {
   GetProfile,
   GetProfileRelation,
   GetUserLocations,
+  LoginWithTapsiSSO,
   UpdateProfileInfo,
-  UserSetPassword
+  UserSetPassword,
 } from './user';
 import useNotification from '@hooks/useNotification';
 import useModal from '@hooks/useModal';
@@ -21,6 +23,10 @@ import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { useRouter } from 'next/router';
 import { Relation } from '@utilities/interfaces/user';
 import { routeList } from '@routes/routeList';
+import Cookies from 'js-cookie';
+import useStorage from '@hooks/useStorage';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '@redux/user/userActions';
 
 export const useAddLocation = () => {
   const { openNotification } = useNotification();
@@ -32,7 +38,7 @@ export const useAddLocation = () => {
         openNotification({
           message: data?.[0],
           type: 'error',
-          notifType: 'successOrFailedMessage'
+          notifType: 'successOrFailedMessage',
         });
       } else {
         queryClient?.invalidateQueries('getUserLocations');
@@ -40,10 +46,10 @@ export const useAddLocation = () => {
         openNotification({
           message: `${selectStoreTexts?.successAddAddress}`,
           type: 'success',
-          notifType: 'successOrFailedMessage'
+          notifType: 'successOrFailedMessage',
         });
       }
-    }
+    },
   });
 };
 export const useDeleteLocation = () => {
@@ -55,30 +61,30 @@ export const useDeleteLocation = () => {
       openNotification({
         message: 'آدرس شما با موفقیت حذف شد',
         type: 'info',
-        notifType: 'successOrFailedMessage'
+        notifType: 'successOrFailedMessage',
       });
-    }
+    },
   });
 };
-export const useGetUserLocations = (options?: UseQueryOptions<unknown, unknown, any[]>): UseQueryResult<any[]> => {
-  return useQuery(['getUserLocations'], () =>
-    GetUserLocations()
-  );
+export const useGetUserLocations = (
+  options?: UseQueryOptions<unknown, unknown, any[]>,
+): UseQueryResult<any[]> => {
+  return useQuery(['getUserLocations'], () => GetUserLocations());
 };
 
-export const useGetProfile = <TQuery = {
-  queryResult: any
-}>(options?: UseQueryOptions<unknown, unknown, TQuery>): UseQueryResult<TQuery> =>
-  useQuery({
-    queryKey: ['getProfile'],
-    queryFn: () => GetProfile(),
-    ...options
+export const useGetProfile = () => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  const { data, isLoading } = useQuery(['getProfile'], () => GetProfile(), {
+    enabled: token ? true : false,
   });
+  return { data, isLoading };
+};
 
 export const useGetProfileRelation = () => {
   const { data, isLoading } = useQuery<Relation[], unknown>(
     ['getProfileRelation'],
-    () => GetProfileRelation()
+    () => GetProfileRelation(),
   );
 
   return { data, isLoading };
@@ -86,25 +92,25 @@ export const useGetProfileRelation = () => {
 
 export const useAddProfileInfo = (
   inOrderPage?: boolean,
-  isRegisterInOrderPage?: boolean
+  isRegisterInOrderPage?: boolean,
 ) => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
   const { removeLastModal } = useModal();
   return useMutation(AddProfileInfo, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient?.invalidateQueries('getProfile');
       openNotification({
         message: 'اطلاعات شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage'
+        notifType: 'successOrFailedMessage',
       });
       if (isRegisterInOrderPage) {
         removeLastModal();
       }
       !isRegisterInOrderPage && !inOrderPage && push(routeList.profile);
-    }
+    },
   });
 };
 export const useAddFamilyMembers = () => {
@@ -116,9 +122,9 @@ export const useAddFamilyMembers = () => {
       openNotification({
         message: 'اطلاعات فرد تحت تکفل شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage'
+        notifType: 'successOrFailedMessage',
       });
-    }
+    },
   });
 };
 export const useUpdateProfileInfo = (inOrderPage) => {
@@ -131,10 +137,10 @@ export const useUpdateProfileInfo = (inOrderPage) => {
       openNotification({
         message: 'اطلاعات شما با موفقیت ویرایش شد',
         type: 'success',
-        notifType: 'successOrFailedMessage'
+        notifType: 'successOrFailedMessage',
       });
       !inOrderPage && push(routeList.profile);
-    }
+    },
   });
 };
 export const useUserSetPassword = () => {
@@ -145,9 +151,27 @@ export const useUserSetPassword = () => {
       openNotification({
         message: 'رمز عبور شما با موفقیت ثبت شد',
         type: 'success',
-        notifType: 'successOrFailedMessage'
+        notifType: 'successOrFailedMessage',
       });
       push(routeList.profile);
-    }
+    },
+  });
+};
+export const useLoginWithTapsiSSO = () => {
+  const { push } = useRouter();
+  const dispatch = useDispatch();
+  return useMutation(LoginWithTapsiSSO, {
+    onSuccess: (data: any) => {
+      console.log('data', data?.token);
+      Cookies.set('token', data?.token, { expires: 365 });
+      localStorage.setItem('token', data?.token);
+      dispatch(
+        setUserAction({
+          mobileNumber: data?.phoneNumber,
+          token: data?.token,
+        }),
+      );
+      push(routeList.homeRoute);
+    },
   });
 };
