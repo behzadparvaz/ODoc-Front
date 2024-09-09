@@ -22,6 +22,9 @@ export const AddFamilyMembers = async (body) =>
 
 export const UserSetPassword = async (body) =>
   await request.put(`/user/SetPassword`, body);
-  
+
 export const GetProfileRelation = (): Promise<any> =>
   request.get(`/Profile/GetRelation`);
+
+export const LoginWithTapsiSSO = async (body) =>
+  await request.post(`user/LoginWithTapsiSSO`, body);
