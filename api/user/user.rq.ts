@@ -12,6 +12,7 @@ import {
   GetProfile,
   GetProfileRelation,
   GetUserLocations,
+  LoginWithTapsiSSO,
   UpdateProfileInfo,
   UserSetPassword,
 } from './user';
@@ -21,6 +22,10 @@ import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { useRouter } from 'next/router';
 import { Relation } from '@utilities/interfaces/user';
 import { routeList } from '@routes/routeList';
+import Cookies from 'js-cookie';
+import useStorage from '@hooks/useStorage';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '@redux/user/userActions';
 
 export const useAddLocation = () => {
   const { openNotification } = useNotification();
@@ -69,8 +74,11 @@ export const useGetUserLocations = () => {
 };
 
 export const useGetProfile = () => {
-  const { data, isLoading } = useQuery(['getProfile'], () => GetProfile());
-
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  const { data, isLoading } = useQuery(['getProfile'], () => GetProfile(), {
+    enabled: token ? true : false,
+  });
   return { data, isLoading };
 };
 
@@ -92,7 +100,7 @@ export const useAddProfileInfo = (
   const { push } = useRouter();
   const { removeLastModal } = useModal();
   return useMutation(AddProfileInfo, {
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient?.invalidateQueries('getProfile');
       openNotification({
         message: 'اطلاعات شما با موفقیت ثبت شد',
@@ -147,6 +155,24 @@ export const useUserSetPassword = () => {
         notifType: 'successOrFailedMessage',
       });
       push(routeList.profile);
+    },
+  });
+};
+export const useLoginWithTapsiSSO = () => {
+  const { push } = useRouter();
+  const dispatch = useDispatch();
+  return useMutation(LoginWithTapsiSSO, {
+    onSuccess: (data: any) => {
+      console.log('data', data?.token);
+      Cookies.set('token', data?.token, { expires: 365 });
+      localStorage.setItem('token', data?.token);
+      dispatch(
+        setUserAction({
+          mobileNumber: data?.phoneNumber,
+          token: data?.token,
+        }),
+      );
+      push(routeList.homeRoute);
     },
   });
 };

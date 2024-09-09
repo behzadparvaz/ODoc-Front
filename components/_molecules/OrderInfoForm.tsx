@@ -33,7 +33,6 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
   const familyMembers = userInfo?.familyMembers;
 
   const optionsForCustomer = useMemo(() => {
-    console.log('userInfo', userInfo);
     if (userInfo) {
       const customerList = [{ ...userInfo }];
       if (familyMembers?.length > 0) {
@@ -121,7 +120,6 @@ const OrderInfoForm = ({ handleNextStep, userInfo }: Props) => {
       }
     },
   });
-  console.log('supplementaryInsurances', supplementaryInsurances);
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <div className="flex flex-col w-full gap-y-2 pb-4">
