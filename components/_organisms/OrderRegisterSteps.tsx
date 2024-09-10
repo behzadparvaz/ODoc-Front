@@ -85,7 +85,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
           {step === 2 && <AddressAndDeliveryDate stepOneValue={stepOneValue} />}
         </div>
 
-        <OrderTourGuide />
+        {data?<OrderTourGuide />:null}
       </>
     </div>
   );
