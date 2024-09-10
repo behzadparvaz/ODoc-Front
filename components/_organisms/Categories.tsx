@@ -13,7 +13,7 @@ const Categories = () => {
       className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white min-h-screen pt-[57px]`}
     >
       <div
-        className={`border border-grey-100 fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+        className={`border border-grey-100 fixed text-sm inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
         <div onClick={() => back()}>
           <ArrowRightIconOutline height={24} width={24} fill={colors.black} />

@@ -20,7 +20,7 @@ const CategoriesItem = ({
       {hasCategoryIcon?<CategoryOutlineIcon width={20} height={20} fill={colors?.black}/>:null}
       <div
         onClick={() => handleClick()}
-        className={`flex items-center justify-between flex-auto ${className}`}
+        className={`flex items-center justify-between flex-auto text-sm ${className}`}
       >
         {title}
         <ChevronLeftIconOutline
