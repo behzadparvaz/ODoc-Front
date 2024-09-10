@@ -45,7 +45,7 @@ const CategoriesContent = ({ className = '' }) => {
                   pathname: routeList?.category,
                   query: {
                     CategoryCodeLevel2: item?.categoryCodeLevel2,
-                    category: `${query?.title} ${categoryName}`,
+                    category: `${query?.title} - ${categoryName}`,
                     OtcLevel3: item?.otcLevel3,
                   },
                 });
