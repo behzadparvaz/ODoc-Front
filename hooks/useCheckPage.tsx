@@ -6,10 +6,10 @@ export default function useCheckPage() {
   const categoryRoute = asPath?.includes(routeList.category);
   const searchRoute = asPath?.includes(routeList.search);
   const isInSearchPage = searchRoute;
-  const isCategoryRoute = categoryRoute;
+  const isCategoryPage = categoryRoute;
 
   return {
     isInSearchPage,
-    isCategoryRoute,
+    isCategoryPage,
   };
 }

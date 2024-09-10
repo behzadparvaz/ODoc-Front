@@ -1,5 +1,5 @@
 import BottomNavigation from '@com/_molecules/BottomNavigation';
-import Footer from '@com/_molecules/Footer';
+// import Footer from '@com/_molecules/Footer';
 import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
