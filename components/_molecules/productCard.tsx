@@ -65,7 +65,7 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         />
       </div>
       <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">
-        <h2 className="text-sm font-medium line-clamp-2">{prInfo?.productName}</h2>
+        <h2 className="text-sm font-medium line-clamp-2">{prInfo?.productName ?? prInfo.name}</h2>
         {hasAddToCartButton ? (
           <AddButton
             count={prInfo.quantity}

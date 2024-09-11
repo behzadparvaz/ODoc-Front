@@ -10,9 +10,7 @@ import {
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
 
-const EmptyContent = dynamic(
-  () => import('@com/_atoms/EmptyContent'),
-);
+const EmptyContent = dynamic(() => import('@com/_atoms/EmptyContent'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchInput'));
 const PapularSearch = dynamic(() => import('@com/_molecules/PapularSearch'));
 const SearchSuggestion = dynamic(
@@ -94,7 +92,10 @@ const MobileSearch = () => {
       {searchText?.length < 2 && (
         <>
           <PapularSearch className="mt-6" />
-          <EmptyContent imgSrc='/static/images/staticImages/search-empty-content.png' title={mobileSearchTexts?.noSearch} />
+          <EmptyContent
+            imgSrc="/static/images/staticImages/search-empty-content.png"
+            title={mobileSearchTexts?.noSearch}
+          />
         </>
       )}
     </div>

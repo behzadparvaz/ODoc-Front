@@ -118,7 +118,7 @@ export default function ProdictListPage({}: Props) {
           </div>
         }
         dataLength={items?.length}
-        className={isInSearchPage?'pt-[68px]':'pt-[96px]'}
+        className={isInSearchPage ? 'pt-[68px]' : 'pt-[96px]'}
       >
         <div className="p-4 space-y-4">
           {items?.length ? (

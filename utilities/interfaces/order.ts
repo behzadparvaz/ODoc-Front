@@ -3,14 +3,24 @@ export interface OrderStatuses {
   id: number;
 }
 
+export type OrderCompanyCountryDataModel = {
+  id: number | string;
+  name: string;
+  price?: number;
+};
+
 export type OrderDetailsItemDataModel = {
   id: number;
   image: string;
-  drugName: string;
+  drugName?: string;
   companyName: string;
   quantity: string;
   price: number;
   quantityType: string;
+  total: number;
+  companyCountry: OrderCompanyCountryDataModel[];
+  unavaiable: boolean;
+  sugesstedItem?: OrderDetailsItemDataModel;
 };
 
 export type OrderDetailsDataModel = {
@@ -20,6 +30,7 @@ export type OrderDetailsDataModel = {
   remaingTime?: string;
   orderCreatedAt?: string;
   items?: OrderDetailsItemDataModel[];
+  picSearchItems: OrderDetailsItemDataModel[];
   bikerDetails?: {
     bikerName?: string;
     bikerImage?: string;
