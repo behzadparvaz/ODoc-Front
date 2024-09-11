@@ -19,5 +19,6 @@ export const routeList = {
   category: '/app/category',
   searchByImage: '/app/searchByImage',
   basket: '/app/basket',
-  pharmacies: '/app/pharmacies',
+  tender: '/app/tender',
+  categories: '/app/categories',
 };

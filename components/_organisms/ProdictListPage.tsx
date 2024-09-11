@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { ArrowRightIconOutline } from '@com/icons';
+import { ArrowRightIconOutline, CategoryOutlineIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -64,23 +64,39 @@ export default function ProdictListPage({}: Props) {
 
   return (
     <div
-      className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white h-screen`}
+      className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white min-h-screen`}
     >
       <div
-        className={`${!isInSearchPage ? 'border border-grey-100' : ''} fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+        className={`fixed text-sm inset-x-0 top-0 z-10 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
-        <div onClick={() => back()}>
-          <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
+        <div
+          className={`${!isInSearchPage ? 'border-b border-grey-100' : ''} bg-white flex items-center py-4 px-4 gap-x-4`}
+        >
+          <div onClick={() => back()}>
+            <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
+          </div>
+          {isInSearchPage ? (
+            <NextLink href={routeList?.mobileSearch}>
+              <a className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg px-3">
+                {searchTerm}
+              </a>
+            </NextLink>
+          ) : (
+            <p>{categoryName}</p>
+          )}
         </div>
-        {isInSearchPage ? (
-          <NextLink href={routeList?.mobileSearch}>
-            <a className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg px-3">
-              {searchTerm}
+        {!isInSearchPage ? (
+          <NextLink href={routeList?.categories + '?title=دارو'}>
+            <a className="w-full flex items-center bg-white py-2 gap-x-4 px-4">
+              <CategoryOutlineIcon
+                width={24}
+                height={24}
+                fill={colors?.grey?.[600]}
+              />
+              دسته بندی داروها
             </a>
           </NextLink>
-        ) : (
-          <p>{categoryName}</p>
-        )}
+        ) : null}
       </div>
       {/* <div className="flex items-center justify-between m-4">
         <span className="text-sm font-medium text-grey-900">داروی کمیاب</span>
@@ -102,7 +118,7 @@ export default function ProdictListPage({}: Props) {
           </div>
         }
         dataLength={items?.length}
-        className="pt-[68px]"
+        className={isInSearchPage ? 'pt-[68px]' : 'pt-[96px]'}
       >
         <div className="p-4 space-y-4">
           {items?.length ? (
