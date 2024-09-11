@@ -17,6 +17,7 @@ type Data = {
 type PreviewProps = {
   data: Data;
 };
+
 const Preview = ({ data }: PreviewProps) => {
   const { push } = useRouter();
   const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
@@ -37,7 +38,7 @@ const Preview = ({ data }: PreviewProps) => {
           <div className="flex justify-between items-center">
             <p className="text-base">ارسال با پیک تپسی دارو</p>
             <Button
-              onClick={() => push('/app/basket/preview/address')}
+              handleClick={() => push('/app/basket/preview/address')}
               size="large"
               variant="primary"
               color="primary"
@@ -69,7 +70,7 @@ const Preview = ({ data }: PreviewProps) => {
           <div className="w-full rounded-xl border border-grey-400 flex justify-between items-center p-5">
             <p className="text-base">کد تخفیف را اینجا وارد کن</p>
             <Button
-              onClick={() => {
+              handleClick={() => {
                 return;
               }}
               size="large"

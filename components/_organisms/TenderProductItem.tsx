@@ -1,9 +1,8 @@
-import CompanyName from '@com/_molecules/CompanyCountry';
 import OrderItemCard from '@com/_molecules/OrderItemCard';
-import { OrderDetailsItemDataModel } from '@utilities/interfaces/order';
+import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 
 type TenderProductItemProps = {
-  item: OrderDetailsItemDataModel;
+  item: TenderItemsOrderDataModel;
   index: number;
   dataLength: number;
 };
@@ -15,17 +14,16 @@ const TenderProductItem = ({
 }: TenderProductItemProps) => {
   return (
     <>
-      <OrderItemCard item={item} />
+      <OrderItemCard
+        item={item}
+        isUnavaiable={item?.alternatives?.length > 0}
+      />
 
-      {item?.companyCountry && item?.companyCountry?.length > 1 && (
-        <CompanyName data={item?.companyCountry} />
-      )}
-
-      {item?.unavaiable && !!item?.sugesstedItem && (
+      {item?.alternatives?.length > 0 && (
         <div className="flex flex-col gap-y-2">
           <p className="text-xs font-bold">پیشنهاد داروخانه</p>
 
-          <OrderItemCard key={index} item={item?.sugesstedItem} />
+          <OrderItemCard key={index} item={item} />
         </div>
       )}
 

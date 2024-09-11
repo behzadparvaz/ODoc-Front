@@ -37,7 +37,7 @@ export default function ProdictListPage({}: Props) {
 
   const searchTerm = query?.search;
 
-  const categoryName = query?.category||query?.search;
+  const categoryName = query?.category || query?.search;
   const body = {
     ...query,
     pageNumber: 1,
@@ -45,6 +45,8 @@ export default function ProdictListPage({}: Props) {
   };
 
   const { plpData } = useGetPlpInfiniteContent(body);
+
+  console.log('plpData', plpData);
 
   const items = useMemo(
     () =>
@@ -67,7 +69,7 @@ export default function ProdictListPage({}: Props) {
       className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white h-screen`}
     >
       <div
-        className={`${!isInSearchPage?'border border-grey-100':''} fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+        className={`${!isInSearchPage ? 'border border-grey-100' : ''} fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
         <div onClick={() => back()}>
           <ArrowRightIconOutline height={24} width={24} fill={colors.black} />

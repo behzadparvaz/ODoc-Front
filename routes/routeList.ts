@@ -13,9 +13,11 @@ export const routeList = {
   profilePasswordSetting: '/app/profile/password-setting',
   ordersHistory: '/app/orders-history',
   successOrder: '/app/success-order',
+  orderDetail: '/app/order-detail',
   mobileSearch: '/app/mobileSearch',
   search: '/app/search',
   category: '/app/category',
   searchByImage: '/app/searchByImage',
   basket: '/app/basket',
+  pharmacies: '/app/pharmacies',
 };
