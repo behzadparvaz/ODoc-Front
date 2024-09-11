@@ -9,7 +9,7 @@ interface Props {
 }
 const SearchSuggestion = ({ searchText, className = '' }: Props) => {
   const { data, isLoading } = useGetSearchSuggestion(searchText);
-  console.log('searchText', searchText);
+
   return (
     <div className={`px-4 ${className}`}>
       <div className="w-full flex flex-col mt-3">

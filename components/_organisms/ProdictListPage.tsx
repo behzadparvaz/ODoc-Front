@@ -46,8 +46,6 @@ export default function ProdictListPage({}: Props) {
 
   const { plpData } = useGetPlpInfiniteContent(body);
 
-  console.log('plpData', plpData);
-
   const items = useMemo(
     () =>
       plpData
