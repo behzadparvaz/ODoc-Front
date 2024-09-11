@@ -11,10 +11,10 @@ const RXRegistration = () => {
   const { data, isLoading: profileDataLoading } = useGetProfile();
 
   return <BottomModalContainer
-    height={'88%'}
+    height={'84%'}
     hasCloseButton={true}
     title={selectStoreTexts?.orderRegistration}
-    className="!overflow-hidden !pt-5 !max-h-[704px] !bg-white"
+    className="!overflow-hidden !max-h-[704px] !bg-white"
   >
     <div className="h-[calc(100vh-230px)] overflow-auto mt-4">
       {profileDataLoading === false ? (
