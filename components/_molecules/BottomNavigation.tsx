@@ -6,10 +6,19 @@ import { BottomNavigationMenuItems } from '@utilities/staticNavigationItem';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { colors } from '@configs/Theme';
+import useModal from '@hooks/useModal';
+import RXRegistration from '@com/_organisms/RXRegistration';
 
 const BottomNavigation = () => {
   const navigationMenuItems = BottomNavigationMenuItems();
   const { asPath } = useRouter();
+  const { addModal } = useModal()
+
+  const showRxRegistrationModal = () => {
+    addModal({
+      modal: RXRegistration
+    });
+  };
 
   return (
     <div className={`w-full pt-1 px-6 border-t flex justify-center bg-grey-0 border-grey-100 z-999 ${ shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '' } fixed inset-x-0 bottom-0`}>
@@ -24,12 +33,12 @@ const BottomNavigation = () => {
         return isMainItem ?
           (
             <div key={index} className="p-3 bg-grey-0 rounded-full -mt-4 mx-3">
-              <Link href={item?.link} key={item?.id}>
-                <a className={`flex text-sm ${activeItem ? 'bg-primary-800' : 'bg-primary'} rounded-full p-2.5`}>
-                  {item.icon({})}
-                </a>
-              </Link>
+              <a className={`flex text-sm ${activeItem ? 'bg-primary-800' : 'bg-primary'} rounded-full p-2.5`}
+                  onClick={showRxRegistrationModal}>
+                {item.icon({})}
+              </a>
             </div>
+
           )
           : (
             <Link href={item?.link} key={item?.id}>

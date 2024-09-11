@@ -67,4 +67,5 @@ export const selectStoreTexts = {
   successAddAddress: 'آدرس شما با موفقیت ایجاد شد!',
   successEditAddress: 'آدرس شما با موفقیت ویرایش شد!',
   successDeleteAddress: 'آدرس شما حذف شد!',
+  orderRegistration: 'ثبت سفارش',
 };
