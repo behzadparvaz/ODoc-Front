@@ -1,48 +1,59 @@
-import { OrderDetailsItemDataModel } from '@utilities/interfaces/order';
 import Image from 'next/image';
+import classNames from 'classnames';
+
+import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 
 type OrderItemCardProps = {
-  item: OrderDetailsItemDataModel;
-  index: number;
-  dataLength: number;
+  item: TenderItemsOrderDataModel;
+  isUnavaiable?: boolean;
 };
 
-const OrderItemCard = ({ item, index, dataLength }: OrderItemCardProps) => {
+const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {
   return (
-    <>
-      <div className="flex gap-2 items-center justify-between">
-        <div className="flex gap-3">
-          <div className="rounded-xl overflow-hidden flex justify-center items-center">
-            <Image
-              src={item.image}
-              alt="order-details"
-              width={68}
-              height={68}
-            />
-          </div>
-          <div className="flex flex-col gap-2 justify-center">
-            <p className="text-md">{item.drugName}</p>
-            <span className="flex items-center text-xs text-grey-400 gap-1">
-              شرکت سازنده:
-              <p className="text-md text-grey-800">{item.companyName}</p>
-            </span>
-          </div>
+    <div className="h-[84px] flex gap-2 items-center justify-between py-2">
+      <div className="flex gap-3 items-center">
+        <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
+          <Image
+            src={
+              item?.imageLink
+                ? item?.imageLink
+                : '/static/images/staticImages/emptyProduct.png'
+            }
+            alt="order-details"
+            width={68}
+            height={68}
+          />
         </div>
-        <div className="flex flex-col gap-2 w-max items-end">
-          <span className="text-md flex items-center gap-1">
-            {item?.quantity}
-            <p className="text-xs text-grey-400">{item?.quantityType}</p>
-          </span>
-          <span className="text-md flex items-center gap-1">
-            {item?.price}
-            <p className="text-xs text-grey-400">تومان</p>
+        <div className="flex flex-col gap-1">
+          <p
+            className={classNames(
+              'text-sm font-medium leading-6',
+              isUnavaiable && 'text-grey-400',
+            )}
+          >
+            {item?.productName}
+          </p>
+
+          <span
+            className={classNames(
+              'text-xs leading-5 text-grey-500',
+              isUnavaiable && 'text-grey-400',
+            )}
+          >
+            {`${item?.quantity} عدد`}
           </span>
         </div>
       </div>
-      {dataLength - 1 !== index && (
-        <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
-      )}
-    </>
+      <div className="self-end">
+        {isUnavaiable ? (
+          <span className="text-xs text-grey-400 leading-5 h-5">
+            عدم موجودی
+          </span>
+        ) : (
+          <span className="text-xs leading-5 text-grey-500">{`${item?.price} تومان`}</span>
+        )}
+      </div>
+    </div>
   );
 };
 

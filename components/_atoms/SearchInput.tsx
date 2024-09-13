@@ -7,8 +7,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 interface Props {
   className?: string;
-  handleChange: (value: string) => void;
-  defualtValue: string;
+  handleChange?: (value: string) => void;
+  defualtValue: string | string[];
 }
 
 const SearchBox = ({ className = '', handleChange, defualtValue }: Props) => {

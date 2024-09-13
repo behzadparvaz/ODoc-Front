@@ -3,7 +3,7 @@ import Button from '@com/_atoms/Button';
 import Spinner from '@com/_atoms/Spinner';
 import UserInfoForm from '@com/_molecules/UserInfoForm';
 import AddFamilyMembers from '@com/_organisms/AddFamilyMembers';
-import ProfileLayout from '@com/_template/ProfileLayout';
+import { MainLayout } from '@com/Layout';
 import { generalTexts } from '@com/texts/generalTexts';
 import { profileText } from '@com/texts/profileText';
 import useModal from '@hooks/useModal';
@@ -17,9 +17,14 @@ const FamilyMembers = () => {
   const { addModal } = useModal();
 
   return (
-    <ProfileLayout hasBackBtn title={profileText?.familyMembers}>
+    <MainLayout
+      hasHeader
+      hasBackButton
+      title={profileText?.familyMembers}
+      hasBottomNavigation
+    >
       {profileDataLoding === false ? (
-        <>
+        <div className="p-4">
           {profileInfo ? (
             profileInfo?.familyMembers?.length ? (
               <div className="w-full flex flex-col">
@@ -93,10 +98,11 @@ const FamilyMembers = () => {
               </Button>
             </div>
           )}
-        </>
-      ) :
-        <Spinner className='h-[calc(100vh-180px)] w-full flex justify-center items-center' />}
-    </ProfileLayout>
+        </div>
+      ) : (
+        <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
+      )}
+    </MainLayout>
   );
 };
 export default FamilyMembers;

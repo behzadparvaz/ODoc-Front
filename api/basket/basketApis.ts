@@ -30,14 +30,20 @@ export type AddProductToBasketPayload = (
   OneOfCodes & { quantity: number; orderType: 'OTC' }
   ) | ({
     orderType: 'RX';
-    refrenceCode: string;
+    refrenceNumber: string;
     nationalCode: string;
+    insuranceType: number;
+    supplementaryInsuranceType: number
+    isSpecialPatient: boolean
   })
 
 export const addProductToBasket = async (payload: AddProductToBasketPayload) =>
   await request.post('/Product/management/AddToCart', payload.orderType === 'RX' ? {
-    refrenceCode: payload.refrenceCode,
-    nationalCode: payload.nationalCode
+    refrenceNumber: String(payload.refrenceNumber),
+    nationalCode: payload.nationalCode,
+    insuranceType: payload.insuranceType,
+    supplementaryInsuranceType: payload.supplementaryInsuranceType,
+    isSpecialPatient: payload.isSpecialPatient
   } : {
     ...(payload.type === 'IRC' ? { irc: String(payload.irc) } : { gtin: String(payload.gtin) }),
     quantity: payload.quantity

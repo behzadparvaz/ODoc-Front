@@ -1,6 +1,6 @@
 import { useGetOrderState } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
-import MainLayout from '@com/_template/MainLayout';
+import { MainLayout } from '@com/Layout';
 import { TickFillIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
@@ -13,7 +13,7 @@ const SuccessOrder = () => {
   const { data } = useGetOrderState(orderCode);
 
   return (
-    <MainLayout className="relative w-full !min-h-[calc(100vh-96px)] flex gap-2 justify-center flex-col items-center pt-10">
+    <MainLayout>
       <Button
         handleClick={() => push(routeList.homeRoute)}
         size="small"

@@ -45,7 +45,7 @@ const steps: Steps[] = [
   },
 ];
 
-type ProgressStepperProps = { activeStepId: number; hasIcons: boolean };
+type ProgressStepperProps = { activeStepId: number; hasIcons?: boolean };
 
 const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
   return (
@@ -56,7 +56,7 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
           className={classNames(
             'flex w-full relative',
             steps.length - 1 !== index &&
-              "after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute after:top-3 after:right-8",
+              "after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute after:top-3 after:right-12",
             hasIcons && 'after:top-11',
             item?.id < activeStepId
               ? 'after:bg-orange-500'

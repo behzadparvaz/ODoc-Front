@@ -8,4 +8,5 @@ export const userTypes = {
 enum userLogoutType {
   Logout_User = 'Logout_User',
 }
+
 export default userLogoutType;

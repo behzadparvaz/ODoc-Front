@@ -7,7 +7,9 @@ export const CreateOrderInsurance = async (body) =>
   });
 
 export const GetOrdersHistory = async (statusId: number) =>
-  await request.get(`/order/GetOrdersHistory`, null, { params: { statusId } });
+  await request.get(`/order/GetOrdersHistoryTest`, null, {
+    params: { statusId },
+  });
 
 export const GetOrderStatuses = async () =>
   await request.get(`/order/GetOrderStatues`);

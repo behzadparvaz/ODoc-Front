@@ -6,6 +6,9 @@ interface Props {
   className?: string;
   imageUrl: any;
   handleClick?: () => void;
+  imgWidth?: number;
+  imgHeight?: number;
+  link: string;
 }
 
 const CategoryItem = ({
@@ -13,10 +16,12 @@ const CategoryItem = ({
   imageUrl,
   className = '',
   handleClick = null,
+  imgWidth = 70,
+  imgHeight = 70,
+  link,
 }: Props) => {
-  const url = `app/category/${name}`;
   return (
-    <NextLink href={url}>
+    <NextLink href={link}>
       <a
         onClick={
           handleClick
@@ -25,10 +30,15 @@ const CategoryItem = ({
               }
             : null
         }
-        className={`block py-2 rounded-lg ${className}`}
+        className={`block py-3 text-center rounded-lg ${className}`}
       >
-        <NextImage width={70} height={70} src={imageUrl} alt={name} />
-        <p className="text-xs text-grey-600 text-center pt-1 px-2 truncate">
+        <NextImage
+          width={imgWidth}
+          height={imgHeight}
+          src={imageUrl}
+          alt={name}
+        />
+        <p className="text-xs text-black font-semibold text-center py-1 px-2 truncate">
           {name}
         </p>
       </a>

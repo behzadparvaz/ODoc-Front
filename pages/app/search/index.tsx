@@ -10,7 +10,7 @@ type Props = {};
 export default function SearchPage({}: Props) {
   return (
     <div>
-      <ProdictListPage/>
+      <ProdictListPage />
     </div>
   );
 }

@@ -1,20 +1,16 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { ArrowRightIconOutline } from '@com/icons';
+import Button from '@com/_atoms/Button';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import {
-  mobileModeMaxWidthClassName,
-  shouldShowMobileMode,
-} from '@configs/ControlMobileView';
-import Button from '@com/_atoms/Button';
-import { productListPageTexts } from '@com/texts/productListPageTexts';
-import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
-import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import { routeList } from '@routes/routeList';
 import useCheckPage from '@hooks/useCheckPage';
-import NextLink from '@com/_core/NextLink';
+import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
+import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
+import { MainLayout } from '@com/Layout';
+import SearchBox from '@com/_atoms/SearchBox';
+import { routeList } from '@routes/routeList';
+import { productListPageTexts } from '@com/texts/productListPageTexts';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
@@ -37,7 +33,7 @@ export default function ProdictListPage({}: Props) {
 
   const searchTerm = query?.search;
 
-  const categoryName = query?.category||query?.search;
+  const categoryName = query?.category || query?.search;
   const body = {
     ...query,
     pageNumber: 1,
@@ -45,7 +41,6 @@ export default function ProdictListPage({}: Props) {
   };
 
   const { plpData } = useGetPlpInfiniteContent(body);
-
   const items = useMemo(
     () =>
       plpData
@@ -63,32 +58,36 @@ export default function ProdictListPage({}: Props) {
   );
 
   return (
-    <div
-      className={` ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-white h-screen`}
-    >
-      <div
-        className={`${!isInSearchPage?'border border-grey-100':''} fixed inset-x-0 top-0 flex items-center bg-white py-4 px-4 gap-x-4  ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
-      >
-        <div onClick={() => back()}>
-          <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
+    <MainLayout
+      title={!searchTerm && categoryName}
+      hasHeader
+      hasSerachSection={!!searchTerm}
+      searchSection={<SearchBox />}
+      hasBackButton
+      hasBottomGap
+      footer={
+        <div className="h-full flex justify-center items-center p-4">
+          <Button
+            className="w-full !rounded-full"
+            size="large"
+            backgroundColor={colors.black}
+            color={colors.white}
+            handleClick={() => {
+              push(routeList.basket);
+            }}
+          >
+            {productListPageTexts?.seeBasket}
+          </Button>
         </div>
-        {isInSearchPage ? (
-          <NextLink href={routeList?.mobileSearch}>
-            <a className="h-[52px] w-full flex items-center bg-grey-200 rounded-lg px-3">
-              {searchTerm}
-            </a>
-          </NextLink>
-        ) : (
-          <p>{categoryName}</p>
-        )}
-      </div>
+      }
+    >
       {/* <div className="flex items-center justify-between m-4">
         <span className="text-sm font-medium text-grey-900">داروی کمیاب</span>
         <label className="cursor-pointer">
-          <input type="checkbox" value="" className="sr-only peer" />
-          <div className="relative w-11 h-6 bg-grey-300 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-grey-600"></div>
+        <input type="checkbox" value="" className="sr-only peer" />
+        <div className="relative w-11 h-6 bg-grey-300 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-grey-600"></div>
         </label>
-      </div> */}
+        </div> */}
       <InfiniteScroll
         scrollableTarget="orderListScrollParent"
         style={{ overflow: 'hidden' }}
@@ -102,7 +101,6 @@ export default function ProdictListPage({}: Props) {
           </div>
         }
         dataLength={items?.length}
-        className="pt-[68px]"
       >
         <div className="p-4 space-y-4">
           {items?.length ? (
@@ -126,24 +124,6 @@ export default function ProdictListPage({}: Props) {
           )}
         </div>
       </InfiniteScroll>
-
-      <div
-        className={`fixed inset-x-0 px-6 bottom-6 truncate z-10 ${
-          shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
-        } `}
-      >
-        <Button
-          className="w-full !rounded-full"
-          size="large"
-          backgroundColor={colors.black}
-          color={colors.white}
-          handleClick={() => {
-            push(routeList.basket);
-          }}
-        >
-          {productListPageTexts?.seeBasket}
-        </Button>
-      </div>
-    </div>
+    </MainLayout>
   );
 }
