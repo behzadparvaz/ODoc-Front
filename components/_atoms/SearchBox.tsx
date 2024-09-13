@@ -1,6 +1,7 @@
 import NextLink from '@com/_core/NextLink';
 import { SearchIconOutline } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
+import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 
 interface Props {
@@ -13,8 +14,8 @@ const SearchBox = ({ className = '' }: Props) => {
       <a
         className={`w-full relative bg-grey-100 rounded-full flex gap-x-2 items-center px-3 py-3 text-lg text-grey-500 ${className}`}
       >
-        <SearchIconOutline height={24} width={24} fill={'#535454'} />
-        <p className='font-bold'>{generalTexts?.drugSearch} ...</p>
+        <SearchIconOutline height={24} width={24} fill={colors?.grey?.[600]} />
+        <p className='font-medium'>{generalTexts?.drugSearch} ...</p>
       </a>
     </NextLink>
   );

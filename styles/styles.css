@@ -131,5 +131,14 @@
   color: #ff652d !important;
 }
 .swiper-pagination-bullet {
-  background: #ff652d !important;
+  background: #E1E3E3 !important;
+  opacity: 1!important;
+  border-radius: 6px!important;
+  width: 6px!important;
+  height: 6px!important;
+  transition: all 0.3s;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #000 !important;
+  width: 14px!important;
 }

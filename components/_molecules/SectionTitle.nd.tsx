@@ -40,9 +40,7 @@ const SectionTitle = ({
       <div
         className={`flex justify-between ${sectionName ? 'items-end' : 'items-center'}`}
       >
-        <CustomTag
-          className={`typo-subtitle-2 text-grey-800 truncate ${titleClassName}`}
-        >
+        <CustomTag className={`typo-subtitle-2 truncate ${titleClassName}`}>
           {title}
         </CustomTag>
         <div>{actionButton}</div>
