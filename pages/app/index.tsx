@@ -19,13 +19,6 @@ const MainLayout = dynamic(() =>
 
 const HomePage = () => {
   const { data } = useGetSliderAndCarouselData();
-  const { addModal } = useModal();
-
-  const showRxRegistrationModal = () => {
-    addModal({
-      modal: RXRegistration,
-    });
-  };
 
   return (
     <MainLayout hasBottomNavigation>
@@ -43,20 +36,7 @@ const HomePage = () => {
           <OrderTracking /> */}
           <MainSlider data={data?.banner} />
         </div>
-        <div className="flex gap-x-4 px-4 mt-4">
-          <a
-            onClick={showRxRegistrationModal}
-            style={{
-              background: 'linear-gradient(90deg, #FFF0E9 0%, #F4F1F0 100%)',
-            }}
-            className="w-full text-lg py-3 rounded-full"
-          >
-            <p className="flex justify-between items-center px-4">
-              سفارش دارو با نسخه
-              <ArrowLeftIconOutline width={24} height={24} fill="#000" />
-            </p>
-          </a>
-        </div>
+
         <div className="mt-8 flex flex-col gap-y-3">
           <SectionTitle
             title="دسته بندی محصولات"

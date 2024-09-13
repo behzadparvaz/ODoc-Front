@@ -69,7 +69,7 @@ export const MainLayout = ({
     <div className="w-full h-svh flex justify-center bg-grey-100">
       <div
         className={classNames(
-          'bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh  overflow-hidden ',
+          'relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh  overflow-hidden ',
           renderGridTemplate(),
         )}
       >
