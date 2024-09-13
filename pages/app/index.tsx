@@ -1,12 +1,6 @@
 import { useGetSliderAndCarouselData } from '@api/homePage/homePage.rq';
-import NextLink from '@com/_core/NextLink';
 import HomePageAddressBox from '@com/_molecules/HomePageAddressBox';
-import { ArrowLeftIconOutline } from '@com/icons';
-// import { MainLayout } from '@com/Layout';
-import { routeList } from '@routes/routeList';
 import dynamic from 'next/dynamic';
-import RXRegistration from '@com/_organisms/RXRegistration';
-import useModal from '@hooks/useModal';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
