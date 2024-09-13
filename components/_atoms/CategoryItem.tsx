@@ -4,17 +4,21 @@ import NextLink from '@com/_core/NextLink';
 interface Props {
   name: string;
   className?: string;
+  alignmentType?: 'center' | 'between';
   imageUrl: any;
   handleClick?: () => void;
   imgWidth?: number;
   imgHeight?: number;
   link: string;
+  isSoon?: boolean;
 }
 
 const CategoryItem = ({
   name,
   imageUrl,
   className = '',
+  alignmentType = 'center',
+  isSoon = false,
   handleClick = null,
   imgWidth = 70,
   imgHeight = 70,
@@ -28,17 +32,35 @@ const CategoryItem = ({
             ? (e) => {
                 e?.preventDefault(), handleClick();
               }
-            : null
+            : isSoon
+              ? (e) => {
+                  e?.preventDefault();
+                }
+              : null
         }
-        className={`block py-3 text-center rounded-lg ${className}`}
+        className={`block py-1.5 rounded-lg ${className}`}
       >
-        <NextImage
-          width={imgWidth}
-          height={imgHeight}
-          src={imageUrl}
-          alt={name}
-        />
-        <p className="text-xs text-black font-semibold text-center py-1 px-2 truncate">
+        {isSoon ? (
+          <span
+            style={{ backgroundColor: '#276EF1' }}
+            className="text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-10"
+          >
+            به زودی
+          </span>
+        ) : null}
+        <div
+          className={`flex ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`}
+        >
+          <NextImage
+            width={imgWidth}
+            height={imgHeight}
+            src={imageUrl}
+            alt={name}
+          />
+        </div>
+        <p
+          className={`text-xs my-1.5 text-black truncate font-medium ${alignmentType === 'center' ? 'text-center px-1' : 'px-3'}`}
+        >
           {name}
         </p>
       </a>

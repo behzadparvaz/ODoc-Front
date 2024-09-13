@@ -6,13 +6,14 @@ import {
 import classNames from 'classnames';
 import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
 import dynamic from 'next/dynamic';
+import { BasketIconOutline } from '@com/icons';
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
+import Footer from '@com/Layout/Footer';
+const BottomNavigation = dynamic(() => import('@com/Layout/BottomNavigation'));
 const HomePageAddressBox = dynamic(
   () => import('@com/_molecules/HomePageAddressBox'),
 );
-const BottomNavigation = dynamic(
-  () => import('@com/_molecules/BottomNavigation'),
-);
-
 interface Props {
   children: React.ReactNode;
   className?: string;
@@ -26,6 +27,7 @@ const MainPageLayout = ({
   headerClassName = '',
   hasBottomNavigation = true,
 }: Props) => {
+  const { push } = useRouter();
   return (
     <div
       className={classNames(
@@ -36,11 +38,14 @@ const MainPageLayout = ({
     >
       <div
         className={classNames(
-          `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-[17px] top-0 flex items-center ${headerClassName}`,
+          `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-[17px] top-0 items-center flex justify-between ${headerClassName}`,
           shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
         )}
       >
         <NextImage src={tapsiLogo} height={20} width={110} />
+        <div className="w-[22px]" onClick={() => push(routeList.basket)}>
+          <BasketIconOutline width={22} height={22} fill={'#000'} />
+        </div>
       </div>
       <HomePageAddressBox />
       <div
@@ -50,6 +55,7 @@ const MainPageLayout = ({
         )}
       >
         {children}
+        footer
       </div>
       {hasBottomNavigation && <BottomNavigation />}
     </div>

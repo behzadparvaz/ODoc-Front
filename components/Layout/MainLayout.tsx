@@ -34,6 +34,7 @@ export const MainLayout = ({
   hasBackButton,
   title,
   headerClassName,
+  leftIcon,
   footerClassName,
   mainClassName,
   rightIcon,
@@ -81,6 +82,7 @@ export const MainLayout = ({
               height={20}
               alt="tapsi-daroo-logo"
             />
+            {leftIcon?leftIcon:null}
           </div>
         )}
         {(hasHeader || hasSerachSection) && (

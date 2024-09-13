@@ -1,5 +1,7 @@
-import { useGetSliderAndCarouselData } from '@api/homePage/homePage.rq';
-import HomePageAddressBox from '@com/_molecules/HomePageAddressBox';
+import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
+import Banner from '@com/_molecules/Banner';
+import MainPageLayout from '@com/_template/MainPageLayout';
+import { ArrowLeftIconOutline } from '@com/icons';
 import dynamic from 'next/dynamic';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
@@ -12,35 +14,45 @@ const MainLayout = dynamic(() =>
 );
 
 const HomePage = () => {
-  const { data } = useGetSliderAndCarouselData();
+  const { data: bannerData } = useGetBanners();
+  const { data: carouselsData, isLoading } = useGetCarousels();
+  const getCarouselDataData = (position: number) => {
+    const carouselData = carouselsData?.queryResult?.filter(
+      (item) => item?.sectionPosition === position,
+    )?.[0];
+    return carouselData;
+  };
 
   return (
-    <MainLayout hasBottomNavigation>
-      <div>
-        <HomePageAddressBox />
-
-        <div className="px-4">
-          <SearchBox className="px-4 mb-4" />
-          {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
+    <MainPageLayout className="pb-11">
+      <div className="px-4">
+        <SearchBox className="px-4 my-2" />
+      </div>
+      <div className="my-4 px-2">
+        <Categories />
+      </div>
+      {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
           <h2 className="text-lg font-bold">سفارشهای جاری</h2>
           <a href="#" className="text-blue-500">
           بیشتر
           </a>
-          </div>
-          <OrderTracking /> */}
-          <MainSlider data={data?.banner} />
-        </div>
-
-        <div className="mt-8 flex flex-col gap-y-3">
-          <SectionTitle
-            title="دسته بندی محصولات"
-            titleClassName="font-bold px-6"
-          />
-          <Categories />
-        </div>
-        <CarouselLine className="mt-8 mb-11" />
-      </div>
-    </MainLayout>
+        <OrderTracking />
+        </div> */}
+      <MainSlider
+        className="py-2 px-4"
+        data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
+      />
+      <CarouselLine data={getCarouselDataData(1)} className="my-4" />
+      <CarouselLine data={getCarouselDataData(2)} className="my-4" />
+      <Banner
+        style={{
+          background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F7F7 100%)',
+        }}
+        className="px-4 py-6"
+        data={[bannerData?.queryResult?.[2]]}
+      />
+      <CarouselLine data={getCarouselDataData(3)} className="my-4" />
+    </MainPageLayout>
   );
 };
 export default HomePage;
