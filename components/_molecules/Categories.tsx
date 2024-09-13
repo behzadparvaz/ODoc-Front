@@ -16,7 +16,7 @@ const Categories = () => {
   const categoryMockData: ICategory[] = [
     {
       title: 'دارو بدون نسخه',
-      link: routeList?.categories,
+      link: routeList?.otcMedicinePage,
       image: medicineImage,
       imageHeight: 54,
       imageWidth: 58,

@@ -21,4 +21,5 @@ export const routeList = {
   basket: '/app/basket',
   tender: '/app/tender',
   categories: '/app/categories',
+  otcMedicinePage: '/app/otc-medicine',
 };
