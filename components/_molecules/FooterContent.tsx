@@ -7,7 +7,7 @@ type Props = {};
 
 export default function FooterContent({}: Props) {
   return (
-    <footer className="bg-grey-50 p-4 flex flex-col md:flex-row items-start justify-between text-right">
+    <footer className="bg-grey-50 p-4 flex flex-col items-start">
       {/* About us Section */}
       <div className="grid grid-cols-2 border-b border-grey-100">
         <div className="mb-4">
@@ -25,7 +25,7 @@ export default function FooterContent({}: Props) {
         </div>
       </div>
       {/* Contact us Section */}
-      <div className="grid grid-cols-2 gap-32 mt-3">
+      <div className="grid grid-cols-2 w-full mt-3">
         <div className="mb-4">
           <p className="text-xs text-grey-500 mb-1">{homePageText.followUs}</p>
           <div className="flex">
