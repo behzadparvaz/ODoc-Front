@@ -14,7 +14,7 @@ type ProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
 };
 
-const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
+const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   prInfo,
   hasAddToCartButton,
   onSuccessChanged,
@@ -65,7 +65,9 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         />
       </div>
       <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">
-        <h2 className="text-sm font-medium line-clamp-2">{prInfo?.productName}</h2>
+        <h2 className="text-sm font-medium line-clamp-2">
+          {prInfo?.productName}
+        </h2>
         {hasAddToCartButton ? (
           <AddButton
             count={prInfo.quantity}
@@ -83,4 +85,4 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   );
 };
 
-export default ProductCard;
+export default HorizontalProductCard;

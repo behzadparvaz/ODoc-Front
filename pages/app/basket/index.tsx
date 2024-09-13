@@ -2,7 +2,7 @@ import MainLayout from '@com/_template/MainLayout';
 import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
-  useGetCurrentBasket
+  useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import React, { useEffect, useMemo } from 'react';
 import { useGetProfile, useGetUserLocations } from '@api/user/user.rq';
@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@utilities/types';
 import { setUserAction } from '@redux/user/userActions';
 import { homePageText } from '@com/texts/homePage';
-import ProductCard from '@com/_molecules/productCard';
+import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { ArrowRightIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
@@ -38,7 +38,7 @@ const Page = () => {
         irc: pr.irc,
         quantity: pr.quantity,
         gtin: pr.gtin,
-        productName: pr.name
+        productName: pr.name,
       })) ?? [];
 
     createOrderDraft({
@@ -61,25 +61,33 @@ const Page = () => {
       insuranceTypeId: 0,
       supplementaryInsuranceTypeId: 0,
 
-      items: products
+      items: products,
     });
   };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
   return (
-    <MainLayout className="md:px-6" headerChildren={
-      <div className="flex items-center gap-3">
-        <Button buttonType="text" size="small" handleClick={() => router?.push(routeList.homeRoute)}>
-          <ArrowRightIconOutline height={24} width={24} fill={colors.black}/>
-        </Button>
-        <h2 className="text-black text-base">سبد خرید</h2>
-      </div>
-    } hasBottomNavigation={false}>
+    <MainLayout
+      className="md:px-6"
+      headerChildren={
+        <div className="flex items-center gap-3">
+          <Button
+            buttonType="text"
+            size="small"
+            handleClick={() => router?.push(routeList.homeRoute)}
+          >
+            <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
+          </Button>
+          <h2 className="text-black text-base">سبد خرید</h2>
+        </div>
+      }
+      hasBottomNavigation={false}
+    >
       <div className="relative h-[calc(100vh-73px)] mt-[73px] pb-14 md:pb-20 overflow-auto">
         <div className="flex flex-col px-4 md:px-0">
           {products.map((pr) => (
-            <ProductCard
+            <HorizontalProductCard
               prInfo={{ ...pr }}
               key={pr.irc}
               onSuccessChanged={refetchGetBasket}
@@ -87,7 +95,7 @@ const Page = () => {
             />
           ))}
 
-          <Address/>
+          <Address />
         </div>
 
         <Footer>
@@ -132,14 +140,14 @@ const Address = () => {
       if (addressSelected) {
         dispatch(
           setUserAction({
-            defaultAddress: addressSelected
-          })
+            defaultAddress: addressSelected,
+          }),
         );
       } else {
         dispatch(
           setUserAction({
-            defaultAddress: null
-          })
+            defaultAddress: null,
+          }),
         );
       }
     }
@@ -147,7 +155,7 @@ const Address = () => {
 
   const onClickOpenModal = () => {
     addModal({
-      modal: SelectAddress
+      modal: SelectAddress,
     });
   };
 

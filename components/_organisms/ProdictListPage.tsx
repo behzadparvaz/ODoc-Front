@@ -18,7 +18,7 @@ import NextLink from '@com/_core/NextLink';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
-const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
+const HorizontalProductCard = dynamic(() => import('@com/_molecules/HorizontalProductCard'));
 
 type Props = {};
 
@@ -107,7 +107,7 @@ export default function ProdictListPage({}: Props) {
         <div className="p-4 space-y-4">
           {items?.length ? (
             items?.map((product, index) => (
-              <ProductCard
+              <HorizontalProductCard
                 key={index}
                 prInfo={{
                   ...product,

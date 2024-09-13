@@ -1,5 +1,6 @@
 import { useGetSliderAndCarouselData } from '@api/homePage/homePage.rq';
 import NextLink from '@com/_core/NextLink';
+import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import { ArrowLeftIconOutline } from '@com/icons';
 import { routeList } from '@routes/routeList';
 import dynamic from 'next/dynamic';
