@@ -15,8 +15,15 @@ interface ICategory {
 const Categories = () => {
   const categoryMockData: ICategory[] = [
     {
-      title: 'دارو',
+      title: 'دارو بدون نسخه',
       link: routeList?.categories,
+      image: medicineImage,
+      imageHeight: 54,
+      imageWidth: 58,
+    },
+    {
+      title: 'دارو با نسخه',
+      link: routeList?.prescriptionRegisteration,
       image: medicineImage,
       imageHeight: 54,
       imageWidth: 58,

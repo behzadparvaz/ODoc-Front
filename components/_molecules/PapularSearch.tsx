@@ -18,14 +18,17 @@ const PapularSearch = ({ className }: Props) => {
 
   return (
     <div className={`${className}`}>
-      <SectionTitle className="px-4 mb-2" titleClassName='font-bold' title="جستجوهای پرطرفدار" />
+      <SectionTitle
+        className="px-4 mb-2"
+        titleClassName="font-bold"
+        title="جستجوهای پرطرفدار"
+      />
       <ScrollSlider className="gap-x-2 px-4">
         {mockData?.map((item) => {
           return (
-            <div>
+            <div key={item?.id}>
               <Chips
                 link={`${routeList?.search}?search=${item?.text}`}
-                key={item?.id}
                 text={item?.text}
               />
             </div>

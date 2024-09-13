@@ -1,4 +1,4 @@
-import MainLayout from '@com/_template/MainLayout';
+import { MainLayout } from '@com/Layout';
 import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
@@ -28,7 +28,7 @@ import Footer from '@com/Layout/Footer';
 
 const Page = () => {
   const router = useRouter();
-  const { user } = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state?.user);
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
   const { mutate: createOrderDraft } = useCreateOrderDraft();
@@ -38,7 +38,7 @@ const Page = () => {
   const onSubmitBasket = () => {
     const { defaultAddress } = user;
     const products =
-      basket?.products.map((pr) => ({
+      basket?.products?.map((pr) => ({
         description: pr.name,
         irc: pr.irc,
         quantity: pr.quantity,
@@ -48,8 +48,8 @@ const Page = () => {
 
     createOrderDraft({
       comment: '',
-      customerName: [profile.firstName, profile.lastName].join(' '),
-      nationalCode: profile.nationalCode,
+      customerName: [profile?.firstName, profile?.lastName].join(' '),
+      nationalCode: profile?.nationalCode,
 
       deliveryDate: '',
       fromDeliveryTime: '',
@@ -74,29 +74,41 @@ const Page = () => {
 
   return (
     <MainLayout
-      className="md:px-6"
-      headerChildren={
-        <div className="flex items-center gap-3">
+      title="سبد خرید"
+      hasHeader
+      hasBackButton
+      handleClickRightIcon={() => router?.push(routeList?.homeRoute)}
+      hasBottomGap
+      footer={
+        <div className="w-full h-full flex justify-between items-center px-4 gap-3">
           <Button
-            buttonType="text"
-            size="small"
-            handleClick={() => router?.push(routeList.homeRoute)}
+            variant={'primary'}
+            className="flex-1"
+            size={'large'}
+            handleClick={onSubmitBasket}
           >
-            <ArrowRightIconOutline height={24} width={24} fill={colors.black} />
+            ارسال به داروخانه
           </Button>
-          <h2 className="text-black text-base">سبد خرید</h2>
+          <Button
+            variant={'primary'}
+            className="flex-1"
+            size={'large'}
+            buttonType={'outlined'}
+            handleClick={deleteBasket}
+          >
+            حذف سبد خرید
+          </Button>
         </div>
       }
-      hasBottomNavigation={false}
     >
       <div className="relative h-[calc(100vh-73px)] mt-[73px] pb-14 md:pb-20 overflow-auto">
         <OrderInProgress />
-        {products.length === 0 ? (
+        {products?.length === 0 ? (
           <BasketEmptyPage />
         ) : (
           <>
             <div className="flex flex-col px-4 md:px-0">
-              {products.map((pr) => (
+              {products?.map((pr) => (
                 <ProductCard
                   prInfo={{ ...pr }}
                   key={pr.irc}
@@ -141,7 +153,7 @@ export default Page;
 const Address = () => {
   const { addModal } = useModal();
   const { data: addressDate } = useGetUserLocations();
-  const { user } = useSelector((state: RootState) => state.user);
+  const { user } = useSelector((state: RootState) => state?.user);
   const { addressSelected } = useSelectAddressByCurrentLocation(addressDate);
   const dispatch = useDispatch();
 
@@ -217,7 +229,7 @@ const OrderInProgress = () => {
         <Button
           size={'small'}
           className="bg-surface-900 py-4"
-          handleClick={() => router.push(routeList.pharmacies)}
+          handleClick={() => router.push(routeList?.tender)}
         >
           <div className="flex text-sm items-center font-light">
             <span>جزییات سفارش</span>

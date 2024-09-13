@@ -5,7 +5,7 @@ import {
 } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 import OrderItem from '@com/_molecules/OrderItem';
-import MainLayout from '@com/_template/MainLayout';
+import { MainLayout } from '@com/Layout';
 import Select from '@com/_atoms/Select';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
@@ -58,12 +58,9 @@ const OrderHistory = () => {
     };
     mutatePayment(body);
   };
-  const headerChildrenElement = (
-    <NextImage src={tapsiLogo} height={30} width={125} />
-  );
 
   return (
-    <MainLayout headerChildren={headerChildrenElement} title="تاریخچه سفارش ها">
+    <MainLayout title="تاریخچه سفارش ها" hasBottomNavigation>
       <div className="my-10 px-6 flex justify-end items-center gap-3">
         <span>فیلتر:</span>
         <Select

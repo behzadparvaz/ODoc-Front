@@ -4,48 +4,46 @@ import classNames from 'classnames';
 import { IconButton } from '@com/_atoms/InputButton';
 
 type Headerprops = {
-  title?: string;
-  leftIcon?: ReactNode;
+  title?: string | string[];
   handleClickLeftIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   rightIcon?: ReactNode;
   handleClickRightIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   className?: string;
+  searchSection?: ReactNode;
 };
 
 const Header = ({
   title,
-  leftIcon,
   rightIcon,
   className,
-  handleClickLeftIcon,
+  searchSection,
   handleClickRightIcon,
 }: Headerprops) => {
   return (
-    <div className={classNames('relative', className)}>
+    <div
+      className={classNames(
+        'relative flex items-center',
+        title && 'border-b border-grey-200',
+        className,
+      )}
+    >
       {rightIcon && (
-        <IconButton
-          className="absolute right-4 top-1/2 -translate-y-1/2"
-          size="large"
-          buttonType="outlined"
-          handleClick={handleClickRightIcon}
-        >
-          {rightIcon}
-        </IconButton>
+        <div className="w-[60px] flex justify-center items-center">
+          <IconButton
+            className="h-8 w-8"
+            size="large"
+            buttonType="outlined"
+            handleClick={handleClickRightIcon}
+          >
+            {rightIcon}
+          </IconButton>
+        </div>
       )}
 
-      <p className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-sm text-grey-400">
-        {title}
-      </p>
-
-      {leftIcon && (
-        <IconButton
-          className="absolute left-4 top-1/2 -translate-y-1/2"
-          size="large"
-          buttonType="outlined"
-          handleClick={handleClickLeftIcon}
-        >
-          {leftIcon}
-        </IconButton>
+      {searchSection ? (
+        <div className="w-full pl-4">{searchSection}</div>
+      ) : (
+        <span className="text-base font-medium leading-7">{title}</span>
       )}
     </div>
   );

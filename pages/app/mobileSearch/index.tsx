@@ -9,6 +9,7 @@ import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
+import { MainLayout } from '@com/Layout';
 
 const EmptyContent = dynamic(() => import('@com/_atoms/EmptyContent'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchInput'));
@@ -39,26 +40,21 @@ const MobileSearch = () => {
   };
   const showResult = searchText?.length >= 2;
   return (
-    <div
-      className={`w-full ${showResult ? 'pt-[110px]' : ' pt-[58px]'} min-h-screen bg-white ${
-        shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
-      }`}
+    <MainLayout
+      hasHeader
+      hasBackButton
+      hasSerachSection
+      searchSection={
+        <SearchBox
+          defualtValue={searchText}
+          handleChange={(value) =>
+            value !== undefined && handleGetSearchSuggestion(value)
+          }
+        />
+      }
     >
-      <div className="w-full fixed inset-x-0 top-0 py-4 bg-white z-10">
+      <div className="w-full">
         <div className="flex relative pl-4 pr-3 items-center gap-x-2">
-          <Button className="!p-0" handleClick={back}>
-            <ArrowRightIconOutline
-              height={24}
-              width={24}
-              fill={colors?.grey[600]}
-            />
-          </Button>
-          <SearchBox
-            defualtValue={searchText}
-            handleChange={(value) =>
-              value !== undefined && handleGetSearchSuggestion(value)
-            }
-          />
           {searchText?.length ? (
             <Button
               variant="primary"
@@ -98,7 +94,7 @@ const MobileSearch = () => {
           />
         </>
       )}
-    </div>
+    </MainLayout>
   );
 };
 export default MobileSearch;

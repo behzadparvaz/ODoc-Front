@@ -3287,6 +3287,22 @@ export const BikerOutlineIcon = ({
   </svg>
 );
 
+export const HomeFillIcon = ({ width = 24, height = 24, fill = '#747575' }) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="m22.515 9.143-10.507-6.31-10.522 6.31 1.028 1.715.486-.292V18l.006.15A2 2 0 0 0 5 20h4.5v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6H19l.15-.006A2 2 0 0 0 21 18v-7.434l.485.291 1.03-1.714z"
+      fill={fill}
+    />
+  </svg>
+);
+
 export const ThreeDots = ({ width = 18, height = 6, fill = '#B1B2B2' }) => (
   <svg
     width={width}
@@ -3297,6 +3313,44 @@ export const ThreeDots = ({ width = 18, height = 6, fill = '#B1B2B2' }) => (
   >
     <path
       d="M2.25 0.75C1.0125 0.75 0 1.7625 0 3C0 4.2375 1.0125 5.25 2.25 5.25C3.4875 5.25 4.5 4.2375 4.5 3C4.5 1.7625 3.4875 0.75 2.25 0.75ZM15.75 0.75C14.5125 0.75 13.5 1.7625 13.5 3C13.5 4.2375 14.5125 5.25 15.75 5.25C16.9875 5.25 18 4.2375 18 3C18 1.7625 16.9875 0.75 15.75 0.75ZM9 0.75C7.7625 0.75 6.75 1.7625 6.75 3C6.75 4.2375 7.7625 5.25 9 5.25C10.2375 5.25 11.25 4.2375 11.25 3C11.25 1.7625 10.2375 0.75 9 0.75Z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const OrderNotesOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#747575',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M19 5v9h-5v5H5V5h14zm0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h10l6-6V5c0-1.1-.9-2-2-2zm-7 11H7v-2h5v2zm5-4H7V8h10v2z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const ProfileOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#747575',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M9 7a3 3 0 1 0 6 0 3 3 0 0 0-6 0zm3-5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM16.5 16h-9a2 2 0 1 0 0 4h9a2 2 0 1 0 0-4zm-9-2a4 4 0 0 0 0 8h9a4 4 0 0 0 0-8h-9z"
       fill={fill}
     />
   </svg>

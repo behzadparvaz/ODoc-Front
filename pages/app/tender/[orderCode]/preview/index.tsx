@@ -56,7 +56,9 @@ const Preview = ({ data }: PreviewProps) => {
           <p className="text-md">روش پرداخت</p>
           <CheckBox
             icon={''}
-            handleChange={() => console.log('change')}
+            handleChange={() => {
+              return;
+            }}
             label="آنلاین"
             labelClassName="text-grey-400"
           />

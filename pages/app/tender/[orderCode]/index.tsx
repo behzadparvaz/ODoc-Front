@@ -3,14 +3,13 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import ProgressStepper from '@com/_molecules/ProgressBar';
-import MainLayout from '@com/_template/MainLayout';
 import Button from '@com/_atoms/Button';
-import { ArrowRightIconOutline, CloseIconOutline } from '@com/icons';
+import { CloseIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
-import Footer from '@com/Layout/Footer';
 import { IconButton } from '@com/_atoms/IconButton';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
 import TenderCard from '@com/_organisms/TenderCard';
+import { MainLayout } from '@com/Layout';
 
 const Tender = () => {
   const router = useRouter();
@@ -44,26 +43,32 @@ const Tender = () => {
   return (
     <div>
       <MainLayout
-        className="md:px-6"
-        headerChildren={
-          <div className="flex items-center gap-3">
+        title="لیست داروخانه ها"
+        hasHeader
+        hasBackButton
+        hasBottomGap
+        footer={
+          <div className="w-full flex justify-between gap-3 px-4">
             <Button
-              buttonType="text"
-              size="small"
-              handleClick={() => router.back()}
+              variant={'danger-light'}
+              className="flex-1"
+              size={'large'}
+              handleClick={() => {}}
             >
-              <ArrowRightIconOutline
-                height={24}
-                width={24}
-                fill={colors.black}
-              />
+              لغو سفارش
             </Button>
-            <h2 className="text-black text-base">لیست داروخانه ها</h2>
+            <Button
+              variant={'primary'}
+              className="flex-1"
+              size={'large'}
+              handleClick={() => {}}
+            >
+              ویرایش سفارش
+            </Button>
           </div>
         }
-        hasBottomNavigation={false}
       >
-        <div className="relative mt-[70px] pb-2 border-b border-b-grey-100 mx-4 md:mx-0">
+        <div className="relative pb-2 border-b border-b-grey-100 mx-4 md:mx-0">
           <ProgressStepper activeStepId={2} />
         </div>
 
@@ -89,27 +94,6 @@ const Tender = () => {
         )}
 
         {renderTenderCard()}
-
-        <Footer>
-          <div className="w-full flex justify-between gap-3">
-            <Button
-              variant={'danger-light'}
-              className="flex-1"
-              size={'large'}
-              handleClick={() => {}}
-            >
-              لغو سفارش
-            </Button>
-            <Button
-              variant={'primary'}
-              className="flex-1"
-              size={'large'}
-              handleClick={() => {}}
-            >
-              ویرایش سفارش
-            </Button>
-          </div>
-        </Footer>
       </MainLayout>
     </div>
   );
