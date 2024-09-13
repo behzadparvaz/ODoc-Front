@@ -9,11 +9,13 @@ import dynamic from 'next/dynamic';
 import { BasketIconOutline } from '@com/icons';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
-import Footer from '@com/Layout/Footer';
+
 const BottomNavigation = dynamic(() => import('@com/Layout/BottomNavigation'));
 const HomePageAddressBox = dynamic(
   () => import('@com/_molecules/HomePageAddressBox'),
 );
+const Footer = dynamic(() => import('@com/Layout/Footer'));
+const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 interface Props {
   children: React.ReactNode;
   className?: string;
@@ -55,7 +57,9 @@ const MainPageLayout = ({
         )}
       >
         {children}
-        footer
+        <Footer>
+          <FooterContent />
+        </Footer>
       </div>
       {hasBottomNavigation && <BottomNavigation />}
     </div>
