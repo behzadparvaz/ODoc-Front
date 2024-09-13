@@ -126,10 +126,10 @@
   pointer-events: none;
 }
 
-
-.swiper-button-prev, .swiper-button-next{
-  color: #FF652D!important;
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ff652d !important;
 }
-.swiper-pagination-bullet{
-  background: #FF652D!important;
+.swiper-pagination-bullet {
+  background: #ff652d !important;
 }

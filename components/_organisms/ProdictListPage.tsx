@@ -1,28 +1,26 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import { ArrowRightIconOutline } from '@com/icons';
-import { colors } from '@configs/Theme';
-import router, { useRouter } from 'next/router';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import {
-  mobileModeMaxWidthClassName,
-  shouldShowMobileMode,
-} from '@configs/ControlMobileView';
 import Button from '@com/_atoms/Button';
-import { productListPageTexts } from '@com/texts/productListPageTexts';
-import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
+import { colors } from '@configs/Theme';
+import { useRouter } from 'next/router';
+import useCheckPage from '@hooks/useCheckPage';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import Basket from '../../pages/app/basket';
-import { routeList } from '@routes/routeList';
+import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
 import { MainLayout } from '@com/Layout';
 import SearchBox from '@com/_atoms/SearchBox';
+import { routeList } from '@routes/routeList';
+import { productListPageTexts } from '@com/texts/productListPageTexts';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import EmptyContent from '@com/_atoms/EmptyContent';
+import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
 const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
 
 type Props = {};
 
 export default function ProdictListPage({}: Props) {
-  const router = useRouter();
+  const { push, back, query } = useRouter();
+  const { isInSearchPage } = useCheckPage();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
   >({
@@ -33,14 +31,11 @@ export default function ProdictListPage({}: Props) {
     enabled: true,
   });
 
-  const searchTerm = router?.query?.search_text;
-  const categoryName = router?.query?.categoryName;
+  const searchTerm = query?.search;
+
+  const categoryName = query?.category || query?.search;
   const body = {
-    ...(searchTerm
-      ? {
-          productName: searchTerm,
-        }
-      : { category: categoryName }),
+    ...query,
     pageNumber: 1,
     pageSize: 10,
   };
@@ -61,13 +56,13 @@ export default function ProdictListPage({}: Props) {
         : [],
     [plpData],
   );
-  console.log('categoryName', categoryName);
+
   return (
     <MainLayout
       title={!searchTerm && categoryName}
       hasHeader
       hasSerachSection={!!searchTerm}
-      searchSection={<SearchBox defualtValue={searchTerm} />}
+      searchSection={<SearchBox />}
       hasBackButton
       hasBottomGap
       footer={
@@ -78,7 +73,7 @@ export default function ProdictListPage({}: Props) {
             backgroundColor={colors.black}
             color={colors.white}
             handleClick={() => {
-              router.push(routeList.basket);
+              push(routeList.basket);
             }}
           >
             {productListPageTexts?.seeBasket}
@@ -100,22 +95,33 @@ export default function ProdictListPage({}: Props) {
           plpData?.fetchNextPage();
         }}
         hasMore={plpData?.hasNextPage}
-        loader={<div style={{ height: '100px' }}>در حال بارگذاری...</div>}
+        loader={
+          <div className="flex items-center justify-center h-16">
+            در حال بارگذاری...
+          </div>
+        }
         dataLength={items?.length}
       >
         <div className="p-4 space-y-4">
-          {items?.map((product, index) => (
-            <ProductCard
-              key={index}
-              prInfo={{
-                ...product,
-                quantity:
-                  basket?.productsById?.[Number(product.irc)]?.quantity ?? 0,
-              }}
-              hasAddToCartButton
-              onSuccessChanged={refetchGetBasket}
+          {items?.length ? (
+            items?.map((product, index) => (
+              <ProductCard
+                key={index}
+                prInfo={{
+                  ...product,
+                  quantity:
+                    basket?.productsById?.[Number(product.irc)]?.quantity ?? 0,
+                }}
+                hasAddToCartButton
+                onSuccessChanged={refetchGetBasket}
+              />
+            ))
+          ) : (
+            <EmptyContent
+              imgSrc="/static/images/staticImages/search-empty-content.png"
+              title={mobileSearchTexts?.noSearchResult}
             />
-          ))}
+          )}
         </div>
       </InfiniteScroll>
     </MainLayout>

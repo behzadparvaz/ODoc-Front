@@ -1,19 +1,16 @@
-import { useGetProfile } from '@api/user/user.rq';
-import Spinner from '@com/_atoms/Spinner';
-import OrderRegisterSteps from '@com/_organisms/OrderRegisterSteps';
-import { MainLayout } from '@com/Layout';
+import { useEffect } from 'react';
+import useModal from '@hooks/useModal';
+import RXRegistration from '@com/_organisms/RXRegistration';
 
-const HomePage = () => {
-  const { data, isLoading: profileDataLoding } = useGetProfile();
+const OrderRegistrationPage = () => {
+  const { addModal } = useModal();
 
-  return (
-    <MainLayout title="ثبت سفارش">
-      {profileDataLoding === false ? (
-        <OrderRegisterSteps data={data} />
-      ) : (
-        <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
-      )}
-    </MainLayout>
-  );
+  useEffect(() => {
+    addModal({
+      modal: RXRegistration,
+    });
+  }, []);
+
+  return null;
 };
-export default HomePage;
+export default OrderRegistrationPage;

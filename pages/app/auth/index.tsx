@@ -36,7 +36,7 @@ const ODocAuth = () => {
   return (
     <MainLayout>
       <div
-        className={`bg-teal-50 gap-y-11 min-h-screen justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+        className={`gap-y-11 h-full justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
         <div className="flex flex-col items-center">
           <NextImage src={tapsiLogo} height={40} width={170} />

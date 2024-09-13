@@ -47,9 +47,16 @@ export const MainLayout = ({
     switch (hasHeader) {
       case true:
         if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[56px_1fr_85px]';
+          if (hasSerachSection) {
+            return `grid-rows-[68px_1fr_85px]`;
+          }
+          return `grid-rows-[56px_1fr_85px]`;
         }
-        return 'grid-rows-[56px_1fr]';
+        if (hasSerachSection) {
+          return `grid-rows-[68px_1fr]`;
+        }
+
+        return `grid-rows-[56px_1fr]`;
       default:
         if (hasBottomNavigation || hasBottomGap) {
           return 'grid-rows-[52px_1fr_85px]';

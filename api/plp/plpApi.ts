@@ -1,18 +1,10 @@
 import request from '@api/request';
+import { builder } from '@utilities/queryBuilder';
 
-export const GetSearchResult = async (body) =>
-  await request.post(`/Product/management/SearchProducts`, body);
-
-export const GetCategoryProducts = async (body) => {
-  const res = await request.get(
-    `Product/management/FetchCategories?category=${encodeURIComponent(body?.category)}&pageNumber=${body?.pageNumber}&pageSize=${body?.pageSize}`,
+export const GetSearchProducts = async (body) => {
+  const params=builder(body)
+  return await request.get(
+    `Product/management/SearchResult${params}`,
     body,
   );
-  return res;
 };
-
-export const GetSearchProducts = async (body) =>
-  await request.get(
-    `Product/management/SearchProducts?productName=${encodeURIComponent(body?.productName)}&pageNumber=${body?.pageNumber}&pageSize=${body?.pageSize}`,
-    body,
-  );

@@ -12,7 +12,7 @@ type IconConditionProp =
 interface ButtonProps {
   children?: ReactNode | ReactElement;
   buttonType?: 'contained' | 'text' | 'outlined';
-  variant?: 'primary' | 'secondary' | 'tertiary';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'danger-light';
   disabled?: boolean;
   handleClick?: (e) => void;
   className?: string;
@@ -62,6 +62,14 @@ const Button = ({
       }`
       : '';
 
+  const dangerLightClassName =
+    variant === 'danger-light'
+      ? `${buttonType === 'contained'
+        ? `bg-red-50 text-red-500`
+        : 'border border-red-500 text-red-500 bg-white'
+      }`
+      : '';
+
   const secondaryClassName =
     variant === 'secondary'
       ? `${buttonType === 'contained'
@@ -81,7 +89,7 @@ const Button = ({
   const linkClassName = buttonType === 'text' ? 'text-grey-800' : '';
   const sizeClassName =
     size === 'large'
-      ? `h-12 ${!children ? 'w-10' : ''} typo-subtitle-3`
+      ? `h-[52px] ${!children ? 'w-10' : ''} typo-subtitle-3`
       : size === 'medium'
         ? `h-8 ${!children ? 'w-8' : ''} typo-subtitle-3`
         : size === 'small'
@@ -103,7 +111,7 @@ const Button = ({
           ? 'pl-6 pr-4'
           : 'px-4';
 
-  const varientClassName = primaryClassName + secondaryClassName + tertiaryClassName + linkClassName;
+  const varientClassName = primaryClassName + secondaryClassName + tertiaryClassName + dangerLightClassName + linkClassName;
   const roundedClassName = children
     ? 'rounded-full'
     : `${size === 'large' ? 'rounded-full' : size === 'medium' ? 'rounded-full' : 'rounded-full'}`;

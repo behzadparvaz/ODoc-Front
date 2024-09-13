@@ -3,18 +3,44 @@ import NextLink from '@com/_core/NextLink';
 
 interface Props {
   name: string;
-  latinName: string;
   className?: string;
   imageUrl: any;
+  handleClick?: () => void;
+  imgWidth?: number;
+  imgHeight?: number;
+  link: string;
 }
 
-const CategoryItem = ({ name, latinName, imageUrl, className = '' }: Props) => {
-  const url = `app/category/${name}`;
+const CategoryItem = ({
+  name,
+  imageUrl,
+  className = '',
+  handleClick = null,
+  imgWidth = 70,
+  imgHeight = 70,
+  link,
+}: Props) => {
   return (
-    <NextLink href={url}>
-      <a className={`flex flex-col items-center gap-y-1 py-2 rounded-lg ${className}`}>
-        <NextImage width={70} height={70} src={imageUrl} alt={name} />
-        <p className='text-xs text-grey-600'>{name}</p>
+    <NextLink href={link}>
+      <a
+        onClick={
+          handleClick
+            ? (e) => {
+                e?.preventDefault(), handleClick();
+              }
+            : null
+        }
+        className={`block py-3 text-center rounded-lg ${className}`}
+      >
+        <NextImage
+          width={imgWidth}
+          height={imgHeight}
+          src={imageUrl}
+          alt={name}
+        />
+        <p className="text-xs text-black font-semibold text-center py-1 px-2 truncate">
+          {name}
+        </p>
       </a>
     </NextLink>
   );

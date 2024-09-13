@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { ArrowRightIconOutline } from '@com/icons';
+import { ArrowRightIconOutline, SearchIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -11,9 +11,7 @@ import {
 } from '@configs/ControlMobileView';
 import { MainLayout } from '@com/Layout';
 
-const EmptyContentMobileSearch = dynamic(
-  () => import('@com/_atoms/EmptyContentMobileSearch'),
-);
+const EmptyContent = dynamic(() => import('@com/_atoms/EmptyContent'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchInput'));
 const PapularSearch = dynamic(() => import('@com/_molecules/PapularSearch'));
 const SearchSuggestion = dynamic(
@@ -23,7 +21,6 @@ const Button = dynamic(() => import('@com/_atoms/Button'));
 
 const MobileSearch = () => {
   const { back, query, push } = useRouter();
-
   const searchTextQuery: string = query?.search_text
     ? String(query?.search_text)
     : null;
@@ -35,14 +32,13 @@ const MobileSearch = () => {
     }
   }, [query]);
   const handleSearchByImage = (e) => {
-    // console.log(e?.target?.files?.[0]);
     push(`${routeList?.searchByImage}/${1236}`);
   };
 
   const handleGetSearchSuggestion = (value) => {
     setSearchText(value);
   };
-
+  const showResult = searchText?.length >= 2;
   return (
     <MainLayout
       hasHeader
@@ -77,17 +73,27 @@ const MobileSearch = () => {
             </Button>
           ) : null}
         </div>
-        {/* {searchText?.length >= 2 && (
-        <SearchSuggestion className="mt-4" searchText={searchText} />
-        )} */}
-
-        {searchText?.length < 2 && (
-          <>
-            <PapularSearch className="mt-6" />
-            <EmptyContentMobileSearch />
-          </>
-        )}
+        {showResult ? (
+          <p className="flex gap-x-1 items-center text-black text-sm mt-4 px-4">
+            <SearchIconOutline height={24} width={24} fill={'#000'} />
+            {mobileSearchTexts?.searchFor}
+            <span className="font-semibold">«{searchText}»</span>
+          </p>
+        ) : null}
       </div>
+      {showResult && (
+        <SearchSuggestion className="pt-1" searchText={searchText} />
+      )}
+
+      {searchText?.length < 2 && (
+        <>
+          <PapularSearch className="mt-6" />
+          <EmptyContent
+            imgSrc="/static/images/staticImages/search-empty-content.png"
+            title={mobileSearchTexts?.noSearch}
+          />
+        </>
+      )}
     </MainLayout>
   );
 };

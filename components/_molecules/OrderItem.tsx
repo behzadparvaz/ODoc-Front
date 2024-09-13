@@ -12,6 +12,7 @@ import {
   convertRialToToman,
   getTime,
 } from '@utilities/mainUtils';
+import { useRouter } from 'next/router';
 
 interface Props {
   className?: string;
@@ -25,6 +26,7 @@ const OrderItem = ({
   className = '',
 }: Props) => {
   const { addModal } = useModal();
+  const router = useRouter();
 
   const handleClickOnCommentBottomSheet = (comment, orderCode, finalPrice) => {
     addModal({
@@ -99,30 +101,31 @@ const OrderItem = ({
         >
           {data?.orderStatus?.id === 2 && (
             <Button
-              className="flex-1"
               size="medium"
               buttonType="contained"
-              handleClick={() => handleClikOnPaymentButton()}
+              handleClick={() => router.push(`/app/tender/${data?.orderCode}`)}
               variant={'primary'}
             >
-              پرداخت
+              انتخاب داروخانه
             </Button>
           )}
-          <Button
-            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
-            size="medium"
-            buttonType="contained"
-            handleClick={() =>
-              addModal({
-                modal: OrderCancelConfirmationBottomSheet,
-                props: {
-                  orderCode: data?.orderCode,
-                },
-              })
-            }
-          >
-            {orderText?.orderCancelation}
-          </Button>
+          {data?.orderStatus?.id !== 2 && (
+            <Button
+              className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
+              size="medium"
+              buttonType="contained"
+              handleClick={() =>
+                addModal({
+                  modal: OrderCancelConfirmationBottomSheet,
+                  props: {
+                    orderCode: data?.orderCode,
+                  },
+                })
+              }
+            >
+              {orderText?.orderCancelation}
+            </Button>
+          )}
           {data?.orderStatus?.id === 4 && (
             <Button
               className="flex-1 px-0 text-sm"
