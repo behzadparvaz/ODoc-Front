@@ -13,7 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@utilities/types';
 import { setUserAction } from '@redux/user/userActions';
 import { homePageText } from '@com/texts/homePage';
-import ProductCard from '@com/_molecules/productCard';
+import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import {
   ArrowRightIconOutline,
@@ -109,7 +109,7 @@ const Page = () => {
           <>
             <div className="flex flex-col px-4 md:px-0">
               {products?.map((pr) => (
-                <ProductCard
+                <HorizontalProductCard
                   prInfo={{ ...pr }}
                   key={pr.irc}
                   onSuccessChanged={refetchGetBasket}

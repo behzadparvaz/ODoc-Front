@@ -33,7 +33,7 @@ export default function Slider({ children, className }: Props) {
     return () => window.removeEventListener('load', setSwiperAutoPlay);
   }, []);
   return (
-    <>
+    <div className={className}>
       <Swiper
         dir="rtl"
         slidesPerView={1}
@@ -41,11 +41,10 @@ export default function Slider({ children, className }: Props) {
         loop={true}
         roundLengths={true}
         autoplay={false}
-        className="w-full"
+        className='w-full'
         pagination={{
           clickable: true,
         }}
-        navigation={true}
         modules={[Pagination, Navigation]}
         onSwiper={(swiper) => {
           swiperRef.current = swiper;
@@ -53,6 +52,6 @@ export default function Slider({ children, className }: Props) {
       >
         {children}
       </Swiper>
-    </>
+    </div>
   );
 }

@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 const tabs = {
   home: 'خانه',
-  orders: 'سفارشها',
+  orders: 'سفارش‌ها',
   profile: 'پروفایل',
 };
 

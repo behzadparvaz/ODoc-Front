@@ -13,11 +13,11 @@ const MainSlider = ({ data, className = '' }: Props) => {
         return (
           <SwiperSlide key={index}>
             <MainSliderItem
-              title={'item?.title'}
+              title={item?.title}
               index={index}
               // imageLink={'item?.imageLink'}
               imageLink={'/'}
-              imageUrl={item}
+              imageUrl={item?.icon}
             />
           </SwiperSlide>
         );

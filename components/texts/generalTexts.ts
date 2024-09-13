@@ -11,5 +11,6 @@ export const generalTexts = {
   drugSearch: 'جستـجوی دارو',
   yes: 'بله',
   no: 'خیر',
+  viewAll: 'مشاهده همه',
   sendTo: 'ارسال به',
 };
