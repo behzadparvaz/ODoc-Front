@@ -1,7 +1,9 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 
-const ProductCard = dynamic(() => import('@com/_molecules/productCard'));
+const HorizontalProductCard = dynamic(
+  () => import('@com/_molecules/HorizontalProductCard'),
+);
 const OrderTracking = dynamic(() => import('@com/_molecules/OrderTracking'));
 
 const OrderDetailPage = () => {
@@ -55,13 +57,13 @@ const OrderDetailPage = () => {
           سه شنبه ۲۳ مرداد ساعت ۱۴:۱۷
         </p>
 
-        {products.map((product) => (
-          <ProductCard
+        {/* {products.map((product) => (
+          <HorizontalProductCard
             key={product.id}
-            product={product}
+            // product={product}
             hasAddToCartButton={false}
           />
-        ))}
+        ))} */}
       </div>
     </div>
   );

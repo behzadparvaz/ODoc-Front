@@ -1,5 +1,4 @@
 import React from 'react';
-import AddToCartButton from './AddToCartButton';
 import AddButton from '@com/_atoms/AddButton';
 import {
   useAddProductToBasket,
@@ -14,7 +13,7 @@ type ProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
 };
 
-const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
+const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   prInfo,
   hasAddToCartButton,
   onSuccessChanged,
@@ -83,4 +82,4 @@ const ProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   );
 };
 
-export default ProductCard;
+export default HorizontalProductCard;
