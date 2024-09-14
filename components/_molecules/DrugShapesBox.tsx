@@ -28,7 +28,7 @@ export default function DrugShapesBox({}: Props) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-5 mt-4 px-4">
+    <div className="grid grid-cols-2 gap-5 mt-4 mx-4 p-4 bg-white rounded-xl">
       {data?.queryResult?.map((item) => {
         return (
           <div
