@@ -12,8 +12,10 @@ import { useRouter } from 'next/router';
 
 const Product = () => {
   const { back } = useRouter();
-  const {data} = useGetCategoryDescription('1_1');
-  console.log(data,'rfz');
+  const { data, isLoading } = useGetCategoryDescription('1_1');
+
+  const productDetail: any = data?.queryResult?.[0];
+  const productSliderData = productDetail?.imageLinks;
   
   return (
     <div
@@ -22,12 +24,18 @@ const Product = () => {
       <Button handleClick={back}>
         <ArrowRightIconOutline fill="#000" width={24} height={24} />
       </Button>
-      <div className="px-4">
-        <ProductSlider className="px-4 bg-white rounded-2xl py-6" />
-      </div>
-      <div className="px-4 mt-4">
-        <ProductDetail className="px-4 bg-white rounded-2xl py-6" />
-      </div>
+      {isLoading === false ? (
+        <div className="px-4">
+          <ProductSlider
+            data={productSliderData}
+            className="px-4 bg-white rounded-2xl py-6"
+          />
+          <ProductDetail
+            data={productDetail}
+            className="px-4 mt-4 bg-white rounded-2xl py-6"
+          />
+        </div>
+      ) : null}
       <DrugShapesBox />
     </div>
   );

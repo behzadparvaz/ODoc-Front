@@ -26,5 +26,5 @@ export const GetCategoryLevel4 = async (body: any) => {
 
 export const GetCategoryLevel2Description = async (CategoryCodeLevel: string) =>
   await request.get(
-    `/management/GetCategoryLevel2Description?CategoryCodeLevel2=${CategoryCodeLevel}`,
+    `/Product/management/GetCategoryLevel2Description?CategoryCodeLevel2=${CategoryCodeLevel}`,
   );
