@@ -21,6 +21,8 @@ interface Props {
   className?: string;
   headerClassName?: string;
   hasBottomNavigation?: boolean;
+  hasAddress?: boolean;
+  hasFooter?: boolean;
 }
 
 const MainPageLayout = ({
@@ -28,12 +30,14 @@ const MainPageLayout = ({
   className = '',
   headerClassName = '',
   hasBottomNavigation = true,
+  hasFooter = true,
+  hasAddress = true,
 }: Props) => {
   const { push } = useRouter();
   return (
     <div
       className={classNames(
-        hasBottomNavigation && 'pb-[54px]',
+        hasBottomNavigation && hasAddress && 'pb-[54px]',
         `w-full h-screen pt-[54px] bg-white flex flex-col`,
         shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
       )}
@@ -49,17 +53,14 @@ const MainPageLayout = ({
           <BasketIconOutline width={22} height={22} fill={'#000'} />
         </div>
       </div>
-      <HomePageAddressBox />
-      <div
-        className={classNames(
-          `overflow-auto min-h-[calc(100vh-222px)]`,
-          className,
-        )}
-      >
+      {hasAddress ? <HomePageAddressBox /> : null}
+      <div className={classNames(`overflow-auto w-full`, className)}>
         {children}
-        <Footer>
-          <FooterContent />
-        </Footer>
+        {hasFooter ? (
+          <Footer>
+            <FooterContent />
+          </Footer>
+        ) : null}
       </div>
       {hasBottomNavigation && <BottomNavigation />}
     </div>

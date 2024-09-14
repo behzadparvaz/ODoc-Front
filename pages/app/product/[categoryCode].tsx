@@ -1,8 +1,10 @@
 import { useGetCategoryDescription } from '@api/category/categoryApis.rq';
 import Button from '@com/_atoms/Button';
+import SearchBox from '@com/_atoms/SearchBox';
 import DrugShapesBox from '@com/_molecules/DrugShapesBox';
 import ProductDetail from '@com/_molecules/ProductDetail';
 import ProductSlider from '@com/_molecules/ProductSlider';
+import MainPageLayout from '@com/_template/MainPageLayout';
 import { ArrowRightIconOutline } from '@com/icons';
 import {
   mobileModeMaxWidthClassName,
@@ -16,28 +18,37 @@ const Product = () => {
 
   const productDetail: any = data?.queryResult?.[0];
   const productSliderData = productDetail?.imageLinks;
-  
+
   return (
-    <div
-      className={`${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} min-h-screen bg-grey-50`}
+    <MainPageLayout
+      hasFooter={false}
+      hasAddress={false}
+      className={`${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-grey-50`}
     >
-      <Button handleClick={back}>
-        <ArrowRightIconOutline fill="#000" width={24} height={24} />
-      </Button>
-      {isLoading === false ? (
-        <div className="px-4">
-          <ProductSlider
-            data={productSliderData}
-            className="px-4 bg-white rounded-2xl py-6"
-          />
-          <ProductDetail
-            data={productDetail}
-            className="px-4 mt-4 bg-white rounded-2xl py-6"
-          />
-        </div>
-      ) : null}
-      <DrugShapesBox />
-    </div>
+      <div
+        className={`flex px-4 z-10 items-center py-3 bg-white shadow-md fixed inset-x-0 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+      >
+        <Button handleClick={back}>
+          <ArrowRightIconOutline fill="#000" width={24} height={24} />
+        </Button>
+        <SearchBox />
+      </div>
+      <div className="w-full pt-[92px] pb-9">
+        {isLoading === false ? (
+          <div className="px-4">
+            <ProductSlider
+              data={productSliderData}
+              className="px-4 bg-white rounded-2xl py-6"
+            />
+            <ProductDetail
+              data={productDetail}
+              className="px-4 mt-4 bg-white rounded-2xl py-6"
+            />
+          </div>
+        ) : null}
+        <DrugShapesBox />
+      </div>
+    </MainPageLayout>
   );
 };
 export default Product;
