@@ -23,3 +23,8 @@ export const GetCategoryLevel4 = async (body: any) => {
     return res?.value;
   } else return res;
 };
+
+export const GetCategoryLevel2Description = async (CategoryCodeLevel: string) =>
+  await request.get(
+    `/management/GetCategoryLevel2Description?CategoryCodeLevel2=${CategoryCodeLevel}`,
+  );
