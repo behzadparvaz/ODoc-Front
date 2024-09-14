@@ -6,6 +6,7 @@ import specialPatients from '@static/images/staticImages/mainCategories/specialP
 import nonPrescriptionMedicine from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import cosmetics from '@static/images/staticImages/mainCategories/cosmetics.png';
 import supplement from '@static/images/staticImages/mainCategories/supplement.png';
+import ScrollSlider from './ScrollSlider.nd';
 
 interface ICategory {
   title: string;
@@ -16,7 +17,12 @@ interface ICategory {
   isSoon?: boolean;
   ratio: string;
 }
-const Categories = () => {
+
+type CategoriesProps = {
+  isHomePage?: boolean;
+};
+
+const Categories = ({ isHomePage }: CategoriesProps) => {
   const categoryMockData: ICategory[] = [
     {
       title: 'داروی با نسخه ',
@@ -24,7 +30,7 @@ const Categories = () => {
       image: prescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: '50%',
+      ratio: isHomePage ? '50%' : '33.3333%',
     },
     {
       title: 'داروی بیماران خاص',
@@ -32,7 +38,7 @@ const Categories = () => {
       image: specialPatients,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: '50%',
+      ratio: isHomePage ? '50%' : '33.3333%',
     },
     {
       title: ' داروی بدون نسخه',
@@ -61,18 +67,47 @@ const Categories = () => {
       ratio: '33.3333%',
     },
   ];
+
+  if (isHomePage) {
+    return (
+      <div className="flex flex-wrap gap-y-4 w-full">
+        {categoryMockData?.map((item: ICategory, index) => {
+          return (
+            <div
+              key={index}
+              style={{ width: item?.ratio }}
+              className="relative px-2"
+            >
+              <CategoryItem
+                isSoon={item?.isSoon}
+                className=" bg-grey-50 w-full rounded-lg"
+                link={item?.link + '?title=' + item?.title}
+                imgHeight={item?.imageHeight}
+                alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
+                imgWidth={item?.imageWidth}
+                imageUrl={item?.image}
+                name={item?.title}
+                // isHomePage
+              />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-wrap gap-y-4 w-full">
+    <ScrollSlider className="gap-x-4 pr-4">
       {categoryMockData?.map((item: ICategory, index) => {
         return (
           <div
             key={index}
-            style={{ width: item?.ratio }}
-            className="relative px-2"
+            style={{ width: '70px' }}
+            className="relative text-xs"
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className=" bg-grey-50 w-full rounded-lg"
+              className=" w-full rounded-lg"
               link={item?.link + '?title=' + item?.title}
               imgHeight={item?.imageHeight}
               alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
@@ -83,7 +118,7 @@ const Categories = () => {
           </div>
         );
       })}
-    </div>
+    </ScrollSlider>
   );
 };
 export default Categories;

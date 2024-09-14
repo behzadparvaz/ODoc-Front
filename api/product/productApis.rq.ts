@@ -32,13 +32,11 @@ export const useGetFilteredProductsByShapes = (
   categoryCode: string,
   shapeCode: number,
 ) => {
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ['GetFilteredProductsByShapes', categoryCode, shapeCode],
-
-    () => {
-      GetFilteredProductsByShapes(categoryCode, shapeCode),
-        { enabled: !!shapeCode };
-    },
+    () => GetFilteredProductsByShapes(categoryCode, shapeCode),
+    { enabled: !!shapeCode },
   );
-  return { data: data as any, isLoading };
+
+  return { data: data as any };
 };

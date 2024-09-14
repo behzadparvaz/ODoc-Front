@@ -3476,3 +3476,25 @@ export const LinkedintIcon = ({
     </defs>
   </svg>
 );
+export const FilterIcon = ({
+  width,
+  height,
+  fill = '#000',
+  className = '',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 20 20"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M7.083 11.25A2.917 2.917 0 1 1 4.287 15h-2.62v-1.667h2.62a2.918 2.918 0 0 1 2.796-2.083zm0 1.667a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm11.25.416V15h-6.666v-1.667h6.666zM12.917 2.917c1.32 0 2.437.878 2.795 2.083h2.621v1.667h-2.62A2.918 2.918 0 0 1 10 5.833a2.917 2.917 0 0 1 2.916-2.916zm0 1.666a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zM8.332 5v1.667H1.666V5h6.667z"
+      fill={fill}
+    />
+  </svg>
+);

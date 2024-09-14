@@ -28,14 +28,24 @@ const OtcProductsSlider = ({
   filteredShapesCode,
 }: OtcproductsSliderProps) => {
   const { data, isLoading } = useGetCategtyL2Products(categoryCode);
-  const { data: filteredData, isLoading: isFilteredLoading } =
-    useGetFilteredProductsByShapes(categoryCode, filteredShapesCode);
+  const { data: filteredData } = useGetFilteredProductsByShapes(
+    categoryCode,
+    filteredShapesCode,
+  );
 
   const renderProducts = () => {
-    if (isLoading || isFilteredLoading)
+    if (isLoading)
       return (
         <Spinner className="h-full min-h-[400px] w-full flex justify-center items-center" />
       );
+
+    if (!isLoading && filteredData?.queryResult?.length === 0) {
+      return (
+        <span className="w-full h-[104px] flex justify-center items-center">
+          آیتمی با این شکل دارویی موجود نیست
+        </span>
+      );
+    }
 
     if (filteredData?.queryResult?.length > 0) {
       return (
@@ -73,7 +83,7 @@ const OtcProductsSlider = ({
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       <ScrollSlider className="px-2">{renderProducts()}</ScrollSlider>
     </div>
   );

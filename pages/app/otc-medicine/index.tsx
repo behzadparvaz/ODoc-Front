@@ -4,8 +4,8 @@ import { MainLayout } from '@com/Layout';
 
 const OtcMedicinePage = () => {
   return (
-    <MainLayout hasBottomNavigation>
-      <div className="w-full flex flex-col gap-y-4 py-6 px-4">
+    <MainLayout>
+      <div className="w-full flex flex-col gap-y-4 py-6">
         <Categories />
 
         <OtcMedicineCategories />
