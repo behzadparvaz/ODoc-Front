@@ -6,16 +6,19 @@ import {
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
+import AddToCartButton from './AddToCartButton';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
   hasAddToCartButton?: boolean;
+  hasCompleteAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
 };
 
 const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   prInfo,
   hasAddToCartButton,
+  hasCompleteAddToCartButton,
   onSuccessChanged,
 }) => {
   const { mutate: addToCart, isLoading: isAddingToCart } =
@@ -64,13 +67,17 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         />
       </div>
       <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">
-        <h2 className="text-sm font-medium line-clamp-2">{prInfo?.productName ?? prInfo.name}</h2>
+        <h2 className="text-sm font-medium line-clamp-2">
+          {prInfo?.productName ?? prInfo.name}
+        </h2>
         {hasAddToCartButton ? (
           <AddButton
             count={prInfo.quantity}
             onChangeCount={onChange}
             isLoading={isAddingToCart}
           />
+        ) : hasCompleteAddToCartButton ? (
+          <AddToCartButton />
         ) : (
           <div className="flex flex-col items-end">
             <div className="text-sm">{prInfo.quantity} ورق</div>

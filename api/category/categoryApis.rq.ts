@@ -1,7 +1,9 @@
 import { useInfiniteQuery, useQuery } from 'react-query';
 import {
   GetCategoryLevel2,
+  GetCategoryLevel2Description,
   GetCategoryLevel3,
+  GetCategoryLevel4,
   GetMainCategories,
 } from './categoryApis';
 interface categoriesLevel {
@@ -56,4 +58,19 @@ export const useGetInfiniteCategoryLevel2 = (body) => {
     isFetchingNextPage,
     status,
   };
+};
+export const useGetCategoryLevel4 = (body) => {
+  const { data, isLoading } = useQuery(
+    ['getCategoryLeve4', body?.otcLevel3, body?.categoryCodeLevel2],
+    () => GetCategoryLevel4(body),
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useGetCategoryDescription = (categoryCode: string) => {
+  const { data, isLoading } = useQuery(
+    ['getCategoryDescription', categoryCode],
+    () => GetCategoryLevel2Description(categoryCode),
+  );
+  return { data: data as any, isLoading };
 };
