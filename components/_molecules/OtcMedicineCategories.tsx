@@ -41,7 +41,8 @@ const OtcMedicineCategories = () => {
                   className={classNames(
                     'w-max h-6 flex items-center px-2 bg-grey-50 text-xs rounded-full cursor-pointer',
                     item?.categoryCodeLevel1 ===
-                      selectedCategory?.categoryCodeLevel1 && 'bg-orange-500',
+                      selectedCategory?.categoryCodeLevel1 &&
+                      'bg-orange-500 text-white',
                   )}
                 >
                   {item?.categoryNameLevel1}
