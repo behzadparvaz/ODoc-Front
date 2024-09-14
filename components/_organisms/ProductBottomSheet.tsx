@@ -1,4 +1,5 @@
-import { useGetCategories } from '@api/category/categoryApis.rq';
+import { useGetCategoryLevel4 } from '@api/category/categoryApis.rq';
+import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { useRouter } from 'next/router';
 import React from 'react';
@@ -11,19 +12,27 @@ type Props = {
 export default function ProductBottomSheet({ otcLevel3 }: Props) {
   const { query } = useRouter();
   const categoryCode = query?.categoryCode?.toString();
-  const { data } = useGetCategories({
-    parentCode: categoryCode,
-    level: 4,
-  });
-  console.log(data);
+  const body = {
+    otcLevel3: otcLevel3,
+    categoryCodeLevel2: categoryCode,
+  };
+  const { data } = useGetCategoryLevel4(body);
+  const products = data?.queryResult;
 
   return (
     <BottomModalContainer
       height={'auto'}
-      hasCloseButton={true}
-      className="!overflow-hidden"
+      hasCloseButton={false}
+      className=" p-4"
+      title="محصولات"
     >
-      ssssssssss
+      {products?.map((item) => {
+        return (
+          <div className="mt-4">
+            <HorizontalProductCard prInfo={item} hasCompleteAddToCartButton />
+          </div>
+        );
+      })}
     </BottomModalContainer>
   );
 }
