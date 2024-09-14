@@ -1,7 +1,12 @@
+import DrugShapesBox from '@com/_molecules/DrugShapesBox';
 import { useRouter } from 'next/router';
 
 const Product = () => {
   const { query } = useRouter();
-  return <>{query?.categoryName}</>;
+  return (
+    <>
+      <DrugShapesBox />
+    </>
+  );
 };
 export default Product;
