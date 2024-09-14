@@ -3,6 +3,11 @@ import AddToCartButton from './AddToCartButton'; // Make sure the path is correc
 import { colors } from '@configs/Theme';
 import NextImage from '@com/_core/NextImage';
 import Badge from './Badge';
+import AddButton from '@com/_atoms/AddButton';
+import {
+  useAddProductToBasket,
+  useDeleteProductBasket,
+} from '@api/basket/basketApis.rq';
 
 type Props = {
   productData?: any;
@@ -17,8 +22,39 @@ const VerticalProductCard = ({
   style = {},
   hasAddToCart = true,
 }: Props) => {
+  // const { mutate: addToCart, isLoading: isAddingToCart } =
+  //   useAddProductToBasket({
+  //     onSuccess: () => {
+  //       onSuccessChanged?.();
+  //     },
+  //   });
+
+  // const { mutate: popProductOfCart } = useDeleteProductBasket({
+  //   onSuccess: () => {
+  //     onSuccessChanged?.();
+  //   },
+  // });
+
+  // const onDeleteProduct = ({ irc }) =>
+  //   popProductOfCart({ type: 'IRC', irc: irc });
+
+  // const onChangeCount = ({ irc, quantity }) =>
+  //   addToCart({
+  //     type: 'IRC',
+  //     orderType: 'OTC',
+  //     irc: irc,
+  //     quantity: quantity,
+  //   });
+
+  // const onChange = (count: number) => {
+  //   if (count > 0) {
+  //     onChangeCount({ ...prInfo, quantity: count });
+  //   } else {
+  //     onDeleteProduct?.(prInfo);
+  //   }
+  // };
   return (
-    <div className={`w-[157px] bg-white px-4 ${className}`} style={style}>
+    <div className={`w-[157px] py-2 px-4 ${className}`} style={style}>
       {/* Product Image */}
       <div className="h-[80px] w-[80px] mx-auto mb-4">
         <NextImage src={productData?.imageLink} width={80} height={80} />
@@ -31,26 +67,35 @@ const VerticalProductCard = ({
 
       {/* Price and Discount */}
       <div className="text-center mb-4">
-        <span className="text-xl font-semibold flex items-center gap-x-1 justify-center w-full">
-          {productData?.discountPrice?.toLocaleString('fa-IR')}
-          <span className="text-xs font-medium">تومان</span>
-        </span>
-        <div className="flex items-center justify-between">
-          <Badge
-            value={productData?.discountPercent + '%'}
-            className="px-1.5"
-            backgroundColor={colors.yellow[400]}
-          />
-          <span className="text-tiny font-normal line-through text-grey-400">
-            {(237000)?.toLocaleString('fa-IR')}
+        {!hasAddToCart && (
+          <span className="text-xl font-semibold flex items-center gap-x-1 justify-center w-full">
+            {productData?.discountPrice?.toLocaleString('fa-IR')}
+            <span className="text-xs font-medium">تومان</span>
           </span>
-        </div>
+        )}
+        {!hasAddToCart && (
+          <div className="flex items-center justify-between">
+            <Badge
+              value={productData?.discountPercent + '%'}
+              className="px-1.5"
+              backgroundColor={colors.yellow[400]}
+            />
+            <span className="text-tiny font-normal line-through text-grey-400">
+              {(237000)?.toLocaleString('fa-IR')}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Add to Cart Button */}
       {hasAddToCart ? (
         <div className="flex justify-center items-center">
           <AddToCartButton />
+          {/* <AddButton
+            count={prInfo.quantity}
+            onChangeCount={onChange}
+            isLoading={isAddingToCart}
+          /> */}
         </div>
       ) : null}
     </div>
