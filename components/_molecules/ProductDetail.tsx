@@ -18,7 +18,7 @@ const ProductDetail = ({ className = '', data }: Props) => {
         className="text-lg font-semibold"
       />
       <SectionTitle
-        className="text-md text-grey-600 mt-6 mb-2 border-b border-grey-200 pb-2"
+        className="text-md text-grey-600 mt-5 mb-2 border-b border-grey-200 pb-2"
         title={pdpText?.features}
       />
       <div className="grid gap-y-1">
