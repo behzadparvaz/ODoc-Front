@@ -20,7 +20,7 @@ const Categories = () => {
   const categoryMockData: ICategory[] = [
     {
       title: 'داروی با نسخه ',
-      link: routeList?.categories,
+      link: routeList?.prescriptionRegisteration,
       image: prescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
@@ -28,7 +28,7 @@ const Categories = () => {
     },
     {
       title: 'داروی بیماران خاص',
-      link: routeList?.categories,
+      link: routeList?.prescriptionRegisteration,
       image: specialPatients,
       imageHeight: 68,
       imageWidth: 68,
@@ -36,7 +36,7 @@ const Categories = () => {
     },
     {
       title: ' داروی بدون نسخه',
-      link: routeList?.categories,
+      link: routeList?.otcMedicine,
       image: nonPrescriptionMedicine,
       imageHeight: 64,
       imageWidth: 64,
@@ -65,9 +65,13 @@ const Categories = () => {
     <div className="flex flex-wrap gap-y-4 w-full">
       {categoryMockData?.map((item: ICategory, index) => {
         return (
-          <div key={index} style={{ width: item?.ratio }} className="relative px-2">
+          <div
+            key={index}
+            style={{ width: item?.ratio }}
+            className="relative px-2"
+          >
             <CategoryItem
-            isSoon={item?.isSoon}
+              isSoon={item?.isSoon}
               className=" bg-grey-50 w-full rounded-lg"
               link={item?.link + '?title=' + item?.title}
               imgHeight={item?.imageHeight}

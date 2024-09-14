@@ -1,6 +1,5 @@
 import request from '@api/request';
 import { builder } from '@utilities/queryBuilder';
-import { log } from 'console';
 
 export const GetMainCategories = async () =>
   await request.get(`/Product/management/GetCategoryLevel1`);
@@ -9,6 +8,7 @@ export const GetCategoryLevel2 = async (parentCode: string) =>
   await request.get(
     `/Product/management/GetCategoryLevel2?CategoryCodeLevel1=${parentCode}`,
   );
+
 export const GetCategoryLevel3 = async (parentCode: string) =>
   await request.get(
     `/Product/management/GetCategoryLevel3?CategoryCodeLevel2=${parentCode}`,

@@ -1,7 +1,5 @@
 import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
-import MainPageLayout from '@com/_template/MainPageLayout';
-import { ArrowLeftIconOutline } from '@com/icons';
 import dynamic from 'next/dynamic';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
@@ -24,7 +22,7 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageLayout className="pb-11">
+    <MainLayout hasBottomNavigation>
       <div className="px-4">
         <SearchBox className="px-4 my-2" />
       </div>
@@ -52,7 +50,7 @@ const HomePage = () => {
         data={[bannerData?.queryResult?.[2]]}
       />
       <CarouselLine data={getCarouselDataData(3)} className="my-4" />
-    </MainPageLayout>
+    </MainLayout>
   );
 };
 export default HomePage;
