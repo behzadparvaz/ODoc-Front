@@ -49,14 +49,8 @@ function MyApp({ Component, pageProps }) {
         <link
           rel="icon"
           type="image/png"
-          sizes="32x32"
-          href="/static/images/staticImages/favicon-32x32.png"
-        />
-        <link
-          rel="icon"
-          type="image/png"
-          sizes="16x16"
-          href="/static/images/staticImages/favicon-16x16.png"
+          sizes="48x48"
+          href="/static/images/staticImages/favicon-48x48.png"
         />
       </Head>
       <QueryClientProvider client={queryClient}>
