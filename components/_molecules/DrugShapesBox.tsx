@@ -16,7 +16,7 @@ export default function DrugShapesBox({}: Props) {
     level: 3,
     parentCode: categoryCode,
   });
-  
+
   const handleClickOnDrugShape = (otcLevel3) => {
     addModal({
       modal: ProductBottomSheet,
@@ -44,16 +44,6 @@ export default function DrugShapesBox({}: Props) {
           </div>
         );
       })}
-      {data?.queryResult?.length && (
-        <div className="flex items-center border border-grey-200 h-10 rounded-md px-4">
-          <NextImage
-            src={'/static/images/staticImages/DefaultProductImage.png'}
-            height={35}
-            width={35}
-          />
-          <p className="text-sm font-medium mr-2">سایر</p>
-        </div>
-      )}
     </div>
   );
 }
