@@ -27,7 +27,7 @@ const AddToCartButton = ({}: Props) => {
         <>
           <button
             onClick={handleDecrement}
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-100 text-xl font-bold"
           >
             <MinusIconOutline width={20} height={20} fill={colors.black} />
           </button>
@@ -36,7 +36,7 @@ const AddToCartButton = ({}: Props) => {
       ) : null}
       <button
         onClick={handleIncrement}
-        className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold"
+        className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-100 text-xl font-bold"
       >
         <PlusIconOutline width={20} height={20} fill={colors.black} />
       </button>

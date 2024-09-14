@@ -4,6 +4,8 @@ import OtcProductsSlider from './OtcProductsSlider';
 import { useState } from 'react';
 import useModal from '@hooks/useModal';
 import OtcSelectShapeBottomsheet from './OtcSelectShapeBottomsheet';
+import NextLink from '@com/_core/NextLink';
+import { routeList } from '@routes/routeList';
 
 type ShapesDataModel = {
   shapeCode: number;
@@ -48,9 +50,13 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
       className="relative flex flex-col gap-2 h-max min-h-[200px] px-4 py-2 text-xs rounded-lg"
     >
       <div className="flex justify-between items-center gap-6">
-        <span className="w-2/3 text-sm font-semibold text-orange-500 truncate">
-          {category?.categoryNameLevel2}
-        </span>
+        <NextLink
+          href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
+        >
+          <span className="w-2/3 text-sm font-semibold text-orange-500 truncate">
+            {category?.categoryNameLevel2}
+          </span>
+        </NextLink>
 
         <span
           onClick={() => handleOpenSelectShapeItem()}

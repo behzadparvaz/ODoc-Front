@@ -70,7 +70,7 @@ export const MainLayout = ({
     <div className="w-full h-svh flex justify-center bg-grey-100">
       <div
         className={classNames(
-          'relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[412px] h-svh  overflow-hidden ',
+          'relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[600px] h-svh  overflow-hidden ',
           renderGridTemplate(),
         )}
       >
@@ -82,34 +82,38 @@ export const MainLayout = ({
               height={20}
               alt="tapsi-daroo-logo"
             />
-            {leftIcon?leftIcon:null}
+            {leftIcon ? leftIcon : null}
           </div>
         )}
         {(hasHeader || hasSerachSection) && (
-          <Header
-            title={!hasSerachSection && title}
-            searchSection={hasSerachSection && searchSection}
-            rightIcon={
-              hasBackButton ? (
-                <ArrowRightIconOutline
-                  width={24}
-                  height={24}
-                  fill={colors?.black}
-                />
-              ) : (
-                rightIcon
-              )
-            }
-            className={classNames(
-              'col-span-full row-start-1 row-end-2',
-              headerClassName,
-            )}
-            handleClickRightIcon={
-              hasBackButton && !handleClickRightIcon
-                ? () => back()
-                : handleClickRightIcon
-            }
-          />
+          <div className='flex w-full justify-between items-center pl-6'>
+            <Header
+              title={!hasSerachSection && title}
+              searchSection={hasSerachSection && searchSection}
+              rightIcon={
+                hasBackButton ? (
+                  <ArrowRightIconOutline
+                    width={24}
+                    height={24}
+                    fill={colors?.black}
+                  />
+                ) : (
+                  rightIcon
+                )
+              }
+            
+              className={classNames(
+                'col-span-full row-start-1 row-end-2',
+                headerClassName,
+              )}
+              handleClickRightIcon={
+                hasBackButton && !handleClickRightIcon
+                  ? () => back()
+                  : handleClickRightIcon
+              }
+            />
+            {leftIcon ? leftIcon : null}
+          </div>
         )}
         <div
           className={classNames(

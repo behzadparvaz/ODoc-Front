@@ -14,13 +14,13 @@ interface AddButtonProps {
 }
 
 const AddButton: React.FC<AddButtonProps> = ({
-                                               count,
-                                               isLoading,
-                                               onChangeCount,
-                                               min = 1,
-                                               max = 100,
-                                               unitName = 'عدد'
-                                             }) => {
+  count,
+  isLoading,
+  onChangeCount,
+  min = 1,
+  max = 100,
+  unitName = 'عدد',
+}) => {
   const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
 
   return (
@@ -37,9 +37,7 @@ const AddButton: React.FC<AddButtonProps> = ({
           setTooltipVisible={setTooltipVisible}
         />
       ) : max === 0 ? (
-        <Button disabled>
-          تمام شد
-        </Button>
+        <Button disabled>تمام شد</Button>
       ) : (
         <button
           className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
