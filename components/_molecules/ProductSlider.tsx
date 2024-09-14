@@ -12,18 +12,10 @@ import NextImage from '@com/_core/NextImage';
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 interface Props {
   className?: string;
+  data: any;
 }
-const ProductSlider = ({ className }: Props) => {
+const ProductSlider = ({ className, data }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
-
-  const mockData = [
-    '/static/images/staticImages/priorin.jpg',
-    '/static/images/staticImages/phyto.jpg',
-    '/static/images/staticImages/chelophen.jpg',
-    '/static/images/staticImages/sample-druge.png',
-    '/static/images/staticImages/alopexy.webp',
-  ];
-
   return (
     <div
       className={`w-full ${className} ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} shadow-md `}
@@ -33,7 +25,7 @@ const ProductSlider = ({ className }: Props) => {
         thumbs={{ swiper: thumbsSwiper }}
         modules={[FreeMode, Navigation, Thumbs]}
       >
-        {mockData?.map((item, index) => {
+        {data?.map((item, index) => {
           return (
             <SwiperSlide>
               <div className="!aspect-w-23 !aspect-h-9">
@@ -60,7 +52,7 @@ const ProductSlider = ({ className }: Props) => {
           watchSlidesProgress={true}
           modules={[FreeMode, Navigation, Thumbs]}
         >
-          {mockData?.map((item, index) => {
+          {data?.map((item, index) => {
             return (
               <SwiperSlide>
                 <div className="!aspect-w-23 !aspect-h-23">
