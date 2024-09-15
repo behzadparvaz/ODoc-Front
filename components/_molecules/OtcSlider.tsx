@@ -58,14 +58,15 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
           className="flex items-center justify-center gap-1 text-sm font-normal text-center bg-grey-50 w-1/3 min-w-max h-8 rounded-full px-1.5 cursor-pointer"
         >
           <FilterIcon width={20} height={20} fill={colors.black} />
-          {filteredShapes?.shapeName || 'شکل دارویی'}
+          {filteredShapes?.shapeName || 'شکل دارو'}
         </span>
       </div>
-
-      <OtcProductsSlider
-        categoryCode={category?.categoryCodeLevel2}
-        filteredShapesCode={filteredShapes?.shapeCode}
-      />
+      <div className=" flex items-center">
+        <OtcProductsSlider
+          category={category}
+          filteredShapesCode={filteredShapes?.shapeCode}
+        />
+      </div>
     </div>
   );
 };

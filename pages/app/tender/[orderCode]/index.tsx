@@ -33,7 +33,12 @@ const Tender = () => {
       <div className="relative h-[calc(100vh-148px)] overflow-auto px-4 md:px-0 pb-20">
         <div className="flex flex-col gap-3 mt-4">
           {tenderData?.queryResult?.map((item) => (
-            <TenderCard key={item?.id} data={item} />
+            <TenderCard
+              key={item?.id}
+              data={item}
+              offerId={item?.id}
+              orderCode={orderCode as string}
+            />
           ))}
         </div>
       </div>

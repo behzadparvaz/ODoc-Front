@@ -20,7 +20,12 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageLayout hasBottomNavigation>
+    <MainPageLayout
+      hasBottomNavigation
+      hasFooter
+      hasAddress
+      hasSearchIcon={false}
+    >
       <div className="px-4">
         <SearchBox className="px-4 my-2" />
       </div>

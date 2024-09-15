@@ -6,7 +6,11 @@ import {
 import classNames from 'classnames';
 import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
 import dynamic from 'next/dynamic';
-import { BasketIconOutline } from '@com/icons';
+import {
+  ArrowRightIconOutline,
+  BasketIconOutline,
+  SearchIconOutline,
+} from '@com/icons';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
@@ -23,6 +27,8 @@ interface Props {
   hasBottomNavigation?: boolean;
   hasAddress?: boolean;
   hasFooter?: boolean;
+  title?: string;
+  hasSearchIcon?: boolean;
 }
 
 const MainPageLayout = ({
@@ -30,10 +36,12 @@ const MainPageLayout = ({
   className = '',
   headerClassName = '',
   hasBottomNavigation = true,
-  hasFooter = true,
-  hasAddress = true,
+  hasFooter = false,
+  hasAddress = false,
+  title,
+  hasSearchIcon = true,
 }: Props) => {
-  const { push } = useRouter();
+  const { push, back } = useRouter();
   return (
     <div
       className={classNames(
@@ -48,9 +56,35 @@ const MainPageLayout = ({
           shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
         )}
       >
-        <NextImage src={tapsiLogo} height={20} width={110} />
-        <div className="w-[22px]" onClick={() => push(routeList.basket)}>
-          <BasketIconOutline width={22} height={22} fill={'#000'} />
+        {!!title ? (
+          <div className="flex gap-x-2 items-center">
+            <span
+              className="w-[60px] flex items-center justify-center cursor-pointer"
+              onClick={() => back()}
+            >
+              <ArrowRightIconOutline width={20} height={20} fill={'#000'} />
+            </span>
+            <span className="text-base font-semibold">{title}</span>
+          </div>
+        ) : (
+          <NextImage src={tapsiLogo} height={20} width={110} />
+        )}
+        <div className="flex items-center gap-x-4">
+          {hasSearchIcon && (
+            <div
+              className="w-[22px] cursor-pointer"
+              onClick={() => push(routeList.mobileSearch)}
+            >
+              <SearchIconOutline width={22} height={22} fill={'#000'} />
+            </div>
+          )}
+
+          <div
+            className="w-[22px] cursor-pointer"
+            onClick={() => push(routeList.basket)}
+          >
+            <BasketIconOutline width={22} height={22} fill={'#000'} />
+          </div>
         </div>
       </div>
       {hasAddress ? <HomePageAddressBox /> : null}

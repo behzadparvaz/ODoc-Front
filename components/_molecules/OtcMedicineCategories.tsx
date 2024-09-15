@@ -11,6 +11,7 @@ const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 type CategoryItemsDataModel = {
   categoryNameLevel1: string;
   categoryCodeLevel1: string;
+  iconLink?: string;
 };
 
 const OtcMedicineCategories = () => {
@@ -63,9 +64,9 @@ const OtcMedicineCategories = () => {
 
   return (
     <div className="flex px-4 flex-col gap-y-2">
-      <span className="text-base font-medium">نوع دارو</span>
+      <span className="text-base font-medium mb-4">نوع دارو</span>
 
-      <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-y-2 gap-x-2">
+      <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-4">
         {data?.queryResult?.map((item) => (
           <div
             key={item?.categoryCodeLevel1}
@@ -74,9 +75,9 @@ const OtcMedicineCategories = () => {
           >
             <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-lg">
               <Image
-                src={'/static/images/staticImages/emptyProduct.png'}
-                width={68}
-                height={68}
+                src={item?.iconLink}
+                width={56}
+                height={56}
                 alt={item?.categoryNameLevel1}
               />
             </div>

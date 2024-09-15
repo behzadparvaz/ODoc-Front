@@ -10,10 +10,15 @@ import TenderShipmentDetail from '@com/_organisms/TenderShipmentDetail';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { VendorDetailDataModel } from '@utilities/interfaces/vendor';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
+import useModal from '@hooks/useModal';
 
 type TenderItemDetailProps = {
   tenderData: TenderItemsListDataModel;
   vendorData?: VendorDetailDataModel;
+  orderCode: string;
+  offerId: string;
 };
 
 enum Tabs {
@@ -24,7 +29,11 @@ enum Tabs {
 const TenderItemDetail = ({
   tenderData,
   vendorData,
+  orderCode,
+  offerId,
 }: TenderItemDetailProps) => {
+  const { push } = useRouter();
+  const { removeLastModal } = useModal();
   const [tab, setTab] = useState<Tabs>(Tabs.items);
 
   const handleChangeTabs = (e: MouseEvent<HTMLDivElement>) => {
@@ -33,6 +42,11 @@ const TenderItemDetail = ({
     } else {
       setTab(Tabs.description);
     }
+  };
+
+  const handleProccessOrder = () => {
+    removeLastModal();
+    push(`${routeList.tender}/${orderCode}/${offerId}/preview`);
   };
 
   return (
@@ -103,7 +117,10 @@ const TenderItemDetail = ({
               <span className="text-sm leading-5">قابل پرداخت</span>
             </div>
 
-            <Button className="h-[52px] bg-black text-white text-lg font-bold !rounded-full">
+            <Button
+              handleClick={handleProccessOrder}
+              className="h-[52px] bg-black text-white text-lg font-bold !rounded-full"
+            >
               تکمیل خرید
             </Button>
           </div>

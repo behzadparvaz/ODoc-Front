@@ -25,6 +25,14 @@ type CategoriesProps = {
 const Categories = ({ isHomePage }: CategoriesProps) => {
   const categoryMockData: ICategory[] = [
     {
+      title: ' داروی بدون نسخه',
+      link: routeList?.otcMedicine,
+      image: nonPrescriptionMedicine,
+      imageHeight: 64,
+      imageWidth: 64,
+      ratio: isHomePage ? '50%' : '33.3333%',
+    },
+    {
       title: 'داروی با نسخه ',
       link: routeList?.prescriptionRegisteration,
       image: prescriptionMedicine,
@@ -38,14 +46,6 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       image: specialPatients,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: isHomePage ? '50%' : '33.3333%',
-    },
-    {
-      title: ' داروی بدون نسخه',
-      link: routeList?.otcMedicine,
-      image: nonPrescriptionMedicine,
-      imageHeight: 64,
-      imageWidth: 64,
       ratio: '33.3333%',
     },
     {
@@ -87,7 +87,6 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
                 imgWidth={item?.imageWidth}
                 imageUrl={item?.image}
                 name={item?.title}
-                // isHomePage
               />
             </div>
           );
@@ -102,7 +101,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
         return (
           <div
             key={index}
-            style={{ width: '70px' }}
+            style={{ minWidth: '70px', flexBasis: '17.3%' }}
             className="relative text-xs"
           >
             <CategoryItem

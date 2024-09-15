@@ -12,6 +12,7 @@ const nextConfig = {
     domains: [
       'https://trustseal.eNamad.ir',
       'https://logo.samandehi.ir',
+      '5.34.204.173',
     ],
     minimumCacheTTL: 60,
   },
@@ -30,7 +31,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
+            value:
+              'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
           },
         ],
       },
@@ -40,7 +42,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
+            value:
+              'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
           },
         ],
       },
@@ -50,7 +53,8 @@ const nextConfig = {
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
+            value:
+              'public, max-age=180, s-maxage=180, stale-while-revalidate=180',
           },
         ],
       },

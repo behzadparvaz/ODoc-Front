@@ -3498,3 +3498,25 @@ export const FilterIcon = ({
     />
   </svg>
 );
+
+export const TimerIcon = ({
+  width = '32',
+  height = '32',
+  fill = '#fff',
+  className = '',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M16 25.333A9.333 9.333 0 0 0 25.333 16 9.333 9.333 0 1 0 16 25.333zM16 28c6.627 0 12-5.373 12-12S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12zm1.333-12.573V8.533h-2.666v7.994l-.002.002.002.002v.002h.002l4.165 4.166 1.886-1.886-3.387-3.386z"
+      fill={fill}
+    />
+  </svg>
+);
