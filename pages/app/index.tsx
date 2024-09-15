@@ -20,12 +20,17 @@ const HomePage = () => {
   };
 
   return (
-    <MainPageLayout hasBottomNavigation>
+    <MainPageLayout
+      hasBottomNavigation
+      hasFooter
+      hasAddress
+      hasSearchIcon={false}
+    >
       <div className="px-4">
         <SearchBox className="px-4 my-2" />
       </div>
       <div className="my-4 px-2">
-        <Categories />
+        <Categories isHomePage />
       </div>
       {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
           <h2 className="text-lg font-bold">سفارشهای جاری</h2>

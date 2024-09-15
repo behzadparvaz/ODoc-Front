@@ -15,23 +15,17 @@ import { setUserAction } from '@redux/user/userActions';
 import { homePageText } from '@com/texts/homePage';
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
-import {
-  ArrowRightIconOutline,
-  ChevronLeftIconOutline,
-  TickFillIcon,
-  TickIcon,
-} from '@com/icons';
+import { TimerIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
-import Footer from '@com/Layout/Footer';
 
 const Page = () => {
   const router = useRouter();
   const { user } = useSelector((state: RootState) => state?.user);
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
-  const { mutate: createOrderDraft } = useCreateOrderDraft();
+  const { mutate: createOrderDraft, data: draftData } = useCreateOrderDraft();
   const { data: profileQuery } = useGetProfile();
   const profile: any = profileQuery?.queryResult?.[0];
 
@@ -81,66 +75,77 @@ const Page = () => {
       hasBottomGap
       footer={
         <div className="w-full h-full flex justify-between items-center px-4 gap-3">
-          <Button
-            variant={'primary'}
-            className="flex-1"
-            size={'large'}
-            handleClick={onSubmitBasket}
-          >
-            ارسال به داروخانه
-          </Button>
-          <Button
-            variant={'primary'}
-            className="flex-1"
-            size={'large'}
-            buttonType={'outlined'}
-            handleClick={deleteBasket}
-          >
-            حذف سبد خرید
-          </Button>
+          {basket?.products?.length > 0 && (
+            <>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                handleClick={onSubmitBasket}
+              >
+                ارسال به داروخانه ها
+              </Button>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                buttonType={'outlined'}
+                handleClick={deleteBasket}
+              >
+                حذف سبد خرید
+              </Button>
+            </>
+          )}
+          {draftData && (
+            <>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                handleClick={() =>
+                  router.push(`${routeList.ordersHistory}/${draftData}`)
+                }
+              >
+                مشاهده جزییات سفارش
+              </Button>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                buttonType={'outlined'}
+                handleClick={() => router.push(routeList.homeRoute)}
+              >
+                برگشت به خانه
+              </Button>
+            </>
+          )}
         </div>
       }
     >
-      <div className="relative h-[calc(100vh-73px)] mt-[73px] pb-14 md:pb-20 overflow-auto">
-        <OrderInProgress />
+      <div className="relative h-full pb-14 pt-4 md:pb-20 overflow-auto">
+        {!!draftData && <OrderInProgress />}
         {products?.length === 0 ? (
           <BasketEmptyPage />
         ) : (
           <>
-            <div className="flex flex-col px-4 md:px-0">
-              {products?.map((pr) => (
-                <HorizontalProductCard
-                  prInfo={{ ...pr }}
-                  key={pr.irc}
-                  onSuccessChanged={refetchGetBasket}
-                  hasAddToCartButton
-                />
+            <div className="flex flex-col px-4 md:px-0 h-full gap-2 justify-between">
+              {products?.map((pr, index) => (
+                <div key={pr.irc} className="flex flex-col gap-2">
+                  <HorizontalProductCard
+                    prInfo={{ ...pr }}
+                    onSuccessChanged={refetchGetBasket}
+                    hasAddToCartButton
+                  />
+                  {products?.length !== index && (
+                    <div className="w-full px-4">
+                      <div className="w-full h-[1px] bg-grey-200" />
+                    </div>
+                  )}
+                </div>
               ))}
 
               <Address />
             </div>
-
-            <Footer>
-              <div className="w-full flex justify-between gap-3">
-                <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  handleClick={onSubmitBasket}
-                >
-                  ارسال به داروخانه
-                </Button>
-                <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  buttonType={'outlined'}
-                  handleClick={deleteBasket}
-                >
-                  حذف سبد خرید
-                </Button>
-              </div>
-            </Footer>
           </>
         )}
       </div>
@@ -217,25 +222,17 @@ const BasketEmptyPage = () => {
 };
 
 const OrderInProgress = () => {
-  const router = useRouter();
   return (
-    <div className="bg-surface-800 mx-4 rounded-lg px-3 py-4 text-white flex gap-3 items-start">
-      <span className="bg-white rounded-full p-1">
-        <TickIcon width={14} height={14} className="stroke-surface-800" />
+    <div className="flex flex-col items-center gap-4">
+      <span className="bg-yellow-400 rounded-full w-[56px] h-[56px] flex justify-center items-center">
+        <TimerIcon width="32" height="32" fill={colors.black} />
       </span>
-      <div className="text-sm font-light flex flex-col gap-4 items-start">
-        <span>سفارش شما به داروخانه های اطراف با موفقیت ارسال شد.</span>
-
-        <Button
-          size={'small'}
-          className="bg-surface-900 py-4"
-          handleClick={() => router.push(routeList?.tender)}
-        >
-          <div className="flex text-sm items-center font-light">
-            <span>جزییات سفارش</span>
-            <ChevronLeftIconOutline width={24} height={24} fill={'white'} />
-          </div>
-        </Button>
+      <div className="text-sm font-light flex flex-col gap-4 items-center">
+        <span>سفارش شما با موفقیت ثبت شد</span>
+        <span>
+          سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
+          منتظر تأیید داروخانه باشید
+        </span>
       </div>
     </div>
   );

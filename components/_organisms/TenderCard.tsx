@@ -8,9 +8,13 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 
 import TenderItemDetailModal from './TenderItemDetailModal';
 
-type TenderCardProps = { data: TenderItemsListDataModel };
+type TenderCardProps = {
+  data: TenderItemsListDataModel;
+  orderCode: string;
+  offerId: string;
+};
 
-const TenderCard = ({ data }: TenderCardProps) => {
+const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
   const { addModal } = useModal();
   const { data: vendorData, isLoading: vendorIsLoading } = useGetVendorDetails(
     data?.vendorCode,
@@ -22,9 +26,12 @@ const TenderCard = ({ data }: TenderCardProps) => {
       props: {
         tenderData: data,
         vendorData: vendorData,
+        orderCode: orderCode,
+        offerId: offerId,
       },
     });
   };
+
   return (
     <div className="border border-grey-200 rounded-xl">
       <div className="px-4 py-2 flex items-center gap-2">

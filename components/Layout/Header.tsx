@@ -22,7 +22,7 @@ const Header = ({
   return (
     <div
       className={classNames(
-        'relative flex items-center',
+        'relative w-full flex items-center',
         title && 'border-b border-grey-200',
         className,
       )}

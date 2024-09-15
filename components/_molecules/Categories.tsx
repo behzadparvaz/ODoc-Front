@@ -6,6 +6,7 @@ import specialPatients from '@static/images/staticImages/mainCategories/specialP
 import nonPrescriptionMedicine from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import cosmetics from '@static/images/staticImages/mainCategories/cosmetics.png';
 import supplement from '@static/images/staticImages/mainCategories/supplement.png';
+import ScrollSlider from './ScrollSlider.nd';
 
 interface ICategory {
   title: string;
@@ -17,7 +18,12 @@ interface ICategory {
   ratio: string;
   query?: string;
 }
-const Categories = () => {
+
+type CategoriesProps = {
+  isHomePage?: boolean;
+};
+
+const Categories = ({ isHomePage }: CategoriesProps) => {
   const categoryMockData: ICategory[] = [
     {
       title: 'داروی بیماران خاص',
@@ -26,7 +32,7 @@ const Categories = () => {
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
-      query:`${'?title=داروی با نسخه&type=withPr'}`,
+      query: `${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
       title: 'داروی با نسخه ',
@@ -35,7 +41,7 @@ const Categories = () => {
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
-      query:`${'?title=داروی با نسخه&type=SP'}`,
+      query: `${'?title=داروی با نسخه&type=SP'}`,
     },
     {
       title: ' داروی بدون نسخه',
@@ -64,14 +70,42 @@ const Categories = () => {
       ratio: '33.3333%',
     },
   ];
+
+  if (isHomePage) {
+    return (
+      <div className="flex flex-wrap gap-y-4 w-full">
+        {categoryMockData?.map((item: ICategory, index) => {
+          return (
+            <div
+              key={index}
+              style={{ width: item?.ratio }}
+              className="relative px-2"
+            >
+              <CategoryItem
+                isSoon={item?.isSoon}
+                className=" bg-grey-50 w-full rounded-lg"
+                link={item?.link + '?title=' + item?.title}
+                imgHeight={item?.imageHeight}
+                alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
+                imgWidth={item?.imageWidth}
+                imageUrl={item?.image}
+                name={item?.title}
+              />
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-wrap gap-y-4 w-full">
+    <ScrollSlider className="gap-x-4 pr-4">
       {categoryMockData?.map((item: ICategory, index) => {
         return (
           <div
             key={index}
-            style={{ width: item?.ratio }}
-            className="relative px-2"
+            style={{ minWidth: '70px', flexBasis: '17.3%' }}
+            className="relative text-xs"
           >
             <CategoryItem
               isSoon={item?.isSoon}
@@ -86,7 +120,7 @@ const Categories = () => {
           </div>
         );
       })}
-    </div>
+    </ScrollSlider>
   );
 };
 export default Categories;

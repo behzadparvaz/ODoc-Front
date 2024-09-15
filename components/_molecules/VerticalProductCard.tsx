@@ -1,19 +1,21 @@
-import React, { CSSProperties } from 'react';
-import AddToCartButton from './AddToCartButton'; // Make sure the path is correct
-import { colors } from '@configs/Theme';
+import React, { CSSProperties, useEffect, useState } from 'react';
 import NextImage from '@com/_core/NextImage';
-import Badge from './Badge';
 import AddButton from '@com/_atoms/AddButton';
 import {
   useAddProductToBasket,
   useDeleteProductBasket,
+  useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import { Level3ProductsDataModel } from './OtcProductsSlider';
 
-type Props = {
-  productData?: any;
+type ProductDataModel = Level3ProductsDataModel;
+
+type VerticalProductCardProps<PrT> = {
+  productData?: PrT;
   className?: string;
   style?: CSSProperties;
   hasAddToCart?: boolean;
+  onSuccessChanged?: () => void;
 };
 
 const VerticalProductCard = ({
@@ -21,59 +23,87 @@ const VerticalProductCard = ({
   className = '',
   style = {},
   hasAddToCart = true,
-}: Props) => {
-  // const { mutate: addToCart, isLoading: isAddingToCart } =
-  //   useAddProductToBasket({
-  //     onSuccess: () => {
-  //       onSuccessChanged?.();
-  //     },
-  //   });
+  onSuccessChanged,
+}: VerticalProductCardProps<ProductDataModel>) => {
+  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
+    Basket & { productsById: any }
+  >({
+    select: (res: Basket) => ({
+      ...res,
+      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
+    }),
+    enabled: true,
+  });
+  const { mutate: addToCart, isLoading: isAddingToCart } =
+    useAddProductToBasket({
+      onSuccess: () => {
+        onSuccessChanged?.();
+      },
+    });
 
-  // const { mutate: popProductOfCart } = useDeleteProductBasket({
-  //   onSuccess: () => {
-  //     onSuccessChanged?.();
-  //   },
-  // });
+  const { mutate: popProductOfCart } = useDeleteProductBasket({
+    onSuccess: () => {
+      onSuccessChanged?.();
+    },
+  });
 
-  // const onDeleteProduct = ({ irc }) =>
-  //   popProductOfCart({ type: 'IRC', irc: irc });
+  const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
+    () => {
+      const findItem = basket?.products?.find(
+        (basketItem) => basketItem.irc === productData?.irc,
+      );
+      return findItem?.quantity ?? 0;
+    },
+  );
 
-  // const onChangeCount = ({ irc, quantity }) =>
-  //   addToCart({
-  //     type: 'IRC',
-  //     orderType: 'OTC',
-  //     irc: irc,
-  //     quantity: quantity,
-  //   });
+  const onDeleteProduct = ({ irc }) =>
+    popProductOfCart({ type: 'IRC', irc: irc });
 
-  // const onChange = (count: number) => {
-  //   if (count > 0) {
-  //     onChangeCount({ ...prInfo, quantity: count });
-  //   } else {
-  //     onDeleteProduct?.(prInfo);
-  //   }
-  // };
+  const onChangeCount = ({ irc, quantity }) =>
+    addToCart({
+      type: 'IRC',
+      orderType: 'OTC',
+      irc: irc,
+      quantity: quantity,
+    });
+
+  const onChange = (count: number) => {
+    if (count > 0) {
+      onChangeCount({ ...productData, quantity: count });
+    } else {
+      onDeleteProduct?.(productData);
+    }
+  };
+
+  useEffect(() => {
+    setProductBasketQuantity(
+      basket?.products?.find(
+        (basketItem) => basketItem.irc === productData?.irc,
+      )?.quantity ?? 0,
+    );
+  }, [basket]);
+
   return (
-    <div className={`w-[157px] py-2 px-4 ${className}`} style={style}>
-      {/* Product Image */}
-      <div className="h-[80px] w-[80px] mx-auto mb-4">
+    <div
+      className={`w-[157px] h-[194px] shadow-[0_4px_16px_rgba(0,0,0,0.1)]  py-2 px-4 ${className} rounded-lg`}
+      style={style}
+    >
+      <div className="h-[80px] w-[80px] mx-auto mb-4 rounded-lg overflow-hidden">
         <NextImage src={productData?.imageLink} width={80} height={80} />
       </div>
 
-      {/* Product Name */}
-      <h2 className="text-sm font-medium text-center mb-2 min-h-[48px] line-clamp-2">
+      <h2 className="text-sm font-medium text-center min-h-[46px] line-clamp-2 ">
         {productData?.productName}
       </h2>
 
-      {/* Price and Discount */}
-      <div className="text-center mb-4">
-        {!hasAddToCart && (
+      {/* <div className="text-center mb-4">
+         {!hasAddToCart && (
           <span className="text-xl font-semibold flex items-center gap-x-1 justify-center w-full">
             {productData?.discountPrice?.toLocaleString('fa-IR')}
             <span className="text-xs font-medium">تومان</span>
           </span>
-        )}
-        {!hasAddToCart && (
+        )} 
+          {!hasAddToCart && (
           <div className="flex items-center justify-between">
             <Badge
               value={productData?.discountPercent + '%'}
@@ -84,18 +114,16 @@ const VerticalProductCard = ({
               {(237000)?.toLocaleString('fa-IR')}
             </span>
           </div>
-        )}
-      </div>
+        )} 
+      </div> */}
 
-      {/* Add to Cart Button */}
       {hasAddToCart ? (
-        <div className="flex justify-center items-center">
-          <AddToCartButton />
-          {/* <AddButton
-            count={prInfo.quantity}
+        <div className="flex justify-center items-center pt-2">
+          <AddButton
+            count={productBasketQuantity}
             onChangeCount={onChange}
             isLoading={isAddingToCart}
-          /> */}
+          />
         </div>
       ) : null}
     </div>

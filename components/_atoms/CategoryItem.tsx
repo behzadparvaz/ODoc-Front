@@ -11,6 +11,7 @@ interface Props {
   imgHeight?: number;
   link: string;
   isSoon?: boolean;
+  isHomePage?: boolean;
 }
 
 const CategoryItem = ({
@@ -23,6 +24,7 @@ const CategoryItem = ({
   imgWidth = 70,
   imgHeight = 70,
   link,
+  isHomePage,
 }: Props) => {
   return (
     <NextLink href={link}>
@@ -43,13 +45,13 @@ const CategoryItem = ({
         {isSoon ? (
           <span
             style={{ backgroundColor: '#276EF1' }}
-            className="text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-10"
+            className={`text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-10 ${isHomePage && '-left-1'}`}
           >
             به زودی
           </span>
         ) : null}
         <div
-          className={`flex ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`}
+          className={`flex bg-grey-50 rounded-xl ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`}
         >
           <NextImage
             width={imgWidth}

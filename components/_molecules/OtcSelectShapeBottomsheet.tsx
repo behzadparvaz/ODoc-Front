@@ -28,6 +28,7 @@ const OtcSelectShapeBottomsheet = ({
 
   return (
     <BottomModalContainer
+      title="انتخاب شکل دارو"
       height={400}
       style={{
         maxWidth: '412px',

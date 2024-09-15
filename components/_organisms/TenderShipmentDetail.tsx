@@ -1,4 +1,4 @@
-import { BikerOutlineIcon, ClockIconOutline, StarIconFill } from '@com/icons';
+import { ClockIconOutline, StarIconFill } from '@com/icons';
 import { colors } from '@configs/Theme';
 
 import { TenderItemsDeliveryDataModel } from '@utilities/interfaces/tender';
@@ -26,22 +26,13 @@ const TenderShipmentDetail = ({
         </span>
       </div>
       <div className="flex flex-col gap-y-4">
-        <div className="flex items-center justify-between">
-          <span className="flex justify-center items-center gap-x-2 text-grey-400 text-sm">
-            <BikerOutlineIcon fill={colors.grey[400]} />
-            {'delivery.type'}
-          </span>
-
-          <span className="flex items-center text-sm text-grey-500">
-            {!!delivery?.deliveryPrice && delivery?.deliveryPrice}
-            <span className="text-sm text-grey-500">
-              {delivery?.deliveryPrice ? 'تومان' : 'رایگان'}
-            </span>
-          </span>
-        </div>
         <div className="flex items-center justify-between  text-sm text-grey-500">
           <span className="flex justify-center items-center gap-x-2">
-            <ClockIconOutline height={18} width={18} fill={colors.grey[400]} />
+            <ClockIconOutline
+              height={18}
+              width={18}
+              stroke={colors.grey[400]}
+            />
             ساعت کاری
           </span>
 

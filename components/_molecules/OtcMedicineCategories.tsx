@@ -11,6 +11,7 @@ const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 type CategoryItemsDataModel = {
   categoryNameLevel1: string;
   categoryCodeLevel1: string;
+  iconLink?: string;
 };
 
 const OtcMedicineCategories = () => {
@@ -31,18 +32,18 @@ const OtcMedicineCategories = () => {
   if (!!selectedCategory) {
     return (
       <>
-        <div className="h-10 flex items-center">
-          <ScrollSlider className="px-4 gap-x-2">
+        <div className="h-10 flex items-center px-4">
+          <ScrollSlider className="gap-x-2">
             {data?.queryResult?.map((item) => {
               return (
                 <div
                   key={item?.categoryCodeLevel1}
                   onClick={() => handleSelectCategory(item)}
                   className={classNames(
-                    'w-max h-6 flex items-center px-2 bg-grey-50 text-xs rounded-full cursor-pointer',
+                    'w-max h-8 flex items-center px-3 bg-white text-sm rounded-full cursor-pointer border border-grey-200',
                     item?.categoryCodeLevel1 ===
                       selectedCategory?.categoryCodeLevel1 &&
-                      'bg-orange-500 text-white',
+                      '!bg-grey-50 border-1.5 !border-black -order-1',
                   )}
                 >
                   {item?.categoryNameLevel1}
@@ -62,27 +63,31 @@ const OtcMedicineCategories = () => {
   }
 
   return (
-    <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-y-2 gap-x-2">
-      {data?.queryResult?.map((item) => (
-        <div
-          key={item?.categoryCodeLevel1}
-          onClick={() => handleSelectCategory(item)}
-          className="h-[100px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-grey-50 cursor-pointer"
-        >
-          <div className="w-[68px] h-[68px] flex items-center justify-center overflow-hidden rounded-lg">
-            <Image
-              src={'/static/images/staticImages/emptyProduct.png'}
-              width={68}
-              height={68}
-              alt={item?.categoryNameLevel1}
-            />
-          </div>
+    <div className="flex px-4 flex-col gap-y-2">
+      <span className="text-base font-medium mb-4">نوع دارو</span>
 
-          <span className="text-xs w-full text-center truncate">
-            {item?.categoryNameLevel1}
-          </span>
-        </div>
-      ))}
+      <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-4">
+        {data?.queryResult?.map((item) => (
+          <div
+            key={item?.categoryCodeLevel1}
+            onClick={() => handleSelectCategory(item)}
+            className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-grey-50 cursor-pointer gap-y-2"
+          >
+            <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-lg">
+              <Image
+                src={item?.iconLink}
+                width={56}
+                height={56}
+                alt={item?.categoryNameLevel1}
+              />
+            </div>
+
+            <span className="text-xs w-full text-center truncate">
+              {item?.categoryNameLevel1}
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
