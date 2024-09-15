@@ -77,7 +77,7 @@ export const MainLayout = ({
         {!hasHeader && (
           <div className="w-full col-span-full row-start-1 row-end-2 flex items-center justify-start p-5">
             <Image
-              src={'/static/images/staticImages/daroo-logo.svg'}
+              src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
               width={111}
               height={20}
               alt="tapsi-daroo-logo"
