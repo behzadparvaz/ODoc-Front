@@ -6,7 +6,7 @@ export const orderText = {
   enterPhoneNumber: 'شماره تماس را وارد کنید',
   enterDoctorName: 'نام پزشک را وارد کنید',
   insuranceType: 'نوع بیمه خود را مشخص کنید',
-  additionalInsuranceType: 'نوع بیمه تکمیلی',
+  additionalInsuranceType: 'نوع بیمه تکمیلی خود را مشخص کنید',
   doctorName: 'نام پزشک',
   description: 'توضیحات',
   reasonCancelationOrder: 'دلیل لغو سفارش',
@@ -18,4 +18,5 @@ export const orderText = {
   familyMembers: 'افراد تحت تکفل',
   failurePaymentText: 'پرداخت شما با خطا مواجه شد',
   successPaymentText: 'پرداخت شما با موفقیت انجام شد',
+  selectDrugStore: 'داروخانه را انتخاب کنید',
 };

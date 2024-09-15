@@ -15,6 +15,7 @@ interface ICategory {
   imageWidth: number;
   isSoon?: boolean;
   ratio: string;
+  query?: string;
 }
 const Categories = () => {
   const categoryMockData: ICategory[] = [
@@ -25,6 +26,7 @@ const Categories = () => {
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
+      query:`${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
       title: 'داروی با نسخه ',
@@ -33,6 +35,7 @@ const Categories = () => {
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
+      query:`${'?title=داروی با نسخه&type=SP'}`,
     },
     {
       title: ' داروی بدون نسخه',
@@ -73,7 +76,7 @@ const Categories = () => {
             <CategoryItem
               isSoon={item?.isSoon}
               className=" bg-grey-50 w-full rounded-lg"
-              link={item?.link + '?title=' + item?.title}
+              link={`${item?.link}${item?.query ? item?.query : ''}`}
               imgHeight={item?.imageHeight}
               alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
               imgWidth={item?.imageWidth}
