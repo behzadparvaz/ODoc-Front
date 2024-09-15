@@ -9,9 +9,7 @@ import { MainLayout } from '@com/Layout';
 import Select from '@com/_atoms/Select';
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import NextImage from '@com/_core/NextImage';
 
-import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
 
 const statusesDictionary = {
   draft: 'سفارشات جدید',

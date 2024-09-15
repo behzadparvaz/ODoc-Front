@@ -19,17 +19,17 @@ interface ICategory {
 const Categories = () => {
   const categoryMockData: ICategory[] = [
     {
-      title: 'داروی با نسخه ',
+      title: 'داروی بیماران خاص',
       link: routeList?.prescriptionRegisteration,
-      image: prescriptionMedicine,
+      image: specialPatients,
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
     },
     {
-      title: 'داروی بیماران خاص',
+      title: 'داروی با نسخه ',
       link: routeList?.prescriptionRegisteration,
-      image: specialPatients,
+      image: prescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
