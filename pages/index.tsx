@@ -3,8 +3,7 @@ import { HeadsetIconOutline, NewArrowLeftIconOutline } from '@com/icons';
 import { routeList } from '@routes/routeList';
 import NextLink from '@com/_core/NextLink';
 
-import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
-import TapsiWhiteLogo from '@static/images/staticImages/daroo-logo.svg';
+import TapsiWhiteLogo from '@static/images/staticImages/tapsi-doctor-logo.svg';
 import firstSlidePNG from '@static/images/staticImages/first-slide.png';
 import secondSlidePNG from '@static/images/staticImages/second-slide.png';
 import { colors } from '@configs/Theme';

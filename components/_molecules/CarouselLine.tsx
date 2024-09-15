@@ -3,6 +3,8 @@ import SectionTitle from './SectionTitle.nd';
 import VerticalProductCard from './VerticalProductCard';
 import { ArrowLeftIconOutline } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
@@ -12,6 +14,7 @@ interface Props {
 }
 
 const CarouselLine = ({ className = '', data }: Props) => {
+  const { push } = useRouter();
   return (
     <div className={`${className} flex flex-col gap-y-3`}>
       <SectionTitle
@@ -29,9 +32,11 @@ const CarouselLine = ({ className = '', data }: Props) => {
             />
           );
         })}
-
         {/* view all */}
-        <div className="w-[157px] h-[222px] flex flex-col items-center justify-center border-r border-grey-100">
+        <div
+          onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
+          className="w-[157px] h-[222px] flex flex-col items-center justify-center border-r border-grey-100"
+        >
           <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
             <ArrowLeftIconOutline width={20} height={20} fill="#000" />
           </span>

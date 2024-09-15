@@ -5,10 +5,11 @@ import { MainLayout } from '@com/Layout';
 const OtcMedicinePage = () => {
   return (
     <MainLayout hasBottomNavigation>
-      <div className="w-full flex flex-col gap-y-4 py-6 px-4">
+      <div className="w-full flex flex-col gap-y-4 pb-6 px-2">
         <Categories />
-
-        <OtcMedicineCategories />
+        <div className="px-2">
+          <OtcMedicineCategories />
+        </div>
       </div>
     </MainLayout>
   );
