@@ -16,6 +16,7 @@ export const routeList = {
   orderDetail: '/app/order-detail',
   mobileSearch: '/app/mobileSearch',
   search: '/app/search',
+  offer: '/app/offer',
   category: '/app/category',
   searchByImage: '/app/searchByImage',
   basket: '/app/basket',

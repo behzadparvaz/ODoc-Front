@@ -1,15 +1,15 @@
 import { useInfiniteQuery } from 'react-query';
 import { GetSearchProducts } from './plpApi';
-import { GetCategoryLevel4 } from '@api/category/categoryApis';
+import { GetCarouselById } from '@api/promotion/promotion';
 
 export const useGetPlpInfiniteContent = (body) => {
-  const isCatLevel4Page = body?.CategoryCodeLevel2;
+  const carouselId = body?.carouselId;
   const handleGetDataByCheckPage = () => {
-    if (isCatLevel4Page) {
+    if (carouselId) {
       return useInfiniteQuery<any>(
-        ['getCategoryLevel4', body],
+        ['getCarouselById', body],
         ({ pageParam }) =>
-          GetCategoryLevel4({
+          GetCarouselById({
             ...body,
             pageNumber: pageParam || body.pageNumber,
           }),
@@ -19,7 +19,7 @@ export const useGetPlpInfiniteContent = (body) => {
               ? undefined
               : data?.pageNumber + 1;
           },
-          enabled: !!body && !!body.CategoryCodeLevel2,
+          enabled: !!body && !!body.carouselId,
         },
       );
     } else {
