@@ -103,7 +103,7 @@ export const MainLayout = ({
               }
             
               className={classNames(
-                'col-span-full row-start-1 row-end-2',
+                'col-span-full row-start-1 row-end-2 flex-1',
                 headerClassName,
               )}
               handleClickRightIcon={

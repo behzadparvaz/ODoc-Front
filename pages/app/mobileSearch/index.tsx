@@ -1,14 +1,8 @@
 import dynamic from 'next/dynamic';
-import { ArrowRightIconOutline, SearchIconOutline } from '@com/icons';
-import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import { routeList } from '@routes/routeList';
-import {
-  mobileModeMaxWidthClassName,
-  shouldShowMobileMode,
-} from '@configs/ControlMobileView';
 import { MainLayout } from '@com/Layout';
 
 const EmptyContent = dynamic(() => import('@com/_atoms/EmptyContent'));
@@ -73,17 +67,17 @@ const MobileSearch = () => {
             </Button>
           ) : null}
         </div>
-        {showResult ? (
+        {/* {showResult ? (
           <p className="flex gap-x-1 items-center text-black text-sm mt-4 px-4">
             <SearchIconOutline height={24} width={24} fill={'#000'} />
             {mobileSearchTexts?.searchFor}
             <span className="font-semibold">«{searchText}»</span>
           </p>
-        ) : null}
+        ) : null} */}
       </div>
-      {showResult && (
+      {/* {showResult && (
         <SearchSuggestion className="pt-1" searchText={searchText} />
-      )}
+      )} */}
 
       {searchText?.length < 2 && (
         <>
