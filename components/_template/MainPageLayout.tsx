@@ -4,7 +4,6 @@ import {
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
 import classNames from 'classnames';
-import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
 import dynamic from 'next/dynamic';
 import {
   ArrowRightIconOutline,
@@ -45,8 +44,7 @@ const MainPageLayout = ({
   return (
     <div
       className={classNames(
-        hasBottomNavigation && hasAddress && 'pb-[54px]',
-        `w-full h-screen pt-[54px] bg-white flex flex-col`,
+        ` w-full h-screen pt-[54px] bg-white flex flex-col`,
         shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
       )}
     >
@@ -67,7 +65,11 @@ const MainPageLayout = ({
             <span className="text-base font-semibold">{title}</span>
           </div>
         ) : (
-          <NextImage src={tapsiLogo} height={20} width={110} />
+          <NextImage
+            src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+            height={20}
+            width={110}
+          />
         )}
         <div className="flex items-center gap-x-4">
           {hasSearchIcon && (
@@ -96,7 +98,17 @@ const MainPageLayout = ({
           </Footer>
         ) : null}
       </div>
-      {hasBottomNavigation && <BottomNavigation />}
+
+      {hasBottomNavigation ? (
+        <div
+          className={classNames(
+            'col-span-full row-start-3 row-end-4',
+            hasBottomNavigation && 'bg-grey-50 border-t border-grey-100',
+          )}
+        >
+          <BottomNavigation />
+        </div>
+      ) : null}
     </div>
   );
 };

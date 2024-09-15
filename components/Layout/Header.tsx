@@ -41,7 +41,7 @@ const Header = ({
       )}
 
       {searchSection ? (
-        <div className="w-full pl-4">{searchSection}</div>
+        <div className="w-full">{searchSection}</div>
       ) : (
         <span className="text-base font-medium leading-7">{title}</span>
       )}

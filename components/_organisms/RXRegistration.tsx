@@ -10,12 +10,7 @@ const RXRegistration = () => {
   const { data, isLoading: profileDataLoading } = useGetProfile();
 
   return (
-    <MainLayout
-      title="سفارش داروی با نسخه"
-      hasBottomGap
-      hasHeader
-      hasBackButton
-    >
+    <MainLayout title="سفارش دارو " hasBottomGap hasHeader hasBackButton>
       <div className="p-4">
         {profileDataLoading === false ? (
           <OrderRegisterSteps data={data} />

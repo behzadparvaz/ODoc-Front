@@ -1,4 +1,7 @@
-import { useGetInsurances } from '@api/order/orderApis.rq';
+import {
+  useGetInsurances,
+  useGetSupplementaryInsurances,
+} from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
@@ -10,8 +13,10 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Profile } from '@utilities/interfaces/user';
 import useNotification from '@hooks/useNotification';
-import Footer from '@com/Layout/Footer';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
+import { useGetVendors } from '@api/vendor/vendor.rq';
+import Accordion from './Accordion';
+import { useRouter } from 'next/router';
 
 interface Props {
   submitForm?: (value) => void;
@@ -19,14 +24,20 @@ interface Props {
 }
 
 const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
+  const { query } = useRouter();
   const { data: insurances } = useGetInsurances();
+  const { data: supplementaryInsurances } = useGetSupplementaryInsurances();
+  const { data: vendors } = useGetVendors();
   const { openNotification } = useNotification();
-
+  const isSpecialPatient = query?.type === 'SP';
   const [initialValues] = useState({
     referenceNumber: '',
     nationalCode: userInfo?.nationalCode,
     phoneNumber: userInfo?.phoneNumber,
     insuranceTypeId: 1,
+    supplementaryInsuranceType: 0,
+    isSpecialPatient: false,
+    vendorCode: '0',
   });
 
   const formik = useFormik({
@@ -38,6 +49,11 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         nationalCode: value?.nationalCode,
         phoneNumber: value?.phoneNumber,
         insuranceTypeId: Number(value?.insuranceTypeId),
+        supplementaryInsuranceType: isSpecialPatient
+          ? Number(value?.supplementaryInsuranceType)
+          : null,
+        isSpecialPatient: isSpecialPatient ? true : false,
+        vendorCode: isSpecialPatient ? value?.vendorCode : '',
       };
       if (!value?.nationalCode) {
         openNotification({
@@ -50,10 +66,6 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       }
     },
   });
-
-  const onChangeInsurance = (val: number) => {
-    formik.setValues({ ...formik.values, insuranceTypeId: val });
-  };
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
@@ -101,33 +113,114 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         value={formik.values.phoneNumber}
         onChange={formik.handleChange}
       />
-      <label className="font-semibold text-sm text-gray-800 block mt-1 mb-4">
-        {orderText?.insuranceType}
-      </label>
-      {insurances?.map((item) => (
-        <div key={item.name} className="px-2">
-          <CheckBox
-            handleChange={() => onChangeInsurance(item.id)}
-            label={item.name}
-            labelClassName="text-sm mr-6 font-normal text-grey-700"
-            name="insuranceTypeId"
-            id={item.id}
-            value={item.id}
-            icon={
-              <TickIcon
-                width={15}
-                height={15}
-                stroke={colors.white}
-                className="mx-auto mt-[1px]"
-              />
+      <Accordion
+        header={
+          <label className="font-semibold text-sm text-gray-800 block">
+            {orderText?.insuranceType}
+          </label>
+        }
+        content={insurances?.map((item, index) => (
+          <div key={item.name} className="px-2">
+            <CheckBox
+              handleChange={formik.handleChange}
+              label={item.name}
+              labelClassName="text-sm mr-6 font-normal text-grey-700"
+              name="insuranceTypeId"
+              id={item.id}
+              value={item.id}
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              checkedClassName="!bg-grey-500"
+              boxClassName="w-4 h-4 rounded-full border-grey-800"
+              checked={Number(formik.values.insuranceTypeId) === item.id}
+              className="w-full mb-4 z-0"
+            />
+          </div>
+        ))}
+      />
+      {isSpecialPatient ? (
+        <>
+          <Accordion
+            header={
+              <label className="font-semibold text-sm text-gray-800 block">
+                {orderText?.additionalInsuranceType}
+              </label>
             }
-            checkedClassName="!bg-grey-500"
-            boxClassName="w-4 h-4 rounded-full border-grey-800"
-            checked={Number(formik.values.insuranceTypeId) === item.id}
-            className="w-full mb-4 z-0"
+            content={supplementaryInsurances?.map((item, index) => (
+              <div key={item.name} className="px-2">
+                <CheckBox
+                  handleChange={formik.handleChange}
+                  label={item.name}
+                  labelClassName="text-sm mr-6 font-normal text-grey-700"
+                  name="supplementaryInsuranceType"
+                  id={item.id}
+                  value={item.id}
+                  icon={
+                    <TickIcon
+                      width={15}
+                      height={15}
+                      stroke={colors.white}
+                      className="mx-auto mt-[1px]"
+                    />
+                  }
+                  checkedClassName="!bg-grey-500"
+                  boxClassName="w-4 h-4 rounded-full border-grey-800"
+                  checked={
+                    Number(formik.values.supplementaryInsuranceType) === item.id
+                  }
+                  className="w-full mb-4 z-0"
+                />
+              </div>
+            ))}
           />
-        </div>
-      ))}
+          <Accordion
+            header={
+              <label className="font-semibold text-sm text-gray-800 block">
+                {orderText?.selectDrugStore}
+              </label>
+            }
+            content={vendors?.map((item) => (
+              <div key={item.vendorCode} className="px-2">
+                <CheckBox
+                  handleChange={() => {
+                    const currentVendorCode = formik?.values?.vendorCode;
+                    formik.setFieldValue(
+                      'vendorCode',
+                      currentVendorCode === item?.vendorCode
+                        ? ''
+                        : item?.vendorCode, // Deselect if already selected
+                    );
+                  }}
+                  label={item.vendorName}
+                  labelClassName="text-sm mr-6 font-normal text-grey-700"
+                  name="vendorCode"
+                  id={item?.vendorCode}
+                  value={item?.vendorCode}
+                  icon={
+                    <TickIcon
+                      width={15}
+                      height={15}
+                      stroke={colors.white}
+                      className="mx-auto mt-[1px]"
+                    />
+                  }
+                  checkedClassName="!bg-grey-500"
+                  boxClassName="w-4 h-4 rounded-full border-grey-800"
+                  checked={formik.values.vendorCode === item?.vendorCode}
+                  className="w-full mb-4 z-0"
+                />
+              </div>
+            ))}
+          />
+        </>
+      ) : null}
+
       <FixBottomSection>
         <div className="w-full p-4">
           <Button

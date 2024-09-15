@@ -16,6 +16,7 @@ interface ICategory {
   imageWidth: number;
   isSoon?: boolean;
   ratio: string;
+  query?: string;
 }
 
 type CategoriesProps = {
@@ -25,12 +26,13 @@ type CategoriesProps = {
 const Categories = ({ isHomePage }: CategoriesProps) => {
   const categoryMockData: ICategory[] = [
     {
-      title: ' داروی بدون نسخه',
-      link: routeList?.otcMedicine,
-      image: nonPrescriptionMedicine,
-      imageHeight: 64,
-      imageWidth: 64,
-      ratio: isHomePage ? '50%' : '33.3333%',
+      title: 'داروی بیماران خاص',
+      link: routeList?.prescriptionRegisteration,
+      image: specialPatients,
+      imageHeight: 68,
+      imageWidth: 68,
+      ratio: '50%',
+      query: `${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
       title: 'داروی با نسخه ',
@@ -38,14 +40,15 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       image: prescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: isHomePage ? '50%' : '33.3333%',
+      ratio: '50%',
+      query: `${'?title=داروی با نسخه&type=SP'}`,
     },
     {
-      title: 'داروی بیماران خاص',
-      link: routeList?.prescriptionRegisteration,
-      image: specialPatients,
-      imageHeight: 68,
-      imageWidth: 68,
+      title: ' داروی بدون نسخه',
+      link: routeList?.otcMedicine,
+      image: nonPrescriptionMedicine,
+      imageHeight: 64,
+      imageWidth: 64,
       ratio: '33.3333%',
     },
     {
@@ -106,8 +109,8 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className=" w-full rounded-lg"
-              link={item?.link + '?title=' + item?.title}
+              className=" bg-grey-50 w-full rounded-lg"
+              link={`${item?.link}${item?.query ? item?.query : ''}`}
               imgHeight={item?.imageHeight}
               alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
               imgWidth={item?.imageWidth}

@@ -8,8 +8,6 @@ interface Props {
 }
 const ProductDetail = ({ className = '', data }: Props) => {
   const { query } = useRouter();
-  console.log(data, 'rfz');
-
   return (
     <div className={`w-full ${className}`}>
       <SectionTitle
