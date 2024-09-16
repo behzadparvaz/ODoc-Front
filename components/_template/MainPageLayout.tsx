@@ -12,6 +12,7 @@ import {
 } from '@com/icons';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
+import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 
 const BottomNavigation = dynamic(() => import('@com/Layout/BottomNavigation'));
 const HomePageAddressBox = dynamic(
@@ -41,6 +42,7 @@ const MainPageLayout = ({
   hasSearchIcon = true,
 }: Props) => {
   const { push, back } = useRouter();
+  const { data: basketDatat } = useGetCurrentBasket();
   return (
     <div
       className={classNames(
@@ -82,9 +84,14 @@ const MainPageLayout = ({
           )}
 
           <div
-            className="w-[22px] cursor-pointer"
+            className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
             onClick={() => push(routeList.basket)}
           >
+            {!!basketDatat?.products?.length && (
+              <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-red-500 text-base z-10 text-white flex justify-center items-center">
+                {basketDatat?.products?.length}
+              </span>
+            )}
             <BasketIconOutline width={22} height={22} fill={'#000'} />
           </div>
         </div>

@@ -16,6 +16,7 @@ import Input from '@com/_atoms/Input.nd';
 import { useFormik } from 'formik';
 import { VoucherCodeSchema } from '@utilities/validationSchemas';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
+import Address from '@com/_organisms/Address';
 
 const Preview = () => {
   const { query } = useRouter();
@@ -104,23 +105,7 @@ const Preview = () => {
         />
       </div>
       <div className="w-full  flex flex-col gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
-        <div className="w-full flex justify-between gap-3 p-5">
-          <div className="flex flex-col">
-            <p className="text-base font-semibold">ارسال به</p>
-            <p className="text-md text-grey-400">
-              کوی نصر، خیابان صائمی، خیابان ایزدی
-            </p>
-          </div>
-
-          <Button
-            handleClick={handleOpenModal}
-            size="large"
-            variant="primary"
-            color="primary"
-          >
-            تغییر آدرس
-          </Button>
-        </div>
+        <Address />
 
         <div className="px-4">
           <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />

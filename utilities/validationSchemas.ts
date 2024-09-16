@@ -54,7 +54,7 @@ export const userPasswordSchema = Yup.object().shape({
   ConfrimPassword: Yup.string().required('این فیلد الزامی است'),
 });
 export const OrderRegistrationSchema = Yup.object().shape({
-  referenceNumber: Yup.string().required('این فیلد الزامی است'),
+  refrenceNumber: Yup.string().required('این فیلد الزامی است'),
 });
 export const VoucherCodeSchema = Yup.object().shape({
   voucherCode: Yup.string().required('این فیلد الزامی است'),

@@ -22,14 +22,10 @@ const CarouselLine = ({ className = '', data }: Props) => {
         title={data?.title}
         titleClassName="text-base font-semibold text-black"
       />
-      <ScrollSlider className="px-2">
+      <ScrollSlider className="px-2 py-2 gap-x-4">
         {data?.products?.map((item, index) => {
           return (
-            <VerticalProductCard
-              hasAddToCart={false}
-              productData={item}
-              key={index}
-            />
+            <VerticalProductCard hasAddToCart productData={item} key={index} />
           );
         })}
         {/* view all */}

@@ -10,7 +10,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { routeList } from '@routes/routeList';
 
-import tapsiLogo from '@static/images/staticImages/tapsi-doctor-logo';
+import tapsiLogo from '@static/images/staticImages/tapsi-doctor-logo.svg';
 import { MainLayout } from '@com/Layout';
 
 const AuthMobileNumber = dynamic(
