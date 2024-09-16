@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AddButton from '@com/_atoms/AddButton';
 import {
   useAddProductToBasket,
   useDeleteProductBasket,
+  useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
@@ -21,16 +22,43 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   hasCompleteAddToCartButton,
   onSuccessChanged,
 }) => {
+  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
+    Basket & { productsById: any }
+  >({
+    select: (res: Basket) => ({
+      ...res,
+      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
+    }),
+    enabled: true,
+  });
+  const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
+    () => {
+      const findItem = basket?.products?.find(
+        (basketItem) => basketItem.irc === prInfo?.irc,
+      );
+      return findItem?.quantity ?? 0;
+    },
+  );
+
+  useEffect(() => {
+    setProductBasketQuantity(
+      basket?.products?.find((basketItem) => basketItem.irc === prInfo?.irc)
+        ?.quantity ?? 0,
+    );
+  }, [basket]);
+
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();
+        refetchGetBasket();
       },
     });
 
   const { mutate: popProductOfCart } = useDeleteProductBasket({
     onSuccess: () => {
       onSuccessChanged?.();
+      refetchGetBasket();
     },
   });
 
@@ -72,7 +100,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         </h2>
         {hasAddToCartButton ? (
           <AddButton
-            count={prInfo.quantity}
+            count={productBasketQuantity}
             onChangeCount={onChange}
             isLoading={isAddingToCart}
           />

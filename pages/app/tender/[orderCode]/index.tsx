@@ -10,11 +10,27 @@ import { IconButton } from '@com/_atoms/IconButton';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
 import TenderCard from '@com/_organisms/TenderCard';
 import { MainLayout } from '@com/Layout';
+import { useCancelOrder } from '@api/order/orderApis.rq';
+import useModal from '@hooks/useModal';
 
 const Tender = () => {
   const router = useRouter();
 
   const { orderCode } = router.query;
+  const { removeLastModal } = useModal();
+  const { mutate: mutateCancelOrder } = useCancelOrder();
+  const handleCancelOrder = () => {
+    mutateCancelOrder(
+      {
+        orderCode: orderCode,
+      },
+      {
+        onSuccess: () => {
+          removeLastModal();
+        },
+      },
+    );
+  };
 
   const [isBannerOpen, setIsBannerOpen] = useState(true);
 
@@ -58,7 +74,7 @@ const Tender = () => {
               variant={'danger-light'}
               className="flex-1"
               size={'large'}
-              handleClick={() => {}}
+              handleClick={handleCancelOrder}
             >
               لغو سفارش
             </Button>
@@ -74,7 +90,9 @@ const Tender = () => {
         }
       >
         <div className="relative pb-2 border-b border-b-grey-100 mx-4 md:mx-0">
-          <ProgressStepper activeStepId={2} />
+          <ProgressStepper
+            activeStepId={tenderData?.queryResult[0]?.orderStatus?.id + 1}
+          />
         </div>
 
         {isBannerOpen && (

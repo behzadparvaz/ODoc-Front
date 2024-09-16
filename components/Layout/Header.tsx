@@ -20,13 +20,7 @@ const Header = ({
   handleClickRightIcon,
 }: Headerprops) => {
   return (
-    <div
-      className={classNames(
-        'relative w-full flex items-center',
-        title && 'border-b border-grey-200',
-        className,
-      )}
-    >
+    <div className={classNames('relative w-full flex items-center', className)}>
       {rightIcon && (
         <div className="w-[60px] flex justify-center items-center">
           <IconButton

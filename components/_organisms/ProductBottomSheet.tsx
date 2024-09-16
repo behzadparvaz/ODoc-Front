@@ -28,8 +28,8 @@ export default function ProductBottomSheet({ otcLevel3 }: Props) {
     >
       {products?.map((item) => {
         return (
-          <div className="mt-4">
-            <HorizontalProductCard prInfo={item} hasCompleteAddToCartButton />
+          <div key={item?.id} className="mt-4">
+            <HorizontalProductCard prInfo={item} hasAddToCartButton />
           </div>
         );
       })}

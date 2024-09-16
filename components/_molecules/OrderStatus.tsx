@@ -4,35 +4,49 @@ import { OrderDetailsDataModel } from '@utilities/interfaces/order';
 import {
   HeadsetOutlineIcon,
   PhoneOutlineIcon,
+  TimerIcon,
   TimerOutlineIcon,
 } from '@com/icons';
+import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 
 type OrderStatusProps = {
-  data: OrderDetailsDataModel;
+  data: TenderItemsListDataModel;
 };
 
 const OrderStatus = ({ data }: OrderStatusProps) => {
+  const renderOrderStatus = () => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+        return 'در انتظار تایید داروخانه';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div className="flex flex-col gap-y-3 px-4 py-3">
       <span className="text-base leading-6 font-medium">ارسال به</span>
-      <span className="text-sm text-grey-500">{data?.address}</span>
+      <span className="text-sm text-grey-500">
+        {data?.customer?.addresses[0]?.valueAddress}
+      </span>
 
       <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
 
       <div className="flex justify-between items-center py-2">
         <span className="text-base leading-6 font-medium">
-          {data?.orderStatus}
+          {renderOrderStatus()}
         </span>
 
         <span className="text-sx leading-5 w-max h-6 flex items-center gap-2 rounded-xl px-2 bg-grey-50 text-grey-800">
           <TimerOutlineIcon />
-          {data?.remaingTime}
+
+          {data?.prepartionTime}
         </span>
       </div>
 
-      {data?.orderStatus === 'ارسال شده' ? (
+      {data?.orderStatus?.name === '' ? (
         <>
-          <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
+          {/* <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
 
           <div className="col-start-1 col-span-4 grid grid-cols-2 gap-2 items-center">
             <div className="flex items-center gap-2 bg-brown">
@@ -59,7 +73,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
             <span className="w-10 h-10 rounded-full bg-grey-50 flex justify-center items-center justify-self-end">
               <PhoneOutlineIcon />
             </span>
-          </div>
+          </div> */}
         </>
       ) : (
         <div className="w-full flex justify-between items-center py-2">

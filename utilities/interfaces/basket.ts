@@ -28,7 +28,7 @@ interface Basket {
   modifiedBy: string | null;
   insuranceType: number;
   isSpecialPatient: false;
-  refrenceNumber: string | number | null;
+  refrenceNumber: string | null;
   supplementaryInsuranceType: number;
   vendorCode: string;
 }

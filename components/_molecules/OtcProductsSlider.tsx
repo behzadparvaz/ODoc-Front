@@ -11,6 +11,7 @@ import { ArrowLeftIconOutline } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
 
 import VerticalProductCard from './VerticalProductCard';
+import { useEffect } from 'react';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
@@ -31,11 +32,13 @@ export type Level3ProductsDataModel = {
 type OtcproductsSliderProps = {
   category: Level2DataModel;
   filteredShapesCode?: number;
+  updateTotalProducts?: (number) => void;
 };
 
 const OtcProductsSlider = ({
   category,
   filteredShapesCode,
+  updateTotalProducts,
 }: OtcproductsSliderProps) => {
   const { data, isLoading } = useGetCategtyL2Products(
     category?.categoryCodeLevel2,
@@ -44,6 +47,14 @@ const OtcProductsSlider = ({
     category?.categoryCodeLevel2,
     filteredShapesCode,
   );
+
+  const handleUpdateTotalProducts = (count: number) => {
+    updateTotalProducts?.(count);
+  };
+
+  useEffect(() => {
+    handleUpdateTotalProducts(data?.totalCount);
+  }, [data?.totalCount]);
 
   const renderProducts = () => {
     if (isLoading)
