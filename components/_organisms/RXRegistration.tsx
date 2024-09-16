@@ -39,13 +39,10 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
     <div className={`${className}`}>
       <OrderInfoForm
         submitForm={(value) => {
+          console.log('value', value);
           addToCart({
             orderType: 'RX',
-            refrenceNumber: value?.referenceNumber,
-            nationalCode: value?.nationalCode,
-            insuranceType: Number(value?.insuranceTypeId),
-            supplementaryInsuranceType: 0,
-            isSpecialPatient: false,
+            ...value,
           });
         }}
         userInfo={userInfo}

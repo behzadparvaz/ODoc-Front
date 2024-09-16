@@ -1,9 +1,10 @@
-import { useGetCategories } from '@api/category/categoryApis.rq';
-import classNames from 'classnames';
-import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
+import dynamic from 'next/dynamic';
 import Image from 'next/image';
+import classNames from 'classnames';
+
+import { useGetCategories } from '@api/category/categoryApis.rq';
+import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 import Spinner from '@com/_atoms/Spinner';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));

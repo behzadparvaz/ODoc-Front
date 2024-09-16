@@ -64,4 +64,6 @@ export interface CreateOrderDraftPayload {
   fromDeliveryTime: string;
   toDeliveryTime: string;
   items: ProductInDraft[];
+  isSpecialPatient: boolean;
+  vendorCode: string;
 }

@@ -8,7 +8,18 @@ import {
 } from '@api/basket/basketApis.rq';
 import { Level3ProductsDataModel } from './OtcProductsSlider';
 
-type ProductDataModel = Level3ProductsDataModel;
+type PromotionProductDataModel = {
+  discountPercent?: number;
+  discountPrice?: number;
+  genericCode?: string;
+  imageLink?: string;
+  maxOrderLimit?: number;
+  productName?: string;
+  quantity?: number;
+  shortDescription?: string | null;
+};
+
+type ProductDataModel = Level3ProductsDataModel & PromotionProductDataModel;
 
 type VerticalProductCardProps<PrT> = {
   productData?: PrT;
@@ -38,32 +49,38 @@ const VerticalProductCard = ({
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();
+        refetchGetBasket();
       },
     });
 
   const { mutate: popProductOfCart } = useDeleteProductBasket({
     onSuccess: () => {
       onSuccessChanged?.();
+      refetchGetBasket();
     },
   });
 
   const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
     () => {
       const findItem = basket?.products?.find(
-        (basketItem) => basketItem.irc === productData?.irc,
+        (basketItem) =>
+          basketItem.irc === (productData?.irc || productData?.genericCode),
       );
       return findItem?.quantity ?? 0;
     },
   );
 
   const onDeleteProduct = ({ irc }) =>
-    popProductOfCart({ type: 'IRC', irc: irc });
+    popProductOfCart({
+      type: 'IRC',
+      irc: irc ? irc : productData?.genericCode,
+    });
 
-  const onChangeCount = ({ irc, quantity }) =>
+  const onChangeCount = ({ quantity, ...rest }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
-      irc: irc,
+      irc: rest.irc ? rest.irc : rest?.genericCode,
       quantity: quantity,
     });
 
@@ -78,7 +95,8 @@ const VerticalProductCard = ({
   useEffect(() => {
     setProductBasketQuantity(
       basket?.products?.find(
-        (basketItem) => basketItem.irc === productData?.irc,
+        (basketItem) =>
+          basketItem.irc === (productData?.irc || productData?.genericCode),
       )?.quantity ?? 0,
     );
   }, [basket]);
@@ -118,7 +136,7 @@ const VerticalProductCard = ({
       </div> */}
 
       {hasAddToCart ? (
-        <div className="flex justify-center items-center pt-2">
+        <div className="flex justify-end items-center pt-2">
           <AddButton
             count={productBasketQuantity}
             onChangeCount={onChange}

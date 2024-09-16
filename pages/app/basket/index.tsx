@@ -1,24 +1,24 @@
+import React, { useMemo } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
+
 import { MainLayout } from '@com/Layout';
 import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
-import React, { useEffect, useMemo } from 'react';
-import { useGetProfile, useGetUserLocations } from '@api/user/user.rq';
-import SelectAddress from '@com/_organisms/SelectAddress';
-import useModal from '@hooks/useModal';
-import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
-import { useDispatch, useSelector } from 'react-redux';
+import { useGetProfile } from '@api/user/user.rq';
+import { useSelector } from 'react-redux';
 import { RootState } from '@utilities/types';
-import { setUserAction } from '@redux/user/userActions';
-import { homePageText } from '@com/texts/homePage';
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { TimerIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
-import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
+import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
+import Address from '@com/_organisms/Address';
 
 const Page = () => {
   const router = useRouter();
@@ -61,6 +61,9 @@ const Page = () => {
       supplementaryInsuranceTypeId: 0,
 
       items: products,
+
+      isSpecialPatient: basket?.isSpecialPatient,
+      vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
     });
   };
 
@@ -122,7 +125,7 @@ const Page = () => {
         </div>
       }
     >
-      <div className="relative h-full pb-14 pt-4 md:pb-20 overflow-auto">
+      <div className="relative h-full pb-14 pt-4 px-4 md:pb-20 overflow-auto">
         {!!draftData && <OrderInProgress />}
         {products?.length === 0 ? (
           <BasketEmptyPage />
@@ -130,15 +133,44 @@ const Page = () => {
           <>
             <div className="flex flex-col px-4 md:px-0 h-full gap-2 justify-between">
               {products?.map((pr, index) => (
-                <div key={pr.irc} className="flex flex-col gap-2">
-                  <HorizontalProductCard
-                    prInfo={{ ...pr }}
-                    onSuccessChanged={refetchGetBasket}
-                    hasAddToCartButton
-                  />
-                  {products?.length !== index && (
-                    <div className="w-full px-4">
-                      <div className="w-full h-[1px] bg-grey-200" />
+                <div key={pr.irc}>
+                  {!pr?.irc && !pr?.productName ? (
+                    <>
+                      <div className="w-full h-20 flex items-center justify-start gap-x-4">
+                        <Image
+                          src={
+                            basket?.isSpecialPatient
+                              ? specialPatients
+                              : prescriptionMedicine
+                          }
+                          alt="rx-image"
+                          width={72}
+                          height={72}
+                        />
+                        <div className="flex flex-col gap-y-1">
+                          <span className="text-base font-semibold">
+                            {basket?.supplementaryInsuranceType}
+                          </span>
+                          <span className="text-base font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
+                        </div>
+                      </div>
+
+                      <div className="w-full px-4">
+                        <div className="w-full h-[1px] bg-grey-200" />
+                      </div>
+                    </>
+                  ) : (
+                    <div className="flex flex-col gap-2">
+                      <HorizontalProductCard
+                        prInfo={{ ...pr }}
+                        onSuccessChanged={refetchGetBasket}
+                        hasAddToCartButton
+                      />
+                      {products?.length !== index && (
+                        <div className="w-full px-4">
+                          <div className="w-full h-[1px] bg-grey-200" />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -154,60 +186,6 @@ const Page = () => {
 };
 
 export default Page;
-
-const Address = () => {
-  const { addModal } = useModal();
-  const { data: addressDate } = useGetUserLocations();
-  const { user } = useSelector((state: RootState) => state?.user);
-  const { addressSelected } = useSelectAddressByCurrentLocation(addressDate);
-  const dispatch = useDispatch();
-
-  const defaultAddress: any = user?.defaultAddress ?? null;
-
-  useEffect(() => {
-    if (!defaultAddress) {
-      if (addressSelected) {
-        dispatch(
-          setUserAction({
-            defaultAddress: addressSelected,
-          }),
-        );
-      } else {
-        dispatch(
-          setUserAction({
-            defaultAddress: null,
-          }),
-        );
-      }
-    }
-  }, [dispatch, addressSelected]);
-
-  const onClickOpenModal = () => {
-    addModal({
-      modal: SelectAddress,
-    });
-  };
-
-  return (
-    <div className="border border-grey-200 rounded-lg py-3 px-4 my-4">
-      <h3 className="font-medium text-right">ارسال به</h3>
-      <div className="text-grey-500 font-normal py-2">
-        {!!defaultAddress
-          ? defaultAddress?.description
-          : homePageText?.selectAddress}
-      </div>
-      <div className="flex justify-end">
-        <Button
-          buttonType={'contained'}
-          className={'bg-grey-100 !rounded-full !h-11 mt-3'}
-          handleClick={onClickOpenModal}
-        >
-          ویرایش یا تغییر آدرس
-        </Button>
-      </div>
-    </div>
-  );
-};
 
 const BasketEmptyPage = () => {
   return (

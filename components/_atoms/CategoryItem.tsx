@@ -45,7 +45,7 @@ const CategoryItem = ({
         {isSoon ? (
           <span
             style={{ backgroundColor: '#276EF1' }}
-            className={`text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-10 ${isHomePage && '-left-1'}`}
+            className={`text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-3 ${isHomePage && '-left-1'}`}
           >
             به زودی
           </span>

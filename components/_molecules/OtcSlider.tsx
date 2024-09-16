@@ -48,7 +48,7 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
         <NextLink
           href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
-          <span className="w-2/3 text-base font-semibold truncate cursor-pointer">
+          <span className="w-2/3 text-base font-semibold truncate cursor-pointer text-[#276EF1]">
             {category?.categoryNameLevel2}
           </span>
         </NextLink>
