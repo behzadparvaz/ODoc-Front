@@ -8,9 +8,15 @@ import { MainLayout } from '@com/Layout';
 
 const RXRegistration = () => {
   const { data, isLoading: profileDataLoading } = useGetProfile();
+  const { query } = useRouter();
 
   return (
-    <MainLayout title="سفارش دارو " hasBottomGap hasHeader hasBackButton>
+    <MainLayout
+      title={query?.type === 'SP' ? 'داروی بیماری خاص' : 'داروی با نسخه'}
+      hasBottomGap
+      hasHeader
+      hasBackButton
+    >
       <div className="p-4">
         {profileDataLoading === false ? (
           <OrderRegisterSteps data={data} />
@@ -37,16 +43,19 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
 
   return (
     <div className={`${className}`}>
-      <OrderInfoForm
-        submitForm={(value) => {
-          console.log('value', value);
-          addToCart({
-            orderType: 'RX',
-            ...value,
-          });
-        }}
-        userInfo={userInfo}
-      />
+      {isAddingToCart ? (
+        <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
+      ) : (
+        <OrderInfoForm
+          submitForm={(value) => {
+            addToCart({
+              orderType: 'RX',
+              ...value,
+            });
+          }}
+          userInfo={userInfo}
+        />
+      )}
     </div>
   );
 };

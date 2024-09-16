@@ -43,6 +43,17 @@ const MainPageLayout = ({
 }: Props) => {
   const { push, back } = useRouter();
   const { data: basketDatat } = useGetCurrentBasket();
+
+  const renderBasketCount = () => {
+    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
+
+    if (!!basketDatat?.products?.length) {
+      return basketDatat?.products?.length + rxCount;
+    }
+
+    return rxCount;
+  };
+
   return (
     <div
       className={classNames(
@@ -87,9 +98,10 @@ const MainPageLayout = ({
             className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
             onClick={() => push(routeList.basket)}
           >
-            {!!basketDatat?.products?.length && (
+            {(!!basketDatat?.products?.length ||
+              basketDatat?.refrenceNumber) && (
               <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-red-500 text-base z-10 text-white flex justify-center items-center">
-                {basketDatat?.products?.length}
+                {renderBasketCount()}
               </span>
             )}
             <BasketIconOutline width={22} height={22} fill={'#000'} />

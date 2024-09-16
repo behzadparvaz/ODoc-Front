@@ -22,7 +22,7 @@ const CarouselLine = ({ className = '', data }: Props) => {
         title={data?.title}
         titleClassName="text-base font-semibold text-black"
       />
-      <ScrollSlider className="px-2 py-2 gap-x-4">
+      <ScrollSlider className="px-4 py-2 gap-x-4">
         {data?.products?.map((item, index) => {
           return (
             <VerticalProductCard hasAddToCart productData={item} key={index} />
@@ -31,7 +31,7 @@ const CarouselLine = ({ className = '', data }: Props) => {
         {/* view all */}
         <div
           onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
-          className="w-[157px] h-[222px] flex flex-col items-center justify-center border-r border-grey-100"
+          className="w-[157px] h-[194px] flex flex-col items-center justify-center"
         >
           <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
             <ArrowLeftIconOutline width={20} height={20} fill="#000" />

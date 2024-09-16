@@ -86,7 +86,12 @@ export const MainLayout = ({
           </div>
         )}
         {(hasHeader || hasSerachSection) && (
-          <div className='flex w-full justify-between items-center pl-6'>
+          <div
+            className={classNames(
+              'flex w-full justify-between items-center',
+              title && 'border-b border-grey-200',
+            )}
+          >
             <Header
               title={!hasSerachSection && title}
               searchSection={hasSerachSection && searchSection}
@@ -101,7 +106,6 @@ export const MainLayout = ({
                   rightIcon
                 )
               }
-            
               className={classNames(
                 'col-span-full row-start-1 row-end-2 flex-1',
                 headerClassName,

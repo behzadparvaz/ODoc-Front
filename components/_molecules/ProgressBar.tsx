@@ -57,19 +57,15 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
             'flex w-full relative',
             steps.length - 1 !== index &&
               "after:content-[''] after:w-full after:h-0.5 after:inline-block after:absolute after:top-3 after:right-12",
-            hasIcons && 'after:top-11',
-            item?.id < activeStepId
-              ? 'after:bg-orange-500'
-              : 'after:bg-grey-200',
+            hasIcons && 'after:!top-11',
+            item?.id < activeStepId ? 'after:bg-black' : 'after:bg-grey-200',
           )}
         >
           <div className="flex flex-col items-center gap-y-2 whitespace-nowrap z-10 min-w-11 w-full">
             {hasIcons && (
               <span className="flex items-center justify-center w-6 h-6">
                 {item?.icon(
-                  item.id <= activeStepId
-                    ? colors.orange[500]
-                    : colors.grey[200],
+                  item.id <= activeStepId ? colors.black : colors.grey[200],
                 )}
               </span>
             )}
@@ -78,9 +74,9 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
               className={classNames(
                 'w-6 h-6 rounded-full flex justify-center items-center mx-auto  border-2',
 
-                item?.id === activeStepId && 'border-orange-500',
+                item?.id === activeStepId && 'border-black',
                 item?.id < activeStepId
-                  ? ' bg-orange-500 border-orange-500'
+                  ? ' bg-black border-black'
                   : 'bg-white border-grey-200',
               )}
             >
@@ -90,7 +86,7 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
                 <span
                   className={classNames(
                     'w-2 h-2 rounded-full',
-                    item?.id <= activeStepId ? 'bg-orange-500' : 'bg-grey-200',
+                    item?.id <= activeStepId ? 'bg-black' : 'bg-grey-200',
                   )}
                 />
               )}
@@ -99,9 +95,7 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
               <span
                 className={classNames(
                   'text-[8px] font-medium	leading-3',
-                  item?.id <= activeStepId
-                    ? 'text-orange-500'
-                    : 'text-grey-200',
+                  item?.id <= activeStepId ? 'text-black' : 'text-grey-200',
                 )}
               >
                 {item?.title}

@@ -28,6 +28,7 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
   const [filteredShapes, setFilteredShapes] = useState<ShapesDataModel | null>(
     null,
   );
+  const [totalCount, setTotalCount] = useState<number | null>(null);
 
   const handleOpenSelectShapeItem = () => {
     addModal({
@@ -42,6 +43,10 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
     });
   };
 
+  const handleUpdateTotalProducts = (count: number) => {
+    setTotalCount?.(count);
+  };
+
   return (
     <div className="relative flex flex-col gap-2 w-full h-max min-h-[200px] py-2 text-xs">
       <div className="flex justify-between items-center gap-6 px-4">
@@ -49,7 +54,7 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
           href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
           <span className="w-2/3 text-base font-semibold truncate cursor-pointer text-[#276EF1]">
-            {category?.categoryNameLevel2}
+            {`${category?.categoryNameLevel2} ${totalCount ? `(${totalCount})` : ''}`}
           </span>
         </NextLink>
 
@@ -65,6 +70,7 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
         <OtcProductsSlider
           category={category}
           filteredShapesCode={filteredShapes?.shapeCode}
+          updateTotalProducts={handleUpdateTotalProducts}
         />
       </div>
     </div>

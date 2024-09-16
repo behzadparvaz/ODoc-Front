@@ -109,6 +109,18 @@ const OrderItem = ({
               انتخاب داروخانه
             </Button>
           )}
+          {data?.orderStatus?.id === 0 && (
+            <Button
+              className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-black text-white text-sm`}
+              size="medium"
+              buttonType="contained"
+              handleClick={() =>
+                router.push(`/app/orders-history/${data?.orderCode}`)
+              }
+            >
+              جزئیات سفارش
+            </Button>
+          )}
           {data?.orderStatus?.id !== 2 && (
             <Button
               className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
@@ -140,7 +152,7 @@ const OrderItem = ({
               }
               variant={'primary'}
             >
-              توضیحات مسئول فنی{' '}
+              توضیحات مسئول فنی
             </Button>
           )}
         </div>

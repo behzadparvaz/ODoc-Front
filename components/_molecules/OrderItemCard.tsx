@@ -6,6 +6,7 @@ import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel;
   isUnavaiable?: boolean;
+  dataLength: number;
 };
 
 const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {

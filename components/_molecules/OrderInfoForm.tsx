@@ -36,7 +36,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
     insuranceTypeId: 1,
     supplementaryInsuranceType: 0,
     isSpecialPatient: false,
-    vendorCode: '""',
+    vendorCode: '',
   });
 
   const formik = useFormik({
@@ -61,6 +61,12 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
           message: 'صاحب نسخه را مشخص کنید',
           notifType: 'successOrFailedMessage',
         });
+      } else if (isSpecialPatient && !value?.vendorCode) {
+        openNotification({
+          type: 'error',
+          message: 'لطفا داروخانه را مشخص کنید',
+          notifType: 'successOrFailedMessage',
+        });
       } else {
         submitForm(body);
       }
@@ -72,23 +78,10 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       <Input
         required
         type="number"
-        placeholder={orderText?.referenceNumber}
-        className="flex-auto"
-        inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
-        id="refrenceNumber"
-        name="refrenceNumber"
-        value={formik.values.refrenceNumber}
-        onChange={formik.handleChange}
-        isTouched={
-          formik.touched.refrenceNumber && Boolean(formik.errors.refrenceNumber)
-        }
-        errorMessage={formik.errors.refrenceNumber}
-      />
-      <Input
-        required
-        type="number"
+        label={orderText?.nationalCode}
         placeholder={orderText?.nationalCode}
-        className="flex-auto mt-5"
+        className="flex-auto"
+        labelClassName="font-semibold text-sm mt-6"
         inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
         id="nationalCode"
         name="nationalCode"
@@ -99,6 +92,25 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         }
         errorMessage={formik.errors.nationalCode}
       />
+
+      <Input
+        required
+        type="number"
+        placeholder={orderText?.referenceNumber}
+        label={orderText?.referenceNumber}
+        className="flex-auto mt-5"
+        labelClassName="font-semibold text-sm mt-6"
+        inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
+        id="refrenceNumber"
+        name="refrenceNumber"
+        value={formik.values.refrenceNumber}
+        onChange={formik.handleChange}
+        isTouched={
+          formik.touched.refrenceNumber && Boolean(formik.errors.refrenceNumber)
+        }
+        errorMessage={formik.errors.refrenceNumber}
+      />
+
       <Input
         type="text"
         placeholder={orderText?.enterPhoneNumber}
@@ -221,9 +233,9 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       ) : null}
 
       <FixBottomSection>
-        <div className="w-full p-4">
+        <div className="w-full flex justify-end p-4">
           <Button
-            className="w-full"
+            className="w-1/2"
             type="submit"
             buttonType="contained"
             size="large"
