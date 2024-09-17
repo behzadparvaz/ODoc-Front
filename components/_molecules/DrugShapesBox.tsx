@@ -28,10 +28,11 @@ export default function DrugShapesBox({}: Props) {
   };
 
   return (
-    <div className="grid grid-cols-2 gap-5 mt-4 mx-4 p-4 bg-white rounded-xl">
+    <div className="w-full grid grid-cols-2 gap-5 mt-4 p-4 bg-white rounded-xl">
       {data?.queryResult?.map((item) => {
         return (
           <div
+            key={item?.shape}
             className="flex items-center border border-grey-200 h-10 rounded-lg px-2"
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >

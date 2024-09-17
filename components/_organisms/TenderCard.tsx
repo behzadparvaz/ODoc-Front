@@ -7,6 +7,7 @@ import useModal from '@hooks/useModal';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 
 import TenderItemDetailModal from './TenderItemDetailModal';
+import { convertRialToToman } from '@utilities/mainUtils';
 
 type TenderCardProps = {
   data: TenderItemsListDataModel;
@@ -67,7 +68,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
           </div>
         </div>
 
-        <div className="text-grey-500 text-sm">{`${data?.finalPrice} تومان`}</div>
+        <div className="text-grey-500 text-sm">{`${convertRialToToman(data?.finalPrice)}`}</div>
       </div>
 
       <div

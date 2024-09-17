@@ -41,7 +41,7 @@ const MainPageLayout = ({
   title,
   hasSearchIcon = true,
 }: Props) => {
-  const { push, back } = useRouter();
+  const { push, back, pathname } = useRouter();
   const { data: basketDatat } = useGetCurrentBasket();
 
   const renderBasketCount = () => {
