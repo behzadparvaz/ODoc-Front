@@ -13,9 +13,9 @@ import {
 
 const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 const Button = dynamic(() => import('@com/_atoms/Button'));
-const searchByImage = () => {
-  const { back } = useRouter();
 
+const SearchByImage = () => {
+  const { back } = useRouter();
   return (
     <div
       className={`w-full pt-4 min-h-screen bg-white  ${
@@ -58,4 +58,4 @@ const searchByImage = () => {
     </div>
   );
 };
-export default searchByImage;
+export default SearchByImage;

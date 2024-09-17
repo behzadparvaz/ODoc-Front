@@ -3,8 +3,7 @@ import { HeadsetIconOutline, NewArrowLeftIconOutline } from '@com/icons';
 import { routeList } from '@routes/routeList';
 import NextLink from '@com/_core/NextLink';
 import MainLayout from '@com/_template/MainLayout';
-import tapsiLogo from '@static/images/staticImages/tapsi-daroo-logo.png';
-import TapsiWhiteLogo from '@static/images/staticImages/daroo-logo.svg';
+import TapsiWhiteLogo from '@static/images/staticImages/tapsi-doctor-logo.svg';
 import firstSlidePNG from '@static/images/staticImages/first-slide.png';
 import secondSlidePNG from '@static/images/staticImages/second-slide.png';
 import { colors } from '@configs/Theme';
@@ -36,7 +35,7 @@ const Landing = () => {
           hasBottomNavigation={false}
           headerChildren={
             <div className="bg-primary-800 w-full flex flex-1 -mx-4 -my-6 p-4">
-              <NextImage src={tapsiLogo} height={20} width={92} />
+              <NextImage src={TapsiWhiteLogo} height={20} width={92} />
             </div>
           }
         >

@@ -78,7 +78,7 @@ export const useGetProfile = () => {
   const { data, isLoading } = useQuery(['getProfile'], () => GetProfile(), {
     enabled: token ? true : false,
   });
-  return { data, isLoading };
+  return { data: data as any, isLoading };
 };
 
 export const useGetProfileRelation = () => {

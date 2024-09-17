@@ -3,20 +3,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import { RootState } from '@utilities/types';
 import { setLogMapStateAction } from '@redux/map/mapActions';
-import { setCurrentLocation, setCurrentPosition } from '@utilities/userLocation';
+import {
+  setCurrentLocation,
+  setCurrentPosition,
+} from '@utilities/userLocation';
 import useMapApiCalls from '@hooks/useMapApiCalls';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { colors } from '@configs/Theme';
 import { useGeoLocation } from '@hooks/useGeoLocation';
 import useModal from '@hooks/useModal';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
-import { mobileModeMaxWidthClassName, shouldShowMobileMode } from '@configs/ControlMobileView';
+import {
+  mobileModeMaxWidthClassName,
+  shouldShowMobileMode,
+} from '@configs/ControlMobileView';
 import { Discovery } from '@com/icons';
 import { useGetParsiSearchAddress } from '@api/map/mapApis.rq';
 import AutoComplete from '@com/_molecules/AutoComplete';
 
 const Map = dynamic(() => import('@com/_molecules/Map'), {
-  ssr: false
+  ssr: false,
 });
 const Button = dynamic(() => import('@com/_atoms/Button'));
 
@@ -24,18 +30,26 @@ interface Props {
   addressId?: number;
   latitude?: number;
   longitude?: number;
-  onChangeLoc?: (latLng: {latitude: number; longitude: number}) => void;
+  onChangeLoc?: (latLng: { latitude: number; longitude: number }) => void;
 }
 
-export default function ParsiMapBottomSheet({ addressId = 0, latitude, longitude, onChangeLoc }: Props) {
+export default function ParsiMapBottomSheet({
+  addressId = 0,
+  latitude,
+  longitude,
+  onChangeLoc,
+}: Props) {
   const dispatch = useDispatch();
   const [searchTxt, setSearchTxt] = useState('');
   const { addModal } = useModal();
   const { geoLocationState } = useGeoLocation();
   const [isLoadingPosition, setIsLoadingPosition] = useState<boolean>(false);
   const { mapIsTouched } = useSelector((state: RootState) => state.mapInfo);
-  const { handleClickOnSaveMyLocation, parsiMapLocationAddress, isLoadingMapsAddress } =
-    useMapApiCalls(addressId);
+  const {
+    handleClickOnSaveMyLocation,
+    parsiMapLocationAddress,
+    isLoadingMapsAddress,
+  } = useMapApiCalls(addressId);
 
   const enableAutoLocationButton = () => {
     setIsLoadingPosition(false);
@@ -52,22 +66,23 @@ export default function ParsiMapBottomSheet({ addressId = 0, latitude, longitude
           {
             enableHighAccuracy: true,
             timeout: 15000,
-            maximumAge: 0
-          }
+            maximumAge: 0,
+          },
         );
       }
     }
     dispatch(setLogMapStateAction(new Date().getTime()));
   }, [dispatch]);
 
-  const { data: addresses, isFetching: isGettingAddresses } = useGetParsiSearchAddress(searchTxt);
+  const { data: addresses, isFetching: isGettingAddresses } =
+    useGetParsiSearchAddress(searchTxt);
 
   const onClickAddress = (loc) => {
     onChangeLoc?.({
       longitude: loc.geo_location.center.lng,
-      latitude: loc.geo_location.center.lat
-    })
-  }
+      latitude: loc.geo_location.center.lat,
+    });
+  };
 
   return (
     <BottomModalContainer
@@ -78,16 +93,16 @@ export default function ParsiMapBottomSheet({ addressId = 0, latitude, longitude
       style={{ direction: 'ltr' }}
     >
       <div className="h-[calc(100%-60px)] absolute inset-x-0 mt-4">
-
-        <AutoComplete suggestions={addresses?.results as any ?? []}
-                      className='w-11/12 absolute z-50 top-3 left-1/2 -translate-x-1/2'
-                      inputProps={{
-                        placeholder: 'آدرس خود را وارد کنید',
-                        dir: 'rtl'
-                      }}
-                      onSelect={onClickAddress}
-                      onChange={(event) => setSearchTxt(event.target.value)}
-                      getOptionLabel={(option) => option.description}
+        <AutoComplete
+          suggestions={(addresses?.results as any) ?? []}
+          className="w-11/12 absolute z-50 top-3 left-1/2 -translate-x-1/2"
+          inputProps={{
+            placeholder: 'آدرس خود را وارد کنید',
+            dir: 'rtl',
+          }}
+          onSelect={onClickAddress}
+          onChange={(event) => setSearchTxt(event.target.value)}
+          getOptionLabel={(option) => option.description}
         />
 
         <Map
@@ -104,9 +119,14 @@ export default function ParsiMapBottomSheet({ addressId = 0, latitude, longitude
           backgroundColor={colors.white}
           handleClick={() => {
             setIsLoadingPosition(true);
-            setCurrentLocation(geoLocationState, dispatch, addModal, enableAutoLocationButton);
+            setCurrentLocation(
+              geoLocationState,
+              dispatch,
+              addModal,
+              enableAutoLocationButton,
+            );
           }}
-          icon={<Discovery width={16} height={16} fill={colors.grey[800]}/>}
+          icon={<Discovery width={16} height={16} fill={colors.grey[800]} />}
           iconDirection="right"
           size="medium"
         >
@@ -122,7 +142,9 @@ export default function ParsiMapBottomSheet({ addressId = 0, latitude, longitude
             size="large"
             variant="primary"
             color={colors.grey[50]}
-            disabled={(addressId === 0 && !mapIsTouched) || isLoadingMapsAddress}
+            disabled={
+              (addressId === 0 && !mapIsTouched) || isLoadingMapsAddress
+            }
             handleClick={() => {
               handleClickOnSaveMyLocation();
             }}
