@@ -1,6 +1,7 @@
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 
 import TenderProductItem from './TenderProductItem';
+import { convertRialToToman } from '@utilities/mainUtils';
 
 type TenderProductListProps = {
   orderItems: TenderItemsOrderDataModel[];
@@ -52,20 +53,28 @@ const TenderProductList = ({
         <div className="flex items-center justify-between text-sm leading-5">
           <span>{`جمع سفارش ${orderItems?.length > 1 ? `(${orderItems?.length})` : ''}`}</span>
 
-          <span>{!!finalPrice ? `${finalPrice} تومان` : 'رایگان'}</span>
+          <span>
+            {!!finalPrice ? `${convertRialToToman(finalPrice)}` : 'رایگان'}
+          </span>
         </div>
 
         <div className="flex items-center justify-between text-sm leading-5">
           <span>هزینه بسته بندی</span>
 
-          <span>{!!packingPrice ? `${packingPrice} تومان` : 'رایگان'}</span>
+          <span>
+            {!!packingPrice ? `${convertRialToToman(packingPrice)}` : 'رایگان'}
+          </span>
         </div>
 
         <div className="flex items-center justify-between text-sm leading-5">
           <span>هزینه ارسال</span>
 
           <span className="flex items-center text-md gap-x-1">
-            <span>{!!deliveryPrice ? `${deliveryPrice} تومان` : 'رایگان'}</span>
+            <span>
+              {!!deliveryPrice
+                ? `${convertRialToToman(deliveryPrice)}`
+                : 'رایگان'}
+            </span>
           </span>
         </div>
       </div>

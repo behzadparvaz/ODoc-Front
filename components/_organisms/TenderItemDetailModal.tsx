@@ -13,6 +13,7 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
 import useModal from '@hooks/useModal';
+import { convertRialToToman } from '@utilities/mainUtils';
 
 type TenderItemDetailProps = {
   tenderData: TenderItemsListDataModel;
@@ -113,7 +114,7 @@ const TenderItemDetail = ({
 
           <div className="w-full h-16 flex justify-between items-center mt-2 mb-7 px-4 py-2">
             <div className="flex flex-col gap-y-2">
-              <span className="text-md leading-6 font-bold">{`${tenderData?.finalPrice} تومان`}</span>
+              <span className="text-md leading-6 font-bold">{`${convertRialToToman(tenderData?.finalPrice)}`}</span>
               <span className="text-sm leading-5">قابل پرداخت</span>
             </div>
 

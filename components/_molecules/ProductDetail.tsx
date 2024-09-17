@@ -9,25 +9,28 @@ interface Props {
 const ProductDetail = ({ className = '', data }: Props) => {
   const { query } = useRouter();
   return (
-    <div className={`w-full ${className}`}>
+    <div className={`w-full ${className} flex flex-col gap-y-2`}>
       <SectionTitle
         title={`${query?.categoryName}`}
         tag="h1"
         className="text-lg font-semibold"
       />
-      <SectionTitle
-        className="text-md text-grey-600 mt-5 mb-2 border-b border-grey-200 pb-2"
-        title={pdpText?.features}
-      />
-      <div className="grid gap-y-1">
-        <ListItem className="text-sm" text={'تسکین دردهاي خفیف تا متوسط'} />
+
+      <div className="flex justify-between items-center px-4">
+        <span className="bg-grey-200 w-full h-[1px]" />
+      </div>
+
+      <div className="grid gap-y-1 px-4">
+        <span className="text-base font-semibold">موارد مصرف</span>
         <ListItem
-          className="text-sm"
-          text={data?.drugInteraction ? data?.drugInteraction : 'فاقد اطلاعات'}
-        />
-        <ListItem
-          className="text-sm"
+          className="text-sm text-justify"
           text={data?.medicalUses ? data?.medicalUses : 'فاقد اطلاعات'}
+        />
+
+        <span className="text-base font-semibold">تداخلات دارویی</span>
+        <ListItem
+          className="text-sm text-justify"
+          text={data?.drugInteraction ? data?.drugInteraction : 'فاقد اطلاعات'}
         />
       </div>
     </div>
