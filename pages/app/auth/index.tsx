@@ -10,7 +10,6 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { routeList } from '@routes/routeList';
 
-import tapsiLogo from '@static/images/staticImages/tapsi-doctor-logo.svg';
 import { MainLayout } from '@com/Layout';
 
 const AuthMobileNumber = dynamic(
@@ -39,7 +38,11 @@ const ODocAuth = () => {
         className={`gap-y-11 h-full justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
         <div className="flex flex-col items-center">
-          <NextImage src={tapsiLogo} height={40} width={170} />
+          <NextImage
+            src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+            height={40}
+            width={170}
+          />
 
           <NextImage
             width={220}

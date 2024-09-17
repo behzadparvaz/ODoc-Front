@@ -2,6 +2,7 @@ import Image from 'next/image';
 import classNames from 'classnames';
 
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
+import { convertRialToToman } from '@utilities/mainUtils';
 
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel;
@@ -51,7 +52,7 @@ const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {
             عدم موجودی
           </span>
         ) : (
-          <span className="text-xs leading-5 text-grey-500">{`${item?.price} تومان`}</span>
+          <span className="text-xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
         )}
       </div>
     </div>

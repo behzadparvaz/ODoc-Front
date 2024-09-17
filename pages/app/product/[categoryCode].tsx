@@ -40,13 +40,14 @@ const Product = () => {
               data={productSliderData}
               className="px-4 bg-white rounded-2xl py-6"
             />
+            <DrugShapesBox />
+
             <ProductDetail
               data={productDetail}
               className="px-4 mt-4 bg-white rounded-2xl py-6"
             />
           </div>
         ) : null}
-        <DrugShapesBox />
       </div>
     </MainPageLayout>
   );

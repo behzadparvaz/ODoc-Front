@@ -43,7 +43,7 @@ export const MainLayout = ({
   footer,
   searchSection,
 }: PropsWithChildren<MainLayoutProps>) => {
-  const { back } = useRouter();
+  const { back, pathname } = useRouter();
   const renderGridTemplate = () => {
     switch (hasHeader) {
       case true:
@@ -74,7 +74,7 @@ export const MainLayout = ({
           renderGridTemplate(),
         )}
       >
-        {!hasHeader && (
+        {!hasHeader && pathname !== '/app/auth' && (
           <div className="w-full col-span-full row-start-1 row-end-2 flex items-center justify-start p-5">
             <Image
               src={'/static/images/staticImages/tapsi-doctor-logo.svg'}

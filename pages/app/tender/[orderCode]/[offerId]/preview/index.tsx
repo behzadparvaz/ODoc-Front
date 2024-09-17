@@ -17,6 +17,7 @@ import { useFormik } from 'formik';
 import { VoucherCodeSchema } from '@utilities/validationSchemas';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import Address from '@com/_organisms/Address';
+import { convertRialToToman } from '@utilities/mainUtils';
 
 const Preview = () => {
   const { query } = useRouter();
@@ -75,7 +76,7 @@ const Preview = () => {
         <div className="w-full flex justify-between gap-3 px-4">
           <div className="w-1/2 flex flex-col gap-y-2">
             <span className="text-base font-semibold">
-              {`${selectedOffer?.finalPrice} تومان`}
+              {`${convertRialToToman(selectedOffer?.finalPrice)}`}
             </span>
             <span className="text-md">قابل پرداخت</span>
           </div>
@@ -182,7 +183,8 @@ const Preview = () => {
                   </span>
 
                   <span className="flex items-center text-md gap-x-1">
-                    {!!selectedOffer?.finalPrice && selectedOffer?.finalPrice}
+                    {!!selectedOffer?.finalPrice &&
+                      convertRialToToman(selectedOffer?.finalPrice)}
                     <span className="text-sm text-grey-800">
                       {!!selectedOffer?.finalPrice ? 'تومان' : 'رایگان'}
                     </span>
