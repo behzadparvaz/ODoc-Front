@@ -27,7 +27,7 @@ const ProductSlider = ({ className, data }: Props) => {
       >
         {data?.map((item, index) => {
           return (
-            <SwiperSlide>
+            <SwiperSlide key={index}>
               <div className="!aspect-w-23 !aspect-h-9">
                 <NextImage
                   src={item}
@@ -54,7 +54,7 @@ const ProductSlider = ({ className, data }: Props) => {
         >
           {data?.map((item, index) => {
             return (
-              <SwiperSlide>
+              <SwiperSlide key={index}>
                 <div className="!aspect-w-23 !aspect-h-23">
                   <NextImage
                     src={item}

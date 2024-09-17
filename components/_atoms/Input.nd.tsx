@@ -16,7 +16,7 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   inputClassName?: string;
   required?: boolean;
   errorMessage?: any;
-  type: string;
+  type?: string;
 }
 
 export type Props = InputProps & InputConditionProp;

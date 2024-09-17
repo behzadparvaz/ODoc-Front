@@ -72,7 +72,6 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       }
     },
   });
-
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
       <Input

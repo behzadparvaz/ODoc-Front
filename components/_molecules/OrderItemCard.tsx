@@ -7,7 +7,7 @@ import { convertRialToToman } from '@utilities/mainUtils';
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel;
   isUnavaiable?: boolean;
-  dataLength: number;
+  dataLength?: number;
 };
 
 const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {

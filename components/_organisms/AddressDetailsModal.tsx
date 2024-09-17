@@ -8,7 +8,10 @@ import { useFormik } from 'formik';
 import { RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
 import { useAddLocation } from '@api/user/user.rq';
-import { addressSeparator, cedarAddressFixedPartCreator } from '@utilities/addressUtils';
+import {
+  addressSeparator,
+  cedarAddressFixedPartCreator,
+} from '@utilities/addressUtils';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { FullModalContainer } from '@com/modal/containers/fullMobileContainer';
 import { generalTexts } from '@com/texts/generalTexts';
@@ -23,10 +26,12 @@ export default function AddressDetailsModal({ addressData }: Props) {
   const dispatch = useDispatch();
   const addressInputRef = useRef(null);
   const [addressTitle, setAddressTitle] = useState<string>('');
-  const { viewport, defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
+  const { viewport, defaultViewPort } = useSelector(
+    (state: RootState) => state.mapInfo,
+  );
   const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
     useAddLocation();
-  const { removeLastModal } = useModal()
+  const { removeLastModal } = useModal();
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
   const [addressReadonlyPart, setAddressReadonlyPart] = useState<string>('');
   const [addressEditablePart, setAddressEditablePart] = useState<string>('');
@@ -34,7 +39,9 @@ export default function AddressDetailsModal({ addressData }: Props) {
     {
       title: 'خانه',
       icon: <HomeIconOutline width={14} height={14} fill={colors.grey[600]} />,
-      activeIcon: <HomeIconOutline width={14} height={14} fill={colors.white} />,
+      activeIcon: (
+        <HomeIconOutline width={14} height={14} fill={colors.white} />
+      ),
     },
     {
       title: 'محل‌کار',
@@ -43,8 +50,16 @@ export default function AddressDetailsModal({ addressData }: Props) {
     },
     {
       title: 'سایر',
-      icon: <MoreSquareIconOutLine width={14} height={14} stroke={colors.grey[600]} />,
-      activeIcon: <MoreSquareIconOutLine width={14} height={14} stroke={colors.white} />,
+      icon: (
+        <MoreSquareIconOutLine
+          width={14}
+          height={14}
+          stroke={colors.grey[600]}
+        />
+      ),
+      activeIcon: (
+        <MoreSquareIconOutLine width={14} height={14} stroke={colors.white} />
+      ),
     },
   ];
   const [neshanLocationAddress, setNeshanLocationAddress] = useState<any>({
@@ -69,9 +84,15 @@ export default function AddressDetailsModal({ addressData }: Props) {
     postalCode: '',
   });
   const textAreaChangeHandler = (e) => {
-    if (e.target.value.length >= addressReadonlyPart.length && e.target?.selectionStart >= addressReadonlyPart.length) {
+    if (
+      e.target.value.length >= addressReadonlyPart.length &&
+      e.target?.selectionStart >= addressReadonlyPart.length
+    ) {
       setAddressEditablePart(
-        addressSeparator(e.target.value ? e.target.value : '', addressReadonlyPart).addressEditablePart
+        addressSeparator(
+          e.target.value ? e.target.value : '',
+          addressReadonlyPart,
+        ).addressEditablePart,
       );
     } else {
       e.preventDefault();
@@ -80,7 +101,10 @@ export default function AddressDetailsModal({ addressData }: Props) {
   const textAreaFocusHandler = (e) => {
     if (e.target?.selectionStart < addressReadonlyPart.length) {
       e.preventDefault();
-      e.target.setSelectionRange(addressReadonlyPart.length, addressReadonlyPart.length);
+      e.target.setSelectionRange(
+        addressReadonlyPart.length,
+        addressReadonlyPart.length,
+      );
     }
   };
   const formik = useFormik({
@@ -95,20 +119,17 @@ export default function AddressDetailsModal({ addressData }: Props) {
         Description: `${addressReadonlyPart}${addressEditablePart}`,
         HouseNumber: values?.plaque,
         HomeUnit: values?.unit,
-        postalCode: String(values?.postalCode)
-      }
+        postalCode: String(values?.postalCode),
+      };
       mutateAddLocation(body);
     },
   });
 
   useEffect(() => {
-    let neshanAddress = cedarAddressFixedPartCreator(
-      addressData?.address,
-      5
-    );
+    let neshanAddress = cedarAddressFixedPartCreator(addressData?.address, 5);
     const { addressReadonlyPart, addressEditablePart } = addressSeparator(
       addressData?.address,
-      neshanAddress
+      neshanAddress,
     );
     setAddressReadonlyPart(addressReadonlyPart);
     setAddressEditablePart(addressEditablePart);
@@ -128,17 +149,18 @@ export default function AddressDetailsModal({ addressData }: Props) {
             lat: defaultViewPort.latitude,
             lng: defaultViewPort.longitude,
           },
-        })
+        }),
       );
     };
   }, []);
 
   return (
     <FullModalContainer style={{ overflowY: 'scroll' }}>
-
-      <div className='px-4'>
+      <div className="px-4">
         <form className="flex flex-col mb-[86px]">
-          <p className="text-sm font-normal text-grey-800 mb-2 mt-4">{selectStoreTexts?.AddressDetail}</p>
+          <p className="text-sm font-normal text-grey-800 mb-2 mt-4">
+            {selectStoreTexts?.AddressDetail}
+          </p>
           <textarea
             className="w-full h-[72px] resize-none rounded-md border border-grey-300 outline-none text-sm text-grey-600 font-normal px-4 py-3"
             id="address"
@@ -193,20 +215,32 @@ export default function AddressDetailsModal({ addressData }: Props) {
               inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
               id="postalCode"
               name="postalCode"
-              type='number'
+              type="number"
               value={formik.values.postalCode}
               onChange={formik.handleChange}
-              isTouched={formik.touched.postalCode && Boolean(formik.errors.postalCode)}
+              isTouched={
+                formik.touched.postalCode && Boolean(formik.errors.postalCode)
+              }
               errorMessage={formik.errors.postalCode}
             />
           </div>
-          <p className="text-sm font-semibold text-grey-800 mb-3 mt-5  border-t border-grey-100 pt-5">{selectStoreTexts?.title}</p>
+          <p className="text-sm font-semibold text-grey-800 mb-3 mt-5  border-t border-grey-100 pt-5">
+            {selectStoreTexts?.title}
+          </p>
           <div className="grid grid-cols-3  gap-2">
             {addressTitleOption?.map((item, index) => {
               return (
                 <Button
-                  backgroundColor={addressTitle === item?.title ? colors.teal[600] : colors.teal?.[50]}
-                  color={addressTitle === item?.title ? colors.white : colors.teal[600]}
+                  backgroundColor={
+                    addressTitle === item?.title
+                      ? colors.teal[600]
+                      : colors.teal?.[50]
+                  }
+                  color={
+                    addressTitle === item?.title
+                      ? colors.white
+                      : colors.teal[600]
+                  }
                   size="large"
                   className="!rounded-xl transition-all duration-200 border border-teal-700"
                   handleClick={(e) => {
@@ -232,8 +266,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
               onChange={formik.handleChange}
             />
           )}
-          <div className='flex gap-x-3'
-          >
+          <div className="flex gap-x-3">
             <Button
               className="flex-1 mt-11"
               color={colors.grey[700]}
