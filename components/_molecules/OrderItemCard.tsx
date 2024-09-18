@@ -8,9 +8,14 @@ type OrderItemCardProps = {
   item: TenderItemsOrderDataModel;
   isUnavaiable?: boolean;
   dataLength?: number;
+  orderStatus?: string;
 };
 
-const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {
+const OrderItemCard = ({
+  item,
+  isUnavaiable,
+  orderStatus,
+}: OrderItemCardProps) => {
   return (
     <div className="h-[84px] flex gap-2 items-center justify-between py-2">
       <div className="flex gap-3 items-center">
@@ -47,12 +52,18 @@ const OrderItemCard = ({ item, isUnavaiable }: OrderItemCardProps) => {
         </div>
       </div>
       <div className="self-end">
-        {isUnavaiable ? (
-          <span className="text-xs text-grey-400 leading-5 h-5">
-            عدم موجودی
-          </span>
+        {orderStatus === 'draft' ? (
+          <></>
         ) : (
-          <span className="text-xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
+          `${
+            isUnavaiable ? (
+              <span className="text-xs text-grey-400 leading-5 h-5">
+                عدم موجودی
+              </span>
+            ) : (
+              <span className="text-xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
+            )
+          }`
         )}
       </div>
     </div>

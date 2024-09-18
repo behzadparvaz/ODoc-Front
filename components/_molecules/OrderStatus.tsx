@@ -1,13 +1,8 @@
 import Image from 'next/image';
 
-import { OrderDetailsDataModel } from '@utilities/interfaces/order';
-import {
-  HeadsetOutlineIcon,
-  PhoneOutlineIcon,
-  TimerIcon,
-  TimerOutlineIcon,
-} from '@com/icons';
+import { HeadsetOutlineIcon } from '@com/icons';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
+import Link from 'next/link';
 
 type OrderStatusProps = {
   data: TenderItemsListDataModel;
@@ -18,6 +13,16 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
         return 'در انتظار تایید داروخانه';
+
+      case 'aPay':
+        return 'در انتظار پرداخت';
+
+      case 'pick':
+        return 'در حال آماده سازی';
+
+      case 'sendDelivery':
+        return 'ارسال توسط پیک';
+
       default:
         return '';
     }
@@ -35,12 +40,6 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
       <div className="flex justify-between items-center py-2">
         <span className="text-base leading-6 font-medium">
           {renderOrderStatus()}
-        </span>
-
-        <span className="text-sx leading-5 w-max h-6 flex items-center gap-2 rounded-xl px-2 bg-grey-50 text-grey-800">
-          <TimerOutlineIcon />
-
-          {data?.prepartionTime}
         </span>
       </div>
 
@@ -79,9 +78,11 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
         <div className="w-full flex justify-between items-center py-2">
           <span className="text-base leading-6">تماس با پشتیبانی</span>
 
-          <div className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
-            <HeadsetOutlineIcon />
-          </div>
+          <Link href={`tel:02196861727`}>
+            <a className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
+              <HeadsetOutlineIcon />
+            </a>
+          </Link>
         </div>
       )}
     </div>

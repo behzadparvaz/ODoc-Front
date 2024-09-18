@@ -34,3 +34,7 @@ export const getSupplementaryInsurances = async () =>
 
 export const createOrderDraft = async (payload: CreateOrderDraftPayload) =>
   await request.post(`Order/CreateOrderDraft`, payload);
+
+export const getOrderDetails = async (orderCode: string) => {
+  return await request.get(`/Order/GetOrderDetails?OrderCode=${orderCode}`);
+};

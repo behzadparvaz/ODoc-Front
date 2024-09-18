@@ -20,12 +20,18 @@ import prescriptionMedicine from '@static/images/staticImages/mainCategories/pre
 import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import Address from '@com/_organisms/Address';
 import useNotification from '@hooks/useNotification';
+import FixBottomSection from '@com/_atoms/FixBottomSection';
+import Spinner from '@com/_atoms/Spinner';
 
 const Page = () => {
   const router = useRouter();
   const { openNotification } = useNotification();
   const { user } = useSelector((state: RootState) => state?.user);
-  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket();
+  const {
+    data: basket,
+    isLoading,
+    refetch: refetchGetBasket,
+  } = useGetCurrentBasket();
   const { mutate: deleteBasket } = useDeleteCurrentBasket();
   const { mutate: createOrderDraft, data: draftData } = useCreateOrderDraft();
   const { data: profileQuery } = useGetProfile();
@@ -81,6 +87,20 @@ const Page = () => {
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+      );
+    }
+    if (!!draftData) {
+      <OrderInProgress />;
+    }
+
+    if (products?.length === 0 && !basket?.refrenceNumber && !draftData) {
+      <BasketEmptyPage />;
+    }
+  };
   return (
     <MainLayout
       title="سبد خرید"
@@ -88,55 +108,6 @@ const Page = () => {
       hasBackButton
       handleClickRightIcon={() => router?.push(routeList?.homeRoute)}
       hasBottomGap
-      footer={
-        <div className="w-full h-full flex justify-between items-center px-4 gap-3">
-          {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
-            !draftData && (
-              <>
-                <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  handleClick={onSubmitBasket}
-                >
-                  ارسال به داروخانه ها
-                </Button>
-                <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  buttonType={'outlined'}
-                  handleClick={deleteBasket}
-                >
-                  حذف سبد خرید
-                </Button>
-              </>
-            )}
-          {draftData && (
-            <>
-              <Button
-                variant={'primary'}
-                className="flex-1"
-                size={'large'}
-                handleClick={() =>
-                  router.push(`${routeList.ordersHistory}/${draftData}`)
-                }
-              >
-                مشاهده جزییات سفارش
-              </Button>
-              <Button
-                variant={'primary'}
-                className="flex-1"
-                size={'large'}
-                buttonType={'outlined'}
-                handleClick={() => router.push(routeList.homeRoute)}
-              >
-                برگشت به خانه
-              </Button>
-            </>
-          )}
-        </div>
-      }
     >
       <div className="relative h-full pb-14 pt-4 px-4 md:pb-20 overflow-auto">
         {!!draftData && <OrderInProgress />}
@@ -194,6 +165,55 @@ const Page = () => {
           </div>
         )}
       </div>
+      <FixBottomSection>
+        <div className="w-full h-full flex justify-between items-center py-4 px-4 gap-3">
+          {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
+            !draftData && (
+              <>
+                <Button
+                  variant={'primary'}
+                  className="flex-1"
+                  size={'large'}
+                  handleClick={onSubmitBasket}
+                >
+                  ارسال به داروخانه ها
+                </Button>
+                <Button
+                  variant={'primary'}
+                  className="flex-1"
+                  size={'large'}
+                  buttonType={'outlined'}
+                  handleClick={deleteBasket}
+                >
+                  حذف سبد خرید
+                </Button>
+              </>
+            )}
+          {draftData && (
+            <>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                handleClick={() =>
+                  router.push(`${routeList.ordersHistory}/${draftData}`)
+                }
+              >
+                مشاهده جزییات سفارش
+              </Button>
+              <Button
+                variant={'primary'}
+                className="flex-1"
+                size={'large'}
+                buttonType={'outlined'}
+                handleClick={() => router.push(routeList.homeRoute)}
+              >
+                برگشت به خانه
+              </Button>
+            </>
+          )}
+        </div>
+      </FixBottomSection>
     </MainLayout>
   );
 };

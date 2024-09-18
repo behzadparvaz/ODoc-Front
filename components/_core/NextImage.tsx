@@ -1,27 +1,6 @@
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
-enum ImageDefaultSrc {
-  AEROSOL = 'Aerosol',
-  CAPSULES = 'capsules',
-  CREAM = 'Cream',
-  DOUCHE = 'Douche',
-  DROPS = 'drops',
-  GEL = 'Gel',
-  GRANULES = 'granules',
-  MOUTHWASH = 'mouthwash',
-  OINMENT = 'ointment',
-  PILL = 'Pill',
-  PLASTER = 'Plaster',
-  POWDER = 'powder',
-  SHAMPOO = 'Shampoo',
-  SOAP = 'Soap',
-  SPRAY = 'Spray',
-  SUPPOSITORIES = 'Suppositories',
-  SUSPENSION = 'suspension',
-  SYRUP = 'syrup',
-}
-
 const NextImage = ({
   src,
   unoptimized,

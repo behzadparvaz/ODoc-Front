@@ -13,6 +13,7 @@ const nextConfig = {
       'https://trustseal.eNamad.ir',
       'https://logo.samandehi.ir',
       '5.34.204.173',
+      's3.ir-thr-at1.arvanstorage.ir',
     ],
     minimumCacheTTL: 60,
   },
