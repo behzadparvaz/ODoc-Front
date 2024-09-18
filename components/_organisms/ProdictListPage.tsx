@@ -14,7 +14,9 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
-const HorizontalProductCard = dynamic(() => import('@com/_molecules/HorizontalProductCard'));
+const HorizontalProductCard = dynamic(
+  () => import('@com/_molecules/HorizontalProductCard'),
+);
 
 type Props = {};
 
@@ -66,7 +68,7 @@ export default function ProdictListPage({}: Props) {
       hasBackButton
       hasBottomGap
       footer={
-        <div className="h-full flex justify-center items-center p-4">
+        <div className="w-full flex justify-center items-center p-4">
           <Button
             className="w-full !rounded-full"
             size="large"

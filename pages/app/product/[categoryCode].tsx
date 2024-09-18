@@ -4,6 +4,7 @@ import SearchBox from '@com/_atoms/SearchBox';
 import DrugShapesBox from '@com/_molecules/DrugShapesBox';
 import ProductDetail from '@com/_molecules/ProductDetail';
 import ProductSlider from '@com/_molecules/ProductSlider';
+import SectionTitle from '@com/_molecules/SectionTitle.nd';
 import MainPageLayout from '@com/_template/MainPageLayout';
 import { ArrowRightIconOutline } from '@com/icons';
 import {
@@ -13,7 +14,7 @@ import {
 import { useRouter } from 'next/router';
 
 const Product = () => {
-  const { back } = useRouter();
+  const { back, query } = useRouter();
   const { data, isLoading } = useGetCategoryDescription('1_1');
 
   const productDetail: any = data?.queryResult?.[0];
@@ -23,6 +24,7 @@ const Product = () => {
     <MainPageLayout
       hasFooter={false}
       hasAddress={false}
+      hasSearchIcon={false}
       className={`${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} bg-grey-50`}
     >
       <div
@@ -36,10 +38,18 @@ const Product = () => {
       <div className="w-full pt-[92px] pb-9">
         {isLoading === false ? (
           <div className="px-4">
-            <ProductSlider
-              data={productSliderData}
-              className="px-4 bg-white rounded-2xl py-6"
-            />
+            <div className="flex flex-col gap-y-2 rounded-xl bg-white p-4">
+              <SectionTitle
+                title={`${query?.categoryName}`}
+                tag="h1"
+                className="text-lg font-semibold"
+              />
+
+              <ProductSlider
+                data={productSliderData}
+                className="px-4 bg-white rounded-2xl py-6"
+              />
+            </div>
             <DrugShapesBox />
 
             <ProductDetail

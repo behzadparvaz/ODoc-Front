@@ -18,7 +18,7 @@ const ProductSlider = ({ className, data }: Props) => {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   return (
     <div
-      className={`w-full ${className} ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''} shadow-md `}
+      className={`w-full ${className} ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
     >
       <Swiper
         navigation={true}

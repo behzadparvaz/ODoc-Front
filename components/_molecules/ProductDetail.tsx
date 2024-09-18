@@ -7,19 +7,8 @@ interface Props {
   data: any;
 }
 const ProductDetail = ({ className = '', data }: Props) => {
-  const { query } = useRouter();
   return (
     <div className={`w-full ${className} flex flex-col gap-y-2`}>
-      <SectionTitle
-        title={`${query?.categoryName}`}
-        tag="h1"
-        className="text-lg font-semibold"
-      />
-
-      <div className="flex justify-between items-center px-4">
-        <span className="bg-grey-200 w-full h-[1px]" />
-      </div>
-
       <div className="grid gap-y-1 px-4">
         <span className="text-base font-semibold">موارد مصرف</span>
         <ListItem
