@@ -1,9 +1,11 @@
 import {
-  useMutation, UseMutationOptions, UseMutationResult,
+  useMutation,
+  UseMutationOptions,
+  UseMutationResult,
   useQuery,
   useQueryClient,
   UseQueryOptions,
-  UseQueryResult
+  UseQueryResult,
 } from 'react-query';
 import {
   CancelOrder,
@@ -14,13 +16,21 @@ import {
   VerifyPaymentOrder,
   getInsurances,
   GetOrderStatuses,
-  getSupplementaryInsurances, createOrderDraft
+  getSupplementaryInsurances,
+  createOrderDraft,
+  getOrderDetails,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
-import { CreateOrderDraftPayload, OrderStatuses } from '@utilities/interfaces/order';
+import {
+  CreateOrderDraftPayload,
+  OrderStatuses,
+} from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
-import { addProductToBasket, AddProductToBasketPayload } from '@api/basket/basketApis';
+import {
+  addProductToBasket,
+  AddProductToBasketPayload,
+} from '@api/basket/basketApis';
 
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
@@ -135,8 +145,19 @@ export const useGetSupplementaryInsurances = () => {
 
 export const useCreateOrderDraft: (
   options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
-) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = ( options) =>
+) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = (options) =>
   useMutation({
     mutationFn: (variables) => createOrderDraft(variables),
     ...options,
   });
+
+export const useGetOrderDetails = (orderCode: string) => {
+  const { data, isLoading } = useQuery(
+    ['getTenderItems', orderCode],
+    () => getOrderDetails(orderCode),
+    {
+      enabled: !!orderCode,
+    },
+  );
+  return { data: data as any, isLoading };
+};

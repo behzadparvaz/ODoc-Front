@@ -41,7 +41,7 @@ const VerticalProductCard = ({
   >({
     select: (res: Basket) => ({
       ...res,
-      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
+      productsById: Object.fromEntries(res?.products.map((pr) => [pr.irc, pr])),
     }),
     enabled: true,
   });
@@ -80,7 +80,7 @@ const VerticalProductCard = ({
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
-      irc: rest.irc ? rest.irc : rest?.genericCode,
+      irc: rest?.irc ? rest?.irc : rest?.genericCode,
       quantity: quantity,
     });
 
@@ -96,7 +96,7 @@ const VerticalProductCard = ({
     setProductBasketQuantity(
       basket?.products?.find(
         (basketItem) =>
-          basketItem.irc === (productData?.irc || productData?.genericCode),
+          basketItem?.irc === (productData?.irc || productData?.genericCode),
       )?.quantity ?? 0,
     );
   }, [basket]);
