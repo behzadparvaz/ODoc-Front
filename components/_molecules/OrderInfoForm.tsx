@@ -234,7 +234,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       <FixBottomSection>
         <div className="w-full flex justify-end p-4">
           <Button
-            className="w-1/2"
+            className="w-full"
             type="submit"
             buttonType="contained"
             size="large"

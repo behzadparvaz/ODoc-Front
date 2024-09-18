@@ -53,9 +53,14 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
         <NextLink
           href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
-          <span className="w-2/3 text-base font-semibold truncate cursor-pointer text-[#276EF1]">
-            {`${category?.categoryNameLevel2} ${totalCount ? `(${totalCount})` : ''}`}
-          </span>
+          <div className="flex gap-x-2 items-center w-2/3 text-base font-semibold cursor-pointer text-[#276EF1]">
+            <span className="!w-max truncate">
+              {category?.categoryNameLevel2}
+            </span>
+            <span className="!w-max">
+              {`${totalCount ? `(${totalCount})` : ''}`}
+            </span>
+          </div>
         </NextLink>
 
         <span
