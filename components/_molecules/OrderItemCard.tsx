@@ -1,8 +1,8 @@
-import Image from 'next/image';
 import classNames from 'classnames';
 
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 import { convertRialToToman } from '@utilities/mainUtils';
+import NextImage from '@com/_core/NextImage';
 
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel;
@@ -20,7 +20,7 @@ const OrderItemCard = ({
     <div className="h-[84px] flex gap-2 items-center justify-between py-2">
       <div className="flex gap-3 items-center">
         <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
-          <Image
+          <NextImage
             src={
               item?.imageLink
                 ? item?.imageLink

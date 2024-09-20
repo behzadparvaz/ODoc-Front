@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import Image from 'next/image';
 import { useRouter } from 'next/router';
 
 import { MainLayout } from '@com/Layout';
@@ -22,6 +21,7 @@ import Address from '@com/_organisms/Address';
 import useNotification from '@hooks/useNotification';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import Spinner from '@com/_atoms/Spinner';
+import NextImage from '@com/_core/NextImage';
 
 const Page = () => {
   const router = useRouter();
@@ -119,7 +119,7 @@ const Page = () => {
             {!!basket?.refrenceNumber && (
               <>
                 <div className="w-full h-20 flex items-center justify-start gap-x-4">
-                  <Image
+                  <NextImage
                     src={
                       basket?.isSpecialPatient
                         ? specialPatients

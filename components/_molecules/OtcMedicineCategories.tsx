@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import Image from 'next/image';
 import classNames from 'classnames';
 
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 import Spinner from '@com/_atoms/Spinner';
+import NextImage from '@com/_core/NextImage';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
@@ -75,7 +75,7 @@ const OtcMedicineCategories = () => {
             className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-grey-50 cursor-pointer gap-y-2"
           >
             <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-lg">
-              <Image
+              <NextImage
                 src={item?.iconLink}
                 width={56}
                 height={56}
