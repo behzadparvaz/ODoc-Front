@@ -73,9 +73,11 @@ const OrderDetails = () => {
                         ? 'نسخه بیماری خاص'
                         : 'دارو با نسخه'}
                     </span>
-                    <span className="text-sm font-semibold">
-                      {`کد نسخه ${data?.referenceNumber}`}
-                    </span>
+                    {data?.referenceNumber ? (
+                      <span className="text-sm font-semibold">
+                        {`کد نسخه ${data?.referenceNumber}`}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 {data?.orderDetails?.map(
