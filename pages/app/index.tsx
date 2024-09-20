@@ -8,7 +8,6 @@ import { useEffect, useRef, useState } from 'react';
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
-const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 
 const HomePage = () => {
