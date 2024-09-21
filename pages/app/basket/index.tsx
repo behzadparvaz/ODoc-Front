@@ -101,6 +101,7 @@ const Page = () => {
       <BasketEmptyPage />;
     }
   };
+
   return (
     <MainLayout
       title="سبد خرید"

@@ -29,72 +29,61 @@ const BottomNavigation = ({ className = '' }) => {
         className={`h-[64px] w-full flex justify-around items-center ${className}`}
       >
         <NextLink href={Routes.home}>
-          <a>
-            <span
-              className={classNames(
-                'flex flex-col items-center gap-2 text-sm text-grey-500',
-                pathname === Routes.home && '!text-black',
-              )}
-            >
-              <HomeFillIcon
-                width={24}
-                height={24}
-                fill={
-                  pathname === Routes.home ? colors?.black : colors?.grey?.[300]
-                }
-              />
-              {tabs.home}
-            </span>
-          </a>
+          <span
+            className={classNames(
+              'flex flex-col items-center gap-2 text-sm text-grey-500',
+              pathname === Routes.home && '!text-black',
+            )}
+          >
+            <HomeFillIcon
+              width={24}
+              height={24}
+              fill={
+                pathname === Routes.home ? colors?.black : colors?.grey?.[300]
+              }
+            />
+            {tabs.home}
+          </span>
         </NextLink>
 
         <NextLink href={Routes.orders}>
-          <a>
-            <span
-              className={classNames(
-                'flex flex-col items-center gap-2 text-sm text-grey-500',
-                pathname === Routes.orders && '!text-black',
-              )}
-            >
-              <OrderNotesOutlineIcon
-                width={24}
-                height={24}
-                fill={
-                  pathname === Routes.orders
-                    ? colors?.black
-                    : colors?.grey?.[300]
-                }
-              />
+          <span
+            className={classNames(
+              'flex flex-col items-center gap-2 text-sm text-grey-500',
+              pathname === Routes.orders && '!text-black',
+            )}
+          >
+            <OrderNotesOutlineIcon
+              width={24}
+              height={24}
+              fill={
+                pathname === Routes.orders ? colors?.black : colors?.grey?.[300]
+              }
+            />
 
-              {tabs.orders}
-            </span>
-          </a>
+            {tabs.orders}
+          </span>
         </NextLink>
 
         <NextLink href={Routes.profile}>
-          <a>
-            <span
-              className={classNames(
-                'flex flex-col items-center gap-2 text-sm text-grey-500',
-                pathname === Routes.profile && '!text-black',
-              )}
-            >
-              <ProfileOutlineIcon
-                width={24}
-                height={24}
-                fill={
-                  pathname === Routes.profile
-                    ? colors?.black
-                    : colors?.grey?.[300]
-                }
-              />
-              {tabs.profile}
-            </span>
-          </a>
+          <span
+            className={classNames(
+              'flex flex-col items-center gap-2 text-sm text-grey-500',
+              pathname === Routes.profile && '!text-black',
+            )}
+          >
+            <ProfileOutlineIcon
+              width={24}
+              height={24}
+              fill={
+                pathname === Routes.profile
+                  ? colors?.black
+                  : colors?.grey?.[300]
+              }
+            />
+            {tabs.profile}
+          </span>
         </NextLink>
-      </div>
-      <div className="w-full h-[21px] flex justify-center items-center px-4">
-        <div className="w-[139px] h-[5px] bg-black rounded-full" />
       </div>
     </>
   );
