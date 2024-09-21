@@ -6,11 +6,11 @@ import OrderStatus from '@com/_molecules/OrderStatus';
 import { MainLayout } from '@com/Layout';
 import ProgressStepper from '@com/_molecules/ProgressBar';
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
-import Image from 'next/image';
 import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
 import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import { useGetOrderDetails } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
+import NextImage from '@com/_core/NextImage';
 
 // const Map = dynamic(() => import('@com/_molecules/Map'));
 
@@ -56,7 +56,7 @@ const OrderDetails = () => {
               <div className="flex flex-col gap-3 p-4">
                 <div className="flex justify-start items-center gap-x-2">
                   <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
-                    <Image
+                    <NextImage
                       src={
                         data?.isSpecialPatient
                           ? specialPatients
@@ -73,9 +73,11 @@ const OrderDetails = () => {
                         ? 'نسخه بیماری خاص'
                         : 'دارو با نسخه'}
                     </span>
-                    <span className="text-sm font-semibold">
-                      {`کد نسخه ${data?.referenceNumber}`}
-                    </span>
+                    {data?.referenceNumber ? (
+                      <span className="text-sm font-semibold">
+                        {`کد نسخه ${data?.referenceNumber}`}
+                      </span>
+                    ) : null}
                   </div>
                 </div>
                 {data?.orderDetails?.map(

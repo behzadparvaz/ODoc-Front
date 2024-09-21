@@ -130,14 +130,20 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
           </label>
         }
         content={insurances?.map((item, index) => (
-          <div key={item.name} className="px-2">
+          <div key={item?.name} className="px-2">
             <CheckBox
-              handleChange={formik.handleChange}
-              label={item.name}
+              handleChange={() => {
+                const currentInsuranceType = formik?.values?.insuranceTypeId;
+                formik.setFieldValue(
+                  'insuranceTypeId',
+                  currentInsuranceType === item?.id ? '' : item?.id,
+                );
+              }}
+              label={item?.name}
               labelClassName="text-sm mr-6 font-normal text-grey-700"
               name="insuranceTypeId"
-              id={item.id}
-              value={item.id}
+              id={item?.id}
+              value={item?.id}
               icon={
                 <TickIcon
                   width={15}
@@ -148,7 +154,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
               }
               checkedClassName="!bg-grey-500"
               boxClassName="w-4 h-4 rounded-full border-grey-800"
-              checked={Number(formik.values.insuranceTypeId) === item.id}
+              checked={Number(formik?.values?.insuranceTypeId) === item?.id}
               className="w-full mb-4 z-0"
             />
           </div>
@@ -163,14 +169,21 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
               </label>
             }
             content={supplementaryInsurances?.map((item, index) => (
-              <div key={item.name} className="px-2">
+              <div key={item?.name} className="px-2">
                 <CheckBox
-                  handleChange={formik.handleChange}
-                  label={item.name}
+                  handleChange={() => {
+                    const currentInsuranceType =
+                      formik?.values?.supplementaryInsuranceType;
+                    formik.setFieldValue(
+                      'supplementaryInsuranceType',
+                      currentInsuranceType === item?.id ? '' : item?.id,
+                    );
+                  }}
+                  label={item?.name}
                   labelClassName="text-sm mr-6 font-normal text-grey-700"
                   name="supplementaryInsuranceType"
-                  id={item.id}
-                  value={item.id}
+                  id={item?.id}
+                  value={item?.id}
                   icon={
                     <TickIcon
                       width={15}
@@ -182,7 +195,8 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                   checkedClassName="!bg-grey-500"
                   boxClassName="w-4 h-4 rounded-full border-grey-800"
                   checked={
-                    Number(formik.values.supplementaryInsuranceType) === item.id
+                    Number(formik?.values?.supplementaryInsuranceType) ===
+                    item?.id
                   }
                   className="w-full mb-4 z-0"
                 />
@@ -204,7 +218,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                       'vendorCode',
                       currentVendorCode === item?.vendorCode
                         ? ''
-                        : item?.vendorCode, // Deselect if already selected
+                        : item?.vendorCode,
                     );
                   }}
                   label={item.vendorName}

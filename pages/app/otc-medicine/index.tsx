@@ -10,7 +10,7 @@ const OtcMedicinePage = () => {
       hasAddress={false}
       title="داروی بدون نسخه"
     >
-      <div className="w-full flex flex-col gap-y-4 py-10 px-2">
+      <div className="w-full flex flex-col gap-y-4 pt-4 pb-10 px-2">
         <Categories />
 
         <div className="px-2">
