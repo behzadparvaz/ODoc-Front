@@ -15,7 +15,10 @@ import { useRouter } from 'next/router';
 
 const Product = () => {
   const { back, query } = useRouter();
-  const { data, isLoading } = useGetCategoryDescription('1_1');
+
+  const { data, isLoading } = useGetCategoryDescription(
+    String(query?.categoryCode),
+  );
 
   const productDetail: any = data?.queryResult?.[0];
   const productSliderData = productDetail?.imageLinks;
@@ -35,7 +38,7 @@ const Product = () => {
         </Button>
         <SearchBox />
       </div>
-      <div className="w-full pt-[92px] pb-9">
+      <div className="w-full pt-[92px] pb-9 min-h-[600px] h-full">
         {isLoading === false ? (
           <div className="px-4">
             <div className="flex flex-col gap-y-2 rounded-xl bg-white p-4">
