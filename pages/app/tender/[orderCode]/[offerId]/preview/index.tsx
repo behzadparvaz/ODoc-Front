@@ -10,7 +10,7 @@ import useModal from '@hooks/useModal';
 import SelectAddress from '@com/_organisms/SelectAddress';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
 import { useEffect, useState } from 'react';
-import { TickIcon } from '@com/icons';
+import { ArrowRightIconOutline, TickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import Input from '@com/_atoms/Input.nd';
 import { useFormik } from 'formik';
@@ -20,7 +20,7 @@ import Address from '@com/_organisms/Address';
 import { convertRialToToman } from '@utilities/mainUtils';
 
 const Preview = () => {
-  const { query } = useRouter();
+  const { push, query } = useRouter();
   const { addModal } = useModal();
   const { mutate: mutatePayment } = useFinishOrderPayment();
   const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
@@ -72,6 +72,7 @@ const Preview = () => {
       hasHeader
       hasBackButton
       hasBottomGap
+      handleClickRightIcon={() => push('/app/order-history')}
       footer={
         <div className="w-full flex justify-between gap-3 px-4">
           <div className="w-1/2 flex flex-col gap-y-2">
@@ -96,7 +97,7 @@ const Preview = () => {
         </div>
       }
     >
-      <div className="w-full h-60 flex justify-center items-center">
+      {/* <div className="w-full h-60 flex justify-center items-center">
         <Map
           addressData={parsiMapLocationAddress}
           loadingAddress={isLoadingMapsAddress}
@@ -104,9 +105,9 @@ const Preview = () => {
           latitude={35.69976003841564}
           longitude={51.33808390275898}
         />
-      </div>
+      </div> */}
       <div className="w-full  flex flex-col gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
-        <Address />
+        <Address buttonTitle="تغییر آدرس" />
 
         <div className="px-4">
           <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
@@ -133,6 +134,9 @@ const Preview = () => {
             checked={true}
             className="w-full mt-3 z-0"
           />
+          <span className="text-xs text-grey-500 font-normal">
+            پرداخت آنلاین با تمامی کارت های بانکی
+          </span>
         </div>
 
         <div className="px-4">

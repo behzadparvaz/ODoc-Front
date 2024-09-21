@@ -10,7 +10,10 @@ import { RootState } from '@utilities/types';
 import { setUserAction } from '@redux/user/userActions';
 import { homePageText } from '@com/texts/homePage';
 
-const Address = () => {
+type AddressProps = {
+  buttonTitle?: string;
+};
+const Address = ({ buttonTitle }: AddressProps) => {
   const { addModal } = useModal();
   const { data: addressDate } = useGetUserLocations();
   const { user } = useSelector((state: RootState) => state?.user);
@@ -59,7 +62,7 @@ const Address = () => {
         className={'bg-grey-100 !rounded-full !h-11 mt-3'}
         handleClick={onClickOpenModal}
       >
-        تغییر آدرس
+        {buttonTitle ? buttonTitle : `انتخاب یا تغییر آدرس`}{' '}
       </Button>
     </div>
   );
