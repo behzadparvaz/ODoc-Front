@@ -34,12 +34,13 @@ const CallBack = () => {
       });
     }
   }, [query]);
+
   const headerChildrenElement = (
     <NextImage src={tapsiLogo} height={30} width={125} />
   );
 
   return (
-    <MainLayout hasHeader title="وضعیت پرداخت">
+    <MainLayout hasHeader>
       {isLoading ? (
         <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
       ) : (

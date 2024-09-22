@@ -118,16 +118,15 @@ const MainPageLayout = ({
         ) : null}
       </div>
 
-      {hasBottomNavigation ? (
+      {hasBottomNavigation && (
         <div
           className={classNames(
-            'col-span-full row-start-3 row-end-4',
             hasBottomNavigation && 'bg-grey-50 border-t border-grey-100',
           )}
         >
           <BottomNavigation />
         </div>
-      ) : null}
+      )}
     </div>
   );
 };

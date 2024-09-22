@@ -5,6 +5,7 @@ import { convertRialToToman } from '@utilities/mainUtils';
 
 type TenderProductListProps = {
   orderItems: TenderItemsOrderDataModel[];
+  totalPrice: number;
   finalPrice: number;
   packingPrice?: number;
   deliveryPrice?: number;
@@ -12,6 +13,7 @@ type TenderProductListProps = {
 
 const TenderProductList = ({
   orderItems,
+  totalPrice,
   finalPrice,
   packingPrice,
   deliveryPrice,
@@ -54,7 +56,7 @@ const TenderProductList = ({
           <span>{`جمع سفارش ${orderItems?.length > 1 ? `(${orderItems?.length})` : ''}`}</span>
 
           <span>
-            {!!finalPrice ? `${convertRialToToman(finalPrice)}` : 'رایگان'}
+            {!!totalPrice ? `${convertRialToToman(totalPrice)}` : 'رایگان'}
           </span>
         </div>
 

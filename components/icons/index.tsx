@@ -3520,3 +3520,20 @@ export const TimerIcon = ({
     />
   </svg>
 );
+
+export const FailIcon = ({
+  width = 32,
+  height = 32,
+  fill = '#E11900',
+  className = '',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path d="M14 20.667h4v4h-4v-4zm0-13.334h4V18h-4V7.333z" fill={fill} />
+  </svg>
+);
