@@ -56,19 +56,26 @@ const HomePage = () => {
           </a>
         <OrderTracking />
         </div> */}
-          <MainSlider
-            className="py-2 px-4"
-            data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
-          />
+          {bannerData?.queryResult && (
+            <MainSlider
+              className="py-2 px-4"
+              data={[
+                bannerData?.queryResult?.[0],
+                bannerData?.queryResult?.[1],
+              ]}
+            />
+          )}
           <CarouselLine data={getCarouselDataData(1)} className="my-4" />
           <CarouselLine data={getCarouselDataData(2)} className="my-4" />
-          <Banner
-            style={{
-              background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F7F7 100%)',
-            }}
-            className="px-4 py-6"
-            data={[bannerData?.queryResult?.[2]]}
-          />
+          {bannerData?.queryResult && (
+            <Banner
+              style={{
+                background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F7F7 100%)',
+              }}
+              className="px-4 py-6"
+              data={[bannerData?.queryResult?.[2]]}
+            />
+          )}
           <CarouselLine data={getCarouselDataData(3)} className="my-4" />
         </MainPageLayout>
       ) : null}

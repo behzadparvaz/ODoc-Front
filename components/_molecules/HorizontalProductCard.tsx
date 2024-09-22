@@ -86,12 +86,10 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       <div className="w-[68px] border border-grey-500 rounded-xl flex">
         <NextImage
           unoptimized
-          src={prInfo?.image}
+          src={prInfo?.imageLink}
           alt={prInfo?.productName}
           width={66}
           height={66}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(66, 66))}`}
         />
       </div>
       <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">

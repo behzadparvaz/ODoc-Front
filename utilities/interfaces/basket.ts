@@ -5,7 +5,7 @@ type ProductInBasket = {
   persianName?: string;
   productName?: string;
   price: number;
-  image?: string;
+  imageLink?: string;
   discount: number;
   tax: number;
   quantity: number;
