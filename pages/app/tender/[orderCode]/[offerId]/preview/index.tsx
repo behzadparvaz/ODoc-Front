@@ -18,12 +18,13 @@ import { VoucherCodeSchema } from '@utilities/validationSchemas';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import Address from '@com/_organisms/Address';
 import { convertRialToToman } from '@utilities/mainUtils';
+import FixBottomSection from '@com/_atoms/FixBottomSection';
 
 const Preview = () => {
   const { push, query } = useRouter();
-  const { addModal } = useModal();
+  // const { addModal } = useModal();
   const { mutate: mutatePayment } = useFinishOrderPayment();
-  const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
+  // const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
 
   const { data: tenderData, isLoading: tenderIsLoading } = useGetTenderItems(
     query?.orderCode as string,
@@ -53,11 +54,11 @@ const Preview = () => {
     mutatePayment(body);
   };
 
-  const handleOpenModal = () => {
-    addModal({
-      modal: SelectAddress,
-    });
-  };
+  // const handleOpenModal = () => {
+  //   addModal({
+  //     modal: SelectAddress,
+  //   });
+  // };
 
   useEffect(() => {
     if (tenderIsLoading) return;
@@ -72,30 +73,7 @@ const Preview = () => {
       hasHeader
       hasBackButton
       hasBottomGap
-      handleClickRightIcon={() => push('/app/order-history')}
-      footer={
-        <div className="w-full flex justify-between gap-3 px-4">
-          <div className="w-1/2 flex flex-col gap-y-2">
-            <span className="text-base font-semibold">
-              {`${convertRialToToman(selectedOffer?.finalPrice)}`}
-            </span>
-            <span className="text-md">قابل پرداخت</span>
-          </div>
-          <Button
-            variant={'primary'}
-            className="flex-1 bg-orange-500"
-            size={'large'}
-            handleClick={() =>
-              handleClickOnPaymentButton(
-                query?.orderCode,
-                selectedOffer?.finalPrice,
-              )
-            }
-          >
-            پرداخت
-          </Button>
-        </div>
-      }
+      handleClickRightIcon={() => push('/app/orders-history')}
     >
       {/* <div className="w-full h-60 flex justify-center items-center">
         <Map
@@ -187,10 +165,10 @@ const Preview = () => {
                   </span>
 
                   <span className="flex items-center text-md gap-x-1">
-                    {!!selectedOffer?.finalPrice &&
-                      convertRialToToman(selectedOffer?.finalPrice)}
+                    {!!selectedOffer?.totalPrice &&
+                      convertRialToToman(selectedOffer?.totalPrice)}
                     <span className="text-sm text-grey-800">
-                      {!!selectedOffer?.finalPrice ? 'تومان' : 'رایگان'}
+                      {!!selectedOffer?.totalPrice ? 'تومان' : 'رایگان'}
                     </span>
                   </span>
                 </div>
@@ -233,6 +211,30 @@ const Preview = () => {
           </div>
         </div>
       </div>
+
+      <FixBottomSection>
+        <div className="w-full flex justify-between gap-3 px-4 py-4">
+          <div className="w-1/2 flex flex-col gap-y-2">
+            <span className="text-base font-semibold">
+              {`${convertRialToToman(selectedOffer?.finalPrice)}`}
+            </span>
+            <span className="text-md">قابل پرداخت</span>
+          </div>
+          <Button
+            variant={'primary'}
+            className="flex-1 bg-orange-500"
+            size={'large'}
+            handleClick={() =>
+              handleClickOnPaymentButton(
+                query?.orderCode,
+                selectedOffer?.finalPrice,
+              )
+            }
+          >
+            پرداخت
+          </Button>
+        </div>
+      </FixBottomSection>
     </MainLayout>
   );
 };

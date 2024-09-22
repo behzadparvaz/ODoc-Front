@@ -99,6 +99,7 @@ const TenderItemDetail = ({
           {tab === Tabs.items && (
             <TenderProductList
               orderItems={tenderData?.orderDetails}
+              totalPrice={tenderData?.totalPrice}
               finalPrice={tenderData?.finalPrice}
               packingPrice={tenderData?.packingPrice}
               deliveryPrice={tenderData?.delivery?.deliveryPrice}

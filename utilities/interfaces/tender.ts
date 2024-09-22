@@ -8,6 +8,7 @@ export type TenderOrderAltDataModel = {
   price: number;
   productName: string;
   quantity: number;
+  imageLink: string;
 };
 export type TenderOrderdisCountDataModel = {
   amount: number;

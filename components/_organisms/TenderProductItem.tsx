@@ -23,7 +23,7 @@ const TenderProductItem = ({
         <div className="flex flex-col gap-y-2">
           <p className="text-xs font-bold">پیشنهاد داروخانه</p>
 
-          <OrderItemCard key={index} item={item} />
+          <OrderItemCard key={index} item={item?.alternatives[0]} />
         </div>
       )}
 

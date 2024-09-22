@@ -16,7 +16,8 @@ export const orderText = {
     'آیا از لغو سفارش {orderCode} اطمینان دارید؟',
   orderCancelation: 'لغو سفارش',
   familyMembers: 'افراد تحت تکفل',
-  failurePaymentText: 'پرداخت شما با خطا مواجه شد',
+  failurePaymentText: 'مشکل در پرداخت',
+  failurePaymentHelperText: 'برای اطلاعات بیشتر با پشتیبانی تماس بگیرید',
   successPaymentText: 'پرداخت شما با موفقیت انجام شد',
   selectDrugStore: 'داروخانه را انتخاب کنید',
 };
