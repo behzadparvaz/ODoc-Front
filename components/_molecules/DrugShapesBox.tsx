@@ -36,11 +36,7 @@ export default function DrugShapesBox({}: Props) {
             className="flex items-center border border-grey-200 h-10 rounded-lg px-2"
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >
-            <NextImage
-              src={'/static/images/staticImages/DefaultProductImage.png'}
-              height={35}
-              width={35}
-            />
+            <NextImage src={item?.imageLink} height={35} width={35} />
             <p className="text-sm font-medium truncate mr-2">{item?.shape}</p>
           </div>
         );

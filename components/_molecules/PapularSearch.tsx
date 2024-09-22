@@ -11,8 +11,8 @@ const Chips = dynamic(() => import('@com/_atoms/Chips'));
 
 const PapularSearch = ({ className }: Props) => {
   const mockData = [
-    { text: 'آموکسی سیلین', id: 0 },
-    { text: 'کلردیازپوکساید', id: 1 },
+    { text: 'ژلوفن', id: 0 },
+    { text: 'استامینوفن', id: 1 },
     { text: 'ستیریزین', id: 2 },
   ];
 
