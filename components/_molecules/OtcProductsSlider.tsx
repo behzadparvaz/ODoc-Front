@@ -111,7 +111,7 @@ const OtcProductsSlider = ({
           <Link
             href={`/app/product/${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
           >
-            <div className="w-[157px] h-[194px] flex flex-col items-center justify-center border-r border-grey-100 cursor-pointer">
+            <div className="w-[157px] h-[198px] flex flex-col items-center justify-center cursor-pointer">
               <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
                 <ArrowLeftIconOutline width={20} height={20} fill="#000" />
               </span>
@@ -138,7 +138,7 @@ const OtcProductsSlider = ({
         <Link
           href={`/app/product/${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
-          <div className="w-[157px] h-[194px] flex flex-col items-center justify-center border-r border-grey-100 cursor-pointer">
+          <div className="w-[157px] h-[198px] flex flex-col items-center justify-center cursor-pointer">
             <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
               <ArrowLeftIconOutline width={20} height={20} fill="#000" />
             </span>

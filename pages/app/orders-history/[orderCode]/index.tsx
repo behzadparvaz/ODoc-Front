@@ -54,32 +54,34 @@ const OrderDetails = () => {
                 </span>
               </div>
               <div className="flex flex-col gap-3 p-4">
-                <div className="flex justify-start items-center gap-x-2">
-                  <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
-                    <NextImage
-                      src={
-                        data?.isSpecialPatient
-                          ? specialPatients
-                          : prescriptionMedicine
-                      }
-                      alt="Rx-image"
-                      width={68}
-                      height={68}
-                    />
-                  </div>
-                  <div className="flex flex-col gap-y-2">
-                    <span className="text-sm font-semibold">
-                      {data?.isSpecialPatient
-                        ? 'نسخه بیماری خاص'
-                        : 'دارو با نسخه'}
-                    </span>
-                    {data?.referenceNumber ? (
+                {data?.referenceNumber && (
+                  <div className="flex justify-start items-center gap-x-2">
+                    <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
+                      <NextImage
+                        src={
+                          data?.isSpecialPatient
+                            ? specialPatients
+                            : prescriptionMedicine
+                        }
+                        alt="Rx-image"
+                        width={68}
+                        height={68}
+                      />
+                    </div>
+                    <div className="flex flex-col gap-y-2">
                       <span className="text-sm font-semibold">
-                        {`کد نسخه ${data?.referenceNumber}`}
+                        {data?.isSpecialPatient
+                          ? 'نسخه بیماری خاص'
+                          : 'دارو با نسخه'}
                       </span>
-                    ) : null}
+                      {data?.referenceNumber ? (
+                        <span className="text-sm font-semibold">
+                          {`کد نسخه ${data?.referenceNumber}`}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
-                </div>
+                )}
                 {data?.orderDetails?.map(
                   (item: TenderItemsOrderDataModel, index) => (
                     <OrderItemCard

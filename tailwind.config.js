@@ -3,7 +3,8 @@ const clamp = require('@tailwindcss/line-clamp');
 const plugin = require('tailwindcss/plugin');
 
 const platform = process.env.NEXT_PUBLIC_PLATFORM;
-const shouldShowMobileMode = platform === 'web' || platform === 'android' || platform === 'ios';
+const shouldShowMobileMode =
+  platform === 'web' || platform === 'android' || platform === 'ios';
 
 module.exports = {
   mode: 'jit',
@@ -26,7 +27,7 @@ module.exports = {
     screens: {
       xs: 0,
       sm: '412px',
-      md: shouldShowMobileMode ? '100000px' : '960px',
+      md: shouldShowMobileMode ? '100000px' : '510px',
       lg: shouldShowMobileMode ? '110000px' : '1280px',
       xl: shouldShowMobileMode ? '120000px' : '1920px',
       infinite: '130000px',
@@ -60,7 +61,7 @@ module.exports = {
         100: '#D0E5E6',
         300: '#CBE4EB',
         400: '#A9DBDC',
-        800: '#008385'
+        800: '#008385',
       },
       red: {
         50: '#FAECEE',
@@ -169,17 +170,16 @@ module.exports = {
     boxShadow: {
       sm: '0px 0px 1px rgba(22, 22, 22, 0.04), 0px 1px 2px rgba(22, 22, 22, 0.04)',
       practicalTop: '0 -1px 10px #dfdfdf',
-      DEFAULT: '0px 1px 2px rgba(22, 22, 22, 0.04), 0px 1px 4px rgba(22, 22, 22, 0.04)',
+      DEFAULT:
+        '0px 1px 2px rgba(22, 22, 22, 0.04), 0px 1px 4px rgba(22, 22, 22, 0.04)',
       md: '0px 2px 4px -1px rgba(22, 22, 22, 0.04), 0px 4px 8px -1px rgba(22, 22, 22, 0.04)',
       lg: '0px 4px 6px -2px rgba(22, 22, 22, 0.06), 0px 8px 12px -4px rgba(22, 22, 22, 0.06)',
       xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
-      invert: '0px -2px 4px -1px rgba(22, 22, 22, 0.04), 0px -4px 8px -1px rgba(22, 22, 22, 0.04)',
+      invert:
+        '0px -2px 4px -1px rgba(22, 22, 22, 0.04), 0px -4px 8px -1px rgba(22, 22, 22, 0.04)',
       none: 'none',
-    },
-    animation: {
-      'pulse-fast': 'pulse 1s infinite',
     },
   },
   variants: {

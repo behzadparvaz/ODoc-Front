@@ -3,8 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import ProgressStepper from '@com/_molecules/ProgressBar';
-import Button from '@com/_atoms/Button';
-import { CloseIconOutline } from '@com/icons';
+import { CloseIconOutline, MoreSquareIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { IconButton } from '@com/_atoms/IconButton';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
@@ -12,13 +11,16 @@ import TenderCard from '@com/_organisms/TenderCard';
 import { MainLayout } from '@com/Layout';
 import { useCancelOrder } from '@api/order/orderApis.rq';
 import useModal from '@hooks/useModal';
+import { Button } from '@com/_atoms/NewButton';
+import Spinner from '@com/_atoms/Spinner';
 
 const Tender = () => {
   const router = useRouter();
 
   const { orderCode } = router.query;
   const { removeLastModal } = useModal();
-  const { mutate: mutateCancelOrder } = useCancelOrder();
+  const { mutate: mutateCancelOrder, isLoading: isLoadingCancelOrder } =
+    useCancelOrder();
   const handleCancelOrder = () => {
     mutateCancelOrder(
       {
@@ -40,13 +42,17 @@ const Tender = () => {
 
   const renderTenderCard = () => {
     if (tenderIsLoading)
-      return <div className="w-full text-center">در حال بارگذادی...</div>;
+      return (
+        <div className="w-full text-center">
+          <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+        </div>
+      );
 
     if (!tenderIsLoading && !tenderData?.queryResult)
       return <div className="w-full text-center">هیچ پیشنهادی یافت نشد</div>;
 
     return (
-      <div className="relative h-[calc(100vh-148px)] overflow-auto px-4 md:px-0 pb-20">
+      <div className="relative h-full overflow-auto px-4">
         <div className="flex flex-col gap-3 mt-4">
           {tenderData?.queryResult?.map((item) => (
             <TenderCard
@@ -67,26 +73,16 @@ const Tender = () => {
         title="لیست داروخانه ها"
         hasHeader
         hasBackButton
-        hasBottomGap
-        footer={
-          <div className="w-full flex justify-between gap-3 px-4">
-            <Button
-              variant={'danger-light'}
-              className="flex-1"
-              size={'large'}
-              handleClick={handleCancelOrder}
-            >
-              لغو سفارش
-            </Button>
-            <Button
-              variant={'primary'}
-              className="flex-1"
-              size={'large'}
-              handleClick={() => {}}
-            >
-              ویرایش سفارش
-            </Button>
-          </div>
+        leftIcon={
+          <Button
+            variant="danger"
+            className="w-max ml-4"
+            size="small"
+            onClick={handleCancelOrder}
+            isLoading={isLoadingCancelOrder}
+          >
+            لغو سفارش
+          </Button>
         }
       >
         <div className="relative pb-2 border-b border-b-grey-100 mx-4 md:mx-0">

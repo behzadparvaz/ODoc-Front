@@ -8,7 +8,8 @@ export const selectStoreTexts = {
   selectAddress: 'انتخاب آدرس',
   editAddress: ' ویرایش آدرس',
   AddressDetail: 'جزئیات آدرس',
-  selectAddressSubTitle: 'برای مشاهده نزدیک ترین فروشگاه ها، ابتدا موقعیتتان را مشخص کنید',
+  selectAddressSubTitle:
+    'برای مشاهده نزدیک ترین فروشگاه ها، ابتدا موقعیتتان را مشخص کنید',
   selectLocations: 'مکان تحویل سفارش خود را مشخص کنید',
   saveMyLocation: 'انتخاب موقعیت',
   confirmContinue: 'تایید و ادامه',
@@ -42,26 +43,32 @@ export const selectStoreTexts = {
   saveMyAddress: 'تایید و ثبت آدرس',
   addNewOrEditAddress: 'آدرس مورد نظر با موفقیت ذخیره شد',
   addNewOrEditAddressFailed: 'خطا در ذخیره آدرس، لطفا مجددا تلاش نمایید',
-  addNewOrEditAddressLocationFailed: 'مشتری گرامی آدرس انتخابی شما مربوط به فروشگاه انتخابی شما نیست',
+  addNewOrEditAddressLocationFailed:
+    'مشتری گرامی آدرس انتخابی شما مربوط به فروشگاه انتخابی شما نیست',
   myLocation: 'مکان‌یابی خودکار',
   submitLocation: 'ثبت موقعیت',
   chooseManually: 'انتخاب دستی',
   notFoundStore: 'موقعیت انتخابی شما، خارج از محدوده سرویس‌دهی می‌باشد!',
-  topMobileDescription: 'برای مشاهده نزدیک ترین فروشگاه ها، ابتدا موقعیتتان را مشخص کنید',
+  topMobileDescription:
+    'برای مشاهده نزدیک ترین فروشگاه ها، ابتدا موقعیتتان را مشخص کنید',
   selectOkalaBusinessStore:
     'با انتخاب این فروشگاه ، همه کالاها از سبد خرید شما حذف می شوند، آیا با این تغییر موافق هستید؟',
   chooseLocationHint:
     'ثبت موقعیت دقیق، به شما در پیدا کردن نزدیک‌ترین فروشگاه کمک می‌کند. لطفا جهت دریافت سفارش، موقعیت خود را روی نقشه انتخاب کنید.',
   blockedLocationPermissionTitle: 'عدم دسترسی به موقعیت مکانی',
-  blockedLocationPermissionCaption: 'شما دسترسی به موقعیت مکانی خود را غیرفعال کرده‌اید.',
+  blockedLocationPermissionCaption:
+    'شما دسترسی به موقعیت مکانی خود را غیرفعال کرده‌اید.',
   blockedLocationPermissionHint:
     'لطفا برای استفاده از مکان‌یابی خودکار، تنظیمات آن را در تلفن همراه و مرورگر خود فعال کنید.',
   notInStoreType: 'این فروشگاه در محدوده انتخابی شما نیست',
   reload: 'بارگذاری مجدد',
   loadingStores: 'در حال بارگذاری اطلاعات فروشگاه‌ها',
-  chooseLocationOnMapError: 'شناسایی موقعیت مکانی شما با خطا مواجه شد. لطفا دوباره تلاش کنید.',
-  selectAddressGuide: 'با حرکت بر روی نقشه یا استفاده از بخش جستجو، مکان دقیق تحویل سفارش را مشخص کنید',
-  editAddressAlert: 'برای ویرایش آدرس ابتدا موقعیت مکانی را روی نقشه تغییر دهید.',
+  chooseLocationOnMapError:
+    'شناسایی موقعیت مکانی شما با خطا مواجه شد. لطفا دوباره تلاش کنید.',
+  selectAddressGuide:
+    'با حرکت بر روی نقشه یا استفاده از بخش جستجو، مکان دقیق تحویل سفارش را مشخص کنید',
+  editAddressAlert:
+    'برای ویرایش آدرس ابتدا موقعیت مکانی را روی نقشه تغییر دهید.',
   noAddressSelected: 'هیچ آدرسی انتخاب نشده است',
   enterAddressTitle: 'عنوان آدرس خود را وارد کنید',
   successAddAddress: 'آدرس شما با موفقیت ایجاد شد!',

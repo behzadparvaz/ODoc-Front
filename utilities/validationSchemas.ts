@@ -32,10 +32,6 @@ export const loginWithPassword = Yup.object().shape({
 export const addNewAddressSchema = Yup.object().shape({
   plaque: Yup.string().required('این فیلد الزامی است'),
   unit: Yup.string().required('این فیلد الزامی است'),
-  postalCode: Yup.string()
-    .required('این فیلد الزامی است')
-    .min(10, 'کد پستی 10 رقم می باشد')
-    .max(10, 'کد پستی 10 رقم می باشد'),
 });
 
 export const userInfoSchema = Yup.object().shape({

@@ -2,7 +2,6 @@ import React, { useMemo } from 'react';
 import { useRouter } from 'next/router';
 
 import { MainLayout } from '@com/Layout';
-import Button from '@com/_atoms/Button';
 import {
   useDeleteCurrentBasket,
   useGetCurrentBasket,
@@ -22,6 +21,7 @@ import useNotification from '@hooks/useNotification';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
+import { Button } from '@com/_atoms/NewButton';
 
 const Page = () => {
   const router = useRouter();
@@ -32,8 +32,13 @@ const Page = () => {
     isLoading,
     refetch: refetchGetBasket,
   } = useGetCurrentBasket();
-  const { mutate: deleteBasket } = useDeleteCurrentBasket();
-  const { mutate: createOrderDraft, data: draftData } = useCreateOrderDraft();
+  const { mutate: deleteBasket, isLoading: isLoadingDeleteBasket } =
+    useDeleteCurrentBasket();
+  const {
+    mutate: createOrderDraft,
+    data: draftData,
+    isLoading: isLoadingcreateOrderDraft,
+  } = useCreateOrderDraft();
   const { data: profileQuery } = useGetProfile();
   const profile: any = profileQuery?.queryResult?.[0];
 
@@ -107,7 +112,11 @@ const Page = () => {
       title="سبد خرید"
       hasHeader
       hasBackButton
-      handleClickRightIcon={() => router?.push(routeList?.homeRoute)}
+      handleClickRightIcon={() => {
+        if (!isLoadingcreateOrderDraft || isLoadingDeleteBasket) {
+          router?.push(routeList?.homeRoute);
+        }
+      }}
       hasBottomGap
     >
       <div className="relative h-full pb-14 pt-4 px-4 md:pb-20 overflow-auto">
@@ -116,75 +125,83 @@ const Page = () => {
         {products?.length === 0 && !basket?.refrenceNumber && !draftData ? (
           <BasketEmptyPage />
         ) : (
-          <div className="w-full min-h-[400px] flex flex-col gap-y-4">
-            {!!basket?.refrenceNumber && (
-              <>
-                <div className="w-full h-20 flex items-center justify-start gap-x-4">
-                  <NextImage
-                    src={
-                      basket?.isSpecialPatient
-                        ? specialPatients
-                        : prescriptionMedicine
-                    }
-                    alt="rx-image"
-                    width={72}
-                    height={72}
-                  />
-                  <div className="flex flex-col gap-y-1">
-                    <span className="text-base font-semibold">
-                      {basket?.isSpecialPatient
-                        ? 'نسخه بیماری خاص'
-                        : 'دارو با نسخه'}
-                    </span>
-                    <span className="text-base font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
-                  </div>
-                </div>
+          <>
+            {!draftData && (
+              <div className="w-full min-h-[400px] flex flex-col gap-y-4">
+                {!!basket?.refrenceNumber && (
+                  <>
+                    <div className="w-full h-20 flex items-center justify-start gap-x-4">
+                      <NextImage
+                        src={
+                          basket?.isSpecialPatient
+                            ? specialPatients
+                            : prescriptionMedicine
+                        }
+                        alt="rx-image"
+                        width={72}
+                        height={72}
+                      />
+                      <div className="flex flex-col gap-y-1">
+                        <span className="text-base font-semibold">
+                          {basket?.isSpecialPatient
+                            ? 'نسخه بیماری خاص'
+                            : 'دارو با نسخه'}
+                        </span>
+                        <span className="text-base font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
+                      </div>
+                    </div>
 
-                <div className="w-full px-4">
-                  <div className="w-full h-[1px] bg-grey-200" />
-                </div>
-              </>
-            )}
-
-            <div className="flex flex-col px-4 md:px-0 h-full gap-2 justify-between">
-              {products?.map((pr, index) => (
-                <div key={pr.irc} className="flex flex-col gap-2">
-                  <HorizontalProductCard
-                    prInfo={{ ...pr }}
-                    onSuccessChanged={refetchGetBasket}
-                    hasAddToCartButton
-                  />
-                  {products?.length !== index && (
                     <div className="w-full px-4">
                       <div className="w-full h-[1px] bg-grey-200" />
                     </div>
-                  )}
+                  </>
+                )}
+
+                <div className="flex flex-col px-4 md:px-0 h-full gap-2 justify-between">
+                  {products?.map((pr, index) => (
+                    <div key={pr.irc} className="flex flex-col gap-2">
+                      <HorizontalProductCard
+                        prInfo={{ ...pr }}
+                        onSuccessChanged={refetchGetBasket}
+                        hasAddToCartButton
+                      />
+                      {products?.length !== index && (
+                        <div className="w-full px-4">
+                          <div className="w-full h-[1px] bg-grey-200" />
+                        </div>
+                      )}
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-            {!draftData && <Address />}
-          </div>
+
+                <Address />
+              </div>
+            )}
+          </>
         )}
       </div>
       <FixBottomSection>
-        <div className="w-full h-full flex justify-between items-center py-4 px-4 gap-3">
+        <div className="w-full h-full flex flex-col justify-between items-center p-4 gap-3 md:flex-row">
           {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
             !draftData && (
               <>
                 <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  handleClick={onSubmitBasket}
+                  variant="primary"
+                  className="w-full"
+                  size="large"
+                  onClick={onSubmitBasket}
+                  isLoading={isLoadingcreateOrderDraft}
+                  disabled={isLoadingDeleteBasket}
                 >
                   ارسال به داروخانه ها
                 </Button>
                 <Button
-                  variant={'primary'}
-                  className="flex-1"
-                  size={'large'}
-                  buttonType={'outlined'}
-                  handleClick={deleteBasket}
+                  variant="secondary"
+                  className="w-full"
+                  size="large"
+                  onClick={deleteBasket}
+                  disabled={isLoadingcreateOrderDraft}
+                  isLoading={isLoadingDeleteBasket}
                 >
                   حذف سبد خرید
                 </Button>
@@ -193,21 +210,20 @@ const Page = () => {
           {draftData && (
             <>
               <Button
-                variant={'primary'}
-                className="flex-1"
-                size={'large'}
-                handleClick={() =>
+                variant="primary"
+                className="w-full"
+                size="large"
+                onClick={() =>
                   router.push(`${routeList.ordersHistory}/${draftData}`)
                 }
               >
                 مشاهده جزییات سفارش
               </Button>
               <Button
-                variant={'primary'}
-                className="flex-1"
-                size={'large'}
-                buttonType={'outlined'}
-                handleClick={() => router.push(routeList.homeRoute)}
+                variant="secondary"
+                className="w-full"
+                size="large"
+                onClick={() => router.push(routeList.homeRoute)}
               >
                 برگشت به خانه
               </Button>
@@ -234,12 +250,14 @@ const BasketEmptyPage = () => {
 
 const OrderInProgress = () => {
   return (
-    <div className="flex flex-col items-center gap-4">
+    <div className="flex flex-col items-center gap-4 pt-20">
       <span className="bg-yellow-400 rounded-full w-[56px] h-[56px] flex justify-center items-center">
-        <TimerIcon width="32" height="32" fill={colors.black} />
+        <TimerIcon width="32" height="32" fill={colors.white} />
       </span>
       <div className="text-sm font-light flex flex-col gap-4 items-center">
-        <span>سفارش شما با موفقیت ثبت شد</span>
+        <span className="text-md font-semibold">
+          سفارش شما با موفقیت ثبت شد
+        </span>
         <span>
           سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
           منتظر تأیید داروخانه باشید

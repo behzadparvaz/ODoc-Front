@@ -75,7 +75,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
         className="border-t border-t-grey-200 text-center font-medium cursor-pointer"
         onClick={handleOpenDetailModal}
       >
-        <div className="p-3">مشاهده جزییات سفارش و پرداخت</div>
+        <div className="p-3 text-md font-semibold">جزییات سفارش</div>
       </div>
     </div>
   );

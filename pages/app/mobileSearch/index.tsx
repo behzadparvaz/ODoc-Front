@@ -38,6 +38,7 @@ const MobileSearch = () => {
       hasHeader
       hasBackButton
       hasSerachSection
+      handleClickRightIcon={() => push('/app')}
       searchSection={
         <SearchBox
           defualtValue={searchText}

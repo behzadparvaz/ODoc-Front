@@ -8,7 +8,7 @@ const FixBottomSection = ({ children, className }: FixBottomSectionProps) => {
   return (
     <div
       className={classNames(
-        'fixed bottom-0 right-1/2 translate-x-1/2 w-[600px] border-t border-grey-200 flex justify-center items-center h-max',
+        'fixed bottom-0 right-1/2 translate-x-1/2 max-w-[600px] w-full border-t border-grey-200 flex justify-center items-center h-max',
         className,
       )}
     >

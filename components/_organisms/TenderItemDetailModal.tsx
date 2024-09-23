@@ -1,8 +1,8 @@
 import { MouseEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import classNames from 'classnames';
 
-import Button from '@com/_atoms/Button';
 import { MainLayout } from '@com/Layout';
 import TenderProductList from '@com/_organisms/TenderIProductList';
 import TenderDescription from '@com/_organisms/TenderDescription';
@@ -10,10 +10,9 @@ import TenderShipmentDetail from '@com/_organisms/TenderShipmentDetail';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { VendorDetailDataModel } from '@utilities/interfaces/vendor';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
-import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
-import useModal from '@hooks/useModal';
 import { convertRialToToman } from '@utilities/mainUtils';
+import { Button } from '@com/_atoms/NewButton';
 
 type TenderItemDetailProps = {
   tenderData: TenderItemsListDataModel;
@@ -34,7 +33,6 @@ const TenderItemDetail = ({
   offerId,
 }: TenderItemDetailProps) => {
   const { push } = useRouter();
-  const { removeLastModal } = useModal();
   const [tab, setTab] = useState<Tabs>(Tabs.items);
 
   const handleChangeTabs = (e: MouseEvent<HTMLDivElement>) => {
@@ -46,7 +44,6 @@ const TenderItemDetail = ({
   };
 
   const handleProccessOrder = () => {
-    removeLastModal();
     push(`${routeList.tender}/${orderCode}/${offerId}/preview`);
   };
 
@@ -120,8 +117,10 @@ const TenderItemDetail = ({
             </div>
 
             <Button
-              handleClick={handleProccessOrder}
-              className="h-[52px] bg-black text-white text-lg font-bold !rounded-full"
+              onClick={handleProccessOrder}
+              variant="primary"
+              size="large"
+              className="w-1/2"
             >
               تکمیل خرید
             </Button>

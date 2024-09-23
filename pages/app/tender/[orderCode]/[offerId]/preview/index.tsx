@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 
-import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Map from '@com/_molecules/Map';
 import useMapApiCalls from '@hooks/useMapApiCalls';
@@ -19,12 +18,15 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import Address from '@com/_organisms/Address';
 import { convertRialToToman } from '@utilities/mainUtils';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
+import { Button } from '@com/_atoms/NewButton';
 
 const Preview = () => {
   const { push, query } = useRouter();
   // const { addModal } = useModal();
-  const { mutate: mutatePayment } = useFinishOrderPayment();
+  const { mutate: mutatePayment, isLoading: isLoadingPayment } =
+    useFinishOrderPayment();
   // const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
+  const { removeLastModal } = useModal();
 
   const { data: tenderData, isLoading: tenderIsLoading } = useGetTenderItems(
     query?.orderCode as string,
@@ -36,15 +38,16 @@ const Preview = () => {
     VoucherCode: '',
   });
 
-  const formik = useFormik({
-    initialValues,
-    validationSchema: VoucherCodeSchema,
-    onSubmit: (value) => {
-      const body = {
-        voucherCode: value?.VoucherCode,
-      };
-    },
-  });
+  // const formik = useFormik({
+  //   initialValues,
+  //   validationSchema: VoucherCodeSchema,
+  //   onSubmit: (value) => {
+  //     const body = {
+  //       voucherCode: value?.VoucherCode,
+  //     };
+  //     console.log('body', body);
+  //   },
+  // });
 
   const handleClickOnPaymentButton = (orderCode, finalPrice) => {
     const body = {
@@ -67,6 +70,10 @@ const Preview = () => {
     );
   }, [tenderData]);
 
+  useEffect(() => {
+    removeLastModal();
+  }, []);
+
   return (
     <MainLayout
       title="تأیید نهایی و پرداخت"
@@ -84,7 +91,7 @@ const Preview = () => {
           longitude={51.33808390275898}
         />
       </div> */}
-      <div className="w-full  flex flex-col gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
+      <div className="w-full h-full flex flex-col justify-between gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
         <Address buttonTitle="تغییر آدرس" />
 
         <div className="px-4">
@@ -117,12 +124,11 @@ const Preview = () => {
           </span>
         </div>
 
-        <div className="px-4">
+        {/* <div className="px-4">
           <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
-        </div>
+        </div> */}
 
-        <div className="flex flex-col gap-3">
-          <div className="flex flex-col gap-y-2 px-4">
+        {/* <div className="flex flex-col gap-y-2 px-4">
             <span className="text-md">کد تخفیف را وارد کنید:</span>
 
             <div className="w-full h-max flex items-center justify-between gap-8 items-center px-5">
@@ -144,68 +150,66 @@ const Preview = () => {
               />
 
               <Button
-                handleClick={formik.handleSubmit}
+                onClick={formik.handleSubmit}
                 size="large"
                 variant="primary"
-                color="primary"
+                type='submit'
               >
                 ثبت کد تخفیف
               </Button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col gap-5 bg-grey-50 px-4 py-2 mb-4">
-            <p className="text-base font-semibold">جزییات پرداخت </p>
+        <div className="flex flex-col gap-5 bg-grey-50 px-4 py-2">
+          <p className="text-base font-semibold">جزییات پرداخت </p>
 
-            <div className="flex flex-col gap-3">
-              <div className="w-full h-max flex flex-col gap-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="flex justify-center items-center">
-                    {`جمع سفارش ${selectedOffer?.orderDetails?.length > 1 ? `(${selectedOffer?.orderDetails?.length})` : ''}`}
+          <div className="flex flex-col gap-3">
+            <div className="w-full h-max flex flex-col gap-y-2">
+              <div className="flex items-center justify-between">
+                <span className="flex justify-center items-center">
+                  {`جمع سفارش ${selectedOffer?.orderDetails?.length > 1 ? `(${selectedOffer?.orderDetails?.length})` : ''}`}
+                </span>
+
+                <span className="flex items-center text-md gap-x-1">
+                  {!!selectedOffer?.totalPrice &&
+                    convertRialToToman(selectedOffer?.totalPrice)}
+                  <span className="text-sm text-grey-800">
+                    {!!selectedOffer?.totalPrice ? 'تومان' : 'رایگان'}
                   </span>
-
-                  <span className="flex items-center text-md gap-x-1">
-                    {!!selectedOffer?.totalPrice &&
-                      convertRialToToman(selectedOffer?.totalPrice)}
-                    <span className="text-sm text-grey-800">
-                      {!!selectedOffer?.totalPrice ? 'تومان' : 'رایگان'}
-                    </span>
-                  </span>
-                </div>
+                </span>
               </div>
+            </div>
 
-              <div className="w-full h-max flex flex-col gap-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="flex justify-center items-center">
-                    هزینه بسته بندی
-                  </span>
+            <div className="w-full h-max flex flex-col gap-y-2">
+              <div className="flex items-center justify-between">
+                <span className="flex justify-center items-center">
+                  هزینه بسته بندی
+                </span>
 
-                  <span className="flex items-center text-md gap-x-1">
-                    {!!selectedOffer?.packingPrice &&
-                      selectedOffer?.packingPrice}
-                    <span className="text-sm text-grey-800">
-                      {!!selectedOffer?.packingPrice ? 'تومان' : 'رایگان'}
-                    </span>
+                <span className="flex items-center text-md gap-x-1">
+                  {!!selectedOffer?.packingPrice && selectedOffer?.packingPrice}
+                  <span className="text-sm text-grey-800">
+                    {!!selectedOffer?.packingPrice ? 'تومان' : 'رایگان'}
                   </span>
-                </div>
+                </span>
               </div>
+            </div>
 
-              <div className="w-full h-max flex flex-col gap-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="flex justify-center items-center">
-                    هزینه ارسال
-                  </span>
+            <div className="w-full h-max flex flex-col gap-y-2">
+              <div className="flex items-center justify-between">
+                <span className="flex justify-center items-center">
+                  هزینه ارسال
+                </span>
 
-                  <span className="flex items-center text-md gap-x-1">
-                    {!!selectedOffer?.delivery?.deliveryPrice &&
-                      selectedOffer?.delivery?.deliveryPrice}
-                    <span className="text-sm text-grey-800">
-                      {!!selectedOffer?.delivery?.deliveryPrice
-                        ? 'تومان'
-                        : 'رایگان'}
-                    </span>
+                <span className="flex items-center text-md gap-x-1">
+                  {!!selectedOffer?.delivery?.deliveryPrice &&
+                    selectedOffer?.delivery?.deliveryPrice}
+                  <span className="text-sm text-grey-800">
+                    {!!selectedOffer?.delivery?.deliveryPrice
+                      ? 'تومان'
+                      : 'رایگان'}
                   </span>
-                </div>
+                </span>
               </div>
             </div>
           </div>
@@ -221,15 +225,16 @@ const Preview = () => {
             <span className="text-md">قابل پرداخت</span>
           </div>
           <Button
-            variant={'primary'}
-            className="flex-1 bg-orange-500"
-            size={'large'}
-            handleClick={() =>
+            variant="brand"
+            className="w-1/2"
+            size="large"
+            onClick={() =>
               handleClickOnPaymentButton(
                 query?.orderCode,
                 selectedOffer?.finalPrice,
               )
             }
+            isLoading={isLoadingPayment}
           >
             پرداخت
           </Button>
