@@ -75,12 +75,14 @@ const OtcMedicineCategories = () => {
             className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-grey-50 cursor-pointer gap-y-2"
           >
             <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-lg">
-              <NextImage
-                src={item?.iconLink}
-                width={56}
-                height={56}
-                alt={item?.categoryNameLevel1}
-              />
+              {item?.iconLink && (
+                <NextImage
+                  src={item?.iconLink}
+                  width={56}
+                  height={56}
+                  alt={item?.categoryNameLevel1}
+                />
+              )}
             </div>
 
             <span className="text-xs w-full text-center truncate">
