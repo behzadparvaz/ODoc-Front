@@ -81,7 +81,6 @@ export default function AddressDetailsModal({ addressData }: Props) {
     latitude: viewport?.latitude,
     longitude: viewport?.longitude,
     name: '',
-    postalCode: '',
   });
   const textAreaChangeHandler = (e) => {
     if (
@@ -119,7 +118,6 @@ export default function AddressDetailsModal({ addressData }: Props) {
         Description: `${addressReadonlyPart}${addressEditablePart}`,
         HouseNumber: values?.plaque,
         HomeUnit: values?.unit,
-        postalCode: String(values?.postalCode),
       };
       mutateAddLocation(body);
     },
@@ -206,24 +204,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
               errorMessage={formik.errors.unit}
             />
           </div>
-          <div className="w-full flex justify-between gap-2 mt-5 border-t border-grey-100 pt-5">
-            <Input
-              placeholder={selectStoreTexts?.enterPostalCode}
-              label={selectStoreTexts?.postalCode}
-              className="flex-auto"
-              labelClassName="font-normal text-sm"
-              inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-              id="postalCode"
-              name="postalCode"
-              type="number"
-              value={formik.values.postalCode}
-              onChange={formik.handleChange}
-              isTouched={
-                formik.touched.postalCode && Boolean(formik.errors.postalCode)
-              }
-              errorMessage={formik.errors.postalCode}
-            />
-          </div>
+
           <p className="text-sm font-semibold text-grey-800 mb-3 mt-5  border-t border-grey-100 pt-5">
             {selectStoreTexts?.title}
           </p>

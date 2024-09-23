@@ -103,7 +103,7 @@ const VerticalProductCard = ({
 
   return (
     <div
-      className={`w-[157px] h-[194px] shadow-[0_4px_16px_rgba(0,0,0,0.1)]  py-2 px-4 ${className} rounded-lg`}
+      className={`w-[157px] h-[198px] shadow-[0_4px_16px_rgba(0,0,0,0.1)]  py-2 px-4 ${className} rounded-lg`}
       style={style}
     >
       <div className="h-[80px] w-[80px] mx-auto mb-4 rounded-lg overflow-hidden">
@@ -136,7 +136,7 @@ const VerticalProductCard = ({
       </div> */}
 
       {hasAddToCart ? (
-        <div className="flex justify-end items-center pt-2">
+        <div className="flex justify-end items-center mt-2">
           <AddButton
             count={productBasketQuantity}
             onChangeCount={onChange}

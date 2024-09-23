@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
-import Button from '@com/_atoms/Button';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { FailIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
+import { Button } from '@com/_atoms/NewButton';
 
 const FailurePayment = ({ className = '' }) => {
   const { push } = useRouter();
@@ -29,20 +29,13 @@ const FailurePayment = ({ className = '' }) => {
         <div className="w-full flex flex-col gap-y-3 px-4 py-3">
           <Button
             size="large"
-            className="w-full text-lg"
-            buttonType="contained"
+            className="w-full"
             variant={'primary'}
-            handleClick={() => push(`tel:02196861727`)}
+            onClick={() => push(`tel:02196861727`)}
           >
             تماس با پشتیبانی
           </Button>
-          <Button
-            size="large"
-            className="text-lg border-none"
-            buttonType="text"
-            variant={'primary'}
-            handleClick={() => push('/app')}
-          >
+          <Button size="large" variant="text" onClick={() => push('/app')}>
             برگشت به خانه
           </Button>
         </div>
