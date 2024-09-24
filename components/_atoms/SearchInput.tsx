@@ -16,12 +16,19 @@ const SearchBox = ({ className = '', handleChange, defualtValue }: Props) => {
   const [value, setValue] = useState<any>(inputRef?.current?.value);
   const debouncedSetBody = useMemo(() => debounce(setValue, 600), []);
   const { push } = useRouter();
+
   useEffect(() => {
     handleChange(value);
     return () => {
       debouncedSetBody.cancel();
     };
   }, [inputRef?.current?.value]);
+
+  useEffect(() => {
+    if (!!defualtValue) {
+      setValue(defualtValue);
+    }
+  }, [defualtValue]);
 
   return (
     <div className={`w-full relative ${className}`}>
