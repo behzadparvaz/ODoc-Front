@@ -1,7 +1,9 @@
+import React from 'react';
+import Link from 'next/link';
+
 import { AparatIcon, InstagramIcon, LinkedintIcon } from '@com/icons';
 import { homePageText } from '@com/texts/homePage';
 import { colors } from '@configs/Theme';
-import React from 'react';
 
 type Props = {};
 
@@ -23,7 +25,9 @@ export default function FooterContent({}: Props) {
         <div className="flex flex-col items-end text-sm font-semibold pl-6 gap-y-4 mb-4">
           <p>{homePageText.tapsiDocMag}</p>
           <p>{homePageText.policy}</p>
-          <p>{homePageText.support}</p>
+          <Link href={`tel:02196861727`}>
+            <p className="cursor-pointer">{homePageText.support}</p>
+          </Link>
           <div className="grid grid-rows-1 grid-cols-1 w-10 h-10 overflow-hidden justify-center items-center cursor-pointer">
             <div
               className="row-start-1 col-start-1 z-2"
@@ -37,25 +41,34 @@ export default function FooterContent({}: Props) {
         <div className="mb-4">
           <p className="text-xs text-grey-500 mb-1">{homePageText.followUs}</p>
           <div className="flex">
-            <LinkedintIcon
-              height={20}
-              width={20}
-              fill={colors.black}
-              innerFill={colors.white}
-            />
-            <AparatIcon
-              height={20}
-              width={20}
-              fill={colors.black}
-              innerFill={colors.white}
-              className="mx-2"
-            />
-            <InstagramIcon
-              height={20}
-              width={20}
-              fill={colors.black}
-              innerFill={colors.white}
-            />
+            <a href="https://www.linkedin.com/company/tapsi-doctor/">
+              <LinkedintIcon
+                height={20}
+                width={20}
+                fill={colors.black}
+                innerFill={colors.white}
+                className="cursor-pointer"
+              />
+            </a>
+
+            <a href={'https://www.aparat.com/Tapsi_doctor'}>
+              <AparatIcon
+                height={20}
+                width={20}
+                fill={colors.black}
+                innerFill={colors.white}
+                className="mx-2 cursor-pointer"
+              />
+            </a>
+            <a href={'https://www.instagram.com/tapsi_doctor'}>
+              <InstagramIcon
+                height={20}
+                width={20}
+                fill={colors.black}
+                innerFill={colors.white}
+                className="cursor-pointer"
+              />
+            </a>
           </div>
         </div>
 
@@ -63,7 +76,11 @@ export default function FooterContent({}: Props) {
           <h3 className="text-xs text-grey-500 mb-2">
             {homePageText.contactUs}
           </h3>
-          <p className="text-xs text-grey-800">{homePageText.contactNumber}</p>
+          <Link href={`tel:02196861727`}>
+            <p className="text-xs text-grey-800 cursor-pointer">
+              {homePageText.contactNumber}
+            </p>
+          </Link>
         </div>
       </div>
     </footer>

@@ -104,7 +104,7 @@ export const Button = ({
       case 'ghost':
       case 'danger':
       case 'brand':
-        return 'bg-[#F6F6F6] text-[#AFAFAF] hover:bg-[#F6F6F6]';
+        return 'bg-[#F6F6F6] text-[#AFAFAF]';
       case 'text':
         return 'text-[#AFAFAF]';
     }
