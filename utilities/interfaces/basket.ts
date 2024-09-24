@@ -13,6 +13,8 @@ type ProductInBasket = {
   modifiedDateTime: null;
   createBy: null;
   modifiedBy: null;
+  categoryCodeLevel2: string;
+  categoryNameLevel2: string;
 };
 
 interface Basket {

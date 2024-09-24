@@ -7,22 +7,24 @@ import { memo, useRef } from 'react';
 type Props = {
   imageUrl: string;
   imageLink: string;
-  title:string
+  title: string;
   index?: number;
 };
 
-function MainSliderItem({ imageUrl,title, imageLink, index }: Props) {
+function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
   const { width } = useWindowSize();
   const ref = useRef();
 
   return (
     <>
       <NextLink
-        href={imageLink}
+        href={
+          index === 0
+            ? 'app/prescription-registeration?title=داروی%20با%20نسخه&type=SP'
+            : 'app/otc-medicine'
+        }
       >
-        <a
-          className={`relative w-full h-full`}
-        >
+        <a className={`relative w-full h-full`}>
           <div className="!aspect-w-23 !aspect-h-9" ref={ref}>
             <NextImage
               src={imageUrl}

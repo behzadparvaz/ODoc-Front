@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 const MainSlider = ({ data, className = '' }: Props) => {
-    return (
+  return (
     <Slider className={className}>
       {data?.map((item, index) => {
         return (

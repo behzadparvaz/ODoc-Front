@@ -28,7 +28,9 @@ export default function ProdictListPage({}: Props) {
   >({
     select: (res: Basket) => ({
       ...res,
-      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
+      productsById: Object.fromEntries(
+        res?.products?.map((pr) => [pr.irc, pr]),
+      ),
     }),
     enabled: true,
   });
@@ -99,7 +101,7 @@ export default function ProdictListPage({}: Props) {
         hasMore={plpData?.hasNextPage}
         loader={
           <div className="flex items-center justify-center h-16">
-            در حال بارگذاری...
+            {/* در حال بارگذاری... */}
           </div>
         }
         dataLength={items?.length}

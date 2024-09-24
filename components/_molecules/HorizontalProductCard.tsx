@@ -6,8 +6,9 @@ import {
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
-import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 import AddToCartButton from './AddToCartButton';
+import NextLink from '@com/_core/NextLink';
+import { routeList } from '@routes/routeList';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -27,7 +28,9 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   >({
     select: (res: Basket) => ({
       ...res,
-      productsById: Object.fromEntries(res.products.map((pr) => [pr.irc, pr])),
+      productsById: Object.fromEntries(
+        res?.products?.map((pr) => [pr.irc, pr]),
+      ),
     }),
     enabled: true,
   });
@@ -82,35 +85,41 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   };
 
   return (
-    <div className="w-full flex gap-x-2 items-center">
-      <div className="w-[68px] border border-grey-500 rounded-xl flex">
-        <NextImage
-          unoptimized
-          src={prInfo?.imageLink}
-          alt={prInfo?.productName}
-          width={66}
-          height={66}
-        />
-      </div>
-      <div className="w-[calc(100%-68px)] flex justify-between items-center gap-x-2">
-        <h2 className="text-sm font-medium line-clamp-2">
-          {prInfo?.productName ?? prInfo.name}
-        </h2>
-        {hasAddToCartButton ? (
-          <AddButton
-            count={productBasketQuantity}
-            onChangeCount={onChange}
-            isLoading={isAddingToCart}
-          />
-        ) : hasCompleteAddToCartButton ? (
-          <AddToCartButton />
-        ) : (
-          <div className="flex flex-col items-end">
-            <div className="text-sm">{prInfo.quantity} ورق</div>
-            <div className="text-base">{prInfo.price} تومان</div>
+    <div className="w-full flex gap-x-6 justify-between items-center">
+      <NextLink
+        href={`${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`}
+      >
+        <div className="flex gap-x-2 items-center cursor-pointer">
+          <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">
+            <NextImage
+              unoptimized
+              src={prInfo?.imageLink}
+              alt={prInfo?.productName}
+              width={66}
+              height={66}
+            />
           </div>
-        )}
-      </div>
+
+          <h2 className="text-sm font-medium line-clamp-2">
+            {prInfo?.productName ?? prInfo.name}
+          </h2>
+        </div>
+      </NextLink>
+
+      {hasAddToCartButton ? (
+        <AddButton
+          count={productBasketQuantity}
+          onChangeCount={onChange}
+          isLoading={isAddingToCart}
+        />
+      ) : hasCompleteAddToCartButton ? (
+        <AddToCartButton />
+      ) : (
+        <div className="flex flex-col items-end">
+          <div className="text-sm">{prInfo.quantity} ورق</div>
+          <div className="text-base">{prInfo.price} تومان</div>
+        </div>
+      )}
     </div>
   );
 };
