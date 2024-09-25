@@ -1,5 +1,8 @@
 import OrderInfoForm from '@com/_molecules/OrderInfoForm';
-import { useAddProductToBasket } from '@api/basket/basketApis.rq';
+import {
+  useAddProductToBasket,
+  useGetCurrentBasket,
+} from '@api/basket/basketApis.rq';
 import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
 import { useGetProfile } from '@api/user/user.rq';
@@ -34,9 +37,11 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
   const userInfo = data?.queryResult[0];
   const router = useRouter();
 
+  const { refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
+        refetchGetBasket();
         router.push(routeList.basket);
       },
     });
