@@ -41,34 +41,44 @@ export default function FooterContent({}: Props) {
         <div className="mb-4">
           <p className="text-xs text-grey-500 mb-1">{homePageText.followUs}</p>
           <div className="flex">
-            <a href="https://www.linkedin.com/company/tapsi-doctor/">
-              <LinkedintIcon
-                height={20}
-                width={20}
-                fill={colors.black}
-                innerFill={colors.white}
-                className="cursor-pointer"
-              />
-            </a>
+            <Link
+              href="https://www.linkedin.com/company/tapsi-doctor/"
+              passHref
+            >
+              <a target="_blank" rel="noopener noreferrer">
+                <LinkedintIcon
+                  height={20}
+                  width={20}
+                  fill={colors.black}
+                  innerFill={colors.white}
+                  className="cursor-pointer"
+                />
+              </a>
+            </Link>
 
-            <a href={'https://www.aparat.com/Tapsi_doctor'}>
-              <AparatIcon
-                height={20}
-                width={20}
-                fill={colors.black}
-                innerFill={colors.white}
-                className="mx-2 cursor-pointer"
-              />
-            </a>
-            <a href={'https://www.instagram.com/tapsi_doctor'}>
-              <InstagramIcon
-                height={20}
-                width={20}
-                fill={colors.black}
-                innerFill={colors.white}
-                className="cursor-pointer"
-              />
-            </a>
+            <Link href={'https://www.aparat.com/Tapsi_doctor'} passHref>
+              <a target="_blank" rel="noopener noreferrer">
+                <AparatIcon
+                  height={20}
+                  width={20}
+                  fill={colors.black}
+                  innerFill={colors.white}
+                  className="mx-2 cursor-pointer"
+                />
+              </a>
+            </Link>
+
+            <Link href={'https://www.instagram.com/tapsi_doctor'} passHref>
+              <a target="_blank" rel="noopener noreferrer">
+                <InstagramIcon
+                  height={20}
+                  width={20}
+                  fill={colors.black}
+                  innerFill={colors.white}
+                  className="cursor-pointer"
+                />
+              </a>
+            </Link>
           </div>
         </div>
 
