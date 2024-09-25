@@ -83,16 +83,7 @@ const OrderItem = ({
           </p>
         </div>
       </div>
-      {data?.orderStatus?.id === 2 && (
-        <div className="flex items-center justify-between py-2 px-4">
-          <div className="flex items-center">
-            مبلغ سفارش:
-            <p className="text-teal-600 mr-1">
-              {convertRialToToman(data?.finalPrice)}
-            </p>
-          </div>
-        </div>
-      )}
+
       {(data?.orderStatus?.id === 2 ||
         data?.orderStatus?.id === 0 ||
         data?.orderStatus?.id === 4) && (

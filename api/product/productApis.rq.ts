@@ -21,11 +21,13 @@ export const useGetCategtyL2Products = (parentCode: string) => {
   return { data: data as any, isLoading };
 };
 
-export const useGetProductsShapes = () => {
-  const { data, isLoading } = useQuery(['GetCategoryLevel2Products'], () =>
-    GetProductsShapes(),
+export const useGetProductsShapes = (categoryCodeLevel2: string) => {
+  const { data, isLoading, refetch } = useQuery(
+    ['GetProductsShapes', categoryCodeLevel2],
+    () => GetProductsShapes(categoryCodeLevel2),
+    { enabled: !!categoryCodeLevel2 },
   );
-  return { data: data as any, isLoading };
+  return { data: data as any, isLoading, refetch: refetch };
 };
 
 export const useGetFilteredProductsByShapes = (

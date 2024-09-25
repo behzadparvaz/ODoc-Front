@@ -1,7 +1,6 @@
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 import OtcSlider from './OtcSlider';
-import { useGetProductsShapes } from '@api/product/productApis.rq';
 
 type Level2DataModel = {
   categoryCodeLevel2: string;
@@ -20,22 +19,14 @@ const OtcMedicineFamilyNames = ({
     parentCode: categoryCode,
   });
 
-  const { data: shapesData, isLoading: isLoadingShapes } =
-    useGetProductsShapes();
-
-  if (isLoading || isLoadingShapes)
+  if (isLoading)
     return (
       <Spinner className="h-full min-h-[400px] w-full flex justify-center items-center" />
     );
-
   return (
     <div className="w-full flex flex-col gap-y-2">
       {data?.queryResult?.map((product: Level2DataModel) => (
-        <OtcSlider
-          key={product?.categoryCodeLevel2}
-          category={product}
-          shapesData={shapesData?.queryResult}
-        />
+        <OtcSlider key={product?.categoryCodeLevel2} category={product} />
       ))}
     </div>
   );

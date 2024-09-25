@@ -14,8 +14,10 @@ export const GetCategoryLevel2Products = async (parentCode: string) =>
     `/Product/management/GetCategoryLevel3Products?categoryCodeLevel2=${parentCode}`,
   );
 
-export const GetProductsShapes = async () =>
-  await request.get(`/Product/management/GetShape`);
+export const GetProductsShapes = async (categoryCodeLevel2: string) =>
+  await request.get(
+    `/Product/management/GetShape?categoryCodeLevel2=${categoryCodeLevel2}`,
+  );
 
 export const GetFilteredProductsByShapes = async (
   categoryCode: string,
