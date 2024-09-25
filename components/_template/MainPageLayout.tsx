@@ -29,6 +29,7 @@ interface Props {
   hasFooter?: boolean;
   title?: string;
   hasSearchIcon?: boolean;
+  backButtonAction?: () => void;
 }
 
 const MainPageLayout = ({
@@ -40,8 +41,9 @@ const MainPageLayout = ({
   hasAddress = false,
   title,
   hasSearchIcon = true,
+  backButtonAction,
 }: Props) => {
-  const { push, back, pathname } = useRouter();
+  const { push, back } = useRouter();
   const { data: basketDatat } = useGetCurrentBasket();
 
   const renderBasketCount = () => {
@@ -71,7 +73,13 @@ const MainPageLayout = ({
           <div className="flex gap-x-2 items-center">
             <span
               className="w-[60px] flex items-center justify-center cursor-pointer"
-              onClick={() => back()}
+              onClick={() => {
+                if (backButtonAction) {
+                  backButtonAction();
+                } else {
+                  back();
+                }
+              }}
             >
               <ArrowRightIconOutline width={20} height={20} fill={'#000'} />
             </span>

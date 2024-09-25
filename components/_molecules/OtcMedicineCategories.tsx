@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 
@@ -6,6 +6,7 @@ import { useGetCategories } from '@api/category/categoryApis.rq';
 import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
+import { useRouter } from 'next/router';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
@@ -16,6 +17,7 @@ type CategoryItemsDataModel = {
 };
 
 const OtcMedicineCategories = () => {
+  const { push, query, pathname } = useRouter();
   const { data, isLoading } = useGetCategories({ level: 1 });
 
   const [selectedCategory, setSelectedCategory] =
@@ -23,7 +25,30 @@ const OtcMedicineCategories = () => {
 
   const handleSelectCategory = (item: CategoryItemsDataModel) => {
     setSelectedCategory(item);
+    push(
+      {
+        pathname: pathname,
+        query: {
+          ...query,
+          categoryNameLevel1: item?.categoryNameLevel1,
+          categoryCodeLevel1: item?.categoryCodeLevel1,
+        },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
+
+  useEffect(() => {
+    if (query?.categoryNameLevel1 && query?.categoryCodeLevel1) {
+      setSelectedCategory({
+        categoryNameLevel1: query?.categoryNameLevel1 as string,
+        categoryCodeLevel1: query.categoryCodeLevel1 as string,
+      });
+    } else {
+      setSelectedCategory(null);
+    }
+  }, [query]);
 
   if (isLoading)
     return (

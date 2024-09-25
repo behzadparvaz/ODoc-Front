@@ -6,6 +6,7 @@ import useModal from '@hooks/useModal';
 import OtcSelectShapeBottomsheet from './OtcSelectShapeBottomsheet';
 import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
+import { useGetProductsShapes } from '@api/product/productApis.rq';
 
 type ShapesDataModel = {
   shapeCode: number;
@@ -19,11 +20,14 @@ type Level2DataModel = {
 
 type OtcSliderProps = {
   category: Level2DataModel;
-  shapesData: ShapesDataModel;
 };
 
-const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
+const OtcSlider = ({ category }: OtcSliderProps) => {
   const { addModal } = useModal();
+
+  const { data: shapesData } = useGetProductsShapes(
+    category?.categoryCodeLevel2,
+  );
 
   const [filteredShapes, setFilteredShapes] = useState<ShapesDataModel | null>(
     null,
@@ -34,7 +38,7 @@ const OtcSlider = ({ category, shapesData }: OtcSliderProps) => {
     addModal({
       modal: OtcSelectShapeBottomsheet,
       props: {
-        shapesData: shapesData,
+        shapesData: shapesData?.queryResult,
         selectedShapeCode: filteredShapes?.shapeCode,
         onSelectShape: (shapeData: ShapesDataModel | null) => {
           setFilteredShapes(shapeData);

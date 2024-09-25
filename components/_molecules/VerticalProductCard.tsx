@@ -41,7 +41,9 @@ const VerticalProductCard = ({
   >({
     select: (res: Basket) => ({
       ...res,
-      productsById: Object.fromEntries(res?.products.map((pr) => [pr.irc, pr])),
+      productsById:
+        res?.products &&
+        Object.fromEntries(res?.products?.map((pr) => [pr?.irc, pr])),
     }),
     enabled: true,
   });
@@ -59,16 +61,6 @@ const VerticalProductCard = ({
       refetchGetBasket();
     },
   });
-
-  const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
-    () => {
-      const findItem = basket?.products?.find(
-        (basketItem) =>
-          basketItem.irc === (productData?.irc || productData?.genericCode),
-      );
-      return findItem?.quantity ?? 0;
-    },
-  );
 
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({
@@ -92,14 +84,11 @@ const VerticalProductCard = ({
     }
   };
 
-  useEffect(() => {
-    setProductBasketQuantity(
-      basket?.products?.find(
-        (basketItem) =>
-          basketItem?.irc === (productData?.irc || productData?.genericCode),
-      )?.quantity ?? 0,
-    );
-  }, [basket]);
+  const productBasketQuantity =
+    basket?.products?.find(
+      (basketItem) =>
+        basketItem?.irc === (productData?.irc || productData?.genericCode),
+    )?.quantity ?? 0;
 
   return (
     <div
