@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { MainLayout } from '@com/Layout';
@@ -19,12 +19,14 @@ import specialPatients from '@static/images/staticImages/mainCategories/nonPresc
 import Address from '@com/_organisms/Address';
 import useNotification from '@hooks/useNotification';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
-import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
 import { Button } from '@com/_atoms/NewButton';
 
 const Page = () => {
   const router = useRouter();
+
+  const [isDisabled, setIsDisabled] = useState(false);
+
   const { openNotification } = useNotification();
   const { user } = useSelector((state: RootState) => state?.user);
   const {
@@ -33,13 +35,34 @@ const Page = () => {
     refetch: refetchGetBasket,
   } = useGetCurrentBasket();
   const { mutate: deleteBasket, isLoading: isLoadingDeleteBasket } =
-    useDeleteCurrentBasket();
+    useDeleteCurrentBasket({
+      onMutate: () => {
+        setIsDisabled(true);
+      },
+      onSuccess: () => {
+        refetchGetBasket();
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 2000);
+      },
+    });
   const {
     mutate: createOrderDraft,
     data: draftData,
     isLoading: isLoadingcreateOrderDraft,
-  } = useCreateOrderDraft();
+  } = useCreateOrderDraft({
+    onMutate: () => {
+      setIsDisabled(true);
+    },
+    onSuccess: () => {
+      refetchGetBasket();
+      setTimeout(() => {
+        setIsDisabled(false);
+      }, 2000);
+    },
+  });
   const { data: profileQuery } = useGetProfile();
+
   const profile: any = profileQuery?.queryResult?.[0];
 
   const onSubmitBasket = () => {
@@ -87,25 +110,9 @@ const Page = () => {
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
     });
-    refetchGetBasket();
   };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
-
-  const renderContent = () => {
-    if (isLoading) {
-      return (
-        <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
-      );
-    }
-    if (!!draftData) {
-      <OrderInProgress />;
-    }
-
-    if (products?.length === 0 && !basket?.refrenceNumber && !draftData) {
-      <BasketEmptyPage />;
-    }
-  };
 
   return (
     <MainLayout
@@ -191,7 +198,7 @@ const Page = () => {
                   size="large"
                   onClick={onSubmitBasket}
                   isLoading={isLoadingcreateOrderDraft}
-                  disabled={isLoadingDeleteBasket}
+                  disabled={isLoadingDeleteBasket || isDisabled}
                 >
                   ارسال به داروخانه ها
                 </Button>
@@ -201,7 +208,7 @@ const Page = () => {
                   size="large"
                   onClick={deleteBasket}
                   disabled={isLoadingcreateOrderDraft}
-                  isLoading={isLoadingDeleteBasket}
+                  isLoading={isLoadingDeleteBasket || isDisabled}
                 >
                   حذف سبد خرید
                 </Button>
