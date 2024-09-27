@@ -1,5 +1,7 @@
+import { useGetOrderDetails } from '@api/order/orderApis.rq';
 import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
+import OrderTracking from '@com/_molecules/OrderTracking';
 import MainPageLayout from '@com/_template/MainPageLayout';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -15,6 +17,9 @@ const HomePage = () => {
   const [showLayout, setShowLayout] = useState<boolean>(false);
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading } = useGetCarousels();
+  const { data, isLoading: orderDetailLoading } = useGetOrderDetails(
+    query?.orderCode as string,
+  );
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
       (item) => item?.sectionPosition === position,
@@ -49,13 +54,7 @@ const HomePage = () => {
           <div className="my-4 px-2">
             <Categories isHomePage />
           </div>
-          {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <h2 className="text-lg font-bold">سفارشهای جاری</h2>
-          <a href="#" className="text-blue-500">
-          بیشتر
-          </a>
-        <OrderTracking />
-        </div> */}
+          <OrderTracking data={data} />
           {bannerData?.queryResult && (
             <MainSlider
               className="py-2 px-4"
