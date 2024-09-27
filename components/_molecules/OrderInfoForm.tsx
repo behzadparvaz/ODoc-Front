@@ -28,12 +28,17 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
   const { data: supplementaryInsurances } = useGetSupplementaryInsurances();
   const { data: vendors } = useGetVendors();
   const { openNotification } = useNotification();
+  const [searchedInsuranceQuery, setSearchedInsuranceQuery] = useState('');
   const isSpecialPatient = query?.type === 'SP';
+  const filteredInsurances = supplementaryInsurances?.filter((item) =>
+    item?.name?.toLowerCase()?.includes(searchedInsuranceQuery?.toLowerCase()),
+  );
+
   const [initialValues] = useState({
     refrenceNumber: '',
     nationalCode: userInfo?.nationalCode,
     phoneNumber: userInfo?.phoneNumber,
-    insuranceTypeId: 1,
+    insuranceTypeId: '',
     supplementaryInsuranceType: 0,
     isSpecialPatient: false,
     vendorCode: '',
@@ -168,40 +173,56 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                 {orderText?.additionalInsuranceType}
               </label>
             }
-            content={supplementaryInsurances?.map((item, index) => (
-              <div key={item?.name} className="px-2">
-                <CheckBox
-                  handleChange={() => {
-                    const currentInsuranceType =
-                      formik?.values?.supplementaryInsuranceType;
-                    formik.setFieldValue(
-                      'supplementaryInsuranceType',
-                      currentInsuranceType === item?.id ? '' : item?.id,
-                    );
-                  }}
-                  label={item?.name}
-                  labelClassName="text-sm mr-6 font-normal text-grey-700"
-                  name="supplementaryInsuranceType"
-                  id={item?.id}
-                  value={item?.id}
-                  icon={
-                    <TickIcon
-                      width={15}
-                      height={15}
-                      stroke={colors.white}
-                      className="mx-auto mt-[1px]"
-                    />
-                  }
-                  checkedClassName="!bg-grey-500"
-                  boxClassName="w-4 h-4 rounded-full border-grey-800"
-                  checked={
-                    Number(formik?.values?.supplementaryInsuranceType) ===
-                    item?.id
-                  }
-                  className="w-full mb-4 z-0"
+            content={
+              <>
+                <input
+                  type="text"
+                  placeholder="بیمه تکمیلی"
+                  value={searchedInsuranceQuery}
+                  onChange={(e) => setSearchedInsuranceQuery(e?.target?.value)}
+                  className="w-full mb-4 px-2 py-1 border border-grey-100 rounded"
                 />
-              </div>
-            ))}
+
+                {filteredInsurances?.map((item, index) => (
+                  <div key={item?.name} className="px-2">
+                    <CheckBox
+                      handleChange={() => {
+                        const currentInsuranceType =
+                          formik?.values?.supplementaryInsuranceType;
+                        formik.setFieldValue(
+                          'supplementaryInsuranceType',
+                          currentInsuranceType === item?.id ? '' : item?.id,
+                        );
+                      }}
+                      label={item?.name}
+                      labelClassName="text-sm mr-6 font-normal text-grey-700"
+                      name="supplementaryInsuranceType"
+                      id={item?.id}
+                      value={item?.id}
+                      icon={
+                        <TickIcon
+                          width={15}
+                          height={15}
+                          stroke={colors.white}
+                          className="mx-auto mt-[1px]"
+                        />
+                      }
+                      checkedClassName="!bg-grey-500"
+                      boxClassName="w-4 h-4 rounded-full border-grey-800"
+                      checked={
+                        Number(formik?.values?.supplementaryInsuranceType) ===
+                        item?.id
+                      }
+                      className="w-full mb-4 z-0"
+                    />
+                  </div>
+                ))}
+
+                {filteredInsurances?.length === 0 && (
+                  <p className="text-gray-500 text-sm">بیمه‌ای یافت نشد</p>
+                )}
+              </>
+            }
           />
           <Accordion
             header={
