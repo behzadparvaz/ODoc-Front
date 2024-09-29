@@ -10,6 +10,7 @@ import request from '@api/request';
 import { useQueryClient } from 'react-query';
 import { resetMapStateAction } from '@redux/map/mapActions';
 import { routeList } from '@routes/routeList';
+import useModal from '@hooks/useModal';
 
 interface Props {}
 
@@ -18,8 +19,10 @@ function Logout({}: Props): ReactElement {
   const router = useRouter();
   const { removeItem } = useStorage();
   const queryClient = useQueryClient();
+  const { removeLastModal } = useModal();
 
   useEffect(() => {
+    removeLastModal();
     dispatch(logoutUser());
     dispatch(resetMapStateAction());
     request.setToken(null);

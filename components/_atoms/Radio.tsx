@@ -1,6 +1,9 @@
 import { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
 import classNames from 'classnames';
 
+import { NewTickIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
+
 export interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
@@ -92,7 +95,11 @@ export const Radio = ({
             boxClassName,
           )}
         >
-          {icon}
+          {icon ? (
+            icon
+          ) : (
+            <NewTickIcon width={12} height={9} stroke={colors.white} />
+          )}
         </span>
       )}
     </div>

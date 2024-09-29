@@ -39,8 +39,8 @@ const LoadingSpinner = ({
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(12 11.9892) rotate(-89.888) scale(9.98922 10)"
           >
-            <stop stop-color="white" stop-opacity="0" />
-            <stop offset="0.37" stop-color="white" />
+            <stop stopColor="white" stopOpacity="0" />
+            <stop offset="0.37" stopColor="white" />
           </radialGradient>
         </defs>
       </svg>
@@ -76,8 +76,8 @@ const LoadingSpinner = ({
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(12 11.9892) rotate(-89.888) scale(9.98922 10)"
           >
-            <stop stop-color="#E11900" stop-opacity="0" />
-            <stop offset="0.37" stop-color="#E11900" />
+            <stop stopColor="#E11900" stopOpacity="0" />
+            <stop offset="0.37" stopColor="#E11900" />
           </radialGradient>
         </defs>
       </svg>
@@ -113,7 +113,7 @@ const LoadingSpinner = ({
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(12 11.9892) rotate(-89.888) scale(9.98922 10)"
         >
-          <stop stop-color="#E0E0E0" stop-opacity="0" />
+          <stop stopColor="#E0E0E0" stopOpacity="0" />
           <stop offset="0.37" />
         </radialGradient>
       </defs>

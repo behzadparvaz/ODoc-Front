@@ -1,111 +1,117 @@
-'use client';
 import Link from 'next/link';
-import Image from 'next/image';
-import { ProfileNavigationMenuItems } from '@utilities/staticNavigationItem';
-import { useRouter } from 'next/router';
-import { profileText } from '@com/texts/profileText';
-import {} from '@com/texts/profileText';
-import { generalTexts } from '@com/texts/generalTexts';
-import NextLink from '@com/_core/NextLink';
+
 import { useGetProfile } from '@api/user/user.rq';
-import Button from '@com/_atoms/Button';
-import { ExitIcon, HeadsetIconOutline } from '@com/icons';
+import {
+  ExitOutlineIcon,
+  HeadsetOutlineIcon,
+  LocationOutline2Icon,
+  WalletOutlineIcon,
+  Profilefill2Icon,
+  ProfileOutline2Icon,
+} from '@com/icons';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
+import NextImage from '@com/_core/NextImage';
+import Spinner from '@com/_atoms/Spinner';
 
-export default function ProfileNavigation({ className = '' }) {
-  const navigaitionItemsVal = ProfileNavigationMenuItems();
-  const { asPath, push } = useRouter();
-  const { data, isLoading: profileDataLoding } = useGetProfile();
-  const profileData: any = data;
-  const profileInfo = profileData?.queryResult[0];
+const ProfileNavigation = () => {
+  const { data, isLoading } = useGetProfile();
+
+  if (isLoading) {
+    return (
+      <div className="bg-red-100 fixed top-0 lef-0 w-[600px] h-[300px] flex justify-center items-center">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
-    <div
-      className={`${className} bg-white w-full sticky right-0 top-20 px-4 rounded-t-2xl shadowMdBlue profile-navigation`}
-    >
-      <div className="w-full">
-        <div className="w-full text-center">
-          <Image
-            alt="profileImage"
-            width={128}
-            height={128}
-            src={'/static/images/staticImages/sample-avatar.svg'}
-            className={'inline-block mb-1 rounded-full'}
-            priority
-          />
-          <p className="text-grey-600 text-sm font-medium text-center truncate h-5">
-            {profileDataLoding === false
-              ? profileInfo
-                ? `${profileInfo?.firstName} ${profileInfo?.lastName}`
-                : 'فاقد اطلاعات '
-              : ''}
-          </p>
+    <>
+      <div className="w-full h-20 flex gap-x-3 items-center px-4">
+        <div className="w-12 h-12 rounded-full flex items-center justify-center bg-grey-200 overflow-hidden">
+          {data?.queryResult[0]?.imageUrl ? (
+            <NextImage
+              src={data?.queryResult[0]?.imageUrl}
+              alt="profile-image"
+              width={48}
+              height={48}
+            />
+          ) : (
+            <Profilefill2Icon width={24} height={24} fill={colors.white} />
+          )}
+        </div>
 
-          <Button
-            isLoading={profileDataLoding}
-            handleClick={() => {
-              push(routeList.profileUserInfoRoute);
-            }}
-            className="w-full mt-3"
-            size="large"
-            buttonType="contained"
-            variant={profileInfo ? 'secondary' : 'primary'}
-          >
-            {!profileDataLoding
-              ? profileInfo
-                ? 'ویرایش اطلاعات کاربری'
-                : profileText?.registerUserInfo
-              : ''}
-          </Button>
+        <div className="flex flex-col gap-y-2 items-start">
+          <span className="text-xl font-semibold">{`${data?.queryResult[0]?.firstName} ${data?.queryResult[0]?.lastName}`}</span>
+          <span className="leading-6 text-sm font-normal">
+            {data?.queryResult[0]?.phoneNumber}
+          </span>
         </div>
       </div>
-      <ul className="w-full items">
-        {navigaitionItemsVal?.map((item: any) => {
-          const isActive = asPath === item?.link;
-          return (
-            <div key={item?.id}>
-              <li
-                className={`${isActive ? ' text-teal-700 active' : 'text-grey-500'} w-full py-2 text-md relative border-b border-grey-100`}
-              >
-                <NextLink href={item?.link}>
-                  <a
-                    className={`${isActive ? 'cursor-default' : ''} py-2 gap-x-1 relative flex transition-all duration-200`}
-                  >
-                    {item?.icon}
-                    {item?.text}
-                  </a>
-                </NextLink>
-              </li>
-            </div>
-          );
-        })}
 
-        <li
-          className="flex justify-between items-center text-grey-500 w-full py-4 text-md relative border-b border-grey-100 cursor-pointer"
-          onClick={() => window.open('tel:02196861727')}
-        >
-          <div className="flex">
-            <HeadsetIconOutline
-              width={20}
-              height={20}
-              fill={colors.teal[600]}
-            />
-            <p className="mr-1">تماس با پشتیبانی</p>
+      <div className="w-full h-[100px] flex gap-x-3 justify-between items-center px-4 py-2">
+        <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
+          <WalletOutlineIcon width={24} height={24} fill={colors.black} />
+          <span className="text-sm font-normal leading-6 text-black">
+            کیف پول
+          </span>
+        </div>
+
+        <Link href={`tel:02196861727`}>
+          <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
+            <HeadsetOutlineIcon width={24} height={24} fill={colors.black} />
+            <span className="text-sm font-normal leading-6 text-black">
+              پشتیبانی
+            </span>
           </div>
-          <p className="ml-2">021-96861727</p>
-        </li>
+        </Link>
+      </div>
 
-        <li className={` mb-3 py-2 block mx-auto text-md relative`}>
-          <Link href={routeList?.logoutRoute}>
-            <a
-              className={`text-red-600 z-10 py-2 flex items-center gap-x-2 relative transition-all duration-200`}
-            >
-              <ExitIcon width={24} height={24} fill={colors?.red[600]} />
-              {generalTexts.logout}
-            </a>
-          </Link>
-        </li>
-      </ul>
-    </div>
+      <div className="flex flex-col gap-y-6 px-5 py-3.5">
+        <Link href={routeList?.profileUserInfoRoute}>
+          <div className="w-full h-[28px] gap-x-5 flex items-center  cursor-pointer">
+            <ProfileOutline2Icon width={24} height={24} />
+            <span className="text-md font-medium leading-7 text-black">
+              اطلاعات شخصی
+            </span>
+          </div>
+        </Link>
+        <Link href={routeList?.profileAddresses}>
+          <div className="w-full h-[28px] gap-x-5 flex items-center  cursor-pointer">
+            <LocationOutline2Icon width={24} height={24} />
+            <span className="text-md font-medium leading-7 text-black">
+              آدرس های منتخب
+            </span>
+          </div>
+        </Link>
+
+        {/* <div className="w-full h-[28px] gap-x-5 flex items-center  cursor-pointer">
+          <MessagesIcon width={24} height={24} />
+          <span className="text-md font-medium leading-7 text-black">
+          پیام‌ها
+          </span>
+          </div>
+          
+          <div className="w-full h-[28px] gap-x-5 flex items-center  cursor-pointer">
+          <InviteFriendsIcon width={24} height={24} />
+          <span className="text-md font-medium leading-7 text-black">
+          دعوت از دوستان
+          </span>
+          </div> */}
+      </div>
+
+      <div className="w-full h-[8px] bg-grey-50" />
+
+      <Link href={routeList?.logoutRoute}>
+        <div className="w-full flex gap-x-5 items-center p-5 cursor-pointer">
+          <ExitOutlineIcon width={24} height={24} />
+          <span className="text-md font-medium leading-7 text-[#E11900]">
+            خروج از حساب کاربری
+          </span>
+        </div>
+      </Link>
+    </>
   );
-}
+};
+
+export default ProfileNavigation;

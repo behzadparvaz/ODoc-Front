@@ -120,4 +120,5 @@ const ModalCreator = forwardRef<HTMLDivElement, any>((prop, ref) => {
     document.getElementById('modal-root'),
   );
 });
+
 export default ModalCreator;
