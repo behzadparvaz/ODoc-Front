@@ -1,7 +1,6 @@
 import { useGetProfile } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Spinner from '@com/_atoms/Spinner';
-import UserInfoForm from '@com/_molecules/UserInfoForm';
 import AddFamilyMembers from '@com/_organisms/AddFamilyMembers';
 import { MainLayout } from '@com/Layout';
 import { generalTexts } from '@com/texts/generalTexts';

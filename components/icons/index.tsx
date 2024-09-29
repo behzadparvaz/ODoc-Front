@@ -3537,3 +3537,221 @@ export const FailIcon = ({
     <path d="M14 20.667h4v4h-4v-4zm0-13.334h4V18h-4V7.333z" fill={fill} />
   </svg>
 );
+
+export const MessagesIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#545454',
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M20 4a2 2 0 0 1 1.994 1.85L22 6v12a2 2 0 0 1-1.85 1.994L20 20H4a2 2 0 0 1-1.995-1.85L2 18V6a2 2 0 0 1 1.85-1.995L4 4h16zm0 2H4v12h16V6zm-2.444 2.15.883 1.795-6.44 3.17-6.392-3.171.89-1.792L12 10.884l5.555-2.733z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const LocationOutline2Icon = ({
+  width = 24,
+  height = 24,
+  fill = '#545454',
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M13 22v2h-2v-2h2zM12 2a8 8 0 0 1 8 8c0 2.88-1.59 5.417-4.128 6.983l-.523.313a8.264 8.264 0 0 0-.487.327c-.796.578-1.297 1.17-1.59 1.76l-.03.066-.067.172-.228.648-.066.166a.806.806 0 0 1-.085.163l-.047.056-.08.086a.49.49 0 0 1-.165.106l-.08.029-.173.05-.251.063-.345-.089c-.16-.046-.237-.08-.308-.144l-.053-.053-.09-.103a.54.54 0 0 1-.054-.095l-.063-.147-.033-.088-.23-.65-.035-.092-.063-.146c-.297-.594-.804-1.19-1.608-1.771a8.314 8.314 0 0 0-.482-.322l-.518-.31C5.583 15.414 4 12.88 4 10a8 8 0 0 1 8-8zm0 2a6 6 0 0 0-6 6c0 2.134 1.181 4.038 3.136 5.256l.558.334c.208.13.406.262.594.398.61.44 1.106.905 1.501 1.387l.21.271.205-.265c.267-.327.58-.645.944-.954l.282-.229.257-.193c.19-.139.392-.274.603-.406l.564-.338C16.812 14.04 18 12.133 18 10a6 6 0 0 0-6-6zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const WalletOutlineIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#000',
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <path d="M15.5 15.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill={fill} />
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M20 5V3H5l-.176.005a3 3 0 0 0-2.819 2.819L2 6v13l.005.15A2 2 0 0 0 4 21h16l.15-.006A2 2 0 0 0 22 19V9l-.006-.15A2 2 0 0 0 20 7H5l-.117-.007A1 1 0 0 1 5 5h15zM4 19V8.829l.148.048A3 3 0 0 0 5 9h15v10H4z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const ExitOutlineIcon = ({
+  width = 24,
+  height = 24,
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <g clip-path="url(#a)">
+      <path
+        d="M15.325 16.275a1.11 1.11 0 0 1-.275-.737c0-.276.092-.505.275-.688l1.85-1.85H10a.967.967 0 0 1-.713-.287A.968.968 0 0 1 9 12c0-.283.096-.52.287-.713A.967.967 0 0 1 10 11h7.175l-1.85-1.85c-.2-.2-.3-.438-.3-.713 0-.274.1-.512.3-.712.183-.2.413-.3.688-.3.274 0 .504.092.687.275l3.6 3.6c.1.1.17.208.212.325.042.117.063.242.063.375s-.02.258-.063.375a.877.877 0 0 1-.212.325l-3.6 3.6c-.217.217-.454.313-.712.287a1.054 1.054 0 0 1-.663-.312zM5 21c-.55 0-1.02-.196-1.413-.587A1.926 1.926 0 0 1 3 19V5c0-.55.196-1.02.587-1.413A1.926 1.926 0 0 1 5 3h6c.283 0 .52.096.713.288.191.191.287.429.287.712s-.096.52-.287.713A.968.968 0 0 1 11 5H5v14h6c.283 0 .52.096.713.288.191.191.287.429.287.712s-.096.52-.287.712A.968.968 0 0 1 11 21H5z"
+        fill="#E11900"
+      />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+export const InviteFriendsIcon = ({
+  width = 24,
+  height = 24,
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <g clip-path="url(#a)" fill="#545454">
+      <path d="M16.67 13.13C18.04 14.06 19 15.32 19 17v3h4v-3c0-2.18-3.57-3.47-6.33-3.87zM15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4c-.47 0-.91.1-1.33.24a5.98 5.98 0 0 1 0 7.52c.42.14.86.24 1.33.24zM9 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0-6c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zM9 13c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4zm6 5H3v-.99C3.2 16.29 6.3 15 9 15s5.8 1.29 6 2v1z" />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+export const Profilefill2Icon = ({
+  width = 24,
+  height = 24,
+  fill = '#fff',
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <g clip-path="url(#a)">
+      <path
+        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"
+        fill={fill}
+      />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill={fill} d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+export const ProfileOutline2Icon = ({
+  width = 24,
+  height = 24,
+  className = '',
+}: IconType) => (
+  <svg
+    width={width}
+    height={height}
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={className}
+  >
+    <g clip-path="url(#a)">
+      <path
+        d="M12 5.9a2.1 2.1 0 1 1 0 4.2 2.1 2.1 0 0 1 0-4.2zm0 9c2.97 0 6.1 1.46 6.1 2.1v1.1H5.9V17c0-.64 3.13-2.1 6.1-2.1zM12 4C9.79 4 8 5.79 8 8s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm0 9c-2.67 0-8 1.34-8 4v3h16v-3c0-2.66-5.33-4-8-4z"
+        fill="#545454"
+      />
+    </g>
+    <defs>
+      <clipPath id="a">
+        <path fill="#fff" d="M0 0h24v24H0z" />
+      </clipPath>
+    </defs>
+  </svg>
+);
+
+export const NewTickIcon = ({
+  width,
+  height,
+  stroke,
+  className = '',
+}: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M10 2 4.4 7.6 2 5.2"
+        stroke={stroke}
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
+
+export const ChevronDownIcon = ({
+  width,
+  height,
+  stroke,
+  className,
+}: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M4.667 6.667 8 10l3.333-3.333"
+        stroke={stroke}
+        stroke-width="1.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+    </svg>
+  );
+};

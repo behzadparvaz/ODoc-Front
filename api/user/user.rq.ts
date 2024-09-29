@@ -90,14 +90,10 @@ export const useGetProfileRelation = () => {
   return { data, isLoading };
 };
 
-export const useAddProfileInfo = (
-  inOrderPage?: boolean,
-  isRegisterInOrderPage?: boolean,
-) => {
+export const useAddProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  const { removeLastModal } = useModal();
   return useMutation(AddProfileInfo, {
     onSuccess: (data) => {
       queryClient?.invalidateQueries('getProfile');
@@ -106,10 +102,7 @@ export const useAddProfileInfo = (
         type: 'success',
         notifType: 'successOrFailedMessage',
       });
-      if (isRegisterInOrderPage) {
-        removeLastModal();
-      }
-      !isRegisterInOrderPage && !inOrderPage && push(routeList.profile);
+      push(routeList.profile);
     },
   });
 };
@@ -127,7 +120,7 @@ export const useAddFamilyMembers = () => {
     },
   });
 };
-export const useUpdateProfileInfo = (inOrderPage) => {
+export const useUpdateProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
@@ -139,7 +132,7 @@ export const useUpdateProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       });
-      !inOrderPage && push(routeList.profile);
+      push(routeList.profile);
     },
   });
 };
