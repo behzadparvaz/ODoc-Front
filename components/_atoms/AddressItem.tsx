@@ -1,68 +1,66 @@
-import { useDeleteLocation } from '@api/user/user.rq';
-import { DeleteIconOutline } from '@com/icons';
+import DeleteAddressModal from '@com/_organisms/DeleteAddressModal';
+import { NewDeleteIcon, NewEditIcon, StarIcon } from '@com/icons';
 import { profileText } from '@com/texts/profileText';
 import { colors } from '@configs/Theme';
+import useModal from '@hooks/useModal';
 
-interface Props {
+type AddressItemProps = {
   addressInfo: any;
-  className?: string;
   activeItem?: boolean;
-  handleClickAddress?: () => void;
-}
-const AddressItem = ({
-  addressInfo,
-  className = '',
-  activeItem,
-  handleClickAddress,
-}: Props) => {
-  const {
-    mutate: mutateDeleteLocation,
-    isLoading: mutateDeleteLocationLoading,
-  } = useDeleteLocation();
-  const handleDeleteAddress = () => {
-    mutateDeleteLocation({
-      Id: addressInfo?.id,
+};
+
+const AddressItem = ({ addressInfo }: AddressItemProps) => {
+  const { addModal } = useModal();
+
+  const handleOpenDeleteAddressModal = () => {
+    addModal({
+      modal: DeleteAddressModal,
+      props: {
+        addressId: addressInfo?.id,
+      },
     });
   };
+
   return (
-    <div
-      className={`w-full bg-grey-50 bg-opacity-30 rounded-md border border-grey-200 my-2 px-4 ${className}`}
-    >
-      <div className="flex justify-between">
-        <div
-          onClick={() => handleClickAddress && handleClickAddress()}
-          className="flex-auto py-3"
-        >
-          {addressInfo?.name && (
-            <div className="w-full text-sm text-grey-600 mb-1 font-semibold">
-              {addressInfo?.name}
-            </div>
-          )}
-          <p className="w-full text-xs line-clamp-2 text-grey-600 mb-1">
-            {addressInfo?.description}
-            {addressInfo?.houseNumber?.length && (
-              <span className="inline-block px-1">
-                {profileText?.plaque + ' ' + addressInfo?.houseNumber}
-              </span>
-            )}
-            {addressInfo?.homeUnit &&
-              profileText?.unit + ' ' + addressInfo?.homeUnit}
-          </p>
-        </div>
-        {!activeItem && (
-          <div className="flex-auto flex justify-end pr-2 py-3">
-            <span
-              className="cursor-pointer contents"
-              onClick={() => handleDeleteAddress()}
-            >
-              <DeleteIconOutline
-                width={16}
-                height={16}
-                fill={colors?.red?.[600]}
-              />
-            </span>
+    <div className={`w-full h-[78px] flex items-center gap-x-4 px-4 py-3`}>
+      <div className="!w-[40px] !h-[40px] flex justify-center items-center rounded-full bg-grey-100">
+        <StarIcon width={16} height={15} />
+      </div>
+
+      <div className=" flex flex-col gap-y-3 items-start flex-1 overflow-hidden">
+        {addressInfo?.name && (
+          <div className="w-full text-sm text-grey-600 mb-1 font-semibold">
+            {addressInfo?.name}
           </div>
         )}
+
+        <p className="w-full text-xs text-grey-600 mb-1 truncate">
+          {addressInfo?.description}
+          {addressInfo?.houseNumber?.length && (
+            <span className="inline-block px-1">
+              {`${profileText?.plaque} ${addressInfo?.houseNumber}`}
+            </span>
+          )}
+          {addressInfo?.homeUnit &&
+            `${profileText?.unit} ${addressInfo?.homeUnit}`}
+        </p>
+      </div>
+
+      <div className="w-[88px] flex justify-between items-center gap-x-2">
+        <div
+          className="cursor-pointer w-10 h-10 flex justify-center items-center bg-grey-50 rounded-full"
+          onClick={() => {
+            return;
+          }}
+        >
+          <NewEditIcon width={24} height={24} fill={colors?.black} />
+        </div>
+        <div
+          className="cursor-pointer w-10 h-10 flex justify-center items-center bg-red-50 rounded-full"
+          onClick={() => handleOpenDeleteAddressModal()}
+        >
+          <NewDeleteIcon width={24} height={24} />
+        </div>
       </div>
     </div>
   );

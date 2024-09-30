@@ -3755,3 +3755,73 @@ export const ChevronDownIcon = ({
     </svg>
   );
 };
+
+export const StarIcon = ({
+  width = 16,
+  height = 15,
+  fill = 'black',
+  className,
+}: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        d="M7.99994 12.3916L11.4583 14.4833C12.0916 14.8666 12.8666 14.3 12.6999 13.5833L11.7833 9.64997L14.8416 6.99997C15.3999 6.51663 15.0999 5.59997 14.3666 5.54163L10.3416 5.19997L8.76661 1.4833C8.48327 0.808301 7.51661 0.808301 7.23327 1.4833L5.65827 5.19163L1.63327 5.5333C0.899939 5.59163 0.599938 6.5083 1.15827 6.99163L4.21661 9.64163L3.29994 13.575C3.13327 14.2916 3.90827 14.8583 4.5416 14.475L7.99994 12.3916Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
+
+export const NewDeleteIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#E11900',
+  className,
+}: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M14 5H10V7H8V5C8 3.94564 8.81588 3.08183 9.85074 3.00549L10 3H14C15.0544 3 15.9182 3.81588 15.9945 4.85074L16 5V7H21V9H19V19C19 20.0544 18.1841 20.9182 17.1493 20.9945L17 21H7C5.94564 21 5.08183 20.1841 5.00549 19.1493L5 19V9H3V7H14V5ZM17 9H7V19H17V9Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
+
+export const NewEditIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+  className,
+}: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M16.7168 4.11937L16.8262 4.22104L19.6547 7.04947C20.4002 7.79501 20.4341 8.98273 19.7563 9.76847L19.6547 9.87789L9.46227 20.0703H5.30542C4.52877 20.0703 3.88998 19.48 3.81316 18.7236L3.80542 18.5703V14.4134L13.9978 4.22104C14.7434 3.47549 15.9311 3.44161 16.7168 4.11937ZM20 18.0001V20.0001H12L14 18.0001H20ZM12.5836 8.46368L5.80598 15.2413V18.0697L8.63511 18.069L15.412 11.2921L12.5836 8.46368ZM15.412 5.63525L13.9978 7.04947L16.8262 9.87789L18.2404 8.46368L15.412 5.63525Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};

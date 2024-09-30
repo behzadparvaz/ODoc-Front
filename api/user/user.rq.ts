@@ -54,18 +54,23 @@ export const useAddLocation = () => {
 };
 export const useDeleteLocation = () => {
   const { openNotification } = useNotification();
+  const { removeLastModal } = useModal();
+  const { refetch: refetchAddresses } = useGetUserLocations();
   const queryClient = useQueryClient();
   return useMutation(DeleteUserLocations, {
     onSuccess: () => {
+      refetchAddresses();
       queryClient?.invalidateQueries('getUserLocations');
       openNotification({
-        message: 'آدرس شما با موفقیت حذف شد',
+        message: 'مکان منتخب با موفقیت حذف شد',
         type: 'info',
         notifType: 'successOrFailedMessage',
       });
+      removeLastModal();
     },
   });
 };
+
 export const useGetUserLocations = (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ): UseQueryResult<any[]> => {
