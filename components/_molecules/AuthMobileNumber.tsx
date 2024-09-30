@@ -1,42 +1,40 @@
-import TextInput from "@com/_atoms/TextInput"
-import Button from "@com/_atoms/Button"
-import { useFormik } from "formik";
-import { useSendMobileNumber } from "@api/auth/oDocAuth.rq";
-import SectionTitle from "./SectionTitle.nd";
-import { loginSchema } from "@utilities/validationSchemas";
-import { convertPersianNumbersToEnglishNumbers } from "@utilities/mainUtils";
-
+import TextInput from '@com/_atoms/TextInput';
+import Button from '@com/_atoms/Button';
+import { useFormik } from 'formik';
+import { useSendMobileNumber } from '@api/auth/oDocAuth.rq';
+import SectionTitle from './SectionTitle.nd';
+import { loginSchema } from '@utilities/validationSchemas';
+import { convertPersianNumbersToEnglishNumbers } from '@utilities/mainUtils';
+import NextLink from '@com/_core/NextLink';
+import { routeList } from '@routes/routeList';
 
 interface Props {
-    handleChangeForm: (registerData:any,formStatus: 'otp' | 'password') => void;
+  handleChangeForm: (registerData: any, formStatus: 'otp' | 'password') => void;
 }
 
 const AuthMobileNumber = ({ handleChangeForm }: Props) => {
-    const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } = useSendMobileNumber();
-    const formik = useFormik({
-        initialValues: {
-            PhoneNumber: '',
+  const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } =
+    useSendMobileNumber();
+  const formik = useFormik({
+    initialValues: {
+      PhoneNumber: '',
+    },
+    enableReinitialize: true,
+    validationSchema: loginSchema,
+    onSubmit: (values) => {
+      mutatesendMobileNumber(values, {
+        onSuccess: (responseData: any) => {
+          if (responseData?.message === 'succeeded') {
+            if (responseData?.hasPassword) {
+              handleChangeForm(responseData, 'password');
+            } else {
+              handleChangeForm(responseData, 'otp');
+            }
+          }
         },
-        enableReinitialize: true,
-        validationSchema: loginSchema,
-        onSubmit: (values) => {
-            mutatesendMobileNumber(
-                values,
-                {
-                    onSuccess: (responseData: any) => {
-                        if (responseData?.message === "succeeded") {
-                            if (responseData?.hasPassword) {
-                                handleChangeForm(responseData,'password')
-                            }
-                            else {
-                                handleChangeForm(responseData,'otp')
-                            }
-                        }
-                    },
-                }
-            );
-        },
-    });
+      });
+    },
+  });
 
   const onKeyPress = (event) => {
     if (event.key === 'Enter') {
@@ -45,19 +43,19 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
   };
   return (
     <>
-      <SectionTitle
-        descriptionClassName="text-md"
-        description={'لطفا شماره موبایل خود را وارد کنید'}
-        titleClassName="text-sm text-grey-600"
-        title="ورود/ثبت نام"
-      />
-      <form onSubmit={formik.handleSubmit}>
+      <div className="text-md border-b border-grey-200 py-4 flex justify-center font-medium">
+        ورود | ثبت نام
+      </div>
+      <form className="my-4 px-4" onSubmit={formik.handleSubmit}>
         <TextInput
-          className="border border-grey-200 mt-3 !rounded-lg"
+          label="شماره موبایل"
+          labelClassName="text-md  font-medium"
+          className="!rounded-lg !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           id="PhoneNumber"
+          fontSize="md"
           name="PhoneNumber"
           inputMode="numeric"
-          placeholder={'09123456789'}
+          placeholder={'مثال *********09'}
           value={formik.values.PhoneNumber}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
             formik?.setFieldValue(
@@ -73,20 +71,28 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
           maxLength={11}
           autoComplete="off"
         />
-
-                <Button
-                    buttonType="contained"
-                    variant="primary"
-                    className="w-full mt-8"
-                    size="large"
-                    disabled={sendMobileNumberLoding}
-                    type="submit"
-                    isLoading={sendMobileNumberLoding}
-                >
-                    <p>تــــایید</p>
-                </Button>
-            </form>
-        </>
-    )
-}
-export default AuthMobileNumber
+        <p className='text-sm text-grey-500 text-center py-5'>
+          با ثبت نام
+          <NextLink href={routeList?.loginRoute}>
+            <a className='inline-block text-black px-1'>
+            در تپسی دکتر
+            </a>
+          </NextLink>
+          شرایط و مقررات را می پذیرم.
+        </p>
+        <Button
+          buttonType="contained"
+          variant="primary"
+          className="w-full mb-5"
+          size="large"
+          disabled={sendMobileNumberLoding}
+          type="submit"
+          isLoading={sendMobileNumberLoding}
+        >
+          <p>تأیید</p>
+        </Button>
+      </form>
+    </>
+  );
+};
+export default AuthMobileNumber;

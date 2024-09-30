@@ -121,26 +121,18 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
   };
   return (
     <>
-      <SectionTitle
-        actionButton={
-          <Button
-            handleClick={() => handleLoginWithOtp()}
-            className="text-teal-700 text-xs !p-0"
-          >
-            {loginTexts?.loginByOTP}
-          </Button>
-        }
-        descriptionClassName="text-md"
-        description={loginTexts?.enterPassword}
-        titleClassName="text-sm text-grey-600"
-        title={loginTexts.loginByPassword}
-      />
-      <form onSubmit={formik.handleSubmit}>
+      <div className="text-md border-b border-grey-200 py-4 flex justify-center font-medium">
+        ورود | ثبت نام
+      </div>
+      <form className="my-4 px-4" onSubmit={formik.handleSubmit}>
         <TextInput
           type={hidePassword ? 'password' : 'text'}
           id="password"
-          className="mt-3"
+          label="رمز عبور"
+          labelClassName="text-md font-medium"
+          className="!rounded-lg !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           name="password"
+          fontSize='md'
           value={formik.values.password}
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
@@ -155,34 +147,45 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
           autoComplete="off"
           leftIcon={
             formik.values.password?.length >= 1 && (
-              <div onClick={() => setHidePassword(!hidePassword)}>
+              <span className='pt-1 inline-block' onClick={() => setHidePassword(!hidePassword)}>
                 {hidePassword ? (
                   <OpenEyeIconFill
-                    width={16}
-                    height={16}
-                    fill={colors.grey[400]}
+                    width={32}
+                    height={32}
+                    fill={colors.black}
                   />
                 ) : (
                   <CloseEyeIconFill
-                    width={16}
-                    height={16}
-                    fill={colors.grey[400]}
+                    width={32}
+                    height={32}
+                    fill={colors.black}
                   />
                 )}
-              </div>
+              </span>
             )
           }
         />
         <Button
+          buttonType="outlined"
+          variant="tertiary"
+          className="w-full my-2.5 !border-none"
+          size="large"
+          type="button"
+          
+          handleClick={() => handleLoginWithOtp()}
+        >
+          {loginTexts?.loginByOTP}
+        </Button>
+        <Button
           buttonType="contained"
           variant="primary"
-          className="w-full mt-8"
+          className="w-full"
           size="large"
           disabled={sendVerifyCodeLoading}
           type="submit"
           isLoading={sendVerifyCodeLoading}
         >
-          <p>{loginTexts.login}</p>
+          <p>تایید</p>
         </Button>
       </form>
     </>

@@ -3295,8 +3295,8 @@ export const HomeFillIcon = ({ width = 24, height = 24, fill = '#747575' }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="m22.515 9.143-10.507-6.31-10.522 6.31 1.028 1.715.486-.292V18l.006.15A2 2 0 0 0 5 20h4.5v-6a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v6H19l.15-.006A2 2 0 0 0 21 18v-7.434l.485.291 1.03-1.714z"
       fill={fill}
     />
@@ -3348,8 +3348,8 @@ export const ProfileOutlineIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M9 7a3 3 0 1 0 6 0 3 3 0 0 0-6 0zm3-5a5 5 0 1 0 0 10 5 5 0 0 0 0-10zM16.5 16h-9a2 2 0 1 0 0 4h9a2 2 0 1 0 0-4zm-9-2a4 4 0 0 0 0 8h9a4 4 0 0 0 0-8h-9z"
       fill={fill}
     />
@@ -3491,8 +3491,8 @@ export const FilterIcon = ({
     className={className}
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M7.083 11.25A2.917 2.917 0 1 1 4.287 15h-2.62v-1.667h2.62a2.918 2.918 0 0 1 2.796-2.083zm0 1.667a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm11.25.416V15h-6.666v-1.667h6.666zM12.917 2.917c1.32 0 2.437.878 2.795 2.083h2.621v1.667h-2.62A2.918 2.918 0 0 1 10 5.833a2.917 2.917 0 0 1 2.916-2.916zm0 1.666a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zM8.332 5v1.667H1.666V5h6.667z"
       fill={fill}
     />
@@ -3513,8 +3513,8 @@ export const TimerIcon = ({
     className={className}
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M16 25.333A9.333 9.333 0 0 0 25.333 16 9.333 9.333 0 1 0 16 25.333zM16 28c6.627 0 12-5.373 12-12S22.627 4 16 4 4 9.373 4 16s5.373 12 12 12zm1.333-12.573V8.533h-2.666v7.994l-.002.002.002.002v.002h.002l4.165 4.166 1.886-1.886-3.387-3.386z"
       fill={fill}
     />
@@ -3552,8 +3552,8 @@ export const MessagesIcon = ({
     className={className}
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M20 4a2 2 0 0 1 1.994 1.85L22 6v12a2 2 0 0 1-1.85 1.994L20 20H4a2 2 0 0 1-1.995-1.85L2 18V6a2 2 0 0 1 1.85-1.995L4 4h16zm0 2H4v12h16V6zm-2.444 2.15.883 1.795-6.44 3.17-6.392-3.171.89-1.792L12 10.884l5.555-2.733z"
       fill={fill}
     />
@@ -3574,8 +3574,8 @@ export const LocationOutline2Icon = ({
     className={className}
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M13 22v2h-2v-2h2zM12 2a8 8 0 0 1 8 8c0 2.88-1.59 5.417-4.128 6.983l-.523.313a8.264 8.264 0 0 0-.487.327c-.796.578-1.297 1.17-1.59 1.76l-.03.066-.067.172-.228.648-.066.166a.806.806 0 0 1-.085.163l-.047.056-.08.086a.49.49 0 0 1-.165.106l-.08.029-.173.05-.251.063-.345-.089c-.16-.046-.237-.08-.308-.144l-.053-.053-.09-.103a.54.54 0 0 1-.054-.095l-.063-.147-.033-.088-.23-.65-.035-.092-.063-.146c-.297-.594-.804-1.19-1.608-1.771a8.314 8.314 0 0 0-.482-.322l-.518-.31C5.583 15.414 4 12.88 4 10a8 8 0 0 1 8-8zm0 2a6 6 0 0 0-6 6c0 2.134 1.181 4.038 3.136 5.256l.558.334c.208.13.406.262.594.398.61.44 1.106.905 1.501 1.387l.21.271.205-.265c.267-.327.58-.645.944-.954l.282-.229.257-.193c.19-.139.392-.274.603-.406l.564-.338C16.812 14.04 18 12.133 18 10a6 6 0 0 0-6-6zm0 3a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm0 2a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"
       fill={fill}
     />
@@ -3597,8 +3597,8 @@ export const WalletOutlineIcon = ({
   >
     <path d="M15.5 15.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3z" fill={fill} />
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M20 5V3H5l-.176.005a3 3 0 0 0-2.819 2.819L2 6v13l.005.15A2 2 0 0 0 4 21h16l.15-.006A2 2 0 0 0 22 19V9l-.006-.15A2 2 0 0 0 20 7H5l-.117-.007A1 1 0 0 1 5 5h15zM4 19V8.829l.148.048A3 3 0 0 0 5 9h15v10H4z"
       fill={fill}
     />
@@ -3751,6 +3751,25 @@ export const ChevronDownIcon = ({
         stroke-width="1.5"
         stroke-linecap="round"
         stroke-linejoin="round"
+      />
+    </svg>
+  );
+};
+export const PencilOutline = ({ width, height, fill, className }: IconType) => {
+  return (
+    <svg
+      className={className}
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M13.9307 3.43272L14.0219 3.51744L16.3789 5.87447C17.0002 6.49576 17.0284 7.48552 16.4636 8.1403L16.3789 8.23149L7.88525 16.7251H4.4212C3.77399 16.7251 3.24167 16.2333 3.17766 15.603L3.1712 15.4751V12.0111L11.6649 3.51744C12.2861 2.89616 13.2759 2.86792 13.9307 3.43272ZM16.6667 15V16.6667H9.99999L11.6667 15H16.6667ZM10.4863 7.05298L4.83833 12.701V15.058L7.19595 15.0574L12.8434 9.41L10.4863 7.05298ZM12.8434 4.69596L11.6649 5.87447L14.0219 8.23149L15.2004 7.05298L12.8434 4.69596Z"
+        fill={fill}
       />
     </svg>
   );
