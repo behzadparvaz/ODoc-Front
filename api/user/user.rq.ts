@@ -28,9 +28,14 @@ import useStorage from '@hooks/useStorage';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '@redux/user/userActions';
 
-export const useAddLocation = () => {
+export const useAddLocation = ({
+  isInAddressPage,
+}: {
+  isInAddressPage?: boolean;
+}) => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
+  const { push } = useRouter();
   const queryClient = useQueryClient();
   return useMutation(AddLocation, {
     onSuccess: (data: any) => {
@@ -48,6 +53,9 @@ export const useAddLocation = () => {
           type: 'success',
           notifType: 'successOrFailedMessage',
         });
+        if (isInAddressPage) {
+          push(routeList.profileAddresses);
+        }
       }
     },
   });

@@ -5,7 +5,7 @@ import { useAddProfileInfo, useUpdateProfileInfo } from '@api/user/user.rq';
 import { profileText } from '@com/texts/profileText';
 import { userInfoSchema } from '@utilities/validationSchemas';
 import Gender from '@com/_molecules/Gender';
-import { TextInput } from '@com/TextInput';
+import { TextInput } from '@com/_atoms/NewTextInput';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
 

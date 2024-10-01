@@ -11,9 +11,13 @@ import Spinner from '@com/_atoms/Spinner';
 import { MainLayout } from '@com/Layout';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
 
 const Addresses = () => {
   const { addModal } = useModal();
+  const { push } = useRouter();
+
   const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
   const dispatch = useDispatch();
 
@@ -39,11 +43,7 @@ const Addresses = () => {
     });
   };
 
-  const {
-    data: addressData,
-    isLoading,
-    refetch: refetchAddresses,
-  } = useGetUserLocations();
+  const { data: addressData, isLoading } = useGetUserLocations();
 
   const renderContent = () => {
     if (isLoading) {
@@ -64,7 +64,8 @@ const Addresses = () => {
 
         <FixBottomSection className="p-4">
           <Button
-            onClick={() => handleClickOpenModal()}
+            // onClick={() => handleClickOpenModal()}
+            onClick={() => push(routeList.newAddress)}
             className="w-full"
             size="large"
             variant="primary"
