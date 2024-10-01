@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
+
 import { RootState } from '@utilities/types';
 import { setLogMapStateAction, setMapStateAction } from '@redux/map/mapActions';
 import {
@@ -15,13 +16,12 @@ import useModal from '@hooks/useModal';
 import {
   ArrowRightIconOutline,
   ArrowTopRightIcon,
-  Discovery,
   SearchIconOutline,
 } from '@com/icons';
-import { MainLayout } from '@com/Layout';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { TextInput } from '@com/_atoms/NewTextInput';
 import ParsiSearchModal from '@com/_organisms/ParsiSearchModal';
+import { useRouter } from 'next/router';
 
 const Map = dynamic(() => import('@com/_molecules/Map'), {
   ssr: false,
@@ -37,8 +37,9 @@ interface Props {
 const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
   const dispatch = useDispatch();
 
+  const { back } = useRouter();
   const [searchText, setSearchText] = useState('');
-  const { addModal } = useModal();
+  const { addModal, removeLastModal } = useModal();
 
   const { geoLocationState } = useGeoLocation();
   const [isLoadingPosition, setIsLoadingPosition] = useState<boolean>(false);
@@ -103,7 +104,10 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
     <div className="h-svh w-full flex justify-center">
       <div className="relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[600px] h-svh overflow-hidden ">
         <div className="h-[calc(100%-184px)] absolute inset-x-0 ">
-          <div className="absolute top-2 right-4 h-10 w-10 flex justify-center items-center bg-white rounded-full z-10 shadow-md">
+          <div
+            className="absolute top-2 right-4 h-10 w-10 flex justify-center items-center bg-white rounded-full z-10 shadow-md cursor-pointer"
+            onClick={() => back()}
+          >
             <ArrowRightIconOutline
               width={24}
               height={24}
