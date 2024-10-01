@@ -30,6 +30,7 @@ export const loginWithPassword = Yup.object().shape({
 });
 
 export const addNewAddressSchema = Yup.object().shape({
+  name: Yup.string().required('این فیلد الزامی است'),
   plaque: Yup.string().required('این فیلد الزامی است'),
   unit: Yup.string().required('این فیلد الزامی است'),
 });

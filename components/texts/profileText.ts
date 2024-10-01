@@ -12,7 +12,7 @@ export const profileText = {
   enterNewPassword: 'رمز عبور جدید را وارد کنید',
   enterReEnterNewPassword: 'تکرار رمز عبور جدید را وارد کنید',
   reEnterNewPassword: 'تکرار رمز عبور جدید',
-  addresses: 'آدرس ها',
+  addresses: 'آدرس های منتخب',
   plaque: 'پلاک',
   unit: 'واحد',
   mobileNumber: 'شماره همراه',

@@ -23,5 +23,6 @@ export const routeList = {
   tender: '/app/tender',
   categories: '/app/categories',
   otcMedicine: '/app/otc-medicine',
-  productPage:'/app/product/'
+  productPage: '/app/product/',
+  newAddress: '/app/profile/addresses/new',
 };
