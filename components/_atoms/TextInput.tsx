@@ -115,7 +115,7 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       className: `text-red-800 text-2xs mt-1 ${props?.helperClassName ? props?.helperClassName : ''}`,
     };
     const leftIconProps = {
-      className: 'absolute left-4 h-10 bottom-0 flex flex-col justify-center',
+      className: 'absolute inline left-4 h-10 top-1/2 -translate-y-1/2',
     };
     const rightIconProps = {
       className: 'absolute right-4 h-10 bottom-0 flex flex-col justify-center',
