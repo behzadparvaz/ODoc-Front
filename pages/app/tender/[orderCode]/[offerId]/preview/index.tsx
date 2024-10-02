@@ -94,7 +94,9 @@ const Preview = () => {
         />
       </div> */}
       <div className="w-full h-full flex flex-col justify-between gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
-        <Address buttonTitle="تغییر آدرس" />
+        <div className="px-4 pt-4">
+          <Address buttonTitle="تغییر آدرس" />
+        </div>
 
         <div className="px-4">
           <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
@@ -173,8 +175,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.totalPrice &&
-                    convertRialToToman(selectedOffer?.totalPrice)}
+                  {!!selectedOffer?.totalPrice
+                    ? convertRialToToman(selectedOffer?.totalPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>
@@ -186,8 +189,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.packingPrice &&
-                    convertRialToToman(selectedOffer?.packingPrice)}
+                  {!!selectedOffer?.packingPrice
+                    ? convertRialToToman(selectedOffer?.packingPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>
@@ -199,8 +203,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.delivery?.deliveryPrice &&
-                    convertRialToToman(selectedOffer?.delivery?.deliveryPrice)}
+                  {!!selectedOffer?.delivery?.deliveryPrice
+                    ? convertRialToToman(selectedOffer?.delivery?.deliveryPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>

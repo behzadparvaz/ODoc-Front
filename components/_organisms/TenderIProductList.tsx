@@ -1,7 +1,9 @@
+import NextImage from '@com/_core/NextImage';
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
-
 import TenderProductItem from './TenderProductItem';
 import { convertRialToToman } from '@utilities/mainUtils';
+import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 
 type TenderProductListProps = {
   orderItems: TenderItemsOrderDataModel[];
@@ -9,6 +11,8 @@ type TenderProductListProps = {
   finalPrice: number;
   packingPrice?: number;
   deliveryPrice?: number;
+  referenceNumber?: string;
+  isSpecialPatient?: boolean;
 };
 
 const TenderProductList = ({
@@ -17,10 +21,34 @@ const TenderProductList = ({
   finalPrice,
   packingPrice,
   deliveryPrice,
+  referenceNumber,
+  isSpecialPatient,
 }: TenderProductListProps) => {
   return (
     <>
       <div className="flex flex-col gap-y-4 px-4 pb-4">
+        {referenceNumber && (
+          <div className="flex justify-start items-center gap-x-2">
+            <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
+              <NextImage
+                src={isSpecialPatient ? specialPatients : prescriptionMedicine}
+                alt="Rx-image"
+                width={68}
+                height={68}
+              />
+            </div>
+            <div className="flex flex-col gap-y-2">
+              <span className="text-sm font-semibold">
+                {isSpecialPatient ? 'نسخه بیماری خاص' : 'دارو با نسخه'}
+              </span>
+              {referenceNumber ? (
+                <span className="text-sm font-semibold">
+                  {`کد نسخه ${referenceNumber}`}
+                </span>
+              ) : null}
+            </div>
+          </div>
+        )}
         {orderItems?.map((item, index) => (
           <TenderProductItem
             key={index}
