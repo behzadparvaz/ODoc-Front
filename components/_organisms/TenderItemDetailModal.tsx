@@ -56,7 +56,6 @@ const TenderItemDetail = ({
         hasBackButton
         handleClickRightIcon={removeLastModal}
       >
-        {' '}
         <div className="w-full h-[128] grid grid-rows-1 grid-cols-1 items-start">
           <div className="row-start-1 row-end-2 col-sart-1 col-end-2 flex justify-start items-center object-contain overflow-hidden">
             <Image
