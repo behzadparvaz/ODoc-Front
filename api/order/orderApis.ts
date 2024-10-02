@@ -14,7 +14,7 @@ export const GetOrdersHistory = async (statusId: number) =>
 export const GetOrderStatuses = async () =>
   await request.get(`/order/GetOrderStatues`);
 
-export const FinishOrderPayment = async (body) =>
+export const FinishOrderPayment = async (body: any) =>
   await request.post(`Order/PaymentOrder`, body, { returnError: true });
 
 export const VerifyPaymentOrder = async (body) =>

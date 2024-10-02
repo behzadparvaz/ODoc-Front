@@ -49,11 +49,13 @@ const Preview = () => {
   //   },
   // });
 
-  const handleClickOnPaymentButton = (orderCode, finalPrice) => {
+  const handleClickOnPaymentButton = (orderCode, finalPrice, vendorCode) => {
     const body = {
       orderCode: orderCode,
       finalPrice: finalPrice,
+      vendorCode: vendorCode,
     };
+
     mutatePayment(body);
   };
 
@@ -173,9 +175,6 @@ const Preview = () => {
                 <span className="flex items-center text-md gap-x-1">
                   {!!selectedOffer?.totalPrice &&
                     convertRialToToman(selectedOffer?.totalPrice)}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.totalPrice ? 'تومان' : 'رایگان'}
-                  </span>
                 </span>
               </div>
             </div>
@@ -187,10 +186,8 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.packingPrice && selectedOffer?.packingPrice}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.packingPrice ? 'تومان' : 'رایگان'}
-                  </span>
+                  {!!selectedOffer?.packingPrice &&
+                    convertRialToToman(selectedOffer?.packingPrice)}
                 </span>
               </div>
             </div>
@@ -203,12 +200,7 @@ const Preview = () => {
 
                 <span className="flex items-center text-md gap-x-1">
                   {!!selectedOffer?.delivery?.deliveryPrice &&
-                    selectedOffer?.delivery?.deliveryPrice}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.delivery?.deliveryPrice
-                      ? 'تومان'
-                      : 'رایگان'}
-                  </span>
+                    convertRialToToman(selectedOffer?.delivery?.deliveryPrice)}
                 </span>
               </div>
             </div>
@@ -232,6 +224,7 @@ const Preview = () => {
               handleClickOnPaymentButton(
                 query?.orderCode,
                 selectedOffer?.finalPrice,
+                selectedOffer?.vendorCode,
               )
             }
             isLoading={isLoadingPayment}
