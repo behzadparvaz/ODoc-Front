@@ -106,6 +106,8 @@ const TenderItemDetail = ({
               finalPrice={tenderData?.finalPrice}
               packingPrice={tenderData?.packingPrice}
               deliveryPrice={tenderData?.delivery?.deliveryPrice}
+              referenceNumber={tenderData?.referenceNumber}
+              isSpecialPatient={tenderData?.isSpecialPatient}
             />
           )}
 

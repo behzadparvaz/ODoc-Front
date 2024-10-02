@@ -48,9 +48,11 @@ const OrderItem = ({
         <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
       </div>
       <div className="w-full flex flex-col gap-y-3 py-2 px-4">
-        <div>کد سفارش:{data.referenceNumber}</div>
-        <div>کد رهگیری:{data.orderCode}</div>
-        <div>نام صاحب نسخه:{data.customer?.name}</div>
+        <div>کد سفارش: {data.orderCode}</div>
+        {data.referenceNumber && (
+          <div>کد رهگیری نسخه: {data.referenceNumber}</div>
+        )}
+        <div>نام صاحب نسخه: {data.customer?.name}</div>
       </div>
       <div className="flex items-center justify-between py-2 px-4">
         <div className="flex items-center">
