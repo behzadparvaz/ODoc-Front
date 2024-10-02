@@ -58,7 +58,7 @@ const Address = ({ buttonTitle }: AddressProps) => {
       </div>
 
       <Button
-        className={'w-full'}
+        className={'w-full max-w-[200px] self-end'}
         variant="secondary"
         size="large"
         onClick={onClickOpenModal}

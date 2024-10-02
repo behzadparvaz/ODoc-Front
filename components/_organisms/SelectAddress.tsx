@@ -29,6 +29,14 @@ export default function SelectAddress() {
         latitude: defaultViewPort.latitude,
         longitude: defaultViewPort.longitude,
         addressId: 0,
+        onChangeLoc: (latLng) =>
+          dispatch(
+            setMapStateAction({
+              viewport: latLng,
+              defaultViewPort: latLng,
+              mapIsTouched: true,
+            }),
+          ),
       },
     });
   };
