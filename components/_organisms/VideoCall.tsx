@@ -8,7 +8,7 @@ import Button from '@com/_atoms/Button';
 import { Camera, EndCall, Mic, Speaker } from '@com/icons';
 import { useRouter } from 'next/router';
 
-let socket;
+let socket = io('/');
 const iceServers = {
   iceServers: [
     {
@@ -30,8 +30,6 @@ function VideoCall({ roomId }) {
   const [isOnCamera, toggleIsOnCamera] = useState(true);
 
   useEffect(() => {
-    // Connect to the Socket.io server
-    socket = io();
 
     // Join a room for signaling
     socket.emit("join-room", roomId);
@@ -89,7 +87,6 @@ function VideoCall({ roomId }) {
     localStream.current?.getTracks().forEach((track) => {
       peerConnection.current.addTrack(track, localStream.current);
     });
-
   };
 
   const createOffer = async () => {
@@ -146,7 +143,7 @@ function VideoCall({ roomId }) {
       .find((track) => track.kind === "audio");
     if (audioTrack) {
       audioTrack.enabled = !audioTrack.enabled; // Toggle audio track (mute/unmute)
-      toggleIsMute(audioTrack.enabled); // Update the state to reflect mic status
+      toggleIsMute(!audioTrack.enabled); // Update the state to reflect mic status
     }
   };
 
