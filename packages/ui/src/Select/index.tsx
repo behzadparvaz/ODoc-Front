@@ -14,7 +14,7 @@ type Option = {
   id: string | number | null;
 };
 
-interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+export interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   value: string | number | null;
   onChange: ChangeEventHandler<HTMLSelectElement>;

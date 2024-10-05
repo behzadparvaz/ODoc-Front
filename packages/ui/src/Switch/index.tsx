@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { ChangeEvent, InputHTMLAttributes } from 'react';
 
-interface SwtichProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface SwitchProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
   subLabel?: string;
   className?: string;
@@ -28,10 +28,13 @@ export const Switch = ({
   inputClassName,
   inputRef,
   handleChange,
-}: SwtichProps) => {
+}: SwitchProps) => {
   return (
     <div
-      className={classNames('relative w-full h-max flex gap-x-4', className)}
+      className={classNames(
+        'relative w-full h-max flex items-center gap-x-4',
+        className,
+      )}
     >
       <label
         className={classNames('order-2', subLabel && 'flex flex-col gap-y-2')}

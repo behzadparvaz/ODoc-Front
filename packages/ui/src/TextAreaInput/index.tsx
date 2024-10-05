@@ -16,7 +16,7 @@ export interface TextAreaInputProps
   className?: string;
   labelClassName?: string;
   textareaClassName?: string;
-  leftIconClassName?:string;
+  leftIconClassName?: string;
   inputRef?: React.MutableRefObject<HTMLTextAreaElement>;
   isTouched?: boolean;
   errorMessage?: string;
@@ -82,16 +82,19 @@ export const TextAreaInput = ({
               'border-red-500 focus:ring-red-50 focus:border-red-500',
             textareaClassName,
           )}
-          rows={rest.rows ? rest.rows : 3 }
-          
+          rows={rest.rows ? rest.rows : 3}
           {...rest}
         />
         {leftIcon && (
-          <span className={classNames("absolute w-6 h-6 flex justify-center items-center left-2 bottom-2 -translate-y-1/2 bg-grey-100 rounded-full",leftIconClassName)}>
+          <span
+            className={classNames(
+              'absolute w-6 h-6 flex justify-center items-center left-2 bottom-2 -translate-y-1/2 bg-grey-100 rounded-full',
+              leftIconClassName,
+            )}
+          >
             {leftIcon}
           </span>
         )}
-        
       </div>
       {helperText && (
         <p className="text-xs text-grey-400 pr-2">{`* ${helperText}`}</p>

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { NewTickIcon } from '../icons';
 import { colorPalette } from '../theme';
 
-interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string | null;
   labelClassName?: string;
@@ -32,7 +32,6 @@ export const CheckBox = ({
   handleChange,
   ...rest
 }: CheckBoxProps) => {
-  console.log('checked', checked);
   return (
     <div
       className={classNames(
@@ -81,7 +80,11 @@ export const CheckBox = ({
           {icon ? (
             icon
           ) : (
-            <NewTickIcon width={12} height={9} stroke={colorPalette.grey[1000]} />
+            <NewTickIcon
+              width={12}
+              height={9}
+              stroke={colorPalette.grey[1000]}
+            />
           )}
         </span>
       )}

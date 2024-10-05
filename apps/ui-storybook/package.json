@@ -1,0 +1,53 @@
+{
+  "name": "ui-storybook",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  },
+  "dependencies": {
+    "@next/bundle-analyzer": "^14.2.3",
+    "@repo/api": "*",
+    "@repo/hooks": "*",
+    "@repo/tailwind-config": "*",
+    "@repo/types": "*",
+    "@repo/ui": "*",
+    "@repo/utils": "*",
+    "classnames": "^2.5.1",
+    "next": "^13.5.3",
+    "next-compose-plugins": "^2.2.1",
+    "next-pwa": "^5.4.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "1.6.1",
+    "@repo/eslint-config": "*",
+    "@repo/typescript-config": "*",
+    "@storybook/addon-essentials": "^8.2.9",
+    "@storybook/addon-interactions": "^8.2.9",
+    "@storybook/addon-links": "^8.2.9",
+    "@storybook/addon-onboarding": "^8.2.9",
+    "@storybook/blocks": "^8.2.9",
+    "@storybook/nextjs": "^8.2.9",
+    "@storybook/react": "^8.2.9",
+    "@storybook/test": "^8.2.9",
+    "@types/mapbox-gl": "^2.7.10",
+    "@types/node": "^20.12.12",
+    "@types/react": "^17.0.15",
+    "autoprefixer": "^10.3.1",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "^14.2.3",
+    "eslint-plugin-storybook": "^0.8.0",
+    "lint-staged": "^11.1.2",
+    "postcss": "^8.3.6",
+    "prettier": "^3.2.5",
+    "storybook": "^8.2.9",
+    "tailwindcss": "^3.3.2",
+    "typescript": "^5.4.5"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}

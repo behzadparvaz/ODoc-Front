@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import { PropsWithChildren } from 'react';
 
-type BoxProps = {
+export interface BoxProps {
   className?: string;
   borderColor?: string;
-};
+}
 
 export const Box = ({
   children,

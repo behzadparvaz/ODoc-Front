@@ -1,11 +1,12 @@
 import classNames from 'classnames';
 
-type SpinnerProps = {
+export interface SpinnerProps {
   className?: string;
   width?: string;
   height?: string;
   color?: string;
-};
+}
+
 export const Spinner = ({
   className,
   color = 'bg-teal-300',

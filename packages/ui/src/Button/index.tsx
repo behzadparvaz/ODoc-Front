@@ -13,10 +13,10 @@ import { Spinner } from '../Spinner';
 type Variant = 'primary' | 'secondary';
 type ButtonType = 'contained' | 'outlined' | 'text';
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children?: string | ReactNode;
   isLoading?: boolean;
-  handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
+  handleClick?: (event: MouseEvent<HTMLButtonElement>) => void;
   ref?: MutableRefObject<HTMLButtonElement>;
   variant?: Variant;
   buttonType?: ButtonType;
@@ -72,7 +72,7 @@ export const Button = ({
     return icon;
   };
 
-  const variantClassNames = () => {
+  const typesClassNames = () => {
     switch (buttonType) {
       case 'contained':
         return 'bg-black hover:bg-grey-300 text text-white transition-colors duration-300';
@@ -87,9 +87,9 @@ export const Button = ({
     <button
       type={type}
       className={classNames(
-        'box-border w-full flex items-center justify-center rounded-md',
+        'box-border w-full flex items-center justify-center rounded-md  cursor-pointer',
         sizeClassNames(),
-        variantClassNames(),
+        typesClassNames(),
         className,
       )}
       disabled={isLoading || disabled}
@@ -116,11 +116,7 @@ export const Button = ({
                 {renderIcon()}
               </span>
 
-              {typeof children === 'string' ? (
-                <p>{children}</p>
-              ) : (
-                children
-              )}
+              {typeof children === 'string' ? <p>{children}</p> : children}
             </>
           ) : (
             renderIcon()

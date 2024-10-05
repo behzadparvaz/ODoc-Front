@@ -1,7 +1,7 @@
 import { ChangeEvent, InputHTMLAttributes, ReactNode } from 'react';
 import classNames from 'classnames';
 
-interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+export interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
   className?: string;
   label?: string;
   subLable?: string;

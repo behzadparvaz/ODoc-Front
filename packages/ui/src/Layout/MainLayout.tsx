@@ -1,12 +1,10 @@
 import { MouseEvent, PropsWithChildren, ReactNode } from 'react';
 import classNames from 'classnames';
 
-import { images } from '@repo/assets';
-
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
 
-type MainLayoutProps = {
+export interface MainLayoutProps {
   hasHeader?: boolean;
   hasBottomGap?: boolean;
   hasBottomNavigation?: boolean;
@@ -18,11 +16,11 @@ type MainLayoutProps = {
   handleClickLeftIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
   rightIcon?: ReactNode;
   handleClickRightIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
-  fixBottomChildren?:ReactNode;
-  pathname?:string;
-};
+  fixBottomChildren?: ReactNode;
+  pathname?: string;
+}
 
-const MainLayout = ({
+export const MainLayout = ({
   hasHeader,
   hasBottomGap,
   hasBottomNavigation,
@@ -36,7 +34,7 @@ const MainLayout = ({
   handleClickRightIcon,
   pathname,
   children,
-  fixBottomChildren
+  fixBottomChildren,
 }: PropsWithChildren<MainLayoutProps>) => {
   const renderGridTemplate = () => {
     switch (hasHeader) {
@@ -62,7 +60,7 @@ const MainLayout = ({
         )}
       >
         <div className="col-span-full row-start-1 row-end-2 bg-grey-950 flex justify-start">
-          <img src={images.logo} alt="tapsi-daroo-logo" />
+          <img src={'images.logo'} alt="tapsi-daroo-logo" />
         </div>
         {hasHeader && (
           <Header
@@ -94,12 +92,14 @@ const MainLayout = ({
               footerClassName,
             )}
           >
-            {hasBottomNavigation ? <BottomNavigation pathname={pathname}/> : fixBottomChildren}
+            {hasBottomNavigation ? (
+              <BottomNavigation pathname={pathname} />
+            ) : (
+              fixBottomChildren
+            )}
           </div>
         )}
       </div>
     </div>
   );
 };
-
-export default MainLayout;

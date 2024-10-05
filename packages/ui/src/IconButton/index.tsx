@@ -9,7 +9,8 @@ import classNames from 'classnames';
 type Variant = 'primary' | 'secondary';
 type ButtonType = 'contained' | 'outlined' | 'text';
 
-interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IconButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   handleClick: (event: MouseEvent<HTMLButtonElement>) => void;
   ref?: MutableRefObject<HTMLButtonElement>;
@@ -45,7 +46,7 @@ export const IconButton = ({
   const variantClassNames = () => {
     switch (buttonType) {
       case 'contained':
-        return 'bg-black hover:bg-grey-300 text text-white transition-colors duration-300';
+        return 'bg-orange-500 text text-white transition-colors duration-300';
       case 'outlined':
         return 'hover:bg-grey-50';
       case 'text':
@@ -57,7 +58,7 @@ export const IconButton = ({
     <button
       type={type}
       className={classNames(
-        'flex items-center justify-center  cursor-pointer',
+        'flex items-center justify-center cursor-pointer',
         sizeClassNames(),
         variantClassNames(),
         className,

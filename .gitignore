@@ -141,3 +141,6 @@ build
 
 # turbo
 .turbo
+
+# storybook
+storybook-static/*

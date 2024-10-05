@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /profile
+Disallow: /login
+Disallow: /logout
+Disallow: /checkout
