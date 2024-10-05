@@ -36,7 +36,7 @@ const InputVariants = cva([], {
       false: false,
     },
     borderColor: getColors('border'),
-    textColor: getColors('text'),
+    textColor: getColors('content'),
     fontSize: {
       xxs: 'text-2xs',
       xs: 'text-xs',
@@ -58,7 +58,9 @@ const InputVariants = cva([], {
     },
   },
   //****** Variants that apply when multiple other variant conditions are met ******------------------
-  compoundVariants: [{ variant: 'default', error: true, className: 'border border-red-800' }],
+  compoundVariants: [
+    { variant: 'default', error: true, className: 'border border-red-800' },
+  ],
   defaultVariants: {
     variant: 'default',
     inputSize: 'default',
@@ -78,7 +80,9 @@ type InputType = {
   helperClassName?: string;
 };
 
-interface InputProps extends React.AllHTMLAttributes<HTMLInputElement>, VariantProps<typeof InputVariants> {
+interface InputProps
+  extends React.AllHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof InputVariants> {
   ref?: any;
 }
 
@@ -100,7 +104,7 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const inputProps = {
       className: `${'rightIcon' in props ? `${className} pr-10` : className}`,
@@ -128,7 +132,9 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       <div {...wrapperProps}>
         {'label' in props ? (
           <label {...labelProps}>
-            {'labelIcon' in props ? <div {...labelIconProps}>{props.labelIcon}</div> : null}
+            {'labelIcon' in props ? (
+              <div {...labelIconProps}>{props.labelIcon}</div>
+            ) : null}
             {props.label}
           </label>
         ) : null}
@@ -151,18 +157,24 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
                   fontWeight,
                   className,
                   ...inputProps,
-                })
-              )
+                }),
+              ),
             )}
             {...props}
           ></input>
-          {'leftIcon' in props ? <div {...leftIconProps}>{props.leftIcon}</div> : null}
-          {'rightIcon' in props ? <div {...rightIconProps}>{props.rightIcon}</div> : null}
+          {'leftIcon' in props ? (
+            <div {...leftIconProps}>{props.leftIcon}</div>
+          ) : null}
+          {'rightIcon' in props ? (
+            <div {...rightIconProps}>{props.rightIcon}</div>
+          ) : null}
         </div>
-        {'helperText' in props && !!props.helperText ? <p {...helperTextProps}>{`* ${props.helperText}`}</p> : null}
+        {'helperText' in props && !!props.helperText ? (
+          <p {...helperTextProps}>{`* ${props.helperText}`}</p>
+        ) : null}
       </div>
     );
-  }
+  },
 );
 
 export default TextInput;
