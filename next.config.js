@@ -56,6 +56,14 @@ const nextConfig = {
       },
     ];
   },
+  async rewrites() {
+    return [
+      {
+        source: "/socket.io/:path*",
+        destination: "/api/signaling",
+      },
+    ];
+  },
 };
 
 // const AppleUniversalLinkConfig = {
