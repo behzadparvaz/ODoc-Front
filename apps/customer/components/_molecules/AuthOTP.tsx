@@ -15,10 +15,13 @@ import { generalTexts } from '@com/texts/generalTexts';
 import { useRouter } from 'next/router';
 import { setUserAction } from '@redux/user/userActions';
 import { useDispatch } from 'react-redux';
+import { routeList } from '@routes/routeList';
+import { PencilOutline } from '@com/icons';
+import { colors } from '@configs/Theme';
 
 interface Props {
   data: any;
-  handleChangeForm: (formStatus: 'password') => void;
+  handleChangeForm: (formStatus: 'password' | 'enterMobileNumber') => void;
 }
 
 const AuthOTP = ({ handleChangeForm, data }: Props) => {
@@ -76,7 +79,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
                 token: data?.token,
               }),
             );
-            fromUrl ? push(`${fromUrl}`) : push('/');
+            fromUrl ? push(`${fromUrl}`) : push(routeList.homeRoute);
             openNotification({
               message: loginTexts?.loginSuccessfully,
               type: 'success',
@@ -151,7 +154,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
         signal: controler.signal,
       })
       .then((otp) => {
-        formik.setFieldValue('Code', otp?.id);
+        formik.setFieldValue('Code', otp?.code);
         formik.handleSubmit();
       })
       .catch((err) => {
@@ -167,51 +170,56 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
     handleAutoReadSMS();
   }, []);
 
+  const hasTime = timer.min + timer.sec > 0;
   return (
     <>
-      <SectionTitle
-        actionButton={
-          data?.hasPassword ? (
-            <Button
-              handleClick={() => handleChangeForm('password')}
-              className="text-teal-700 text-xs !p-0"
-            >
-              {loginTexts?.loginByPassword}
-            </Button>
-          ) : null
-        }
-        descriptionClassName="text-md"
-        description={`کد تایید ۶ رقمی برای شماره موبایل  ${data?.phoneNumber} ارسال شد`}
-        titleClassName="text-sm text-grey-600"
-        title="کد تــــایید را وارد کــــنید"
-      />
-      <form onSubmit={formik.handleSubmit}>
+
+      <div className="text-md border-b border-grey-200 py-4 flex justify-center font-medium">
+        تایید شماره موبایل
+      </div>
+
+      <p className="text-sm text-grey-500 text-center py-3 font-medium">
+        لطفاً کد ارسال شده برای شماره {data?.phoneNumber} را وارد کنید.
+      </p>
+      <p className="flex justify-end px-4 text-sm font-medium pb-1.5">
+        <span
+          className="flex gap-x-1"
+          onClick={() => handleChangeForm('enterMobileNumber')}
+        >
+          <PencilOutline width={20} height={20} fill={colors?.black} />
+          ویرایش شماره
+        </span>
+      </p>
+      <form className="my-4 px-4" onSubmit={formik.handleSubmit}>
         <OTPInput
           reset={resetOtp}
           autoFocus
           length={6}
           name="otpCode"
-          className="odOtpContainer textField h-10 flex items-center justify-around text-grey-600 border border-grey-200 mt-3"
+          className="odOtpContainer max-w-[400px] mx-auto textField flex items-center justify-around"
           inputClassName="otpInput"
           onChangeOTP={handleChangeOtp}
           onPasteOtp={handlePasteOtp}
           disabled={sendVerifyCodeLoading}
         />
         <div className="w-full">
-          <div className="text-left my-2">
-            {timer.min + timer.sec > 0 ? (
-              <p className="text-xs text-teal-700">
-                <b className="px-2 w-14">
-                  {timer.min.toLocaleString('fa-IR')}:
-                  {timer.sec < 10
-                    ? `۰${timer.sec.toLocaleString('fa-IR')}`
-                    : timer.sec.toLocaleString('fa-IR')}
-                </b>
-              </p>
+          <div className="text-center my-6">
+            {hasTime ? (
+              <div className="text-sm flex justify-center">
+                {loginTexts.receiveOtp}
+                <p className="w-11">
+                  <b className="px-2 w-14">
+                    {timer.min.toLocaleString('fa-IR')}:
+                    {timer.sec < 10
+                      ? `۰${timer.sec.toLocaleString('fa-IR')}`
+                      : timer.sec.toLocaleString('fa-IR')}
+                  </b>
+                </p>
+              </div>
             ) : (
               <p
                 onClick={() => timer?.min === 0 && handleResendOtp()}
-                className="cursor-pointer text-teal-700 text-xs"
+                className="cursor-pointer inline-block bg-grey-100 py-2 font-medium px-4 rounded-full text-sm"
               >
                 {loginTexts.resend}
               </p>
@@ -219,16 +227,28 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
           </div>
         </div>
 
+        {hasTime ? (
+          <Button
+            buttonType="outlined"
+            variant="tertiary"
+            className="w-full my-2.5 !border-none"
+            size="large"
+            type="button"
+            handleClick={() => handleChangeForm('password')}
+          >
+            {loginTexts?.loginByPassword}
+          </Button>
+        ) : null}
         <Button
           buttonType="contained"
           variant="primary"
-          className="w-full mt-8"
+          className="w-full"
           size="large"
           disabled={sendVerifyCodeLoading}
           type="submit"
           isLoading={sendVerifyCodeLoading}
         >
-          <p>{loginTexts.login}</p>
+          <p>تایید</p>
         </Button>
       </form>
     </>

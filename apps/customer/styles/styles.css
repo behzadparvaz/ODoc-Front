@@ -21,13 +21,13 @@
 
 .odOtpContainer .otpInput {
   outline: none !important;
-  border: none;
   background-color: transparent;
-  max-width: 16.6666%;
+  width: 52px;
+  height: 52px;
   text-align: center;
-  font-family: inherit;
   font-weight: 500;
-  border-right: 1px solid #e7e7e7;
+  background-color: #EAEDED;
+  border-radius: 8px;
 }
 
 .odOtpContainer .otpInput:last-child {
@@ -90,8 +90,6 @@
   align-self: start !important;
 }
 
-
-
 .max-w-412 {
   max-width: 412px;
 }
@@ -112,14 +110,35 @@
   max-width: 960px;
 }
 
-.spinner>div:first-child {
+.spinner > div:first-child {
   animation: spinnerDot 0.4s 0s infinite linear alternate;
 }
 
-.spinner>div:nth-child(2) {
+.spinner > div:nth-child(2) {
   animation: spinnerDot 0.4s 0.2s infinite linear alternate;
 }
 
-.spinner>div:last-child {
+.spinner > div:last-child {
   animation: spinnerDot 0.4s 0.4s infinite linear alternate;
+}
+
+.scroll-drag * {
+  pointer-events: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #ff652d !important;
+}
+.swiper-pagination-bullet {
+  background: #E1E3E3 !important;
+  opacity: 1!important;
+  border-radius: 6px!important;
+  width: 6px!important;
+  height: 6px!important;
+  transition: all 0.3s;
+}
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #000 !important;
+  width: 14px!important;
 }

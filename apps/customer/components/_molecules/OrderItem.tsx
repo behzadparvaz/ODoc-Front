@@ -1,7 +1,10 @@
 import Button from '@com/_atoms/Button';
 import NfcReasonBottomSheet from '@com/_organisms/NfcReasonBottomSheet';
 import OrderCancelConfirmationBottomSheet from '@com/_organisms/OrderCancelConfirmationBottomSheet';
+import OrderCancelationDetailModal from '@com/_organisms/OrderCancelationDetailModal';
+import { OpenEyeIconFill } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
+import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import {
@@ -9,6 +12,7 @@ import {
   convertRialToToman,
   getTime,
 } from '@utilities/mainUtils';
+import { useRouter } from 'next/router';
 
 interface Props {
   className?: string;
@@ -22,6 +26,7 @@ const OrderItem = ({
   className = '',
 }: Props) => {
   const { addModal } = useModal();
+  const router = useRouter();
 
   const handleClickOnCommentBottomSheet = (comment, orderCode, finalPrice) => {
     addModal({
@@ -43,30 +48,44 @@ const OrderItem = ({
         <div>{`${getTime(data?.createDateTime)} - ${convertGregorianToJalali(data?.createDateTime)}`}</div>
       </div>
       <div className="w-full flex flex-col gap-y-3 py-2 px-4">
-        <div>کد سفارش:{data.referenceNumber}</div>
-        <div>کد رهگیری:{data.orderCode}</div>
-        <div>نام صاحب نسخه:{data.customer?.name}</div>
+        <div>کد سفارش: {data.orderCode}</div>
+        {data.referenceNumber && (
+          <div>کد رهگیری نسخه: {data.referenceNumber}</div>
+        )}
+        <div>نام صاحب نسخه: {data.customer?.name}</div>
       </div>
       <div className="flex items-center justify-between py-2 px-4">
         <div className="flex items-center">
           وضعیت سفارش:
           <p
-            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 ? 'text-red-600' : 'text-teal-600'} mr-1`}
+            className={`${data.orderStatus?.id === 9 || data.orderStatus?.id === 10 || data.orderStatus?.id === 11 ? 'text-red-600' : 'text-teal-600'} mr-1`}
           >
-            {getOrderStatusMessage(data.orderStatus?.id)}
+            <span
+              onClick={() =>
+                data.orderStatus?.id === 11
+                  ? addModal({
+                      modal: OrderCancelationDetailModal,
+                      props: {
+                        reason: data?.declineType?.name,
+                      },
+                    })
+                  : null
+              }
+              className={`flex gap-x-1 items-center`}
+            >
+              {getOrderStatusMessage(data.orderStatus?.id)}
+              {data.orderStatus?.id === 11 ? (
+                <OpenEyeIconFill
+                  width={18}
+                  height={18}
+                  fill={colors?.red[600]}
+                />
+              ) : null}
+            </span>
           </p>
         </div>
       </div>
-      {data?.orderStatus?.id === 2 && (
-        <div className="flex items-center justify-between py-2 px-4">
-          <div className="flex items-center">
-            مبلغ سفارش:
-            <p className="text-teal-600 mr-1">
-              {convertRialToToman(data?.finalPrice)}
-            </p>
-          </div>
-        </div>
-      )}
+
       {(data?.orderStatus?.id === 2 ||
         data?.orderStatus?.id === 0 ||
         data?.orderStatus?.id === 4) && (
@@ -75,34 +94,47 @@ const OrderItem = ({
         >
           {data?.orderStatus?.id === 2 && (
             <Button
-              className="flex-1"
-              size="large"
+              size="medium"
               buttonType="contained"
-              handleClick={() => handleClikOnPaymentButton()}
+              handleClick={() => router.push(`/app/tender/${data?.orderCode}`)}
               variant={'primary'}
             >
-              پرداخت
+              انتخاب داروخانه
             </Button>
           )}
-          <Button
-            className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700`}
-            size="large"
-            buttonType="contained"
-            handleClick={() =>
-              addModal({
-                modal: OrderCancelConfirmationBottomSheet,
-                props: {
-                  orderCode: data?.orderCode,
-                },
-              })
-            }
-          >
-            {orderText?.orderCancelation}
-          </Button>
+          {data?.orderStatus?.id === 0 && (
+            <Button
+              className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-black text-white text-sm`}
+              size="medium"
+              buttonType="contained"
+              handleClick={() =>
+                router.push(`/app/orders-history/${data?.orderCode}`)
+              }
+            >
+              جزئیات سفارش
+            </Button>
+          )}
+          {data?.orderStatus?.id !== 2 && (
+            <Button
+              className={`${data?.orderStatus?.id === 0 ? '' : 'flex-1'} bg-red-200 text-red-700 text-sm`}
+              size="medium"
+              buttonType="contained"
+              handleClick={() =>
+                addModal({
+                  modal: OrderCancelConfirmationBottomSheet,
+                  props: {
+                    orderCode: data?.orderCode,
+                  },
+                })
+              }
+            >
+              {orderText?.orderCancelation}
+            </Button>
+          )}
           {data?.orderStatus?.id === 4 && (
             <Button
-              className="flex-1"
-              size="large"
+              className="flex-1 px-0 text-sm"
+              size="medium"
               buttonType="contained"
               handleClick={() =>
                 handleClickOnCommentBottomSheet(
@@ -113,7 +145,7 @@ const OrderItem = ({
               }
               variant={'primary'}
             >
-              توضیحات مسئول فنی{' '}
+              توضیحات مسئول فنی
             </Button>
           )}
         </div>

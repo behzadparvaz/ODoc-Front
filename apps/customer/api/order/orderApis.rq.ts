@@ -1,5 +1,7 @@
 import {
   useMutation,
+  UseMutationOptions,
+  UseMutationResult,
   useQuery,
   useQueryClient,
   UseQueryOptions,
@@ -15,10 +17,20 @@ import {
   getInsurances,
   GetOrderStatuses,
   getSupplementaryInsurances,
+  createOrderDraft,
+  getOrderDetails,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
-import { OrderStatuses } from '@utilities/interfaces/order';
+import {
+  CreateOrderDraftPayload,
+  OrderStatuses,
+} from '@utilities/interfaces/order';
+import { routeList } from '@routes/routeList';
+import {
+  addProductToBasket,
+  AddProductToBasketPayload,
+} from '@api/basket/basketApis';
 
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
@@ -35,7 +47,7 @@ export const useCreateOrderInsurance = () => {
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
         push({
-          pathname: '/success-order',
+          pathname: routeList.successOrder,
           query: { order_Code: data },
         });
       }
@@ -127,6 +139,25 @@ export const useGetOrderState = (orderCode) => {
 export const useGetSupplementaryInsurances = () => {
   const { data, isLoading } = useQuery(['getSupplementaryInsurances'], () =>
     getSupplementaryInsurances(),
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useCreateOrderDraft: (
+  options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
+) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = (options) =>
+  useMutation({
+    mutationFn: (variables) => createOrderDraft(variables),
+    ...options,
+  });
+
+export const useGetOrderDetails = (orderCode: string) => {
+  const { data, isLoading } = useQuery(
+    ['getTenderItems', orderCode],
+    () => getOrderDetails(orderCode),
+    {
+      enabled: !!orderCode,
+    },
   );
   return { data: data as any, isLoading };
 };

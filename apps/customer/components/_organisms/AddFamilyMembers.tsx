@@ -24,7 +24,7 @@ export default function AddFamilyMembers({ data }) {
       PhoneNumber: item?.phoneNumber,
       relation: item?.relation?.id,
       dateOfBirth: item?.dateOfBirth,
-      gender: item?.gender?.id
+      gender: item?.gender?.id,
     });
   });
 
@@ -37,24 +37,29 @@ export default function AddFamilyMembers({ data }) {
     PhoneNumber: '',
     relation: 1,
     dateOfBirth: null,
-    gender: 1
+    gender: 1,
   });
   const formik = useFormik({
     initialValues,
     validationSchema: addFamilyMemberSchema,
     onSubmit: (values) => {
       const body = {
-        FamilyModels: [...familyArr, {
-          ...values,
-          dateOfBirth: values?.dateOfBirth ? formattingDate(new Date(values?.dateOfBirth)) : null
-        }]
+        FamilyModels: [
+          ...familyArr,
+          {
+            ...values,
+            dateOfBirth: values?.dateOfBirth
+              ? formattingDate(new Date(values?.dateOfBirth))
+              : null,
+          },
+        ],
       };
       mutateAddFamilyMembers(body, {
         onSuccess: () => {
           removeLastModal();
-        }
+        },
       });
-    }
+    },
   });
 
   return (
@@ -63,9 +68,16 @@ export default function AddFamilyMembers({ data }) {
       hasCloseButton={true}
       title={generalTexts?.add}
     >
-      <form onSubmit={formik.handleSubmit} className="flex gap-y-4 pt-6 flex-col">
-
-        <Gender value={formik?.values.gender} name={'gender'} onChange={formik?.handleChange} label='جنسیت' />
+      <form
+        onSubmit={formik.handleSubmit}
+        className="flex gap-y-4 pt-6 flex-col"
+      >
+        <Gender
+          value={formik?.values.gender}
+          name={'gender'}
+          onChange={formik?.handleChange}
+          label="جنسیت"
+        />
 
         <Input
           placeholder={profileText?.firstName}
@@ -95,14 +107,15 @@ export default function AddFamilyMembers({ data }) {
           isTouched={formik.touched.LastName && Boolean(formik.errors.LastName)}
           errorMessage={formik.errors.LastName}
         />
-        <Select name="relation"
-                labelClassName="font-normal text-sm"
-                selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-                options={relations}
-                label={'نسبت'}
-                onChange={formik.handleChange}
-                value={formik?.values?.relation}
-                errorMessage={formik.errors.relation}
+        <Select
+          name="relation"
+          labelClassName="font-normal text-sm"
+          selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          options={relations}
+          label={'نسبت'}
+          onChange={formik.handleChange}
+          value={formik?.values?.relation}
+          errorMessage={formik.errors.relation}
         />
         <Input
           placeholder={profileText?.nationalCode}
@@ -142,7 +155,8 @@ export default function AddFamilyMembers({ data }) {
           name={'dateOfBirth'}
           value={formik?.values.dateOfBirth}
           errorMessage={formik.errors.dateOfBirth}
-          onChange={formik?.handleChange}/>
+          onChange={formik?.handleChange}
+        />
         <Button
           type="submit"
           className="w-full mt-3"

@@ -10,7 +10,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Yekan Bakh FaNum';
-  background-color: #f6f6f6;
+  background-color: #dadada;
   direction: rtl;
 }
 
@@ -27,4 +27,8 @@ a {
 
 .rmdp-calendar-container-mobile {
   z-index: 9999 !important;
+}
+
+input {
+  outline: none;
 }

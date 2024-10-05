@@ -10,10 +10,19 @@ const BlockedLocationPermissionModal = (props: Props) => {
   const { removeLastModal } = useModal();
   return (
     <BottomModalContainer height={'auto'} minHeight={'160px'} isDraggable>
-      <div className="w-full h-full flex flex-col select-none" style={{ direction: 'rtl' }}>
-        <h5 className="text-xl font-medium text-grey-900 mb-2">{selectStoreTexts.blockedLocationPermissionTitle}</h5>
-        <p className="text-sm font-normal text-grey-800 pl-2">{selectStoreTexts.blockedLocationPermissionCaption}</p>
-        <p className="text-sm font-normal text-grey-800 pl-2 mb-9">{selectStoreTexts.blockedLocationPermissionHint}</p>
+      <div
+        className="w-full h-full flex flex-col select-none py-4"
+        style={{ direction: 'rtl' }}
+      >
+        <h5 className="text-xl font-medium text-grey-900 mb-2">
+          {selectStoreTexts.blockedLocationPermissionTitle}
+        </h5>
+        <p className="text-sm font-normal text-grey-800 pl-2">
+          {selectStoreTexts.blockedLocationPermissionCaption}
+        </p>
+        <p className="text-sm font-normal text-grey-800 pl-2 mb-9">
+          {selectStoreTexts.blockedLocationPermissionHint}
+        </p>
 
         <Button
           buttonType="contained"

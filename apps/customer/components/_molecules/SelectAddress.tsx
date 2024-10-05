@@ -5,7 +5,7 @@ import useModal from '@hooks/useModal';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { RootState } from '@utilities/types';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box } from '@repo/ui';
+import Box from '@com/_atoms/Box';
 import { useGetUserLocations } from '@api/user/user.rq';
 import Spinner from '@com/_atoms/Spinner';
 
@@ -21,15 +21,23 @@ const SelectAddress = ({ setAddressSelected }: Props) => {
 
   const handleClickOpenModal = () => {
     dispatch(
-      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false })
+      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false }),
     );
     addModal({
       modal: ParsiMapBottomSheet,
       props: {
         latitude: defaultViewPort.latitude,
         longitude: defaultViewPort.longitude,
-        addressId: 0
-      }
+        addressId: 0,
+        onChangeLoc: (latLng) =>
+          dispatch(
+            setMapStateAction({
+              viewport: latLng,
+              defaultViewPort: latLng,
+              mapIsTouched: true,
+            }),
+          ),
+      },
     });
   };
 
@@ -50,25 +58,23 @@ const SelectAddress = ({ setAddressSelected }: Props) => {
         </Button>
       </div>
 
-
-      {isLoading
-        ? <Spinner className="h-28 -my-0.5 w-full flex justify-center items-center"/>
-        : <>
-          {addressItem?.length ?
+      {isLoading ? (
+        <Spinner className="h-28 -my-0.5 w-full flex justify-center items-center" />
+      ) : (
+        <>
+          {addressItem?.length ? (
             <AddressList
               inOrderPage={true}
-              handleClickItem={(addressData) =>
-                setAddressSelected(addressData)
-              }
+              handleClickItem={(addressData) => setAddressSelected(addressData)}
               data={addressItem}
-            /> :
-            (
-              <div className="text-red text-sm text-red-600 text-center py-11">
-                در حال حاضر آدرسی برای شما ثبت نشده است
-              </div>
-            )}
+            />
+          ) : (
+            <div className="text-red text-sm text-red-600 text-center py-11">
+              در حال حاضر آدرسی برای شما ثبت نشده است
+            </div>
+          )}
         </>
-      }
+      )}
     </Box>
   );
 };

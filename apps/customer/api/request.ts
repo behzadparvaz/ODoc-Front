@@ -52,7 +52,7 @@ class Request {
       baseURL: API_URL,
     });
     // ---------request interceptor----------
-    instance.interceptors.request.use((req) => {
+    instance.interceptors.request.use((req: any) => {
       req.headers['X-Correlation-Id'] = uuidv4();
       req.headers['ui-version'] = '1.0';
 
@@ -190,9 +190,8 @@ class Request {
     });
   }
 
-  delete(url: string, options?: optionsLayout) {
+  delete(url: string, options?: optionsLayout, config: AxiosRequestConfig = {}) {
     return new Promise<{ data: any }>((resolve, reject) => {
-      const config: any = {};
 
       this.axiosInstance(options)
         .delete(`${url}`, config)

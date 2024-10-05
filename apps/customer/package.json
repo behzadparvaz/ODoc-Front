@@ -12,6 +12,7 @@
   "dependencies": {
     "@material-ui/core": "^4.12.4",
     "@next/bundle-analyzer": "^14.2.3",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@repo/api": "*",
     "@repo/hooks": "*",
     "@repo/tailwind-config": "*",
@@ -33,6 +34,7 @@
     "nextjs-progressbar": "^0.0.13",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-joyride": "^2.8.2",
     "react-media-hook": "^0.4.9",
     "react-multi-date-picker": "^4.5.2",
@@ -44,12 +46,15 @@
     "redux-state-sync": "^3.1.2",
     "redux-thunk": "^2.3.0",
     "shamsi-date-converter": "^1.0.5",
+    "swiper": "^11.1.9",
     "uuid": "^9.0.1",
     "yup": "^0.32.9"
   },
   "devDependencies": {
     "@repo/eslint-config": "*",
     "@repo/typescript-config": "*",
+    "@svgr/webpack": "^8.1.0",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
     "@types/mapbox-gl": "^2.7.10",
     "@types/node": "^20.12.12",
     "@types/react": "^17.0.15",

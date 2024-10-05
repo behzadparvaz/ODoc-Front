@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "main": "tailwind.config.js",
+  "dependencies": {
+    "@repo/ui": "*"
+  },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/aspect-ratio": "^0.4.2",

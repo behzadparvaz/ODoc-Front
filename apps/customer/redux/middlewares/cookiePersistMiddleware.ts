@@ -13,16 +13,17 @@ const persistAction = [
 ];
 
 let cookiePersist = (store) => (next) => (action) => {
-  if (typeof window === 'undefined' || !persistAction.includes(action.type)) return next(action);
+  if (typeof window === 'undefined' || !persistAction.includes(action.type))
+    return next(action);
   let newAction = next(action);
   const state = store.getState();
   if (action.type === userLogoutType.Logout_User) {
     Cookies.remove('user');
     Cookies.remove('token');
   } else if (state.user.user) {
-    const { token, ...rest } = state.user.user;
+    const { ...rest } = state.user.user;
     LongTimeCookies.set('user', JSON.stringify(rest));
-    LongTimeCookies.set('token', token);
+    // LongTimeCookies.set('token', token);
   }
   return newAction;
 };

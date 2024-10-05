@@ -30,16 +30,25 @@ const SectionTitle = ({
   return (
     <div className={`flex flex-col ${className}`} style={style}>
       {sectionName && (
-        <div style={{ color: color }} className={`font-extrabold text-[13px] truncate ${sectionNameClassName}`}>
+        <div
+          style={{ color: color }}
+          className={`font-extrabold text-[13px] truncate ${sectionNameClassName}`}
+        >
           <p>{sectionName}</p>
         </div>
       )}
-      <div className={`flex justify-between ${sectionName ? 'items-end' : 'items-center'}`}>
-        <CustomTag className={`typo-subtitle-2 text-grey-800 truncate ${titleClassName}`}>{title}</CustomTag>
+      <div
+        className={`flex justify-between ${sectionName ? 'items-end' : 'items-center'}`}
+      >
+        <CustomTag className={`typo-subtitle-2 truncate ${titleClassName}`}>
+          {title}
+        </CustomTag>
         <div>{actionButton}</div>
       </div>
       {description && (
-        <div className={`text-2xs text-grey-500 truncate mt-1 ${descriptionClassName}`}>
+        <div
+          className={`text-2xs text-grey-500 truncate mt-1 ${descriptionClassName}`}
+        >
           <p>{description}</p>
         </div>
       )}
