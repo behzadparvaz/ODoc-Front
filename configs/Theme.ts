@@ -162,3 +162,5 @@ export const getColors = (
     transparent: `${intent}-transparent`,
   };
 };
+
+module.exports = { colors };
