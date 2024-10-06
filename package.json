@@ -5,6 +5,7 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "dev:customer": "yarn workspace customer run dev",
+    "dev:ui-storybook": "yarn workspace ui-storybook run storybook",
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
@@ -14,7 +15,7 @@
     "prettier": "^3.2.5",
     "turbo": "^1.9.7"
   },
-  "packageManager": "yarn@1.22.15",
+  "packageManager": "yarn@1.22.18",
   "workspaces": [
     "apps/*",
     "packages/*"

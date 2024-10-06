@@ -1,7 +1,7 @@
 const colors = require('tailwindcss/colors');
 const clamp = require('@tailwindcss/line-clamp');
 const plugin = require('tailwindcss/plugin');
-const { colors: colorPallete } = require('@repo/ui/src/Theme');
+const { colorPallete } = require('./colors');
 
 const platform = process.env.NEXT_PUBLIC_PLATFORM;
 const shouldShowMobileMode =

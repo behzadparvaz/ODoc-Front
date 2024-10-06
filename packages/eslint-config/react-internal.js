@@ -1,6 +1,6 @@
-const { resolve } = require("node:path");
+const { resolve } = require('node:path');
 
-const project = resolve(process.cwd(), "tsconfig.json");
+const project = resolve(process.cwd(), 'tsconfig.json');
 
 /*
  * This is a custom ESLint configuration for use with
@@ -15,7 +15,7 @@ module.exports = {
     JSX: true,
   },
   settings: {
-    "import/resolver": {
+    'import/resolver': {
       typescript: {
         project,
       },
@@ -23,49 +23,49 @@ module.exports = {
   },
   ignorePatterns: [
     // Ignore dotfiles
-    ".*.js",
-    "node_modules/",
-    "dist/",
+    '.*.js',
+    'node_modules/',
+    'dist/',
   ],
 
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
 
   extends: [
-    "react-app",
-    "prettier",
-    "plugin:react/recommended",
-    "eslint:recommended",
-    "standard",
-    "plugin:prettier/recommended",
-    "plugin:cypress/recommended",
-    "eslint-config-turbo",
+    'react-app',
+    'prettier',
+    'plugin:react/recommended',
+    'eslint:recommended',
+    'standard',
+    'plugin:prettier/recommended',
+    'plugin:cypress/recommended',
+    'eslint-config-turbo',
   ],
   parserOptions: {
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
     ecmaVersion: 12,
-    sourceType: "module"
+    sourceType: 'module',
   },
-  plugins: ["react", "prettier"],
+  plugins: ['react', 'prettier'],
   rules: {
-    "react/react-in-jsx-scope": 0,
-    "react/prop-types": "off",
-    "no-console": "warn"
+    'react/react-in-jsx-scope': 0,
+    'react/prop-types': 'off',
+    'no-console': 'warn',
   },
   overrides: [
     {
-      files: ["*.js?(x)", "*.ts?(x)"],
-      parser: "@typescript-eslint/parser",
-      plugins: ["@typescript-eslint"],
+      files: ['*.js?(x)', '*.ts?(x)'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
       rules: {
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["off"],
-        "camelcase": "warn"
-      }
-    }
-  ]
+        'no-use-before-define': 'off',
+        '@typescript-eslint/no-use-before-define': ['off'],
+        camelcase: 'warn',
+      },
+    },
+  ],
 };
