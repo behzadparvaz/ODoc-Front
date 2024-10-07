@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import clsx from 'clsx';
-import { getColors } from '@configs/Theme';
+import { colors as colorPalette } from '@configs/Theme';
 
 const InputVariants = cva([], {
   variants: {
@@ -35,8 +35,8 @@ const InputVariants = cva([], {
       true: true,
       false: false,
     },
-    borderColor: getColors('border'),
-    textColor: getColors('content'),
+    borderColor: colorPalette.gray,
+    textColor: colorPalette.gray,
     fontSize: {
       xxs: 'text-2xs',
       xs: 'text-xs',
@@ -65,7 +65,7 @@ const InputVariants = cva([], {
     variant: 'default',
     inputSize: 'default',
     rounded: 'xl',
-    textColor: 'tertiary_800',
+    textColor: 800,
     fontSize: '11',
   },
 });
