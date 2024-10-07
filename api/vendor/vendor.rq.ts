@@ -8,7 +8,7 @@ export const useGetVendors = () => {
 };
 
 export const useGetVendorDetails = (vendorCode: string) => {
-  const { data, isLoading } = useQuery(['GetVendorDatails'], () =>
+  const { data, isLoading } = useQuery(['GetVendorDatails', vendorCode], () =>
     GetVendorDatails(vendorCode),
   );
 
