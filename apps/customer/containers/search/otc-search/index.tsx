@@ -16,7 +16,7 @@ const mockData = [
   { text: 'ستیریزین', id: 2 },
 ];
 
-const MobileSearch = () => {
+const SearchContainer = () => {
   const { push } = useRouter();
 
   const [searchText, setSearchText] = useState<string>('');
@@ -67,4 +67,4 @@ const MobileSearch = () => {
     </MainLayout>
   );
 };
-export default MobileSearch;
+export default SearchContainer;

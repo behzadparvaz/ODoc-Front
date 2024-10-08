@@ -96,7 +96,7 @@ const MainPageLayout = ({
           {hasSearchIcon && (
             <div
               className="w-[22px] cursor-pointer"
-              onClick={() => push(routeList.mobileSearch)}
+              onClick={() => push(routeList.search)}
             >
               <SearchIconOutline width={22} height={22} fill={'#000'} />
             </div>

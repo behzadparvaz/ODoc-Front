@@ -10,7 +10,7 @@ interface Props {
 
 const SearchBox = ({ className = '' }: Props) => {
   return (
-    <NextLink href={routeList?.mobileSearch}>
+    <NextLink href={routeList?.search}>
       <span
         className={`w-full relative bg-grey-100 rounded-full flex gap-x-2 items-center px-3 py-3 text-lg text-grey-500 ${className}`}
       >

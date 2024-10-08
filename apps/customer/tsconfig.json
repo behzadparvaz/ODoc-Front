@@ -4,6 +4,7 @@
     "paths": {
       "@api/*": ["api/*"],
       "@com/*": ["components/*"],
+      "@containers": ["containers"],
       "@configs/*": ["configs/*"],
       "@contexts/*": ["contexts/*"],
       "@hooks/*": ["hooks/*"],
@@ -46,7 +47,8 @@
     "routes",
     "hooks",
     "configs",
-    "utilities"
+    "utilities",
+    "containers"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,16 +1,6 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
+import { OtcSearchContainer } from '@containers';
 
-const ProdictListPage = dynamic(
-  () => import('@com/_organisms/ProdictListPage'),
-);
-
-type Props = {};
-
-export default function SearchPage({}: Props) {
-  return (
-    <div>
-      <ProdictListPage />
-    </div>
-  );
-}
+const SearchPage = () => {
+  return <OtcSearchContainer />;
+};
+export default SearchPage;
