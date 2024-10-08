@@ -1,0 +1,14 @@
+{
+  "root": true,
+  "extends": [
+    "custom",
+    "next",
+    "plugin:storybook/recommended",
+    "plugin:storybook/recommended"
+  ],
+  "rules": {
+    "react/display-name": "off",
+    "@next/next/no-img-element": "off",
+    "react-hooks/exhaustive-deps": "off"
+  }
+}
