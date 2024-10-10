@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@utilities/types';
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
-import { TimerIcon } from '@com/icons';
+import { TickIcon, TimerIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
@@ -21,6 +21,7 @@ import useNotification from '@hooks/useNotification';
 import FixBottomSection from '@com/_atoms/FixBottomSection';
 import NextImage from '@com/_core/NextImage';
 import { Button } from '@com/_atoms/NewButton';
+import CheckBox from '@com/_atoms/CheckBox.nd';
 
 const Page = () => {
   const router = useRouter();
@@ -180,8 +181,24 @@ const Page = () => {
                     </div>
                   ))}
                 </div>
-
                 <Address />
+                <CheckBox
+                  handleChange={() => {}}
+                  label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
+                  labelClassName="text-sm mr-6 font-normal text-grey-500"
+                  name="vendorCode"
+                  icon={
+                    <TickIcon
+                      width={15}
+                      height={15}
+                      stroke={colors.white}
+                      className="mx-auto mt-[1px]"
+                    />
+                  }
+                  boxClassName="w-4 h-4 !top-3 border-grey-800"
+                  checked={true}
+                  className="w-full flex items-center mb-4 z-0"
+                />
               </div>
             )}
           </>
@@ -262,10 +279,10 @@ const OrderInProgress = () => {
         <TimerIcon width="32" height="32" fill={colors.white} />
       </span>
       <div className="text-sm font-light flex flex-col gap-4 items-center">
-        <span className="text-md font-semibold">
+        <span className="text-md font-semibold text-center">
           سفارش شما با موفقیت ثبت شد
         </span>
-        <span>
+        <span className='text-center'>
           سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
           منتظر تأیید داروخانه باشید
         </span>
