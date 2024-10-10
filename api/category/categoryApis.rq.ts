@@ -71,6 +71,9 @@ export const useGetCategoryDescription = (categoryCode: string) => {
   const { data, isLoading } = useQuery(
     ['getCategoryDescription', categoryCode],
     () => GetCategoryLevel2Description(categoryCode),
+    {
+      enabled: categoryCode && categoryCode !== undefined ? true : false,
+    },
   );
   return { data: data as any, isLoading };
 };
