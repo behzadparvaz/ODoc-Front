@@ -25,4 +25,5 @@ export const routeList = {
   otcMedicine: '/app/otc-medicine',
   productPage: '/app/product/',
   newAddress: '/app/profile/addresses/new',
+  makeupSanitary: '/app/makeup-sanitary',
 };

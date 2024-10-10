@@ -70,9 +70,9 @@ const MainPageLayout = ({
         )}
       >
         {!!title ? (
-          <div className="flex gap-x-2 items-center">
+          <div className="flex gap-x-4 items-center">
             <span
-              className="w-[60px] flex items-center justify-center cursor-pointer"
+              className="flex items-center justify-center cursor-pointer"
               onClick={() => {
                 if (backButtonAction) {
                   backButtonAction();
@@ -103,7 +103,7 @@ const MainPageLayout = ({
           )}
 
           <div
-            className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
+            className="w-[52px] h-[52px] cursor-pointer relative flex justify-end items-center"
             onClick={() => push(routeList.basket)}
           >
             {(!!basketDatat?.products?.length ||

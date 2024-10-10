@@ -53,11 +53,10 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     },
     {
       title: 'آرایشی بهداشتی',
-      link: routeList?.homeRoute,
+      link: routeList?.makeupSanitary,
       image: cosmetics,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
-      isSoon: true,
       ratio: '33.3333%',
     },
     {
