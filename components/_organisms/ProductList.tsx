@@ -45,21 +45,17 @@ const ProductList = ({ searchTerm }: Props) => {
 
   const { plpData } = useGetPlpInfiniteContent(body);
 
-  const items = useMemo(
-    () =>
-      plpData
-        ? plpData?.data?.pages
-          ? plpData?.data?.pages?.reduce(
-              (prev, current) => [
-                ...prev,
-                ...(current?.queryResult ? current?.queryResult : []),
-              ],
-              [],
-            )
-          : []
-        : [],
-    [plpData],
-  );
+  const items = plpData
+    ? plpData?.data?.pages
+      ? plpData?.data?.pages?.reduce(
+          (prev, current) => [
+            ...prev,
+            ...(current?.queryResult ? current?.queryResult : []),
+          ],
+          [],
+        )
+      : []
+    : [];
 
   useEffect(() => {
     if (basket?.products?.length > 0 && plpData?.data) {
@@ -100,6 +96,11 @@ const ProductList = ({ searchTerm }: Props) => {
                 onSuccessChanged={refetchGetBasket}
               />
             ))
+          ) : plpData?.isLoading || plpData?.isFetching ? (
+            <EmptyContent
+              imgSrc="/static/images/staticImages/search-empty-content.png"
+              title={mobileSearchTexts?.waiting}
+            />
           ) : (
             <EmptyContent
               imgSrc="/static/images/staticImages/search-empty-content.png"
