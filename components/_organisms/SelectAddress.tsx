@@ -29,8 +29,25 @@ export default function SelectAddress() {
         latitude: defaultViewPort.latitude,
         longitude: defaultViewPort.longitude,
         addressId: 0,
+        onChangeLoc: (latLng) =>
+          dispatch(
+            setMapStateAction({
+              viewport: latLng,
+              defaultViewPort: latLng,
+              mapIsTouched: true,
+            }),
+          ),
       },
     });
+  };
+
+  const handleClickAddress = (item) => {
+    dispatch(
+      setUserAction({
+        defaultAddress: item,
+      }),
+    ),
+      removeLastModal();
   };
 
   return (
@@ -52,20 +69,9 @@ export default function SelectAddress() {
       {addressData?.map((item, index) => {
         const activeItem = defaultAddress?.id === item?.id;
         return (
-          <AddressItem
-            handleClickAddress={() => {
-              dispatch(
-                setUserAction({
-                  defaultAddress: item,
-                }),
-              ),
-                removeLastModal();
-            }}
-            key={index}
-            className={`${activeItem ? 'bg-teal-100 border-teal-600' : ''}`}
-            activeItem={activeItem}
-            addressInfo={item}
-          />
+          <div key={index} onClick={() => handleClickAddress(item)}>
+            <AddressItem activeItem={activeItem} addressInfo={item} />
+          </div>
         );
       })}
     </BottomModalContainer>

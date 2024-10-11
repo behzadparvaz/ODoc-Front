@@ -13,6 +13,7 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import { routeList } from '@routes/routeList';
 import { convertRialToToman } from '@utilities/mainUtils';
 import { Button } from '@com/_atoms/NewButton';
+import useModal from '@hooks/useModal';
 
 type TenderItemDetailProps = {
   tenderData: TenderItemsListDataModel;
@@ -34,6 +35,7 @@ const TenderItemDetail = ({
 }: TenderItemDetailProps) => {
   const { push } = useRouter();
   const [tab, setTab] = useState<Tabs>(Tabs.items);
+  const { removeLastModal } = useModal();
 
   const handleChangeTabs = (e: MouseEvent<HTMLDivElement>) => {
     if (e.currentTarget?.innerText === Tabs.items) {
@@ -49,7 +51,11 @@ const TenderItemDetail = ({
 
   return (
     <BottomModalContainer height={'100svh'}>
-      <MainLayout>
+      <MainLayout
+        hasHeader
+        hasBackButton
+        handleClickRightIcon={removeLastModal}
+      >
         <div className="w-full h-[128] grid grid-rows-1 grid-cols-1 items-start">
           <div className="row-start-1 row-end-2 col-sart-1 col-end-2 flex justify-start items-center object-contain overflow-hidden">
             <Image
@@ -100,6 +106,8 @@ const TenderItemDetail = ({
               finalPrice={tenderData?.finalPrice}
               packingPrice={tenderData?.packingPrice}
               deliveryPrice={tenderData?.delivery?.deliveryPrice}
+              referenceNumber={tenderData?.referenceNumber}
+              isSpecialPatient={tenderData?.isSpecialPatient}
             />
           )}
 

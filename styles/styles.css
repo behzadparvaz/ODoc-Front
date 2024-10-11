@@ -21,13 +21,13 @@
 
 .odOtpContainer .otpInput {
   outline: none !important;
-  border: none;
   background-color: transparent;
-  max-width: 16.6666%;
+  width: 52px;
+  height: 52px;
   text-align: center;
-  font-family: inherit;
   font-weight: 500;
-  border-right: 1px solid #e7e7e7;
+  background-color: #EAEDED;
+  border-radius: 8px;
 }
 
 .odOtpContainer .otpInput:last-child {

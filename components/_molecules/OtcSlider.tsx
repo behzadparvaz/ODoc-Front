@@ -61,9 +61,7 @@ const OtcSlider = ({ category }: OtcSliderProps) => {
             <span className="!w-max truncate">
               {category?.categoryNameLevel2}
             </span>
-            <span className="!w-max">
-              {`${totalCount ? `(${totalCount})` : ''}`}
-            </span>
+            <span className="!w-max">(جزئیات)</span>
           </div>
         </NextLink>
 

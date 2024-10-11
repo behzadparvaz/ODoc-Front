@@ -49,11 +49,13 @@ const Preview = () => {
   //   },
   // });
 
-  const handleClickOnPaymentButton = (orderCode, finalPrice) => {
+  const handleClickOnPaymentButton = (orderCode, finalPrice, vendorCode) => {
     const body = {
       orderCode: orderCode,
       finalPrice: finalPrice,
+      vendorCode: vendorCode,
     };
+
     mutatePayment(body);
   };
 
@@ -92,7 +94,9 @@ const Preview = () => {
         />
       </div> */}
       <div className="w-full h-full flex flex-col justify-between gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
-        <Address buttonTitle="تغییر آدرس" />
+        <div className="px-4 pt-4">
+          <Address buttonTitle="تغییر آدرس" />
+        </div>
 
         <div className="px-4">
           <div className="h-0.5 w-full bg-grey-50 rounded-xl px-2" />
@@ -171,11 +175,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.totalPrice &&
-                    convertRialToToman(selectedOffer?.totalPrice)}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.totalPrice ? 'تومان' : 'رایگان'}
-                  </span>
+                  {!!selectedOffer?.totalPrice
+                    ? convertRialToToman(selectedOffer?.totalPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>
@@ -187,10 +189,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.packingPrice && selectedOffer?.packingPrice}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.packingPrice ? 'تومان' : 'رایگان'}
-                  </span>
+                  {!!selectedOffer?.packingPrice
+                    ? convertRialToToman(selectedOffer?.packingPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>
@@ -202,13 +203,9 @@ const Preview = () => {
                 </span>
 
                 <span className="flex items-center text-md gap-x-1">
-                  {!!selectedOffer?.delivery?.deliveryPrice &&
-                    selectedOffer?.delivery?.deliveryPrice}
-                  <span className="text-sm text-grey-800">
-                    {!!selectedOffer?.delivery?.deliveryPrice
-                      ? 'تومان'
-                      : 'رایگان'}
-                  </span>
+                  {!!selectedOffer?.delivery?.deliveryPrice
+                    ? convertRialToToman(selectedOffer?.delivery?.deliveryPrice)
+                    : 'رایگان'}
                 </span>
               </div>
             </div>
@@ -232,6 +229,7 @@ const Preview = () => {
               handleClickOnPaymentButton(
                 query?.orderCode,
                 selectedOffer?.finalPrice,
+                selectedOffer?.vendorCode,
               )
             }
             isLoading={isLoadingPayment}

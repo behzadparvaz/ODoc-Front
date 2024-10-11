@@ -207,8 +207,8 @@ const Page = () => {
                   className="w-full"
                   size="large"
                   onClick={deleteBasket}
-                  disabled={isLoadingcreateOrderDraft}
-                  isLoading={isLoadingDeleteBasket || isDisabled}
+                  isLoading={isLoadingDeleteBasket}
+                  disabled={isLoadingcreateOrderDraft || isDisabled}
                 >
                   حذف سبد خرید
                 </Button>

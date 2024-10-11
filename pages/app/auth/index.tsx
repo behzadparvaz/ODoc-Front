@@ -35,22 +35,16 @@ const ODocAuth = () => {
   return (
     <MainLayout>
       <div
-        className={`gap-y-11 h-full justify-end flex flex-col ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
+        className={`h-full ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
-        <div className="flex flex-col items-center">
+        <div className="h-full">
           <NextImage
-            src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
-            height={40}
-            width={170}
-          />
-
-          <NextImage
-            width={220}
-            height={220}
-            src={'/static/images/staticImages/doctor.svg'}
+            src={'/static/images/staticImages/login-bg.png'}
+            layout='fill'
+            objectFit='cover'
           />
         </div>
-        <div className="bg-white rounded-t-3xl p-6 shadow-2xl">
+        <div className="bg-white rounded-t-[20px] shadow-2xl absolute inset-x-0 bottom-0">
           {activeForm === 'enterMobileNumber' && (
             <AuthMobileNumber
               handleChangeForm={(registerData, formStatus) => {

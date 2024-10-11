@@ -27,21 +27,27 @@ function ParsiMapContent({
   loadingAddress = false,
   addressId = 0,
 }: Props) {
-  let MarkerIcon
+  let MarkerIcon;
   useEffect(() => {
     MarkerIcon = document?.createElement('div');
     MarkerIcon.className = 'marker';
     MarkerIcon.style.backgroundImage = `url("/static/images/staticImages/mapbox-marker-icon.svg")`;
-    MarkerIcon.style.width = `30px`;
-    MarkerIcon.style.height = `70px`;
+    MarkerIcon.style.width = `66px`;
+    MarkerIcon.style.height = `71px`;
     MarkerIcon.style.backgroundSize = '100%';
-  }, [])
+  }, []);
 
   const dispatch = useDispatch();
   const mapContainer = useRef<any>(null);
-  const { parsiMapLocationAddress, mapAddressesText, isLoadingMapsAddress, setMapAddressesText } =
-    useMapApiCalls(addressId);
-  const { viewport, defaultViewPort, filteredCities } = useSelector((state: RootState) => state.mapInfo);
+  const {
+    parsiMapLocationAddress,
+    mapAddressesText,
+    isLoadingMapsAddress,
+    setMapAddressesText,
+  } = useMapApiCalls(addressId);
+  const { viewport, defaultViewPort, filteredCities } = useSelector(
+    (state: RootState) => state.mapInfo,
+  );
   const [zoom, setZoom] = useState(15);
   const [mapObj, setMap] = useState({
     map: null,
@@ -55,30 +61,36 @@ function ParsiMapContent({
     height: height,
   };
   useEffect(() => {
-    let parsiMapAddress = parsiMapAddressData ? parsiMapAddressData?.address : parsiMapAddressData?.address;
+    let parsiMapAddress = parsiMapAddressData
+      ? parsiMapAddressData?.address
+      : parsiMapAddressData?.address;
     setMapAddressesText(parsiMapAddress);
     if (!isLoadingMapsAddress) {
       let parsiMapCity = parsiMapAddressData
         ? `${parsiMapAddressData?.subdivision_prefix}`
         : `${parsiMapLocationAddress?.subdivision_prefix}`;
-      const neshanCityInFilteredCity = filteredCities?.filter((city) => city.name === parsiMapCity);
+      const neshanCityInFilteredCity = filteredCities?.filter(
+        (city) => city.name === parsiMapCity,
+      );
       neshanCityInFilteredCity?.length > 0
         ? dispatch(
-          setMapStateAction({
-            selectedCity: filteredCities?.filter((city) => city.name === parsiMapCity)[0],
-            neshanCityName: parsiMapCity,
-          })
-        )
+            setMapStateAction({
+              selectedCity: filteredCities?.filter(
+                (city) => city.name === parsiMapCity,
+              )[0],
+              neshanCityName: parsiMapCity,
+            }),
+          )
         : dispatch(
-          setMapStateAction({
-            selectedCity: {
-              id: null,
-              name: '',
-              lat: null,
-              lng: null,
-            },
-          })
-        );
+            setMapStateAction({
+              selectedCity: {
+                id: null,
+                name: '',
+                lat: null,
+                lng: null,
+              },
+            }),
+          );
     }
   }, [parsiMapLocationAddress, parsiMapAddressData]);
 
@@ -98,12 +110,14 @@ function ParsiMapContent({
     if (mapboxgl.getRTLTextPluginStatus() === 'unavailable') {
       mapboxgl.setRTLTextPlugin(
         'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.2.3/mapbox-gl-rtl-text.js',
-        (): void => { },
-        true // Lazy load the plugin only when text is in arabic
+        (): void => {},
+        true, // Lazy load the plugin only when text is in arabic
       );
     }
 
-    let marker = new (mapboxgl as any).Marker(MarkerIcon).setLngLat(center).addTo(map);
+    let marker = new (mapboxgl as any).Marker(MarkerIcon)
+      .setLngLat(center)
+      .addTo(map);
 
     map.on('move', function (e: any) {
       const movedCenter = map.getCenter();
@@ -118,7 +132,7 @@ function ParsiMapContent({
             longitude: lastLatLng.lng,
           },
           mapIsTouched: true,
-        })
+        }),
       );
     });
     map.on('zoom', (e) => {

@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
 import CheckRedirectLoginOrNotLogin from '@com/_atoms/CheckRedirectLoginStatus';
 import Head from 'next/head';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
@@ -62,6 +63,7 @@ function MyApp({ Component, pageProps }) {
           <Component {...pageProps} />
           <div id="modal-root"></div>
         </div>
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );

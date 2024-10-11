@@ -3,7 +3,7 @@ import { cva } from 'class-variance-authority';
 import type { VariantProps } from 'class-variance-authority';
 import classNames from 'classnames';
 import clsx from 'clsx';
-import { getColors } from '@configs/Theme';
+import { colors as colorPalette } from '@configs/Theme';
 
 const InputVariants = cva([], {
   variants: {
@@ -35,8 +35,8 @@ const InputVariants = cva([], {
       true: true,
       false: false,
     },
-    borderColor: getColors('border'),
-    textColor: getColors('text'),
+    borderColor: colorPalette.gray,
+    textColor: colorPalette.gray,
     fontSize: {
       xxs: 'text-2xs',
       xs: 'text-xs',
@@ -58,12 +58,14 @@ const InputVariants = cva([], {
     },
   },
   //****** Variants that apply when multiple other variant conditions are met ******------------------
-  compoundVariants: [{ variant: 'default', error: true, className: 'border border-red-800' }],
+  compoundVariants: [
+    { variant: 'default', error: true, className: 'border border-red-800' },
+  ],
   defaultVariants: {
     variant: 'default',
     inputSize: 'default',
     rounded: 'xl',
-    textColor: 'tertiary_800',
+    textColor: 800,
     fontSize: '11',
   },
 });
@@ -78,7 +80,9 @@ type InputType = {
   helperClassName?: string;
 };
 
-interface InputProps extends React.AllHTMLAttributes<HTMLInputElement>, VariantProps<typeof InputVariants> {
+interface InputProps
+  extends React.AllHTMLAttributes<HTMLInputElement>,
+    VariantProps<typeof InputVariants> {
   ref?: any;
 }
 
@@ -100,7 +104,7 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       children,
       ...props
     },
-    ref
+    ref,
   ) => {
     const inputProps = {
       className: `${'rightIcon' in props ? `${className} pr-10` : className}`,
@@ -115,7 +119,7 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       className: `text-red-800 text-2xs mt-1 ${props?.helperClassName ? props?.helperClassName : ''}`,
     };
     const leftIconProps = {
-      className: 'absolute left-4 h-10 bottom-0 flex flex-col justify-center',
+      className: 'absolute inline left-4 h-10 top-1/2 -translate-y-1/2',
     };
     const rightIconProps = {
       className: 'absolute right-4 h-10 bottom-0 flex flex-col justify-center',
@@ -128,7 +132,9 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
       <div {...wrapperProps}>
         {'label' in props ? (
           <label {...labelProps}>
-            {'labelIcon' in props ? <div {...labelIconProps}>{props.labelIcon}</div> : null}
+            {'labelIcon' in props ? (
+              <div {...labelIconProps}>{props.labelIcon}</div>
+            ) : null}
             {props.label}
           </label>
         ) : null}
@@ -151,18 +157,24 @@ const TextInput: FC<InputProps & InputType> = forwardRef(
                   fontWeight,
                   className,
                   ...inputProps,
-                })
-              )
+                }),
+              ),
             )}
             {...props}
           ></input>
-          {'leftIcon' in props ? <div {...leftIconProps}>{props.leftIcon}</div> : null}
-          {'rightIcon' in props ? <div {...rightIconProps}>{props.rightIcon}</div> : null}
+          {'leftIcon' in props ? (
+            <div {...leftIconProps}>{props.leftIcon}</div>
+          ) : null}
+          {'rightIcon' in props ? (
+            <div {...rightIconProps}>{props.rightIcon}</div>
+          ) : null}
         </div>
-        {'helperText' in props && !!props.helperText ? <p {...helperTextProps}>{`* ${props.helperText}`}</p> : null}
+        {'helperText' in props && !!props.helperText ? (
+          <p {...helperTextProps}>{`* ${props.helperText}`}</p>
+        ) : null}
       </div>
     );
-  }
+  },
 );
 
 export default TextInput;

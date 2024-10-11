@@ -30,6 +30,7 @@ export const loginWithPassword = Yup.object().shape({
 });
 
 export const addNewAddressSchema = Yup.object().shape({
+  name: Yup.string().required('این فیلد الزامی است'),
   plaque: Yup.string().required('این فیلد الزامی است'),
   unit: Yup.string().required('این فیلد الزامی است'),
 });
@@ -41,9 +42,6 @@ export const userInfoSchema = Yup.object().shape({
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
     .max(10, 'شماره ملی 10 رقم می باشد'),
-  dateOfBirth: Yup.string()
-    .required('تاریخ تولد الزامی می باشد!')
-    .typeError('تاریخ تولد الزامی می باشد!'),
 });
 export const userPasswordSchema = Yup.object().shape({
   Password: Yup.string().required('این فیلد الزامی است'),

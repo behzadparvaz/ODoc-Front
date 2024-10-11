@@ -28,9 +28,14 @@ import useStorage from '@hooks/useStorage';
 import { useDispatch } from 'react-redux';
 import { setUserAction } from '@redux/user/userActions';
 
-export const useAddLocation = () => {
+export const useAddLocation = ({
+  isInAddressPage,
+}: {
+  isInAddressPage?: boolean;
+}) => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
+  const { push } = useRouter();
   const queryClient = useQueryClient();
   return useMutation(AddLocation, {
     onSuccess: (data: any) => {
@@ -48,24 +53,32 @@ export const useAddLocation = () => {
           type: 'success',
           notifType: 'successOrFailedMessage',
         });
+        if (isInAddressPage) {
+          push(routeList.profileAddresses);
+        }
       }
     },
   });
 };
 export const useDeleteLocation = () => {
   const { openNotification } = useNotification();
+  const { removeLastModal } = useModal();
+  const { refetch: refetchAddresses } = useGetUserLocations();
   const queryClient = useQueryClient();
   return useMutation(DeleteUserLocations, {
     onSuccess: () => {
+      refetchAddresses();
       queryClient?.invalidateQueries('getUserLocations');
       openNotification({
-        message: 'آدرس شما با موفقیت حذف شد',
+        message: 'مکان منتخب با موفقیت حذف شد',
         type: 'info',
         notifType: 'successOrFailedMessage',
       });
+      removeLastModal();
     },
   });
 };
+
 export const useGetUserLocations = (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ): UseQueryResult<any[]> => {
@@ -90,14 +103,10 @@ export const useGetProfileRelation = () => {
   return { data, isLoading };
 };
 
-export const useAddProfileInfo = (
-  inOrderPage?: boolean,
-  isRegisterInOrderPage?: boolean,
-) => {
+export const useAddProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  const { removeLastModal } = useModal();
   return useMutation(AddProfileInfo, {
     onSuccess: (data) => {
       queryClient?.invalidateQueries('getProfile');
@@ -106,10 +115,7 @@ export const useAddProfileInfo = (
         type: 'success',
         notifType: 'successOrFailedMessage',
       });
-      if (isRegisterInOrderPage) {
-        removeLastModal();
-      }
-      !isRegisterInOrderPage && !inOrderPage && push(routeList.profile);
+      push(routeList.profile);
     },
   });
 };
@@ -127,7 +133,7 @@ export const useAddFamilyMembers = () => {
     },
   });
 };
-export const useUpdateProfileInfo = (inOrderPage) => {
+export const useUpdateProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
@@ -139,7 +145,7 @@ export const useUpdateProfileInfo = (inOrderPage) => {
         type: 'success',
         notifType: 'successOrFailedMessage',
       });
-      !inOrderPage && push(routeList.profile);
+      push(routeList.profile);
     },
   });
 };
