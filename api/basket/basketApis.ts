@@ -33,7 +33,7 @@ export const updateCountProductBasket = async ({
   });
 
 export type AddProductToBasketPayload =
-  | (OneOfCodes & { quantity: number; orderType: 'OTC' })
+  | (OneOfCodes & { quantity: number; orderType: 'OTC'; categoryCode: number })
   | {
       orderType: 'RX';
       refrenceNumber: string;
@@ -47,24 +47,28 @@ export type AddProductToBasketPayload =
       vendorCode: string;
     };
 
-export const addProductToBasket = async (payload: AddProductToBasketPayload) =>
-  await request.post(
-    '/Product/management/AddToCart',
-    payload.orderType === 'RX'
-      ? {
-          refrenceNumber: String(payload.refrenceNumber),
-          nationalCode: payload.nationalCode,
-          insuranceType: payload.insuranceType,
-          supplementaryInsuranceType: payload.supplementaryInsuranceType,
-          isSpecialPatient: payload.isSpecialPatient,
-          phoneNumber: payload.phoneNumber,
-          insuranceTypeId: payload.insuranceTypeId,
-          vendorCode: payload.vendorCode,
-        }
-      : {
-          ...(payload.type === 'IRC'
-            ? { irc: String(payload.irc) }
-            : { gtin: String(payload.gtin) }),
-          quantity: payload.quantity,
-        },
-  );
+export const addProductToBasket = async (
+  payload: AddProductToBasketPayload,
+) => {
+    await request.post(
+      '/Product/management/AddToCart',
+      payload.orderType === 'RX'
+        ? {
+            refrenceNumber: String(payload.refrenceNumber),
+            nationalCode: payload.nationalCode,
+            insuranceType: payload.insuranceType,
+            supplementaryInsuranceType: payload.supplementaryInsuranceType,
+            isSpecialPatient: payload.isSpecialPatient,
+            phoneNumber: payload.phoneNumber,
+            insuranceTypeId: payload.insuranceTypeId,
+            vendorCode: payload.vendorCode,
+          }
+        : {
+            ...(payload.type === 'IRC'
+              ? { irc: String(payload.irc) }
+              : { gtin: String(payload.gtin) }),
+            quantity: payload.quantity,
+            CategoryCode: payload?.categoryCode,
+          },
+    );
+};

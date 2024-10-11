@@ -68,17 +68,22 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChangeCount = ({ irc, quantity }) =>
+  const onChangeCount = ({ irc, quantity, categoryCode }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
       irc: irc,
       quantity: quantity,
+      categoryCode: categoryCode,
     });
 
   const onChange = (count: number) => {
     if (count > 0) {
-      onChangeCount({ ...prInfo, quantity: count });
+      onChangeCount({
+        ...prInfo,
+        quantity: count,
+        categoryCode: prInfo?.categoryCode,
+      });
     } else {
       onDeleteProduct?.(prInfo);
     }
