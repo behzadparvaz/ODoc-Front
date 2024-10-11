@@ -1,4 +1,4 @@
-import { useGetOrderDetails } from '@api/order/orderApis.rq';
+import { useGetActiveOrder } from '@api/order/orderApis.rq';
 import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
 import OrderTracking from '@com/_molecules/OrderTracking';
@@ -17,9 +17,8 @@ const HomePage = () => {
   const [showLayout, setShowLayout] = useState<boolean>(false);
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading } = useGetCarousels();
-  const { data, isLoading: orderDetailLoading } = useGetOrderDetails(
-    query?.orderCode as string,
-  );
+
+  const { data: ordersData, refetch: refetchActiveOrder } = useGetActiveOrder();
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
       (item) => item?.sectionPosition === position,
@@ -51,10 +50,15 @@ const HomePage = () => {
           <div className="px-4">
             <SearchBox className="px-4 my-2" />
           </div>
+          {ordersData ? (
+            <div className="my-4">
+              <OrderTracking ordersData={ordersData} className="mx-4" />
+            </div>
+          ) : null}
+
           <div className="my-4 px-2">
             <Categories isHomePage />
           </div>
-          <OrderTracking data={data} />
           {bannerData?.queryResult && (
             <MainSlider
               className="py-2 px-4"

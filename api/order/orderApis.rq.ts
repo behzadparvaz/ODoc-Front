@@ -19,6 +19,7 @@ import {
   getSupplementaryInsurances,
   createOrderDraft,
   getOrderDetails,
+  getActiveOrder,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -160,4 +161,11 @@ export const useGetOrderDetails = (orderCode: string) => {
     },
   );
   return { data: data as any, isLoading };
+};
+
+export const useGetActiveOrder = () => {
+  const { data, isLoading, refetch } = useQuery(['getActiveOrder'], () =>
+    getActiveOrder(),
+  );
+  return { data: data as any, isLoading, refetch };
 };

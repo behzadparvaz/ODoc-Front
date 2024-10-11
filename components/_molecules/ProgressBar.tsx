@@ -18,29 +18,34 @@ type Steps = {
 };
 
 const steps: Steps[] = [
+  // {
+  //   id: 1,
+  //   title: 'ثبت سفارش',
+  //   icon: (color) => <NoteOutlineIcon fill={color} />,
+  // },
+  // {
+  //   id: 2,
+  //   title: 'تأیید داروخانه',
+  //   icon: (color) => <ShopOutlineIcon fill={color} />,
+  // },
+  // {
+  //   id: 3,
+  //   title: 'پرداخت',
+  //   icon: (color) => <PaymentOutlineIcon fill={color} />,
+  // },
   {
     id: 1,
-    title: 'ثبت سفارش',
-    icon: (color) => <NoteOutlineIcon fill={color} />,
-  },
-  {
-    id: 2,
-    title: 'تأیید داروخانه',
-    icon: (color) => <ShopOutlineIcon fill={color} />,
-  },
-  {
-    id: 3,
-    title: 'پرداخت',
-    icon: (color) => <PaymentOutlineIcon fill={color} />,
-  },
-  {
-    id: 4,
     title: 'آماده سازی',
     icon: (color) => <BagOutlineIcon fill={color} />,
   },
   {
-    id: 5,
+    id: 2,
     title: 'ارسال با پیک',
+    icon: (color) => <BikerOutlineIcon fill={color} />,
+  },
+  {
+    id: 3,
+    title: ' تحویل داده شد',
     icon: (color) => <BikerOutlineIcon fill={color} />,
   },
 ];
@@ -49,7 +54,7 @@ type ProgressStepperProps = { activeStepId: number; hasIcons?: boolean };
 
 const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
   return (
-    <div className="flex items-center justify-center w-full py-3">
+    <div className="flex items-center justify-center w-full">
       {steps.map((item, index) => (
         <div
           key={item?.id}
@@ -61,7 +66,7 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
             item?.id < activeStepId ? 'after:bg-black' : 'after:bg-grey-200',
           )}
         >
-          <div className="flex flex-col items-center gap-y-2 whitespace-nowrap z-10 min-w-11 w-full">
+          <div className="flex flex-col items-center gap-y-2 whitespace-nowrap z-10 w-full">
             {hasIcons && (
               <span className="flex items-center justify-center w-6 h-6">
                 {item?.icon(
@@ -72,7 +77,7 @@ const ProgressStepper = ({ activeStepId, hasIcons }: ProgressStepperProps) => {
 
             <span
               className={classNames(
-                'w-6 h-6 rounded-full flex justify-center items-center mx-auto  border-2',
+                'w-6 h-6 rounded-full flex justify-center items-center border-2',
 
                 item?.id === activeStepId && 'border-black',
                 item?.id < activeStepId

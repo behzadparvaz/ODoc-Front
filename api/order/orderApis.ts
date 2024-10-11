@@ -38,3 +38,7 @@ export const createOrderDraft = async (payload: CreateOrderDraftPayload) =>
 export const getOrderDetails = async (orderCode: string) => {
   return await request.get(`/Order/GetOrderDetails?OrderCode=${orderCode}`);
 };
+
+export const getActiveOrder = async () => {
+  return await request.get(`/Order/CurrentOrder`);
+};
