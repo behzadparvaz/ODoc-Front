@@ -38,3 +38,19 @@ export const createOrderDraft = async (payload: CreateOrderDraftPayload) =>
 export const getOrderDetails = async (orderCode: string) => {
   return await request.get(`/Order/GetOrderDetails?OrderCode=${orderCode}`);
 };
+
+export const CreateOrderInlineStep1 = async (body) => {
+  return await request.post(
+    `http://5.34.204.173:9095/Orderline/CreateOrderInlineStep1`,
+    body,
+    { returnError: true },
+  );
+};
+
+export const CreateOrderInlineStep2 = async (body) => {
+  return await request.post(
+    `http://5.34.204.173:9095/Orderline/CreateOrderInlineStep2`,
+    body,
+    { returnError: true },
+  );
+};

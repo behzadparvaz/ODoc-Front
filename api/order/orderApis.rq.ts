@@ -19,6 +19,8 @@ import {
   getSupplementaryInsurances,
   createOrderDraft,
   getOrderDetails,
+  CreateOrderInlineStep1,
+  CreateOrderInlineStep2,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -27,11 +29,6 @@ import {
   OrderStatuses,
 } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
-import {
-  addProductToBasket,
-  AddProductToBasketPayload,
-} from '@api/basket/basketApis';
-
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -160,4 +157,12 @@ export const useGetOrderDetails = (orderCode: string) => {
     },
   );
   return { data: data as any, isLoading };
+};
+
+export const useCreateOrderInlineStep1 = () => {
+  return useMutation(CreateOrderInlineStep1);
+};
+
+export const useCreateOrderInlineStep2 = () => {
+  return useMutation(CreateOrderInlineStep2);
 };
