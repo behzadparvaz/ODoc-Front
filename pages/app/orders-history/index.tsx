@@ -29,7 +29,7 @@ const statusesDictionary = {
 
 const OrderHistory = () => {
   const { push, query } = useRouter();
-  const statusId = Number(query?.statusId ?? '1');
+  const statusId = Number(query?.statusId ?? '-1');
   const { data: orderHistoryData, isLoading } = useGetOrdersHistory(statusId);
   const { data: orderStatuses } = useGetOrderStatuses();
   const { mutate: mutatePayment } = useFinishOrderPayment();
