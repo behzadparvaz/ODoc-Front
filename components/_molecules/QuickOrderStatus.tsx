@@ -23,7 +23,7 @@ const QuickOrderStatus = () => {
           title: 'در حال بررسی پزشک',
           icon: (
             <span className="bg-yellow-50 inline-block p-1.5 rounded-full ">
-              <TimerIcon width="20" height="20" fill={colors?.yellow[400]} />
+              <TimerIcon width={20} height={20} fill={colors?.yellow[400]} />
             </span>
           ),
           link: null,
