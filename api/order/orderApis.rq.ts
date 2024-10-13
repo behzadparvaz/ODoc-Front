@@ -19,6 +19,11 @@ import {
   getSupplementaryInsurances,
   createOrderDraft,
   getOrderDetails,
+  CreateOrderInlineStep1,
+  CreateOrderInlineStep2,
+  getOrderInfo,
+  getActiveOrderStatus,
+  CancelQuickOrder,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -27,11 +32,6 @@ import {
   OrderStatuses,
 } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
-import {
-  addProductToBasket,
-  AddProductToBasketPayload,
-} from '@api/basket/basketApis';
-
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -77,6 +77,17 @@ export const useGetOrderStatuses: (
   options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>,
 ) => UseQueryResult<OrderStatuses[]> = (options) =>
   useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
+
+export const useGetOrderInfo = (id: string) => {
+  const { data, isLoading } = useQuery(
+    ['getOrderInfo', id],
+    () => getOrderInfo(id),
+    {
+      enabled: id !== 'undefined' ? true : false,
+    },
+  );
+  return { data: data as any, isLoading };
+};
 
 export const useFinishOrderPayment = () => {
   const { push } = useRouter();
@@ -136,6 +147,10 @@ export const useGetOrderState = (orderCode) => {
   return { data: data as any, isLoading };
 };
 
+export const useCancelQuickOrder = () => {
+  return useMutation(CancelQuickOrder);
+};
+
 export const useGetSupplementaryInsurances = () => {
   const { data, isLoading } = useQuery(['getSupplementaryInsurances'], () =>
     getSupplementaryInsurances(),
@@ -153,11 +168,30 @@ export const useCreateOrderDraft: (
 
 export const useGetOrderDetails = (orderCode: string) => {
   const { data, isLoading } = useQuery(
-    ['getTenderItems', orderCode],
+    ['getOrderDetails', orderCode],
     () => getOrderDetails(orderCode),
     {
       enabled: !!orderCode,
     },
   );
   return { data: data as any, isLoading };
+};
+
+export const useGetActiveOrderStatus = () => {
+  const { data, isLoading } = useQuery(
+    ['getActiveOrderStatus'],
+    () => getActiveOrderStatus(),
+    {
+      cacheTime: 10000,
+    },
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useCreateOrderInlineStep1 = () => {
+  return useMutation(CreateOrderInlineStep1);
+};
+
+export const useCreateOrderInlineStep2 = () => {
+  return useMutation(CreateOrderInlineStep2);
 };

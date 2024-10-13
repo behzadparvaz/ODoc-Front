@@ -20,7 +20,6 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export type Props = InputProps & InputConditionProp;
-
 const Input = forwardRef(
   (
     {
@@ -57,13 +56,13 @@ const Input = forwardRef(
         <input
           className={`h-10 w-full rounded-md outline-none ${inputClassName} ${isTouched ? 'border border-red-800' : ''}`}
           {...props}
+          type={type}
           ref={ref}
           onWheel={(e: WheelEvent<HTMLInputElement>) => {
             if (type === 'number') {
               handleScrollNumberInput(e);
             }
           }}
-          type={type}
         />
         {isTouched && (
           <p className="text-xs font-normal text-red-800 mx-1 mt-2">

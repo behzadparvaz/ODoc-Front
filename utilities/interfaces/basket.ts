@@ -17,6 +17,7 @@ type ProductInBasket = {
   categoryNameLevel2: string;
   brandName: string;
   categoryCodeLevel3: string;
+  categoryCode: string;
 };
 
 interface Basket {

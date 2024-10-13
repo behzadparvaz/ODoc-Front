@@ -33,7 +33,12 @@ export const updateCountProductBasket = async ({
   });
 
 export type AddProductToBasketPayload =
-  | (OneOfCodes & { quantity: number; orderType: 'OTC' })
+  | (OneOfCodes & {
+      quantity: number;
+      orderType: 'OTC';
+      categoryCode?: number;
+      otcLevel3?: string;
+    })
   | {
       orderType: 'RX';
       refrenceNumber: string;
@@ -47,7 +52,9 @@ export type AddProductToBasketPayload =
       vendorCode: string;
     };
 
-export const addProductToBasket = async (payload: AddProductToBasketPayload) =>
+export const addProductToBasket = async (
+  payload: AddProductToBasketPayload,
+) => {
   await request.post(
     '/Product/management/AddToCart',
     payload.orderType === 'RX'
@@ -66,5 +73,8 @@ export const addProductToBasket = async (payload: AddProductToBasketPayload) =>
             ? { irc: String(payload.irc) }
             : { gtin: String(payload.gtin) }),
           quantity: payload.quantity,
+          CategoryCode: payload?.categoryCode,
+          otcLevel: payload?.otcLevel3,
         },
   );
+};

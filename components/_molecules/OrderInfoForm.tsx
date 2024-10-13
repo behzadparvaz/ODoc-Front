@@ -5,7 +5,7 @@ import {
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Input from '@com/_atoms/Input.nd';
-import { TickIcon } from '@com/icons';
+import { SearchIconOutline, TickIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
 import { OrderRegistrationSchema } from '@utilities/validationSchemas';
@@ -176,48 +176,59 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
             }
             content={
               <>
-                <input
-                  type="text"
-                  placeholder="بیمه تکمیلی"
-                  value={searchedInsuranceQuery}
-                  onChange={(e) => setSearchedInsuranceQuery(e?.target?.value)}
-                  className="w-full mb-4 px-2 py-1 border border-grey-100 rounded"
-                />
-
-                {filteredInsurances?.map((item, index) => (
-                  <div key={item?.name} className="px-2">
-                    <CheckBox
-                      handleChange={() => {
-                        const currentInsuranceType =
-                          formik?.values?.supplementaryInsuranceType;
-                        formik.setFieldValue(
-                          'supplementaryInsuranceType',
-                          currentInsuranceType === item?.id ? '' : item?.id,
-                        );
-                      }}
-                      label={item?.name}
-                      labelClassName="text-sm mr-6 font-normal text-grey-700"
-                      name="supplementaryInsuranceType"
-                      id={item?.id}
-                      value={item?.id}
-                      icon={
-                        <TickIcon
-                          width={15}
-                          height={15}
-                          stroke={colors.white}
-                          className="mx-auto mt-[1px]"
-                        />
-                      }
-                      checkedClassName="!bg-grey-500"
-                      boxClassName="w-4 h-4 rounded-full border-grey-800"
-                      checked={
-                        Number(formik?.values?.supplementaryInsuranceType) ===
-                        item?.id
-                      }
-                      className="w-full mb-4 z-0"
-                    />
-                  </div>
-                ))}
+                <div className="relative w-full">
+                  <SearchIconOutline
+                    className="absolute left-4 top-4 -translate-y-1/2"
+                    height={16}
+                    width={16}
+                    fill={colors.grey[400]}
+                  />
+                  <input
+                    type="text"
+                    placeholder="بیمه تکمیلی"
+                    value={searchedInsuranceQuery}
+                    onChange={(e) =>
+                      setSearchedInsuranceQuery(e?.target?.value)
+                    }
+                    className="w-full mb-4 px-2 py-1 border border-grey-100 rounded"
+                  />
+                </div>
+                <div className="overflow-y-auto max-h-36">
+                  {filteredInsurances?.map((item, index) => (
+                    <div key={item?.name} className="px-2">
+                      <CheckBox
+                        handleChange={() => {
+                          const currentInsuranceType =
+                            formik?.values?.supplementaryInsuranceType;
+                          formik.setFieldValue(
+                            'supplementaryInsuranceType',
+                            currentInsuranceType === item?.id ? '' : item?.id,
+                          );
+                        }}
+                        label={item?.name}
+                        labelClassName="text-sm mr-6 font-normal text-grey-700"
+                        name="supplementaryInsuranceType"
+                        id={item?.id}
+                        value={item?.id}
+                        icon={
+                          <TickIcon
+                            width={15}
+                            height={15}
+                            stroke={colors.white}
+                            className="mx-auto mt-[1px]"
+                          />
+                        }
+                        checkedClassName="!bg-grey-500"
+                        boxClassName="w-4 h-4 rounded-full border-grey-800"
+                        checked={
+                          Number(formik?.values?.supplementaryInsuranceType) ===
+                          item?.id
+                        }
+                        className="w-full mb-4 z-0"
+                      />
+                    </div>
+                  ))}
+                </div>
 
                 {filteredInsurances?.length === 0 && (
                   <p className="text-gray-500 text-sm">بیمه‌ای یافت نشد</p>

@@ -1,18 +1,29 @@
-import NextImage from '@com/_core/NextImage';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import { useRouter } from 'next/router';
 import useModal from '@hooks/useModal';
 import ProductBottomSheet from '@com/_organisms/ProductBottomSheet';
+import {
+  useAddProductToBasket,
+  useDeleteProductBasket,
+  useGetCurrentBasket,
+} from '@api/basket/basketApis.rq';
+import AddButton from '@com/_atoms/AddButton';
 
-type Props = {};
+type Props = {
+  productData: any;
+  onSuccessChanged?: () => void;
+};
 
-export default function DrugShapesBox({}: Props) {
+export default function DrugShapesBox({
+  productData,
+  onSuccessChanged,
+}: Props) {
   const { query } = useRouter();
   const { addModal } = useModal();
   const categoryCode = query?.categoryCode?.toString();
   const categoryName = query?.categoryName;
-  const { data } = useGetCategories({
+  const { data: drugShapesData } = useGetCategories({
     level: 3,
     parentCode: categoryCode,
   });
@@ -27,17 +38,112 @@ export default function DrugShapesBox({}: Props) {
     });
   };
 
+  const { data: basketData, refetch: refetchGetBasket } = useGetCurrentBasket<{
+    productsById: any;
+    products: any;
+  }>({
+    select: (res: Basket) => ({
+      ...res,
+      productsById:
+        res?.products &&
+        Object.fromEntries((res?.products || [])?.map((pr) => [pr.irc, pr])),
+    }),
+    enabled: true,
+  });
+
+  const { mutate: addToCart, isLoading: isAddingToCart } =
+    useAddProductToBasket({
+      onSuccess: () => {
+        onSuccessChanged?.();
+        refetchGetBasket();
+      },
+    });
+
+  const { mutate: popProductOfCart } = useDeleteProductBasket({
+    onSuccess: () => {
+      onSuccessChanged?.();
+      refetchGetBasket();
+    },
+  });
+
+  const onDeleteProduct = ({ irc }) =>
+    popProductOfCart({ type: 'IRC', irc: irc });
+
+  const onChange = (count, otcLevel3, irc) => {
+    const productToUpdate = basketData?.products?.find(
+      (product) => product.irc === irc,
+    );
+    if (count > 0) {
+      onChangeCount({
+        ...productToUpdate,
+        quantity: count,
+        categoryCode: productToUpdate?.categoryCode,
+        otcLevel3: otcLevel3,
+      });
+    } else {
+      onDeleteProduct?.(productToUpdate);
+    }
+  };
+
+  const onChangeCount = ({ irc, quantity, categoryCode, otcLevel3 }) =>
+    addToCart({
+      type: 'IRC',
+      orderType: 'OTC',
+      irc: irc,
+      quantity: quantity,
+      categoryCode: categoryCode,
+      otcLevel3: otcLevel3,
+    });
+
+  const filteredProducts = basketData?.products?.filter((product) =>
+    drugShapesData?.queryResult.find(
+      (queryItem) => queryItem?.otcLevel3 === product?.otcLevel,
+    ),
+  );
+
   return (
-    <div className="w-full grid grid-cols-2 gap-5 mt-4 p-4 bg-white rounded-xl">
-      {data?.queryResult?.map((item, index) => {
+    <div className="w-full mt-4 border-t-8 border-b-8 border-grey-50 px-4 py-3">
+      <p className='font-semibold'>شکل دارو را انتخاب کنید</p>
+      {drugShapesData?.queryResult?.map((item, index) => {
+        const matchedProducts = filteredProducts?.filter(
+          (product) => product?.otcLevel === item?.otcLevel3,
+        );
+
         return (
           <div
             key={index}
-            className="flex items-center border border-grey-200 h-10 rounded-lg px-2"
+            className={`flex flex-col border-2 py-5 rounded-xl px-2 mt-4 ${matchedProducts?.length > 0 ? 'border-black' : 'border-grey-200'}`}
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >
-            <NextImage src={item?.imageLink} height={35} width={35} />
             <p className="text-sm font-medium truncate mr-2">{item?.shape}</p>
+            {matchedProducts?.length > 0 && (
+              <div className="flex flex-col">
+                {matchedProducts.map((matchedProduct, idx) => {
+                  const productBasketQuantity =
+                    basketData?.products?.find(
+                      (basketItem) => basketItem.irc === matchedProduct?.irc,
+                    )?.quantity ?? 0;
+
+                  return (
+                    <div
+                      key={idx}
+                      className="flex items-center justify-between mt-4 mx-3"
+                    >
+                      <p className="text-grey-500 text-sm">
+                        {matchedProduct?.name}
+                      </p>
+                      <AddButton
+                        count={productBasketQuantity}
+                        onChangeCount={(count) =>
+                          onChange(count, item?.otcLevel3, matchedProduct?.irc)
+                        }
+                        isLoading={isAddingToCart}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         );
       })}
