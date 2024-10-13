@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 const phoneRegExp = /^09\d{9}$/g;
+export const nationalIdRegex = new RegExp(/^(?!(\d)\1{9})\d{10}$/);
 
 export const loginSchema = Yup.object().shape({
   PhoneNumber: Yup.string()
@@ -15,7 +16,8 @@ export const addFamilyMemberSchema = Yup.object().shape({
   NationlaCode: Yup.string()
     .required('شماره ملی الزامی می باشد!')
     .min(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
-    .max(10, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
+    .max(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
+    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
   PhoneNumber: Yup.string()
     .matches(phoneRegExp, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .min(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
@@ -41,7 +43,8 @@ export const userInfoSchema = Yup.object().shape({
   nationalCode: Yup.string()
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
-    .max(10, 'شماره ملی 10 رقم می باشد'),
+    .max(10, 'شماره ملی 10 رقم می باشد')
+    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
 });
 export const userPasswordSchema = Yup.object().shape({
   Password: Yup.string().required('این فیلد الزامی است'),
@@ -49,6 +52,11 @@ export const userPasswordSchema = Yup.object().shape({
 });
 export const OrderRegistrationSchema = Yup.object().shape({
   refrenceNumber: Yup.string().required('این فیلد الزامی است'),
+  nationalCode: Yup.string()
+    .required('این فیلد الزامی است')
+    .min(10, 'شماره ملی 10 رقم می باشد')
+    .max(10, 'شماره ملی 10 رقم می باشد')
+    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
 });
 export const VoucherCodeSchema = Yup.object().shape({
   voucherCode: Yup.string().required('این فیلد الزامی است'),

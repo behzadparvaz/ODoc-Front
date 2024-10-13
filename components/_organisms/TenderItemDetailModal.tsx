@@ -74,7 +74,7 @@ const TenderItemDetail = ({
           </div>
         </div>
         <div className="w-full flex flex-col gap-y-2 translate-y-[40px] mt-4">
-          <div className="relative w-[264px] h-12 flex justify-center items-center bg-grey-50 self-center rounded-full">
+          <div className="relative w-[264px] h-12 flex justify-center items-center bg-grey-50 self-center rounded-full mb-3">
             <div
               className={classNames(
                 'absolute w-32 h-10 bg-white top-1/2 -translate-y-1/2 rounded-full transition-all duration-300',

@@ -16,6 +16,7 @@ type PromotionProductDataModel = {
   maxOrderLimit?: number;
   productName?: string;
   quantity?: number;
+  categoryCode?: number;
   shortDescription?: string | null;
 };
 
@@ -68,17 +69,23 @@ const VerticalProductCard = ({
       irc: irc ? irc : productData?.genericCode,
     });
 
-  const onChangeCount = ({ quantity, ...rest }) =>
+  const onChangeCount = ({ quantity, categoryCode, ...rest }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
       irc: rest?.irc ? rest?.irc : rest?.genericCode,
       quantity: quantity,
+      categoryCode: categoryCode,
+      otcLevel3: null,
     });
 
   const onChange = (count: number) => {
     if (count > 0) {
-      onChangeCount({ ...productData, quantity: count });
+      onChangeCount({
+        ...productData,
+        quantity: count,
+        categoryCode: productData?.categoryLevel3,
+      });
     } else {
       onDeleteProduct?.(productData);
     }

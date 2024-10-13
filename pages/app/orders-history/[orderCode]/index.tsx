@@ -1,7 +1,5 @@
 import { useRouter } from 'next/router';
-
 import OrderItemCard from '@com/_molecules/OrderItemCard';
-
 import OrderStatus from '@com/_molecules/OrderStatus';
 import { MainLayout } from '@com/Layout';
 import ProgressStepper from '@com/_molecules/ProgressBar';
@@ -11,6 +9,7 @@ import specialPatients from '@static/images/staticImages/mainCategories/nonPresc
 import { useGetOrderDetails } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
+import { generalTexts } from '@com/texts/generalTexts';
 
 // const Map = dynamic(() => import('@com/_molecules/Map'));
 
@@ -92,6 +91,14 @@ const OrderDetails = () => {
                     />
                   ),
                 )}
+              </div>
+              <div className="flex flex-col justify-center border-t-8 border-grey-50 mb-9">
+                <span className="text-md font-semibold px-4 mt-2">
+                  {generalTexts.policiesTitle}
+                </span>
+                <span className="text-sm font-normal text-justify text-grey-600 mt-2 px-4">
+                  {generalTexts.policiesDesc}
+                </span>
               </div>
             </div>
           </div>
