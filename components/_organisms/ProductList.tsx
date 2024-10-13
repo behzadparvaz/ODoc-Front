@@ -1,13 +1,11 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+
 import Button from '@com/_atoms/Button';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
-import useCheckPage from '@hooks/useCheckPage';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
-import { MainLayout } from '@com/Layout';
-import SearchBox from '@com/_atoms/SearchBox';
 import { routeList } from '@routes/routeList';
 import { productListPageTexts } from '@com/texts/productListPageTexts';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -75,11 +73,7 @@ const ProductList = ({ searchTerm }: Props) => {
           plpData?.fetchNextPage();
         }}
         hasMore={plpData?.hasNextPage}
-        loader={
-          <div className="flex items-center justify-center h-16">
-            {/* در حال بارگذاری... */}
-          </div>
-        }
+        loader={<></>}
         dataLength={items?.length}
       >
         <div className="p-4 space-y-4">
@@ -94,6 +88,7 @@ const ProductList = ({ searchTerm }: Props) => {
                 }}
                 hasAddToCartButton
                 onSuccessChanged={refetchGetBasket}
+                isInSearchPage
               />
             ))
           ) : plpData?.isLoading || plpData?.isFetching ? (

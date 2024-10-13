@@ -26,3 +26,17 @@ export const GetFilteredProductsByShapes = async (
   await request.get(
     `/Product/management/FilteProductByShape?categoryCodeLevel2=${categoryCode}&shapeCode=${shapeCode}`,
   );
+
+export const GetProductsFromSearch = async ({
+  brandName,
+  categoryCodeLevel3,
+}: {
+  brandName: string;
+  categoryCodeLevel3: string;
+}) =>
+  await request.get(`Product/management/PDPBySearch`, null, {
+    params: {
+      brandName,
+      categoryCodeLevel3,
+    },
+  });

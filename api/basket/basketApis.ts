@@ -36,8 +36,8 @@ export type AddProductToBasketPayload =
   | (OneOfCodes & {
       quantity: number;
       orderType: 'OTC';
-      categoryCode: number;
-      otcLevel3: string;
+      categoryCode?: number;
+      otcLevel3?: string;
     })
   | {
       orderType: 'RX';

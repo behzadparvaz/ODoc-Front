@@ -15,6 +15,8 @@ type ProductInBasket = {
   modifiedBy: null;
   categoryCodeLevel2: string;
   categoryNameLevel2: string;
+  brandName: string;
+  categoryCodeLevel3: string;
   categoryCode: string;
 };
 

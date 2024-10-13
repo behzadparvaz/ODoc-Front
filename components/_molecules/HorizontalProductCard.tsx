@@ -15,6 +15,7 @@ type ProductCardProps<PrT> = {
   hasAddToCartButton?: boolean;
   hasCompleteAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
+  isInSearchPage?: boolean;
   otcLevel3?: string;
 };
 
@@ -23,6 +24,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   hasAddToCartButton,
   hasCompleteAddToCartButton,
   onSuccessChanged,
+  isInSearchPage,
   otcLevel3,
 }) => {
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
@@ -66,18 +68,18 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       refetchGetBasket();
     },
   });
-  
+
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChangeCount = ({ irc, quantity, categoryCode,otcLevel3 }) =>
+  const onChangeCount = ({ irc, quantity, categoryCode, otcLevel3 }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
       irc: irc,
       quantity: quantity,
       categoryCode: categoryCode,
-      otcLevel3:otcLevel3
+      otcLevel3: otcLevel3,
     });
 
   const onChange = (count: number) => {
@@ -86,7 +88,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         ...prInfo,
         quantity: count,
         categoryCode: prInfo?.categoryCode,
-        otcLevel3:otcLevel3
+        otcLevel3: otcLevel3,
       });
     } else {
       onDeleteProduct?.(prInfo);
@@ -96,7 +98,11 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   return (
     <div className="w-full flex gap-x-6 justify-between items-center">
       <NextLink
-        href={`${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`}
+        href={
+          isInSearchPage
+            ? `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}`
+            : `${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`
+        }
       >
         <div className="flex gap-x-2 items-center cursor-pointer">
           <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">
