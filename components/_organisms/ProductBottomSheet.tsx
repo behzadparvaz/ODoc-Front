@@ -1,4 +1,5 @@
 import { useGetCategoryLevel4 } from '@api/category/categoryApis.rq';
+import LoadingSpinner from '@com/_atoms/LoadingSpinner';
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { useRouter } from 'next/router';
@@ -16,23 +17,31 @@ export default function ProductBottomSheet({ otcLevel3 }: Props) {
     otcLevel3: otcLevel3,
     categoryCodeLevel2: categoryCode,
   };
-  const { data } = useGetCategoryLevel4(body);
+  const { data, isLoading } = useGetCategoryLevel4(body);
   const products = data?.queryResult;
 
   return (
     <BottomModalContainer
       height={'auto'}
-      hasCloseButton={false}
+      hasCloseButton
       className=" p-4"
-      title="محصولات"
+      title="انتخاب دوز دارو"
     >
-      {products?.map((item) => {
-        return (
-          <div key={item?.id} className="mt-4">
-            <HorizontalProductCard prInfo={item} hasAddToCartButton />
-          </div>
-        );
-      })}
+      {isLoading && !products?.length ? (
+        <LoadingSpinner color="black" className="mx-auto my-4" />
+      ) : (
+        products?.map((item) => {
+          return (
+            <div key={item?.id} className="mt-4">
+              <HorizontalProductCard
+                prInfo={item}
+                hasAddToCartButton
+                otcLevel3={otcLevel3}
+              />
+            </div>
+          );
+        })
+      )}
     </BottomModalContainer>
   );
 }
