@@ -15,6 +15,7 @@ type ProductCardProps<PrT> = {
   hasAddToCartButton?: boolean;
   hasCompleteAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
+  otcLevel3?: string;
 };
 
 const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
@@ -22,6 +23,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   hasAddToCartButton,
   hasCompleteAddToCartButton,
   onSuccessChanged,
+  otcLevel3,
 }) => {
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
@@ -64,17 +66,18 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       refetchGetBasket();
     },
   });
-
+  
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChangeCount = ({ irc, quantity, categoryCode }) =>
+  const onChangeCount = ({ irc, quantity, categoryCode,otcLevel3 }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
       irc: irc,
       quantity: quantity,
       categoryCode: categoryCode,
+      otcLevel3:otcLevel3
     });
 
   const onChange = (count: number) => {
@@ -83,6 +86,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         ...prInfo,
         quantity: count,
         categoryCode: prInfo?.categoryCode,
+        otcLevel3:otcLevel3
       });
     } else {
       onDeleteProduct?.(prInfo);

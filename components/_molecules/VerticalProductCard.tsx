@@ -76,6 +76,7 @@ const VerticalProductCard = ({
       irc: rest?.irc ? rest?.irc : rest?.genericCode,
       quantity: quantity,
       categoryCode: categoryCode,
+      otcLevel3: null,
     });
 
   const onChange = (count: number) => {

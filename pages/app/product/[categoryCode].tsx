@@ -30,7 +30,7 @@ const Product = () => {
     <MainLayout
       hasHeader
       hasBackButton
-      mainClassName='border-t border-grey-100'
+      mainClassName="border-t border-grey-100"
       leftIcon={
         <div
           className="w-[52px] h-[52px] my-4 cursor-pointer relative flex justify-center items-center"
@@ -47,24 +47,26 @@ const Product = () => {
     >
       <div className="w-ful min-h-[600px] h-full">
         {isLoading === false ? (
-          <div className="px-4">
-            <div className="flex flex-col gap-y-2 rounded-xl bg-white p-4">
-              <ProductSlider
-                data={productSliderData}
-                className="px-4 bg-white rounded-2xl"
+          <>
+            <div className="px-4">
+              <div className="flex flex-col gap-y-2 rounded-xl bg-white p-4">
+                <ProductSlider
+                  data={productSliderData}
+                  className="px-4 bg-white rounded-2xl"
+                />
+              </div>
+              <SectionTitle
+                title={`${query?.categoryName}`}
+                tag="h1"
+                className="text-md font-semibold"
               />
             </div>
-            <SectionTitle
-              title={`${query?.categoryName}`}
-              tag="h1"
-              className="text-md font-semibold"
-            />
-            <DrugShapesBox />
+            <DrugShapesBox productData={basketDatat} />
             <ProductDetail
               data={productDetail}
-              className="mt-4 bg-white py-6"
+              className="mt-4 bg-white py-6 px-4"
             />
-          </div>
+          </>
         ) : null}
       </div>
     </MainLayout>

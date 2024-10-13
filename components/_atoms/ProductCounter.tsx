@@ -6,32 +6,34 @@ const STEP_INC_DEC = 1;
 
 export const inventoryState = {
   LACKED: 'lacked',
-  FINISHED: 'finished'
+  FINISHED: 'finished',
 };
 
 type ProductCounterProps = {
-  count: number
-  itemQuantity: (count: number) => void
-  inventoryStatus?: { state: typeof inventoryState[keyof typeof inventoryState] }
-  isLoading: boolean
-  setTooltipVisible: (status: boolean) => void
-  isTooltipVisible: boolean
-  min: number
-  max: number
-  unitName: string
-}
+  count: number;
+  itemQuantity: (count: number) => void;
+  inventoryStatus?: {
+    state: (typeof inventoryState)[keyof typeof inventoryState];
+  };
+  isLoading: boolean;
+  setTooltipVisible: (status: boolean) => void;
+  isTooltipVisible: boolean;
+  min: number;
+  max: number;
+  unitName: string;
+};
 
 const ProductCounter: React.FC<ProductCounterProps> = ({
-                                                         itemQuantity,
-                                                         inventoryStatus,
-                                                         isLoading,
-                                                         setTooltipVisible,
-                                                         isTooltipVisible,
-                                                         min,
-                                                         max,
-                                                         unitName,
-                                                         count = 0
-                                                       }) => {
+  itemQuantity,
+  inventoryStatus,
+  isLoading,
+  setTooltipVisible,
+  isTooltipVisible,
+  min,
+  max,
+  unitName,
+  count = 0,
+}) => {
   const onChange = (e, value) => {
     e.preventDefault();
 
@@ -65,13 +67,13 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   return (
     <>
       {inventoryStatus?.state === inventoryState.FINISHED ? (
-        <div className=''>
+        <div className="">
           <Button buttonType="outlined" size="small" disabled>
             تمام شد
           </Button>
         </div>
       ) : (
-        <div className='flex gap-3 items-center justify-center'>
+        <div className="flex gap-3 items-center justify-center">
           <button
             className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
             disabled={max <= count || isLoading}
@@ -83,14 +85,14 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             <PlusIconOutline width={20} height={20} fill={'black'} />
           </button>
 
-          <div className=''>
+          <div className="">
             {count}
-            {isLoading && <div className=''/>}
+            {isLoading && <div className="" />}
           </div>
           {isReadyForRemove && isTooltipVisible && min !== 1 && (
-            <div className=''>
+            <div className="">
               <div>
-                حداقل خرید {min} <span className=''>{unitName}</span>
+                حداقل خرید {min} <span className="">{unitName}</span>
               </div>
             </div>
           )}
