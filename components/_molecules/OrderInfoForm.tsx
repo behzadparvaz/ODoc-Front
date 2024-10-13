@@ -95,6 +95,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
           formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
         }
         errorMessage={formik.errors.nationalCode}
+        maxLength={10}
       />
 
       <Input
