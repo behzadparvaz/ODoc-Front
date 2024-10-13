@@ -63,7 +63,6 @@ const Input = forwardRef(
               handleScrollNumberInput(e);
             }
           }}
-          type={type}
         />
         {isTouched && (
           <p className="text-xs font-normal text-red-800 mx-1 mt-2">

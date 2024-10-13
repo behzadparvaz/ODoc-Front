@@ -8,7 +8,7 @@ import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
-const quickOrderDetail = () => {
+const QuickOrderDetail = () => {
   const { query, back } = useRouter();
   const orderId = String(query?.orderId);
   const { data, isLoading } = useGetOrderInfo(orderId);
@@ -83,4 +83,4 @@ const quickOrderDetail = () => {
     </MainPageLayout>
   );
 };
-export default quickOrderDetail;
+export default QuickOrderDetail;

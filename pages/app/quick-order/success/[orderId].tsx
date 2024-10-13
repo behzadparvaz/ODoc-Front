@@ -7,7 +7,7 @@ import {
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
-const quickOrderSuccess = () => {
+const QuickOrderSuccess = () => {
   const { query, push } = useRouter();
   const orderId = query?.orderId;
   return (
@@ -17,7 +17,7 @@ const quickOrderSuccess = () => {
     >
       <div className=" flex justify-center">
         <span className="bg-yellow-400 inline-block p-3 rounded-full ">
-          <TimerIcon />
+          <TimerIcon width={32} height={32} fill='#fff' />
         </span>
       </div>
       <p className="text-lg text-center font-semibold mt-5">
@@ -53,4 +53,4 @@ const quickOrderSuccess = () => {
     </div>
   );
 };
-export default quickOrderSuccess;
+export default QuickOrderSuccess;
