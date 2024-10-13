@@ -259,7 +259,7 @@ const OrderInProgress = () => {
   return (
     <div className="flex flex-col items-center gap-4 pt-20">
       <span className="bg-yellow-400 rounded-full w-[56px] h-[56px] flex justify-center items-center">
-        <TimerIcon width="32" height="32" fill={colors.white} />
+        <TimerIcon width={32} height={32} fill={colors.white} />
       </span>
       <div className="text-sm font-light flex flex-col gap-4 items-center">
         <span className="text-md font-semibold">

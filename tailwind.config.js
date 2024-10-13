@@ -74,7 +74,7 @@ module.exports = {
           primary: colorPallete.gray[50],
           secondary: colorPallete.gray[100],
         },
-        disabled: colorPallete.gray[100],
+        disable: colorPallete.gray[50],
         inverse: {
           primary: colorPallete.black,
           secondary: colorPallete.gray[700],
