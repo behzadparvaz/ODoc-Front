@@ -24,7 +24,6 @@ const QuickOrder = () => {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
           setRes(data?.data);
-          console.log(data?.data, 'msd');
         } else {
           openNotification({
             type: 'error',

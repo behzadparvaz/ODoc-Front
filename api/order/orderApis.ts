@@ -54,3 +54,15 @@ export const CreateOrderInlineStep2 = async (body) => {
     { returnError: true },
   );
 };
+
+export const getOrderInfo = async (id) => {
+  return await request.get(
+    `http://5.34.204.173:9095/Orderline/OrderInfo/${id}`,
+  );
+};
+
+export const getActiveOrderStatus = async () => {
+  return await request.get(
+    `http://5.34.204.173:9095/Orderline/ActiveOrderStatus`,
+  );
+};

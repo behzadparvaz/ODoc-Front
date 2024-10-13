@@ -22,12 +22,12 @@ const QuickOrderForm = ({ formCount, className, handleChangeForm }: props) => {
       {Array.apply(null, { length: formCount }).map((item, index) => {
         return (
           <div
+            key={index}
             className={
               formCount - 1 !== index ? 'border-b border-gray-100 pb-8' : ''
             }
           >
             <QuickOrderFormItems
-              key={index}
               handelChange={(e) => handleSetBody(e, index)}
             />
           </div>

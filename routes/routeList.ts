@@ -27,4 +27,6 @@ export const routeList = {
   productPage: `${baseUrl}/product/`,
   newAddress: `${baseUrl}/profile/addresses/new`,
   QuickOrder: `${baseUrl}/quick-order`,
+  QuickOrderSuccess: `${baseUrl}/quick-order/success`,
+  QuickOrderDetail: `${baseUrl}/quick-order/detail`,
 };

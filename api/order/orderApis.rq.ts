@@ -21,6 +21,8 @@ import {
   getOrderDetails,
   CreateOrderInlineStep1,
   CreateOrderInlineStep2,
+  getOrderInfo,
+  getActiveOrderStatus,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -74,6 +76,17 @@ export const useGetOrderStatuses: (
   options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>,
 ) => UseQueryResult<OrderStatuses[]> = (options) =>
   useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
+
+export const useGetOrderInfo = (id: string) => {
+  const { data, isLoading } = useQuery(
+    ['getOrderInfo', id],
+    () => getOrderInfo(id),
+    {
+      enabled: id !== 'undefined' ? true : false,
+    },
+  );
+  return { data: data as any, isLoading };
+};
 
 export const useFinishOrderPayment = () => {
   const { push } = useRouter();
@@ -150,10 +163,21 @@ export const useCreateOrderDraft: (
 
 export const useGetOrderDetails = (orderCode: string) => {
   const { data, isLoading } = useQuery(
-    ['getTenderItems', orderCode],
+    ['getOrderDetails', orderCode],
     () => getOrderDetails(orderCode),
     {
       enabled: !!orderCode,
+    },
+  );
+  return { data: data as any, isLoading };
+};
+
+export const useGetActiveOrderStatus = () => {
+  const { data, isLoading } = useQuery(
+    ['getActiveOrderStatus'],
+    () => getActiveOrderStatus(),
+    {
+      cacheTime: 10000,
     },
   );
   return { data: data as any, isLoading };

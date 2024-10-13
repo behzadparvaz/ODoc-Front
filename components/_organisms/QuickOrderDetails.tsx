@@ -3,7 +3,10 @@ import AddressBoxTypeTwo from '@com/_atoms/AddressBoxTypeTwo';
 import Button from '@com/_atoms/Button';
 import QuickOrderItem from '@com/_atoms/QuickOrderItem';
 import Textarea from '@com/_atoms/Textarea.nd';
+import useNotification from '@hooks/useNotification';
+import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -15,7 +18,8 @@ const QuickOrderDetails = ({ data }: props) => {
   const [description, setDescription] = useState('');
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
-
+  const { push } = useRouter();
+  const { openNotification } = useNotification();
   const { mutate, isLoading } = useCreateOrderInlineStep2();
   const handleSendForm = () => {
     const body = {
@@ -24,8 +28,16 @@ const QuickOrderDetails = ({ data }: props) => {
       description: description,
     };
     mutate(body, {
-      onSuccess: (data) => {
-        console.log(data);
+      onSuccess: (resData: any) => {
+        if (resData?.isSuccess) {
+          push(`${routeList?.QuickOrderSuccess}/${data?.orderUuid}`);
+        } else {
+          openNotification({
+            type: 'error',
+            message: resData?.message,
+            notifType: 'successOrFailedMessage',
+          });
+        }
       },
     });
   };
