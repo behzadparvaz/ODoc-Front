@@ -29,6 +29,7 @@ interface Props {
   hasFooter?: boolean;
   title?: string;
   hasSearchIcon?: boolean;
+  hasBasketIcon?: boolean;
   backButtonAction?: () => void;
 }
 
@@ -41,16 +42,17 @@ const MainPageLayout = ({
   hasAddress = false,
   title,
   hasSearchIcon = true,
+  hasBasketIcon = true,
   backButtonAction,
 }: Props) => {
   const { push, back } = useRouter();
-  const { data: basketDatat } = useGetCurrentBasket();
+  const { data: basketData } = useGetCurrentBasket({ enabled: hasBasketIcon });
 
   const renderBasketCount = () => {
-    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
+    const rxCount = basketData?.refrenceNumber ? 1 : 0;
 
-    if (!!basketDatat?.products?.length) {
-      return basketDatat?.products?.length + rxCount;
+    if (!!basketData?.products?.length) {
+      return basketData?.products?.length + rxCount;
     }
 
     return rxCount;
@@ -72,7 +74,7 @@ const MainPageLayout = ({
         {!!title ? (
           <div className="flex gap-x-2 items-center">
             <span
-              className="w-[60px] flex items-center justify-center cursor-pointer"
+              className="pl-3 py-2 pr-2 flex items-center justify-center cursor-pointer"
               onClick={() => {
                 if (backButtonAction) {
                   backButtonAction();
@@ -102,18 +104,20 @@ const MainPageLayout = ({
             </div>
           )}
 
-          <div
-            className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
-            onClick={() => push(routeList.basket)}
-          >
-            {(!!basketDatat?.products?.length ||
-              basketDatat?.refrenceNumber) && (
-              <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
-                {renderBasketCount()}
-              </span>
-            )}
-            <BasketIconOutline width={22} height={22} fill={'#000'} />
-          </div>
+          {hasBasketIcon && (
+            <div
+              className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
+              onClick={() => push(routeList.basket)}
+            >
+              {(!!basketData?.products?.length ||
+                basketData?.refrenceNumber) && (
+                <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
+                  {renderBasketCount()}
+                </span>
+              )}
+              <BasketIconOutline width={22} height={22} fill={'#000'} />
+            </div>
+          )}
         </div>
       </div>
       {hasAddress ? <HomePageAddressBox /> : null}

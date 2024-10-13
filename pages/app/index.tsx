@@ -1,5 +1,6 @@
 import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
+import QuickOrderStatus from '@com/_molecules/QuickOrderStatus';
 import MainPageLayout from '@com/_template/MainPageLayout';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
@@ -46,6 +47,7 @@ const HomePage = () => {
           <div className="px-4">
             <SearchBox className="px-4 my-2" />
           </div>
+          <QuickOrderStatus />
           <div className="my-4 px-2">
             <Categories isHomePage />
           </div>
