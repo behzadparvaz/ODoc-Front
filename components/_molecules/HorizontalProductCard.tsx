@@ -15,6 +15,7 @@ type ProductCardProps<PrT> = {
   hasAddToCartButton?: boolean;
   hasCompleteAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
+  isInSearchPage?: boolean;
 };
 
 const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
@@ -22,6 +23,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   hasAddToCartButton,
   hasCompleteAddToCartButton,
   onSuccessChanged,
+  isInSearchPage,
 }) => {
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
@@ -87,7 +89,11 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   return (
     <div className="w-full flex gap-x-6 justify-between items-center">
       <NextLink
-        href={`${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`}
+        href={
+          isInSearchPage
+            ? `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}`
+            : `${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`
+        }
       >
         <div className="flex gap-x-2 items-center cursor-pointer">
           <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">

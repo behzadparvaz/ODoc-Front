@@ -4,6 +4,7 @@ import {
   GetCategoryLevel2Products,
   GetFilteredProductsByShapes,
   GetProductsShapes,
+  GetProductsFromSearch,
 } from '@api/product/productApis';
 
 export const useGetProducts: (
@@ -41,4 +42,20 @@ export const useGetFilteredProductsByShapes = (
   );
 
   return { data: data as any };
+};
+
+export const useGetProductsFromSearch = ({
+  brandName,
+  categoryCodeLevel3,
+}: {
+  brandName: string;
+  categoryCodeLevel3: string;
+}) => {
+  const { data, isLoading } = useQuery(
+    ['GetProductsFromSearch', brandName, categoryCodeLevel3],
+    () => GetProductsFromSearch({ brandName, categoryCodeLevel3 }),
+    { enabled: !!brandName && !!categoryCodeLevel3 },
+  );
+
+  return { data: data as any, isLoading };
 };

@@ -25,4 +25,5 @@ export const routeList = {
   otcMedicine: '/app/otc-medicine',
   productPage: '/app/product/',
   newAddress: '/app/profile/addresses/new',
+  searchProductPage: '/app/search/product-page',
 };
