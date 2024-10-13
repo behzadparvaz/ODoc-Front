@@ -23,6 +23,7 @@ import {
   CreateOrderInlineStep2,
   getOrderInfo,
   getActiveOrderStatus,
+  CancelQuickOrder,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -144,6 +145,10 @@ export const useGetOrderState = (orderCode) => {
     GetOrderState(orderCode),
   );
   return { data: data as any, isLoading };
+};
+
+export const useCancelQuickOrder = () => {
+  return useMutation(CancelQuickOrder);
 };
 
 export const useGetSupplementaryInsurances = () => {

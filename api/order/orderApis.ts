@@ -60,6 +60,12 @@ export const getOrderInfo = async (id) => {
     `http://5.34.204.173:9095/Orderline/OrderInfo/${id}`,
   );
 };
+export const CancelQuickOrder = async (id) => {
+  return await request.patch(
+    `http://5.34.204.173:9095/Orderline/CancelOrder/${id}`,
+    {},
+  );
+};
 
 export const getActiveOrderStatus = async () => {
   return await request.get(

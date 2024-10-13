@@ -3928,3 +3928,31 @@ export const PinLocation = ({ width, height, fill }: IconType) => {
     </svg>
   );
 };
+
+export const CallOutlineIcon = ({ width, height, fill }: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 20 20"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M3.325 12.8167C4.35 12.8167 5.34167 12.65 6.26667 12.35C6.55833 12.25 6.88333 12.325 7.10833 12.55L8.41667 14.1917C10.775 13.0667 12.9833 10.9417 14.1583 8.5L12.5333 7.11667C12.3083 6.88333 12.2417 6.55833 12.3333 6.26667C12.6417 5.34167 12.8 4.35 12.8 3.325C12.8 2.875 13.175 2.5 13.625 2.5H16.5083C16.9583 2.5 17.5 2.7 17.5 3.325C17.5 11.0667 11.0583 17.5 3.325 17.5C2.73333 17.5 2.5 16.975 2.5 16.5167V13.6417C2.5 13.1917 2.875 12.8167 3.325 12.8167Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
+
+export const WarninglineIcon = ({ width, height, fill }: IconType) => {
+  return (
+<svg width={width} height={height} viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M8.75 12.9173H11.25V15.4173H8.75V12.9173ZM8.75 4.58398H11.25V11.2507H8.75V4.58398Z" fill={fill}/>
+</svg>
+
+  );
+};
