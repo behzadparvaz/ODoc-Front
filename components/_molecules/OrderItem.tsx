@@ -1,15 +1,13 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
-import classNames from 'classnames';
 
-import { Button } from '@com/_atoms/NewButton';
-import { TimerIcon } from '@com/icons';
-import { colors } from '@configs/Theme';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { convertRialToToman } from '@utilities/mainUtils';
 import { routeList } from '@routes/routeList';
 import { persianDate } from '@utilities/persianDate';
+import { useGetVendorDetails } from '@api/vendor/vendor.rq';
+import { useGetDeliveryCode } from '@api/order/orderApis.rq';
 
 import OrderHistoryProgress from './OrderHistoryProgress';
 import Countdown from './Countdows';
@@ -20,6 +18,8 @@ type OrderItemProps = {
 
 const OrderItem = ({ data }: OrderItemProps) => {
   const router = useRouter();
+  const { data: vendorData } = useGetVendorDetails(data?.vendorCode);
+  const { data: deliveryCode } = useGetDeliveryCode(data?.orderCode);
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -29,25 +29,30 @@ const OrderItem = ({ data }: OrderItemProps) => {
     return parsedDate.getTime();
   }, [data?.createDateTime]);
 
+  const orderPrepartionTime = useMemo(() => {
+    const parsedDate = new Date(data?.prepartionTime);
+    return parsedDate.getTime();
+  }, []);
+
   const renderIcon = () => {
     switch (data?.orderStatus?.name) {
       case 'draft':
       case 'ack':
-        return (
-          <div className="w-[60px] h-[60px] rounded-full">
-            <div className="w-[47px] h-[47px] rounded-full bg-surface-secondary flex justify-center items-center">
-              <TimerIcon width={32} height={32} fill={colors?.black} />
-            </div>
-          </div>
-        );
+        return <OrderHistoryProgress activeStepId={0} />;
+      case 'apay':
+      case 'nfc':
+        return <OrderHistoryProgress activeStepId={1} />;
 
       case 'pick':
       case 'accept':
-        return <OrderHistoryProgress activeStepId={0} />;
+        return <OrderHistoryProgress activeStepId={2} />;
 
       case 'adelivery':
       case 'senddelivery':
-        return <OrderHistoryProgress activeStepId={1} />;
+        return <OrderHistoryProgress activeStepId={3} />;
+
+      case 'deliverd':
+        return <OrderHistoryProgress activeStepId={4} />;
 
       default:
         return <></>;
@@ -56,80 +61,27 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
   const renderContent = () => {
     switch (data?.orderStatus?.name) {
-      case 'draft':
-      case 'ack':
-        return (
-          <span className="h-[48px] text-md text-content-tertiary">
-            سفارش شما برای داروخانه های اطراف ارسال شد
-          </span>
-        );
       case 'apay':
       case 'nfc':
         return (
           <div className="flex flex-col gap-y-3">
-            <div className="w-full h-full flex items-center justify-between">
-              <span className="w-full h-[48px] text-md text-content-primary flex items-center">
-                {`${data?.orderDetails?.length} داروخانه نسخه شما را تأیید کرد`}
-              </span>
-
-              <div className="w-max flex flex-row-reverse gap-0">
-                {data?.orderDetails?.map((item, index) => (
-                  <div
-                    key={item?.id}
-                    className={classNames(
-                      'h-[32px] w-[32px] rounded-full bg-surface-background-secondary border border-surface-overlay-Light flex items-center justify-center',
-                      index === 1 && `-translate-x-3`,
-                      index === 2 && `-translate-x-6`,
-                      index === 3 && `-translate-x-9`,
-                      `z-${index - 10}`,
-                    )}
-                  >
-                    {index < 3 && (
-                      <Image
-                        src={
-                          '/static/images/staticImages/vendor-empty-logo.png'
-                        }
-                        width={20}
-                        height={20}
-                        alt="vendor-logo"
-                      />
-                    )}
-
-                    {index === 3 && (
-                      <span className="text-content-secondary">{`${data?.orderDetails?.length - 3}+`}</span>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-            <span className="text-sm text-content-tertiary">
-              حداکثر زمان شما برای پرداخت ۲ ساعت است
+            <span className="w-full h-[48px] text-md text-content-primary flex items-center">
+              داروخانه نسخه شما را تأیید کرد
             </span>
           </div>
         );
       case 'pick':
       case 'accept':
         return (
-          <div className="flex flex-col gap-y-3">
-            <span className="text-content-primary">{data?.vendorName}</span>
-            <div className="w-full flex items-center justify-between">
-              <span className="text-sm text-content-tertiary">
-                زمان باقی مانده برای آماده سازی سفارش
-              </span>
-
-              {acceptExpirationTime && (
-                <Countdown expirationTime={acceptExpirationTime} />
-              )}
-            </div>
-          </div>
+          <span className="text-content-primary text-sm text-medium">
+            {vendorData?.vendorName}
+          </span>
         );
       case 'adelivery':
       case 'senddelivery':
         return (
           <div className="flex items-center justify-between">
-            <span className="text-base text-content-primary">
-              {'کاوه آهنگر'}
-            </span>
+            <span className="text-base text-content-primary">مجتبی فرجی</span>
             <span className="text-sm text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
               123 56789
             </span>
@@ -145,52 +97,20 @@ const OrderItem = ({ data }: OrderItemProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
       case 'ack':
-        return (
-          <div className="w-full h-full flex items-center justify-between">
-            <span className="text-sm text-content-tertiary">
-              زمان انتظار حداکثر ۳۰ دقیقه
-            </span>
-
-            {/* {acceptExpirationTime && (
-              <Countdown expirationTime={acceptExpirationTime} />
-            )} */}
-          </div>
-        );
-
-      case 'apay':
       case 'nfc':
-        return (
-          <div className="w-full h-full flex items-center justify-center">
-            <Button
-              variant="secondary"
-              size="large"
-              className="w-full"
-              onClick={() =>
-                router.push(`${routeList.tender}/${data?.orderCode}`)
-              }
-            >
-              مشاهده داروخانه ها
-            </Button>
-          </div>
-        );
-
       case 'pick':
       case 'accept':
         return (
-          <div className="w-full h-full flex items-center justify-center">
-            <Button
-              variant="secondary"
-              size="large"
-              className="w-full"
-              onClick={() =>
-                router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
-              }
-            >
-              مشاهده جزییات سفارش
-            </Button>
-          </div>
+          <span className="w-full h-[40px] flex justify-center items-center">
+            مشاهده جزییات سفارش
+          </span>
         );
-
+      case 'apay':
+        return (
+          <span className="w-full h-[40px] flex justify-center items-center">
+            مشاهده داروخانه ها
+          </span>
+        );
       case 'adelivery':
       case 'senddelivery':
         return (
@@ -200,7 +120,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
             </span>
 
             <div className="flex items-center gap-x-2">
-              {data?.orderCode
+              {deliveryCode
                 ?.toString()
                 .split('')
                 .map((item, index) => (
@@ -228,11 +148,16 @@ const OrderItem = ({ data }: OrderItemProps) => {
     data?.orderStatus?.name === 'reject'
   ) {
     return (
-      <div className="w-full h-full flex flex-col gap-y-3 p-4">
+      <div
+        className="w-full h-full flex flex-col gap-y-3 p-4 cursor-pointer"
+        onClick={() =>
+          router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
+        }
+      >
         <div className="flex flex-col gap-y-3">
           {data?.orderStatus?.name === 'deliverd' && (
             <span className="text-base font-semibold">
-              {'داروخانه ۱۳ آبان'}
+              {vendorData?.vendorName}
             </span>
           )}
           <span className="text-sm text-content-tertiary">
@@ -242,26 +167,25 @@ const OrderItem = ({ data }: OrderItemProps) => {
             {!data?.orderDetails?.length ? (
               <span> نسخه الکترونیک</span>
             ) : (
-              data?.orderDetails?.map((item, index) => (
-                <>
-                  <div
-                    key={item.irc}
-                    className="flex items-center gap-x-2 overflow-hidden"
-                  >
-                    {index < 4 && (
-                      <Image
-                        src={item?.imageLink}
-                        alt="order-items"
-                        width={32}
-                        height={32}
-                      />
-                    )}
-                    {index === 4 && (
-                      <span className="text-sm text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
-                    )}
+              <div className="flex items-center gap-x-2">
+                {data?.orderDetails?.map((item, index) => (
+                  <div className="" key={item.irc}>
+                    <div className="flex items-center justify-center overflow-hidden">
+                      {index < 4 && (
+                        <Image
+                          src={item?.imageLink}
+                          alt="order-items"
+                          width={32}
+                          height={32}
+                        />
+                      )}
+                      {index === 4 && (
+                        <span className="text-sm text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
+                      )}
+                    </div>
                   </div>
-                </>
-              ))
+                ))}
+              </div>
             )}
             <span className="text-base text-content-primary">
               {data?.orderStatus?.name === 'deliverd'
@@ -279,22 +203,41 @@ const OrderItem = ({ data }: OrderItemProps) => {
   return (
     <div
       className={
-        'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg p-4 flex flex-col items-center gap-y-3'
+        'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg p-4 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
+      }
+      onClick={() =>
+        router.push(
+          data?.orderStatus?.name === 'apay'
+            ? `${routeList.tender}/${data?.orderCode}`
+            : `${routeList.ordersHistory}/${data?.orderCode}`,
+        )
       }
     >
-      <div className="w-full flex px-4 items-center justify-center">
-        {renderIcon()}
+      <div className="pb-2">{renderIcon()}</div>
+
+      <div className="w-full flex items-center justify-between">
+        <span className="text-content-primary text-base text-bold ">
+          {getOrderStatusMessage(data.orderStatus?.name)}
+        </span>
+
+        {(data.orderStatus?.name === 'draft' ||
+          data.orderStatus?.name === 'ack') &&
+          acceptExpirationTime && (
+            <Countdown expirationTime={acceptExpirationTime} />
+          )}
+
+        {data.orderStatus?.name === 'pick' && (
+          <Countdown expirationTime={orderPrepartionTime} />
+        )}
       </div>
 
-      <span className="w-full h-[28px] text-content-primary text-base text-bold flex justify-center items-center">
-        {getOrderStatusMessage(data.orderStatus?.name)}
-      </span>
+      <span className="text-sm text-content-tertiary">{`کد سفارش ${data?.orderCode}`}</span>
 
       <div className="w-full">{renderContent()}</div>
 
       <div className="w-full h-[1px] bg-border-primary" />
 
-      <div className="h-[72px] w-full">{renderButom()}</div>
+      <div className="w-full">{renderButom()}</div>
     </div>
   );
 };

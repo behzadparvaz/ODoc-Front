@@ -61,3 +61,11 @@ export const CancelQuickOrder = async (id) => {
 export const getActiveOrderStatus = async () => {
   return await request.get(`/Orderline/ActiveOrderStatus`);
 };
+
+export const getDeliveryCode = async (orderCode: string) => {
+  return await request.get(`/Delivery/GetDeliveryCode`, null, {
+    params: {
+      orderCode,
+    },
+  });
+};
