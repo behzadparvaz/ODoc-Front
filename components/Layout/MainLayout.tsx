@@ -4,12 +4,10 @@ import classNames from 'classnames';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
-import { ArrowRightIconOutline, BasketIconOutline } from '@com/icons';
+import { ArrowRightIconOutline } from '@com/icons';
 import { useRouter } from 'next/router';
 import { colors } from '@configs/Theme';
 import Footer from './Footer';
-import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import { routeList } from '@routes/routeList';
 
 export interface MainLayoutProps {
   hasHeader?: boolean;
@@ -35,7 +33,6 @@ export const MainLayout = ({
   hasBottomGap,
   hasBottomNavigation,
   hasBackButton,
-  hasBasketIcon,
   title,
   headerClassName,
   leftIcon,
@@ -47,18 +44,7 @@ export const MainLayout = ({
   footer,
   searchSection,
 }: PropsWithChildren<MainLayoutProps>) => {
-  const { back, push, pathname } = useRouter();
-  const { data: basketDatat } = useGetCurrentBasket();
-
-  const renderBasketCount = () => {
-    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
-
-    if (!!basketDatat?.products?.length) {
-      return basketDatat?.products?.length + rxCount;
-    }
-
-    return rxCount;
-  };
+  const { back, pathname } = useRouter();
 
   const renderGridTemplate = () => {
     switch (hasHeader) {
@@ -132,26 +118,7 @@ export const MainLayout = ({
                   : handleClickRightIcon
               }
             />
-            {leftIcon ? (
-              leftIcon
-            ) : (
-              <>
-                {hasBasketIcon ? (
-                  <div
-                    className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
-                    onClick={() => push(routeList.basket)}
-                  >
-                    {(!!basketDatat?.products?.length ||
-                      basketDatat?.refrenceNumber) && (
-                      <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
-                        {renderBasketCount()}
-                      </span>
-                    )}
-                    <BasketIconOutline width={22} height={22} fill={'#000'} />
-                  </div>
-                ) : null}
-              </>
-            )}
+            {leftIcon ? leftIcon : null}
           </div>
         )}
         <div

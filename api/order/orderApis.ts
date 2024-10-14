@@ -40,35 +40,24 @@ export const getOrderDetails = async (orderCode: string) => {
 };
 
 export const CreateOrderInlineStep1 = async (body) => {
-  return await request.post(
-    `http://5.34.204.173:9095/Orderline/CreateOrderInlineStep1`,
-    body,
-    { returnError: true },
-  );
+  return await request.post(`/Orderline/CreateOrderInlineStep1`, body, {
+    returnError: true,
+  });
 };
 
 export const CreateOrderInlineStep2 = async (body) => {
-  return await request.post(
-    `http://5.34.204.173:9095/Orderline/CreateOrderInlineStep2`,
-    body,
-    { returnError: true },
-  );
+  return await request.post(`/Orderline/CreateOrderInlineStep2`, body, {
+    returnError: true,
+  });
 };
 
 export const getOrderInfo = async (id) => {
-  return await request.get(
-    `http://5.34.204.173:9095/Orderline/OrderInfo/${id}`,
-  );
+  return await request.get(`/Orderline/OrderInfo/${id}`);
 };
 export const CancelQuickOrder = async (id) => {
-  return await request.patch(
-    `http://5.34.204.173:9095/Orderline/CancelOrder/${id}`,
-    {},
-  );
+  return await request.patch(`/Orderline/CancelOrder/${id}`, {});
 };
 
 export const getActiveOrderStatus = async () => {
-  return await request.get(
-    `http://5.34.204.173:9095/Orderline/ActiveOrderStatus`,
-  );
+  return await request.get(`/Orderline/ActiveOrderStatus`);
 };
