@@ -13,7 +13,7 @@ import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
-import { CloseIconOutline } from '@com/icons';
+import { BasketIconOutline, CloseIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
@@ -29,6 +29,16 @@ const ProductPage = () => {
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
+
+  const renderBasketCount = () => {
+    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
+
+    if (!!basketDatat?.products?.length) {
+      return basketDatat?.products?.length + rxCount;
+    }
+
+    return rxCount;
+  };
 
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
@@ -283,11 +293,13 @@ const ProductPage = () => {
             </div>
           )}
 
-          <FixBottomSection>
-            <div className="flex justify-between items-center w-full px-4 py-4">
-              {rendeBottomSection()}
-            </div>
-          </FixBottomSection>
+          {selectedItem && (
+            <FixBottomSection>
+              <div className="flex justify-between items-center w-full px-4 py-4">
+                {rendeBottomSection()}
+              </div>
+            </FixBottomSection>
+          )}
         </>
       );
     }
@@ -300,6 +312,19 @@ const ProductPage = () => {
       hasBasketIcon
       rightIcon={
         <CloseIconOutline width={20} height={20} stroke={colors.black} />
+      }
+      leftIcon={
+        <div
+          className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
+          onClick={() => push(routeList.basket)}
+        >
+          {(!!basketDatat?.products?.length || basketDatat?.refrenceNumber) && (
+            <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
+              {renderBasketCount()}
+            </span>
+          )}
+          <BasketIconOutline width={22} height={22} fill={'#000'} />
+        </div>
       }
       handleClickRightIcon={() => back()}
     >
