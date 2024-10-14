@@ -24,6 +24,7 @@ import {
   getOrderInfo,
   getActiveOrderStatus,
   CancelQuickOrder,
+  getDeliveryCode,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -194,4 +195,15 @@ export const useCreateOrderInlineStep1 = () => {
 
 export const useCreateOrderInlineStep2 = () => {
   return useMutation(CreateOrderInlineStep2);
+};
+
+export const useGetDeliveryCode = (orderCode: string) => {
+  const { data, isLoading } = useQuery(
+    ['getDeliveryCode'],
+    () => getDeliveryCode(orderCode),
+    {
+      enabled: !!orderCode,
+    },
+  );
+  return { data: data as any, isLoading };
 };

@@ -78,9 +78,9 @@ const OrderHistory = () => {
       );
     }
     return (
-      <div className="w-full px-4 flex flex-col gap-y-3">
+      <div className="w-full flex flex-col gap-y-3">
         {currentOrders?.length > 0 && (statusId === -1 || statusId === 0) && (
-          <div className="flex flex-col gap-y-3">
+          <div className="flex flex-col gap-y-4 bg-background-gradient.white-to-gray p-4">
             <span className="text-sm text-content-tertiary">{`سفارش فعال ${currentOrders?.length}`}</span>
             {currentOrders?.map((item) => {
               return <OrderItem key={item?.id} data={item} />;
@@ -90,7 +90,7 @@ const OrderHistory = () => {
 
         {previousOrders?.length > 0 &&
           (statusId === -1 || statusId === 1 || statusId === 2) && (
-            <div className="flex flex-col gap-y-3">
+            <div className="flex flex-col gap-y-4 p-4">
               <span className="text-sm text-content-tertiary">
                 سفارش‌های پیشین
               </span>
@@ -105,8 +105,8 @@ const OrderHistory = () => {
 
   return (
     <MainLayout title="تاریخچه سفارش ها" hasBottomNavigation>
-      <div className="w-full px-4 flex flex-col gap-y-5">
-        <ScrollSlider className="gap-x-2 py-2">
+      <div className="w-full flex flex-col gap-y-5">
+        <ScrollSlider className="gap-x-2 py-2 px-4">
           {filterOptions?.map((item) => {
             return (
               <div

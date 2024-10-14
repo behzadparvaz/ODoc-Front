@@ -1,4 +1,5 @@
-import Button from '@com/_atoms/Button';
+import FixBottomSection from '@com/_atoms/FixBottomSection';
+import { Button } from '@com/_atoms/NewButton';
 import { TimerIcon } from '@com/icons';
 import {
   mobileModeMaxWidthClassName,
@@ -17,7 +18,7 @@ const QuickOrderSuccess = () => {
     >
       <div className=" flex justify-center">
         <span className="bg-yellow-400 inline-block p-3 rounded-full ">
-          <TimerIcon width={32} height={32} fill='#fff' />
+          <TimerIcon width={32} height={32} fill="#fff" />
         </span>
       </div>
       <p className="text-lg text-center font-semibold mt-5">
@@ -27,29 +28,29 @@ const QuickOrderSuccess = () => {
         سفارش شما در مرحله بررسی پزشک است و در صورت تأیید، توسط داروخانه اعلام
         قیمت خواهد شد.
       </p>
-      <div className="absolute inset-x-0 bottom-4 px-4">
-        <Button
-          buttonType="contained"
-          variant="primary"
-          className="w-full mb-3 !text-white"
-          size="large"
-          type="button"
-          handleClick={() => push(routeList?.homeRoute)}
-        >
-          برگشت به خانه
-        </Button>
+      <FixBottomSection>
+        <div className="w-full flex flex-col  justify-center items-center gap-4 p-4 md:flex-row">
+          <Button
+            variant="primary"
+            className="w-full"
+            size="large"
+            type="button"
+            onClick={() => push(routeList?.homeRoute)}
+          >
+            برگشت به خانه
+          </Button>
 
-        <Button
-          buttonType="contained"
-          variant="primary"
-          className="w-full !bg-gray-100 !text-black"
-          size="large"
-          type="button"
-          handleClick={() => push(`${routeList?.QuickOrderDetail}/${orderId}`)}
-        >
-          جزییات درخواست
-        </Button>
-      </div>
+          <Button
+            variant="secondary"
+            className="w-full"
+            size="large"
+            type="button"
+            onClick={() => push(`${routeList?.QuickOrderDetail}/${orderId}`)}
+          >
+            جزییات درخواست
+          </Button>
+        </div>
+      </FixBottomSection>
     </div>
   );
 };

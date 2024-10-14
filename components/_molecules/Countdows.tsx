@@ -52,7 +52,9 @@ const Countdown = ({ expirationTime, onFinishTimer }: CountdownProps) => {
           {(remainingTime % 60).toString().padStart(2, '0')}
         </span>
       ) : (
-        <></>
+        <span className="w-max h-[24px] px-4 bg-surface-nagativeLight rounded-full text-xs text-content-nagative flex items-center justify-center">
+          زمان به پابان رسید
+        </span>
       )}
     </>
   );
