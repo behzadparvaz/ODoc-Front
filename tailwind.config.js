@@ -9,7 +9,7 @@ const shouldShowMobileMode =
 
 module.exports = {
   mode: 'jit',
-  purge: [
+  content: [
     './src/**/*.{js,ts,jsx,tsx}',
     './public/**/*.{html,css,js}',
     './pages/**/*.{js,ts,jsx,tsx}',
