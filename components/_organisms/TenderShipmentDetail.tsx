@@ -13,6 +13,14 @@ const TenderShipmentDetail = ({
   vendor,
   delivery,
 }: TenderShipmentDetailProps) => {
+  const openingTime = vendor?.fromTimeActive
+    ?.split(':')
+    ?.slice?.(0, 2)
+    ?.join?.(':');
+  const closingTime = vendor?.toTimeActive
+    ?.split(':')
+    ?.slice?.(0, 2)
+    ?.join?.(':');
   return (
     <div className="w-full h-[120px] bg-white p-4 py-2 rounded-lg flex flex-col gap-y-3 shadow-md">
       <div className="flex items-center justify-between">
@@ -27,13 +35,15 @@ const TenderShipmentDetail = ({
       </div>
       <div className="flex flex-col gap-y-4">
         <div className="flex items-center justify-between  text-sm text-grey-500">
-          <span className="flex justify-center items-center gap-x-2">
+          <span className="flex justify-center items-center gap-x-1">
             <ClockIconOutline
               height={18}
               width={18}
               stroke={colors.grey[400]}
             />
-            ساعت کاری
+            <span>
+              از {openingTime} تا {closingTime}
+            </span>
           </span>
 
           <span className="flex items-center text-md">
