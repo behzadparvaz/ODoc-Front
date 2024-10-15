@@ -47,4 +47,6 @@ export type VendorDetailDataModel = {
   modifiedDateTime: string | null;
   createBy: string | null;
   modifiedBy: string | null;
+  fromTimeActive: string | null;
+  toTimeActive: string | null;
 };
