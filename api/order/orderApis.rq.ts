@@ -25,6 +25,7 @@ import {
   getActiveOrderStatus,
   CancelQuickOrder,
   getDeliveryCode,
+  DeleteOrderDetail,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -207,4 +208,9 @@ export const useGetDeliveryCode = (orderCode: string) => {
   );
 
   return { data: data as any, isLoading: isLoading };
+};
+
+
+export const useDeleteOrderDetail = () => {
+  return useMutation(DeleteOrderDetail);
 };
