@@ -9,9 +9,9 @@ import cookiePersist from '@redux/middlewares/cookiePersistMiddleware';
 const middleWare = [thunkMiddleware, cookiePersist, modalHistoryMiddleWare];
 if (process.env.NODE_ENV !== 'production') {
   let logger = (store) => (next) => (action) => {
-    typeof window !== 'undefined' && console.log('dispatching: ', action);
+    // typeof window !== 'undefined' && console.log('dispatching: ', action);
     let newState = next(action);
-    typeof window !== 'undefined' && console.log('state is: ', store.getState());
+    // typeof window !== 'undefined' && console.log('state is: ', store.getState());
     return newState;
   };
   middleWare.push(logger);
