@@ -1,14 +1,13 @@
 import NextImage from '@com/_core/NextImage';
-import AuthPassword from '@com/_molecules/AuthPassword';
 import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
 import useStorage from '@hooks/useStorage';
+import { routeList } from '@routes/routeList';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { routeList } from '@routes/routeList';
 
 import { MainLayout } from '@com/Layout';
 
@@ -57,12 +56,6 @@ const ODocAuth = () => {
               handleChangeForm={(formStatus) => setActiveForm(formStatus)}
             />
           )}
-          {/* {activeForm === 'password' && (
-            <AuthPassword
-              data={registerData}
-              handleChangeForm={(formStatus) => setActiveForm(formStatus)}
-            />
-          )} */}
         </div>
       </div>
     </MainLayout>
