@@ -43,7 +43,7 @@ const QuickOrderDetail = () => {
         {orderData?.orderDetails?.map((item, index) => {
           return <QuickOrderItem data={item} key={index} />;
         })}
-        <AddressBoxTypeTwo />
+        <AddressBoxTypeTwo addressInfo={orderData?.addressInfo} justForShow={true} />
         <div className="border-t border-gray-200 py-4 mt-5 flex flex-col gap-y-11">
           {orderData?.orderDescription && (
             <div className="flex flex-col gap-y-2">
