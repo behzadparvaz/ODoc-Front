@@ -25,11 +25,7 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
       mutatesendMobileNumber(values, {
         onSuccess: (responseData: any) => {
           if (responseData?.message === 'succeeded') {
-            if (responseData?.hasPassword) {
-              handleChangeForm(responseData, 'password');
-            } else {
-              handleChangeForm(responseData, 'otp');
-            }
+            handleChangeForm(responseData, 'otp');
           }
         },
       });
@@ -71,12 +67,10 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
           maxLength={11}
           autoComplete="off"
         />
-        <p className='text-sm text-grey-500 text-center py-5'>
+        <p className="text-sm text-grey-500 text-center py-5">
           با ثبت نام
           <NextLink href={routeList?.loginRoute}>
-            <a className='inline-block text-black px-1'>
-            در تپسی دکتر
-            </a>
+            <a className="inline-block text-black px-1">در تپسی دکتر</a>
           </NextLink>
           شرایط و مقررات را می پذیرم.
         </p>

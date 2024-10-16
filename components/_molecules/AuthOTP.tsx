@@ -225,19 +225,6 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
             )}
           </div>
         </div>
-
-        {/* {hasTime ? (
-          <Button
-            buttonType="outlined"
-            variant="tertiary"
-            className="w-full my-2.5 !border-none"
-            size="large"
-            type="button"
-            handleClick={() => handleChangeForm('password')}
-          >
-            {loginTexts?.loginByPassword}
-          </Button>
-        ) : null} */}
         <Button
           buttonType="contained"
           variant="primary"
