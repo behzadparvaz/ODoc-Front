@@ -4,7 +4,6 @@ import {
 } from '@api/order/orderApis.rq';
 import Button from '@com/_atoms/Button';
 import CheckBox from '@com/_atoms/CheckBox.nd';
-import Input from '@com/_atoms/Input.nd';
 import { SearchIconOutline, TickIcon } from '@com/icons';
 import { orderText } from '@com/texts/orderText';
 import { colors } from '@configs/Theme';
@@ -17,6 +16,7 @@ import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { useGetVendors } from '@api/vendor/vendor.rq';
 import Accordion from './Accordion';
 import { useRouter } from 'next/router';
+import { TextInput } from '@com/_atoms/NewTextInput';
 interface Props {
   submitForm?: (value) => void;
   userInfo: Profile;
@@ -50,7 +50,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
     onSubmit: (value) => {
       const body = {
         refrenceNumber: value?.refrenceNumber,
-        nationalCode: value?.nationalCode,
+        nationalCode: String(value?.nationalCode),
         phoneNumber: value?.phoneNumber,
         insuranceTypeId: Number(value?.insuranceTypeId),
         supplementaryInsuranceType: isSpecialPatient
@@ -72,63 +72,66 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
           message: 'لطفا داروخانه را مشخص کنید',
           notifType: 'successOrFailedMessage',
         });
+      } else if (!value?.insuranceTypeId) {
+        openNotification({
+          type: 'error',
+          message: 'لطفا بیمه پایه را انتخاب کنید',
+          notifType: 'successOrFailedMessage',
+        });
       } else {
         submitForm(body);
       }
     },
   });
+
   return (
     <form onSubmit={formik.handleSubmit} className="w-full">
-      <Input
-        required
-        type="number"
-        label={orderText?.nationalCode}
-        placeholder={orderText?.nationalCode}
-        className="flex-auto"
-        labelClassName="font-semibold text-sm mt-6"
-        inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
-        id="nationalCode"
-        name="nationalCode"
-        value={formik.values.nationalCode}
-        onChange={formik.handleChange}
-        isTouched={
-          formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
-        }
-        errorMessage={formik.errors.nationalCode}
-        maxLength={10}
-      />
+      <div className="flex flex-col gap-y-3">
+        <TextInput
+          type="number"
+          label={orderText?.nationalCode}
+          placeholder={orderText?.nationalCode}
+          className="flex-auto"
+          id="nationalCode"
+          name="nationalCode"
+          value={formik.values.nationalCode}
+          onChange={formik.handleChange}
+          isTouched={
+            formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
+          }
+          errorMessage={formik.errors.nationalCode}
+          maxLength={10}
+        />
 
-      <Input
-        required
-        type="number"
-        placeholder={orderText?.referenceNumber}
-        label={orderText?.referenceNumber}
-        className="flex-auto mt-5"
-        labelClassName="font-semibold text-sm mt-6"
-        inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
-        id="refrenceNumber"
-        name="refrenceNumber"
-        value={formik.values.refrenceNumber}
-        onChange={formik.handleChange}
-        isTouched={
-          formik.touched.refrenceNumber && Boolean(formik.errors.refrenceNumber)
-        }
-        errorMessage={formik.errors.refrenceNumber}
-      />
+        <TextInput
+          type="number"
+          placeholder={orderText?.referenceNumber}
+          label={orderText?.referenceNumber}
+          className="flex-auto"
+          id="refrenceNumber"
+          name="refrenceNumber"
+          value={formik.values.refrenceNumber}
+          onChange={formik.handleChange}
+          isTouched={
+            formik.touched.refrenceNumber &&
+            Boolean(formik.errors.refrenceNumber)
+          }
+          errorMessage={formik.errors.refrenceNumber}
+          maxLength={6}
+        />
 
-      <Input
-        type="text"
-        placeholder={orderText?.enterPhoneNumber}
-        label={orderText?.phoneNumber}
-        className="flex-auto"
-        labelClassName="font-semibold text-sm mt-6"
-        inputClassName="placeholder-grey-300 bg-grey-200 text-grey-600 text-sm px-4 custom-input mb-6"
-        id="phoneNumber"
-        name="phoneNumber"
-        disabled
-        value={formik.values.phoneNumber}
-        onChange={formik.handleChange}
-      />
+        <TextInput
+          type="text"
+          placeholder={orderText?.enterPhoneNumber}
+          label={orderText?.phoneNumber}
+          className="flex-auto"
+          id="phoneNumber"
+          name="phoneNumber"
+          disabled
+          value={formik.values.phoneNumber}
+          onChange={formik.handleChange}
+        />
+      </div>
       <Accordion
         header={
           <label className="font-semibold text-sm text-gray-800 block">

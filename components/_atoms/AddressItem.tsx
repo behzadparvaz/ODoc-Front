@@ -1,7 +1,6 @@
 import DeleteAddressModal from '@com/_organisms/DeleteAddressModal';
-import { NewDeleteIcon, NewEditIcon, StarIcon } from '@com/icons';
+import { NewDeleteIcon, StarIcon } from '@com/icons';
 import { profileText } from '@com/texts/profileText';
-import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 
 type AddressItemProps = {
@@ -46,18 +45,21 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
         </p>
       </div>
 
-      <div className="w-[88px] flex justify-between items-center gap-x-2">
-        <div
+      <div className="w-[44px] flex justify-end items-center gap-x-2">
+        {/* <div
           className="cursor-pointer w-10 h-10 flex justify-center items-center bg-grey-50 rounded-full"
           onClick={() => {
             return;
           }}
         >
           <NewEditIcon width={24} height={24} fill={colors?.black} />
-        </div>
+        </div> */}
         <div
           className="cursor-pointer w-10 h-10 flex justify-center items-center bg-red-50 rounded-full"
-          onClick={() => handleOpenDeleteAddressModal()}
+          onClick={(e) => {
+            handleOpenDeleteAddressModal();
+            e.stopPropagation();
+          }}
         >
           <NewDeleteIcon width={24} height={24} />
         </div>

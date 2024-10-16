@@ -82,6 +82,7 @@ const Addresses = () => {
       hasBottomGap
       hasHeader
       hasBackButton
+      handleClickRightIcon={() => push(routeList.profile)}
       title={profileText?.addresses}
     >
       {renderContent()}
