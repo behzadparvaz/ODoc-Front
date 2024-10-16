@@ -19,7 +19,11 @@ type OrderItemProps = {
 const OrderItem = ({ data }: OrderItemProps) => {
   const router = useRouter();
   const { data: vendorData } = useGetVendorDetails(data?.vendorCode);
-  const { data: deliveryCode } = useGetDeliveryCode(data?.orderCode);
+  const { data: deliveryCode } = useGetDeliveryCode(
+    (data?.orderStatus?.name === 'adelivery' ||
+      data?.orderStatus?.name === 'senddelivery') &&
+      data?.orderCode,
+  );
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -119,7 +123,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
               کد تحویل سفارش
             </span>
 
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center flex-row-reverse gap-x-2">
               {deliveryCode
                 ?.toString()
                 .split('')

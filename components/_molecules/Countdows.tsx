@@ -53,7 +53,7 @@ const Countdown = ({ expirationTime, onFinishTimer }: CountdownProps) => {
         </span>
       ) : (
         <span className="w-max h-[24px] px-4 bg-surface-nagativeLight rounded-full text-xs text-content-nagative flex items-center justify-center">
-          زمان به پابان رسید
+          زمان به پایان رسید
         </span>
       )}
     </>
