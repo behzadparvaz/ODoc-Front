@@ -199,11 +199,12 @@ export const useCreateOrderInlineStep2 = () => {
 
 export const useGetDeliveryCode = (orderCode: string) => {
   const { data, isLoading } = useQuery(
-    ['getDeliveryCode'],
+    ['getDeliveryCode', orderCode],
     () => getDeliveryCode(orderCode),
     {
       enabled: !!orderCode,
     },
   );
-  return { data: data as any, isLoading };
+
+  return { data: data as any, isLoading: isLoading };
 };

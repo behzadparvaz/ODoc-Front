@@ -61,66 +61,70 @@ const MainPageLayout = ({
   return (
     <div
       className={classNames(
-        ` w-full h-screen pt-[86px] bg-white flex flex-col`,
+        ` w-full h-screen pt-[122px] bg-white flex flex-col`,
         shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
       )}
     >
       <div
         className={classNames(
-          `fixed px-4 bg-white z-10 text-grey-500 text-xl inset-x-0 py-[17px] top-0 items-center flex justify-between ${headerClassName}`,
+          `fixed px-4 z-10 text-grey-500 text-xl inset-x-0 top-0 flex flex-col ${headerClassName}`,
           shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
         )}
       >
-        {!!title ? (
-          <div className="flex gap-x-2 items-center">
-            <span
-              className="pl-3 py-2 pr-2 flex items-center justify-center cursor-pointer"
-              onClick={() => {
-                if (backButtonAction) {
-                  backButtonAction();
-                } else {
-                  back();
-                }
-              }}
-            >
-              <ArrowRightIconOutline width={20} height={20} fill={'#000'} />
-            </span>
-            <span className="text-base font-semibold">{title}</span>
-          </div>
-        ) : (
-          <NextImage
-            src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
-            height={20}
-            width={110}
-          />
-        )}
-        <div className="flex items-center gap-x-4">
-          {hasSearchIcon && (
-            <div
-              className="w-[22px] cursor-pointer"
-              onClick={() => push(routeList.mobileSearch)}
-            >
-              <SearchIconOutline width={22} height={22} fill={'#000'} />
+        <div className="flex items-center justify-between">
+          {!!title ? (
+            <div className="flex gap-x-2 items-center">
+              <span
+                className="pl-3 py-2 pr-2 flex items-center justify-center cursor-pointer"
+                onClick={() => {
+                  if (backButtonAction) {
+                    backButtonAction();
+                  } else {
+                    back();
+                  }
+                }}
+              >
+                <ArrowRightIconOutline width={20} height={20} fill={'#000'} />
+              </span>
+              <span className="text-base font-semibold">{title}</span>
             </div>
+          ) : (
+            <NextImage
+              src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+              height={20}
+              width={110}
+            />
           )}
+          <div className="flex items-center gap-x-4">
+            {hasSearchIcon && (
+              <div
+                className="w-[22px] cursor-pointer"
+                onClick={() => push(routeList.mobileSearch)}
+              >
+                <SearchIconOutline width={22} height={22} fill={'#000'} />
+              </div>
+            )}
 
-          {hasBasketIcon && (
-            <div
-              className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
-              onClick={() => push(routeList.basket)}
-            >
-              {(!!basketData?.products?.length ||
-                basketData?.refrenceNumber) && (
-                <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
-                  {renderBasketCount()}
-                </span>
-              )}
-              <BasketIconOutline width={22} height={22} fill={'#000'} />
-            </div>
-          )}
+            {hasBasketIcon && (
+              <div
+                className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
+                onClick={() => push(routeList.basket)}
+              >
+                {(!!basketData?.products?.length ||
+                  basketData?.refrenceNumber) && (
+                  <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
+                    {renderBasketCount()}
+                  </span>
+                )}
+                <BasketIconOutline width={22} height={22} fill={'#000'} />
+              </div>
+            )}
+          </div>
         </div>
+
+        {hasAddress ? <HomePageAddressBox /> : null}
       </div>
-      {hasAddress ? <HomePageAddressBox /> : null}
+
       <div className={classNames(`overflow-auto w-full`, className)}>
         {children}
         {hasFooter ? (
