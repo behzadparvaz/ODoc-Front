@@ -123,7 +123,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
               کد تحویل سفارش
             </span>
 
-            <div className="flex items-center gap-x-2">
+            <div className="flex items-center flex-row-reverse gap-x-2">
               {deliveryCode
                 ?.toString()
                 .split('')
