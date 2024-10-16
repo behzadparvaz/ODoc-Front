@@ -1,65 +1,83 @@
 import { useEffect, useState } from 'react';
 
-export const useSelectAddressByCurrentLocation = (data) => {
-  const [addressSelected, setAddressSelected] = useState(null);
-  const getCurrentLocation = () => {
-    let msd = {
-      lat: null,
-      lng: null,
-    };
-    window?.navigator?.geolocation?.getCurrentPosition(
-      (position: any) => {
-        msd = {
-          lat: position?.latitude,
-          lng: position?.longitude,
-        };
-      },
-      null,
-      {
-        enableHighAccuracy: true,
-        timeout: 15000,
-        maximumAge: 0,
-      },
-    );
-    return msd;
-  };
+interface Location {
+  lat: number;
+  lng: number;
+}
 
-  function deg2rad(deg) {
-    return deg * (Math.PI / 180);
-  }
+interface Address {
+  latitude: number;
+  longitude: number;
+  // Add any other properties that your address object may have
+}
 
-  function getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-    var R = 6371;
-    var dLat = deg2rad(lat2 - lat1);
-    var dLon = deg2rad(lon2 - lon1);
-    var a =
-      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(deg2rad(lat1)) *
-        Math.cos(deg2rad(lat2)) *
-        Math.sin(dLon / 2) *
-        Math.sin(dLon / 2);
-    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    var d = R * c;
-    return d;
-  }
+export const useSelectAddressByCurrentLocation = (data: Address[]) => {
+  const [addressSelected, setAddressSelected] = useState<Address | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
-  const selectAddressByCurrentLocation = (data) => {
-    const currentLocation = getCurrentLocation();
-    data?.forEach((post) => {
-      if (
-        getDistanceFromLatLonInKm(
-          currentLocation?.lat,
-          currentLocation?.lng,
-          post.latitude,
-          post.longitude,
-        ) < 0.2
-      ) {
-        setAddressSelected(post);
+  const getCurrentLocation = (): Promise<Location> => {
+    return new Promise((resolve, reject) => {
+      if (!navigator.geolocation) {
+        reject(new Error('Geolocation not supported'));
       }
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          resolve({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => reject(error),
+        {
+          enableHighAccuracy: true,
+          timeout: 15000,
+          maximumAge: 0,
+        }
+      );
     });
   };
+
+  const deg2rad = (deg: number): number => {
+    return deg * (Math.PI / 180);
+  };
+
+  const getDistanceFromLatLonInKm = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    const R = 6371; // Radius of the Earth in km
+    const dLat = deg2rad(lat2 - lat1);
+    const dLon = deg2rad(lon2 - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c; // Distance in km
+  };
+
+  const selectAddressByCurrentLocation = async () => {
+    try {
+      const currentLocation = await getCurrentLocation();
+      data?.forEach((post) => {
+        if (
+          getDistanceFromLatLonInKm(
+            currentLocation.lat,
+            currentLocation.lng,
+            post.latitude,
+            post.longitude,
+          ) < 0.2
+        ) {
+          setAddressSelected(post);
+        }
+      });
+    } catch (error) {
+      console.error('Error getting location:', error);
+    } finally {
+      setLoading(false); // Set loading to false after fetching
+    }
+  };
+
   useEffect(() => {
-    selectAddressByCurrentLocation(data);
-  }, [addressSelected]);
-  return { addressSelected: addressSelected };
+    selectAddressByCurrentLocation();
+  }, [data]); // Dependency on data
+
+  return { addressSelected, loading };
 };

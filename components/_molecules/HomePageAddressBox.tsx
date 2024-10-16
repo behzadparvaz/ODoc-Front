@@ -9,9 +9,7 @@ const HomePageAddressBox = () => {
     <div className="w-full px-4 py-4">
       <div className="flex justify-between items-center">
         <div className="w-full">
-          <p className="text-grey-400 pb-2 text-sm">
-            {generalTexts?.sendTo}
-          </p>
+          <p className="text-grey-400 pb-2 text-sm">{generalTexts?.sendTo}</p>
 
           {addressDate?.length && isLoading === false ? (
             <AddressBox data={data} />

@@ -62,7 +62,7 @@ export const MainLayout = ({
         return `grid-rows-[56px_1fr]`;
       default:
         if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[52px_1fr_85px]';
+          return 'grid-rows-[52px_1fr_65px]';
         }
         return 'grid-rows-[52px_1fr]';
     }
