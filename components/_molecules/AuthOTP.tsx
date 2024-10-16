@@ -173,7 +173,6 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
   const hasTime = timer.min + timer.sec > 0;
   return (
     <>
-
       <div className="text-md border-b border-grey-200 py-4 flex justify-center font-medium">
         تایید شماره موبایل
       </div>
@@ -227,7 +226,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
           </div>
         </div>
 
-        {hasTime ? (
+        {/* {hasTime ? (
           <Button
             buttonType="outlined"
             variant="tertiary"
@@ -238,7 +237,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
           >
             {loginTexts?.loginByPassword}
           </Button>
-        ) : null}
+        ) : null} */}
         <Button
           buttonType="contained"
           variant="primary"

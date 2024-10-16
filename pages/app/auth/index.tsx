@@ -31,7 +31,6 @@ const ODocAuth = () => {
       replace(routeList.homeRoute);
     }
   });
-
   return (
     <MainLayout>
       <div
@@ -40,8 +39,8 @@ const ODocAuth = () => {
         <div className="h-full">
           <NextImage
             src={'/static/images/staticImages/login-bg.png'}
-            layout='fill'
-            objectFit='cover'
+            layout="fill"
+            objectFit="cover"
           />
         </div>
         <div className="bg-white rounded-t-[20px] shadow-2xl absolute inset-x-0 bottom-0">
@@ -58,12 +57,12 @@ const ODocAuth = () => {
               handleChangeForm={(formStatus) => setActiveForm(formStatus)}
             />
           )}
-          {activeForm === 'password' && (
+          {/* {activeForm === 'password' && (
             <AuthPassword
               data={registerData}
               handleChangeForm={(formStatus) => setActiveForm(formStatus)}
             />
-          )}
+          )} */}
         </div>
       </div>
     </MainLayout>
