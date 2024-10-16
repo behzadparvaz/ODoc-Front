@@ -4,6 +4,7 @@ export const routeList = {
   landingRoute: '/',
   homeRoute: '/app/',
   loginRoute: '/app/auth',
+  policyRoute: '/app/policy',
   logoutRoute: '/app/logout',
   checkoutRoute: '/app/checkout',
   prescriptionRegisteration: '/app/prescription-registeration',
