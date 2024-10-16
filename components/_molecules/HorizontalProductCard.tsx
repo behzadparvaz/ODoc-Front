@@ -9,6 +9,8 @@ import NextImage from '@com/_core/NextImage';
 import AddToCartButton from './AddToCartButton';
 import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -27,6 +29,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   isInSearchPage,
   otcLevel3,
 }) => {
+  const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
   >({
@@ -97,36 +100,44 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
 
   return (
     <div className="w-full flex gap-x-6 justify-between items-center">
-      <NextLink
-        href={
-          isInSearchPage
-            ? `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}`
-            : `${routeList.productPage}${prInfo?.categoryCodeLevel2}?categoryName=${prInfo?.categoryNameLevel2}`
-        }
+      <div
+        className={classNames(
+          'flex gap-x-2 items-center',
+          isInSearchPage && 'cursor-pointer',
+        )}
+        onClick={() => {
+          if (isInSearchPage) {
+            push(
+              `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}`,
+            );
+          }
+        }}
       >
-        <div className="flex gap-x-2 items-center cursor-pointer">
-          <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">
-            <NextImage
-              unoptimized
-              src={prInfo?.imageLink}
-              alt={prInfo?.productName}
-              width={66}
-              height={66}
-            />
-          </div>
-
-          <h2 className="text-sm font-medium line-clamp-2">
-            {prInfo?.productName ?? prInfo.name}
-          </h2>
+        <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">
+          <NextImage
+            unoptimized
+            src={prInfo?.imageLink}
+            alt={prInfo?.productName}
+            width={66}
+            height={66}
+          />
         </div>
-      </NextLink>
+
+        <h2 className="text-sm font-medium line-clamp-2">
+          {prInfo?.productName ?? prInfo.name}
+        </h2>
+      </div>
 
       {hasAddToCartButton ? (
-        <AddButton
-          count={productBasketQuantity}
-          onChangeCount={onChange}
-          isLoading={isAddingToCart}
-        />
+        <>
+          {!prInfo?.isOtc ? (
+            <AddButton
+              count={productBasketQuantity}
+              onChangeCount={onChange}
+              isLoading={isAddingToCart}
+            />
+          ) : null}
+        </>
       ) : hasCompleteAddToCartButton ? (
         <AddToCartButton />
       ) : (

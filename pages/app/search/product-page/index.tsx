@@ -293,7 +293,7 @@ const ProductPage = () => {
             </div>
           )}
 
-          {selectedItem && (
+          {selectedItem && data?.isOtc && (
             <FixBottomSection>
               <div className="flex justify-between items-center w-full px-4 py-4">
                 {rendeBottomSection()}

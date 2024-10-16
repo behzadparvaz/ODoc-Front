@@ -11,6 +11,7 @@ export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   label?: string;
   isRequired?: boolean;
+  isNumber?: boolean;
   helperText?: string;
   leftIcon?: ReactNode;
   rightIcon?: ReactNode;
@@ -92,9 +93,17 @@ export const TextInput = ({
       <div className="relative w-full">
         <input
           ref={inputRef}
-          type={type}
+          type="text"
           id={id}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            if (
+              type === 'number' &&
+              e.target.value !== '' &&
+              !/^\d*$/.test(e.target.value)
+            ) {
+              e.preventDefault();
+              return;
+            }
             if (e.target.value.length > maxLength) {
               e.target.value = e.target.value.slice(0, maxLength);
             } else {
