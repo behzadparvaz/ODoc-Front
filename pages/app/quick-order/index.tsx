@@ -41,8 +41,8 @@ const QuickOrder = () => {
       hasSearchIcon={false}
       hasFooter={false}
       hasAddress={false}
-      title={!res ? 'داروی بدون نسخه' : 'تأیید و ادامه'}
-      backButtonAction={back}
+      title={!res ? 'ثبت درخواست دارو' : 'تأیید و ادامه'}
+      backButtonAction={() => (!res ? back() : setRes(null))}
     >
       {!res ? (
         <>

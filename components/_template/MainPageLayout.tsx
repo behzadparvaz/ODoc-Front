@@ -61,7 +61,7 @@ const MainPageLayout = ({
   return (
     <div
       className={classNames(
-        ` w-full h-screen pt-[122px] bg-white flex flex-col`,
+        ` w-full h-screen relative pt-[122px] bg-white flex flex-col`,
         shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : '',
       )}
     >

@@ -10,21 +10,31 @@ import SelectAddress from '@com/_organisms/SelectAddress';
 interface Props {
   className?: string;
   justForShow?: boolean;
+  addressInfo?: any;
 }
-const AddressBoxTypeTwo = ({ className = '', justForShow = false }: Props) => {
+const AddressBoxTypeTwo = ({
+  className = '',
+  justForShow = false,
+  addressInfo,
+}: Props) => {
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
   const { addModal } = useModal();
-
   return (
-    <div className={`${className} flex gap-x-5 items-center`}>
-      <PinLocation width={24} height={24} fill={colors?.gray[600]} />
-      <div>
-        <p className="text-sm text-gray-500">{generalTexts?.sendTo}</p>
-        <p className="text-sm font-bold black">{defaultAddress?.description}</p>
+    <div className={`${className} flex items-center justify-between`}>
+      <div className="flex items-center gap-x-5">
+        <PinLocation width={24} height={24} fill={colors?.gray[600]} />
+        <div>
+          <p className="text-sm text-gray-500 mb-3">{generalTexts?.sendTo}</p>
+          <p className="text-sm font-bold black">
+            {addressInfo
+              ? addressInfo?.description
+              : defaultAddress?.description}
+          </p>
+        </div>
       </div>
 
-      {justForShow && (
+      {!justForShow && (
         <Button
           handleClick={() => {
             addModal({
