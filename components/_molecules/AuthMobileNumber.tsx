@@ -67,13 +67,15 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
           maxLength={11}
           autoComplete="off"
         />
-        <p className="text-sm text-grey-500 text-center py-5">
-          با ثبت نام
-          <NextLink href={routeList?.loginRoute}>
-            <a className="inline-block text-black px-1">در تپسی دکتر</a>
-          </NextLink>
-          شرایط و مقررات را می پذیرم.
-        </p>
+        <NextLink href={routeList?.policyRoute}>
+          <a>
+            <p className="text-sm text-grey-500 text-center py-5">
+              با ثبت نام
+              <span className="inline-block text-black px-1">در تپسی دکتر</span>
+              شرایط و مقررات را می پذیرم.
+            </p>
+          </a>
+        </NextLink>
         <Button
           buttonType="contained"
           variant="primary"
