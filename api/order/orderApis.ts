@@ -69,3 +69,7 @@ export const getDeliveryCode = async (orderCode: string) => {
     },
   });
 };
+
+export const DeleteOrderDetail = async (id) => {
+  return await request.delete(`/Orderline/DeleteOrderDetail/${id}`);
+};

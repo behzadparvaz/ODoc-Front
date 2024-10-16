@@ -1,4 +1,7 @@
-import { useCreateOrderInlineStep2 } from '@api/order/orderApis.rq';
+import {
+  useCreateOrderInlineStep2,
+  useGetOrderInfo,
+} from '@api/order/orderApis.rq';
 import AddressBoxTypeTwo from '@com/_atoms/AddressBoxTypeTwo';
 import Button from '@com/_atoms/Button';
 import QuickOrderItem from '@com/_atoms/QuickOrderItem';
@@ -12,15 +15,22 @@ import { useSelector } from 'react-redux';
 
 interface props {
   data: any;
+  handleChangeForm:()=>void
 }
 
-const QuickOrderDetails = ({ data }: props) => {
+const QuickOrderDetails = ({ data ,handleChangeForm}: props) => {
   const [description, setDescription] = useState('');
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
   const { push } = useRouter();
+  const [itemCount, setItemCount] = useState(0);
   const { openNotification } = useNotification();
   const { mutate, isLoading } = useCreateOrderInlineStep2();
+  const handlCheckItems = () => {
+    if (itemCount + 1 === data?.orderDetails?.length) {
+      handleChangeForm()
+    }
+  };
   const handleSendForm = () => {
     const body = {
       uuid: data?.orderUuid,
@@ -45,7 +55,17 @@ const QuickOrderDetails = ({ data }: props) => {
     <div className="w-full px-4">
       <div className="w-full">
         {data?.orderDetails?.map((item, index) => {
-          return <QuickOrderItem data={item} key={index} />;
+          return (
+            <QuickOrderItem
+              hasDelete
+              handleCheckDelete={() => {
+                setItemCount(itemCount + 1);
+                handlCheckItems();
+              }}
+              data={item}
+              key={index}
+            />
+          );
         })}
         <AddressBoxTypeTwo />
         <Textarea

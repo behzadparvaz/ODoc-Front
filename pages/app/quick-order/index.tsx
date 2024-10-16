@@ -42,14 +42,12 @@ const QuickOrder = () => {
       hasFooter={false}
       hasAddress={false}
       title={!res ? 'ثبت درخواست دارو' : 'تأیید و ادامه'}
-      backButtonAction={() => (!res ? back() : setRes(null))}
+      backButtonAction={() => (!res ? back() : setRes(null), setBody(null))}
     >
       {!res ? (
         <>
           <QuickOrderForm
             handleChangeForm={(values) => {
-              console.log(values, 'msd');
-
               setBody({ ...body, orderDetails: values });
             }}
             className="flex flex-col gap-y-6"
@@ -90,7 +88,12 @@ const QuickOrder = () => {
           </div>
         </>
       ) : (
-        <QuickOrderDetails data={res} />
+        <QuickOrderDetails
+          handleChangeForm={() => {
+            setRes(null), setBody(null);
+          }}
+          data={res}
+        />
       )}
     </MainPageLayout>
   );
