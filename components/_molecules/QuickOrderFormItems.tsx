@@ -4,6 +4,7 @@ import DrugShapes from '@com/_organisms/DrugShapes';
 import { ChevronDownIcon, TrushIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
+import { convertPersianNumbersToEnglishNumbers } from '@utilities/mainUtils';
 import { useState } from 'react';
 
 interface FeildProps {
@@ -72,11 +73,14 @@ const QuickOrderFormItems = ({
         <div className="flex-1">
           <Input
             onChange={(e) => {
-              handelChange({ feildName: 'drugCount', val: e?.target?.value });
+              handelChange({
+                feildName: 'drugCount',
+                val: convertPersianNumbersToEnglishNumbers(e?.target?.value),
+              });
             }}
             labelClassName="text-base font-medium"
             label="تعداد دارو"
-            type="number"
+            type="text"
             value={data?.drugCount}
             inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
             placeholder="تعداد دارو"
