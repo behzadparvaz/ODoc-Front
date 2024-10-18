@@ -125,9 +125,8 @@ const Page = () => {
           router?.push(routeList?.homeRoute);
         }
       }}
-      hasBottomGap
     >
-      <div className="relative h-full pb-14 pt-4 px-4 md:pb-20 overflow-auto">
+      <div className="relative h-full pb-[180px] pt-4 px-4 md:pb-[94px] overflow-auto">
         {!!draftData && <OrderInProgress />}
 
         {products?.length === 0 && !basket?.refrenceNumber && !draftData ? (
@@ -165,7 +164,7 @@ const Page = () => {
                   </>
                 )}
 
-                <div className="flex flex-col px-4 md:px-0 h-full gap-2 justify-between">
+                <div className="flex flex-col md:px-0 h-full gap-2 justify-between">
                   {products?.map((pr, index) => (
                     <div key={pr.irc} className="flex flex-col gap-2">
                       <HorizontalProductCard
@@ -205,7 +204,7 @@ const Page = () => {
         )}
       </div>
       <FixBottomSection>
-        <div className="w-full h-full flex flex-col justify-between items-center p-4 gap-3 md:flex-row">
+        <div className="w-full h-[148px] bg-surface-primary flex flex-col justify-between items-center p-4 gap-3 md:flex-row overflow-hidden  md:h-[84px]">
           {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
             !draftData && (
               <>
@@ -282,7 +281,7 @@ const OrderInProgress = () => {
         <span className="text-md font-semibold text-center">
           سفارش شما با موفقیت ثبت شد
         </span>
-        <span className='text-center'>
+        <span className="text-center">
           سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
           منتظر تأیید داروخانه باشید
         </span>
