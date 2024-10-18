@@ -102,7 +102,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     <div className="w-full flex gap-x-6 justify-between items-center">
       <div
         className={classNames(
-          'flex gap-x-2 items-center',
+          'grid grid-col-[68px_1fr] gap-x-2 items-center',
           isInSearchPage && 'cursor-pointer',
         )}
         onClick={() => {
@@ -113,17 +113,17 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
           }
         }}
       >
-        <div className="w-[68px] h-[68px] border border-grey-50 rounded-xl flex overflow-hidden">
+        <div className="col-start-1 col-end-2 w-[68px] h-[68px] border border-grey-50 rounded-xl flex justify-center items-center overflow-hidden">
           <NextImage
             unoptimized
             src={prInfo?.imageLink}
             alt={prInfo?.productName}
-            width={66}
-            height={66}
+            width={68}
+            height={68}
           />
         </div>
 
-        <h2 className="text-sm font-medium line-clamp-2">
+        <h2 className="col-start-2 col-end-3 text-sm font-medium line-clamp-2">
           {prInfo?.productName ?? prInfo.name}
         </h2>
       </div>
