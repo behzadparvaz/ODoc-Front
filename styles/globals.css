@@ -1,0 +1,34 @@
+@import '../public/fonts/fontyekan.css';
+@import './styles.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Yekan Bakh FaNum';
+  background-color: #dadada;
+  direction: rtl;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.rmdp-calendar-container-mobile {
+  z-index: 9999 !important;
+}
+
+input {
+  outline: none;
+}

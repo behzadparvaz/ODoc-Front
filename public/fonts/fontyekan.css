@@ -1,0 +1,164 @@
+/**
+*
+*	Name:			Yekan Bakh Fonts
+*	Version:			1.0
+*	Author:			Reza Bakhtiarifard (rbakhtiarifard.ir)
+*	Created on:		May 2022
+*	Updated on:		May 2022
+*	Vendor:			http://fontiran.com
+*	Copyright:		Commercial/Proprietary Software
+--------------------------------------------------------------------------------------
+فونت پیکان یک نرم افزار مالکیتی محسوب می شود. جهت آگاهی از قوانین استفاده از این فونت ها لطفا به وب سایت (فونت ایران دات کام) مراجعه نمایید
+--------------------------------------------------------------------------------------
+Yekan Bakh fonts are considered a proprietary software. To gain information about the laws regarding the use of these fonts, please visit www.fontiran.com 
+--------------------------------------------------------------------------------------
+This set of fonts are used in this project under the license: (.....)
+------------------------------------------------------------------------------------- fonts/-
+*	
+**/
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 100;
+	src: url('./YekanBakhFamily/woff/YekanBakh-Thin.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-Thin.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-Thin.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 300;
+	src: url('./YekanBakhFamily/woff/YekanBakh-Light.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-Light.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-Light.ttf') format('truetype');	
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./YekanBakhFamily/woff/YekanBakh-Regular.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-Regular.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-Regular.ttf') format('truetype');	
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 600;
+	src: url('./YekanBakhFamily/woff/YekanBakh-SemiBold.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-SemiBold.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: bold;
+	src: url('./YekanBakhFamily/woff/YekanBakh-Bold.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-Bold.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 800;
+	src: url('./YekanBakhFamily/woff/YekanBakh-ExtraBold.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-ExtraBold.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-ExtraBold.ttf') format('truetype');	 
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 900;
+	src: url('./YekanBakhFamily/woff/YekanBakh-Black.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-Black.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-Black.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Yekan Bakh;
+	font-style: normal;
+	font-weight: 950;
+	src: url('./YekanBakhFamily/woff/YekanBakh-ExtraBlack.woff') format('woff'),   
+	url('./YekanBakhFamily/woff2/YekanBakh-ExtraBlack.woff2') format('woff2'),
+    url('./YekanBakhFamily/ttf/YekanBakh-ExtraBlack.ttf') format('truetype');		 
+}
+
+
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 100;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-Thin.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-Thin.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-Thin.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 300;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-Light.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-Light.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-Light.ttf') format('truetype');	
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: normal;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-Regular.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-Regular.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-Regular.ttf') format('truetype');	
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 600;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-SemiBold.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-SemiBold.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: bold;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-Bold.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-Bold.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-Bold.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 800;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-ExtraBold.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-ExtraBold.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-ExtraBold.ttf') format('truetype');	 
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 900;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-Black.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-Black.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-Black.ttf') format('truetype');		 
+}
+
+@font-face {
+	font-family: Yekan Bakh FaNum;
+	font-style: normal;
+	font-weight: 950;
+	src: url('./YekanBakhFaNum/woff/YekanBakhFaNum-ExtraBlack.woff') format('woff'),   
+	url('./YekanBakhFaNum/woff2/YekanBakhFaNum-ExtraBlack.woff2') format('woff2'),
+    url('./YekanBakhFaNum/ttf/YekanBakhFaNum-ExtraBlack.ttf') format('truetype');		 
+}
