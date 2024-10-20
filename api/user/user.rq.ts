@@ -25,8 +25,9 @@ import { Relation } from '@utilities/interfaces/user';
 import { routeList } from '@routes/routeList';
 import Cookies from 'js-cookie';
 import useStorage from '@hooks/useStorage';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserAction } from '@redux/user/userActions';
+import { RootState } from '@utilities/types';
 
 export const useAddLocation = ({
   isInAddressPage,
@@ -63,10 +64,13 @@ export const useAddLocation = ({
 export const useDeleteLocation = () => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
+  const dispatch = useDispatch();
+  const { user } = useSelector((state: RootState) => state.user);
+  const defaultAddress = user?.defaultAddress;
   const { refetch: refetchAddresses } = useGetUserLocations();
   const queryClient = useQueryClient();
   return useMutation(DeleteUserLocations, {
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       refetchAddresses();
       queryClient?.invalidateQueries('getUserLocations');
       openNotification({
@@ -75,6 +79,14 @@ export const useDeleteLocation = () => {
         notifType: 'successOrFailedMessage',
       });
       removeLastModal();
+
+      if (defaultAddress?.id === variables?.Id) {
+        dispatch(
+          setUserAction({
+            defaultAddress: null,
+          }),
+        );
+      }
     },
   });
 };
