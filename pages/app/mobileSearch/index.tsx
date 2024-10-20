@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+
 import { routeList } from '@routes/routeList';
 import { MainLayout } from '@com/Layout';
 import ProductList from '@com/_organisms/ProductList';
@@ -17,9 +18,11 @@ const mockData = [
 ];
 
 const MobileSearch = () => {
-  const { push } = useRouter();
+  const { push, query, pathname } = useRouter();
 
-  const [searchText, setSearchText] = useState<string>('');
+  const [searchText, setSearchText] = useState<string>(
+    (query.searchText as string) ?? '',
+  );
 
   const handleSearchByImage = (e) => {
     push(`${routeList?.searchByImage}/${1236}`);
@@ -27,6 +30,17 @@ const MobileSearch = () => {
 
   const handleGetSearchSuggestion = (value) => {
     setSearchText(value);
+    push(
+      {
+        pathname: pathname,
+        query: {
+          ...query,
+          searchText: value,
+        },
+      },
+      undefined,
+      { shallow: true },
+    );
   };
 
   return (
@@ -53,7 +67,20 @@ const MobileSearch = () => {
           return (
             <div
               key={item?.id}
-              onClick={() => setSearchText(item?.text)}
+              onClick={() => {
+                setSearchText(item?.text);
+                push(
+                  {
+                    pathname: pathname,
+                    query: {
+                      ...query,
+                      searchText: item?.text,
+                    },
+                  },
+                  undefined,
+                  { shallow: true },
+                );
+              }}
               className="flex justify-center items-center px-3 py-1 rounded-full border border-grey-100 text-black text-sm cursor-pointer"
             >
               {item?.text}
