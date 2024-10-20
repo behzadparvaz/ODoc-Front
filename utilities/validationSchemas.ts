@@ -1,7 +1,8 @@
 import * as Yup from 'yup';
+import isValidIranianNationalCode from './isValidIranianNationalCode';
 
 const phoneRegExp = /^09\d{9}$/g;
-export const nationalIdRegex = new RegExp(/^(?!(\d)\1{9})\d{10}$/);
+// export const nationalIdRegex = new RegExp(/^(?!(\d)\1{9})\d{10}$/);
 
 export const loginSchema = Yup.object().shape({
   PhoneNumber: Yup.string()
@@ -11,14 +12,16 @@ export const loginSchema = Yup.object().shape({
     .required('شماره تماس وارد شده صحیح نمی‌باشد!'),
 });
 export const addFamilyMemberSchema = Yup.object().shape({
-  FirstName: Yup.string().required('نام الزامی می باشد!'),
-  LastName: Yup.string().required('نام خانوادگی الزامی می باشد!'),
-  NationlaCode: Yup.string()
+  firstName: Yup.string().required('نام الزامی می باشد!'),
+  lastName: Yup.string().required('نام خانوادگی الزامی می باشد!'),
+  nationalCode: Yup.string()
     .required('شماره ملی الزامی می باشد!')
     .min(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
     .max(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
-    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
-  PhoneNumber: Yup.string()
+    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
+      isValidIranianNationalCode(value)
+    ),
+  phoneNumber: Yup.string()
     .matches(phoneRegExp, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .min(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
     .max(11, 'شماره تماس وارد شده صحیح نمی‌باشد!')
@@ -44,7 +47,9 @@ export const userInfoSchema = Yup.object().shape({
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
     .max(10, 'شماره ملی 10 رقم می باشد')
-    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
+    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
+      isValidIranianNationalCode(value)
+    ),
 });
 export const userPasswordSchema = Yup.object().shape({
   Password: Yup.string().required('این فیلد الزامی است'),
@@ -56,7 +61,9 @@ export const OrderRegistrationSchema = Yup.object().shape({
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
     .max(10, 'شماره ملی 10 رقم می باشد')
-    .matches(nationalIdRegex, 'شماره ملی وارد شده صحیح نمی‌باشد!'),
+    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
+      isValidIranianNationalCode(value)
+    ),
 });
 export const VoucherCodeSchema = Yup.object().shape({
   voucherCode: Yup.string().required('این فیلد الزامی است'),

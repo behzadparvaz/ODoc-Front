@@ -18,10 +18,10 @@ export default function AddFamilyMembers({ data }) {
   let familyArr = [];
   data?.map((item) => {
     familyArr.push({
-      FirstName: item?.fisrtname,
-      LastName: item?.lastName,
-      NationlaCode: item?.nationalCode,
-      PhoneNumber: item?.phoneNumber,
+      firstName: item?.fisrtname,
+      lastName: item?.lastName,
+      nationalCode: item?.nationalCode,
+      phoneNumber: item?.phoneNumber,
       relation: item?.relation?.id,
       dateOfBirth: item?.dateOfBirth,
       gender: item?.gender?.id,
@@ -31,10 +31,10 @@ export default function AddFamilyMembers({ data }) {
   const { data: relations } = useGetProfileRelation();
   const { removeLastModal } = useModal();
   const [initialValues] = useState({
-    FirstName: '',
-    LastName: '',
-    NationlaCode: '',
-    PhoneNumber: '',
+    firstName: '',
+    lastName: '',
+    nationalCode: '',
+    phoneNumber: '',
     relation: 1,
     dateOfBirth: null,
     gender: 1,
@@ -85,14 +85,14 @@ export default function AddFamilyMembers({ data }) {
           className="flex-auto"
           labelClassName="font-normal text-sm"
           inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-          id="FirstName"
-          name="FirstName"
-          value={formik.values.FirstName}
+          id="firstName"
+          name="firstName"
+          value={formik.values.firstName}
           onChange={formik?.handleChange}
           isTouched={
-            formik.touched.FirstName && Boolean(formik.errors.FirstName)
+            formik.touched.firstName && Boolean(formik.errors.firstName)
           }
-          errorMessage={formik.errors.FirstName}
+          errorMessage={formik.errors.firstName}
         />
         <Input
           placeholder={profileText?.lastName}
@@ -100,12 +100,12 @@ export default function AddFamilyMembers({ data }) {
           className="flex-auto"
           labelClassName="font-normal text-sm"
           inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-          id="LastName"
-          name="LastName"
-          value={formik.values.LastName}
+          id="lastName"
+          name="lastName"
+          value={formik.values.lastName}
           onChange={formik?.handleChange}
-          isTouched={formik.touched.LastName && Boolean(formik.errors.LastName)}
-          errorMessage={formik.errors.LastName}
+          isTouched={formik.touched.lastName && Boolean(formik.errors.lastName)}
+          errorMessage={formik.errors.lastName}
         />
         <Select
           name="relation"
@@ -123,15 +123,15 @@ export default function AddFamilyMembers({ data }) {
           className="flex-auto"
           labelClassName="font-normal text-sm"
           inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-          id="NationlaCode"
-          name="NationlaCode"
+          id="nationalCode"
+          name="nationalCode"
           type="string"
-          value={formik.values.NationlaCode}
+          value={formik.values.nationalCode}
           onChange={formik?.handleChange}
           isTouched={
-            formik.touched.NationlaCode && Boolean(formik.errors.NationlaCode)
+            formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
           }
-          errorMessage={formik.errors.NationlaCode}
+          errorMessage={formik.errors.nationalCode}
         />
         <Input
           placeholder={'09123456789'}
@@ -139,15 +139,15 @@ export default function AddFamilyMembers({ data }) {
           className="flex-auto"
           labelClassName="font-normal text-sm"
           inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
-          id="PhoneNumber"
-          name="PhoneNumber"
+          id="phoneNumber"
+          name="phoneNumber"
           type="string"
-          value={formik.values.PhoneNumber}
+          value={formik.values.phoneNumber}
           onChange={formik?.handleChange}
           isTouched={
-            formik.touched.PhoneNumber && Boolean(formik.errors.PhoneNumber)
+            formik.touched.phoneNumber && Boolean(formik.errors.phoneNumber)
           }
-          errorMessage={formik.errors.PhoneNumber}
+          errorMessage={formik.errors.phoneNumber}
         />
         <Calender
           labelClassName="font-normal text-sm"
