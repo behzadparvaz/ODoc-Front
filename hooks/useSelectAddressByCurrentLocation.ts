@@ -18,7 +18,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Geolocation not supported'));
+        return reject(new Error('Geolocation not supported'));
       }
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -56,18 +56,16 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const selectAddressByCurrentLocation = async () => {
     try {
       const currentLocation = await getCurrentLocation();
-      data?.forEach((post) => {
-        if (
-          getDistanceFromLatLonInKm(
-            currentLocation.lat,
-            currentLocation.lng,
-            post.latitude,
-            post.longitude,
-          ) < 0.2
-        ) {
-          setAddressSelected(post);
-        }
-      });
+      const nearestAddress = data.find((post) =>
+        getDistanceFromLatLonInKm(
+          currentLocation.lat,
+          currentLocation.lng,
+          post.latitude,
+          post.longitude,
+        ) < 0.2
+      );
+      console.log(nearestAddress)
+      setAddressSelected(nearestAddress || null); // Set to null if no address found
     } catch (error) {
       console.error('Error getting location:', error);
     } finally {
