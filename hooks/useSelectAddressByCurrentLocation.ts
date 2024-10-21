@@ -14,11 +14,12 @@ interface Address {
 export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  console.log('-------- activated useSelectAddressByCurrentLocation -------');
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Geolocation not supported'));
+        return reject(new Error('Geolocation not supported'));
       }
       navigator.geolocation.getCurrentPosition(
         (position) => {
@@ -42,6 +43,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   };
 
   const getDistanceFromLatLonInKm = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
+    console.log('-------- getDistanceFromLatLonInKm -------');
     const R = 6371; // Radius of the Earth in km
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
@@ -54,20 +56,19 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   };
 
   const selectAddressByCurrentLocation = async () => {
+    console.log('-------- selectAddressByCurrentLocation -------');
     try {
       const currentLocation = await getCurrentLocation();
-      data?.forEach((post) => {
-        if (
-          getDistanceFromLatLonInKm(
-            currentLocation.lat,
-            currentLocation.lng,
-            post.latitude,
-            post.longitude,
-          ) < 0.2
-        ) {
-          setAddressSelected(post);
-        }
-      });
+      const nearestAddress = data.find((post) =>
+        getDistanceFromLatLonInKm(
+          currentLocation.lat,
+          currentLocation.lng,
+          post.latitude,
+          post.longitude,
+        ) < 0.2
+      );
+      console.log(nearestAddress)
+      setAddressSelected(nearestAddress || null); // Set to null if no address found
     } catch (error) {
       console.error('Error getting location:', error);
     } finally {
