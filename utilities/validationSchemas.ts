@@ -61,3 +61,6 @@ export const OrderRegistrationSchema = Yup.object().shape({
 export const VoucherCodeSchema = Yup.object().shape({
   voucherCode: Yup.string().required('این فیلد الزامی است'),
 });
+export const CancelOrderSchema = Yup.object().shape({
+  cancelReason: Yup.string().required('لطفا دلیل لفو سفارش خود را وارد نمایید'),
+});

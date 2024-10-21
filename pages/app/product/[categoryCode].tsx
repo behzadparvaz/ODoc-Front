@@ -37,7 +37,7 @@ const Product = () => {
           onClick={() => push(routeList.basket)}
         >
           {(!!basketDatat?.products?.length || basketDatat?.refrenceNumber) && (
-            <span className="absolute right-0 top-1 !w-5 !h-5 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
+            <span className="absolute right-0 top-1 !w-5 !h-5 border border-white rounded-full bg-surface-negative text-base z-10 text-white flex justify-center items-center">
               {renderBasketCount()}
             </span>
           )}

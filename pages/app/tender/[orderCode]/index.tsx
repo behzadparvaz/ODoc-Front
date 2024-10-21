@@ -1,37 +1,28 @@
-'use client';
-
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import ProgressStepper from '@com/_molecules/ProgressBar';
-import { CloseIconOutline, MoreSquareIcon } from '@com/icons';
+import { CloseIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { IconButton } from '@com/_atoms/IconButton';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
 import TenderCard from '@com/_organisms/TenderCard';
 import { MainLayout } from '@com/Layout';
-import { useCancelOrder } from '@api/order/orderApis.rq';
 import useModal from '@hooks/useModal';
 import { Button } from '@com/_atoms/NewButton';
 import Spinner from '@com/_atoms/Spinner';
+import CancelOrderModal from '@com/_molecules/CancelOrderModal';
 
 const Tender = () => {
   const router = useRouter();
 
   const { orderCode } = router.query;
-  const { removeLastModal } = useModal();
-  const { mutate: mutateCancelOrder, isLoading: isLoadingCancelOrder } =
-    useCancelOrder();
+  const { addModal } = useModal();
+
   const handleCancelOrder = () => {
-    mutateCancelOrder(
-      {
-        orderCode: orderCode,
-      },
-      {
-        onSuccess: () => {
-          removeLastModal();
-        },
-      },
-    );
+    addModal({
+      modal: CancelOrderModal,
+      props: { orderCode: orderCode, step: 'apay' },
+    });
   };
 
   const [isBannerOpen, setIsBannerOpen] = useState(true);
@@ -79,7 +70,6 @@ const Tender = () => {
             className="w-max ml-4"
             size="small"
             onClick={handleCancelOrder}
-            isLoading={isLoadingCancelOrder}
           >
             لغو سفارش
           </Button>
