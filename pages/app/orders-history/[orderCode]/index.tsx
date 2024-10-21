@@ -10,11 +10,23 @@ import { useGetOrderDetails } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
 import { generalTexts } from '@com/texts/generalTexts';
+import CancelOrderModal from '@com/_molecules/CancelOrderModal';
+import useModal from '@hooks/useModal';
+import { Button } from '@com/_atoms/NewButton';
 
 // const Map = dynamic(() => import('@com/_molecules/Map'));
 
 const OrderDetails = () => {
   const { query } = useRouter();
+
+  const { addModal } = useModal();
+
+  const handleCancelOrder = () => {
+    addModal({
+      modal: CancelOrderModal,
+      props: { orderCode: query?.orderCode as string, step: 'draft' },
+    });
+  };
 
   const { data, isLoading } = useGetOrderDetails(query?.orderCode as string);
 
@@ -99,6 +111,17 @@ const OrderDetails = () => {
                 <span className="text-sm font-normal text-justify text-grey-600 mt-2 px-4">
                   {generalTexts.policiesDesc}
                 </span>
+              </div>
+
+              <div className="flex flex-col p-4">
+                <div className="w-full h-[0.5px] bg-border-primary" />
+
+                <div
+                  className="flex h-[52px] items-center text-content-negative cursor-pointer"
+                  onClick={handleCancelOrder}
+                >
+                  لغو سفارش
+                </div>
               </div>
             </div>
           </div>
