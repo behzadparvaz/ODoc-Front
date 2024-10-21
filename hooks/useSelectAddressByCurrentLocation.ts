@@ -14,7 +14,6 @@ interface Address {
 export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  console.log('-------- activated useSelectAddressByCurrentLocation -------');
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
@@ -43,7 +42,6 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   };
 
   const getDistanceFromLatLonInKm = (lat1: number, lon1: number, lat2: number, lon2: number): number => {
-    console.log('-------- getDistanceFromLatLonInKm -------');
     const R = 6371; // Radius of the Earth in km
     const dLat = deg2rad(lat2 - lat1);
     const dLon = deg2rad(lon2 - lon1);
@@ -56,27 +54,22 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   };
 
   const selectAddressByCurrentLocation = async () => {
-    console.log('-------- selectAddressByCurrentLocation -------');
     try {
       const currentLocation = await getCurrentLocation();
-      console.log(currentLocation)
       const nearestAddress = data.find((post) =>
         getDistanceFromLatLonInKm(
           currentLocation.lat,
           currentLocation.lng,
           post.latitude,
           post.longitude,
-        ) < 1
+        ) < 0.1
       );
-      console.log('------ nearestAddress -------', nearestAddress)
       if (!nearestAddress) {
-        console.log('-------- nearestAddress is null -------');
         if (data.length > 0) {
           setAddressSelected(data[0])
         }
       }
       if (nearestAddress) {
-        console.log('-------- nearestAddress is not null -------');
         setAddressSelected(nearestAddress || null); // Set to null if no address found
       }
     } catch (error) {
