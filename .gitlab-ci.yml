@@ -3,9 +3,9 @@ stages:
   - push
 
 variables:
-  DOCKER_IMAGE: "jfrog.tapsi.doctor/local-docker/tapsidoctor"  # Define your Docker image name
-  #TAG: "1.0.2"  # Manually set the tag to "1.0.1"
-  TAG: "${CI_COMMIT_TAG}"
+  DOCKER_IMAGE: "jfrog.tapsi.doctor/local-docker/tapsidoctor"
+  TAG: "${CI_COMMIT_TAG}"  # Use only commit tag
+
 before_script:
   # Login to your Docker registry
   - echo "$CI_REGISTRY_PASSWORD" | docker login jfrog.tapsi.doctor -u "$CI_REGISTRY_USER" --password-stdin
@@ -13,19 +13,21 @@ before_script:
 build_image:
   stage: build
   tags:
-    - docker-build  # Use the runner with the "build" tag
+    - docker-build
   script:
+    - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi  # Fail if no tag
+    - echo "Tag being used: $TAG"
     - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 -t $DOCKER_IMAGE:$TAG .
   only:
-    - stage  # Build only on the master branch, adjust as necessary
-  when: manual  # This will require manual triggering
+    - tags  # Run only on tags
+  when: manual
 
 push_image:
   stage: push
   tags:
-    - docker-build  # Use the runner with the "deploy" tag
+    - docker-build
   script:
     - docker push $DOCKER_IMAGE:$TAG
   only:
-    - stage  # Push only on the master branch, adjust as necessary
-  when: manual  # This will require manual triggering
+    - tags  # Run only on tags
+  when: manual
