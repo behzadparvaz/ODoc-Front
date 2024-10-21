@@ -17,7 +17,6 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const { addressSelected } = useSelectAddressByCurrentLocation(data);
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
-  console.log('address => ', addressSelected, user, data);
   const dispatch = useDispatch();
   useEffect(() => {
     if (!defaultAddress) {
