@@ -1,4 +1,4 @@
-@import '../public/fonts/fontyekan.css';
+@import '../public/fonts/Vazirmatn-font-face.css';
 @import './styles.css';
 
 @tailwind base;
@@ -9,7 +9,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Yekan Bakh FaNum';
+  font-family: Vazirmatn, sans-serif;
   background-color: #dadada;
   direction: rtl;
 }
