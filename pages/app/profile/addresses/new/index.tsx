@@ -145,21 +145,27 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
 
         <FixBottomSection className="bg-white h-[184px]">
           <div className="w-full rounded-t-lg flex flex-col gap-y-10 px-4 py-6">
-            <TextInput
-              rightIcon={
-                <SearchIconOutline width={24} height={24} fill={colors.black} />
-              }
-              placeholder="جستجوی آدرس..."
-              inputClassName="!rounded-full placeholder:text-lg placeholder-gray-500 pr-12"
-              id="search-address"
-              value={searchText}
-              onChange={(e) => {
-                return;
-              }}
-              onClick={handleOpenSearchModal}
-              autoComplete="off"
-            />
-
+            <div onClick={handleOpenSearchModal}>
+              <TextInput
+                rightIcon={
+                  <SearchIconOutline
+                    width={24}
+                    height={24}
+                    fill={colors.black}
+                  />
+                }
+                placeholder="جستجوی آدرس..."
+                inputClassName="!rounded-full placeholder:text-lg placeholder-gray-500 pr-12"
+                id="search-address"
+                value={searchText}
+                onChange={(e) => {
+                  return;
+                }}
+                onClick={handleOpenSearchModal}
+                autoComplete="off"
+                disabled
+              />
+            </div>
             <Button
               className="w-full"
               size="large"

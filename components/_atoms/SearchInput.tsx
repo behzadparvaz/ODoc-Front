@@ -10,6 +10,7 @@ interface Props {
   className?: string;
   handleChange?: (value: string) => void;
   defualtValue: string | string[];
+  autoFocus?: boolean;
 }
 
 const SearchBox = ({
@@ -17,6 +18,7 @@ const SearchBox = ({
   className = '',
   handleChange,
   defualtValue,
+  autoFocus = false,
 }: Props) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState<any>(inputRef?.current?.value);
@@ -35,6 +37,12 @@ const SearchBox = ({
       setValue(defualtValue);
     }
   }, [defualtValue]);
+
+  useEffect(() => {
+    if (autoFocus) {
+      inputRef?.current?.focus();
+    }
+  }, [autoFocus]);
 
   return (
     <div className={`w-full relative ${className}`}>

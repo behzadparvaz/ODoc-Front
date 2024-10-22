@@ -62,7 +62,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
           currentLocation.lng,
           post.latitude,
           post.longitude,
-        ) < 0.1
+        ) < 1
       );
       if (!nearestAddress) {
         if (data.length > 0) {
