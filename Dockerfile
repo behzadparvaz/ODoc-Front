@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
+FROM node:20.14.0-alpine
 
 # Set the working directory in the container
 WORKDIR /app
