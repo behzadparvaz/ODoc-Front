@@ -145,7 +145,7 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
 
         <FixBottomSection className="bg-white h-[184px]">
           <div className="w-full rounded-t-lg flex flex-col gap-y-10 px-4 py-6">
-            <div onClick={handleOpenSearchModal}>
+            <div className="cursor-pointer" onClick={handleOpenSearchModal}>
               <TextInput
                 rightIcon={
                   <SearchIconOutline
