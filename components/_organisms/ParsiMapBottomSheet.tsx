@@ -114,7 +114,7 @@ export default function ParsiMapBottomSheet({
         />
         <Button
           style={{ direction: 'rtl' }}
-          className="absolute bottom-[72px] right-5 !text-2xs !font-normal !text-grey-800 z-10 !px-3"
+          className="absolute bottom-[120px] right-5 !text-2xs !font-normal !text-grey-800 z-10 !px-3"
           buttonType="contained"
           backgroundColor={colors.white}
           handleClick={() => {
