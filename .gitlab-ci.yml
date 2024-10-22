@@ -19,7 +19,7 @@ build_image:
     - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 -t $DOCKER_IMAGE:$TAG .
   only:
     - tags  # Run only on tags
-  when: manual
+#  when: manual
 
 push_image:
   stage: push
@@ -29,4 +29,4 @@ push_image:
     - docker push $DOCKER_IMAGE:$TAG
   only:
     - tags  # Run only on tags
-  when: manual
+#  when: manual
