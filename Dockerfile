@@ -8,8 +8,9 @@ WORKDIR /app
 COPY package.json ./
 COPY package-lock.json ./
 COPY .npmrc ./
+
 # Install dependencies
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of your application code
 COPY . .
