@@ -3,8 +3,8 @@ stages:
   - push
 
 variables:
-  DOCKER_IMAGE: "jfrog.tapsi.doctor/local-docker/tapsidoctor"
-  TAG: "${CI_COMMIT_TAG}"  # Use only commit tag
+  DOCKER_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor'
+  TAG: '${CI_COMMIT_TAG}' # Use only commit tag
 
 before_script:
   # Login to your Docker registry
@@ -15,11 +15,11 @@ build_image:
   tags:
     - docker-build
   script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi  # Fail if no tag
+    - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi # Fail if no tag
+    - if [[ "$CI_COMMIT_TAG" == "staging" ]]; then cp .env.staging .env; else cp .env.production .env; fi
     - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 -t $DOCKER_IMAGE:$TAG .
   only:
-    - tags  # Run only on tags
-#  when: manual
+    - tags # Run only on tags
 
 push_image:
   stage: push
@@ -28,5 +28,4 @@ push_image:
   script:
     - docker push $DOCKER_IMAGE:$TAG
   only:
-    - tags  # Run only on tags
-#  when: manual
+    - tags # Run only on tags
