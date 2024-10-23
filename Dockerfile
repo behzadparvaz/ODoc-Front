@@ -10,7 +10,7 @@ COPY package-lock.json ./
 COPY .npmrc ./
 
 # Install dependencies
-RUN npm install --legacy-peer-deps
+RUN npm install --legacy-peer-deps --verbose
 
 # Copy the rest of your application code
 COPY . .
