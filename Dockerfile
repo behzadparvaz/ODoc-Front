@@ -9,11 +9,8 @@ COPY package.json ./
 COPY package-lock.json ./
 COPY .npmrc ./
 
-# Update npm before installing dependencies
-RUN npm install -g npm@10.9.0
-
-# Install dependencies with verbose logging
-RUN npm install --legacy-peer-deps --verbose
+# Install dependencies
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of your application code
 COPY . .
