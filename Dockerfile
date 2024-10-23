@@ -7,7 +7,7 @@ WORKDIR /app
 # Copy package.json and package-lock.json (or yarn.lock) to install dependencies
 COPY package.json ./
 COPY package-lock.json ./
-
+COPY .npmrc ./
 # Install dependencies
 RUN npm install --force
 
