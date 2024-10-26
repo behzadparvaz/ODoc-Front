@@ -1,6 +1,6 @@
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
 import { TimerIcon } from '@com/icons';
+import ActionBar from '@com/Layout/ActionBar';
 import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
@@ -29,28 +29,28 @@ const QuickOrderSuccess = () => {
         سفارش شما در مرحله بررسی پزشک است و در صورت تأیید، توسط داروخانه اعلام
         قیمت خواهد شد.
       </p>
-      <FixBottomSection>
-        <div className="w-full flex flex-col  justify-center items-center gap-4 p-4">
-          <Button
-            variant="primary"
-            className="w-full"
-            size="large"
-            type="button"
-            onClick={() => push(`${routeList?.QuickOrderDetail}/${orderId}`)}
-          >
-            جزییات درخواست
-          </Button>
-          <Button
-            variant="text"
-            className="w-full"
-            size="large"
-            type="button"
-            onClick={() => push(routeList?.homeRoute)}
-          >
-            برگشت به خانه
-          </Button>
-        </div>
-      </FixBottomSection>
+
+      <ActionBar type="twoActionHorizontal" hasDivider>
+        <Button
+          variant="primary"
+          className="w-full"
+          size="large"
+          type="button"
+          onClick={() => push(routeList?.homeRoute)}
+        >
+          برگشت به خانه
+        </Button>
+
+        <Button
+          variant="secondary"
+          className="w-full"
+          size="large"
+          type="button"
+          onClick={() => push(`${routeList?.QuickOrderDetail}/${orderId}`)}
+        >
+          جزییات درخواست
+        </Button>
+      </ActionBar>
     </div>
   );
 };

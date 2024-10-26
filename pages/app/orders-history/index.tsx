@@ -104,7 +104,13 @@ const OrderHistory = () => {
   };
 
   return (
-    <MainLayout title="تاریخچه سفارش ها" hasBottomNavigation>
+    <MainLayout
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+      title="سفارشات من"
+      hasBottomNavigation
+    >
       <div className="w-full flex flex-col gap-y-5">
         <ScrollSlider className="gap-x-2 py-2 px-4">
           {filterOptions?.map((item) => {

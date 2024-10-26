@@ -6,16 +6,12 @@ const HomePageAddressBox = () => {
   const { data, isLoading } = useGetUserLocations();
   const addressDate: any = data;
   return (
-    <div className="w-full h-[70px] px-4 cursor-pointer">
-      <div className="flex justify-between items-center">
-        <div className="w-full">
-          <p className="text-grey-400 pb-2 text-sm">{generalTexts?.sendTo}</p>
+    <div className="w-full flex flex-col cursor-pointer">
+      <p className="text-grey-400 pb-2 text-sm">{generalTexts?.sendTo}</p>
 
-          {addressDate?.length && isLoading === false ? (
-            <AddressBox data={data} />
-          ) : null}
-        </div>
-      </div>
+      {addressDate?.length && isLoading === false ? (
+        <AddressBox data={data} />
+      ) : null}
     </div>
   );
 };

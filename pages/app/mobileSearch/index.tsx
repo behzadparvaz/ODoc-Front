@@ -46,9 +46,9 @@ const MobileSearch = () => {
   return (
     <MainLayout
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
-      hasSerachSection
-      handleClickRightIcon={() => push('/app')}
+      backIconHandler={() => push('/app')}
       searchSection={
         <SearchBox
           defualtValue={searchText}

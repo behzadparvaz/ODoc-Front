@@ -63,8 +63,9 @@ const Tender = () => {
       <MainLayout
         title="لیست داروخانه ها"
         hasHeader
+        headerType="withoutLogo"
         hasBackButton
-        leftIcon={
+        leftSection={
           <Button
             variant="danger"
             className="w-max ml-4"

@@ -102,8 +102,8 @@ const ParsiSearchModal = ({
     <FullModalContainer>
       <MainLayout
         hasHeader
+        headerType="withoutLogo"
         hasBackButton
-        hasSerachSection
         searchSection={
           <SearchBox
             autoFocus

@@ -18,10 +18,10 @@ import prescriptionMedicine from '@static/images/staticImages/mainCategories/pre
 import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import Address from '@com/_organisms/Address';
 import useNotification from '@hooks/useNotification';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import NextImage from '@com/_core/NextImage';
 import { Button } from '@com/_atoms/NewButton';
 import CheckBox from '@com/_atoms/CheckBox.nd';
+import ActionBar from '@com/Layout/ActionBar';
 
 const Page = () => {
   const router = useRouter();
@@ -119,8 +119,9 @@ const Page = () => {
     <MainLayout
       title="سبد خرید"
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
-      handleClickRightIcon={() => {
+      backIconHandler={() => {
         if (!isLoadingcreateOrderDraft || isLoadingDeleteBasket) {
           router?.push(routeList?.homeRoute);
         }
@@ -203,57 +204,56 @@ const Page = () => {
           </>
         )}
       </div>
-      <FixBottomSection>
-        <div className="w-full h-[148px] bg-surface-primary flex flex-col justify-between items-center p-4 gap-3 md:flex-row overflow-hidden  md:h-[84px]">
-          {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
-            !draftData && (
-              <>
-                <Button
-                  variant="primary"
-                  className="w-full"
-                  size="large"
-                  onClick={onSubmitBasket}
-                  isLoading={isLoadingcreateOrderDraft}
-                  disabled={isLoadingDeleteBasket || isDisabled}
-                >
-                  ارسال به داروخانه ها
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="w-full"
-                  size="large"
-                  onClick={deleteBasket}
-                  isLoading={isLoadingDeleteBasket}
-                  disabled={isLoadingcreateOrderDraft || isDisabled}
-                >
-                  حذف سبد خرید
-                </Button>
-              </>
-            )}
-          {draftData && (
+
+      <ActionBar type="twoActionVertical" hasDivider>
+        {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
+          !draftData && (
             <>
               <Button
                 variant="primary"
                 className="w-full"
                 size="large"
-                onClick={() =>
-                  router.push(`${routeList.ordersHistory}/${draftData}`)
-                }
+                onClick={onSubmitBasket}
+                isLoading={isLoadingcreateOrderDraft}
+                disabled={isLoadingDeleteBasket || isDisabled}
               >
-                مشاهده جزییات سفارش
+                ارسال به داروخانه ها
               </Button>
               <Button
                 variant="secondary"
                 className="w-full"
                 size="large"
-                onClick={() => router.push(routeList.homeRoute)}
+                onClick={deleteBasket}
+                isLoading={isLoadingDeleteBasket}
+                disabled={isLoadingcreateOrderDraft || isDisabled}
               >
-                برگشت به خانه
+                حذف سبد خرید
               </Button>
             </>
           )}
-        </div>
-      </FixBottomSection>
+        {draftData && (
+          <>
+            <Button
+              variant="primary"
+              className="w-full"
+              size="large"
+              onClick={() =>
+                router.push(`${routeList.ordersHistory}/${draftData}`)
+              }
+            >
+              مشاهده جزییات سفارش
+            </Button>
+            <Button
+              variant="secondary"
+              className="w-full"
+              size="large"
+              onClick={() => router.push(routeList.homeRoute)}
+            >
+              برگشت به خانه
+            </Button>
+          </>
+        )}
+      </ActionBar>
     </MainLayout>
   );
 };

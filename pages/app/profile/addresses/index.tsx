@@ -9,10 +9,10 @@ import { RootState } from '@utilities/types';
 import AddressList from '@com/_organisms/AddressList';
 import Spinner from '@com/_atoms/Spinner';
 import { MainLayout } from '@com/Layout';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
 import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
+import ActionBar from '@com/Layout/ActionBar';
 
 const Addresses = () => {
   const { addModal } = useModal();
@@ -62,9 +62,8 @@ const Addresses = () => {
       <>
         <AddressList data={addressData} />
 
-        <FixBottomSection className="p-4">
+        <ActionBar type="singleAction">
           <Button
-            // onClick={() => handleClickOpenModal()}
             onClick={() => push(routeList.newAddress)}
             className="w-full"
             size="large"
@@ -72,17 +71,17 @@ const Addresses = () => {
           >
             ثبت آدرس جدید
           </Button>
-        </FixBottomSection>
+        </ActionBar>
       </>
     );
   };
 
   return (
     <MainLayout
-      hasBottomGap
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
-      handleClickRightIcon={() => push(routeList.profile)}
+      backIconHandler={() => push(routeList.profile)}
       title={profileText?.addresses}
     >
       {renderContent()}

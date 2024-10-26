@@ -40,7 +40,7 @@ const CallBack = () => {
   );
 
   return (
-    <MainLayout hasHeader>
+    <MainLayout>
       {isLoading ? (
         <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
       ) : (

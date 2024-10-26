@@ -102,7 +102,7 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
 
   return (
     <div className="h-svh w-full flex justify-center">
-      <div className="relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[600px] h-svh overflow-hidden ">
+      <div className="relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[460px] h-svh overflow-hidden ">
         <div className="h-[calc(100%-184px)] absolute inset-x-0 ">
           <div
             className="absolute top-2 right-4 h-10 w-10 flex justify-center items-center bg-white rounded-full z-10 shadow-md cursor-pointer"
