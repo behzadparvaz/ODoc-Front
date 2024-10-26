@@ -100,7 +100,6 @@ const QuickOrder = () => {
           drugType: item.drugShape?.id,
         };
       });
-      console.log(data);
       body.nationalCode = state.nationalCode;
       body.description = state.description;
       body.orderDetails = data;
