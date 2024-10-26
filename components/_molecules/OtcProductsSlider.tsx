@@ -27,6 +27,7 @@ export type Level3ProductsDataModel = {
   productName: string;
   shapeCode: number;
   shapeName: string;
+  unit?: string;
 };
 
 type OtcproductsSliderProps = {

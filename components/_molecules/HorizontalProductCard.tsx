@@ -132,6 +132,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         <>
           {!prInfo?.isOtc ? (
             <AddButton
+              unitName={prInfo.unit}
               count={productBasketQuantity}
               onChangeCount={onChange}
               isLoading={isAddingToCart}

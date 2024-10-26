@@ -19,10 +19,9 @@ const AddButton: React.FC<AddButtonProps> = ({
   onChangeCount,
   min = 1,
   max = 100,
-  unitName = 'عدد',
+  unitName = '',
 }) => {
   const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
-
   return (
     <div>
       {count > 0 ? (
