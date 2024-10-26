@@ -49,4 +49,6 @@ export type VendorDetailDataModel = {
   modifiedBy: string | null;
   fromTimeActive: string | null;
   toTimeActive: string | null;
+  isShowName?: boolean;
+  secondaryName?: string;
 };
