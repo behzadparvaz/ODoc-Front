@@ -1,4 +1,7 @@
-import { useCreateOrderInlineStep1 } from '@api/order/orderApis.rq';
+import {
+  useCreateOrderInline,
+  useCreateOrderInlineStep1,
+} from '@api/order/orderApis.rq';
 import { useGetUserLocations } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Input from '@com/_atoms/Input.nd';
@@ -20,6 +23,7 @@ import {
   removeDrugAction,
 } from '@redux/requestDrugs/requestDrugsActions';
 import { setUserAction } from '@redux/user/userActions';
+import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -30,14 +34,14 @@ const QuickOrder = () => {
   const { back, push } = useRouter();
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
-    discription: '',
+    description: '',
     nationalCode: '',
   });
   const { addModal, removeLastModal } = useModal();
   const { user } = useSelector((state: RootState) => state.user);
   const drugs = useSelector((state: any) => state.requestDrugs.drugs);
 
-  const { mutate, isLoading } = useCreateOrderInlineStep1();
+  const { mutate, isLoading } = useCreateOrderInline();
   const { openNotification } = useNotification();
 
   useEffect(() => {
@@ -64,7 +68,7 @@ const QuickOrder = () => {
     fetchData();
     return () => {
       setState({
-        discription: '',
+        description: '',
         nationalCode: '',
       });
     };
@@ -94,12 +98,11 @@ const QuickOrder = () => {
           drugName: item.drugName,
           drugCount: item.quantity,
           drugType: item.drugShape?.id,
-          drugLabel: item.drugShape?.name,
         };
       });
       console.log(data);
       body.nationalCode = state.nationalCode;
-      body.discription = state.discription;
+      body.description = state.description;
       body.orderDetails = data;
       body.addressId = user?.defaultAddress?.id;
       return body;
@@ -107,7 +110,7 @@ const QuickOrder = () => {
     mutate(serializeData(drugs), {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
-          console.log('success');
+          push(`${routeList?.QuickOrderSuccess}/${data?.data?.orderUuid}`);
         } else {
           openNotification({
             type: 'error',
@@ -215,14 +218,14 @@ const QuickOrder = () => {
               onChange={(e) => {
                 setState({
                   ...state,
-                  discription: e?.target?.value,
+                  description: e?.target?.value,
                 });
               }}
               labelClassName="text-base font-medium mt-5"
               label="توضیحات سفارش"
               placeholder="برای داروخانه توضیح بنویسید"
               rows={5}
-              value={state.discription}
+              value={state.description}
             />
 
             <Input
