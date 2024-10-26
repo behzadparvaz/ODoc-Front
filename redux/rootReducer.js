@@ -5,6 +5,7 @@ import userReducer from './user/userReducer';
 import mapReducer from './map/mapReducer';
 import modalReducer from './modal/modalReducer';
 import notificationReducer from './notification/notificationReducer';
+import requestReducer from './requestDrugs/requestDrugsReducer';
 
 const createNoopStorage = () => {
   return {
@@ -19,12 +20,15 @@ const createNoopStorage = () => {
     },
   };
 };
-const storage = typeof window !== 'undefined' ? createWebStorage('local') : createNoopStorage();
+const storage =
+  typeof window !== 'undefined'
+    ? createWebStorage('local')
+    : createNoopStorage();
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'requestDrugs'],
 };
 
 const rootReducer = combineReducers({
@@ -32,6 +36,7 @@ const rootReducer = combineReducers({
   modals: modalReducer,
   notification: notificationReducer,
   mapInfo: mapReducer,
+  requestDrugs: requestReducer,
 });
 
 export default persistReducer(persistConfig, rootReducer);
