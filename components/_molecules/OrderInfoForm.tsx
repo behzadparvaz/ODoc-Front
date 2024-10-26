@@ -12,11 +12,11 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import { Profile } from '@utilities/interfaces/user';
 import useNotification from '@hooks/useNotification';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { useGetVendors } from '@api/vendor/vendor.rq';
 import Accordion from './Accordion';
 import { useRouter } from 'next/router';
 import { TextInput } from '@com/_atoms/NewTextInput';
+import ActionBar from '@com/Layout/ActionBar';
 interface Props {
   submitForm?: (value) => void;
   userInfo: Profile;
@@ -281,19 +281,17 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         </>
       ) : null}
 
-      <FixBottomSection>
-        <div className="w-full flex justify-end p-4">
-          <Button
-            className="w-full"
-            type="submit"
-            buttonType="contained"
-            size="large"
-            variant="primary"
-          >
-            اضافه به سبد خرید و ادامه
-          </Button>
-        </div>
-      </FixBottomSection>
+      <ActionBar type="singleAction">
+        <Button
+          className="w-full"
+          type="submit"
+          buttonType="contained"
+          size="large"
+          variant="primary"
+        >
+          اضافه به سبد خرید و ادامه
+        </Button>
+      </ActionBar>
     </form>
   );
 };

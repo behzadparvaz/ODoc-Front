@@ -11,6 +11,7 @@ const Profile = () => {
     <MainLayout
       hasBottomNavigation
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
       title={profileText?.passwordSetting}
     >

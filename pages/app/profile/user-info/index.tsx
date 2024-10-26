@@ -8,7 +8,12 @@ const Profile = () => {
   const profileInfo = profileData?.queryResult[0];
 
   return (
-    <MainLayout hasHeader hasBackButton hasBottomGap title="اطلاعات شخصی">
+    <MainLayout
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+      title="اطلاعات شخصی"
+    >
       {profileDataLoding === false && <UserInfoForm data={profileInfo} />}
     </MainLayout>
   );
