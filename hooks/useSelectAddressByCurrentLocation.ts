@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import useModal from './useModal';
+import SelectAddress from '@com/_organisms/SelectAddress';
 
 interface Location {
   lat: number;
@@ -14,6 +16,7 @@ interface Address {
 export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { addModal } = useModal();
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
@@ -65,9 +68,9 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
         ) < 1
       );
       if (!nearestAddress) {
-        if (data.length > 0) {
-          setAddressSelected(data[0])
-        }
+        addModal({
+          modal: SelectAddress,
+        });
       }
       if (nearestAddress) {
         setAddressSelected(nearestAddress || null); // Set to null if no address found

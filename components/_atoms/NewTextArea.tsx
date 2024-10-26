@@ -27,7 +27,7 @@ export interface TextAreaInputProps
   maxLength?: number;
   disabled?: boolean;
   onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onBlur: (event: FocusEvent<HTMLTextAreaElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLTextAreaElement>) => void;
 }
 
 export const TextAreaInput = ({
@@ -62,7 +62,7 @@ export const TextAreaInput = ({
       {label && (
         <label
           className={classNames(
-            'text-sm font-semibold leading-6 flex gap-x-1 items-center',
+            'text-base font-bold leading-6 flex gap-x-1 items-center',
             labelClassName,
             disabled && 'text-grey-400',
           )}
@@ -94,7 +94,7 @@ export const TextAreaInput = ({
           onBlur={onBlur}
           rows={props.rows ? props.rows : 3}
           className={classNames(
-            'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-lg  bg-grey-100 text-base font-normal leading-6 text-black placeholder:text-xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_white] resize-none',
+            'appearance-none w-full py-2 px-4 truncate no-spinner rounded-lg  bg-grey-100 text-base font-normal leading-6 text-black placeholder:text-base placeholder-gray-400 focus:outline-none autofill:shadow-[inset_0_0_0px_1000px_white] resize-none',
             // remove arrows on number input
             '[-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
             isTouched &&

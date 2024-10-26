@@ -1,29 +1,113 @@
 import { useCreateOrderInlineStep1 } from '@api/order/orderApis.rq';
+import { useGetUserLocations } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Input from '@com/_atoms/Input.nd';
-import QuickOrderDetails from '@com/_organisms/QuickOrderDetails';
-import QuickOrderForm from '@com/_organisms/QuickOrderForm';
+import { TextAreaInput } from '@com/_atoms/NewTextArea';
+import SelectAddress from '@com/_organisms/SelectAddress';
 import MainPageLayout from '@com/_template/MainPageLayout';
-import { PlusIconOutline } from '@com/icons';
+import {
+  ChevronLeftIconOutline,
+  ClipboardClockIcon,
+  LocationIconOutline,
+  NewDeleteIcon,
+} from '@com/icons';
+import { colors } from '@configs/Theme';
+import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
+import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
+import {
+  clearDrugsStateAction,
+  removeDrugAction,
+} from '@redux/requestDrugs/requestDrugsActions';
+import { setUserAction } from '@redux/user/userActions';
+import { RootState } from '@utilities/types';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const QuickOrder = () => {
-  const { back } = useRouter();
-  const [formCountState, setFormCountState] = useState<number>(1);
-  const [body, setBody] = useState(null);
-  const [res, setRes] = useState(null);
+  const dispatch = useDispatch();
+  const { back, push } = useRouter();
+  const [loading, setLoading] = useState(true);
+  const [state, setState] = useState({
+    discription: '',
+    nationalCode: '',
+  });
+  const { addModal, removeLastModal } = useModal();
+  const { user } = useSelector((state: RootState) => state.user);
+  const drugs = useSelector((state: any) => state.requestDrugs.drugs);
+
   const { mutate, isLoading } = useCreateOrderInlineStep1();
   const { openNotification } = useNotification();
-  const disabledSubmit =
-    body?.nationalCode?.length !== 10 ||
-    (!body?.orderDetails && body?.orderDetails?.length === 0);
+
+  useEffect(() => {
+    if (user?.defaultAddress) {
+      removeLastModal();
+    } else {
+      addModal({
+        modal: SelectAddress,
+      });
+    }
+  }, [dispatch, user?.defaultAddress]);
+
+  useEffect(() => {
+    if (!loading && (!drugs || drugs.length === 0)) {
+      push('/app/otc-medicine');
+    }
+  }, [drugs, loading, push]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setLoading(false);
+    };
+    fetchData();
+    return () => {
+      setState({
+        discription: '',
+        nationalCode: '',
+      });
+    };
+  }, []);
+
+  const handleDeleteDrug = (drugId) => {
+    dispatch(removeDrugAction(drugId));
+  };
+
+  const handleNationalCodeChange = (e) => {
+    const value = e.target.value;
+
+    // Allow only numeric input
+    if (/^\d*$/.test(value)) {
+      setState({
+        ...state,
+        nationalCode: value,
+      });
+    }
+  };
+
   const handleSendForm = () => {
-    mutate(body, {
+    const serializeData = (drugs: any) => {
+      const body: any = {};
+      const data = drugs.map((item) => {
+        return {
+          drugName: item.drugName,
+          drugCount: item.quantity,
+          drugType: item.drugShape?.id,
+          drugLabel: item.drugShape?.name,
+        };
+      });
+      console.log(data);
+      body.nationalCode = state.nationalCode;
+      body.discription = state.discription;
+      body.orderDetails = data;
+      body.addressId = user?.defaultAddress?.id;
+      return body;
+    };
+    mutate(serializeData(drugs), {
       onSuccess: (data: any) => {
         if (data?.isSuccess) {
-          setRes(data?.data);
+          console.log('success');
         } else {
           openNotification({
             type: 'error',
@@ -34,6 +118,7 @@ const QuickOrder = () => {
       },
     });
   };
+
   return (
     <MainPageLayout
       hasBottomNavigation={false}
@@ -41,60 +126,130 @@ const QuickOrder = () => {
       hasSearchIcon={false}
       hasFooter={false}
       hasAddress={false}
-      title={!res ? 'ثبت درخواست دارو' : 'تأیید و ادامه'}
-      backButtonAction={() => (!res ? back() : setRes(null), setBody(null))}
+      title={'ثبت درخواست دارو'}
+      backButtonAction={() => back()}
     >
-      {!res ? (
-        <>
-          <QuickOrderForm
-            handleChangeForm={(values) => {
-              setBody({ ...body, orderDetails: values });
-            }}
-            className="flex flex-col gap-y-6"
-            formCount={formCountState}
-          />
-          <div className="w-full mt-5 px-4 border-t-8 border-gray-50">
-            <p
-              className="flex gap-x-4 py-4 items-center my-2 text-base"
-              onClick={() => setFormCountState(formCountState + 1)}
+      <>
+        <div>
+          <div className="flex flex-col px-4 cursor-pointer">
+            <div
+              onClick={() => {
+                addModal({
+                  modal: SelectAddress,
+                });
+              }}
+              className="flex justify-between gap-6"
             >
-              <PlusIconOutline width={20} height={20} fill="black" />
-              اضافه کردن داروی جدید
-            </p>
+              <div>
+                <LocationIconOutline
+                  width={36}
+                  height={36}
+                  fill={colors.grey[600]}
+                />
+              </div>
+              <div className="w-full">
+                <h1 className="font-bold text-xl">آدرس</h1>
+                <p className="font-normal text-grey-500">
+                  {user?.defaultAddress?.description
+                    ? user?.defaultAddress?.description
+                    : 'آدرس خود را انتخاب کنید'}
+                </p>
+              </div>
+              <div>
+                <ChevronLeftIconOutline
+                  width={36}
+                  height={36}
+                  fill={colors.grey[400]}
+                />
+              </div>
+            </div>
+            <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
+          </div>
+          <div className="flex flex-col px-4">
+            <h1 className="font-bold text-lg">اقلام درخواست</h1>
+            <div className="mt-5 mb-5">
+              {drugs.length > 0 ? (
+                drugs.map((item, index) => (
+                  <div
+                    className="flex justify-between items-center gap-6"
+                    key={index}
+                  >
+                    <div className="min-w-[32px] min-h-[32px] flex justify-center items-center bg-gray-200 rounded-full">
+                      <ClipboardClockIcon
+                        width={20}
+                        height={20}
+                        fill={colors.grey[600]}
+                      />
+                    </div>
+                    <div className="w-full">
+                      <p className="text-xl font-medium">{item.drugName}</p>
+                      <p className="text-sm font-light text-grey-500">
+                        {item.drugShape?.name}
+                      </p>
+                    </div>
+                    <div
+                      onClick={() => handleDeleteDrug(item.id)}
+                      className="w-[72px] h-[72px] flex justify-center items-center cursor-pointer"
+                    >
+                      <NewDeleteIcon
+                        width={24}
+                        height={24}
+                        fill={colors.red[400]}
+                      />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-gray-500">
+                  هیچ دارویی برای نمایش وجود ندارد.
+                </p>
+              )}
+            </div>
+
+            <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
+          </div>
+
+          <div className="w-full px-4">
+            <TextAreaInput
+              id="description"
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  discription: e?.target?.value,
+                });
+              }}
+              labelClassName="text-base font-medium mt-5"
+              label="توضیحات سفارش"
+              placeholder="برای داروخانه توضیح بنویسید"
+              rows={5}
+              value={state.discription}
+            />
 
             <Input
-              onChange={(e) => {
-                setBody({ ...body, nationalCode: e?.target?.value });
-              }}
-              labelClassName="text-base font-medium"
+              onChange={handleNationalCodeChange}
+              labelClassName="text-base font-medium mt-5"
               label="کد ملی"
               type="text"
               inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
               placeholder="1234567890"
+              value={state.nationalCode}
             />
-
-            <Button
-              buttonType="contained"
-              variant="primary"
-              className="w-full mb-9 mt-24"
-              size="large"
-              disabled={disabledSubmit}
-              type="button"
-              handleClick={() => handleSendForm()}
-              isLoading={isLoading}
-            >
-              تایید و ادامه
-            </Button>
           </div>
-        </>
-      ) : (
-        <QuickOrderDetails
-          handleChangeForm={() => {
-            setRes(null), setBody(null);
-          }}
-          data={res}
-        />
-      )}
+        </div>
+        <div className="px-4">
+          <Button
+            buttonType="contained"
+            variant="primary"
+            className="w-full mb-9 mt-24"
+            size="large"
+            type="button"
+            handleClick={() => handleSendForm()}
+            isLoading={isLoading}
+          >
+            تایید و ادامه
+          </Button>
+        </div>
+      </>
     </MainPageLayout>
   );
 };
