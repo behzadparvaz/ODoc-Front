@@ -1,5 +1,5 @@
 # Use the official Node.js image as the base image
-FROM node:20.14.0-alpine
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
 
 # Set the working directory in the container
 WORKDIR /app
@@ -7,9 +7,10 @@ WORKDIR /app
 # Copy package.json and package-lock.json (or yarn.lock) to install dependencies
 COPY package.json ./
 COPY package-lock.json ./
+COPY .npmrc ./
 
 # Install dependencies
-RUN npm install --force
+RUN npm install --legacy-peer-deps
 
 # Copy the rest of your application code
 COPY . .

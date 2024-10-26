@@ -71,3 +71,16 @@ export const VoucherCodeSchema = Yup.object().shape({
 export const CancelOrderSchema = Yup.object().shape({
   cancelReason: Yup.string().required('لطفا دلیل لفو سفارش خود را وارد نمایید'),
 });
+
+export const RequestDrugSchema = Yup.object().shape({
+  drugs: Yup.array()
+    .of(
+      Yup.object().shape({
+        drugName: Yup.string().required('نام دارو الزامی است'),
+        quantity: Yup.number().required('تعداد دارو الزامی است').nullable(),
+        drugShape: Yup.object().required('نوع دارو الزامی است'),
+      })
+    )
+    .required('حداقل یک دارو باید اضافه شود')
+    .min(1, 'حداقل یک دارو باید اضافه شود'),
+});

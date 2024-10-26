@@ -5,6 +5,7 @@ import {
   mobileModeMaxWidthClassName,
   shouldShowMobileMode,
 } from '@configs/ControlMobileView';
+import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
@@ -17,12 +18,12 @@ const QuickOrderSuccess = () => {
    h-screen flex flex-col justify-center ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
     >
       <div className=" flex justify-center">
-        <span className="bg-yellow-400 inline-block p-3 rounded-full ">
-          <TimerIcon width={32} height={32} fill="#fff" />
+        <span className="bg-blue-100 inline-block p-3 rounded-full ">
+          <TimerIcon width={32} height={32} fill={colors.blue[400]} />
         </span>
       </div>
       <p className="text-lg text-center font-semibold mt-5">
-        درخواست شما با موفقیت ثبت شد
+        درخواست شما ثبت و در انتظار تأیید پزشک است
       </p>
       <p className="text-base text-gray-500 px-6 text-center mt-4">
         سفارش شما در مرحله بررسی پزشک است و در صورت تأیید، توسط داروخانه اعلام
