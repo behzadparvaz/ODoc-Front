@@ -108,7 +108,6 @@ export default function DrugShapesBox({
         const matchedProducts = filteredProducts?.filter(
           (product) => product?.otcLevel === item?.otcLevel3,
         );
-
         return (
           <div
             key={index}
@@ -132,7 +131,7 @@ export default function DrugShapesBox({
                         {matchedProduct?.name}
                       </p>
                       <AddButton
-                        unitName={matchedProduct?.unit}
+                        unitName={item?.unit}
                         count={productBasketQuantity}
                         onChangeCount={(count) =>
                           onChange(count, item?.otcLevel3, matchedProduct?.irc)
