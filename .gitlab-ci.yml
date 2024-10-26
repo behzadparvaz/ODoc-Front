@@ -4,7 +4,8 @@ stages:
 
 variables:
   DOCKER_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor'
-  TAG: '${CI_COMMIT_TAG}' # Use only commit tag
+  TAG: '${CI_COMMIT_TAG}'
+  NODE_ENV: 'staging'
 
 before_script:
   # Login to your Docker registry
@@ -16,7 +17,7 @@ build_image:
     - docker-build
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi # Fail if no tag
-    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 -t $DOCKER_IMAGE:$TAG .
+    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 --build-arg NODE_ENV=$NODE_ENV -t $DOCKER_IMAGE:$TAG .
   only:
     - tags # Run only on tags
 #  when: manual
