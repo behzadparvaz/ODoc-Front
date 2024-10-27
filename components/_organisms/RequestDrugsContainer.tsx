@@ -39,9 +39,8 @@ const RequestDrugsContainer = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (drugs.length > 0) {
-      setFormikValues(drugs);
-    }
+    setFormikValues(drugs.length > 0 ? drugs : initialValues); // Ensure it defaults to initial if empty
+    setLastId(drugs.length > 0 ? Math.max(...drugs.map((drug) => drug.id)) : 0); // Set lastId based on existing drugs
   }, [drugs]);
 
   return (
