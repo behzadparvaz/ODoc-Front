@@ -50,7 +50,6 @@ const RequestDrugsContainer = () => {
       enableReinitialize
       validationSchema={RequestDrugSchema}
       onSubmit={(values) => {
-        console.log(values);
         dispatch(setDrugsStateAction(values.drugs));
         router.push('/app/quick-order');
       }}
