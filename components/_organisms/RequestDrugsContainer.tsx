@@ -1,23 +1,22 @@
-import { useEffect, useState } from 'react';
-import AddNewRequestDrugForm from './AddNewRequestDrugForm';
 import { Button } from '@com/_atoms/NewButton';
 import { NewPlusIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
-import { Formik, Form, Field, FieldArray } from 'formik';
+import { setDrugsStateAction } from '@redux/requestDrugs/requestDrugsActions';
 import { RequestDrugSchema } from '@utilities/validationSchemas';
-import { useDispatch, useSelector } from 'react-redux';
-import {
-  clearDrugsStateAction,
-  setDrugsStateAction,
-} from '@redux/requestDrugs/requestDrugsActions';
+import { FieldArray, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import AddNewRequestDrugForm from './AddNewRequestDrugForm';
+import { v4 as uuidv4 } from 'uuid'; // Import uuidv4
 
 interface DrugShape {
   name: string;
   id: number;
 }
+
 interface DrugForm {
-  id: number;
+  id: string; // Change to string for UUID
   quantity: string;
   drugName: string;
   drugShape: DrugShape | null;
@@ -26,13 +25,13 @@ interface DrugForm {
 const RequestDrugsContainer = () => {
   const initialValues: DrugForm[] = [
     {
-      id: 0,
+      id: uuidv4(), // Use uuidv4 for initial ID
       quantity: '',
       drugName: '',
       drugShape: null,
     },
   ];
-  const [lastId, setLastId] = useState(0);
+
   const drugs = useSelector((state: any) => state.requestDrugs.drugs);
   const [formikValues, setFormikValues] = useState(initialValues);
   const dispatch = useDispatch();
@@ -40,9 +39,7 @@ const RequestDrugsContainer = () => {
 
   useEffect(() => {
     setFormikValues(drugs.length > 0 ? drugs : initialValues); // Ensure it defaults to initial if empty
-    setLastId(drugs.length > 0 ? Math.max(...drugs.map((drug) => drug.id)) : 0); // Set lastId based on existing drugs
   }, [drugs]);
-
   return (
     <Formik
       initialValues={{ drugs: formikValues }}
@@ -50,7 +47,7 @@ const RequestDrugsContainer = () => {
       validationSchema={RequestDrugSchema}
       onSubmit={(values) => {
         dispatch(setDrugsStateAction(values.drugs));
-        router.push('/app/request-drugs');
+        router.push('/app/request-drugs/confirm-request-drugs');
       }}
     >
       {({ values, isValid }) => (
@@ -60,7 +57,7 @@ const RequestDrugsContainer = () => {
               <>
                 {values.drugs.map((item, index) => (
                   <AddNewRequestDrugForm
-                    key={index}
+                    key={item.id} // Use UUID as key
                     index={index}
                     handleDelete={() => remove(index)}
                     data={item}
@@ -81,7 +78,6 @@ const RequestDrugsContainer = () => {
                         : 'cursor-pointer'
                     }`}
                     onClick={() => {
-                      // Check if all previous fields are valid before adding a new one
                       const allFieldsValid = values.drugs.every(
                         (drug) =>
                           drug.drugName &&
@@ -89,10 +85,9 @@ const RequestDrugsContainer = () => {
                           drug.drugShape,
                       );
                       if (allFieldsValid) {
-                        setLastId((prevId) => prevId + 1);
                         push({
-                          id: lastId + 1,
-                          quantity: null,
+                          id: uuidv4(), // Use uuidv4 for new ID
+                          quantity: '',
                           drugName: '',
                           drugShape: null,
                         });

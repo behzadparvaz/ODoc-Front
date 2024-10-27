@@ -6,7 +6,7 @@ interface DrugShape {
   id: number;
 }
 export interface Drug {
-  id: number;
+  id: string;
   quantity: string;
   drugName: string;
   drugShape: DrugShape | null;
