@@ -30,16 +30,6 @@ const ProductPage = () => {
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
 
-  const renderBasketCount = () => {
-    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
-
-    if (!!basketDatat?.products?.length) {
-      return basketDatat?.products?.length + rxCount;
-    }
-
-    return rxCount;
-  };
-
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
@@ -307,26 +297,14 @@ const ProductPage = () => {
 
   return (
     <MainLayout
-      hasBottomGap
       hasHeader
+      headerType="withoutLogo"
       hasBasketIcon
       rightIcon={
-        <CloseIconOutline width={20} height={20} stroke={colors.black} />
+        <span onClick={() => back()} className="cursor-pointer">
+          <CloseIconOutline width={20} height={20} stroke={colors.black} />
+        </span>
       }
-      leftIcon={
-        <div
-          className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
-          onClick={() => push(routeList.basket)}
-        >
-          {(!!basketDatat?.products?.length || basketDatat?.refrenceNumber) && (
-            <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-negative text-base z-10 text-white flex justify-center items-center">
-              {renderBasketCount()}
-            </span>
-          )}
-          <BasketIconOutline width={22} height={22} fill={'#000'} />
-        </div>
-      }
-      handleClickRightIcon={() => back()}
     >
       {renderContent()}
     </MainLayout>

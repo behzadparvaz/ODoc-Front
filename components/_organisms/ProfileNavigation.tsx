@@ -19,7 +19,7 @@ const ProfileNavigation = () => {
 
   if (isLoading) {
     return (
-      <div className="bg-red-100 fixed top-0 lef-0 w-[600px] h-[300px] flex justify-center items-center">
+      <div className="bg-red-100 fixed top-0 lef-0 w-[460px] h-[300px] flex justify-center items-center">
         <Spinner />
       </div>
     );

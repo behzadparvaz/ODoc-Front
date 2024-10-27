@@ -33,7 +33,12 @@ const OrderDetails = () => {
   // const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
 
   return (
-    <MainLayout title="جزئیات سفارش" hasHeader hasBackButton>
+    <MainLayout
+      title="جزئیات سفارش"
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+    >
       {isLoading ? (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
       ) : (

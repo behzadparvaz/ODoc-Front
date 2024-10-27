@@ -13,6 +13,7 @@ import { productListPageTexts } from '@com/texts/productListPageTexts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
+import ActionBar from '@com/Layout/ActionBar';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -65,25 +66,9 @@ export default function ProdictListPage({}: Props) {
     <MainLayout
       title={!searchTerm && categoryName}
       hasHeader
-      hasSerachSection={!!searchTerm}
-      searchSection={<SearchBox />}
+      headerType="withoutLogo"
+      searchSection={!!searchTerm && <SearchBox />}
       hasBackButton
-      hasBottomGap
-      footer={
-        <div className="w-full flex justify-center items-center p-4">
-          <Button
-            className="w-full !rounded-full"
-            size="large"
-            backgroundColor={colors.black}
-            color={colors.white}
-            handleClick={() => {
-              push(routeList.basket);
-            }}
-          >
-            {productListPageTexts?.seeBasket}
-          </Button>
-        </div>
-      }
     >
       {/* <div className="flex items-center justify-between m-4">
         <span className="text-sm font-medium text-grey-900">داروی کمیاب</span>
@@ -129,6 +114,21 @@ export default function ProdictListPage({}: Props) {
           )}
         </div>
       </InfiniteScroll>
+      <ActionBar>
+        <div className="w-full flex justify-center items-center p-4">
+          <Button
+            className="w-full !rounded-full"
+            size="large"
+            backgroundColor={colors.black}
+            color={colors.white}
+            handleClick={() => {
+              push(routeList.basket);
+            }}
+          >
+            {productListPageTexts?.seeBasket}
+          </Button>
+        </div>
+      </ActionBar>
     </MainLayout>
   );
 }
