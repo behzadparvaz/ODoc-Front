@@ -50,7 +50,7 @@ const RequestDrugsContainer = () => {
       validationSchema={RequestDrugSchema}
       onSubmit={(values) => {
         dispatch(setDrugsStateAction(values.drugs));
-        router.push('/app/quick-order');
+        router.push('/app/request-drugs');
       }}
     >
       {({ values, isValid }) => (

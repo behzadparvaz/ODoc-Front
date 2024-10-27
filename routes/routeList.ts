@@ -28,7 +28,7 @@ export const routeList = {
   productPage: '/app/product/',
   newAddress: '/app/profile/addresses/new',
   searchProductPage: '/app/search/product-page',
-  QuickOrder: `${baseUrl}/quick-order`,
-  QuickOrderSuccess: `${baseUrl}/quick-order/success`,
-  QuickOrderDetail: `${baseUrl}/quick-order/detail`,
+  QuickOrder: `${baseUrl}/request-drugs`,
+  QuickOrderSuccess: `${baseUrl}/request-drugs/success`,
+  QuickOrderDetail: `${baseUrl}/request-drugs/detail`,
 };

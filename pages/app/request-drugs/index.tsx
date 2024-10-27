@@ -124,16 +124,12 @@ const QuickOrder = () => {
 
   return (
     <MainLayout
-      hasBottomNavigation={false}
-      hasBasketIcon={false}
-      hasAddress={false}
-      title={'ثبت درخواست دارو'}
+      title="ثبت درخواست دارو"
       hasHeader
       headerType="withoutLogo"
       hasBackButton
-      backIconHandler={() => back()}
     >
-      <div className="flex justify-between flex-col h-full quick-order-container">
+      <div className="flex justify-between flex-col h-full">
         <div className="h-full">
           <div className="flex flex-col px-4 cursor-pointer">
             <div
