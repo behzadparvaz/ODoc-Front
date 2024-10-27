@@ -96,7 +96,6 @@ const VerticalProductCard = ({
       (basketItem) =>
         basketItem?.irc === (productData?.irc || productData?.genericCode),
     )?.quantity ?? 0;
-
   return (
     <div
       className={`w-[157px] h-[198px] shadow-[0_4px_16px_rgba(0,0,0,0.1)]  py-2 px-4 ${className} rounded-lg`}
@@ -134,6 +133,7 @@ const VerticalProductCard = ({
       {hasAddToCart ? (
         <div className="flex justify-end items-center mt-2">
           <AddButton
+            unitName={productData?.unit}
             count={productBasketQuantity}
             onChangeCount={onChange}
             isLoading={isAddingToCart}

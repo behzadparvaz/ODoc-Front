@@ -87,6 +87,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
 
           <div className="">
             {count}
+            {unitName ? <span className="pr-1">{unitName}</span> : null}
             {isLoading && <div className="" />}
           </div>
           {isReadyForRemove && isTooltipVisible && min !== 1 && (
