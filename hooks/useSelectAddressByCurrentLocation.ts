@@ -67,11 +67,6 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
           post.longitude,
         ) < 1
       );
-      if (!nearestAddress) {
-        addModal({
-          modal: SelectAddress,
-        });
-      }
       if (nearestAddress) {
         setAddressSelected(nearestAddress || null); // Set to null if no address found
       }
