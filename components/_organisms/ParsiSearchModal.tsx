@@ -102,10 +102,11 @@ const ParsiSearchModal = ({
     <FullModalContainer>
       <MainLayout
         hasHeader
+        headerType="withoutLogo"
         hasBackButton
-        hasSerachSection
         searchSection={
           <SearchBox
+            autoFocus
             title="جستجوی آدرس"
             defualtValue={searchText}
             handleChange={(value) => handleGetSearchSuggestion(value)}

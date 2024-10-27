@@ -26,6 +26,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   textColor?: string;
   icon?: ReactNode;
   iconPosition?: 'left' | 'right';
+  disabled?: boolean;
 }
 export const Button = ({
   children,
@@ -104,9 +105,9 @@ export const Button = ({
       case 'ghost':
       case 'danger':
       case 'brand':
-        return 'bg-[#F6F6F6] text-[#AFAFAF]';
+        return '!bg-[#F6F6F6] !text-[#AFAFAF]';
       case 'text':
-        return 'text-[#AFAFAF]';
+        return '!text-[#AFAFAF]';
     }
   };
 

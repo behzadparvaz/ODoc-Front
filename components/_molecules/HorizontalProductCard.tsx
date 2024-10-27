@@ -98,6 +98,28 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     }
   };
 
+  const renderLeftSection = () => {
+    if (hasAddToCartButton) {
+      if (isInSearchPage && !prInfo?.isOtc) {
+        return <></>;
+      }
+      return (
+        <AddButton
+          unitName={prInfo.unit}
+          count={productBasketQuantity}
+          onChangeCount={onChange}
+          isLoading={isAddingToCart}
+        />
+      );
+    }
+    return (
+      <div className="flex flex-col items-end">
+        <div className="text-sm">{prInfo.quantity} ورق</div>
+        <div className="text-base">{prInfo.price} تومان</div>
+      </div>
+    );
+  };
+
   return (
     <div className="w-full flex gap-x-6 justify-between items-center">
       <div
@@ -128,24 +150,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         </h2>
       </div>
 
-      {hasAddToCartButton ? (
-        <>
-          {!prInfo?.isOtc ? (
-            <AddButton
-              count={productBasketQuantity}
-              onChangeCount={onChange}
-              isLoading={isAddingToCart}
-            />
-          ) : null}
-        </>
-      ) : hasCompleteAddToCartButton ? (
-        <AddToCartButton />
-      ) : (
-        <div className="flex flex-col items-end">
-          <div className="text-sm">{prInfo.quantity} ورق</div>
-          <div className="text-base">{prInfo.price} تومان</div>
-        </div>
-      )}
+      {renderLeftSection()}
     </div>
   );
 };

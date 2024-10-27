@@ -41,7 +41,7 @@ export const Radio = ({
     <div
       className={classNames(
         'relative w-full flex h-6 items-start justify-start overflow-hidden',
-        (label || subLable) && 'gap-x-2 h-max',
+        (label || subLable) && 'gap-x-[21px] h-max',
         className,
       )}
     >
@@ -54,7 +54,7 @@ export const Radio = ({
         >
           <label
             className={classNames(
-              'text-sm font-semibold text-grey-1000',
+              'text-sm font-semibold text-grey-1000  cursor-pointer',
               labelClassName,
             )}
             htmlFor={id}
@@ -83,7 +83,7 @@ export const Radio = ({
           handleChange(event);
         }}
         className={classNames(
-          'appearance-none w-5 h-5 rounded-full border border-grey-100',
+          'appearance-none w-[22px] h-[22px] rounded-full border border-surface-inverse-primary cursor-pointer',
           inputClassName,
         )}
         {...rest}
@@ -91,7 +91,7 @@ export const Radio = ({
       {checked && (
         <span
           className={classNames(
-            'pointer-events-none absolute right-0 top-0 transition-all flex justify-center items-center z-10 h-5 w-5 rounded-full bg-black',
+            'pointer-events-none absolute right-0 top-0 transition-all flex justify-center items-center z-10 h-[22px] w-[22px] rounded-full bg-black',
             boxClassName,
           )}
         >

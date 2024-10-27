@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Link from 'next/link';
 
 import { useGetProfile } from '@api/user/user.rq';
@@ -51,7 +50,7 @@ const Profile = () => {
             </div>
 
             <div className="flex flex-col gap-y-2 items-start">
-              <span className="text-xl font-semibold">{`${data?.queryResult[0]?.firstName} ${data?.queryResult[0]?.lastName}`}</span>
+              <span className="text-xl font-semibold">{`${data?.queryResult[0]?.firstName ? data?.queryResult[0]?.firstName : ''} ${data?.queryResult[0]?.lastName ? data?.queryResult[0]?.lastName : ''}`}</span>
               <span className="leading-6 text-sm font-normal">
                 {data?.queryResult[0]?.phoneNumber}
               </span>
@@ -112,8 +111,6 @@ const Profile = () => {
               </span>
             </div>
           </div>
-
-          <div className="w-full h-[8px] bg-grey-50" />
 
           <Button
             size="large"

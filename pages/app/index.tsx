@@ -1,17 +1,21 @@
-import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
+import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
 import QuickOrderStatus from '@com/_molecules/QuickOrderStatus';
-import MainPageLayout from '@com/_template/MainPageLayout';
+import { MainLayout } from '@com/Layout';
+import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
+const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 
 const HomePage = () => {
+  const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading } = useGetCarousels();
   const getCarouselDataData = (position: number) => {
@@ -20,6 +24,7 @@ const HomePage = () => {
     )?.[0];
     return carouselData;
   };
+  const dispatch = useDispatch();
 
   const tapsiLinkRef = useRef(null);
   const url =
@@ -35,11 +40,11 @@ const HomePage = () => {
   return (
     <>
       <a href={url} ref={tapsiLinkRef} className="hidden" />
-      <MainPageLayout
-        hasBottomNavigation
-        hasFooter
+      <MainLayout
+        hasHeader
+        headerType="WithLogo"
         hasAddress
-        hasSearchIcon={false}
+        hasBottomNavigation
       >
         <div className="px-4">
           <SearchBox className="px-4 my-2" />
@@ -73,7 +78,13 @@ const HomePage = () => {
           />
         )}
         <CarouselLine data={getCarouselDataData(3)} className="my-4" />
-      </MainPageLayout>
+
+        {!loginWithTapsiSSO && (
+          <div className={`overflow-auto w-full`}>
+            <FooterContent />
+          </div>
+        )}
+      </MainLayout>
     </>
   );
 };

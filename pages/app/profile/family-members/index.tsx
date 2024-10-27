@@ -18,6 +18,7 @@ const FamilyMembers = () => {
   return (
     <MainLayout
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
       title={profileText?.familyMembers}
       hasBottomNavigation

@@ -6,8 +6,8 @@ import { profileText } from '@com/texts/profileText';
 import { userInfoSchema } from '@utilities/validationSchemas';
 import Gender from '@com/_molecules/Gender';
 import { TextInput } from '@com/_atoms/NewTextInput';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
+import ActionBar from '@com/Layout/ActionBar';
 
 interface UserInfoFormProps {
   data?: any;
@@ -111,19 +111,17 @@ const UserInfoForm = ({ data }: UserInfoFormProps) => {
         label="جنسیت"
       />
 
-      <FixBottomSection>
-        <div className="w-full p-4">
-          <Button
-            type="submit"
-            className="w-full"
-            size="large"
-            variant="primary"
-            isLoading={addProfileIsLoading || updateProfileIsLoading}
-          >
-            {data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}
-          </Button>
-        </div>
-      </FixBottomSection>
+      <ActionBar type="singleAction">
+        <Button
+          type="submit"
+          className="w-full"
+          size="large"
+          variant="primary"
+          isLoading={addProfileIsLoading || updateProfileIsLoading}
+        >
+          {data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}
+        </Button>
+      </ActionBar>
     </form>
   );
 };

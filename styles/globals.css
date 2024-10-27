@@ -1,4 +1,4 @@
-@import '../public/fonts/fontyekan.css';
+@import '../public/fonts/Vazirmatn-font-face.css';
 @import './styles.css';
 
 @tailwind base;
@@ -9,7 +9,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Yekan Bakh FaNum';
+  font-family: Vazirmatn, sans-serif;
   background-color: #dadada;
   direction: rtl;
 }
@@ -31,4 +31,5 @@ a {
 
 input {
   outline: none;
+  box-shadow: 0 0 0px 1000px rgb(234 237 237 / var(--tw-bg-opacity)) inset !important;
 }

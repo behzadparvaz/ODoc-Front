@@ -116,6 +116,7 @@ export const TextInput = ({
               handleScrollNumberInput(e);
             }
           }}
+          disabled={disabled}
           className={classNames(
             'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-lg  bg-grey-100 text-base font-normal leading-6 text-black placeholder:text-xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_white]',
             // remove arrows on number input

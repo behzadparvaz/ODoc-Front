@@ -103,12 +103,11 @@ export default function DrugShapesBox({
 
   return (
     <div className="w-full mt-4 border-t-8 border-b-8 border-grey-50 px-4 py-3">
-      <p className='font-semibold'>شکل دارو را انتخاب کنید</p>
+      <p className="font-semibold">شکل دارو را انتخاب کنید</p>
       {drugShapesData?.queryResult?.map((item, index) => {
         const matchedProducts = filteredProducts?.filter(
           (product) => product?.otcLevel === item?.otcLevel3,
         );
-
         return (
           <div
             key={index}
@@ -123,7 +122,6 @@ export default function DrugShapesBox({
                     basketData?.products?.find(
                       (basketItem) => basketItem.irc === matchedProduct?.irc,
                     )?.quantity ?? 0;
-
                   return (
                     <div
                       key={idx}
@@ -133,6 +131,7 @@ export default function DrugShapesBox({
                         {matchedProduct?.name}
                       </p>
                       <AddButton
+                        unitName={item?.unit}
                         count={productBasketQuantity}
                         onChangeCount={(count) =>
                           onChange(count, item?.otcLevel3, matchedProduct?.irc)

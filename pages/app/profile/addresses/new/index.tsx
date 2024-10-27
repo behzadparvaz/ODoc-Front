@@ -102,7 +102,7 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
 
   return (
     <div className="h-svh w-full flex justify-center">
-      <div className="relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[600px] h-svh overflow-hidden ">
+      <div className="relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[460px] h-svh overflow-hidden ">
         <div className="h-[calc(100%-184px)] absolute inset-x-0 ">
           <div
             className="absolute top-2 right-4 h-10 w-10 flex justify-center items-center bg-white rounded-full z-10 shadow-md cursor-pointer"
@@ -145,21 +145,27 @@ const NewAddress = ({ addressId = 0, latitude, longitude }: Props) => {
 
         <FixBottomSection className="bg-white h-[184px]">
           <div className="w-full rounded-t-lg flex flex-col gap-y-10 px-4 py-6">
-            <TextInput
-              rightIcon={
-                <SearchIconOutline width={24} height={24} fill={colors.black} />
-              }
-              placeholder="جستجوی آدرس..."
-              inputClassName="!rounded-full placeholder:text-lg placeholder-gray-500 pr-12"
-              id="search-address"
-              value={searchText}
-              onChange={(e) => {
-                return;
-              }}
-              onClick={handleOpenSearchModal}
-              autoComplete="off"
-            />
-
+            <div className="cursor-pointer" onClick={handleOpenSearchModal}>
+              <TextInput
+                rightIcon={
+                  <SearchIconOutline
+                    width={24}
+                    height={24}
+                    fill={colors.black}
+                  />
+                }
+                placeholder="جستجوی آدرس..."
+                inputClassName="!rounded-full placeholder:text-lg placeholder-gray-500 pr-12"
+                id="search-address"
+                value={searchText}
+                onChange={(e) => {
+                  return;
+                }}
+                onClick={handleOpenSearchModal}
+                autoComplete="off"
+                disabled
+              />
+            </div>
             <Button
               className="w-full"
               size="large"
