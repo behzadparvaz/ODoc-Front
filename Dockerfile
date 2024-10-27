@@ -11,13 +11,16 @@ ARG ENV_FILE
 COPY package.json ./
 COPY package-lock.json ./
 COPY .npmrc ./
-COPY ${ENV_FILE} ./.env
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
 
 # Copy the rest of your application code
 COPY . .
+RUN rm .env*
+COPY ${ENV_FILE} ./.env
+
+
 
 # Build the Next.js application
 RUN npm run build

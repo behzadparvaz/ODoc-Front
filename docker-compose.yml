@@ -2,7 +2,11 @@ version: '3'
 
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        ENV_FILE: .env.staging
     ports:
       - "5000:3000"
     environment:
