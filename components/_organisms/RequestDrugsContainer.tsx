@@ -1,12 +1,15 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddNewRequestDrugForm from './AddNewRequestDrugForm';
 import { Button } from '@com/_atoms/NewButton';
 import { NewPlusIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { Formik, Form, Field, FieldArray } from 'formik';
 import { RequestDrugSchema } from '@utilities/validationSchemas';
-import { useDispatch } from 'react-redux';
-import { setDrugsStateAction } from '@redux/requestDrugs/requestDrugsActions';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  clearDrugsStateAction,
+  setDrugsStateAction,
+} from '@redux/requestDrugs/requestDrugsActions';
 import { useRouter } from 'next/router';
 
 interface DrugShape {
@@ -21,21 +24,30 @@ interface DrugForm {
 }
 
 const RequestDrugsContainer = () => {
-  const dispatch = useDispatch();
-  const router = useRouter();
-  const [lastId, setLastId] = useState(0);
   const initialValues: DrugForm[] = [
     {
-      id: lastId,
+      id: 0,
       quantity: '',
       drugName: '',
       drugShape: null,
     },
   ];
+  const [lastId, setLastId] = useState(0);
+  const drugs = useSelector((state: any) => state.requestDrugs.drugs);
+  const [formikValues, setFormikValues] = useState(initialValues);
+  const dispatch = useDispatch();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (drugs.length > 0) {
+      setFormikValues(drugs);
+    }
+  }, [drugs]);
 
   return (
     <Formik
-      initialValues={{ drugs: initialValues }}
+      initialValues={{ drugs: formikValues }}
+      enableReinitialize
       validationSchema={RequestDrugSchema}
       onSubmit={(values) => {
         console.log(values);

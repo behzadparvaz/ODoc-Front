@@ -11,11 +11,15 @@ import {
 import { MainLayout } from '@com/Layout';
 import { quickOrderText } from '@com/texts/quickOrderText';
 import { colors } from '@configs/Theme';
+import { clearDrugsStateAction } from '@redux/requestDrugs/requestDrugsActions';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 const OtcMedicinePage = () => {
   const { push, query } = useRouter();
+  const dispatch = useDispatch();
 
   const handleBackButton = () => {
     if (query?.categoryNameLevel1 && query?.categoryCodeLevel1) {
@@ -25,6 +29,9 @@ const OtcMedicinePage = () => {
     }
   };
 
+  useEffect(() => {
+    dispatch(clearDrugsStateAction());
+  }, [dispatch]);
   return (
     <MainLayout
       hasHeader
