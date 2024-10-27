@@ -14,6 +14,7 @@ import {
   LocationIconOutline,
   NewDeleteIcon,
 } from '@com/icons';
+import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
@@ -122,17 +123,18 @@ const QuickOrder = () => {
   };
 
   return (
-    <MainPageLayout
+    <MainLayout
       hasBottomNavigation={false}
       hasBasketIcon={false}
-      hasSearchIcon={false}
-      hasFooter={false}
       hasAddress={false}
       title={'ثبت درخواست دارو'}
-      backButtonAction={() => back()}
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+      backIconHandler={() => back()}
     >
-      <>
-        <div>
+      <div className="flex justify-between flex-col h-full quick-order-container">
+        <div className="h-full">
           <div className="flex flex-col px-4 cursor-pointer">
             <div
               onClick={() => {
@@ -210,7 +212,6 @@ const QuickOrder = () => {
 
             <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
           </div>
-
           <div className="w-full px-4">
             <TextAreaInput
               id="description"
@@ -242,7 +243,7 @@ const QuickOrder = () => {
           <Button
             buttonType="contained"
             variant="primary"
-            className="w-full mb-9 mt-24"
+            className="w-full mb-9 mt-9"
             size="large"
             type="button"
             handleClick={() => handleSendForm()}
@@ -251,8 +252,8 @@ const QuickOrder = () => {
             تایید و ادامه
           </Button>
         </div>
-      </>
-    </MainPageLayout>
+      </div>
+    </MainLayout>
   );
 };
 export default QuickOrder;
