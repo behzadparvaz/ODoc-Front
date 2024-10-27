@@ -5,13 +5,13 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
 WORKDIR /app
 
 # Declare build arguments
-ENV ENV_FILE=${ENV_FILE}
+ARG ENV_FILE
 
 # Copy package.json and package-lock.json (or yarn.lock) to install dependencies
 COPY package.json ./
 COPY package-lock.json ./
 COPY .npmrc ./
-COPY $ENV_FILE ./.env
+COPY ${ENV_FILE} ./.env
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
