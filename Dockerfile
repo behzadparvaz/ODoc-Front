@@ -5,7 +5,6 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
 WORKDIR /app
 
 # Declare build arguments
-ARG ENV_FILE .env.production
 ENV ENV_FILE=${ENV_FILE}
 
 # Copy package.json and package-lock.json (or yarn.lock) to install dependencies
