@@ -4,6 +4,7 @@ import Button from '@com/_atoms/Button';
 import QuickOrderItem from '@com/_atoms/QuickOrderItem';
 import MainPageLayout from '@com/_template/MainPageLayout';
 import { WarninglineIcon } from '@com/icons';
+import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
@@ -19,14 +20,14 @@ const QuickOrderDetail = () => {
   const showCancelOrderButton = orderStatus === 1 || orderStatus === 4;
 
   return (
-    <MainPageLayout
-      hasBottomNavigation={false}
-      hasBasketIcon={false}
-      hasSearchIcon={false}
-      hasFooter={false}
-      hasAddress={false}
+    <MainLayout
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+      backIconHandler={() => {
+        push(routeList?.homeRoute);
+      }}
       title={'جزییات درخواست'}
-      backButtonAction={back}
     >
       <div className={`px-4 ${showCancelOrderButton ? 'pb-[68px]' : ''}`}>
         {orderStatus === 3 || orderStatus === 5 ? (
@@ -43,7 +44,10 @@ const QuickOrderDetail = () => {
         {orderData?.orderDetails?.map((item, index) => {
           return <QuickOrderItem data={item} key={index} />;
         })}
-        <AddressBoxTypeTwo addressInfo={orderData?.addressInfo} justForShow={true} />
+        <AddressBoxTypeTwo
+          addressInfo={orderData?.addressInfo}
+          justForShow={true}
+        />
         <div className="border-t border-gray-200 py-4 mt-5 flex flex-col gap-y-11">
           {orderData?.orderDescription && (
             <div className="flex flex-col gap-y-2">
@@ -80,7 +84,7 @@ const QuickOrderDetail = () => {
           </div>
         )}
       </div>
-    </MainPageLayout>
+    </MainLayout>
   );
 };
 export default QuickOrderDetail;
