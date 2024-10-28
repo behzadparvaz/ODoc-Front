@@ -12,7 +12,7 @@ const SearchBox = ({ className = '' }: Props) => {
   return (
     <NextLink href={routeList?.mobileSearch}>
       <a
-        className={`h-[48px] w-full relative bg-grey-100 rounded-full flex gap-x-2 items-center px-3 py-3 text-lg text-grey-500 ${className}`}
+        className={`h-[48px] w-full relative bg-grey-100 rounded-full flex gap-x-2 items-center px-3 py-3 text-base text-grey-500 ${className}`}
       >
         <SearchIconOutline height={24} width={24} fill={colors?.grey?.[600]} />
         <p className="font-medium">{generalTexts?.drugSearch} ...</p>
