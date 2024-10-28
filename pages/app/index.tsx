@@ -1,4 +1,4 @@
-import { useGetCarousels, useGetBanners } from '@api/promotion/promotion.rq';
+import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
 import QuickOrderStatus from '@com/_molecules/QuickOrderStatus';
 import { MainLayout } from '@com/Layout';
@@ -6,6 +6,7 @@ import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -23,6 +24,7 @@ const HomePage = () => {
     )?.[0];
     return carouselData;
   };
+  const dispatch = useDispatch();
 
   const tapsiLinkRef = useRef(null);
   const url =

@@ -18,6 +18,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
   const dispatch = useDispatch();
+
   useEffect(() => {
     if (!defaultAddress) {
       if (addressSelected) {
@@ -32,6 +33,9 @@ const AddressBox = ({ data, className = '' }: Props) => {
             defaultAddress: null,
           }),
         );
+        addModal({
+          modal: SelectAddress,
+        });
       }
     }
   }, [dispatch, addressSelected]);

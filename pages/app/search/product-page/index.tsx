@@ -126,6 +126,7 @@ const ProductPage = () => {
         <>
           <div className="w-1/2">
             <AddButton
+              unitName={data.unit}
               count={
                 basketFilteredProducts?.find(
                   (item) => item?.irc === selectedItem?.irc,

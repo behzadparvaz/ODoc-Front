@@ -19,6 +19,7 @@ type ProductInBasket = {
   categoryCodeLevel3: string;
   categoryCode: string;
   isOtc: boolean;
+  unit: string
 };
 
 interface Basket {

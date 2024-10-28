@@ -39,7 +39,11 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
         <span className="p-1 rounded-full border border-orange-600">
           <Shop />
         </span>
-        <h3>{vendorData?.vendorName}</h3>
+        <h3>
+          {vendorData.isShowName
+            ? vendorData?.vendorName
+            : vendorData.secondaryName}
+        </h3>
       </div>
 
       <div className="px-4 py-2 flex justify-between items-center">
