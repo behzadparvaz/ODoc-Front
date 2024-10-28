@@ -8,6 +8,7 @@ type IconType = {
   className?: string;
   children?: ReactNode;
   onClick?: () => void;
+  gradient?: boolean;
 };
 
 export const HelmetIconOutline = ({ width, height, fill }: IconType) => {
@@ -3332,22 +3333,61 @@ export const BikerOutlineIcon = ({
   </svg>
 );
 
-export const BikerFillIcon = ({ width = 24, height = 24, fill = '#000' }) => (
-  <svg
-    width={width}
-    height={height}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="M2.00256 16C2.00256 9.37258 7.37515 4 14.0026 4C18.4208 4 22.0026 7.58172 22.0026 12C22.0026 16.4183 18.4208 20 14.0026 20H4.00256C2.89799 20 2.00256 19.1046 2.00256 18V16ZM10.5469 13.7129L4.46021 13.0004C5.05141 11.1178 6.18434 9.47511 7.6763 8.255L11.4558 9.43189C12.3743 9.71791 13 10.5681 13 11.5301C13 12.8451 11.8529 13.8657 10.5469 13.7129Z"
-      fill={fill}
-    />
-  </svg>
-);
+export const BikerFillIcon = ({
+  width = 24,
+  height = 24,
+  fill = '#000',
+  gradient = false,
+}: IconType) => {
+  if (gradient) {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M2.00256 16C2.00256 9.37258 7.37515 4 14.0026 4C18.4208 4 22.0026 7.58172 22.0026 12C22.0026 16.4183 18.4208 20 14.0026 20H4.00256C2.89799 20 2.00256 19.1046 2.00256 18V16ZM10.5469 13.7129L4.46021 13.0004C5.05141 11.1178 6.18434 9.47511 7.6763 8.255L11.4558 9.43189C12.3743 9.71791 13 10.5681 13 11.5301C13 12.8451 11.8529 13.8657 10.5469 13.7129Z"
+          fill="url(#paint0_linear_1404_24174)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1404_24174"
+            x1="2.00256"
+            y1="4"
+            x2="22.4684"
+            y2="4.61989"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF7733" />
+            <stop offset="0.50153" stop-color="#FF5722" />
+            <stop offset="1" stop-color="#E64917" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M2.00256 16C2.00256 9.37258 7.37515 4 14.0026 4C18.4208 4 22.0026 7.58172 22.0026 12C22.0026 16.4183 18.4208 20 14.0026 20H4.00256C2.89799 20 2.00256 19.1046 2.00256 18V16ZM10.5469 13.7129L4.46021 13.0004C5.05141 11.1178 6.18434 9.47511 7.6763 8.255L11.4558 9.43189C12.3743 9.71791 13 10.5681 13 11.5301C13 12.8451 11.8529 13.8657 10.5469 13.7129Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 
 export const HomeFillIcon = ({ width = 24, height = 24, fill = '#747575' }) => (
   <svg
@@ -3589,22 +3629,58 @@ export const TimerFillIcon = ({
   height = 24,
   fill = 'black',
   className = '',
-}: IconType) => (
-  <svg
-    width={width}
-    height={height}
-    viewBox="0 0 24 24"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
-      d="M18.364 5.63604C14.8492 2.12132 9.15076 2.12132 5.63604 5.63604C2.12132 9.15076 2.12132 14.8492 5.63604 18.364C9.15076 21.8787 14.8492 21.8787 18.364 18.364C21.8787 14.8492 21.8787 9.15076 18.364 5.63604ZM12.9 11.5183V7.5H11.1V12.4817L14.9496 15.0481L15.9481 13.5504L12.9 11.5183Z"
-      fill={fill}
-    />
-  </svg>
-);
+  gradient = false,
+}: IconType) => {
+  if (gradient) {
+    return (
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M18.364 5.63604C14.8492 2.12132 9.15076 2.12132 5.63604 5.63604C2.12132 9.15076 2.12132 14.8492 5.63604 18.364C9.15076 21.8787 14.8492 21.8787 18.364 18.364C21.8787 14.8492 21.8787 9.15076 18.364 5.63604ZM12.9 11.5183V7.5H11.1V12.4817L14.9496 15.0481L15.9481 13.5504L12.9 11.5183Z"
+          fill="url(#paint0_linear_1404_24109)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1404_24109"
+            x1="3"
+            y1="3"
+            x2="21.4253"
+            y2="3.44647"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF7733" />
+            <stop offset="0.50153" stop-color="#FF5722" />
+            <stop offset="1" stop-color="#E64917" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M18.364 5.63604C14.8492 2.12132 9.15076 2.12132 5.63604 5.63604C2.12132 9.15076 2.12132 14.8492 5.63604 18.364C9.15076 21.8787 14.8492 21.8787 18.364 18.364C21.8787 14.8492 21.8787 9.15076 18.364 5.63604ZM12.9 11.5183V7.5H11.1V12.4817L14.9496 15.0481L15.9481 13.5504L12.9 11.5183Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 
 export const FailIcon = ({
   width = 32,
@@ -4102,9 +4178,59 @@ export const DebitCardOutlineIcon = ({
 export const DebitCardFillIcon = ({
   width = 24,
   height = 24,
-  fill = 'black',
+  fill,
   className,
+  gradient,
 }: IconType) => {
+  if (gradient) {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className={className}
+      >
+        <path
+          d="M20 4C21.0544 4 21.9182 4.81588 21.9945 5.85074L22 6V9H2V6C2 4.94564 2.81588 4.08183 3.85074 4.00549L4 4H20Z"
+          fill="url(#paint0_linear_1404_24133)"
+        />
+        <path
+          fill-rule="evenodd"
+          clip-rule="evenodd"
+          d="M2 11H22V18C22 19.0544 21.1841 19.9182 20.1493 19.9945L20 20H4C2.94564 20 2.08183 19.1841 2.00549 18.1493L2 18V11ZM10.0166 14H5.99512V16H10.0166V14Z"
+          fill="url(#paint1_linear_1404_24133)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1404_24133"
+            x1="2"
+            y1="4"
+            x2="22.4658"
+            y2="4.61989"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF7733" />
+            <stop offset="0.50153" stop-color="#FF5722" />
+            <stop offset="1" stop-color="#E64917" />
+          </linearGradient>
+          <linearGradient
+            id="paint1_linear_1404_24133"
+            x1="2"
+            y1="4"
+            x2="22.4658"
+            y2="4.61989"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF7733" />
+            <stop offset="0.50153" stop-color="#FF5722" />
+            <stop offset="1" stop-color="#E64917" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
   return (
     <svg
       width={width}
@@ -4112,6 +4238,7 @@ export const DebitCardFillIcon = ({
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      className={className}
     >
       <path
         d="M20 4C21.0544 4 21.9182 4.81588 21.9945 5.85074L22 6V9H2V6C2 4.94564 2.81588 4.08183 3.85074 4.00549L4 4H20Z"
@@ -4154,7 +4281,38 @@ export const StoreFillIcon = ({
   height = 24,
   fill = 'black',
   className,
+  gradient = false,
 }: IconType) => {
+  if (gradient) {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M20.958 11.05V19C20.958 19.55 20.763 20.0208 20.3732 20.4125C19.9834 20.8042 19.5147 21 18.9673 21H5.0327C4.48527 21 4.01664 20.8042 3.6268 20.4125C3.23697 20.0208 3.04205 19.55 3.04205 19V11.05C2.66051 10.7 2.36605 10.25 2.15869 9.7C1.95133 9.15 1.94719 8.55 2.14625 7.9L3.19135 4.5C3.32406 4.06667 3.56045 3.70833 3.90052 3.425C4.24059 3.14167 4.63457 3 5.08247 3H18.9175C19.3654 3 19.7553 3.1375 20.087 3.4125C20.4188 3.6875 20.6594 4.05 20.8087 4.5L21.8537 7.9C22.0528 8.55 22.0487 9.14167 21.8413 9.675C21.6339 10.2083 21.3395 10.6667 20.958 11.05ZM14.1897 10C14.6376 10 14.9777 9.84583 15.2099 9.5375C15.4422 9.22917 15.5334 8.88333 15.4836 8.5L14.9362 5H12.9953V8.7C12.9953 9.05 13.1115 9.35417 13.3437 9.6125C13.5759 9.87083 13.8579 10 14.1897 10ZM9.71075 10C10.0923 10 10.4033 9.87083 10.6439 9.6125C10.8844 9.35417 11.0047 9.05 11.0047 8.7V5H9.06378L8.51635 8.5C8.45 8.9 8.53709 9.25 8.77763 9.55C9.01816 9.85 9.3292 10 9.71075 10ZM5.28154 10C5.58013 10 5.84141 9.89167 6.06536 9.675C6.28931 9.45833 6.42616 9.18333 6.47593 8.85L7.02336 5H5.08247L4.08714 8.35C3.98761 8.68333 4.04152 9.04167 4.24888 9.425C4.45624 9.80833 4.80046 10 5.28154 10ZM18.7185 10C19.1995 10 19.5479 9.80833 19.7636 9.425C19.9792 9.04167 20.029 8.68333 19.9129 8.35L18.8678 5H16.9766L17.5241 8.85C17.5738 9.18333 17.7107 9.45833 17.9346 9.675C18.1586 9.89167 18.4199 10 18.7185 10Z"
+          fill="url(#paint0_linear_1404_24154)"
+        />
+        <defs>
+          <linearGradient
+            id="paint0_linear_1404_24154"
+            x1="2"
+            y1="3"
+            x2="22.4698"
+            y2="3.55112"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop stop-color="#FF7733" />
+            <stop offset="0.50153" stop-color="#FF5722" />
+            <stop offset="1" stop-color="#E64917" />
+          </linearGradient>
+        </defs>
+      </svg>
+    );
+  }
   return (
     <svg
       width={width}

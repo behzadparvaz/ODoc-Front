@@ -133,12 +133,12 @@ export default function ParsiMapBottomSheet({
           موقعیت‌یابی خودکار
         </Button>
         <div
-          className={`fixed inset-x-0 px-6 bottom-6 truncate z-10 ${
+          className={`fixed inset-x-0 px-6 bottom-6 truncate z-10 flex justify-center ${
             shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
           } `}
         >
           <Button
-            className="w-full"
+            className="w-full max-w-[428px]"
             size="large"
             variant="primary"
             color={colors.grey[50]}
