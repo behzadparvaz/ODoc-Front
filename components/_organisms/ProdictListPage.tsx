@@ -97,7 +97,18 @@ export default function ProdictListPage({}: Props) {
           {items?.length ? (
             <div className="flex flex-wrap mb-5">
               {items?.map((product, index) => (
-                <div className="w-1/2 min-h-[264px]" key={index}>
+                <div
+                  onClick={() => {
+                    console.log(product);
+                    if (isInSearchPage) {
+                      push(
+                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}`,
+                      );
+                    }
+                  }}
+                  className="w-1/2 min-h-[264px]"
+                  key={index}
+                >
                   <VerticalProductCard
                     productData={{
                       ...product,
