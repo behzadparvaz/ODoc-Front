@@ -17,7 +17,8 @@ const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomePage = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
   const { data: bannerData } = useGetBanners();
-  const { data: carouselsData, isLoading } = useGetCarousels();
+  const { data: carouselsData, isLoading: carouselIsLoading } =
+    useGetCarousels();
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
       (item) => item?.sectionPosition === position,
@@ -67,15 +68,28 @@ const HomePage = () => {
             data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
           />
         )}
-        <CarouselLine data={getCarouselDataData(1)} twoRow className="my-4" />
-        <CarouselLine data={getCarouselDataData(2)} className="my-4" />
+        <CarouselLine
+          data={getCarouselDataData(1)}
+          twoRow
+          className="my-4"
+          carouselIsLoading={carouselIsLoading}
+        />
+        <CarouselLine
+          data={getCarouselDataData(2)}
+          className="my-4"
+          carouselIsLoading={carouselIsLoading}
+        />
         {bannerData?.queryResult && (
           <Banner
             className="px-4 py-6 !bg-background-gradient.white-to-gray"
             data={[bannerData?.queryResult?.[2]]}
           />
         )}
-        <CarouselLine data={getCarouselDataData(3)} className="my-4" />
+        <CarouselLine
+          data={getCarouselDataData(3)}
+          className="my-4"
+          carouselIsLoading={carouselIsLoading}
+        />
         {!loginWithTapsiSSO && (
           <div className={`overflow-auto w-full`}>
             <FooterContent />

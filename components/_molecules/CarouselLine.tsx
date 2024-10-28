@@ -9,14 +9,25 @@ import { colors } from '@configs/Theme';
 import { Button } from '@com/_atoms/NewButton';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
+const VerticalProductCardShimmer = dynamic(
+  () => import('@com/_atoms/verticalProductCardShimmer'),
+);
 
 interface Props {
   className?: string;
   data: any;
   twoRow?: boolean;
+  carouselIsLoading?: boolean;
 }
 
-const CarouselLine = ({ className = '', twoRow, data }: Props) => {
+const shimerData = [1, 2, 3, 4, 5, 6];
+
+const CarouselLine = ({
+  className = '',
+  twoRow,
+  data,
+  carouselIsLoading,
+}: Props) => {
   const { push } = useRouter();
   return (
     <div className="px-4">
@@ -75,20 +86,35 @@ const CarouselLine = ({ className = '', twoRow, data }: Props) => {
               : 'flex items-center',
           )}
         >
-          {data?.products?.map((item, index) => {
-            return (
-              <VerticalProductCard
-                hasAddToCart
-                productData={item}
-                className={
-                  twoRow
-                    ? 'w-[128px] h-[204px] !p-2'
-                    : 'w-[180px] h-[212px] border-l border-border-primary'
-                }
-                key={index}
-              />
-            );
-          })}
+          <>
+            {carouselIsLoading &&
+              !data?.products &&
+              shimerData.map((item) => (
+                <VerticalProductCardShimmer
+                  key={item}
+                  className={
+                    twoRow
+                      ? 'w-[120px]'
+                      : '!w-[180px] items-center border-l border-border-primary'
+                  }
+                />
+              ))}
+
+            {data?.products?.map((item, index) => {
+              return (
+                <VerticalProductCard
+                  hasAddToCart
+                  productData={item}
+                  className={
+                    twoRow
+                      ? 'w-[128px] h-[204px] !p-2'
+                      : 'w-[180px] h-[212px] border-l border-border-primary'
+                  }
+                  key={index}
+                />
+              );
+            })}
+          </>
 
           <div
             onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
