@@ -23,7 +23,7 @@ type ProductCounterProps = {
   unitName: string;
 };
 
-const ProductCounter: React.FC<ProductCounterProps> = ({
+const BasketAddButton: React.FC<ProductCounterProps> = ({
   itemQuantity,
   inventoryStatus,
   isLoading,
@@ -73,9 +73,9 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           </Button>
         </div>
       ) : (
-        <div className="flex items-center justify-center bg-white rounded-full shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)]">
+        <div className="flex gap-3 items-center justify-center">
           <button
-            className="min-w-8 min-h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
             disabled={max <= count || isLoading}
             onClick={(e) => {
               e.stopPropagation();
@@ -85,7 +85,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             <PlusIconOutline width={20} height={20} fill={'black'} />
           </button>
 
-          <div className="min-w-8 text-center">
+          <div className="">
             {count}
             {unitName ? <span className="pr-1">{unitName}</span> : null}
             {isLoading && <div className="" />}
@@ -99,7 +99,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           )}
 
           <button
-            className="min-w-8 min-h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold"
+            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
             disabled={isLoading}
             onClick={(e) => {
               e.stopPropagation();
@@ -114,4 +114,4 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   );
 };
 
-export default React.memo(ProductCounter);
+export default React.memo(BasketAddButton);

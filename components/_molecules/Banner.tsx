@@ -6,18 +6,19 @@ import SectionTitle from './SectionTitle.nd';
 interface Props {
   className?: string;
   data: any;
-  style?: CSSProperties;
+  isShownTitle?: boolean;
 }
-const Banner = ({ className = '', data, style = {} }: Props) => {
+const Banner = ({ className = '', data, isShownTitle }: Props) => {
   const bannerData = data[0];
   return (
-    <div style={style} className={`w-full ${className}`}>
-      <SectionTitle
-        className="py-3"
-        title={'پیشنهادهای شگفت انگیز'}
-        titleClassName="text-base font-semibold text-black"
-      />
-
+    <div className={`w-full ${className}`}>
+      {isShownTitle && (
+        <SectionTitle
+          className="py-3"
+          title={'پیشنهادهای شگفت انگیز'}
+          titleClassName="text-base font-semibold text-black"
+        />
+      )}
       <div className="!aspect-w-23 !aspect-h-9">
         <NextImage
           src={bannerData?.icon}
