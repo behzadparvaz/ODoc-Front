@@ -25,7 +25,7 @@ const TenderShipmentDetail = ({
     <div className="w-full h-[120px] bg-white p-4 py-2 rounded-lg flex flex-col gap-y-3 shadow-md">
       <div className="flex items-center justify-between">
         <span className="text-base font-medium leading-7">
-          {vendor?.vendorName}
+          {vendor.isShowName ? vendor?.vendorName : vendor.secondaryName}
         </span>
         <span className="w-16 h-6 rounded-full flex justify-center items-center bg-orange-50 text-sm font-normal text-orange-400 leading-6 gap-x-2">
           {/* {'vendor?.rate'} */}
