@@ -1,5 +1,6 @@
 import NextImage from '@com/_core/NextImage';
 import NextLink from '@com/_core/NextLink';
+import classNames from 'classnames';
 
 interface Props {
   name: string;
@@ -40,16 +41,14 @@ const CategoryItem = ({
                 }
               : null
         }
-        className={`block py-1.5 rounded-lg ${className}`}
+        className={classNames(
+          'block py-1.5 rounded-lg',
+          isSoon &&
+            "after:content-[''] after:w-[calc(100%-16px)] after:h-full after:inline-block after:absolute after:top-0 after:left-2 after:rounded-lg after:bg-gray-50 after:opacity-50 cursor-default",
+          isSoon && !isHomePage && 'after:!w-full after:!left-0',
+          className,
+        )}
       >
-        {isSoon ? (
-          <span
-            style={{ backgroundColor: '#276EF1' }}
-            className={`text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-3 ${isHomePage && '-left-1'}`}
-          >
-            به زودی
-          </span>
-        ) : null}
         <div
           className={`flex bg-grey-50 rounded-xl ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`}
         >

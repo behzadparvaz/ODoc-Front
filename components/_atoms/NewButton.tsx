@@ -130,6 +130,7 @@ export const Button = ({
         <LoadingSpinner color={renderLoadingColor()} />
       ) : (
         <>
+          {!children && icon && icon}
           {children && (
             <>
               {icon && (

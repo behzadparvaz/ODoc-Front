@@ -73,7 +73,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
 
   if (isHomePage) {
     return (
-      <div className="flex flex-wrap gap-y-4 w-full">
+      <div className="flex flex-wrap gap-y-4 w-full py-2">
         {categoryMockData?.map((item: ICategory, index) => {
           return (
             <div
@@ -90,6 +90,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
                 imgWidth={item?.imageWidth}
                 imageUrl={item?.image}
                 name={item?.title}
+                isHomePage={isHomePage}
               />
             </div>
           );

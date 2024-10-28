@@ -46,13 +46,14 @@ const HomePage = () => {
         hasAddress
         hasBottomNavigation
       >
-        <div className="px-4">
-          <SearchBox className="px-4 my-2" />
+        <div className="px-4 py-2">
+          <SearchBox className="px-4" />
         </div>
+
         <QuickOrderStatus />
-        <div className="my-4 px-2">
-          <Categories isHomePage />
-        </div>
+
+        <Categories isHomePage />
+
         {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
           <h2 className="text-lg font-bold">سفارشهای جاری</h2>
           <a href="#" className="text-blue-500">
@@ -66,19 +67,15 @@ const HomePage = () => {
             data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
           />
         )}
-        <CarouselLine data={getCarouselDataData(1)} className="my-4" />
+        <CarouselLine data={getCarouselDataData(1)} twoRow className="my-4" />
         <CarouselLine data={getCarouselDataData(2)} className="my-4" />
         {bannerData?.queryResult && (
           <Banner
-            style={{
-              background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F7F7 100%)',
-            }}
-            className="px-4 py-6"
+            className="px-4 py-6 !bg-background-gradient.white-to-gray"
             data={[bannerData?.queryResult?.[2]]}
           />
         )}
         <CarouselLine data={getCarouselDataData(3)} className="my-4" />
-
         {!loginWithTapsiSSO && (
           <div className={`overflow-auto w-full`}>
             <FooterContent />
