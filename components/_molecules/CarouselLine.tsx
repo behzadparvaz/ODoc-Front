@@ -70,21 +70,23 @@ const CarouselLine = ({ className = '', twoRow, data }: Props) => {
 
         <ScrollSlider
           className={classNames(
-            'px-4 py-2',
             twoRow
-              ? 'grid grid-rows-2 grid-flow-col gap-2'
+              ? 'px-4 py-2 grid grid-rows-2 grid-flow-col'
               : 'flex items-center',
           )}
         >
           {data?.products?.map((item, index) => {
             return (
-              <div key={index} className={classNames('')}>
-                <VerticalProductCard
-                  hasAddToCart
-                  productData={item}
-                  key={index}
-                />
-              </div>
+              <VerticalProductCard
+                hasAddToCart
+                productData={item}
+                className={
+                  twoRow
+                    ? 'w-[128px] h-[204px] !p-2'
+                    : 'w-[180px] h-[212px] border-l border-border-primary'
+                }
+                key={index}
+              />
             );
           })}
 

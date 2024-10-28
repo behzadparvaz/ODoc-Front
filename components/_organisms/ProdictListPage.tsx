@@ -14,7 +14,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import ActionBar from '@com/Layout/ActionBar';
-import ProductCard from '../_molecules/ProductCard';
+import VerticalProductCard from '../_molecules/VerticalProductCard';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -69,6 +69,7 @@ export default function ProdictListPage({}: Props) {
       headerType="withoutLogo"
       searchSection={!!searchTerm && <SearchBox />}
       hasBackButton
+      hasBasketIcon
     >
       {/* <div className="flex items-center justify-between m-4">
         <span className="text-sm font-medium text-grey-900">داروی کمیاب</span>
@@ -77,22 +78,7 @@ export default function ProdictListPage({}: Props) {
         <div className="relative w-11 h-6 bg-grey-300 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-grey-600"></div>
         </label>
         </div> */}
-      <div className="flex">
-        {items.length && (
-          <>
-            <ProductCard
-              title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-              imageUrl={items?.[0]?.imageLink}
-              type="withBorder"
-            />
-            <ProductCard
-              title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-              imageUrl={items?.[0]?.imageLink}
-              type="withBorder"
-            />
-          </>
-        )}
-      </div>
+
       <InfiniteScroll
         scrollableTarget="orderListScrollParent"
         style={{ overflow: 'hidden' }}
@@ -101,41 +87,51 @@ export default function ProdictListPage({}: Props) {
         }}
         hasMore={plpData?.hasNextPage}
         loader={
-          <div className="flex items-center justify-center h-16">
+          <div className="flex flex-wrap items-center justify-center h-16">
             {/* در حال بارگذاری... */}
           </div>
         }
         dataLength={items?.length}
       >
-        <div className="flex">
+        <>
           {items?.length ? (
-            items?.map((product, index) => (
-              <>
-                {/* <HorizontalProductCard
-                  key={index}
-                  prInfo={{
-                    ...product,
-                    quantity:
-                      basket?.productsById?.[Number(product.irc)]?.quantity ??
-                      0,
+            <div className="flex flex-wrap mb-5">
+              {items?.map((product, index) => (
+                <div
+                  onClick={() => {
+                    console.log(product);
+                    if (isInSearchPage) {
+                      push(
+                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}`,
+                      );
+                    }
                   }}
-                  hasAddToCartButton
-                  onSuccessChanged={refetchGetBasket}
-                /> */}
-                <ProductCard
-                  title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-                  imageUrl={items?.[0]?.imageLink}
-                  type="withBorder"
-                />
-              </>
-            ))
+                  className="w-1/2 min-h-[264px]"
+                  key={index}
+                >
+                  <VerticalProductCard
+                    productData={{
+                      ...product,
+                      quantity:
+                        basket?.productsById?.[Number(product.irc)]?.quantity ??
+                        0,
+                    }}
+                    hasAddToCart
+                    onSuccessChanged={refetchGetBasket}
+                    className="border"
+                  />
+                </div>
+              ))}
+            </div>
           ) : (
-            <EmptyContent
-              imgSrc="/static/images/staticImages/search-empty-content.png"
-              title={mobileSearchTexts?.noSearchResult}
-            />
+            <div className="flex justify-center items-center">
+              <EmptyContent
+                imgSrc="/static/images/staticImages/search-empty-content.png"
+                title={mobileSearchTexts?.noSearchResult}
+              />
+            </div>
           )}
-        </div>
+        </>
       </InfiniteScroll>
       <ActionBar>
         <div className="w-full flex justify-center items-center p-4">
