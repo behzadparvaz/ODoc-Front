@@ -17,6 +17,7 @@ import { BasketIconOutline, CloseIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
+import ActionBar from '@com/Layout/ActionBar';
 
 type ProductDetailDosesModel = { dose: string; irc: string };
 
@@ -26,6 +27,7 @@ const ProductPage = () => {
   const { data, isLoading } = useGetProductsFromSearch({
     brandName: query?.brandName as string,
     categoryCodeLevel3: query?.categoryCodeLevel3 as string,
+    irc: query?.irc as string,
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
@@ -175,9 +177,7 @@ const ProductPage = () => {
       }
 
       return (
-        <>
-          <div className="px-4 h-[1px] bg-border-primary" />
-
+        <div className="overflow-auto pb-[84px]">
           <div className="flex flex-col p-4 gap-y-4">
             <div className="flex justify-center items-center rounded-xl overflow-hidden">
               <NextImage
@@ -283,15 +283,7 @@ const ProductPage = () => {
               </span>
             </div>
           )}
-
-          {selectedItem && data?.isOtc && (
-            <FixBottomSection>
-              <div className="flex justify-between items-center w-full px-4 py-4">
-                {rendeBottomSection()}
-              </div>
-            </FixBottomSection>
-          )}
-        </>
+        </div>
       );
     }
   };
@@ -308,6 +300,13 @@ const ProductPage = () => {
       }
     >
       {renderContent()}
+      {selectedItem && data?.isOtc && (
+        <ActionBar type="singleAction" hasDivider>
+          <div className="flex justify-between items-center w-full px-4 py-4">
+            {rendeBottomSection()}
+          </div>
+        </ActionBar>
+      )}
     </MainLayout>
   );
 };

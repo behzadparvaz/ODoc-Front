@@ -12,10 +12,12 @@ import {
   TimerFillIcon,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
+import { bool, boolean } from 'yup';
 
 type Steps = {
   id: number;
   icon?: ReactNode;
+  passedIcon?: ReactNode;
   activeIcon?: ReactNode;
 };
 
@@ -23,30 +25,35 @@ const steps: Steps[] = [
   {
     id: 1,
     icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
-    activeIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
+    passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <TimerFillIcon width={24} height={24} gradient />,
   },
   {
     id: 2,
     icon: (
       <DebitCardOutlineIcon width={24} height={24} fill={colors.gray[400]} />
     ),
-    activeIcon: (
+    passedIcon: (
       <DebitCardFillIcon width={24} height={24} fill={colors.black} />
     ),
+    activeIcon: <DebitCardFillIcon width={24} height={24} gradient />,
   },
   {
     id: 3,
     icon: <StoreOutlineIcon width={24} height={24} fill={colors.gray[400]} />,
-    activeIcon: <StoreFillIcon width={24} height={24} fill={colors.black} />,
+    passedIcon: <StoreFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <StoreFillIcon width={24} height={24} gradient />,
   },
   {
     id: 4,
     icon: <BikerOutlineIcon fill={colors.gray[400]} />,
-    activeIcon: <BikerFillIcon width={24} height={24} fill={colors.black} />,
+    passedIcon: <BikerFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <BikerFillIcon width={24} height={24} gradient />,
   },
   {
     id: 5,
     icon: <CheckBoxIcon width={24} height={24} fill={colors.grey[400]} />,
+    passedIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
   },
 ];
@@ -54,6 +61,16 @@ const steps: Steps[] = [
 type OrderHistoryProgressProps = { activeStepId: number };
 
 const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
+  const renderIcon = (index) => {
+    if (activeStepId > index) {
+      return steps[index].passedIcon;
+    } else if (activeStepId === index) {
+      return steps[index].activeIcon;
+    } else {
+      return steps[index].icon;
+    }
+  };
+
   return (
     <div className="h-[32px] grid grid-cols-[2fr_repeat(3,3fr)_2fr] w-full items-center">
       {steps.map((item, index) => (
@@ -71,14 +88,15 @@ const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
             key={item.id}
             className="w-full flex justify-center items-center px-2"
           >
-            {activeStepId >= index ? item?.activeIcon : item?.icon}
+            {renderIcon(index)}
           </div>
 
           {index !== steps?.length - 1 && (
             <div
               className={classNames(
                 'w-full h-2 bg-surface-tertiary',
-                activeStepId >= index && '!bg-surface-inverse-primary',
+                activeStepId > index && '!bg-surface-inverse-primary',
+                activeStepId === index && '!bg-surface-Gradient.brand',
               )}
             />
           )}

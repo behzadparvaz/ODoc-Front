@@ -1,16 +1,21 @@
 import moment from 'jalali-moment';
 
-export const persianDate = (date: string) => {
+type PersianDateProps = {
+  date: string;
+  isShownTime?: boolean;
+};
+
+export const persianDate = ({ date, isShownTime }: PersianDateProps) => {
   const persianMonths = {
     Farvardin: 'فروردین',
     Ordibehesht: 'اردیبهشت',
-    Khordad: 'خرداد',
+    Khordaad: 'خرداد',
     Tir: 'تیر',
-    Mordad: 'مرداد',
+    Amordaad: 'مرداد',
     Shahrivar: 'شهریور',
     Mehr: 'مهر',
-    Aban: 'آبان',
-    Azar: 'آذر',
+    Aabaan: 'آبان',
+    Aazar: 'آذر',
     Dey: 'دی',
     Bahman: 'بهمن',
     Esfand: 'اسفند',
@@ -26,20 +31,34 @@ export const persianDate = (date: string) => {
     Saturday: 'شنبه',
   };
 
-  const jalaliDate = moment(date, 'MM/DD/YYYY h:mm:ss A').format(
-    'dddd jD jMMMM jYYYY',
-  );
-
-  const resultArray = jalaliDate.split(' ');
-  const persianDay = persianDays[resultArray[0]];
-  const persianMonth = persianMonths[resultArray[2]];
-
   const toPersianNumber = (str) => {
     const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
     return str.replace(/\d/g, (digit) => persianDigits[digit]);
   };
+  const timeDate = moment(date, 'MM/DD/YYYY h:mm:ss A').locale('fa');
+  const jalaliDate = moment(date, 'MM/DD/YYYY h:mm:ss A').format(
+    'dddd jD jMMMM jYYYY',
+  );
 
-  const persianFinalDate = `${persianDay} ${toPersianNumber(resultArray[1])} ${persianMonth} ${toPersianNumber(resultArray[3])}`;
+  const today = moment().startOf('day');
+  const inputDate = moment(date, 'MM/DD/YYYY h:mm:ss A').startOf('day');
+  const diffDays = today.diff(inputDate, 'days');
 
-  return persianFinalDate;
+  const time = toPersianNumber(timeDate.format('HH:mm'));
+
+  if (diffDays === 0) {
+    return `امروز ${isShownTime ? '- ساعت ' + time : ''}`;
+  } else if (diffDays === 1) {
+    return `دیروز ${isShownTime ? '- ساعت ' + time : ''}`;
+  } else if (diffDays < 7) {
+    const resultArray = jalaliDate.split(' ');
+    const persianDay = persianDays[resultArray[0]];
+    const persianMonth = persianMonths[resultArray[2]];
+    return `${persianDay} ${toPersianNumber(resultArray[1])} ${persianMonth} ${isShownTime ? '- ساعت ' + time : ''}`;
+  } else {
+    const resultArray = jalaliDate.split(' ');
+    const persianDay = persianDays[resultArray[0]];
+    const persianMonth = persianMonths[resultArray[2]];
+    return `${persianDay} ${toPersianNumber(resultArray[1])} ${persianMonth} ${toPersianNumber(resultArray[3])} ${isShownTime ? '- ساعت ' + time : ''}`;
+  }
 };
