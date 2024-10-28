@@ -15,9 +15,12 @@ interface IProps {
   discountPrice?: number;
   type?: 'withBorder' | 'withoutBorder';
   onClick?: () => void;
+  hasAddToCart?: boolean;
+  productInfo?: any;
+  onSuccessChanged?: () => void;
 }
 
-const ProductCard = ({
+const VerticalProductCard = ({
   title = 'نامشخص',
   imageUrl = '/static/images/staticImages/product-card-image.png',
   price,
@@ -26,6 +29,8 @@ const ProductCard = ({
   discountPrice,
   type = 'withoutBorder',
   onClick,
+  hasAddToCart = false,
+  productInfo = {},
 }: IProps) => {
   const RenderCard = useMemo(() => {
     if (type === 'withBorder') {
@@ -38,22 +43,14 @@ const ProductCard = ({
           isDiscount={isDiscount}
           discountPrice={discountPrice}
           onClick={onClick}
+          hasAddToCart={hasAddToCart}
+          productInfo={productInfo}
         />
       );
     }
-    return (
-      <ProductCardWithoutBorder
-        title={title}
-        imageUrl={imageUrl}
-        price={price}
-        discountPercentage={discountPercentage}
-        isDiscount={isDiscount}
-        discountPrice={discountPrice}
-      />
-    );
   }, []);
 
   return RenderCard;
 };
 
-export default ProductCard;
+export default VerticalProductCard;

@@ -10,11 +10,12 @@ const ProductCardWithBorder = ({
   isDiscount = false,
   discountPrice,
   onClick,
-  Product = {},
+  productInfo = {},
+  hasAddToCart = false,
 }) => {
   return (
-    <div onClick={onClick} className="w-full flex justify-center border">
-      <div className="flex flex-col justify-start min-w-[180px] gap-1 px-4 py-2 bg-white">
+    <div onClick={onClick} className="flex justify-center border h-full">
+      <div className="flex flex-col justify-start max-w-[180px] gap-1 px-4 py-2 bg-white">
         <div className="w-full flex justify-center items-center">
           <div className="flex justify-center items-center relative">
             <NextImage
@@ -23,14 +24,16 @@ const ProductCardWithBorder = ({
               width={148}
               height={148}
             />
-            <CounterControl
-              count={1}
-              min={0}
-              max={10}
-              onChange={() => console.log('up')}
-              unitName="عدد"
-              className="bottom-3 right-[8px] absolute"
-            />
+            {hasAddToCart && (
+              <CounterControl
+                count={1}
+                min={0}
+                max={10}
+                onChange={() => console.log('up')}
+                unitName="عدد"
+                className="bottom-3 right-[8px] absolute"
+              />
+            )}
           </div>
         </div>
         <div className="flex flex-col items-center justify-center">

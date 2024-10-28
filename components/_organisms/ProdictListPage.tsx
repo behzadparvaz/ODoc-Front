@@ -77,22 +77,7 @@ export default function ProdictListPage({}: Props) {
         <div className="relative w-11 h-6 bg-grey-300 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-grey-600"></div>
         </label>
         </div> */}
-      <div className="flex">
-        {items.length && (
-          <>
-            <ProductCard
-              title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-              imageUrl={items?.[0]?.imageLink}
-              type="withBorder"
-            />
-            <ProductCard
-              title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-              imageUrl={items?.[0]?.imageLink}
-              type="withBorder"
-            />
-          </>
-        )}
-      </div>
+
       <InfiniteScroll
         scrollableTarget="orderListScrollParent"
         style={{ overflow: 'hidden' }}
@@ -101,13 +86,13 @@ export default function ProdictListPage({}: Props) {
         }}
         hasMore={plpData?.hasNextPage}
         loader={
-          <div className="flex items-center justify-center h-16">
+          <div className="flex flex-wrap items-center justify-center h-16">
             {/* در حال بارگذاری... */}
           </div>
         }
         dataLength={items?.length}
       >
-        <div className="flex">
+        <div className="flex flex-wrap">
           {items?.length ? (
             items?.map((product, index) => (
               <>
@@ -122,11 +107,21 @@ export default function ProdictListPage({}: Props) {
                   hasAddToCartButton
                   onSuccessChanged={refetchGetBasket}
                 /> */}
-                <ProductCard
-                  title="فاموتیدین / کلسیم کربنات / منیزیم هیدروکساید"
-                  imageUrl={items?.[0]?.imageLink}
-                  type="withBorder"
-                />
+                <div className="w-1/2 min-h-[264px]" key={index}>
+                  <ProductCard
+                    title={product.productName}
+                    imageUrl={product.imageLink}
+                    type="withBorder"
+                    hasAddToCart
+                    productInfo={{
+                      ...product,
+                      quantity:
+                        basket?.productsById?.[Number(product.irc)]?.quantity ??
+                        0,
+                    }}
+                    onSuccessChanged={refetchGetBasket}
+                  />
+                </div>
               </>
             ))
           ) : (
