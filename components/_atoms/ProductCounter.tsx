@@ -65,7 +65,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   }, [isReadyForRemove]);
 
   return (
-    <>
+    <div className="w-auto" onClick={(e) => e.stopPropagation()}>
       {inventoryStatus?.state === inventoryState.FINISHED ? (
         <div className="">
           <Button buttonType="outlined" size="small" disabled>
@@ -110,7 +110,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 
