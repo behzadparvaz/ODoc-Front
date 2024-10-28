@@ -92,12 +92,9 @@ const VerticalProductCard = ({
 
   return (
     <div
-      className={classNames(
-        `flex flex-col items-center h-full p-4 mb-5`,
-        className,
-      )}
+      className={classNames(`flex flex-col items-center h-full p-4`, className)}
     >
-      <div className="flex justify-center mb-2 relative">
+      <div className="flex justify-center relative">
         <NextImage
           src={productData?.imageLink}
           alt="تصویر محصول"
@@ -116,11 +113,11 @@ const VerticalProductCard = ({
         )}
       </div>
 
-      <h2 className="text-sm font-medium text-right">
+      <span className="text-sm font-medium text-right">
         {productData?.productName}
-      </h2>
+      </span>
 
-      <div className="flex flex-col items-center justify-center mt-2">
+      <div className="flex flex-col items-center justify-center">
         <div className="flex items-center justify-between w-full">
           <span className="text-lg font-medium">
             {productData?.discountPrice ? (
