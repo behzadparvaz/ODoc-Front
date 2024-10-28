@@ -113,30 +113,9 @@ const VerticalProductCard = ({
         )}
       </div>
 
-      <span className="text-sm font-medium text-right">
+      <span className="text-sm font-medium text-right h-full">
         {productData?.productName}
       </span>
-
-      <div className="flex flex-col items-center justify-center">
-        <div className="flex items-center justify-between w-full">
-          <span className="text-lg font-medium">
-            {productData?.discountPrice ? (
-              <span className="line-through text-grey-400">
-                {productData.discountPrice.toLocaleString('fa-IR')} تومان
-              </span>
-            ) : null}
-            {/* <span className="text-lg font-medium flex items-center gap-1">
-              {productData.price.toLocaleString('fa-IR')} تومان
-            </span> */}
-          </span>
-
-          {/* {productData.discountPercent && (
-            <span className="bg-surface-positive text-white rounded-full px-2 py-1 text-sm">
-              {productData.discountPercent}%
-            </span>
-          )} */}
-        </div>
-      </div>
     </div>
   );
 };
