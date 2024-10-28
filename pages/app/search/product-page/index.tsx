@@ -27,6 +27,7 @@ const ProductPage = () => {
   const { data, isLoading } = useGetProductsFromSearch({
     brandName: query?.brandName as string,
     categoryCodeLevel3: query?.categoryCodeLevel3 as string,
+    irc: query?.irc as string,
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();

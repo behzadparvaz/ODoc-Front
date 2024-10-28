@@ -15,7 +15,6 @@ import classNames from 'classnames';
 type ProductCardProps<PrT> = {
   prInfo: PrT;
   hasAddToCartButton?: boolean;
-  hasCompleteAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
   isInSearchPage?: boolean;
   otcLevel3?: string;
@@ -24,7 +23,6 @@ type ProductCardProps<PrT> = {
 const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   prInfo,
   hasAddToCartButton,
-  hasCompleteAddToCartButton,
   onSuccessChanged,
   isInSearchPage,
   otcLevel3,
@@ -130,7 +128,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         onClick={() => {
           if (isInSearchPage) {
             push(
-              `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}`,
+              `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}&irc=${prInfo?.irc}`,
             );
           }
         }}

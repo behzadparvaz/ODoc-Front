@@ -47,13 +47,15 @@ export const useGetFilteredProductsByShapes = (
 export const useGetProductsFromSearch = ({
   brandName,
   categoryCodeLevel3,
+  irc,
 }: {
   brandName: string;
   categoryCodeLevel3: string;
+  irc: string;
 }) => {
   const { data, isLoading } = useQuery(
-    ['GetProductsFromSearch', brandName, categoryCodeLevel3],
-    () => GetProductsFromSearch({ brandName, categoryCodeLevel3 }),
+    ['GetProductsFromSearch', brandName, categoryCodeLevel3, irc],
+    () => GetProductsFromSearch({ brandName, categoryCodeLevel3, irc }),
     { enabled: !!brandName && !!categoryCodeLevel3 },
   );
 
