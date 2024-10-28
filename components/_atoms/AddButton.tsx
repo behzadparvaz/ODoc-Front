@@ -12,7 +12,7 @@ interface AddButtonProps {
   max?: number;
   min?: number;
   unitName?: string;
-  type?: 'basket' | 'card';
+  variant?: 'withOutBgWhite' | 'withBgWhite';
 }
 
 const AddButton: React.FC<AddButtonProps> = ({
@@ -22,14 +22,14 @@ const AddButton: React.FC<AddButtonProps> = ({
   min = 1,
   max = 100,
   unitName = '',
-  type = 'card',
+  variant = 'withBgWhite',
 }) => {
   const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
   return (
     <div>
       {count > 0 ? (
         <>
-          {type === 'card' && (
+          {variant === 'withBgWhite' && (
             <ProductCounter
               min={min}
               max={max}
@@ -41,7 +41,7 @@ const AddButton: React.FC<AddButtonProps> = ({
               setTooltipVisible={setTooltipVisible}
             />
           )}
-          {type === 'basket' && (
+          {variant === 'withOutBgWhite' && (
             <BasketAddButton
               min={min}
               max={max}

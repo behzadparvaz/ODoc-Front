@@ -99,14 +99,17 @@ export default function ProdictListPage({}: Props) {
               {items?.map((product, index) => (
                 <div
                   onClick={() => {
-                    console.log(product);
-                    if (isInSearchPage) {
+                    if (
+                      product?.brandName &&
+                      product?.categoryCodeLevel3 &&
+                      product.genericCode
+                    ) {
                       push(
-                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}`,
+                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}&irc=${product?.genericCode}`,
                       );
                     }
                   }}
-                  className="w-1/2 min-h-[264px]"
+                  className="w-1/2 min-h-[264px] cursor-pointer"
                   key={index}
                 >
                   <VerticalProductCard
@@ -118,7 +121,10 @@ export default function ProdictListPage({}: Props) {
                     }}
                     hasAddToCart
                     onSuccessChanged={refetchGetBasket}
-                    className="border"
+                    className={`
+                      ${index % 2 === 0 ? 'border-l border-t' : 'border-t'} 
+                      ${index >= items.length - 2 ? 'border-b' : ''}
+                    `}
                   />
                 </div>
               ))}
