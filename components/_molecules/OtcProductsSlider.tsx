@@ -155,7 +155,7 @@ const OtcProductsSlider = ({
   };
 
   return (
-    <ScrollSlider className="h-full pt-2 pb-4 px-3 gap-x-4">
+    <ScrollSlider className="h-full pt-2 pb-4 gap-x-4">
       {renderProducts()}
     </ScrollSlider>
   );
