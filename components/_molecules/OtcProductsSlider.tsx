@@ -105,6 +105,7 @@ const OtcProductsSlider = ({
                   hasAddToCart={true}
                   productData={item}
                   key={index}
+                  className="w-[180px] h-[212px] border-l border border-primary"
                 />
               );
             },
@@ -133,6 +134,7 @@ const OtcProductsSlider = ({
               hasAddToCart={true}
               productData={item}
               key={index}
+              className="w-[180px] h-[212px] border-l border-primary"
             />
           );
         })}

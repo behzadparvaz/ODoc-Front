@@ -103,7 +103,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       }
       return (
         <AddButton
-          type="basket"
+          variant="withOutBgWhite"
           unitName={prInfo.unit}
           count={productBasketQuantity}
           onChangeCount={onChange}

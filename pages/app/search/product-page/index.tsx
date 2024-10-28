@@ -23,7 +23,7 @@ type ProductDetailDosesModel = { dose: string; irc: string };
 
 const ProductPage = () => {
   const { query, push, back } = useRouter();
-
+  console.log(query);
   const { data, isLoading } = useGetProductsFromSearch({
     brandName: query?.brandName as string,
     categoryCodeLevel3: query?.categoryCodeLevel3 as string,
@@ -135,6 +135,7 @@ const ProductPage = () => {
               }
               onChangeCount={handleChangeCount}
               isLoading={isAddingToCart}
+              variant="withOutBgWhite"
             />
           </div>
 
@@ -225,7 +226,7 @@ const ProductPage = () => {
 
           <div className="h-2 bg-surface-secondary" />
 
-          <div className="w-full h-[42px] flex items-center justify-center items-center">
+          <div className="w-full h-[42px] flex items-center justify-center">
             <span
               className={classNames(
                 'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',

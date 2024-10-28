@@ -40,5 +40,6 @@ export const GetProductsFromSearch = async ({
     params: {
       brandName,
       categoryCodeLevel3,
+      irc
     },
   });
