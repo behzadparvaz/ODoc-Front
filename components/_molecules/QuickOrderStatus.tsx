@@ -9,13 +9,11 @@ import {
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 
-const QuickOrderStatus = () => {
-  const { data, isLoading } = useGetActiveOrderStatus();
-  const orderStatus = data?.data;
-  const status = orderStatus?.statusId
-    ? orderStatus?.statusId
-    : orderStatus?.statusName;
-
+type QuickOrderStatusProps = {
+  data: any;
+  status?: number;
+};
+const QuickOrderStatus = ({ data, status }: QuickOrderStatusProps) => {
   const handleReturnInfo: any = () => {
     switch (status) {
       case 1:
@@ -27,7 +25,7 @@ const QuickOrderStatus = () => {
             </span>
           ),
           link: null,
-          CTAText: `زمان انتظار حداکثر ${orderStatus?.waitingTimeInMin} دقیقه`,
+          CTAText: `زمان انتظار حداکثر ${data?.waitingTimeInMin} دقیقه`,
         };
       case 2:
         return {
@@ -37,7 +35,7 @@ const QuickOrderStatus = () => {
               <TickIcon width={20} height={20} stroke={colors.green[500]} />
             </span>
           ),
-          link: `${routeList?.QuickOrderDetail}/${orderStatus?.orderUuid}`,
+          link: `${routeList?.QuickOrderDetail}/${data?.orderUuid}`,
           CTAText: 'مشاهده جزییات درخواست',
         };
       case 3:
@@ -48,7 +46,7 @@ const QuickOrderStatus = () => {
               <WarninglineIcon width={20} height={20} fill={colors.red[500]} />
             </span>
           ),
-          link: `${routeList?.QuickOrderDetail}/${orderStatus?.orderUuid}`,
+          link: `${routeList?.QuickOrderDetail}/${data?.orderUuid}`,
           CTAText: 'مشاهده جزییات درخواست',
         };
       case 4:
@@ -78,30 +76,20 @@ const QuickOrderStatus = () => {
               />
             </span>
           ),
-          link: `${routeList?.QuickOrderDetail}/${orderStatus?.orderUuid}`,
+          link: `${routeList?.QuickOrderDetail}/${data?.orderUuid}`,
           CTAText: 'مشاهده جزییات درخواست',
         };
     }
   };
+
   return (
-    <>
-      {orderStatus && status <= 5 ? (
-        <div
-        style={{
-          background: 'linear-gradient(180deg, #FFFFFF 0%, #F5F7F7 100%)',
-        }}
-        className="p-4"
-      >
-          <QuickOrderStatusItem
-            subTitle={orderStatus?.description}
-            title={handleReturnInfo()?.title}
-            icon={handleReturnInfo()?.icon}
-            CTAText={handleReturnInfo()?.CTAText}
-            link={handleReturnInfo()?.link}
-          />
-        </div>
-      ) : null}
-    </>
+    <QuickOrderStatusItem
+      subTitle={data?.description}
+      title={handleReturnInfo()?.title}
+      icon={handleReturnInfo()?.icon}
+      CTAText={handleReturnInfo()?.CTAText}
+      link={handleReturnInfo()?.link}
+    />
   );
 };
 export default QuickOrderStatus;

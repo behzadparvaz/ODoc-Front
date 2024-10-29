@@ -79,3 +79,7 @@ export const getDeliveryCode = async (orderCode: string) => {
 export const DeleteOrderDetail = async (id) => {
   return await request.delete(`/Orderline/DeleteOrderDetail/${id}`);
 };
+
+export const getCurrentOrder = async () => {
+  return await request.get(`/Order/CurrentOrder`);
+};
