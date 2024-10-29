@@ -28,6 +28,8 @@ type VerticalProductCardProps<PrT> = {
   className?: string;
   hasAddToCart?: boolean;
   onSuccessChanged?: () => void;
+  imageWidth?: string;
+  imageHeight?: string;
 };
 
 const VerticalProductCard = ({
@@ -35,6 +37,8 @@ const VerticalProductCard = ({
   className = '',
   hasAddToCart = false,
   onSuccessChanged,
+  imageWidth = '148px',
+  imageHeight = '112px',
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
     select: (res: any) => ({
@@ -45,7 +49,7 @@ const VerticalProductCard = ({
     }),
     enabled: true,
   });
-
+  console.log(productData.irc);
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
@@ -64,14 +68,14 @@ const VerticalProductCard = ({
   const onDeleteProduct = () =>
     popProductOfCart({
       type: 'IRC',
-      irc: productData?.genericCode,
+      irc: productData.irc || productData?.genericCode,
     });
 
   const onChangeCount = (count) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
-      irc: productData?.genericCode,
+      irc: productData?.irc || productData?.genericCode,
       quantity: count,
       categoryCode: productData?.categoryCode,
     });
@@ -98,8 +102,8 @@ const VerticalProductCard = ({
         <NextImage
           src={productData?.imageLink}
           alt="تصویر محصول"
-          width={148}
-          height={148}
+          width={imageWidth}
+          height={imageHeight}
         />
         {hasAddToCart && (
           <div

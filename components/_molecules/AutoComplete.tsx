@@ -28,8 +28,10 @@ const AutoComplete = <OpT extends OptionItem>({
   const inputRef = useRef(null);
   const listRef = useRef(null);
   const { activeElement } = useActiveElement();
+  const [isOpen, setIsOpen] = useState(false);
 
   const focused = useMemo(() => {
+    setIsOpen(true);
     return (
       activeElement &&
       (activeElement === inputRef.current || activeElement === listRef.current)
@@ -39,6 +41,7 @@ const AutoComplete = <OpT extends OptionItem>({
   const onClickItem = (item: OpT) => {
     onSelect?.(item);
     setText(getOptionLabel?.(item) ?? item.description);
+    setIsOpen(false);
     listRef.current.blur();
   };
 
@@ -48,11 +51,12 @@ const AutoComplete = <OpT extends OptionItem>({
         <Input
           {...inputProps}
           className={classNames(
-            'shadow-md shadow-grey-100 border-grey-100 bg-white px-3',
-            focused && suggestions.length > 0
+            'shadow-md shadow-grey-100 border-grey-100 bg-white',
+            isOpen && focused && suggestions.length > 0
               ? 'rounded-t-lg border-b'
               : 'rounded-lg',
           )}
+          inputClassName="px-3 !shadow-none"
           dir={'rtl'}
           value={text}
           ref={inputRef}
@@ -63,7 +67,7 @@ const AutoComplete = <OpT extends OptionItem>({
             });
           }}
         />
-        {focused && suggestions.length > 0 && (
+        {isOpen && focused && suggestions.length > 0 && (
           <button
             dir="rtl"
             id="suggestions_list"

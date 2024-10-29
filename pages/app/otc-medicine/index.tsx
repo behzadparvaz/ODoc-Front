@@ -53,9 +53,11 @@ const OtcMedicinePage = () => {
         <Categories />
         <div className="px-4">
           <NextLink href={routeList?.QuickOrder}>
-            <a className="px-4 flex bg-gray-50 justify-between items-center rounded-xl py-6 text-lg">
-              <ListWithTimer width={20} height={20} fill={colors?.black} />
-              {quickOrderText?.quickOrderHelp}
+            <a className="px-4 flex bg-gray-50 justify-between  items-center rounded-xl py-4 text-lg">
+              <div className="flex items-center gap-4">
+                <ListWithTimer width={20} height={20} fill={colors?.black} />
+                {quickOrderText?.quickOrderHelp}
+              </div>
               <ChevronLeftIconOutline
                 width={20}
                 height={20}

@@ -99,6 +99,7 @@ export default function ParsiMapBottomSheet({
           inputProps={{
             placeholder: 'آدرس خود را وارد کنید',
             dir: 'rtl',
+            className: 'shadow-none',
           }}
           onSelect={onClickAddress}
           onChange={(event) => setSearchTxt(event.target.value)}

@@ -109,7 +109,7 @@ export default function ProdictListPage({}: Props) {
                       );
                     }
                   }}
-                  className="w-1/2 min-h-[264px] cursor-pointer"
+                  className="w-1/2 cursor-pointer"
                   key={index}
                 >
                   <VerticalProductCard

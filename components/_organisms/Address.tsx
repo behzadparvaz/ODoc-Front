@@ -63,7 +63,9 @@ const Address = ({ buttonTitle }: AddressProps) => {
         size="large"
         onClick={onClickOpenModal}
       >
-        {buttonTitle ? buttonTitle : `انتخاب آدرس`}
+        <span className="whitespace-nowrap">
+          {buttonTitle ? buttonTitle : `انتخاب آدرس`}
+        </span>
       </Button>
     </div>
   );
