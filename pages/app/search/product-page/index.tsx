@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
@@ -23,7 +23,7 @@ type ProductDetailDosesModel = { dose: string; irc: string };
 
 const ProductPage = () => {
   const { query, push, back } = useRouter();
-  console.log(query);
+
   const { data, isLoading } = useGetProductsFromSearch({
     brandName: query?.brandName as string,
     categoryCodeLevel3: query?.categoryCodeLevel3 as string,
@@ -49,11 +49,11 @@ const ProductPage = () => {
   const adverseEffectsRef = useRef(null);
 
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedItem, setSelectedItem] = useState<ProductDetailDosesModel>();
 
   const basketFilteredProducts = basketDatat?.products?.filter((item) =>
     data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
+  const [selectedItem, setSelectedItem] = useState<ProductDetailDosesModel>();
 
   // const scrollToSection = (sectionRef) => {
   //   window.scrollTo({
@@ -116,6 +116,10 @@ const ProductPage = () => {
   const handleSelectDose = (item) => {
     setSelectedItem(item);
   };
+
+  useEffect(() => {
+    setSelectedItem(data?.drugDoses?.[0]);
+  }, [data]);
 
   const rendeBottomSection = () => {
     const selectedDoseCount = basketFilteredProducts?.find(
@@ -301,7 +305,7 @@ const ProductPage = () => {
       }
     >
       {renderContent()}
-      {selectedItem && data?.isOtc && (
+      {data?.isOtc && (
         <ActionBar type="singleAction" hasDivider>
           <div className="flex justify-between items-center w-full px-4 py-4">
             {rendeBottomSection()}

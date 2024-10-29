@@ -51,9 +51,9 @@
   }
 }
 
-@media (min-width: 600px) {
+@media (min-width: 460px) {
   .Toastify__toast-container {
-    width: 600px !important;
+    width: 460px !important;
   }
 }
 
