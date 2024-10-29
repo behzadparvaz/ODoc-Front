@@ -5,9 +5,14 @@ import { useCancelOrder } from '@api/order/orderApis.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { Radio } from '@com/_atoms/Radio';
-import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import useModal from '@hooks/useModal';
 import { CancelOrderSchema } from '@utilities/validationSchemas';
+import {
+  FullModalAnimations,
+  FullModalContainer,
+} from '@com/modal/containers/fullMobileContainer';
+import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
 
 const apayCancelReasons = [
   'هزینه ارسال زیاد است',
@@ -82,85 +87,87 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
     }
   };
 
-  const renderModalHeight = () => {
-    switch (step) {
-      case 'draft':
-        return 300;
-      case 'apay':
-        return 600;
-    }
-  };
-
   return (
-    <BottomModalContainer height={renderModalHeight()}>
-      <div className="relative w-full flex flex-col gap-y-4 bg-surface-primary">
-        <span className="text-content-tertiary text-sm font-medium pt-4 px-4">
-          دلیل لغو سفارش خود انتخاب کنید.
-        </span>
+    <FullModalContainer animation={FullModalAnimations.none}>
+      <MainLayout
+        hasHeader
+        headerType="withoutLogo"
+        title="لغو سفارش"
+        hasBackButton
+        backIconHandler={removeLastModal}
+      >
+        <div className="h-full w-full flex flex-col gap-y-4 bg-surface-primary overflow-y-scroll pb-[84px]">
+          <span className="text-content-tertiary text-sm font-medium pt-4 px-4">
+            دلیل لغو سفارش خود انتخاب کنید.
+          </span>
 
-        <div className="flex flex-col text-content-primary text-base font-normal	overflow-y-scroll gap-y-2 px-[21px]">
-          {renderReasonList().map((item, index) => (
-            <div key={index} className="h-[52px] flex flex-col">
-              <div className="h-[51.5px] flex items-center">
-                <Radio
-                  id={item}
-                  label={item}
-                  checked={
-                    (item === 'سایر دلایل' && isShownInput) ||
-                    formik.values.cancelReason === item
-                  }
-                  handleChange={() => {
-                    if (item === 'سایر دلایل') {
-                      setIsShownInput(true);
-                      formik?.setFieldValue('cancelReason', '');
-                    } else {
-                      setIsShownInput(false);
-                      formik?.setFieldValue('cancelReason', item);
+          <div className="flex flex-col text-content-primary text-base font-normal gap-y-2 px-[21px]">
+            {renderReasonList().map((item, index) => (
+              <div key={index} className="h-[52px] flex flex-col">
+                <div className="h-[51.5px] flex items-center">
+                  <Radio
+                    id={item}
+                    label={item}
+                    checked={
+                      (item === 'سایر دلایل' && isShownInput) ||
+                      formik.values.cancelReason === item
                     }
-                  }}
-                />
-              </div>
+                    handleChange={() => {
+                      if (item === 'سایر دلایل') {
+                        setIsShownInput(true);
+                        formik?.setFieldValue('cancelReason', '');
+                      } else {
+                        setIsShownInput(false);
+                        formik?.setFieldValue('cancelReason', item);
+                      }
+                    }}
+                  />
+                </div>
 
-              {renderReasonList().length - 1 !== index && (
-                <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-              )}
-            </div>
-          ))}
+                {renderReasonList().length - 1 !== index && (
+                  <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {isShownInput && (
+            <TextAreaInput
+              placeholder={'توضیحات خود را برای لغو سفارش بنویسید'}
+              id="cancelReason"
+              name="cancelReason"
+              className="px-4"
+              value={formik.values.cancelReason}
+              onChange={(e) => handleChangeForm('cancelReason', e)}
+              onBlur={formik.handleBlur}
+              isTouched={
+                formik.touched.cancelReason &&
+                Boolean(formik.errors.cancelReason)
+              }
+              inputClassName="h-[102px] w-full text-wrap"
+              errorMessage={formik.errors.cancelReason as string}
+              maxLength={150}
+            />
+          )}
         </div>
 
-        {isShownInput && (
-          <TextAreaInput
-            placeholder={'توضیحات خود را برای لغو سفارش بنویسید'}
-            id="cancelReason"
-            name="cancelReason"
-            className="px-4"
-            value={formik.values.cancelReason}
-            onChange={(e) => handleChangeForm('cancelReason', e)}
-            onBlur={formik.handleBlur}
-            isTouched={
-              formik.touched.cancelReason && Boolean(formik.errors.cancelReason)
-            }
-            inputClassName="h-[102px] w-full text-wrap"
-            errorMessage={formik.errors.cancelReason as string}
-            maxLength={150}
-          />
-        )}
-      </div>
-
-      <div className="bg-surface-primary w-full flex justify-center items-center p-4">
-        <Button
-          type="submit"
-          variant="primary"
-          size="large"
-          className="w-full"
-          onClick={formik.handleSubmit}
-          isLoading={isLoadingCancelOrder}
-          disabled={!formik.values.cancelReason}
-        >
-          لغو سفارش
-        </Button>
-      </div>
-    </BottomModalContainer>
+        <ActionBar type="singleAction" className="bg-white z-20">
+          <div className="bg-surface-primary w-full flex justify-center items-center p-4">
+            <Button
+              type="submit"
+              variant="primary"
+              size="large"
+              className="w-full"
+              onClick={formik.handleSubmit}
+              isLoading={isLoadingCancelOrder}
+              disabled={!formik.values.cancelReason}
+            >
+              لغو سفارش
+            </Button>
+          </div>
+        </ActionBar>
+      </MainLayout>
+    </FullModalContainer>
   );
 };
 export default CancelOrderModal;

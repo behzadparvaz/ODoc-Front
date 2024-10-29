@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import { useDispatch, useSelector } from 'react-redux';
 import { useFormik } from 'formik';
 
 import { colors } from '@configs/Theme';
@@ -15,19 +16,23 @@ import {
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { TextInput } from '@com/_atoms/NewTextInput';
+import { routeList } from '@routes/routeList';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
 
 type Props = { addressData?: any };
 
 export default function AddressDetailsModal({ addressData }: Props) {
+  const { pathname } = useRouter();
   const dispatch = useDispatch();
   const addressInputRef = useRef(null);
   const { viewport, defaultViewPort } = useSelector(
     (state: RootState) => state.mapInfo,
   );
   const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
-    useAddLocation({ isInAddressPage: true });
+    useAddLocation({
+      isInAddressPage: pathname === routeList.newAddress,
+    });
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
   const [addressReadonlyPart, setAddressReadonlyPart] = useState<string>('');
   const [addressEditablePart, setAddressEditablePart] = useState<string>('');
@@ -45,6 +50,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
       village: '',
     },
   });
+
   const [initialValues] = useState({
     plaque: '',
     unit: '',
