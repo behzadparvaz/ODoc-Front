@@ -20,7 +20,7 @@ const RXRegistration = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="p-4">
+      <div className="p-4 mb-14">
         {profileDataLoading === false ? (
           <OrderRegisterSteps data={data} />
         ) : (

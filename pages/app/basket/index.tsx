@@ -114,7 +114,6 @@ const Page = () => {
   };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
-
   return (
     <MainLayout
       title="سبد خرید"
@@ -205,7 +204,7 @@ const Page = () => {
         )}
       </div>
 
-      <ActionBar type="twoActionVertical" hasDivider>
+      <ActionBar type="twoActionVertical" hasDivider={products.length > 0}>
         {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
           !draftData && (
             <>

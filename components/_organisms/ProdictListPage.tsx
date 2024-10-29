@@ -97,21 +97,7 @@ export default function ProdictListPage({}: Props) {
           {items?.length ? (
             <div className="flex flex-wrap mb-5">
               {items?.map((product, index) => (
-                <div
-                  onClick={() => {
-                    if (
-                      product?.brandName &&
-                      product?.categoryCodeLevel3 &&
-                      product.genericCode
-                    ) {
-                      push(
-                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}&irc=${product?.genericCode}`,
-                      );
-                    }
-                  }}
-                  className="w-1/2 cursor-pointer"
-                  key={index}
-                >
+                <div className="w-1/2 cursor-pointer" key={index}>
                   <VerticalProductCard
                     productData={{
                       ...product,
