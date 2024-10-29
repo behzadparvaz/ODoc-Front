@@ -7,6 +7,8 @@ import specialPatients from '@static/images/staticImages/mainCategories/nonPresc
 import cosmetics from '@static/images/staticImages/mainCategories/cosmetics.png';
 import supplement from '@static/images/staticImages/mainCategories/supplement.png';
 import ScrollSlider from './ScrollSlider.nd';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 interface ICategory {
   title: string;
@@ -24,6 +26,8 @@ type CategoriesProps = {
 };
 
 const Categories = ({ isHomePage }: CategoriesProps) => {
+  const { pathname } = useRouter();
+
   const categoryMockData: ICategory[] = [
     {
       title: ' داروی بدون نسخه',
@@ -110,7 +114,11 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className="bg-grey-50 w-full rounded-lg"
+              className={'w-full rounded-lg'}
+              titleClassName="text-[9px] !p-0"
+              imageClassName={
+                pathname === item?.link && 'border border-border-selected'
+              }
               link={`${item?.link}${item?.query ? item?.query : ''}`}
               imgHeight={item?.imageHeight}
               alignmentType={'center'}
