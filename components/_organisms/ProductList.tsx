@@ -79,17 +79,21 @@ const ProductList = ({ searchTerm }: Props) => {
         <div className="p-4 space-y-4">
           {items?.length ? (
             items?.map((product, index) => (
-              <HorizontalProductCard
-                key={index}
-                prInfo={{
-                  ...product,
-                  quantity:
-                    basket?.productsById?.[Number(product.irc)]?.quantity ?? 0,
-                }}
-                hasAddToCartButton
-                onSuccessChanged={refetchGetBasket}
-                isInSearchPage
-              />
+              <div>
+                <HorizontalProductCard
+                  key={index}
+                  prInfo={{
+                    ...product,
+                    quantity:
+                      basket?.productsById?.[Number(product.irc)]?.quantity ??
+                      0,
+                  }}
+                  hasAddToCartButton
+                  onSuccessChanged={refetchGetBasket}
+                  isInSearchPage
+                  isShowSlangs
+                />
+              </div>
             ))
           ) : plpData?.isLoading || plpData?.isFetching ? (
             <EmptyContent
