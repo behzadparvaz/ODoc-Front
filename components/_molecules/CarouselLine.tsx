@@ -67,6 +67,7 @@ const CarouselLine = ({
             variant="secondary"
             size="small"
             className={twoRow && 'w-[32px] bg-opacity-20 !p-0'}
+            onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
             icon={
               <ArrowLeftIconOutline
                 width={24}
