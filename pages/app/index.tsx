@@ -1,12 +1,13 @@
+import { useEffect, useRef } from 'react';
+import dynamic from 'next/dynamic';
+
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
 import QuickOrderStatus from '@com/_molecules/QuickOrderStatus';
 import { MainLayout } from '@com/Layout';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
-import dynamic from 'next/dynamic';
-import { useEffect, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import OrderItem from '@com/_molecules/OrderItem';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -25,7 +26,6 @@ const HomePage = () => {
     )?.[0];
     return carouselData;
   };
-  const dispatch = useDispatch();
 
   const tapsiLinkRef = useRef(null);
   const url =
@@ -56,18 +56,20 @@ const HomePage = () => {
         <Categories isHomePage />
 
         {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <h2 className="text-lg font-bold">سفارشهای جاری</h2>
-          <a href="#" className="text-blue-500">
-          بیشتر
-          </a>
-        <OrderTracking />
+          <OrderItem data={''} />
         </div> */}
-        {bannerData?.queryResult && (
-          <MainSlider
-            className="py-2 px-4"
-            data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
-          />
-        )}
+
+        <div className="w-full h-[168px] px-4 py-2">
+          {bannerData?.queryResult && (
+            <MainSlider
+              data={[
+                bannerData?.queryResult?.[0],
+                bannerData?.queryResult?.[1],
+              ]}
+            />
+          )}
+        </div>
+
         <CarouselLine
           data={getCarouselDataData(1)}
           twoRow

@@ -71,15 +71,15 @@ export const useGetOrdersHistory: (
   statusId: number,
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ) => UseQueryResult<any[]> = (statusId, options) =>
-    useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
-      refetchInterval: 20000,
-      ...options,
-    });
+  useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
+    refetchInterval: 20000,
+    ...options,
+  });
 
 export const useGetOrderStatuses: (
   options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>,
 ) => UseQueryResult<OrderStatuses[]> = (options) =>
-    useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
+  useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
 
 export const useGetOrderInfo = (id: string) => {
   const { data, isLoading } = useQuery(
@@ -113,6 +113,7 @@ export const useFinishOrderPayment = () => {
 };
 
 export const useCancelOrder = () => {
+  const { push } = useRouter();
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
   return useMutation(CancelOrder, {
@@ -127,6 +128,7 @@ export const useCancelOrder = () => {
         });
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
+        push('/app/order-history');
       }
     },
   });
@@ -164,10 +166,10 @@ export const useGetSupplementaryInsurances = () => {
 export const useCreateOrderDraft: (
   options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
 ) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = (options) =>
-    useMutation({
-      mutationFn: (variables) => createOrderDraft(variables),
-      ...options,
-    });
+  useMutation({
+    mutationFn: (variables) => createOrderDraft(variables),
+    ...options,
+  });
 
 export const useGetOrderDetails = (orderCode: string) => {
   const { data, isLoading } = useQuery(
@@ -195,7 +197,6 @@ export const useCreateOrderInline = () => {
   return useMutation(CreateOrderInline);
 };
 
-
 export const useCreateOrderInlineStep1 = () => {
   return useMutation(CreateOrderInlineStep1);
 };
@@ -215,7 +216,6 @@ export const useGetDeliveryCode = (orderCode: string) => {
 
   return { data: data as any, isLoading: isLoading };
 };
-
 
 export const useDeleteOrderDetail = () => {
   return useMutation(DeleteOrderDetail);
