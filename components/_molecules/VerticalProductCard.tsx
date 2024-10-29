@@ -1,4 +1,7 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
+
 import NextImage from '@com/_core/NextImage';
 import AddButton from '@com/_atoms/AddButton';
 import {
@@ -6,8 +9,9 @@ import {
   useDeleteProductBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import { routeList } from '@routes/routeList';
+
 import { Level3ProductsDataModel } from './OtcProductsSlider';
-import classNames from 'classnames';
 
 type PromotionProductDataModel = {
   discountPercent?: number;
@@ -19,6 +23,8 @@ type PromotionProductDataModel = {
   quantity?: number;
   categoryCode?: number;
   shortDescription?: string | null;
+  brandName?: string;
+  categoryCodeLevel3?: string;
 };
 
 type ProductDataModel = Level3ProductsDataModel & PromotionProductDataModel;
@@ -40,6 +46,7 @@ const VerticalProductCard = ({
   imageWidth = '148px',
   imageHeight = '112px',
 }: VerticalProductCardProps<ProductDataModel>) => {
+  const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
     select: (res: any) => ({
       ...res,
@@ -95,7 +102,15 @@ const VerticalProductCard = ({
 
   return (
     <div
-      className={classNames(`flex flex-col items-center h-full p-4`, className)}
+      className={classNames(
+        `flex flex-col items-center h-full p-4 cursor-pointer`,
+        className,
+      )}
+      onClick={() => {
+        push(
+          `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
+        );
+      }}
     >
       <div className="flex justify-center relative">
         <NextImage
