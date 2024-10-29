@@ -26,8 +26,8 @@ const HomeOrderSlider = () => {
             {currentOrder && currentOrder?.orderStatus?.name !== 'deliverd' && (
               <div
                 className={classNames(
-                  'w-full',
-                  quickOrderData && '!w-[calc(100%-16px)]',
+                  'w-[calc(100%-8px)]',
+                  !quickOrderData && 'w-full',
                 )}
               >
                 <OrderItem data={currentOrder} />

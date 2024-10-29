@@ -45,15 +45,17 @@ const CategoryItem = ({
                 }
               : null
         }
-        className={classNames(
-          'block py-1.5 rounded-lg',
-          isSoon &&
-            "after:content-[''] after:w-[calc(100%-16px)] after:h-full after:inline-block after:absolute after:top-0 after:left-2 after:rounded-lg after:bg-gray-50 after:opacity-50 cursor-default",
-          isSoon &&
-            !isHomePage &&
-            `after:!w-full after:!left-0 after:!h-[${imgHeight}px] after:!top-1.5`,
-          className,
-        )}
+        className={`block py-1.5 rounded-lg
+          ${
+            isSoon &&
+            "after:content-[''] after:inline-block after:absolute  after:rounded-lg after:bg-gray-50 after:opacity-50 cursor-default"
+          } 
+          ${
+            isSoon && !isHomePage
+              ? 'after:w-full after:left-0 after:h-[68px] after:top-1.5'
+              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)]'
+          }
+          ${className}`}
       >
         <div
           className={classNames(

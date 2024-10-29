@@ -115,7 +115,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
             <CategoryItem
               isSoon={item?.isSoon}
               className={'w-full rounded-lg'}
-              titleClassName="text-[9px] !p-0"
+              titleClassName="!text-[9px] !p-0 whitespace-nowrap"
               imageClassName={
                 pathname === item?.link && 'border border-border-selected'
               }
