@@ -30,7 +30,7 @@ import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
 
 export const useAddLocation = ({
-  isInAddressPage,
+  isInAddressPage = false,
 }: {
   isInAddressPage?: boolean;
 }) => {
