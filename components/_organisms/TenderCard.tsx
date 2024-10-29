@@ -40,9 +40,9 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
           <Shop />
         </span>
         <h3>
-          {vendorData.isShowName
+          {vendorData?.isShowName
             ? vendorData?.vendorName
-            : vendorData.secondaryName}
+            : vendorData?.secondaryName}
         </h3>
       </div>
 
