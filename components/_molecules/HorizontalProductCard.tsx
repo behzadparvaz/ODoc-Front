@@ -149,24 +149,22 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         <h2 className="col-start-2 col-end-3 text-sm font-medium line-clamp-2">
           {prInfo?.productName ?? prInfo.name}
           <ScrollSlider>
-            {prInfo?.slangs?.map((slang, idx) => (
-              <div className="flex flex-col">
-                <div className="flex items-center gap-x-2 mt-2">
-                  <ScrollSlider className="w-full">
-                    {prInfo.slangs?.map((slang, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-center text-center rounded-full bg-surface-accentLight text-content-accent px-2 ml-1 py-0.5"
-                      >
-                        <span className="text-2xs max-w-[80px] truncate">
-                          {slang}
-                        </span>
-                      </div>
-                    ))}
-                  </ScrollSlider>
-                </div>
+            <div className="flex flex-col">
+              <div className="flex items-center gap-x-2 mt-2">
+                <ScrollSlider className="w-full">
+                  {prInfo.slangs?.map((slang, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center text-center rounded-full bg-surface-accentLight text-content-accent px-2 ml-1 py-0.5"
+                    >
+                      <span className="text-2xs max-w-[80px] truncate">
+                        {slang}
+                      </span>
+                    </div>
+                  ))}
+                </ScrollSlider>
               </div>
-            ))}
+            </div>
           </ScrollSlider>
         </h2>
       </div>
