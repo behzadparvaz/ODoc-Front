@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import Button from '@com/_atoms/Button';
 import { MinusIconOutline, PlusIconOutline } from '@com/icons';
+import classNames from 'classnames';
 
 const STEP_INC_DEC = 1;
 
@@ -21,6 +22,7 @@ type ProductCounterProps = {
   min: number;
   max: number;
   unitName: string;
+  className?: string;
 };
 
 const ProductCounter: React.FC<ProductCounterProps> = ({
@@ -33,6 +35,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   max,
   unitName,
   count = 0,
+  className = '',
 }) => {
   const onChange = (e, value) => {
     e.preventDefault();
@@ -73,7 +76,12 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           </Button>
         </div>
       ) : (
-        <div className="flex items-center justify-center bg-white rounded-full shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)]">
+        <div
+          className={classNames(
+            'flex items-center justify-center bg-white rounded-full shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)]',
+            className,
+          )}
+        >
           <button
             className="min-w-8 min-h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold"
             disabled={max <= count || isLoading}

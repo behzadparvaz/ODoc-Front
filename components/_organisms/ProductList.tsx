@@ -106,7 +106,7 @@ const ProductList = ({ searchTerm }: Props) => {
       </InfiniteScroll>
 
       {itemsInBasket && itemsInBasket?.length > 0 && (
-        <ActionBar type="singleAction">
+        <ActionBar type="singleAction" hasDivider>
           <Button
             className="w-full !rounded-full"
             size="large"

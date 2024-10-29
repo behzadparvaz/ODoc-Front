@@ -13,6 +13,7 @@ interface AddButtonProps {
   min?: number;
   unitName?: string;
   variant?: 'withOutBgWhite' | 'withBgWhite';
+  className?: string;
 }
 
 const AddButton: React.FC<AddButtonProps> = ({
@@ -23,6 +24,7 @@ const AddButton: React.FC<AddButtonProps> = ({
   max = 100,
   unitName = '',
   variant = 'withBgWhite',
+  className = '',
 }) => {
   const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
   return (
@@ -39,6 +41,7 @@ const AddButton: React.FC<AddButtonProps> = ({
               itemQuantity={onChangeCount}
               isTooltipVisible={isTooltipVisible}
               setTooltipVisible={setTooltipVisible}
+              className={className}
             />
           )}
           {variant === 'withOutBgWhite' && (

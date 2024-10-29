@@ -109,7 +109,7 @@ const CarouselLine = ({
                   className={
                     twoRow
                       ? 'w-[128px] h-[204px] !p-2'
-                      : 'w-[180px] h-[212px] border-l border-border-primary'
+                      : 'w-[128px] h-[212px] border-l border-border-primary'
                   }
                   key={index}
                 />

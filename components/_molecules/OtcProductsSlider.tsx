@@ -105,7 +105,7 @@ const OtcProductsSlider = ({
                   hasAddToCart={true}
                   productData={item}
                   key={index}
-                  className="w-[180px] h-[212px] border-l border border-primary"
+                  className="w-[128px] h-[212px] border-l border border-primary"
                 />
               );
             },
@@ -113,7 +113,7 @@ const OtcProductsSlider = ({
           <Link
             href={`/app/product/${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
           >
-            <div className="w-[157px] h-[198px] flex flex-col items-center justify-center cursor-pointer">
+            <div className="w-[128px] h-[212px] flex flex-col items-center justify-center cursor-pointer">
               <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
                 <ArrowLeftIconOutline width={20} height={20} fill="#000" />
               </span>
@@ -134,14 +134,14 @@ const OtcProductsSlider = ({
               hasAddToCart={true}
               productData={item}
               key={index}
-              className="w-[180px] h-[212px] border-l border-primary"
+              className="w-[128px] h-[212px] border-l border-primary"
             />
           );
         })}
         <Link
           href={`/app/product/${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
-          <div className="w-[157px] h-[198px] flex flex-col items-center justify-center cursor-pointer">
+          <div className="w-[128px] h-[212px] flex flex-col items-center justify-center cursor-pointer">
             <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
               <ArrowLeftIconOutline width={20} height={20} fill="#000" />
             </span>

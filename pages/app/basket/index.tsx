@@ -173,8 +173,8 @@ const Page = () => {
                         hasAddToCartButton
                       />
                       {products?.length !== index && (
-                        <div className="w-full px-4">
-                          <div className="w-full h-[1px] bg-grey-200" />
+                        <div className="w-full">
+                          <div className="w-full h-[1px] bg-grey-50" />
                         </div>
                       )}
                     </div>

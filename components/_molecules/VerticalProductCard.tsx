@@ -43,8 +43,8 @@ const VerticalProductCard = ({
   className = '',
   hasAddToCart = false,
   onSuccessChanged,
-  imageWidth = '148px',
-  imageHeight = '112px',
+  imageWidth = '100px',
+  imageHeight = '100px',
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
@@ -112,7 +112,7 @@ const VerticalProductCard = ({
         );
       }}
     >
-      <div className="flex justify-center relative">
+      <div className="flex justify-center relative mb-3">
         <NextImage
           src={productData?.imageLink}
           alt="تصویر محصول"
@@ -122,7 +122,7 @@ const VerticalProductCard = ({
         {hasAddToCart && (
           <div
             className={classNames(
-              'flex justify-end items-center absolute right-3 bottom-3',
+              'flex justify-end items-center absolute right-3 bottom-0',
               productBasketQuantity > 0 && '!right-1/2 !translate-x-1/2',
             )}
           >

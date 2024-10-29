@@ -129,7 +129,7 @@ const ProductPage = () => {
     if (selectedDoseCount) {
       return (
         <>
-          <div className="w-1/2">
+          <div className="flex px-4 py-4">
             <AddButton
               unitName={data.unit}
               count={
@@ -139,10 +139,9 @@ const ProductPage = () => {
               }
               onChangeCount={handleChangeCount}
               isLoading={isAddingToCart}
-              variant="withOutBgWhite"
+              className="px-2 py-2"
             />
           </div>
-
           <Button
             variant="primary"
             size="large"

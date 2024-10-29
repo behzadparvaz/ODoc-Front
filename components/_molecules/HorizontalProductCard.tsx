@@ -103,7 +103,6 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       }
       return (
         <AddButton
-          variant="withOutBgWhite"
           unitName={prInfo.unit}
           count={productBasketQuantity}
           onChangeCount={onChange}
@@ -120,7 +119,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   };
 
   return (
-    <div className="w-full flex gap-x-6 justify-between items-center">
+    <div className="w-full flex gap-x-6 justify-between items-center py-4">
       <div
         className={classNames(
           'grid grid-col-[68px_1fr] gap-x-2 items-center',
@@ -134,7 +133,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
           }
         }}
       >
-        <div className="col-start-1 col-end-2 w-[68px] h-[68px] border border-grey-50 rounded-xl flex justify-center items-center overflow-hidden">
+        <div className="col-start-1 col-end-2 w-[68px] h-[68px] border-grey-50 rounded-xl flex justify-center items-center overflow-hidden">
           <NextImage
             unoptimized
             src={prInfo?.imageLink}
