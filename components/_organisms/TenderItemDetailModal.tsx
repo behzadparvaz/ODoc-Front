@@ -14,6 +14,8 @@ import { routeList } from '@routes/routeList';
 import { convertRialToToman } from '@utilities/mainUtils';
 import { Button } from '@com/_atoms/NewButton';
 import useModal from '@hooks/useModal';
+import { FullModalContainer } from '@com/modal/containers/fullMobileContainer';
+import ActionBar from '@com/Layout/ActionBar';
 
 type TenderItemDetailProps = {
   tenderData: TenderItemsListDataModel;
@@ -50,17 +52,18 @@ const TenderItemDetail = ({
   };
 
   return (
-    <BottomModalContainer height={'100svh'}>
+    <FullModalContainer>
       <MainLayout
         hasHeader
+        headerType="withoutLogo"
         hasBackButton
-        handleClickRightIcon={removeLastModal}
+        backIconHandler={removeLastModal}
       >
         <div className="w-full h-[128] grid grid-rows-1 grid-cols-1 items-start">
           <div className="row-start-1 row-end-2 col-sart-1 col-end-2 flex justify-start items-center object-contain overflow-hidden">
             <Image
               src={'/static/images/staticImages/tender-detail-banner.png'}
-              width={412}
+              width={460}
               height={128}
               alt="tender-detail-banner"
             />
@@ -73,7 +76,7 @@ const TenderItemDetail = ({
             />
           </div>
         </div>
-        <div className="w-full flex flex-col gap-y-2 translate-y-[40px] mt-4">
+        <div className="w-full flex flex-col gap-y-2 translate-y-[40px] mt-4 overflow-auto pb-[120px]">
           <div className="relative w-[264px] h-12 flex justify-center items-center bg-grey-50 self-center rounded-full mb-3">
             <div
               className={classNames(
@@ -117,7 +120,8 @@ const TenderItemDetail = ({
               comment={tenderData?.comment}
             />
           )}
-
+        </div>
+        <ActionBar type="price" hasDivider>
           <div className="w-full h-16 flex justify-between items-center mt-2 mb-7 px-4 py-2">
             <div className="flex flex-col gap-y-2">
               <span className="text-md leading-6 font-bold">{`${convertRialToToman(tenderData?.finalPrice)}`}</span>
@@ -133,9 +137,9 @@ const TenderItemDetail = ({
               تکمیل خرید
             </Button>
           </div>
-        </div>
+        </ActionBar>
       </MainLayout>
-    </BottomModalContainer>
+    </FullModalContainer>
   );
 };
 

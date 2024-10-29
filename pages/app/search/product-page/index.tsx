@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
 
@@ -17,6 +17,7 @@ import { BasketIconOutline, CloseIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
+import ActionBar from '@com/Layout/ActionBar';
 
 type ProductDetailDosesModel = { dose: string; irc: string };
 
@@ -26,19 +27,10 @@ const ProductPage = () => {
   const { data, isLoading } = useGetProductsFromSearch({
     brandName: query?.brandName as string,
     categoryCodeLevel3: query?.categoryCodeLevel3 as string,
+    irc: query?.irc as string,
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
-
-  const renderBasketCount = () => {
-    const rxCount = basketDatat?.refrenceNumber ? 1 : 0;
-
-    if (!!basketDatat?.products?.length) {
-      return basketDatat?.products?.length + rxCount;
-    }
-
-    return rxCount;
-  };
 
   const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
@@ -57,11 +49,11 @@ const ProductPage = () => {
   const adverseEffectsRef = useRef(null);
 
   const [activeTab, setActiveTab] = useState(0);
-  const [selectedItem, setSelectedItem] = useState<ProductDetailDosesModel>();
 
   const basketFilteredProducts = basketDatat?.products?.filter((item) =>
     data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
+  const [selectedItem, setSelectedItem] = useState<ProductDetailDosesModel>();
 
   // const scrollToSection = (sectionRef) => {
   //   window.scrollTo({
@@ -125,6 +117,10 @@ const ProductPage = () => {
     setSelectedItem(item);
   };
 
+  useEffect(() => {
+    setSelectedItem(data?.drugDoses?.[0]);
+  }, [data]);
+
   const rendeBottomSection = () => {
     const selectedDoseCount = basketFilteredProducts?.find(
       (item) => item?.irc === selectedItem?.irc,
@@ -133,8 +129,9 @@ const ProductPage = () => {
     if (selectedDoseCount) {
       return (
         <>
-          <div className="w-1/2">
+          <div className="flex px-4 py-4">
             <AddButton
+              unitName={data.unit}
               count={
                 basketFilteredProducts?.find(
                   (item) => item?.irc === selectedItem?.irc,
@@ -142,9 +139,9 @@ const ProductPage = () => {
               }
               onChangeCount={handleChangeCount}
               isLoading={isAddingToCart}
+              className="px-2 py-2"
             />
           </div>
-
           <Button
             variant="primary"
             size="large"
@@ -184,9 +181,7 @@ const ProductPage = () => {
       }
 
       return (
-        <>
-          <div className="px-4 h-[1px] bg-border-primary" />
-
+        <div className="overflow-auto pb-[84px]">
           <div className="flex flex-col p-4 gap-y-4">
             <div className="flex justify-center items-center rounded-xl overflow-hidden">
               <NextImage
@@ -234,7 +229,7 @@ const ProductPage = () => {
 
           <div className="h-2 bg-surface-secondary" />
 
-          <div className="w-full h-[42px] flex items-center justify-center items-center">
+          <div className="w-full h-[42px] flex items-center justify-center">
             <span
               className={classNames(
                 'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
@@ -292,43 +287,30 @@ const ProductPage = () => {
               </span>
             </div>
           )}
-
-          {selectedItem && data?.isOtc && (
-            <FixBottomSection>
-              <div className="flex justify-between items-center w-full px-4 py-4">
-                {rendeBottomSection()}
-              </div>
-            </FixBottomSection>
-          )}
-        </>
+        </div>
       );
     }
   };
 
   return (
     <MainLayout
-      hasBottomGap
       hasHeader
+      headerType="withoutLogo"
       hasBasketIcon
       rightIcon={
-        <CloseIconOutline width={20} height={20} stroke={colors.black} />
+        <span onClick={() => back()} className="cursor-pointer">
+          <CloseIconOutline width={20} height={20} stroke={colors.black} />
+        </span>
       }
-      leftIcon={
-        <div
-          className="w-[52px] h-[52px] cursor-pointer relative flex justify-center items-center"
-          onClick={() => push(routeList.basket)}
-        >
-          {(!!basketDatat?.products?.length || basketDatat?.refrenceNumber) && (
-            <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
-              {renderBasketCount()}
-            </span>
-          )}
-          <BasketIconOutline width={22} height={22} fill={'#000'} />
-        </div>
-      }
-      handleClickRightIcon={() => back()}
     >
       {renderContent()}
+      {data?.isOtc && (
+        <ActionBar type="singleAction" hasDivider>
+          <div className="flex justify-between items-center w-full px-4 py-4">
+            {rendeBottomSection()}
+          </div>
+        </ActionBar>
+      )}
     </MainLayout>
   );
 };

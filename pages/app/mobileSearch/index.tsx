@@ -46,9 +46,9 @@ const MobileSearch = () => {
   return (
     <MainLayout
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
-      hasSerachSection
-      handleClickRightIcon={() => push('/app')}
+      backIconHandler={() => push('/app')}
       searchSection={
         <SearchBox
           defualtValue={searchText}
@@ -57,12 +57,12 @@ const MobileSearch = () => {
       }
     >
       <SectionTitle
-        className="px-4 mb-2"
-        titleClassName="font-bold"
+        className="px-4 mb-2 mt-4"
+        titleClassName="font-medium"
         title="جستجوهای پرطرفدار"
       />
 
-      <ScrollSlider className="gap-x-2 px-4">
+      <ScrollSlider className="gap-x-2 px-4 mt-2">
         {mockData?.map((item) => {
           return (
             <div
@@ -81,7 +81,7 @@ const MobileSearch = () => {
                   { shallow: true },
                 );
               }}
-              className="flex justify-center items-center px-3 py-1 rounded-full border border-grey-100 text-black text-sm cursor-pointer"
+              className="flex justify-between items-center px-3 py-1 rounded-full border border-grey-100 text-black text-sm cursor-pointer"
             >
               {item?.text}
               <ChevronLeftIconOutline width={24} height={24} fill="#000" />
@@ -90,7 +90,11 @@ const MobileSearch = () => {
         })}
       </ScrollSlider>
 
-      {searchText?.length >= 2 && <ProductList searchTerm={searchText} />}
+      {searchText?.length >= 2 && (
+        <div className="mb-16">
+          <ProductList searchTerm={searchText} />
+        </div>
+      )}
     </MainLayout>
   );
 };

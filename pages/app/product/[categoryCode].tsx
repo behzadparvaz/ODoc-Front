@@ -29,21 +29,10 @@ const Product = () => {
   return (
     <MainLayout
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
       mainClassName="border-t border-grey-100"
-      leftIcon={
-        <div
-          className="w-[52px] h-[52px] my-4 cursor-pointer relative flex justify-center items-center"
-          onClick={() => push(routeList.basket)}
-        >
-          {(!!basketDatat?.products?.length || basketDatat?.refrenceNumber) && (
-            <span className="absolute right-0 top-1 !w-5 !h-5 border border-white rounded-full bg-surface-nagative text-base z-10 text-white flex justify-center items-center">
-              {renderBasketCount()}
-            </span>
-          )}
-          <BasketIconOutline width={24} height={24} fill={'#000'} />
-        </div>
-      }
+      hasBasketIcon
     >
       <div className="w-ful min-h-[600px] h-full">
         {isLoading === false ? (

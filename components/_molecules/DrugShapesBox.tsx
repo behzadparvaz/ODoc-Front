@@ -103,16 +103,15 @@ export default function DrugShapesBox({
 
   return (
     <div className="w-full mt-4 border-t-8 border-b-8 border-grey-50 px-4 py-3">
-      <p className='font-semibold'>شکل دارو را انتخاب کنید</p>
+      <p className="font-semibold">شکل دارو را انتخاب کنید</p>
       {drugShapesData?.queryResult?.map((item, index) => {
         const matchedProducts = filteredProducts?.filter(
           (product) => product?.otcLevel === item?.otcLevel3,
         );
-
         return (
           <div
             key={index}
-            className={`flex flex-col border-2 py-5 rounded-xl px-2 mt-4 ${matchedProducts?.length > 0 ? 'border-black' : 'border-grey-200'}`}
+            className={`flex flex-col border-[1px] py-5 rounded-xl px-2 mt-4 ${matchedProducts?.length > 0 ? 'border-black' : 'border-grey-200'}`}
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >
             <p className="text-sm font-medium truncate mr-2">{item?.shape}</p>
@@ -123,16 +122,16 @@ export default function DrugShapesBox({
                     basketData?.products?.find(
                       (basketItem) => basketItem.irc === matchedProduct?.irc,
                     )?.quantity ?? 0;
-
                   return (
                     <div
                       key={idx}
-                      className="flex items-center justify-between mt-4 mx-3"
+                      className="flex items-center justify-between mt-4 mx-3 gap-x-3"
                     >
                       <p className="text-grey-500 text-sm">
                         {matchedProduct?.name}
                       </p>
                       <AddButton
+                        unitName={item?.unit}
                         count={productBasketQuantity}
                         onChangeCount={(count) =>
                           onChange(count, item?.otcLevel3, matchedProduct?.irc)

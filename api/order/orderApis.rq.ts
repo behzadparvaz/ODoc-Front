@@ -26,6 +26,8 @@ import {
   CancelQuickOrder,
   getDeliveryCode,
   DeleteOrderDetail,
+  CreateOrderInline,
+  getCurrentOrder,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -112,6 +114,7 @@ export const useFinishOrderPayment = () => {
 };
 
 export const useCancelOrder = () => {
+  const { push } = useRouter();
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
   return useMutation(CancelOrder, {
@@ -126,6 +129,7 @@ export const useCancelOrder = () => {
         });
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
+        push('/app/orders-history');
       }
     },
   });
@@ -190,6 +194,10 @@ export const useGetActiveOrderStatus = () => {
   return { data: data as any, isLoading };
 };
 
+export const useCreateOrderInline = () => {
+  return useMutation(CreateOrderInline);
+};
+
 export const useCreateOrderInlineStep1 = () => {
   return useMutation(CreateOrderInlineStep1);
 };
@@ -210,7 +218,14 @@ export const useGetDeliveryCode = (orderCode: string) => {
   return { data: data as any, isLoading: isLoading };
 };
 
-
 export const useDeleteOrderDetail = () => {
   return useMutation(DeleteOrderDetail);
+};
+
+export const useGetCurrentOrder = () => {
+  const { data, isLoading } = useQuery(['getDeliveryCode'], () =>
+    getCurrentOrder(),
+  );
+
+  return { data: data as any, isLoading: isLoading };
 };

@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import ProductCounter from '@com/_atoms/ProductCounter';
 import Button from '@com/_atoms/Button';
 import { PlusIconOutline } from '@com/icons';
+import BasketAddButton from './basketAddButton';
 
 interface AddButtonProps {
   count: number;
@@ -11,6 +12,8 @@ interface AddButtonProps {
   max?: number;
   min?: number;
   unitName?: string;
+  variant?: 'withOutBgWhite' | 'withBgWhite';
+  className?: string;
 }
 
 const AddButton: React.FC<AddButtonProps> = ({
@@ -19,28 +22,46 @@ const AddButton: React.FC<AddButtonProps> = ({
   onChangeCount,
   min = 1,
   max = 100,
-  unitName = 'عدد',
+  unitName = '',
+  variant = 'withBgWhite',
+  className = '',
 }) => {
   const [isTooltipVisible, setTooltipVisible] = useState<boolean>(false);
-
   return (
     <div>
       {count > 0 ? (
-        <ProductCounter
-          min={min}
-          max={max}
-          unitName={unitName}
-          count={count}
-          isLoading={Boolean(isLoading)}
-          itemQuantity={onChangeCount}
-          isTooltipVisible={isTooltipVisible}
-          setTooltipVisible={setTooltipVisible}
-        />
+        <>
+          {variant === 'withBgWhite' && (
+            <ProductCounter
+              min={min}
+              max={max}
+              unitName={unitName}
+              count={count}
+              isLoading={Boolean(isLoading)}
+              itemQuantity={onChangeCount}
+              isTooltipVisible={isTooltipVisible}
+              setTooltipVisible={setTooltipVisible}
+              className={className}
+            />
+          )}
+          {variant === 'withOutBgWhite' && (
+            <BasketAddButton
+              min={min}
+              max={max}
+              unitName={unitName}
+              count={count}
+              isLoading={Boolean(isLoading)}
+              itemQuantity={onChangeCount}
+              isTooltipVisible={isTooltipVisible}
+              setTooltipVisible={setTooltipVisible}
+            />
+          )}
+        </>
       ) : max === 0 ? (
         <Button disabled>تمام شد</Button>
       ) : (
         <button
-          className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
+          className="w-8 h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)]"
           disabled={Boolean(isLoading)}
           onClick={(event) => {
             event.stopPropagation();

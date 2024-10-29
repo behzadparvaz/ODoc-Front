@@ -58,7 +58,7 @@ const OtcMedicineCategories = () => {
   if (!!selectedCategory) {
     return (
       <>
-        <div className="h-10 flex items-center px-4">
+        <div className="h-10 flex items-center px-4 mb-2">
           <ScrollSlider className="gap-x-2">
             {data?.queryResult?.map((item) => {
               return (

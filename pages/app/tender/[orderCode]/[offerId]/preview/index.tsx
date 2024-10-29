@@ -1,4 +1,6 @@
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
 
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import Map from '@com/_molecules/Map';
@@ -8,17 +10,15 @@ import { useFinishOrderPayment } from '@api/order/orderApis.rq';
 import useModal from '@hooks/useModal';
 import SelectAddress from '@com/_organisms/SelectAddress';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
-import { useEffect, useState } from 'react';
 import { ArrowRightIconOutline, TickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import Input from '@com/_atoms/Input.nd';
-import { useFormik } from 'formik';
 import { VoucherCodeSchema } from '@utilities/validationSchemas';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import Address from '@com/_organisms/Address';
 import { convertRialToToman } from '@utilities/mainUtils';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
+import ActionBar from '@com/Layout/ActionBar';
 
 const Preview = () => {
   const { push, query } = useRouter();
@@ -80,9 +80,9 @@ const Preview = () => {
     <MainLayout
       title="تأیید نهایی و پرداخت"
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
-      hasBottomGap
-      handleClickRightIcon={() => push('/app/orders-history')}
+      backIconHandler={() => push('/app/orders-history')}
     >
       {/* <div className="w-full h-60 flex justify-center items-center">
         <Map
@@ -93,7 +93,7 @@ const Preview = () => {
           longitude={51.33808390275898}
         />
       </div> */}
-      <div className="w-full h-full flex flex-col justify-between gap-y-5 rounded-t-xl -translate-y-[10px] bg-white">
+      <div className="w-full h-full flex flex-col justify-between gap-y-5 rounded-t-xl -translate-y-[10px] bg-white pb-[120px] overflow-auto">
         <div className="px-4 pt-4">
           <Address buttonTitle="تغییر آدرس" />
         </div>
@@ -213,7 +213,7 @@ const Preview = () => {
         </div>
       </div>
 
-      <FixBottomSection>
+      <ActionBar type="price" hasDivider>
         <div className="w-full flex justify-between gap-3 px-4 py-4">
           <div className="w-1/2 flex flex-col gap-y-2">
             <span className="text-base font-semibold">
@@ -237,7 +237,7 @@ const Preview = () => {
             پرداخت
           </Button>
         </div>
-      </FixBottomSection>
+      </ActionBar>
     </MainLayout>
   );
 };

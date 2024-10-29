@@ -1,9 +1,12 @@
 import NextImage from '@com/_core/NextImage';
 import NextLink from '@com/_core/NextLink';
+import classNames from 'classnames';
 
 interface Props {
   name: string;
   className?: string;
+  titleClassName?: string;
+  imageClassName?: string;
   alignmentType?: 'center' | 'between';
   imageUrl: any;
   handleClick?: () => void;
@@ -18,6 +21,8 @@ const CategoryItem = ({
   name,
   imageUrl,
   className = '',
+  titleClassName = '',
+  imageClassName = '',
   alignmentType = 'center',
   isSoon = false,
   handleClick = null,
@@ -40,18 +45,23 @@ const CategoryItem = ({
                 }
               : null
         }
-        className={`block py-1.5 rounded-lg ${className}`}
+        className={`block py-1.5 rounded-lg
+          ${
+            isSoon &&
+            "after:content-[''] after:inline-block after:absolute  after:rounded-lg after:bg-gray-50 after:opacity-50 cursor-default"
+          } 
+          ${
+            isSoon && !isHomePage
+              ? 'after:w-full after:left-0 after:h-[68px] after:top-1.5'
+              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)]'
+          }
+          ${className}`}
       >
-        {isSoon ? (
-          <span
-            style={{ backgroundColor: '#276EF1' }}
-            className={`text-xs font-light text-white px-2 py-0.5 rounded-full absolute left-1 -top-0.5 z-3 ${isHomePage && '-left-1'}`}
-          >
-            به زودی
-          </span>
-        ) : null}
         <div
-          className={`flex bg-grey-50 rounded-xl ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`}
+          className={classNames(
+            `flex bg-grey-50 rounded-xl ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`,
+            imageClassName,
+          )}
         >
           <NextImage
             width={imgWidth}
@@ -61,7 +71,12 @@ const CategoryItem = ({
           />
         </div>
         <p
-          className={`text-xs my-1.5 text-black truncate font-medium ${alignmentType === 'center' ? 'text-center px-1' : 'px-3'}`}
+          className={classNames(
+            'text-xs my-1.5 text-black font-medium',
+            alignmentType === 'center' ? 'text-center px-1' : 'px-3',
+            titleClassName,
+            isSoon && !isHomePage && 'text-content-disabled',
+          )}
         >
           {name}
         </p>

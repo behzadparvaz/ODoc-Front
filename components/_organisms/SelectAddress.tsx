@@ -9,6 +9,11 @@ import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
 import { useDispatch, useSelector } from 'react-redux';
 import ParsiMapBottomSheet from './ParsiMapBottomSheet';
+import {
+  FullModalAnimations,
+  FullModalContainer,
+} from '@com/modal/containers/fullMobileContainer';
+import { MainLayout } from '@com/Layout';
 
 export default function SelectAddress() {
   const { data } = useGetUserLocations();
@@ -51,29 +56,35 @@ export default function SelectAddress() {
   };
 
   return (
-    <BottomModalContainer
-      height={'300px'}
-      hasCloseButton={true}
-      title={homePageText?.selectAddress}
-    >
-      <Button
-        handleClick={() => handleClickOpenModal()}
-        className={`my-4`}
-        size="medium"
-        buttonType="contained"
-        variant={'primary'}
+    <FullModalContainer animation={FullModalAnimations.none}>
+      <MainLayout
+        hasHeader
+        headerType="withoutLogo"
+        hasBackButton
+        backIconHandler={removeLastModal}
+        title={homePageText?.selectAddress}
       >
-        افزودن آدرس
-      </Button>
+        <Button
+          handleClick={() => handleClickOpenModal()}
+          className={`my-4 mx-4`}
+          size="medium"
+          buttonType="contained"
+          variant={'primary'}
+        >
+          افزودن آدرس
+        </Button>
 
-      {addressData?.map((item, index) => {
-        const activeItem = defaultAddress?.id === item?.id;
-        return (
-          <div key={index} onClick={() => handleClickAddress(item)}>
-            <AddressItem activeItem={activeItem} addressInfo={item} />
-          </div>
-        );
-      })}
-    </BottomModalContainer>
+        <div className="overflow-y-scroll">
+          {addressData?.map((item, index) => {
+            const activeItem = defaultAddress?.id === item?.id;
+            return (
+              <div key={index} onClick={() => handleClickAddress(item)}>
+                <AddressItem activeItem={activeItem} addressInfo={item} />
+              </div>
+            );
+          })}
+        </div>
+      </MainLayout>
+    </FullModalContainer>
   );
 }

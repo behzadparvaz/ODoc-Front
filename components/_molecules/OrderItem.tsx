@@ -11,6 +11,10 @@ import { useGetDeliveryCode } from '@api/order/orderApis.rq';
 
 import OrderHistoryProgress from './OrderHistoryProgress';
 import Countdown from './Countdows';
+import { Button } from '@com/_atoms/NewButton';
+import classNames from 'classnames';
+import { CloseIconOutline, NewTickIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
 
 type OrderItemProps = {
   data: any;
@@ -28,15 +32,10 @@ const OrderItem = ({ data }: OrderItemProps) => {
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
 
-    parsedDate.setMinutes(parsedDate.getMinutes() + 30);
+    parsedDate.setMinutes(parsedDate.getMinutes() + 60);
 
     return parsedDate.getTime();
   }, [data?.createDateTime]);
-
-  const orderPrepartionTime = useMemo(() => {
-    const parsedDate = new Date(data?.prepartionTime);
-    return parsedDate.getTime();
-  }, []);
 
   const renderIcon = () => {
     switch (data?.orderStatus?.name) {
@@ -165,38 +164,77 @@ const OrderItem = ({ data }: OrderItemProps) => {
             </span>
           )}
           <span className="text-sm text-content-tertiary">
-            {persianDate(data?.createDateTime)}
+            {persianDate({ date: data?.createDateTime, isShownTime: true })}
           </span>
-          <div className="flex items-center justify-between">
+
+          <>
             {!data?.orderDetails?.length ? (
-              <span> نسخه الکترونیک</span>
+              <div className="flex items-center justify-between">
+                <span> نسخه الکترونیک</span>
+                <span className="text-base text-content-primary">
+                  {data?.orderStatus?.name === 'deliverd'
+                    ? convertRialToToman(data?.finalPrice)
+                    : 'لغو شده'}
+                </span>
+              </div>
             ) : (
-              <div className="flex items-center gap-x-2">
-                {data?.orderDetails?.map((item, index) => (
-                  <div className="" key={item.irc}>
-                    <div className="flex items-center justify-center overflow-hidden">
-                      {index < 4 && (
-                        <Image
-                          src={item?.imageLink}
-                          alt="order-items"
-                          width={32}
-                          height={32}
+              <div className="flex flex-col gap-y-2">
+                <div className="flex items-center gap-x-2">
+                  {data?.orderDetails?.map((item, index) => (
+                    <div className="" key={item.irc}>
+                      <div className="flex items-center justify-center overflow-hidden">
+                        {index < 4 && (
+                          <Image
+                            src={item?.imageLink}
+                            alt="order-items"
+                            width={32}
+                            height={32}
+                          />
+                        )}
+                        {index === 4 && (
+                          <span className="text-sm text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="flex items-center gap-x-[22px]">
+                    <span
+                      className={classNames(
+                        'w-[24px] h-[24px] rounded-full flex items-center justify-center',
+                        data?.orderStatus?.name === 'deliverd'
+                          ? 'bg-content-positive'
+                          : 'bg-content-negative',
+                      )}
+                    >
+                      {data?.orderStatus?.name === 'deliverd' ? (
+                        <NewTickIcon
+                          width={20}
+                          height={20}
+                          stroke={colors.white}
+                        />
+                      ) : (
+                        <CloseIconOutline
+                          width={20}
+                          height={20}
+                          stroke={colors.white}
                         />
                       )}
-                      {index === 4 && (
-                        <span className="text-sm text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
-                      )}
-                    </div>
-                  </div>
-                ))}
+                    </span>
+                    <span className="text-content-primary text-base">
+                      {data?.orderStatus?.name === 'deliverd'
+                        ? 'تحویل شده'
+                        : 'لغو شده'}
+                    </span>
+                  </span>
+                  <Button variant="secondary" size="medium">
+                    سفارش مجدد
+                  </Button>
+                </div>
               </div>
             )}
-            <span className="text-base text-content-primary">
-              {data?.orderStatus?.name === 'deliverd'
-                ? convertRialToToman(data?.finalPrice)
-                : 'لغو شده'}
-            </span>
-          </div>
+          </>
         </div>
 
         <div className="h-[0.5px] bg-border-primary" />
@@ -229,13 +267,11 @@ const OrderItem = ({ data }: OrderItemProps) => {
           acceptExpirationTime && (
             <Countdown expirationTime={acceptExpirationTime} />
           )}
-
-        {data.orderStatus?.name === 'pick' && (
-          <Countdown expirationTime={orderPrepartionTime} />
-        )}
       </div>
 
-      <span className="text-sm text-content-tertiary">{`کد سفارش ${data?.orderCode}`}</span>
+      <span className="text-sm text-content-tertiary">
+        {persianDate({ date: data?.createDateTime, isShownTime: true })}
+      </span>
 
       <div className="w-full">{renderContent()}</div>
 

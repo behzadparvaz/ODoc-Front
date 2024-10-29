@@ -30,13 +30,16 @@ export const GetFilteredProductsByShapes = async (
 export const GetProductsFromSearch = async ({
   brandName,
   categoryCodeLevel3,
+  irc,
 }: {
   brandName: string;
   categoryCodeLevel3: string;
+  irc: string;
 }) =>
   await request.get(`Product/management/PDPBySearch`, null, {
     params: {
       brandName,
       categoryCodeLevel3,
+      irc
     },
   });

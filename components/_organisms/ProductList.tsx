@@ -11,7 +11,7 @@ import { productListPageTexts } from '@com/texts/productListPageTexts';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
+import ActionBar from '@com/Layout/ActionBar';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -79,17 +79,21 @@ const ProductList = ({ searchTerm }: Props) => {
         <div className="p-4 space-y-4">
           {items?.length ? (
             items?.map((product, index) => (
-              <HorizontalProductCard
-                key={index}
-                prInfo={{
-                  ...product,
-                  quantity:
-                    basket?.productsById?.[Number(product.irc)]?.quantity ?? 0,
-                }}
-                hasAddToCartButton
-                onSuccessChanged={refetchGetBasket}
-                isInSearchPage
-              />
+              <div key={index}>
+                <HorizontalProductCard
+                  key={index}
+                  prInfo={{
+                    ...product,
+                    quantity:
+                      basket?.productsById?.[Number(product.irc)]?.quantity ??
+                      0,
+                  }}
+                  hasAddToCartButton
+                  onSuccessChanged={refetchGetBasket}
+                  isInSearchPage
+                  isShowSlangs
+                />
+              </div>
             ))
           ) : plpData?.isLoading || plpData?.isFetching ? (
             <EmptyContent
@@ -106,21 +110,19 @@ const ProductList = ({ searchTerm }: Props) => {
       </InfiniteScroll>
 
       {itemsInBasket && itemsInBasket?.length > 0 && (
-        <FixBottomSection className="bg-white">
-          <div className="w-full flex justify-center items-center p-4">
-            <Button
-              className="w-full !rounded-full"
-              size="large"
-              backgroundColor={colors.black}
-              color={colors.white}
-              handleClick={() => {
-                push(routeList.basket);
-              }}
-            >
-              {productListPageTexts?.seeBasket}
-            </Button>
-          </div>
-        </FixBottomSection>
+        <ActionBar type="singleAction" hasDivider>
+          <Button
+            className="w-full !rounded-full"
+            size="large"
+            backgroundColor={colors.black}
+            color={colors.white}
+            handleClick={() => {
+              push(routeList.basket);
+            }}
+          >
+            {productListPageTexts?.seeBasket}
+          </Button>
+        </ActionBar>
       )}
     </>
   );

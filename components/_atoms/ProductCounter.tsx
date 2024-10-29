@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import Button from '@com/_atoms/Button';
 import { MinusIconOutline, PlusIconOutline } from '@com/icons';
+import classNames from 'classnames';
 
 const STEP_INC_DEC = 1;
 
@@ -21,6 +22,7 @@ type ProductCounterProps = {
   min: number;
   max: number;
   unitName: string;
+  className?: string;
 };
 
 const ProductCounter: React.FC<ProductCounterProps> = ({
@@ -33,6 +35,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   max,
   unitName,
   count = 0,
+  className = '',
 }) => {
   const onChange = (e, value) => {
     e.preventDefault();
@@ -65,7 +68,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   }, [isReadyForRemove]);
 
   return (
-    <>
+    <div className="w-auto" onClick={(e) => e.stopPropagation()}>
       {inventoryStatus?.state === inventoryState.FINISHED ? (
         <div className="">
           <Button buttonType="outlined" size="small" disabled>
@@ -73,9 +76,14 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           </Button>
         </div>
       ) : (
-        <div className="flex gap-3 items-center justify-center">
+        <div
+          className={classNames(
+            'flex items-center justify-center bg-white rounded-full shadow-[0px_4px_16px_0px_rgba(0,0,0,0.1)]',
+            className,
+          )}
+        >
           <button
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
+            className="min-w-8 min-h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold"
             disabled={max <= count || isLoading}
             onClick={(e) => {
               e.stopPropagation();
@@ -85,8 +93,9 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             <PlusIconOutline width={20} height={20} fill={'black'} />
           </button>
 
-          <div className="">
+          <div className="min-w-8 text-center">
             {count}
+            {unitName ? <span className="pr-1">{unitName}</span> : null}
             {isLoading && <div className="" />}
           </div>
           {isReadyForRemove && isTooltipVisible && min !== 1 && (
@@ -98,7 +107,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           )}
 
           <button
-            className="w-8 h-8 flex items-center justify-center rounded-full bg-grey-50 text-xl font-bold disabled:bg-grey-100"
+            className="min-w-8 min-h-8 flex items-center justify-center rounded-full bg-white text-xl font-bold"
             disabled={isLoading}
             onClick={(e) => {
               e.stopPropagation();
@@ -109,7 +118,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
           </button>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

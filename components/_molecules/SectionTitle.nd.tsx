@@ -13,6 +13,7 @@ interface Props {
   color?: string;
   style?: CSSProperties;
 }
+
 const SectionTitle = ({
   title,
   tag,

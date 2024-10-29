@@ -39,6 +39,12 @@ export const getOrderDetails = async (orderCode: string) => {
   return await request.get(`/Order/GetOrderDetails?OrderCode=${orderCode}`);
 };
 
+export const CreateOrderInline = async (body) => {
+  return await request.post(`/Orderline/CreateOrderInline`, body, {
+    returnError: true,
+  });
+};
+
 export const CreateOrderInlineStep1 = async (body) => {
   return await request.post(`/Orderline/CreateOrderInlineStep1`, body, {
     returnError: true,
@@ -72,4 +78,8 @@ export const getDeliveryCode = async (orderCode: string) => {
 
 export const DeleteOrderDetail = async (id) => {
   return await request.delete(`/Orderline/DeleteOrderDetail/${id}`);
+};
+
+export const getCurrentOrder = async () => {
+  return await request.get(`/Order/CurrentOrder`);
 };

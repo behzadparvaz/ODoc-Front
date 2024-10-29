@@ -1,150 +1,90 @@
-import { MouseEvent, PropsWithChildren, ReactNode } from 'react';
-import Image from 'next/image';
-import classNames from 'classnames';
+import { PropsWithChildren, ReactNode } from 'react';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
-import { ArrowRightIconOutline } from '@com/icons';
-import { useRouter } from 'next/router';
-import { colors } from '@configs/Theme';
-import Footer from './Footer';
 
 export interface MainLayoutProps {
+  // header.props
   hasHeader?: boolean;
-  hasSerachSection?: boolean;
-  hasBottomGap?: boolean;
-  hasBottomNavigation?: boolean;
+  headerType?: 'WithLogo' | 'withoutLogo';
+  leftSection?: ReactNode;
   hasBackButton?: boolean;
   hasBasketIcon?: boolean;
   title?: string | string[];
-  headerClassName?: string;
-  footerClassName?: string;
-  mainClassName?: string;
-  leftIcon?: ReactNode;
   rightIcon?: ReactNode;
-  handleClickRightIcon?: (event: MouseEvent<HTMLButtonElement>) => void;
-  footer?: ReactNode;
   searchSection?: ReactNode;
+  hasAddress?: boolean;
+  backIconHandler?: () => void;
+  headerClassName?: string;
+  // bottom.props
+  hasBottomNavigation?: boolean;
+
+  mainClassName?: string;
+  loginWithTapsiSSO?: boolean;
 }
 
 export const MainLayout = ({
   hasHeader,
-  hasSerachSection,
-  hasBottomGap,
-  hasBottomNavigation,
+  headerType,
+  leftSection,
   hasBackButton,
+  hasBasketIcon,
   title,
-  headerClassName,
-  leftIcon,
-  footerClassName,
-  mainClassName,
   rightIcon,
-  handleClickRightIcon,
-  children,
-  footer,
   searchSection,
+  hasAddress,
+  backIconHandler,
+  headerClassName,
+
+  hasBottomNavigation,
+
+  mainClassName,
+  loginWithTapsiSSO,
+  children,
 }: PropsWithChildren<MainLayoutProps>) => {
-  const { back, pathname } = useRouter();
-
-  const renderGridTemplate = () => {
-    switch (hasHeader) {
-      case true:
-        if (hasBottomNavigation || hasBottomGap) {
-          if (hasSerachSection) {
-            return `grid-rows-[68px_1fr_85px]`;
-          }
-          return `grid-rows-[56px_1fr_85px]`;
-        }
-        if (hasSerachSection) {
-          return `grid-rows-[68px_1fr]`;
-        }
-
-        return `grid-rows-[56px_1fr]`;
-      default:
-        if (hasBottomNavigation || hasBottomGap) {
-          return 'grid-rows-[52px_1fr_65px]';
-        }
-        return 'grid-rows-[52px_1fr]';
-    }
-  };
-
   return (
     <div className="w-full h-svh flex justify-center bg-grey-100">
       <div
-        className={classNames(
-          'relative bg-white grid grid-cols-1 gap-0 w-full sm:w-[600px] h-svh  overflow-hidden ',
-          renderGridTemplate(),
-        )}
+        className={`relative bg-white flex flex-col gap-0 w-full sm:w-[460px] h-svh overflow-hidden`}
       >
-        {!hasHeader && pathname !== '/app/auth' && (
-          <div className="w-full col-span-full row-start-1 row-end-2 flex items-center justify-start p-5">
-            <Image
-              src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
-              width={111}
-              height={20}
-              alt="tapsi-daroo-logo"
-            />
-            {leftIcon ? leftIcon : null}
-          </div>
+        {hasHeader && (
+          <Header
+            type={headerType}
+            classname={headerClassName}
+            title={title}
+            searchSection={searchSection}
+            rightIcon={rightIcon}
+            leftSection={leftSection}
+            hasBackButton={hasBackButton}
+            hasBasketIcon={hasBasketIcon}
+            hasLogo={!loginWithTapsiSSO}
+            hasAddress={hasAddress}
+            backIconHandler={backIconHandler}
+          />
         )}
-        {(hasHeader || hasSerachSection) && (
-          <div
-            className={classNames(
-              'flex w-full justify-between items-center',
-              title && 'border-b border-grey-200',
-            )}
-          >
-            <Header
-              title={!hasSerachSection && title}
-              searchSection={hasSerachSection && searchSection}
-              rightIcon={
-                hasBackButton ? (
-                  <ArrowRightIconOutline
-                    width={24}
-                    height={24}
-                    fill={colors?.black}
-                  />
-                ) : (
-                  rightIcon
-                )
-              }
-              className={classNames(
-                'col-span-full row-start-1 row-end-2 flex-1',
-                headerClassName,
-              )}
-              handleClickRightIcon={
-                hasBackButton && !handleClickRightIcon
-                  ? () => back()
-                  : handleClickRightIcon
-              }
-            />
-            {leftIcon ? leftIcon : null}
-          </div>
-        )}
+
         <div
-          className={classNames(
-            'col-span-full scroll-smooth overflow-y-scroll row-start-2 row-end-3',
-            mainClassName,
-          )}
+          className={`h-full scroll-smooth overflow-y-scroll ${mainClassName}`}
         >
           {children}
         </div>
-        {(hasBottomGap || hasBottomNavigation) && (
-          <div
-            className={classNames(
-              'col-span-full row-start-3 row-end-4',
-              hasBottomNavigation && 'bg-grey-50 border-t border-grey-100',
-              footerClassName,
-            )}
-          >
-            {hasBottomNavigation ? (
-              <BottomNavigation />
-            ) : (
-              <Footer>{footer}</Footer>
-            )}
+
+        {hasBottomNavigation && (
+          <div className="h-[64px]">
+            <BottomNavigation />
           </div>
         )}
       </div>
     </div>
   );
+};
+
+export const getServerSideProps = async ({ req }) => {
+  const cookies = req.headers.cookie;
+  const loginWithTapsiSSO = cookies?.loginWithTapsiSSO;
+  return {
+    props: {
+      loginWithTapsiSSO,
+    },
+  };
 };

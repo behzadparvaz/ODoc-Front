@@ -21,7 +21,7 @@ const NextImage = ({
 
   const handleImageError = () => {
     if (!imageError) {
-      setImageSrc('/static/images/staticImages/errorImage.svg');
+      setImageSrc('/static/images/staticImages/errorImage.png');
       setImageError(true);
     }
   };

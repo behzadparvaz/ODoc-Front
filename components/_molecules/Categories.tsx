@@ -7,6 +7,8 @@ import specialPatients from '@static/images/staticImages/mainCategories/nonPresc
 import cosmetics from '@static/images/staticImages/mainCategories/cosmetics.png';
 import supplement from '@static/images/staticImages/mainCategories/supplement.png';
 import ScrollSlider from './ScrollSlider.nd';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 interface ICategory {
   title: string;
@@ -24,6 +26,8 @@ type CategoriesProps = {
 };
 
 const Categories = ({ isHomePage }: CategoriesProps) => {
+  const { pathname } = useRouter();
+
   const categoryMockData: ICategory[] = [
     {
       title: ' داروی بدون نسخه',
@@ -73,7 +77,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
 
   if (isHomePage) {
     return (
-      <div className="flex flex-wrap gap-y-4 w-full">
+      <div className="flex flex-wrap gap-y-4 w-full py-2">
         {categoryMockData?.map((item: ICategory, index) => {
           return (
             <div
@@ -90,6 +94,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
                 imgWidth={item?.imageWidth}
                 imageUrl={item?.image}
                 name={item?.title}
+                isHomePage={isHomePage}
               />
             </div>
           );
@@ -109,7 +114,11 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className="bg-grey-50 w-full rounded-lg"
+              className={'w-full rounded-lg'}
+              titleClassName="!text-[9px] !p-0 whitespace-nowrap"
+              imageClassName={
+                pathname === item?.link && 'border border-border-selected'
+              }
               link={`${item?.link}${item?.query ? item?.query : ''}`}
               imgHeight={item?.imageHeight}
               alignmentType={'center'}

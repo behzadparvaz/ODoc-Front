@@ -99,6 +99,7 @@ export default function ParsiMapBottomSheet({
           inputProps={{
             placeholder: 'آدرس خود را وارد کنید',
             dir: 'rtl',
+            className: 'shadow-none',
           }}
           onSelect={onClickAddress}
           onChange={(event) => setSearchTxt(event.target.value)}
@@ -114,7 +115,7 @@ export default function ParsiMapBottomSheet({
         />
         <Button
           style={{ direction: 'rtl' }}
-          className="absolute bottom-[72px] right-5 !text-2xs !font-normal !text-grey-800 z-10 !px-3"
+          className="absolute bottom-[120px] right-5 !text-2xs !font-normal !text-grey-800 z-10 !px-3"
           buttonType="contained"
           backgroundColor={colors.white}
           handleClick={() => {
@@ -133,12 +134,12 @@ export default function ParsiMapBottomSheet({
           موقعیت‌یابی خودکار
         </Button>
         <div
-          className={`fixed inset-x-0 px-6 bottom-6 truncate z-10 ${
+          className={`fixed inset-x-0 px-6 bottom-6 truncate z-10 flex justify-center ${
             shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''
           } `}
         >
           <Button
-            className="w-full"
+            className="w-full max-w-[428px]"
             size="large"
             variant="primary"
             color={colors.grey[50]}

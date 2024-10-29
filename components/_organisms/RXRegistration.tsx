@@ -16,11 +16,11 @@ const RXRegistration = () => {
   return (
     <MainLayout
       title={query?.type === 'SP' ? 'داروی بیماری خاص' : 'داروی با نسخه'}
-      hasBottomGap
       hasHeader
+      headerType="withoutLogo"
       hasBackButton
     >
-      <div className="p-4">
+      <div className="p-4 mb-14">
         {profileDataLoading === false ? (
           <OrderRegisterSteps data={data} />
         ) : (
