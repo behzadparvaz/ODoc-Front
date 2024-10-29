@@ -32,7 +32,7 @@ const QuickOrderStatusItem = ({
             </a>
           </NextLink>
         ) : (
-          <p className="pt-6 pb-2 text-gray-500 text-sm">{CTAText}</p>
+          <p className="pt-4 pb-2 text-gray-500 text-sm">{CTAText}</p>
         )}
       </div>
     </div>

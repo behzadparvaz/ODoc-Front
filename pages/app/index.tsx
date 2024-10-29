@@ -3,23 +3,25 @@ import dynamic from 'next/dynamic';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
-import QuickOrderStatus from '@com/_molecules/QuickOrderStatus';
 import { MainLayout } from '@com/Layout';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
-import OrderItem from '@com/_molecules/OrderItem';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
+const HomeOrderSlider = dynamic(
+  () => import('@com/_organisms/HomeOrderSlider'),
+);
 
 const HomePage = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
+
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
       (item) => item?.sectionPosition === position,
@@ -51,13 +53,9 @@ const HomePage = () => {
           <SearchBox className="px-4" />
         </div>
 
-        <QuickOrderStatus />
+        <HomeOrderSlider />
 
         <Categories isHomePage />
-
-        {/* <div className="flex justify-between items-center border-b pb-2 mb-4">
-          <OrderItem data={''} />
-        </div> */}
 
         <div className="w-full h-[168px] px-4 py-2">
           {bannerData?.queryResult && (
@@ -76,22 +74,26 @@ const HomePage = () => {
           className="my-4"
           carouselIsLoading={carouselIsLoading}
         />
+
         <CarouselLine
           data={getCarouselDataData(2)}
           className="my-4"
           carouselIsLoading={carouselIsLoading}
         />
+
         {bannerData?.queryResult && (
           <Banner
             className="px-4 py-6 !bg-background-gradient.white-to-gray"
             data={[bannerData?.queryResult?.[2]]}
           />
         )}
+
         <CarouselLine
           data={getCarouselDataData(3)}
           className="my-4"
           carouselIsLoading={carouselIsLoading}
         />
+
         {!loginWithTapsiSSO && (
           <div className={`overflow-auto w-full`}>
             <FooterContent />

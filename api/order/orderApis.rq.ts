@@ -27,6 +27,7 @@ import {
   getDeliveryCode,
   DeleteOrderDetail,
   CreateOrderInline,
+  getCurrentOrder,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -128,7 +129,7 @@ export const useCancelOrder = () => {
         });
       } else {
         queryClient?.invalidateQueries('getOrdersHistory');
-        push('/app/order-history');
+        push('/app/orders-history');
       }
     },
   });
@@ -219,4 +220,12 @@ export const useGetDeliveryCode = (orderCode: string) => {
 
 export const useDeleteOrderDetail = () => {
   return useMutation(DeleteOrderDetail);
+};
+
+export const useGetCurrentOrder = () => {
+  const { data, isLoading } = useQuery(['getDeliveryCode'], () =>
+    getCurrentOrder(),
+  );
+
+  return { data: data as any, isLoading: isLoading };
 };
