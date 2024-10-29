@@ -51,21 +51,23 @@ const OtcMedicinePage = () => {
     >
       <div className="w-full flex flex-col gap-y-4 pt-4 mb-5 px-2">
         <Categories />
-        <div className="px-4">
-          <NextLink href={routeList?.QuickOrder}>
-            <a className="px-4 flex bg-gray-50 justify-between  items-center rounded-xl py-4 text-lg">
-              <div className="flex items-center gap-4">
-                <ListWithTimer width={20} height={20} fill={colors?.black} />
-                {quickOrderText?.quickOrderHelp}
-              </div>
-              <ChevronLeftIconOutline
-                width={20}
-                height={20}
-                fill={colors?.gray[400]}
-              />
-            </a>
-          </NextLink>
-        </div>
+        {!Object.keys(query).length && (
+          <div className="px-4">
+            <NextLink href={routeList?.QuickOrder}>
+              <a className="px-4 flex bg-gray-50 justify-between  items-center rounded-xl py-4 text-lg">
+                <div className="flex items-center gap-4">
+                  <ListWithTimer width={20} height={20} fill={colors?.black} />
+                  {quickOrderText?.quickOrderHelp}
+                </div>
+                <ChevronLeftIconOutline
+                  width={20}
+                  height={20}
+                  fill={colors?.gray[400]}
+                />
+              </a>
+            </NextLink>
+          </div>
+        )}
         <div className="px-2">
           <OtcMedicineCategories />
         </div>
