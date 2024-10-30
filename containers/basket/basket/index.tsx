@@ -24,7 +24,7 @@ import prescriptionMedicine from '@static/images/staticImages/mainCategories/pre
 import { RootState } from '@utilities/types';
 import { useSelector } from 'react-redux';
 
-const BasketContainer = () => {
+const Page = () => {
   const router = useRouter();
 
   const [isDisabled, setIsDisabled] = useState(false);
@@ -261,7 +261,7 @@ const BasketContainer = () => {
   );
 };
 
-export default BasketContainer;
+export default Page;
 
 const BasketEmptyPage = () => {
   return (

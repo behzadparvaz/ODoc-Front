@@ -36,7 +36,7 @@ const AuthContainer = () => {
       <div
         className={`h-full ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
-        <div className="absolute w-full text-center tra top-14 z-10">
+        <div className="absolute w-full text-center flex justify-center items-center top-14 z-10">
           <NextImage
             src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
             width={145}

@@ -21,7 +21,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-const ConfirmRequestDrugsContainer = () => {
+const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
   const { back, push } = useRouter();
   const { data, isLoading: profileDataLoading } = useGetProfile();
@@ -246,4 +246,4 @@ const ConfirmRequestDrugsContainer = () => {
     </MainLayout>
   );
 };
-export default ConfirmRequestDrugsContainer;
+export default ConfirmRequestDrugs;
