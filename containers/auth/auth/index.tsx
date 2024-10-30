@@ -47,8 +47,9 @@ const AuthContainer = () => {
         <div className="h-full">
           <NextImage
             src={'/static/images/staticImages/login-bg.png'}
-            layout="fill"
-            objectFit="cover"
+            alt="login"
+            fill
+            style={{ objectFit: 'cover' }}
           />
         </div>
         <div className="bg-white rounded-t-[20px] shadow-2xl absolute inset-x-0 bottom-0">

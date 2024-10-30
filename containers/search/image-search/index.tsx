@@ -34,7 +34,7 @@ const SearchByImageContainer = () => {
         <SectionTitle title={mobileSearchTexts?.searchByImage} />
       </div>
       <div className="w-full flex justify-center flex-wrap py-3 px-6">
-        <NextImage src={sampleImage} width={358} height={358} />
+        <NextImage src={sampleImage} width={358} height={358} alt="" />
         <p className="text-sm text-grey-600 font-semibold pt-3 px-4">
           آیا منظور شما «ژلوفن ۴۰۰» بود؟
         </p>

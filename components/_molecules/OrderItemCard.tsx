@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import {
   TenderItemsOrderDataModel,
   TenderOrderAltDataModel,
@@ -7,6 +6,7 @@ import { convertRialToToman } from '@utilities/mainUtils';
 import NextImage from '@com/_core/NextImage';
 import { DangerIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import classNames from 'classnames';
 
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel | TenderOrderAltDataModel;

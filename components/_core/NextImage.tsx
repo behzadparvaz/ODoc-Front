@@ -5,7 +5,7 @@ interface ImageComponentProps extends ImageProps {
   width?: number;
   height?: number;
   unoptimized?: boolean;
-  alt?: string;
+  alt: string;
   onClick?: () => void;
 }
 
