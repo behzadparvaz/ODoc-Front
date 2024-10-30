@@ -19,14 +19,19 @@ const HomeOrderSlider = () => {
   return (
     <>
       {quickOrderData || currentOrder ? (
-        <div className="pr-4 py-4 bg-background-gradient.white-to-gray">
+        <div
+          className={classNames(
+            'pl-2 py-4 bg-background-gradient.white-to-gray',
+            quickOrderData ? 'pr-4' : 'pr-2',
+          )}
+        >
           <ScrollSlider
             className={classNames('gap-x-2', quickOrderData && 'pl-2')}
           >
             {currentOrder && currentOrder?.orderStatus?.name !== 'deliverd' && (
               <div
                 className={classNames(
-                  quickOrderData ? 'w-full' : 'w-[calc(100%-8px)]',
+                  !quickOrderData ? 'w-full' : 'w-[calc(100%-8px)]',
                 )}
               >
                 <OrderItem data={currentOrder} />
