@@ -26,9 +26,9 @@ const Banner = ({ className = '', data, isShownTitle }: Props) => {
           alt={bannerData?.title}
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg('100%', 192))}`}
-          layout="fill"
+          fill
+          style={{ objectFit: 'contain' }}
           quality={100}
-          objectFit="contain"
           loading={'eager'}
           className="!rounded-lg"
         />

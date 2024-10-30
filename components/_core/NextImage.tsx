@@ -2,6 +2,8 @@ import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 interface ImageComponentProps extends ImageProps {
+  width?: number;
+  height?: number;
   unoptimized?: boolean;
   alt?: string;
   onClick?: () => void;

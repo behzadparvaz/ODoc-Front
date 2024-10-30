@@ -53,7 +53,7 @@ const OtcSlider = ({ category }: OtcSliderProps) => {
 
   return (
     <div className="relative flex flex-col gap-2 w-full h-max min-h-[200px] py-2 text-xs">
-      <div className="flex justify-between items-center gap-6 px-4">
+      <div className="w-full flex justify-between items-center gap-6 px-4">
         <NextLink
           href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >

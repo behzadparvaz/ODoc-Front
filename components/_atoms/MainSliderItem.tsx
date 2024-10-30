@@ -24,7 +24,7 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
             : 'app/otc-medicine'
         }
       >
-        <a className={`relative w-full h-full`}>
+        <span className={`relative w-full h-full`}>
           <div className="!aspect-w-23 !aspect-h-9" ref={ref}>
             <NextImage
               src={imageUrl}
@@ -32,15 +32,15 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
               alt={title}
               placeholder="blur"
               blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, 192))}`}
-              layout="fill"
+              fill
               quality={100}
-              objectFit="contain"
+              style={{ objectFit: 'contain' }}
               loading={index === 0 ? 'eager' : 'lazy'}
               className="!rounded-lg"
               priority={index === 0 ? true : false}
             />
           </div>
-        </a>
+        </span>
       </NextLink>
     </>
   );
