@@ -1,6 +1,6 @@
-import RXRegistration from '@com/_organisms/RXRegistration';
+import { PrescriptionContainer } from '@containers/medicine';
 
-const OrderRegistrationPage = () => {
-  return <RXRegistration />;
+const PrescriptionPage = () => {
+  return <PrescriptionContainer />;
 };
-export default OrderRegistrationPage;
+export default PrescriptionPage;
