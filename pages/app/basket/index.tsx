@@ -1,28 +1,27 @@
+import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useMemo, useState } from 'react';
 
+import { MainLayout } from '@com/Layout';
 import {
   useDeleteCurrentBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
-import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
-import CheckBox from '@com/_atoms/CheckBox.nd';
-import { Button } from '@com/_atoms/NewButton';
-import Spinner from '@com/_atoms/Spinner';
-import NextImage from '@com/_core/NextImage';
-import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
-import Address from '@com/_organisms/Address';
-import { TickIcon, TimerIcon } from '@com/icons';
-import { MainLayout } from '@com/Layout';
-import ActionBar from '@com/Layout/ActionBar';
-import { colors } from '@configs/Theme';
-import useNotification from '@hooks/useNotification';
-import { routeList } from '@routes/routeList';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import { RootState } from '@utilities/types';
 import { useSelector } from 'react-redux';
+import { RootState } from '@utilities/types';
+import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
+import { useCreateOrderDraft } from '@api/order/orderApis.rq';
+import { TickIcon, TimerIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
+import { routeList } from '@routes/routeList';
+import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
+import Address from '@com/_organisms/Address';
+import useNotification from '@hooks/useNotification';
+import NextImage from '@com/_core/NextImage';
+import { Button } from '@com/_atoms/NewButton';
+import CheckBox from '@com/_atoms/CheckBox.nd';
+import ActionBar from '@com/Layout/ActionBar';
 
 const Page = () => {
   const router = useRouter();
@@ -115,7 +114,6 @@ const Page = () => {
   };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
-
   return (
     <MainLayout
       title="سبد خرید"
@@ -131,9 +129,7 @@ const Page = () => {
       <div className="relative h-full pb-[180px] pt-4 px-4 md:pb-[94px] overflow-auto">
         {!!draftData && <OrderInProgress />}
 
-        {isLoading ? (
-          <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
-        ) : products?.length === 0 && !basket?.refrenceNumber && !draftData ? (
+        {products?.length === 0 && !basket?.refrenceNumber && !draftData ? (
           <BasketEmptyPage />
         ) : (
           <>

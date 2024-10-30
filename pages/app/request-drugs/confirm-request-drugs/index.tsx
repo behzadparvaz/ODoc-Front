@@ -1,9 +1,13 @@
-import { useCreateOrderInline } from '@api/order/orderApis.rq';
-import { useGetProfile } from '@api/user/user.rq';
+import {
+  useCreateOrderInline,
+  useCreateOrderInlineStep1,
+} from '@api/order/orderApis.rq';
+import { useGetUserLocations } from '@api/user/user.rq';
 import Button from '@com/_atoms/Button';
 import Input from '@com/_atoms/Input.nd';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import SelectAddress from '@com/_organisms/SelectAddress';
+import MainPageLayout from '@com/_template/MainPageLayout';
 import {
   ChevronLeftIconOutline,
   ClipboardClockIcon,
@@ -14,7 +18,12 @@ import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
-import { removeDrugAction } from '@redux/requestDrugs/requestDrugsActions';
+import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
+import {
+  clearDrugsStateAction,
+  removeDrugAction,
+} from '@redux/requestDrugs/requestDrugsActions';
+import { setUserAction } from '@redux/user/userActions';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
 import { useRouter } from 'next/router';
@@ -24,11 +33,10 @@ import { useDispatch, useSelector } from 'react-redux';
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
   const { back, push } = useRouter();
-  const { data, isLoading: profileDataLoading } = useGetProfile();
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
     description: '',
-    nationalCode: data?.queryResult?.[0]?.nationalCode || '',
+    nationalCode: '',
   });
   const { addModal, removeLastModal } = useModal();
   const { user } = useSelector((state: RootState) => state.user);
@@ -36,6 +44,7 @@ const ConfirmRequestDrugs = () => {
 
   const { mutate, isLoading } = useCreateOrderInline();
   const { openNotification } = useNotification();
+
   useEffect(() => {
     if (user?.defaultAddress) {
       removeLastModal();
@@ -65,14 +74,7 @@ const ConfirmRequestDrugs = () => {
       });
     };
   }, []);
-  useEffect(() => {
-    if (!profileDataLoading) {
-      setState((prev) => ({
-        ...prev,
-        nationalCode: data?.queryResult?.[0]?.nationalCode || '',
-      }));
-    }
-  }, [profileDataLoading]);
+
   const handleDeleteDrug = (drugId) => {
     dispatch(removeDrugAction(drugId));
   };
