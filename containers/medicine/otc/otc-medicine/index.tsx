@@ -54,7 +54,7 @@ const OtcMedicineContainer = () => {
         {!Object.keys(query).length && (
           <div className="px-4">
             <NextLink href={routeList?.QuickOrder}>
-              <a className="px-4 flex bg-gray-50 justify-between  items-center rounded-xl py-4 text-lg">
+              <span className="px-4 flex bg-gray-50 justify-between  items-center rounded-xl py-4 text-lg">
                 <div className="flex items-center gap-4">
                   <ListWithTimer width={20} height={20} fill={colors?.black} />
                   {quickOrderText?.quickOrderHelp}
@@ -64,7 +64,7 @@ const OtcMedicineContainer = () => {
                   height={20}
                   fill={colors?.gray[400]}
                 />
-              </a>
+              </span>
             </NextLink>
           </div>
         )}

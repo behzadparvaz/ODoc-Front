@@ -10,8 +10,8 @@ import AddToCartButton from './AddToCartButton';
 import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
 import ScrollSlider from './ScrollSlider.nd';
+import classNames from 'classnames';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;

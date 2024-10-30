@@ -58,14 +58,14 @@ const ProfileContainer = () => {
           </div>
 
           <div className="w-full h-[100px] flex gap-x-3 justify-between items-center px-4 py-2">
-            <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
+            <div className="w-1/2 h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
               <WalletOutlineIcon width={24} height={24} fill={colors.black} />
               <span className="text-sm font-normal leading-6 text-black">
                 کیف پول
               </span>
             </div>
 
-            <Link href={`tel:02196861727`}>
+            <Link href={`tel:02196861727`} className="w-1/2 h-full">
               <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
                 <HeadsetOutlineIcon
                   width={24}
@@ -118,7 +118,7 @@ const ProfileContainer = () => {
             className="!px-0"
             onClick={handleOpenLogoutModal}
           >
-            <div className="w-full flex gap-x-5 items-center p-5 cursor-pointer">
+            <div className="w-full flex gap-x-5 items-center  cursor-pointer">
               <ExitOutlineIcon width={24} height={24} />
               <span className="text-md font-medium leading-7 text-[#E11900]">
                 خروج از حساب کاربری

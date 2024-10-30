@@ -60,7 +60,9 @@ const AddressesContainer = () => {
 
     return (
       <>
-        <AddressList data={addressData} />
+        <div className="h-full w-full pb-[84px]">
+          <AddressList data={addressData} />
+        </div>
 
         <ActionBar type="singleAction">
           <Button

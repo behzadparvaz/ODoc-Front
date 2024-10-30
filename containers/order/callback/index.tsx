@@ -36,7 +36,7 @@ const CallBackContainer = () => {
   }, [query]);
 
   const headerChildrenElement = (
-    <NextImage src={tapsiLogo} height={30} width={125} />
+    <NextImage src={tapsiLogo} height={30} width={125} alt="" />
   );
 
   return (
