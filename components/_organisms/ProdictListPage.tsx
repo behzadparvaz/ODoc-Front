@@ -1,19 +1,20 @@
-import React, { useMemo } from 'react';
-import dynamic from 'next/dynamic';
-import Button from '@com/_atoms/Button';
-import { colors } from '@configs/Theme';
-import { useRouter } from 'next/router';
-import useCheckPage from '@hooks/useCheckPage';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
 import { MainLayout } from '@com/Layout';
-import SearchBox from '@com/_atoms/SearchBox';
-import { routeList } from '@routes/routeList';
-import { productListPageTexts } from '@com/texts/productListPageTexts';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import EmptyContent from '@com/_atoms/EmptyContent';
-import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import ActionBar from '@com/Layout/ActionBar';
+import Button from '@com/_atoms/Button';
+import EmptyContent from '@com/_atoms/EmptyContent';
+import SearchBox from '@com/_atoms/SearchBox';
+import Spinner from '@com/_atoms/Spinner';
+import { mobileSearchTexts } from '@com/texts/mobileSearchText';
+import { productListPageTexts } from '@com/texts/productListPageTexts';
+import { colors } from '@configs/Theme';
+import useCheckPage from '@hooks/useCheckPage';
+import { routeList } from '@routes/routeList';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import VerticalProductCard from '../_molecules/VerticalProductCard';
 
 const HorizontalProductCard = dynamic(
@@ -47,6 +48,7 @@ export default function ProdictListPage({}: Props) {
   };
 
   const { plpData } = useGetPlpInfiniteContent(body);
+
   const items = useMemo(
     () =>
       plpData
@@ -62,6 +64,7 @@ export default function ProdictListPage({}: Props) {
         : [],
     [plpData],
   );
+
   return (
     <MainLayout
       title={!searchTerm && categoryName}
@@ -79,67 +82,74 @@ export default function ProdictListPage({}: Props) {
         </label>
         </div> */}
 
-      <InfiniteScroll
-        scrollableTarget="orderListScrollParent"
-        style={{ overflow: 'hidden' }}
-        next={() => {
-          plpData?.fetchNextPage();
-        }}
-        hasMore={plpData?.hasNextPage}
-        loader={
-          <div className="flex flex-wrap items-center justify-center h-16">
-            {/* در حال بارگذاری... */}
-          </div>
-        }
-        dataLength={items?.length}
-      >
+      {plpData.status === 'loading' && (
+        <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+      )}
+      {plpData.status === 'success' && (
         <>
-          {items?.length ? (
-            <div className="flex flex-wrap mb-5">
-              {items?.map((product, index) => (
-                <div className="w-1/2 cursor-pointer" key={index}>
-                  <VerticalProductCard
-                    productData={{
-                      ...product,
-                      quantity:
-                        basket?.productsById?.[Number(product.irc)]?.quantity ??
-                        0,
-                    }}
-                    hasAddToCart
-                    onSuccessChanged={refetchGetBasket}
-                    className={`
+          <InfiniteScroll
+            scrollableTarget="orderListScrollParent"
+            style={{ overflow: 'hidden' }}
+            next={() => {
+              plpData?.fetchNextPage();
+            }}
+            hasMore={plpData?.hasNextPage}
+            loader={
+              <div className="flex flex-wrap items-center justify-center h-16">
+                {/* در حال بارگذاری... */}
+              </div>
+            }
+            dataLength={items?.length}
+          >
+            <>
+              {items?.length ? (
+                <div className="flex flex-wrap mb-5">
+                  {items?.map((product, index) => (
+                    <div className="w-1/2 cursor-pointer" key={index}>
+                      <VerticalProductCard
+                        productData={{
+                          ...product,
+                          quantity:
+                            basket?.productsById?.[Number(product.irc)]
+                              ?.quantity ?? 0,
+                        }}
+                        hasAddToCart
+                        onSuccessChanged={refetchGetBasket}
+                        className={`
                       ${index % 2 === 0 ? 'border-l border-t' : 'border-t'} 
                       ${index >= items.length - 2 ? 'border-b' : ''}
                     `}
+                      />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex justify-center items-center">
+                  <EmptyContent
+                    imgSrc="/static/images/staticImages/search-empty-content.png"
+                    title={mobileSearchTexts?.noSearchResult}
                   />
                 </div>
-              ))}
+              )}
+            </>
+          </InfiniteScroll>
+          <ActionBar>
+            <div className="w-full flex justify-center items-center p-4">
+              <Button
+                className="w-full !rounded-full"
+                size="large"
+                backgroundColor={colors.black}
+                color={colors.white}
+                handleClick={() => {
+                  push(routeList.basket);
+                }}
+              >
+                {productListPageTexts?.seeBasket}
+              </Button>
             </div>
-          ) : (
-            <div className="flex justify-center items-center">
-              <EmptyContent
-                imgSrc="/static/images/staticImages/search-empty-content.png"
-                title={mobileSearchTexts?.noSearchResult}
-              />
-            </div>
-          )}
+          </ActionBar>
         </>
-      </InfiniteScroll>
-      <ActionBar>
-        <div className="w-full flex justify-center items-center p-4">
-          <Button
-            className="w-full !rounded-full"
-            size="large"
-            backgroundColor={colors.black}
-            color={colors.white}
-            handleClick={() => {
-              push(routeList.basket);
-            }}
-          >
-            {productListPageTexts?.seeBasket}
-          </Button>
-        </div>
-      </ActionBar>
+      )}
     </MainLayout>
   );
 }
