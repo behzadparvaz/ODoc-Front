@@ -1,21 +1,32 @@
 # Use the official Node.js image as the base image
-FROM node:20.14.0-alpine
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
 
 # Set the working directory in the container
 WORKDIR /app
 
+# Declare build arguments
+ARG ENV_FILE
+
 # Copy package.json and package-lock.json (or yarn.lock) to install dependencies
 COPY package.json ./
-#COPY package-lock.json ./
+COPY package-lock.json ./
+COPY .npmrc ./
 
 # Install dependencies
 RUN npm install --legacy-peer-deps
 
 # Copy the rest of your application code
 COPY . .
+RUN rm .env*
+COPY ${ENV_FILE} ./.env
+
+
 
 # Build the Next.js application
 RUN npm run build
+
+# Set environment variable
+
 
 # Set environment variable for the port
 ENV PORT 3000

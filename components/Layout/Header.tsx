@@ -82,6 +82,7 @@ const Header = ({
                   src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
                   height={20}
                   width={110}
+                  alt="tapsi-logo"
                 />
               </div>
             )}

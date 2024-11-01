@@ -22,7 +22,7 @@ interface DrugForm {
   drugShape: DrugShape | null;
 }
 
-const RequestDrugsContainer = () => {
+const RequestDrugsContent = () => {
   const initialValues: DrugForm[] = [
     {
       id: uuidv4(), // Use uuidv4 for initial ID
@@ -127,4 +127,4 @@ const RequestDrugsContainer = () => {
   );
 };
 
-export default RequestDrugsContainer;
+export default RequestDrugsContent;
