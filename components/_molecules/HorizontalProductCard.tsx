@@ -12,6 +12,7 @@ import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 import ScrollSlider from './ScrollSlider.nd';
+import Link from 'next/link';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -102,7 +103,11 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   const renderLeftSection = () => {
     if (hasAddToCartButton) {
       if (isInSearchPage && !prInfo?.isOtc) {
-        return <></>;
+        return (
+          <span className="!min-w-[96px] h-[32px] px-1 bg-red-50 text-content-negative text-[10px] rounded-full flex justify-center items-center">
+            <Link href={routeList.QuickOrder}>نیاز به نسخه پزشک</Link>
+          </span>
+        );
       }
       return (
         <AddButton
