@@ -208,7 +208,7 @@ const Page = () => {
         )}
       </div>
 
-      <ActionBar type="twoActionVertical" hasDivider={products.length > 0}>
+      <ActionBar type="twoActionHorizontal" hasDivider={products.length > 0}>
         {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
           !draftData && (
             <>
