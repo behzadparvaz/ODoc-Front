@@ -1,16 +1,17 @@
 version: '3'
 
 services:
-  web:
+  front-end:
+    image: tapsi-doctor  # Replace with your actual image name if needed.         # Start a shell.
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        ENV_FILE: .env.staging
+        ENV_MODE: staging  # Set the environment mode here.
     ports:
-      - "5000:3000"
+      - "5000:3000"       # Map port 5000 on host to port 3000 in container.
     environment:
       - NODE_ENV=production
       - PORT=3000
-    volumes:
-      - .:/app
+    # volumes:
+      # - .:/app
