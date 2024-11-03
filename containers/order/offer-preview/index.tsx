@@ -23,7 +23,7 @@ import ActionBar from '@com/Layout/ActionBar';
 const OfferPreviewContainer = () => {
   const { push, query } = useRouter();
   // const { addModal } = useModal();
-  const { mutate: mutatePayment, isLoading: isLoadingPayment } =
+  const { mutate: mutatePayment, isPending: isLoadingPayment } =
     useFinishOrderPayment();
   // const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
   const { removeLastModal } = useModal();

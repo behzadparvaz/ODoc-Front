@@ -6,7 +6,7 @@ import {
   useQueryClient,
   UseQueryOptions,
   UseQueryResult,
-} from 'react-query';
+} from '@tanstack/react-query';
 import {
   CancelOrder,
   CreateOrderInsurance,
@@ -40,7 +40,8 @@ export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
-  return useMutation(CreateOrderInsurance, {
+  return useMutation({
+    mutationFn: CreateOrderInsurance,
     onSuccess: (data: any) => {
       if (Array.isArray(data)) {
         openNotification({
@@ -49,7 +50,7 @@ export const useCreateOrderInsurance = () => {
           notifType: 'successOrFailedMessage',
         });
       } else {
-        queryClient?.invalidateQueries('getOrdersHistory');
+        queryClient?.invalidateQueries({ queryKey: ['getOrdersHistory'] });
         push({
           pathname: routeList.successOrder,
           query: { order_Code: data },
@@ -70,33 +71,39 @@ export const useCreateOrderInsurance = () => {
 
 export const useGetOrdersHistory: (
   statusId: number,
-  options?: UseQueryOptions<unknown, unknown, any[]>,
-) => UseQueryResult<any[]> = (statusId, options) =>
-  useQuery(['getOrdersHistory', statusId], () => GetOrdersHistory(statusId), {
+  options?: UseQueryOptions<unknown, Error, any[]>,
+) => UseQueryResult<any[], Error> = (statusId, options) =>
+  useQuery({
+    queryKey: ['getOrdersHistory', statusId],
+    queryFn: () => GetOrdersHistory(statusId),
     refetchInterval: 20000,
     ...options,
   });
 
 export const useGetOrderStatuses: (
-  options?: UseQueryOptions<unknown, unknown, OrderStatuses[]>,
-) => UseQueryResult<OrderStatuses[]> = (options) =>
-  useQuery(['getOrderStatuses'], () => GetOrderStatuses(), options);
+  options?: UseQueryOptions<unknown, Error, OrderStatuses[]>,
+) => UseQueryResult<OrderStatuses[], Error> = (options) =>
+  useQuery({
+    queryKey: ['getOrderStatuses'],
+    queryFn: () => GetOrderStatuses(),
+    ...options,
+  });
 
 export const useGetOrderInfo = (id: string) => {
-  const { data, isLoading } = useQuery(
-    ['getOrderInfo', id],
-    () => getOrderInfo(id),
-    {
-      enabled: id !== 'undefined' ? true : false,
-    },
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getOrderInfo', id],
+    queryFn: () => getOrderInfo(id),
+
+    enabled: id !== 'undefined' ? true : false,
+  });
   return { data: data as any, isLoading };
 };
 
 export const useFinishOrderPayment = () => {
   const { push } = useRouter();
   const { openNotification } = useNotification();
-  return useMutation(FinishOrderPayment, {
+  return useMutation({
+    mutationFn: FinishOrderPayment,
     onSuccess: (data: any) => {
       if (data?.status === 400) {
         openNotification({
@@ -117,7 +124,8 @@ export const useCancelOrder = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
   const { openNotification } = useNotification();
-  return useMutation(CancelOrder, {
+  return useMutation({
+    mutationFn: CancelOrder,
     onSuccess: (data: any) => {
       if (data?.status === 400) {
         openNotification({
@@ -128,7 +136,7 @@ export const useCancelOrder = () => {
           notifType: 'successOrFailedMessage',
         });
       } else {
-        queryClient?.invalidateQueries('getOrdersHistory');
+        queryClient?.invalidateQueries({ queryKey: ['getOrdersHistory'] });
         push('/app/orders-history');
       }
     },
@@ -136,31 +144,34 @@ export const useCancelOrder = () => {
 };
 
 export const useVerifyPaymentOrder = () => {
-  return useMutation(VerifyPaymentOrder);
+  return useMutation({ mutationFn: VerifyPaymentOrder });
 };
 
 export const useGetInsurances = () => {
-  const { data, isLoading } = useQuery(['getInsurances'], () =>
-    getInsurances(),
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getInsurances'],
+    queryFn: () => getInsurances(),
+  });
   return { data: data as any, isLoading };
 };
 
 export const useGetOrderState = (orderCode) => {
-  const { data, isLoading } = useQuery(['getOrderState', orderCode], () =>
-    GetOrderState(orderCode),
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getOrderState', orderCode],
+    queryFn: () => GetOrderState(orderCode),
+  });
   return { data: data as any, isLoading };
 };
 
 export const useCancelQuickOrder = () => {
-  return useMutation(CancelQuickOrder);
+  return useMutation({ mutationFn: CancelQuickOrder });
 };
 
 export const useGetSupplementaryInsurances = () => {
-  const { data, isLoading } = useQuery(['getSupplementaryInsurances'], () =>
-    getSupplementaryInsurances(),
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getSupplementaryInsurances'],
+    queryFn: () => getSupplementaryInsurances(),
+  });
   return { data: data as any, isLoading };
 };
 
@@ -173,59 +184,56 @@ export const useCreateOrderDraft: (
   });
 
 export const useGetOrderDetails = (orderCode: string) => {
-  const { data, isLoading } = useQuery(
-    ['getOrderDetails', orderCode],
-    () => getOrderDetails(orderCode),
-    {
-      enabled: !!orderCode,
-    },
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getOrderDetails', orderCode],
+    queryFn: () => getOrderDetails(orderCode),
+    enabled: !!orderCode,
+  });
   return { data: data as any, isLoading };
 };
 
 export const useGetActiveOrderStatus = () => {
-  const { data, isLoading } = useQuery(
-    ['getActiveOrderStatus'],
-    () => getActiveOrderStatus(),
-    {
-      cacheTime: 10000,
-    },
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getActiveOrderStatus'],
+    queryFn: () => getActiveOrderStatus(),
+
+    gcTime: 10000,
+  });
   return { data: data as any, isLoading };
 };
 
 export const useCreateOrderInline = () => {
-  return useMutation(CreateOrderInline);
+  return useMutation({ mutationFn: CreateOrderInline });
 };
 
 export const useCreateOrderInlineStep1 = () => {
-  return useMutation(CreateOrderInlineStep1);
+  return useMutation({ mutationFn: CreateOrderInlineStep1 });
 };
 
 export const useCreateOrderInlineStep2 = () => {
-  return useMutation(CreateOrderInlineStep2);
+  return useMutation({ mutationFn: CreateOrderInlineStep2 });
 };
 
 export const useGetDeliveryCode = (orderCode: string) => {
-  const { data, isLoading } = useQuery(
-    ['getDeliveryCode', orderCode],
-    () => getDeliveryCode(orderCode),
-    {
-      enabled: !!orderCode,
-    },
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getDeliveryCode', orderCode],
+    queryFn: () => getDeliveryCode(orderCode),
+
+    enabled: !!orderCode,
+  });
 
   return { data: data as any, isLoading: isLoading };
 };
 
 export const useDeleteOrderDetail = () => {
-  return useMutation(DeleteOrderDetail);
+  return useMutation({ mutationFn: DeleteOrderDetail });
 };
 
 export const useGetCurrentOrder = () => {
-  const { data, isLoading } = useQuery(['getDeliveryCode'], () =>
-    getCurrentOrder(),
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['getDeliveryCode'],
+    queryFn: () => getCurrentOrder(),
+  });
 
   return { data: data as any, isLoading: isLoading };
 };

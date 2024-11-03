@@ -15,10 +15,10 @@ interface UserInfoFormProps {
 }
 
 const UserInfoForm = ({ data }: UserInfoFormProps) => {
-  const { mutate: mutateAddProfileInfo, isLoading: addProfileIsLoading } =
+  const { mutate: mutateAddProfileInfo, isPending: addProfileIsLoading } =
     useAddProfileInfo();
 
-  const { mutate: mutateUpdateProfileInfo, isLoading: updateProfileIsLoading } =
+  const { mutate: mutateUpdateProfileInfo, isPending: updateProfileIsLoading } =
     useUpdateProfileInfo();
 
   const [initialValues] = useState({

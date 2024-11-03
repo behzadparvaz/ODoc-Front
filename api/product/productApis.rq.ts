@@ -1,4 +1,8 @@
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+import {
+  useQuery,
+  UseQueryOptions,
+  UseQueryResult,
+} from '@tanstack/react-query';
 import {
   getProducts,
   GetCategoryLevel2Products,
@@ -8,26 +12,28 @@ import {
 } from '@api/product/productApis';
 
 export const useGetProducts: (
-  options?: UseQueryOptions<unknown, unknown, any[]>,
-) => UseQueryResult<any[]> = (options) =>
-  useQuery(['getProducts'], () => getProducts(), {
+  options?: UseQueryOptions<unknown, Error, any[]>,
+) => UseQueryResult<any[], Error> = (options) =>
+  useQuery({
+    queryKey: ['getProducts'],
+    queryFn: () => getProducts(),
     ...options,
   });
 
 export const useGetCategtyL2Products = (parentCode: string) => {
-  const { data, isLoading } = useQuery(
-    ['GetCategoryLevel2Products', parentCode],
-    () => GetCategoryLevel2Products(parentCode),
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['GetCategoryLevel2Products', parentCode],
+    queryFn: () => GetCategoryLevel2Products(parentCode),
+  });
   return { data: data as any, isLoading };
 };
 
 export const useGetProductsShapes = (categoryCodeLevel2: string) => {
-  const { data, isLoading, refetch } = useQuery(
-    ['GetProductsShapes', categoryCodeLevel2],
-    () => GetProductsShapes(categoryCodeLevel2),
-    { enabled: !!categoryCodeLevel2 },
-  );
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['GetProductsShapes', categoryCodeLevel2],
+    queryFn: () => GetProductsShapes(categoryCodeLevel2),
+    enabled: !!categoryCodeLevel2,
+  });
   return { data: data as any, isLoading, refetch: refetch };
 };
 
@@ -35,11 +41,11 @@ export const useGetFilteredProductsByShapes = (
   categoryCode: string,
   shapeCode: number,
 ) => {
-  const { data } = useQuery(
-    ['GetFilteredProductsByShapes', categoryCode, shapeCode],
-    () => GetFilteredProductsByShapes(categoryCode, shapeCode),
-    { enabled: !!shapeCode },
-  );
+  const { data } = useQuery({
+    queryKey: ['GetFilteredProductsByShapes', categoryCode, shapeCode],
+    queryFn: () => GetFilteredProductsByShapes(categoryCode, shapeCode),
+    enabled: !!shapeCode,
+  });
 
   return { data: data as any };
 };
@@ -53,11 +59,12 @@ export const useGetProductsFromSearch = ({
   categoryCodeLevel3: string;
   irc: string;
 }) => {
-  const { data, isLoading } = useQuery(
-    ['GetProductsFromSearch', brandName, categoryCodeLevel3, irc],
-    () => GetProductsFromSearch({ brandName, categoryCodeLevel3, irc }),
-    { enabled: !!brandName && !!categoryCodeLevel3 },
-  );
+  const { data, isLoading } = useQuery({
+    queryKey: ['GetProductsFromSearch', brandName, categoryCodeLevel3, irc],
+    queryFn: () =>
+      GetProductsFromSearch({ brandName, categoryCodeLevel3, irc }),
+    enabled: !!brandName && !!categoryCodeLevel3,
+  });
 
   return { data: data as any, isLoading };
 };

@@ -38,7 +38,7 @@ type CancelOrderModalProps = {
 };
 
 const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
-  const { mutate: mutateCancelOrder, isLoading: isLoadingCancelOrder } =
+  const { mutate: mutateCancelOrder, isPending: isLoadingCancelOrder } =
     useCancelOrder();
   const { removeLastModal } = useModal();
 

@@ -30,14 +30,14 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
   const dispatch = useDispatch();
   const {
     mutate: mutateSendPasswordForLoginWithPassword,
-    isLoading: sendVerifyCodeLoading,
+    isPending: sendVerifyCodeLoading,
   } = useSendOtpForLoginWithPassword();
   const { push, query } = useRouter();
   const { openNotification } = useNotification();
   const fromUrl = query?.from_url;
   const {
     mutate: mutateSendOtpForLoginWithOtp,
-    isLoading: sendOtpForLoginWithOtp,
+    isPending: sendOtpForLoginWithOtp,
   } = useSendOtpForLoginWithOtp();
 
   const formik = useFormik({
@@ -132,7 +132,7 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
           labelClassName="text-md font-medium"
           className="!rounded-lg !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           name="password"
-          fontSize='md'
+          fontSize="md"
           value={formik.values.password}
           onChange={formik.handleChange}
           error={formik.touched.password && Boolean(formik.errors.password)}
@@ -147,13 +147,12 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
           autoComplete="off"
           leftIcon={
             formik.values.password?.length >= 1 && (
-              <span className='pt-1 inline-block' onClick={() => setHidePassword(!hidePassword)}>
+              <span
+                className="pt-1 inline-block"
+                onClick={() => setHidePassword(!hidePassword)}
+              >
                 {hidePassword ? (
-                  <OpenEyeIconFill
-                    width={32}
-                    height={32}
-                    fill={colors.black}
-                  />
+                  <OpenEyeIconFill width={32} height={32} fill={colors.black} />
                 ) : (
                   <CloseEyeIconFill
                     width={32}
@@ -171,7 +170,6 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
           className="w-full my-2.5 !border-none"
           size="large"
           type="button"
-          
           handleClick={() => handleLoginWithOtp()}
         >
           {loginTexts?.loginByOTP}

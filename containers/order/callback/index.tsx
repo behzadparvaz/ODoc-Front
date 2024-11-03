@@ -15,7 +15,7 @@ const CallBackContainer = () => {
 
   const [paymentStatus, setPaymentStatus] = useState<boolean>(null);
 
-  const { mutate, isLoading } = useVerifyPaymentOrder();
+  const { mutate, isPending } = useVerifyPaymentOrder();
 
   useEffect(() => {
     const body = {
@@ -41,7 +41,7 @@ const CallBackContainer = () => {
 
   return (
     <MainLayout>
-      {isLoading ? (
+      {isPending ? (
         <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
       ) : (
         <>
