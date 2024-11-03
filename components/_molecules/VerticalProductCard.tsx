@@ -56,7 +56,7 @@ const VerticalProductCard = ({
     }),
     enabled: true,
   });
-  const { mutate: addToCart, isLoading: isAddingToCart } =
+  const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();

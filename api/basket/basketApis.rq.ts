@@ -5,7 +5,8 @@ import {
   useQuery,
   UseQueryOptions,
   UseQueryResult,
-} from 'react-query';
+  UseSuspenseQueryOptions,
+} from '@tanstack/react-query';
 import {
   addProductToBasket,
   AddProductToBasketPayload,
@@ -17,10 +18,12 @@ import {
   UpdateCountProductBasketPayload,
 } from '@api/basket/basketApis';
 
-export const useGetCurrentBasket: <TQuery = Basket>(
-  options?: UseQueryOptions<unknown, unknown, TQuery>,
-) => UseQueryResult<TQuery> = (options) =>
-  useQuery(['getCurrentBasket'], () => getCurrentBasket(), {
+export const useGetCurrentBasket = <TQuery = Basket>(
+  options?: any,
+): UseQueryResult<TQuery> =>
+  useQuery({
+    queryKey: ['getCurrentBasket'],
+    queryFn: () => getCurrentBasket(),
     refetchInterval: 5000,
     ...options,
   });

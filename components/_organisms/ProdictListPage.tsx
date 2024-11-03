@@ -82,7 +82,7 @@ export default function ProdictListPage({}: Props) {
         </label>
         </div> */}
 
-      {plpData.status === 'loading' && (
+      {plpData.status === 'pending' && (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
       )}
       {plpData.status === 'success' && (

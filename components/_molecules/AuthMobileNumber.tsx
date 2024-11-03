@@ -13,7 +13,7 @@ interface Props {
 }
 
 const AuthMobileNumber = ({ handleChangeForm }: Props) => {
-  const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } =
+  const { mutate: mutatesendMobileNumber, isPending: sendMobileNumberLoding } =
     useSendMobileNumber();
   const formik = useFormik({
     initialValues: {

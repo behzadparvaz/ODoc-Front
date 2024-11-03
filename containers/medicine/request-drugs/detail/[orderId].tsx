@@ -13,7 +13,7 @@ const QuickOrderDetailContainer = () => {
   const { query, back } = useRouter();
   const orderId = String(query?.orderId);
   const { data, isLoading } = useGetOrderInfo(orderId);
-  const { mutate, isLoading: mutateIsLoading } = useCancelQuickOrder();
+  const { mutate, isPending: mutateIsLoading } = useCancelQuickOrder();
   const { push } = useRouter();
   const orderData = data?.data;
   const orderStatus = orderData?.status;

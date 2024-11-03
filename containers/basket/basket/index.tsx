@@ -36,7 +36,7 @@ const Page = () => {
     isLoading,
     refetch: refetchGetBasket,
   } = useGetCurrentBasket();
-  const { mutate: deleteBasket, isLoading: isLoadingDeleteBasket } =
+  const { mutate: deleteBasket, isPending: isLoadingDeleteBasket } =
     useDeleteCurrentBasket({
       onMutate: () => {
         setIsDisabled(true);
@@ -51,7 +51,7 @@ const Page = () => {
   const {
     mutate: createOrderDraft,
     data: draftData,
-    isLoading: isLoadingcreateOrderDraft,
+    isPending: isLoadingcreateOrderDraft,
   } = useCreateOrderDraft({
     onMutate: () => {
       setIsDisabled(true);

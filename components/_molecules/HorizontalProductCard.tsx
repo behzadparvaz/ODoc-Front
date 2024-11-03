@@ -59,7 +59,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     );
   }, [basket]);
 
-  const { mutate: addToCart, isLoading: isAddingToCart } =
+  const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();

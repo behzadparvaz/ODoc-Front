@@ -118,7 +118,7 @@ const ProfileContainer = () => {
             className="!px-0"
             onClick={handleOpenLogoutModal}
           >
-            <div className="w-full flex gap-x-5 items-center  cursor-pointer">
+            <div className="w-full flex gap-x-5 items-center  cursor-pointer px-4">
               <ExitOutlineIcon width={24} height={24} />
               <span className="text-md font-medium leading-7 text-[#E11900]">
                 خروج از حساب کاربری

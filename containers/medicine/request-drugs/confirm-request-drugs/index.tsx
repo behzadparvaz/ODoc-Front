@@ -34,7 +34,7 @@ const ConfirmRequestDrugs = () => {
   const { user } = useSelector((state: RootState) => state.user);
   const drugs = useSelector((state: any) => state.requestDrugs.drugs);
 
-  const { mutate, isLoading } = useCreateOrderInline();
+  const { mutate, isPending } = useCreateOrderInline();
   const { openNotification } = useNotification();
   useEffect(() => {
     if (user?.defaultAddress) {
@@ -237,7 +237,7 @@ const ConfirmRequestDrugs = () => {
             size="large"
             type="button"
             handleClick={() => handleSendForm()}
-            isLoading={isLoading}
+            isLoading={isPending}
           >
             تایید و ادامه
           </Button>
