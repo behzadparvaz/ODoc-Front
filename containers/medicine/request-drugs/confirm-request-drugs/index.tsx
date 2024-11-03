@@ -1,22 +1,26 @@
 import { useCreateOrderInline } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
-import Button from '@com/_atoms/Button';
+import { Button } from '@com/_atoms/NewButton';
 import Input from '@com/_atoms/Input.nd';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import SelectAddress from '@com/_organisms/SelectAddress';
+import SelectGender from '@com/_organisms/selectGender';
 import {
+  ChevronDownIcon,
   ChevronLeftIconOutline,
   ClipboardClockIcon,
   LocationIconOutline,
   NewDeleteIcon,
 } from '@com/icons';
 import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
 import { removeDrugAction } from '@redux/requestDrugs/requestDrugsActions';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
+import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,7 +32,10 @@ const ConfirmRequestDrugs = () => {
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
     description: '',
+    age: '',
+    gender: '',
     nationalCode: data?.queryResult?.[0]?.nationalCode || '',
+    sensitivity: '',
   });
   const { addModal, removeLastModal } = useModal();
   const { user } = useSelector((state: RootState) => state.user);
@@ -62,6 +69,9 @@ const ConfirmRequestDrugs = () => {
       setState({
         description: '',
         nationalCode: '',
+        age: '',
+        gender: '',
+        sensitivity: '',
       });
     };
   }, []);
@@ -77,6 +87,20 @@ const ConfirmRequestDrugs = () => {
     dispatch(removeDrugAction(drugId));
   };
 
+  const handleGenderClick = (e) => {
+    addModal({
+      modal: SelectGender,
+      props: {
+        handleClick: (item) => {
+          setState({
+            ...state,
+            gender: item?.name,
+          });
+          removeLastModal();
+        },
+      },
+    });
+  };
   const handleNationalCodeChange = (e) => {
     const value = e.target.value;
 
@@ -99,8 +123,18 @@ const ConfirmRequestDrugs = () => {
           drugType: item.drugShape?.id,
         };
       });
+      // Generate formatted description
+      const formattedDescription = [
+        state.age ? `سن: ${state.age}` : '', // Add age if it exists
+        state.gender ? `جنسیت: ${state.gender}` : '', // Add gender if it exists
+        state.sensitivity ? `حساسیت: ${state.sensitivity}` : '', // Add sensitivity if it exists
+        state.description, // Always add description
+      ]
+        .filter(Boolean)
+        .join('\n'); // Join with line breaks
+
       body.nationalCode = state.nationalCode;
-      body.description = state.description;
+      body.description = formattedDescription;
       body.orderDetails = data;
       body.addressId = user?.defaultAddress?.id;
       return body;
@@ -204,6 +238,61 @@ const ConfirmRequestDrugs = () => {
           <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
         </div>
         <div className="w-full px-4">
+          <div className="flex items-center justify-center gap-4">
+            <div className="w-full flex flex-col">
+              <Input
+                onChange={(e) => {
+                  setState({
+                    ...state,
+                    age: e?.target?.value,
+                  });
+                }}
+                labelClassName="text-base font-medium mt-5"
+                label="سن"
+                type="number"
+                inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+                value={state.age}
+              />
+            </div>
+            <div className="w-full flex flex-col">
+              <label className=" text-grey-800 mb-2 text-base font-medium mt-5">
+                جنسیت
+              </label>
+              <div
+                onClick={handleGenderClick}
+                className={`bg-gray-100 flex justify-between items-center cursor-pointer px-3 rounded-md h-[52px]`}
+              >
+                {data?.drugShape?.name ? (
+                  data?.drugShape?.name
+                ) : (
+                  <span
+                    className={classNames(
+                      !state.gender ? 'text-grey-400' : 'text-black',
+                    )}
+                  >
+                    {state.gender ? state.gender : 'جنسیت'}
+                  </span>
+                )}
+                <ChevronDownIcon width={20} height={20} stroke={colors.black} />
+              </div>
+            </div>
+          </div>
+          <div className="w-full">
+            <TextAreaInput
+              id="description"
+              onChange={(e) => {
+                setState({
+                  ...state,
+                  sensitivity: e?.target?.value,
+                });
+              }}
+              labelClassName="text-base font-medium mt-5"
+              label="حساسیت های دارویی"
+              placeholder="برای داروخانه توضیح بنویسید"
+              rows={5}
+              value={state.sensitivity}
+            />
+          </div>
           <TextAreaInput
             id="description"
             onChange={(e) => {
@@ -229,19 +318,18 @@ const ConfirmRequestDrugs = () => {
             value={state.nationalCode}
           />
         </div>
-        <div className="px-4">
+        <ActionBar type="singleAction" hasDivider>
           <Button
-            buttonType="contained"
+            className="w-full"
             variant="primary"
-            className="w-full mb-9 mt-9"
             size="large"
-            type="button"
-            handleClick={() => handleSendForm()}
+            type="submit"
+            onClick={() => handleSendForm()}
             isLoading={isPending}
           >
-            تایید و ادامه
+            تأیید و ادامه
           </Button>
-        </div>
+        </ActionBar>
       </div>
     </MainLayout>
   );

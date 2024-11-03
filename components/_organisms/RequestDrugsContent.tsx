@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import AddNewRequestDrugForm from './AddNewRequestDrugForm';
 import { v4 as uuidv4 } from 'uuid'; // Import uuidv4
+import ActionBar from '@com/Layout/ActionBar'; // Ensure ActionBar is imported
 
 interface DrugShape {
   name: string;
@@ -33,13 +34,14 @@ const RequestDrugsContent = () => {
   ];
 
   const drugs = useSelector((state: any) => state.requestDrugs.drugs);
-  const [formikValues, setFormikValues] = useState(initialValues);
+  const [formikValues, setFormikValues] = useState<DrugForm[]>(initialValues);
   const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
     setFormikValues(drugs.length > 0 ? drugs : initialValues); // Ensure it defaults to initial if empty
   }, [drugs]);
+
   return (
     <Formik
       initialValues={{ drugs: formikValues }}
@@ -50,79 +52,68 @@ const RequestDrugsContent = () => {
         router.push('/app/request-drugs/confirm-request-drugs');
       }}
     >
-      {({ values, isValid }) => (
-        <Form>
-          <FieldArray name="drugs">
-            {({ push, remove }) => (
-              <>
-                {values.drugs.map((item, index) => (
-                  <AddNewRequestDrugForm
-                    key={item.id} // Use UUID as key
-                    index={index}
-                    handleDelete={() => remove(index)}
-                    data={item}
-                    totalDrugs={values.drugs.length}
-                  />
-                ))}
-                <div className="flex justify-between items-center mt-4">
-                  <div
-                    className={`flex items-center gap-2 font-medium ${
-                      !isValid ||
-                      !values.drugs.every(
-                        (drug) =>
-                          drug.drugName &&
-                          drug.quantity !== null &&
-                          drug.drugShape,
-                      )
-                        ? 'cursor-not-allowed opacity-50'
-                        : 'cursor-pointer'
-                    }`}
-                    onClick={() => {
-                      const allFieldsValid = values.drugs.every(
-                        (drug) =>
-                          drug.drugName &&
-                          drug.quantity !== null &&
-                          drug.drugShape,
-                      );
-                      if (allFieldsValid) {
-                        push({
-                          id: uuidv4(), // Use uuidv4 for new ID
-                          quantity: '',
-                          drugName: '',
-                          drugShape: null,
-                        });
-                      }
-                    }}
-                  >
-                    <NewPlusIconOutline
-                      width={20}
-                      height={20}
-                      fill={colors.black}
+      {({ values, errors, touched }) => {
+        const allFieldsValid = values.drugs.every(
+          (drug) => drug.drugName && drug.quantity && drug.drugShape,
+        );
+
+        return (
+          <Form>
+            <FieldArray name="drugs">
+              {({ push, remove }) => (
+                <>
+                  {values.drugs.map((item, index) => (
+                    <AddNewRequestDrugForm
+                      key={item.id} // Use UUID as key
+                      index={index}
+                      handleDelete={() => remove(index)}
+                      data={item}
+                      totalDrugs={values.drugs.length}
                     />
-                    <span className="mt-1">اضافه کردن دارو</span>
+                  ))}
+                  <div className="flex justify-between items-center mt-4">
+                    <div
+                      className={`flex items-center gap-2 font-medium ${
+                        !allFieldsValid
+                          ? 'cursor-not-allowed opacity-50'
+                          : 'cursor-pointer'
+                      }`}
+                      onClick={() => {
+                        if (allFieldsValid) {
+                          push({
+                            id: uuidv4(), // Use uuidv4 for new ID
+                            quantity: '',
+                            drugName: '',
+                            drugShape: null,
+                          });
+                        }
+                      }}
+                    >
+                      <NewPlusIconOutline
+                        width={20}
+                        height={20}
+                        fill={colors.black}
+                      />
+                      <span className="mt-1">اضافه کردن دارو</span>
+                    </div>
                   </div>
-                  <Button
-                    variant="primary"
-                    size="medium"
-                    type="submit"
-                    disabled={
-                      !isValid ||
-                      !values.drugs.every(
-                        (drug) =>
-                          drug.drugName &&
-                          drug.quantity !== null &&
-                          drug.drugShape,
-                      )
-                    }
-                  >
-                    تأیید و ادامه
-                  </Button>
-                </div>
-              </>
-            )}
-          </FieldArray>
-        </Form>
-      )}
+                </>
+              )}
+            </FieldArray>
+            <ActionBar type="singleAction" hasDivider>
+              <Button
+                className="w-full"
+                variant="primary"
+                size="large"
+                type="submit"
+                disabled={!allFieldsValid || Object.keys(errors).length > 0} // Check if there are any errors
+              >
+                تأیید و ادامه
+              </Button>
+            </ActionBar>
+          </Form>
+        );
+      }}
     </Formik>
   );
 };
