@@ -18,7 +18,9 @@ const NextImage = ({
   height,
   ...rest
 }: ImageComponentProps): JSX.Element => {
-  const [imageSrc, setImageSrc] = useState(src);
+  const [imageSrc, setImageSrc] = useState(
+    src || '/static/images/staticImages/errorImage.png',
+  );
   const [imageError, setImageError] = useState<boolean>(false);
 
   const handleImageError = () => {
