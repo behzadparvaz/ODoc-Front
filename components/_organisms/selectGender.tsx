@@ -17,6 +17,7 @@ const SelectGender = ({ handleClick }) => {
       {Object.values(Gender).map((item) => {
         return (
           <div
+            key={item.code}
             onClick={() => handleClickItem(item)}
             className="py-2.5 border-b cursor-pointer border-gray-100"
           >
