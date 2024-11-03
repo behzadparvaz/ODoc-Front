@@ -1,13 +1,4 @@
 import {
-  useMutation,
-  UseMutationOptions,
-  UseMutationResult,
-  useQuery,
-  UseQueryOptions,
-  UseQueryResult,
-  UseSuspenseQueryOptions,
-} from '@tanstack/react-query';
-import {
   addProductToBasket,
   AddProductToBasketPayload,
   deleteCurrentBasket,
@@ -17,6 +8,13 @@ import {
   updateCountProductBasket,
   UpdateCountProductBasketPayload,
 } from '@api/basket/basketApis';
+import {
+  useMutation,
+  UseMutationOptions,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult
+} from '@tanstack/react-query';
 
 export const useGetCurrentBasket = <TQuery = Basket>(
   options?: any,
