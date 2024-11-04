@@ -10,11 +10,10 @@ import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
 const QuickOrderDetailContainer = () => {
-  const { query, back } = useRouter();
+  const { query, back, push } = useRouter();
   const orderId = String(query?.orderId);
   const { data, isLoading } = useGetOrderInfo(orderId);
   const { mutate, isPending: mutateIsLoading } = useCancelQuickOrder();
-  const { push } = useRouter();
   const orderData = data?.data;
   const orderStatus = orderData?.status;
   const showCancelOrderButton = orderStatus === 1 || orderStatus === 4;
