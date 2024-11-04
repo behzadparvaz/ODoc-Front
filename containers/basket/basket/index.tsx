@@ -6,31 +6,23 @@ import {
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
-import { useGetProfile } from '@api/user/user.rq';
-import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Button } from '@com/_atoms/NewButton';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
-import Address from '@com/_organisms/Address';
-import { TickIcon, TimerIcon } from '@com/icons';
+import { TimerIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
-import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import { RootState } from '@utilities/types';
-import { useSelector } from 'react-redux';
 
 const Page = () => {
   const router = useRouter();
 
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const { openNotification } = useNotification();
-  const { user } = useSelector((state: RootState) => state?.user);
   const {
     data: basket,
     isLoading,
@@ -63,56 +55,6 @@ const Page = () => {
       }, 2000);
     },
   });
-  const { data: profileQuery } = useGetProfile();
-
-  const profile: any = profileQuery?.queryResult?.[0];
-
-  const onSubmitBasket = () => {
-    const { defaultAddress } = user;
-    const products =
-      basket?.products?.map((pr) => ({
-        description: pr.name,
-        irc: pr.irc,
-        quantity: pr.quantity,
-        gtin: pr.gtin,
-        productName: pr.name,
-      })) ?? [];
-
-    if (!defaultAddress?.id) {
-      openNotification({
-        type: 'error',
-        message: 'آدرس را انتخاب کنید',
-        notifType: 'successOrFailedMessage',
-      });
-      return;
-    }
-
-    createOrderDraft({
-      comment: '',
-      customerName: [profile?.firstName, profile?.lastName].join(' '),
-      nationalCode: profile?.nationalCode,
-
-      deliveryDate: '',
-      fromDeliveryTime: '',
-      toDeliveryTime: '',
-
-      homeUnit: defaultAddress?.homeUnit,
-      houseNumber: defaultAddress?.houseNumber,
-      latitude: defaultAddress?.latitude,
-      longitude: defaultAddress?.longitude,
-      titleAddress: defaultAddress?.name,
-      valueAddress: defaultAddress?.description,
-
-      referenceNumber: basket?.refrenceNumber,
-      insuranceTypeId: basket?.insuranceType,
-      supplementaryInsuranceTypeId: basket?.supplementaryInsuranceType,
-
-      items: products,
-
-      isSpecialPatient: basket?.isSpecialPatient,
-      vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
-    });
-  };
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
 
@@ -184,24 +126,6 @@ const Page = () => {
                     </div>
                   ))}
                 </div>
-                <Address />
-                <CheckBox
-                  handleChange={() => {}}
-                  label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
-                  labelClassName="text-sm mr-6 font-normal text-grey-500"
-                  name="vendorCode"
-                  icon={
-                    <TickIcon
-                      width={15}
-                      height={15}
-                      stroke={colors.white}
-                      className="mx-auto mt-[1px]"
-                    />
-                  }
-                  boxClassName="w-4 h-4 !top-3 border-grey-800"
-                  checked={true}
-                  className="w-full flex items-center mb-4 z-0"
-                />
               </div>
             )}
           </>
@@ -216,21 +140,11 @@ const Page = () => {
                 variant="primary"
                 className="w-full"
                 size="large"
-                onClick={onSubmitBasket}
+                onClick={() => router.push(`${routeList.confirmBasket}`)}
                 isLoading={isLoadingcreateOrderDraft}
-                disabled={isLoadingDeleteBasket || isDisabled}
+                disabled={isLoadingDeleteBasket}
               >
-                ارسال به داروخانه ها
-              </Button>
-              <Button
-                variant="secondary"
-                className="w-full"
-                size="large"
-                onClick={deleteBasket}
-                isLoading={isLoadingDeleteBasket}
-                disabled={isLoadingcreateOrderDraft || isDisabled}
-              >
-                حذف سبد خرید
+                تأیید و ادامه
               </Button>
             </>
           )}

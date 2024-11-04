@@ -24,6 +24,7 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SelectAddressAction from '@com/_molecules/SelectAddressAction';
 
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
@@ -161,40 +162,10 @@ const ConfirmRequestDrugs = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="flex justify-between flex-col h-full">
-        <div className="flex flex-col px-4 cursor-pointer">
-          <div
-            onClick={() => {
-              addModal({
-                modal: SelectAddress,
-              });
-            }}
-            className="flex justify-between gap-6"
-          >
-            <div>
-              <LocationIconOutline
-                width={36}
-                height={36}
-                fill={colors.grey[600]}
-              />
-            </div>
-            <div className="w-full">
-              <h1 className="font-bold text-xl">آدرس</h1>
-              <p className="font-normal text-grey-500">
-                {user?.defaultAddress?.description
-                  ? user?.defaultAddress?.description
-                  : 'آدرس خود را انتخاب کنید'}
-              </p>
-            </div>
-            <div>
-              <ChevronLeftIconOutline
-                width={36}
-                height={36}
-                fill={colors.grey[400]}
-              />
-            </div>
-          </div>
-          <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
+      <div className="flex justify-center flex-col h-full">
+        <div className="flex flex-col cursor-pointer min-h-[102px] justify-center px-4">
+          <SelectAddressAction />
+          <div className="h-[1px] bg-grey-200 w-full mt-4" />
         </div>
         <div className="flex flex-col px-4">
           <h1 className="font-bold text-lg">اقلام درخواست</h1>
