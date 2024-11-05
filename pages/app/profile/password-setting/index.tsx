@@ -1,22 +1,6 @@
-import { useGetProfile } from '@api/user/user.rq';
-import UserPasswordForm from '@com/_molecules/UserPasswordForm';
-import { MainLayout } from '@com/Layout';
-import { profileText } from '@com/texts/profileText';
+import { PasswordSettingContainer } from '@containers/profile';
 
-const Profile = () => {
-  const { data, isLoading: profileDataLoding } = useGetProfile();
-  const profileData: any = data;
-  const profileInfo = profileData?.queryResult[0];
-  return (
-    <MainLayout
-      hasBottomNavigation
-      hasHeader
-      headerType="withoutLogo"
-      hasBackButton
-      title={profileText?.passwordSetting}
-    >
-      {profileDataLoding === false && <UserPasswordForm data={profileInfo} />}
-    </MainLayout>
-  );
+const PasswordSettingPage = () => {
+  return <PasswordSettingContainer />;
 };
-export default Profile;
+export default PasswordSettingPage;

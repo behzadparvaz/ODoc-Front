@@ -1,16 +1,17 @@
 version: '3'
 
 services:
-  web:
+  front-end:
+    image: tapsi-doctor
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        ENV_FILE: .env.staging
+        ENV_MODE: staging
     ports:
       - "5000:3000"
     environment:
       - NODE_ENV=production
       - PORT=3000
-    volumes:
-      - .:/app
+    # volumes:
+      # - .:/app

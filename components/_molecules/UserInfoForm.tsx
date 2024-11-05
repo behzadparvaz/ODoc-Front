@@ -15,10 +15,10 @@ interface UserInfoFormProps {
 }
 
 const UserInfoForm = ({ data }: UserInfoFormProps) => {
-  const { mutate: mutateAddProfileInfo, isLoading: addProfileIsLoading } =
+  const { mutate: mutateAddProfileInfo, isPending: addProfileIsLoading } =
     useAddProfileInfo();
 
-  const { mutate: mutateUpdateProfileInfo, isLoading: updateProfileIsLoading } =
+  const { mutate: mutateUpdateProfileInfo, isPending: updateProfileIsLoading } =
     useUpdateProfileInfo();
 
   const [initialValues] = useState({
@@ -45,73 +45,76 @@ const UserInfoForm = ({ data }: UserInfoFormProps) => {
   };
 
   return (
-    <form
-      onSubmit={formik.handleSubmit}
-      className={'flex gap-y-7 p-4 flex-col w-full'}
-    >
-      <TextInput
-        placeholder={profileText?.firstName}
-        label={profileText?.firstName}
-        id="firstName"
-        name="firstName"
-        value={formik.values.firstName}
-        onChange={(e) => handleChangeForm('firstName', e)}
-        onBlur={formik.handleBlur}
-        isTouched={formik.touched.firstName && Boolean(formik.errors.firstName)}
-        errorMessage={formik.errors.firstName as string}
-        maxLength={16}
-      />
+    <>
+      <form
+        onSubmit={formik.handleSubmit}
+        className={'flex gap-y-7 p-4 flex-col w-full pb-[84px]'}
+      >
+        <TextInput
+          placeholder={profileText?.firstName}
+          label={profileText?.firstName}
+          id="firstName"
+          name="firstName"
+          value={formik.values.firstName}
+          onChange={(e) => handleChangeForm('firstName', e)}
+          onBlur={formik.handleBlur}
+          isTouched={
+            formik.touched.firstName && Boolean(formik.errors.firstName)
+          }
+          errorMessage={formik.errors.firstName as string}
+          maxLength={16}
+        />
 
-      <TextInput
-        placeholder={profileText?.lastName}
-        label={profileText?.lastName}
-        id="lastName"
-        name="lastName"
-        value={formik.values.lastName}
-        onChange={(e) => handleChangeForm('lastName', e)}
-        onBlur={formik.handleBlur}
-        isTouched={formik.touched.lastName && Boolean(formik.errors.lastName)}
-        errorMessage={formik.errors.lastName as string}
-        maxLength={30}
-      />
+        <TextInput
+          placeholder={profileText?.lastName}
+          label={profileText?.lastName}
+          id="lastName"
+          name="lastName"
+          value={formik.values.lastName}
+          onChange={(e) => handleChangeForm('lastName', e)}
+          onBlur={formik.handleBlur}
+          isTouched={formik.touched.lastName && Boolean(formik.errors.lastName)}
+          errorMessage={formik.errors.lastName as string}
+          maxLength={30}
+        />
 
-      <TextInput
-        placeholder={profileText?.nationalCode}
-        label={profileText?.nationalCode}
-        id="nationalCode"
-        name="nationalCode"
-        type="number"
-        value={formik.values.nationalCode}
-        onChange={(e) => handleChangeForm('nationalCode', e)}
-        onBlur={formik.handleBlur}
-        isTouched={
-          formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
-        }
-        errorMessage={formik.errors.nationalCode as string}
-        maxLength={10}
-      />
+        <TextInput
+          placeholder={profileText?.nationalCode}
+          label={profileText?.nationalCode}
+          id="nationalCode"
+          name="nationalCode"
+          type="number"
+          value={formik.values.nationalCode}
+          onChange={(e) => handleChangeForm('nationalCode', e)}
+          onBlur={formik.handleBlur}
+          isTouched={
+            formik.touched.nationalCode && Boolean(formik.errors.nationalCode)
+          }
+          errorMessage={formik.errors.nationalCode as string}
+          maxLength={10}
+        />
 
-      <TextInput
-        placeholder={profileText?.mobileNumber}
-        label={profileText?.mobileNumber}
-        id="mobileNumber"
-        name="mobileNumber"
-        type="text"
-        value={data?.phoneNumber}
-        onChange={() => {
-          return;
-        }}
-        disabled
-      />
+        <TextInput
+          placeholder={profileText?.mobileNumber}
+          label={profileText?.mobileNumber}
+          id="mobileNumber"
+          name="mobileNumber"
+          type="text"
+          value={data?.phoneNumber}
+          onChange={() => {
+            return;
+          }}
+          disabled
+        />
 
-      <Gender
-        value={formik?.values.gender}
-        name={'gender'}
-        onChange={formik?.handleChange}
-        label="جنسیت"
-      />
-
-      <ActionBar type="singleAction">
+        <Gender
+          value={formik?.values.gender}
+          name={'gender'}
+          onChange={formik?.handleChange}
+          label="جنسیت"
+        />
+      </form>
+      <ActionBar type="singleAction" className="z-20" hasDivider>
         <Button
           type="submit"
           className="w-full"
@@ -122,7 +125,7 @@ const UserInfoForm = ({ data }: UserInfoFormProps) => {
           {data ? 'ویرایش اطلاعات کاربری' : 'ثبت اطلاعات کاربری'}
         </Button>
       </ActionBar>
-    </form>
+    </>
   );
 };
 

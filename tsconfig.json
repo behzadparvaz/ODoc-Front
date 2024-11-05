@@ -13,7 +13,8 @@
       "@routes/*": ["routes/*"],
       "@styles/*": ["styles/*"],
       "@tools/*": ["tools/*"],
-      "@utilities/*": ["utilities/*"]
+      "@utilities/*": ["utilities/*"],
+      "@containers/*": ["containers/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -46,7 +47,8 @@
     "routes",
     "hooks",
     "configs",
-    "utilities"
+    "utilities",
+    "containers"
   ],
   "exclude": ["node_modules"]
 }

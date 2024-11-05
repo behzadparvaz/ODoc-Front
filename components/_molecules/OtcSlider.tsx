@@ -53,11 +53,11 @@ const OtcSlider = ({ category }: OtcSliderProps) => {
 
   return (
     <div className="relative flex flex-col gap-2 w-full h-max min-h-[200px] py-2 text-xs">
-      <div className="flex justify-between items-center gap-6 px-4">
+      <div className="w-full grid grid-cols-[1fr_132px] items-center gap-6 px-4 overflow-hidden">
         <NextLink
           href={`${routeList.productPage}${category?.categoryCodeLevel2}?categoryName=${category?.categoryNameLevel2}`}
         >
-          <div className="flex gap-x-2 items-center w-2/3 text-base font-semibold cursor-pointer text-[#276EF1]">
+          <div className="max-w-[240px] col-start-1 col-end-2 flex gap-x-2 items-center w-2/3 text-base font-semibold cursor-pointer text-[#276EF1]">
             <span className="!w-max truncate">
               {category?.categoryNameLevel2}
             </span>
@@ -67,7 +67,7 @@ const OtcSlider = ({ category }: OtcSliderProps) => {
 
         <span
           onClick={() => handleOpenSelectShapeItem()}
-          className="flex items-center justify-center gap-1 text-sm font-normal text-center bg-grey-50 w-1/3 min-w-max h-8 rounded-full px-1.5 cursor-pointer"
+          className="flex items-center justify-center gap-1 text-sm font-normal text-center bg-grey-50 w-full min-w-max h-8 rounded-full px-1.5 cursor-pointer col-start-2 col-end-3"
         >
           <FilterIcon width={20} height={20} fill={colors.black} />
           {filteredShapes?.shapeName || 'شکل دارو'}

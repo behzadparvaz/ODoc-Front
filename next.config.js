@@ -27,6 +27,15 @@ const nextConfig = {
   async headers() {
     return [
       {
+        source: '/(.*)',
+        headers: [
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+        ],
+      },
+      {
         // This works, and returns appropriate Response headers:
         source: '/(.*).jpg',
         headers: [

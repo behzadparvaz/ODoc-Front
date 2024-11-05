@@ -13,7 +13,7 @@ const DeleteAddressModal = ({ addressId }: DeleteAddressModalProps) => {
 
   const {
     mutate: mutateDeleteLocation,
-    isLoading: mutateDeleteLocationLoading,
+    isPending: mutateDeleteLocationLoading,
   } = useDeleteLocation();
 
   const handleDeleteAddress = () => {

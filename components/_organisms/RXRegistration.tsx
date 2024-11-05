@@ -38,7 +38,7 @@ const OrderRegisterSteps = ({ data, className = '' }) => {
   const router = useRouter();
 
   const { refetch: refetchGetBasket } = useGetCurrentBasket();
-  const { mutate: addToCart, isLoading: isAddingToCart } =
+  const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         refetchGetBasket();

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const AuthMobileNumber = ({ handleChangeForm }: Props) => {
-  const { mutate: mutatesendMobileNumber, isLoading: sendMobileNumberLoding } =
+  const { mutate: mutatesendMobileNumber, isPending: sendMobileNumberLoding } =
     useSendMobileNumber();
   const formik = useFormik({
     initialValues: {
@@ -68,13 +68,13 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
           autoComplete="off"
         />
         <NextLink href={routeList?.policyRoute}>
-          <a>
+          <span>
             <p className="text-sm text-grey-500 text-center py-5">
               با ثبت نام
               <span className="inline-block text-black px-1">در تپسی دکتر</span>
               شرایط و مقررات را می پذیرم.
             </p>
-          </a>
+          </span>
         </NextLink>
         <Button
           buttonType="contained"
