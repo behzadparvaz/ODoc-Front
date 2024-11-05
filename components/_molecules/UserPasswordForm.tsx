@@ -33,8 +33,8 @@ const UserPasswordForm = ({ data }) => {
             placeholder={profileText?.enterNewPassword}
             label={profileText?.newPassword}
             className="flex-auto"
-            labelClassName="font-normal text-sm"
-            inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+            labelClassName="font-normal text-xs"
+            inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
             id="Password"
             name="Password"
             value={formik.values.Password}
@@ -49,8 +49,8 @@ const UserPasswordForm = ({ data }) => {
             placeholder={profileText?.enterReEnterNewPassword}
             label={profileText?.reEnterNewPassword}
             className="flex-auto"
-            labelClassName="font-normal text-sm"
-            inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+            labelClassName="font-normal text-xs"
+            inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
             id="ConfrimPassword"
             name="ConfrimPassword"
             value={formik.values.ConfrimPassword}

@@ -87,7 +87,7 @@ const TenderItemDetail = ({
             <span
               onClick={handleChangeTabs}
               className={classNames(
-                'w-full text-center cursor-pointer text-sm font-medium leading-6 z-10',
+                'w-full text-center cursor-pointer text-xs font-medium leading-6 z-10',
               )}
             >
               اقلام سفارش
@@ -95,7 +95,7 @@ const TenderItemDetail = ({
             <span
               onClick={handleChangeTabs}
               className={classNames(
-                'w-full text-center cursor-pointer text-sm font-medium leading-6 z-10',
+                'w-full text-center cursor-pointer text-xs font-medium leading-6 z-10',
               )}
             >
               توضیحات
@@ -125,7 +125,7 @@ const TenderItemDetail = ({
           <div className="w-full h-16 flex justify-between items-center mt-2 mb-7 px-4 py-2">
             <div className="flex flex-col gap-y-2">
               <span className="text-md leading-6 font-bold">{`${convertRialToToman(tenderData?.finalPrice)}`}</span>
-              <span className="text-sm leading-5">قابل پرداخت</span>
+              <span className="text-xs leading-5">قابل پرداخت</span>
             </div>
 
             <Button

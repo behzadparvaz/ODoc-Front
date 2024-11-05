@@ -52,7 +52,7 @@ const AuthContainer = () => {
             style={{ objectFit: 'cover' }}
           />
         </div>
-        <div className="bg-white rounded-t-[20px] shadow-2xl absolute inset-x-0 bottom-0">
+        <div className="bg-white rounded-t-[20px] shadow-lg absolute inset-x-0 bottom-0">
           {activeForm === 'enterMobileNumber' && (
             <AuthMobileNumber
               handleChangeForm={(registerData, formStatus) => {

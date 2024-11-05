@@ -53,7 +53,7 @@ const AddressesContainer = () => {
     }
 
     if (!isLoading && !addressData?.length) {
-      <div className="text-red text-sm text-red-600 text-center py-8">
+      <div className="text-red text-xs text-red-600 text-center py-8">
         در حال حاضر آدرسی برای شما ثبت نشده است
       </div>;
     }

@@ -72,7 +72,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
           </div>
         </div>
 
-        <div className="text-grey-500 text-sm">{`${convertRialToToman(data?.finalPrice)}`}</div>
+        <div className="text-grey-500 text-xs">{`${convertRialToToman(data?.finalPrice)}`}</div>
       </div>
 
       <div

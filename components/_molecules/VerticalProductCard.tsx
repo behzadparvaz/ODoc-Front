@@ -136,7 +136,7 @@ const VerticalProductCard = ({
         )}
       </div>
 
-      <span className="text-sm leading-6 font-medium text-right line-clamp-3 h-[72px]">
+      <span className="text-xs leading-6 font-medium text-right line-clamp-3 h-[72px]">
         {productData?.productName}
       </span>
     </div>

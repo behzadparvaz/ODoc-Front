@@ -65,7 +65,7 @@ const SearchBox = ({
         //     : null;
         // }}
         onChange={(e) => debouncedSetBody(e?.target?.value)}
-        className="h-[48px] pr-12 pl-3 bg-grey-100 text-grey-500 placeholder:text-grey-500 font-bold w-full py-3.5 rounded-full text-base"
+        className="h-[48px] pr-12 pl-3 bg-grey-100 text-grey-500 placeholder:text-grey-500 font-bold w-full py-3.5 rounded-full text-sm"
         placeholder={`${title ? title : generalTexts?.drugSearch}` + '...'}
       />
     </div>

@@ -81,7 +81,7 @@ const SearchContainer = () => {
                   { shallow: true },
                 );
               }}
-              className="flex justify-between items-center px-3 py-1 rounded-full border border-grey-100 text-black text-sm cursor-pointer"
+              className="flex justify-between items-center px-3 py-1 rounded-full border border-grey-100 text-black text-xs cursor-pointer"
             >
               {item?.text}
               <ChevronLeftIconOutline width={24} height={24} fill="#000" />

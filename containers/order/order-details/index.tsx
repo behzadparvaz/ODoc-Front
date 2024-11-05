@@ -53,7 +53,7 @@ const OrderDetailsContainer = () => {
             />
           </div> */}
 
-          <div className="w-full h-max rounded-t-lg bg-white flex flex-col">
+          <div className="w-full h-max rounded-t-base bg-white flex flex-col">
             <ProgressStepper activeStepId={data?.orderStatus?.id + 2} />
 
             <div className="px-4">
@@ -64,7 +64,7 @@ const OrderDetailsContainer = () => {
 
             <div className="flex flex-col gap-3">
               <div className="h-24 flex flex-col gap-y-3 bg-grey-50 py-3 px-4 ">
-                <span className="text-base font-semibold">جزییات سفارش</span>
+                <span className="text-sm font-semibold">جزییات سفارش</span>
                 <span className="text-md text-grey-400">
                   {data?.createDateTimeOrder}
                 </span>
@@ -85,13 +85,13 @@ const OrderDetailsContainer = () => {
                       />
                     </div>
                     <div className="flex flex-col gap-y-2">
-                      <span className="text-sm font-semibold">
+                      <span className="text-xs font-semibold">
                         {data?.isSpecialPatient
                           ? 'نسخه بیماری خاص'
                           : 'دارو با نسخه'}
                       </span>
                       {data?.referenceNumber ? (
-                        <span className="text-sm font-semibold">
+                        <span className="text-xs font-semibold">
                           {`کد نسخه ${data?.referenceNumber}`}
                         </span>
                       ) : null}
@@ -113,7 +113,7 @@ const OrderDetailsContainer = () => {
                 <span className="text-md font-semibold px-4 mt-2">
                   {generalTexts.policiesTitle}
                 </span>
-                <span className="text-sm font-normal text-justify text-grey-600 mt-2 px-4">
+                <span className="text-xs font-normal text-justify text-grey-600 mt-2 px-4">
                   {generalTexts.policiesDesc}
                 </span>
               </div>

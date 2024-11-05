@@ -17,10 +17,12 @@ const CategoriesItem = ({
 }: props) => {
   return (
     <div className={`${wrapperClassName} flex gap-x-4 w-full items-center`}>
-      {hasCategoryIcon?<CategoryOutlineIcon width={20} height={20} fill={colors?.black}/>:null}
+      {hasCategoryIcon ? (
+        <CategoryOutlineIcon width={20} height={20} fill={colors?.black} />
+      ) : null}
       <div
         onClick={() => handleClick()}
-        className={`flex items-center justify-between flex-auto text-sm ${className}`}
+        className={`flex items-center justify-between flex-auto text-xs ${className}`}
       >
         {title}
         <ChevronLeftIconOutline

@@ -31,7 +31,7 @@ const QuickOrderDetailContainer = () => {
     >
       <div className={`px-4 ${showCancelOrderButton ? 'pb-[68px]' : ''}`}>
         {orderStatus === 3 || orderStatus === 5 ? (
-          <div className="bg-red-50 text-gray-600 p-4 rounded-lg text-xs mb-6 items-center flex gap-x-2">
+          <div className="bg-red-50 text-gray-600 p-4 rounded-base text-2xs mb-6 items-center flex gap-x-2">
             <span className="bg-red-400 inline-block rounded-full ">
               <WarninglineIcon width={20} height={20} fill={colors.white} />
             </span>
@@ -52,7 +52,7 @@ const QuickOrderDetailContainer = () => {
           {orderData?.orderDescription && (
             <div className="flex flex-col gap-y-2">
               توضیحات شما
-              <p className="bg-gray-100 rounded-md text-grey-500 p-4 text-sm">
+              <p className="bg-gray-100 rounded-md text-grey-500 p-4 text-xs">
                 {orderData?.orderDescription}
               </p>
             </div>
@@ -60,7 +60,7 @@ const QuickOrderDetailContainer = () => {
           {orderData?.doctorDescription && (
             <div className="flex flex-col gap-y-2">
               توضیحات پزشک
-              <p className="bg-gray-100 rounded-md text-grey-500 p-4 text-sm">
+              <p className="bg-gray-100 rounded-md text-grey-500 p-4 text-xs">
                 {orderData?.doctorDescription}
               </p>
             </div>

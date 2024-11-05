@@ -25,8 +25,8 @@ const AddressBoxTypeTwo = ({
       <div className="flex items-center gap-x-5">
         <PinLocation width={24} height={24} fill={colors?.gray[600]} />
         <div>
-          <p className="text-sm text-gray-500 mb-3">{generalTexts?.sendTo}</p>
-          <p className="text-sm font-bold black">
+          <p className="text-xs text-gray-500 mb-3">{generalTexts?.sendTo}</p>
+          <p className="text-xs font-bold black">
             {addressInfo
               ? addressInfo?.description
               : defaultAddress?.description}
@@ -42,7 +42,7 @@ const AddressBoxTypeTwo = ({
             });
           }}
           buttonType="contained"
-          className="shrink-0 !h-10 bg-gray-100 !px-3 !text-sm"
+          className="shrink-0 !h-10 bg-gray-100 !px-3 !text-xs"
           size="large"
         >
           <p>تغییر آدرس</p>

@@ -120,8 +120,8 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     }
     return (
       <div className="flex flex-col items-end">
-        <div className="text-sm">{prInfo.quantity} ورق</div>
-        <div className="text-base">{prInfo.price} تومان</div>
+        <div className="text-xs">{prInfo.quantity} ورق</div>
+        <div className="text-sm">{prInfo.price} تومان</div>
       </div>
     );
   };
@@ -151,7 +151,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
           />
         </div>
 
-        <h2 className="col-start-2 col-end-3 text-sm font-medium line-clamp-2">
+        <h2 className="col-start-2 col-end-3 text-xs font-medium line-clamp-2">
           {prInfo?.productName ?? prInfo.name}
           <ScrollSlider>
             <div className="flex flex-col">

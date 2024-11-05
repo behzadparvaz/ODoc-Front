@@ -42,14 +42,14 @@ const QuickOrderFormItems = ({
         }}
         value={data?.drugName}
         className="mb-6"
-        labelClassName="text-base font-medium"
+        labelClassName="text-sm font-medium"
         label="نام دارو"
-        inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+        inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
         placeholder="نام دارو را بنویسید"
       />
       <div className="flex gap-x-4">
         <div className="flex-1">
-          <p className="text-base font-medium mb-2">نوع دارو</p>
+          <p className="text-sm font-medium mb-2">نوع دارو</p>
           <div
             onClick={() =>
               addModal({
@@ -78,11 +78,11 @@ const QuickOrderFormItems = ({
                 val: convertPersianNumbersToEnglishNumbers(e?.target?.value),
               });
             }}
-            labelClassName="text-base font-medium"
+            labelClassName="text-sm font-medium"
             label="تعداد دارو"
             type="text"
             value={data?.drugCount}
-            inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+            inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
             placeholder="تعداد دارو"
           />
         </div>

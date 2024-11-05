@@ -64,7 +64,7 @@ export const MainLayout = ({
         )}
 
         <div
-          className={`h-full scroll-smooth overflow-y-scroll ${mainClassName}`}
+          className={`h-full scroll-xsooth overflow-y-scroll ${mainClassName}`}
         >
           {children}
         </div>

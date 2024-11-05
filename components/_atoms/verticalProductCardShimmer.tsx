@@ -11,11 +11,11 @@ const VerticalProductCardShimmer = ({ className = '' }: Props) => {
         className,
       )}
     >
-      <div className="w-[112px] h-[112px] bg-surface-secondary rounded-lg" />
+      <div className="w-[112px] h-[112px] bg-surface-secondary rounded-base" />
 
-      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-lg" />
-      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-lg" />
-      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-lg" />
+      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-base" />
+      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-base" />
+      <div className="h-[24px] w-[112px] bg-surface-secondary rounded-base" />
     </div>
   );
 };

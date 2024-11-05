@@ -7,7 +7,7 @@ const HomePageAddressBox = () => {
   const addressDate: any = data;
   return (
     <div className="w-full flex flex-col cursor-pointer">
-      <p className="text-grey-400 pb-2 text-sm">{generalTexts?.sendTo}</p>
+      <p className="text-grey-400 pb-2 text-xs">{generalTexts?.sendTo}</p>
 
       {addressDate?.length && isLoading === false ? (
         <AddressBox data={data} />

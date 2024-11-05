@@ -1,18 +1,18 @@
 const Policy = () => {
   return (
     <div className="w-full px-4 pb-6 pt-4 bg-white">
-      <h1 className="text-base">قوانین استفاده از تپسی دکتر</h1>
-      <p className="text-sm text-gray-600 mt-6 mb-8">
+      <h1 className="text-sm">قوانین استفاده از تپسی دکتر</h1>
+      <p className="text-xs text-gray-600 mt-6 mb-8">
         در صورت استفاده از برنامه تپسی دکتر شما قوانین و شرایط زیر را قبول کرده
         و باید مطابق آن‌ها از سرویس استفاده کنید. حق به روز رسانی و ایجاد
         تغییرات در این قوانین و شرایط استفاده بدون هیچ اطلاع قبلی برای تپسی دکتر
         محفوظ است. عدم رعایت هر کدام از قوانین زیر ممکن است منجر به حذف و یا
         محدودیت حساب کاربری کاربران شود.
       </p>
-      <h2 className="text-sm font-semibold text-gray-600">
+      <h2 className="text-xs font-semibold text-gray-600">
         ماده ۱ . اصطلاحات و تعاریف
       </h2>
-      <p className="text-sm leading-7 text-gray-600 mt-3">
+      <p className="text-xs leading-7 text-gray-600 mt-3">
         ۱. شرکت: شرکت توسعه تجارت الکترونیک کوروش به شماره ثبت 512236 که نسبت به
         ارائه خدمات اقدام می‌کند.
         <br />
@@ -62,10 +62,10 @@ const Policy = () => {
         خدمت‌گیرنده از سوی کاربر خدمت‌دهنده ( از طریق بستر تپسی ‌دکتر) به وی
         ارائه می‌شود.
       </p>
-      <h2 className="text-sm font-semibold text-gray-600 mt-8">
+      <h2 className="text-xs font-semibold text-gray-600 mt-8">
         ماده ۲. مسئولیت و شرایط تپسی ‌دکتر
       </h2>
-      <p className="text-sm leading-7 text-gray-600 mt-3">
+      <p className="text-xs leading-7 text-gray-600 mt-3">
         ۱. شرکت برای فراهم کردن بستر استفاده از خدمات نرم‌افزاری توسط کاربران
         تلاش می‌کند، بدیهی است ارائه تضمین نسبت به اجرا شدن آن روی همه دستگاه‌ها
         یا شبکه‌های ارتباطی امکان پذیر نمی باشد. <br />
@@ -96,10 +96,10 @@ const Policy = () => {
         ۸. تپسی‌دکتر هیچ‌گونه دسترسی به محتوای تماس بین خدمت‌گیرنده و خدمت‌دهنده
         ندارد.
       </p>{' '}
-      <h2 className="text-sm font-semibold text-gray-600 mt-8">
+      <h2 className="text-xs font-semibold text-gray-600 mt-8">
         ماده ۳. تعهدات و مسئولیت کاربران
       </h2>
-      <p className="text-sm leading-7 text-gray-600 mt-3">
+      <p className="text-xs leading-7 text-gray-600 mt-3">
         ۱. کاربران متعهد می‌شوند هیچ‌گاه از خدمات تپسی دکتر به صورتی استفاده
         نکنند که به تپسی دکتر، شرکت‌های گروه تپسی و شرکای آن و اشخاص ثالث
         صدمه‌ای (‌اعم از مادی و معنوی) وارد شود. در صورتی که کاربران از امکانات
@@ -203,10 +203,10 @@ const Policy = () => {
         ۱۶.کاربران متعهد می گردند که از هیچ بخشی از سرویس سوء استفاده نکرده و آن
         را بدون اجازه‌نامه کتبی از شرکت کپی و همانند سازی ننمایند.
       </p>{' '}
-      <h2 className="text-sm font-semibold text-gray-600 mt-8">
+      <h2 className="text-xs font-semibold text-gray-600 mt-8">
         ماده ۴. هزینه‌ها و پرداخت
       </h2>
-      <p className="text-sm leading-7 text-gray-600 mt-3">
+      <p className="text-xs leading-7 text-gray-600 mt-3">
         ۱. پرداخت هزینه‌های اعلام شده توسط تپسی ‌دکتر فقط از طریق روش‌هایی که
         توسط شرکت مشخص می‌شود امکان پذیر است. هرگونه روش دیگری نظیر کارت به
         کارت، تهاتری و غیره مورد تایید شرکت نیست و در این صورت شرکت هیچ‌گونه
@@ -258,10 +258,10 @@ const Policy = () => {
         درخواستی از جمله عودت وجه، تعویض یا بازگرداندن آن محصول قابل پذیرش
         نخواهد بود.
       </p>
-      <h2 className="text-sm font-semibold text-gray-600 mt-8">
+      <h2 className="text-xs font-semibold text-gray-600 mt-8">
         ماده۵. شرایط عمومی
       </h2>
-      <p className="text-sm leading-7 text-gray-600 mt-3">
+      <p className="text-xs leading-7 text-gray-600 mt-3">
         ۱. در صورتی که شرکت یا طرف تجاری به هر دلیلی به این نتیجه برسد که حضور
         هر یک از کاربران می‌تواند امنیت و آرامش کسب و کار و یا دیگر کاربران را
         در معرض تهدید قرار دهد، طبق صلاحدید خود مجاز به حذف دسترسی و یا مسدود و

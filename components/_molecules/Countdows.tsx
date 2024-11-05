@@ -47,7 +47,7 @@ const Countdown = ({ expirationTime, onFinishTimer }: CountdownProps) => {
   return (
     <>
       {remainingTime > 0 ? (
-        <span className="w-max h-[24px] px-4 bg-surface-accentLight rounded-full text-xs text-content-accent flex items-center justify-center">
+        <span className="w-max h-[24px] px-4 bg-surface-accentLight rounded-full text-2xs text-content-accent flex items-center justify-center">
           {Math.floor(remainingTime / 60)}:
           {(remainingTime % 60).toString().padStart(2, '0')}
         </span>

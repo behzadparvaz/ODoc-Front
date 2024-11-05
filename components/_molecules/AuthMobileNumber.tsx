@@ -46,7 +46,7 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
         <TextInput
           label="شماره موبایل"
           labelClassName="text-md  font-medium"
-          className="!rounded-lg !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
+          className="!rounded-base !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           id="PhoneNumber"
           fontSize="md"
           name="PhoneNumber"
@@ -69,7 +69,7 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
         />
         <NextLink href={routeList?.policyRoute}>
           <span>
-            <p className="text-sm text-grey-500 text-center py-5">
+            <p className="text-xs text-grey-500 text-center py-5">
               با ثبت نام
               <span className="inline-block text-black px-1">در تپسی دکتر</span>
               شرایط و مقررات را می پذیرم.

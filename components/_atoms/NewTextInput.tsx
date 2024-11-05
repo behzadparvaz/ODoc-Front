@@ -72,7 +72,7 @@ export const TextInput = ({
       {label && (
         <label
           className={classNames(
-            'text-sm font-semibold leading-6 flex gap-x-1 items-center',
+            'text-xs font-semibold leading-6 flex gap-x-1 items-center',
             labelClassName,
             disabled && 'text-grey-400',
           )}
@@ -118,7 +118,7 @@ export const TextInput = ({
           }}
           disabled={disabled}
           className={classNames(
-            'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-lg  bg-grey-100 text-base font-normal leading-6 text-black placeholder:text-xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_white]',
+            'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-base  bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_white]',
             // remove arrows on number input
             '[-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
             isTouched &&
@@ -143,10 +143,10 @@ export const TextInput = ({
         )}
       </div>
       {helperText && (
-        <p className="text-xs text-grey-400 pr-2">{`* ${helperText}`}</p>
+        <p className="text-2xs text-grey-400 pr-2">{`* ${helperText}`}</p>
       )}
       {isTouched && errorMessage && (
-        <p className="text-xs text-red-500 pr-2">{errorMessage}</p>
+        <p className="text-2xs text-red-500 pr-2">{errorMessage}</p>
       )}
     </div>
   );
