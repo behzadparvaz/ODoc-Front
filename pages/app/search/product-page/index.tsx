@@ -191,10 +191,10 @@ const ProductPage = () => {
                 alt="product-page-image"
               />
             </div>
-            <span className="text-base text-content-primary text-bold">
+            <span className="text-sm text-content-primary text-bold">
               {data?.productName}
             </span>
-            <span className="text-sm text-content-tertiary">دوز دارو</span>
+            <span className="text-xs text-content-tertiary">دوز دارو</span>
             <div className="flex items-center gap-x-2">
               {data?.drugDoses?.map((item) => (
                 <span
@@ -217,10 +217,10 @@ const ProductPage = () => {
           <div className="w-full p-4 flex flex-col gap-y-4">
             {data?.medicalUses && (
               <div className="w-full flex flex-col gap-y-4">
-                <span className="text-base text-semibold text-content-primary">
+                <span className="text-sm text-semibold text-content-primary">
                   موارد مصرف
                 </span>
-                <span className="text-sm text-normal text-content-tertiary">
+                <span className="text-xs text-normal text-content-tertiary">
                   {data?.medicalUses}
                 </span>
               </div>
@@ -232,7 +232,7 @@ const ProductPage = () => {
           <div className="w-full h-[42px] flex items-center justify-center">
             <span
               className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
                 activeTab === 0 && 'border-border-selected',
               )}
               onClick={() => {
@@ -244,7 +244,7 @@ const ProductPage = () => {
             </span>
             <span
               className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
                 activeTab === 1 && 'border-border-selected',
               )}
               onClick={() => {
@@ -262,10 +262,10 @@ const ProductPage = () => {
               id="warning"
               ref={warningRef}
             >
-              <span className="text-base text-semibold text-content-primary">
+              <span className="text-sm text-semibold text-content-primary">
                 هشدارها
               </span>
-              <span className="text-sm text-normal text-content-tertiary">
+              <span className="text-xs text-normal text-content-tertiary">
                 {data?.warning}
               </span>
             </div>
@@ -279,10 +279,10 @@ const ProductPage = () => {
               id="adverseEffects"
               ref={adverseEffectsRef}
             >
-              <span className="text-base text-semibold text-content-primary">
+              <span className="text-sm text-semibold text-content-primary">
                 عوارض جانبی
               </span>
-              <span className="text-sm text-normal text-content-tertiary">
+              <span className="text-xs text-normal text-content-tertiary">
                 {data?.adverseEffects}
               </span>
             </div>

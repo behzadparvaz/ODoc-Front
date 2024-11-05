@@ -144,7 +144,7 @@ const NewAddressContainer = ({ addressId = 0, latitude, longitude }: Props) => {
         </div>
 
         <FixBottomSection className="bg-white h-[184px]">
-          <div className="w-full rounded-t-lg flex flex-col gap-y-10 px-4 py-6">
+          <div className="w-full rounded-t-base flex flex-col gap-y-10 px-4 py-6">
             <div className="cursor-pointer" onClick={handleOpenSearchModal}>
               <TextInput
                 rightIcon={
@@ -155,7 +155,7 @@ const NewAddressContainer = ({ addressId = 0, latitude, longitude }: Props) => {
                   />
                 }
                 placeholder="جستجوی آدرس..."
-                inputClassName="!rounded-full placeholder:text-lg placeholder-gray-500 pr-12"
+                inputClassName="!rounded-full placeholder:text-base placeholder-gray-500 pr-12"
                 id="search-address"
                 value={searchText}
                 onChange={(e) => {

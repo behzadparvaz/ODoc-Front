@@ -13,11 +13,11 @@ const InputVariants = cva([], {
     },
     rounded: {
       none: 'rounded-0',
-      sm: 'rounded-sm',
+      sm: 'rounded-xs',
       md: 'rounded-md',
-      lg: 'rounded-lg',
+      lg: 'rounded-base',
       xl: 'rounded-xl',
-      xxl: 'rounded-2xl',
+      xxl: 'rounded-lg',
       full: 'rounded-full',
     },
     inputSize: {
@@ -39,10 +39,10 @@ const InputVariants = cva([], {
     textColor: colorPalette.gray,
     fontSize: {
       xxs: 'text-2xs',
-      xs: 'text-xs',
-      sm: 'text-sm',
+      xs: 'text-2xs',
+      sm: 'text-xs',
       md: 'text-md',
-      lg: 'text-lg',
+      lg: 'text-base',
       '11': 'text-[11px]',
     },
     fontWeight: {

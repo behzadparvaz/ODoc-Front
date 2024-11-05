@@ -89,7 +89,7 @@ function ImageUpload({
         disabled={disabled}
       />
       <div className="flex justify-between mb-2 items-center">
-        <div className="text-sm font-semibold">{title}</div>
+        <div className="text-xs font-semibold">{title}</div>
         {(fileState === null && !previewImageUrl) || disabled ? (
           <span
             className=" text-2xs cursor-pointer text-grey-400 flex gap-x-1 items-center"
@@ -109,7 +109,7 @@ function ImageUpload({
         )}
       </div>
       <div
-        className={`mx-auto ${!imageUrlState ? 'border-grey-200 border-2 h-44 border-dashed items-center justify-center flex text-sm font-semibold text-grey-300' : ''} overflow-hidden rounded-xl ${
+        className={`mx-auto ${!imageUrlState ? 'border-grey-200 border-2 h-44 border-dashed items-center justify-center flex text-xs font-semibold text-grey-300' : ''} overflow-hidden rounded-xl ${
           inputWrapperClassName ?? ''
         }`}
       >

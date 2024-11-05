@@ -19,7 +19,7 @@ const SuccessOrderContainer = () => {
         size="small"
         buttonType="contained"
         variant="primary"
-        className=" absolute top-6 left-6 text-xs"
+        className=" absolute top-6 left-6 text-2xs"
       >
         ثبت سفارش جدید
       </Button>
@@ -31,11 +31,11 @@ const SuccessOrderContainer = () => {
       />
       <h1 className="text-md text-grey-700 mt-2">سفارش شما با موفقیت ثبت شد</h1>
       <p className="mt-4">مشخصات سفارش:</p>
-      <p className="text-sm text text-grey-800">{`کد سفارش: ${data?.orderCode}`}</p>
-      <p className="text-sm text text-grey-800">{`نام تحویل گیرنده: ${data?.customer?.name}`}</p>
+      <p className="text-xs text text-grey-800">{`کد سفارش: ${data?.orderCode}`}</p>
+      <p className="text-xs text text-grey-800">{`نام تحویل گیرنده: ${data?.customer?.name}`}</p>
 
       <p className="mt-4">وضعیت سفارش:</p>
-      <p className="text-sm text text-grey-800 mb-3">
+      <p className="text-xs text text-grey-800 mb-3">
         {getOrderStatusMessage(data?.orderStatus?.id)}
       </p>
 
@@ -44,7 +44,7 @@ const SuccessOrderContainer = () => {
         size="medium"
         buttonType="contained"
         variant="primary"
-        className="text-sm mt-4"
+        className="text-xs mt-4"
       >
         پیگیری سفارش
       </Button>

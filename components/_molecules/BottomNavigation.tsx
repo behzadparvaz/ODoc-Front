@@ -37,7 +37,7 @@ const BottomNavigation = () => {
         return isMainItem ? (
           <div key={index} className="p-3 bg-grey-0 rounded-full -mt-4 mx-3">
             <a
-              className={`flex text-sm ${activeItem ? 'bg-teal-800' : 'bg-teal-600'} rounded-full p-2.5`}
+              className={`flex text-xs ${activeItem ? 'bg-teal-800' : 'bg-teal-600'} rounded-full p-2.5`}
               onClick={showRxRegistrationModal}
             >
               {item.icon({})}
@@ -45,7 +45,7 @@ const BottomNavigation = () => {
           </div>
         ) : (
           <Link href={item?.link} key={item?.id}>
-            <span className="flex-col flex-1 text-sm py-1">
+            <span className="flex-col flex-1 text-xs py-1">
               <div className="flex justify-center">
                 <span className={`px-2`}>
                   <span

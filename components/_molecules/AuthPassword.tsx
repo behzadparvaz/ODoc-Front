@@ -130,7 +130,7 @@ const AuthPassword = ({ handleChangeForm, data }: Props) => {
           id="password"
           label="رمز عبور"
           labelClassName="text-md font-medium"
-          className="!rounded-lg !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
+          className="!rounded-base !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           name="password"
           fontSize="md"
           value={formik.values.password}

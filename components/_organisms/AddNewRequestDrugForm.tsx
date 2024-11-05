@@ -82,8 +82,8 @@ const AddNewRequestDrugForm = ({
             <div>
               <Input
                 {...field}
-                labelClassName="text-base font-medium"
-                inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+                labelClassName="text-sm font-medium"
+                inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
                 placeholder="نام دارو را بنویسید"
               />
             </div>
@@ -117,9 +117,9 @@ const AddNewRequestDrugForm = ({
               <div className="flex-1">
                 <Input
                   {...field}
-                  labelClassName="text-base font-medium"
+                  labelClassName="text-sm font-medium"
                   type="number"
-                  inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+                  inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
                   placeholder="تعداد دارو"
                 />
               </div>

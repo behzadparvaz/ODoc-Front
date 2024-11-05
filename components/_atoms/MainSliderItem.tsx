@@ -36,7 +36,7 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
               quality={100}
               style={{ objectFit: 'contain' }}
               loading={index === 0 ? 'eager' : 'lazy'}
-              className="!rounded-lg"
+              className="!rounded-base"
               priority={index === 0 ? true : false}
             />
           </div>

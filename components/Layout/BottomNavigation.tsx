@@ -31,7 +31,7 @@ const BottomNavigation = () => {
       <NextLink href={Routes.home}>
         <span
           className={classNames(
-            'flex flex-col items-center gap-2 text-sm text-grey-500 cursor-pointer transition-colors ease-in-out duration-500',
+            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer transition-colors ease-in-out duration-500',
             pathname === Routes.home && '!text-black',
           )}
         >
@@ -49,7 +49,7 @@ const BottomNavigation = () => {
       <NextLink href={Routes.orders}>
         <span
           className={classNames(
-            'flex flex-col items-center gap-2 text-sm text-grey-500 cursor-pointer',
+            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer',
             pathname === Routes.orders && '!text-black',
           )}
         >
@@ -68,7 +68,7 @@ const BottomNavigation = () => {
       <NextLink href={Routes.profile}>
         <span
           className={classNames(
-            'flex flex-col items-center gap-2 text-sm text-grey-500 cursor-pointer',
+            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer',
             pathname === Routes.profile && '!text-black',
           )}
         >
