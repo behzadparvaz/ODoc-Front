@@ -79,19 +79,20 @@ const HomeContainer = () => {
           data={getCarouselDataData(2)}
           className="my-4"
           carouselIsLoading={carouselIsLoading}
+          carouselCardClassName="bg-white rounded-md"
+          containerClassName="bg-indigo-50 pb-2"
         />
 
         {bannerData?.queryResult && (
-          <Banner
-            className="px-4 py-6 !bg-background-gradient.white-to-gray"
-            data={[bannerData?.queryResult?.[2]]}
-          />
+          <Banner className="px-4 py-6" data={[bannerData?.queryResult?.[2]]} />
         )}
 
         <CarouselLine
           data={getCarouselDataData(3)}
           className="my-4"
           carouselIsLoading={carouselIsLoading}
+          carouselCardClassName="bg-white rounded-md"
+          containerClassName="bg-indigo-50 pb-2"
         />
 
         {!loginWithTapsiSSO && (
