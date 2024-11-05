@@ -15,20 +15,20 @@ import { useSelector } from 'react-redux';
 
 interface props {
   data: any;
-  handleChangeForm: () => void;
+  handleChangeForm:()=>void
 }
 
-const QuickOrderDetails = ({ data, handleChangeForm }: props) => {
+const QuickOrderDetails = ({ data ,handleChangeForm}: props) => {
   const [description, setDescription] = useState('');
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
   const { push } = useRouter();
   const [itemCount, setItemCount] = useState(0);
   const { openNotification } = useNotification();
-  const { mutate, isPending } = useCreateOrderInlineStep2();
+  const { mutate, isLoading } = useCreateOrderInlineStep2();
   const handlCheckItems = () => {
     if (itemCount + 1 === data?.orderDetails?.length) {
-      handleChangeForm();
+      handleChangeForm()
     }
   };
   const handleSendForm = () => {
@@ -85,7 +85,7 @@ const QuickOrderDetails = ({ data, handleChangeForm }: props) => {
         size="large"
         type="button"
         handleClick={() => handleSendForm()}
-        isLoading={isPending}
+        isLoading={isLoading}
       >
         تایید و ادامه
       </Button>

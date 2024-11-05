@@ -1,7 +1,11 @@
-import ProductListContainer from '@containers/offer';
+import ProdictListPage from '@com/_organisms/ProdictListPage';
 
-const ProductListPage = () => {
-  return <ProductListContainer />;
+const ProductList = () => {
+  return (
+    <>
+      <ProdictListPage />
+    </>
+  );
 };
 
-export default ProductListPage;
+export default ProductList;

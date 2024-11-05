@@ -45,7 +45,7 @@ const BottomNavigation = () => {
           </div>
         ) : (
           <Link href={item?.link} key={item?.id}>
-            <span className="flex-col flex-1 text-sm py-1">
+            <a className="flex-col flex-1 text-sm py-1">
               <div className="flex justify-center">
                 <span className={`px-2`}>
                   <span
@@ -62,7 +62,7 @@ const BottomNavigation = () => {
               >
                 {item?.text}
               </div>
-            </span>
+            </a>
           </Link>
         );
       })}

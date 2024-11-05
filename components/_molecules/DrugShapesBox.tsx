@@ -51,7 +51,7 @@ export default function DrugShapesBox({
     enabled: true,
   });
 
-  const { mutate: addToCart, isPending: isAddingToCart } =
+  const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();

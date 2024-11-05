@@ -27,9 +27,9 @@ const QuickOrderStatusItem = ({
         </p>
         {link ? (
           <NextLink href={link}>
-            <span className="mt-4 font-medium text-sm py-2.5 rounded-full block bg-gray-100">
+            <a className="mt-4 font-medium text-sm py-2.5 rounded-full block bg-gray-100">
               {CTAText}
-            </span>
+            </a>
           </NextLink>
         ) : (
           <p className="pt-4 pb-2 text-gray-500 text-sm">{CTAText}</p>

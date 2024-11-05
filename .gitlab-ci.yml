@@ -16,7 +16,7 @@ build_image:
     - docker-build
   script:
     - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi # Fail if no tag
-    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 --build-arg ENV_MODE=staging -t $DOCKER_IMAGE:$TAG .
+    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 --build-arg ENV_FILE=.env.staging -t $DOCKER_IMAGE:$TAG .
   only:
     - tags # Run only on tags
 #  when: manual

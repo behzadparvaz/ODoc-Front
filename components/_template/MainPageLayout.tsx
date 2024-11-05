@@ -93,7 +93,6 @@ const MainPageLayout = ({
               src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
               height={20}
               width={110}
-              alt=""
             />
           )}
           <div className="flex items-center gap-x-4">

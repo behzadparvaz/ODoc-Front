@@ -1,4 +1,4 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import '../styles/globals.css';
 import { createRef, useMemo, useState } from 'react';
 import { wrapper } from '../redux/store';
@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
 import CheckRedirectLoginOrNotLogin from '@com/_atoms/CheckRedirectLoginStatus';
 import Head from 'next/head';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
