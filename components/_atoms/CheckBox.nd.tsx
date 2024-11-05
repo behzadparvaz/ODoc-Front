@@ -14,6 +14,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   boxClassName?: string;
   name?: string;
   inputRef?: React.MutableRefObject<any>;
+  boxContainerClassName?: string;
 }
 const CheckBox = ({
   className = '',
@@ -29,6 +30,7 @@ const CheckBox = ({
   boxClassName = '',
   name = '',
   inputRef = null,
+  boxContainerClassName,
   ...props
 }: Props) => {
   return (
@@ -52,13 +54,20 @@ const CheckBox = ({
         className={`absolute opacity-0 z-20 w-full h-full right-0 top-0 ${inputClassName}`}
         {...props}
       />
-      <span
-        className={`absolute right-0 -translate-y-1/2 top-1/2 transition-all z-10 overflow-hidden border border-grey-800 rounded-[7px] ${boxClassName} ${
-          checked ? `bg-grey-800 flex justify-center items-center !mx-auto ${checkedClassName}` : ''
-        }`}
+      <div
+        className={`absolute right-0 -translate-y-1/2 top-1/2 transition-all z-10 overflow-hidden ${boxContainerClassName}`}
       >
-        {checked ? icon : null}
-      </span>
+        <span
+          className={` rounded-[2px] ${boxClassName} ${
+            checked
+              ? `bg-grey-800 flex justify-center items-center !mx-auto ${checkedClassName}`
+              : ''
+          }`}
+        >
+          {checked ? icon : null}
+        </span>
+      </div>
+
       {children}
     </div>
   );
