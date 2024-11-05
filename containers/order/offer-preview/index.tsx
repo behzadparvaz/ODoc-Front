@@ -103,7 +103,7 @@ const OfferPreviewContainer = () => {
         </div>
 
         <div className="flex flex-col gap-3 px-4">
-          <p className="text-base font-semibold">روش پرداخت</p>
+          <p className="text-sm font-semibold">روش پرداخت</p>
           <CheckBox
             handleChange={() => {
               return;
@@ -123,7 +123,7 @@ const OfferPreviewContainer = () => {
             checked={true}
             className="w-full mt-3 z-0"
           />
-          <span className="text-xs text-grey-500 font-normal">
+          <span className="text-2xs text-grey-500 font-normal">
             پرداخت آنلاین با تمامی کارت های بانکی
           </span>
         </div>
@@ -141,7 +141,7 @@ const OfferPreviewContainer = () => {
                 type="text"
                 placeholder={'کد تخفیف'}
                 className="flex-auto"
-                inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-sm px-4 custom-input"
+                inputClassName="placeholder-grey-400 bg-grey-50 text-grey-600 text-xs px-4 custom-input"
                 id="VoucherCode"
                 name="VoucherCode"
                 value={formik.values.VoucherCode}
@@ -165,7 +165,7 @@ const OfferPreviewContainer = () => {
           </div> */}
 
         <div className="flex flex-col gap-5 bg-grey-50 px-4 py-2">
-          <p className="text-base font-semibold">جزییات پرداخت </p>
+          <p className="text-sm font-semibold">جزییات پرداخت </p>
 
           <div className="flex flex-col gap-3">
             <div className="w-full h-max flex flex-col gap-y-2">
@@ -216,7 +216,7 @@ const OfferPreviewContainer = () => {
       <ActionBar type="price" hasDivider>
         <div className="w-full flex justify-between gap-3 px-4 py-4">
           <div className="w-1/2 flex flex-col gap-y-2">
-            <span className="text-base font-semibold">
+            <span className="text-sm font-semibold">
               {`${convertRialToToman(selectedOffer?.finalPrice)}`}
             </span>
             <span className="text-md">قابل پرداخت</span>

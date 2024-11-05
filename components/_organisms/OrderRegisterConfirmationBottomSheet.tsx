@@ -23,10 +23,10 @@ export default function OrderRegisterConfirmationBottomSheet({ data }: Props) {
       className="!overflow-hidden"
       title={orderText?.orderConfirmationQuestion}
     >
-      <p className="text-sm text text-grey-800 my-3">{`کد رهگیری: ${data?.referenceNumber}`}</p>
-      <p className="text-sm text text-grey-800 mb-3">{`نام صاحب نسخه: ${data?.customerName}`}</p>
-      <p className="text-sm text text-grey-800 mb-3">{`کدملی: ${data?.nationalCode}`}</p>
-      <p className="text-sm text text-grey-800 mb-3">{`آدرس: ${data?.valueAddress}`}</p>
+      <p className="text-xs text text-grey-800 my-3">{`کد رهگیری: ${data?.referenceNumber}`}</p>
+      <p className="text-xs text text-grey-800 mb-3">{`نام صاحب نسخه: ${data?.customerName}`}</p>
+      <p className="text-xs text text-grey-800 mb-3">{`کدملی: ${data?.nationalCode}`}</p>
+      <p className="text-xs text text-grey-800 mb-3">{`آدرس: ${data?.valueAddress}`}</p>
       <div className="grid w-full grid-cols-2 gap-3 mt-5">
         <div>
           <Button

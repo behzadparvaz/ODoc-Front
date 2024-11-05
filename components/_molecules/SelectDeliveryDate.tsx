@@ -34,13 +34,13 @@ const makeDates = (() => {
 const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
   return (
     <Box>
-      <div className="text-sm mb-2">زمان تحویل</div>
+      <div className="text-xs mb-2">زمان تحویل</div>
 
       {makeDates.map((item) => (
         <div
           key={item.value}
           className={classNames(
-            'w-full bg-grey-50 bg-opacity-30 text-sm rounded-md border border-grey-200 my-2 py-2 px-2 transition-all duration-300 leading-5',
+            'w-full bg-grey-50 bg-opacity-30 text-xs rounded-md border border-grey-200 my-2 py-2 px-2 transition-all duration-300 leading-5',
             deliveryDate === item.value && 'border-teal-600 bg-teal-100',
           )}
           onClick={() => setDeliveryDate(item.value)}
@@ -49,7 +49,7 @@ const SelectDeliveryDate = ({ deliveryDate, setDeliveryDate }) => {
             handleChange={() => setDeliveryDate(item.value)}
             onClick={() => {}}
             label={item.label}
-            labelClassName="text-sm mr-6 font-normal text-grey-700"
+            labelClassName="text-xs mr-6 font-normal text-grey-700"
             icon={
               <TickIcon
                 width={15}

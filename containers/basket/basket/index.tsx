@@ -153,12 +153,12 @@ const Page = () => {
                         height={72}
                       />
                       <div className="flex flex-col gap-y-1">
-                        <span className="text-base font-semibold">
+                        <span className="text-sm font-semibold">
                           {basket?.isSpecialPatient
                             ? 'نسخه بیماری خاص'
                             : 'دارو با نسخه'}
                         </span>
-                        <span className="text-base font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
+                        <span className="text-sm font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
                       </div>
                     </div>
 
@@ -188,7 +188,7 @@ const Page = () => {
                 <CheckBox
                   handleChange={() => {}}
                   label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
-                  labelClassName="text-sm mr-6 font-normal text-grey-500"
+                  labelClassName="text-xs mr-6 font-normal text-grey-500"
                   name="vendorCode"
                   icon={
                     <TickIcon
@@ -266,7 +266,7 @@ export default Page;
 const BasketEmptyPage = () => {
   return (
     <div className="flex flex-col items-center justify-center h-1/2 w-full gap-3 p-10 text-center">
-      <h3 className="font-semibold text-lg">سبد خرید شما خالی است!</h3>
+      <h3 className="font-semibold text-base">سبد خرید شما خالی است!</h3>
       <p className="font-light">
         در حال حاضر، هیچ کالایی برای خرید انتخاب نشده است.
       </p>
@@ -280,7 +280,7 @@ const OrderInProgress = () => {
       <span className="bg-yellow-400 rounded-full w-[56px] h-[56px] flex justify-center items-center">
         <TimerIcon width={32} height={32} fill={colors.white} />
       </span>
-      <div className="text-sm font-light flex flex-col gap-4 items-center">
+      <div className="text-xs font-light flex flex-col gap-4 items-center">
         <span className="text-md font-semibold text-center">
           سفارش شما با موفقیت ثبت شد
         </span>

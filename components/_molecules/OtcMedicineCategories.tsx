@@ -66,7 +66,7 @@ const OtcMedicineCategories = () => {
                   key={item?.categoryCodeLevel1}
                   onClick={() => handleSelectCategory(item)}
                   className={classNames(
-                    'w-max h-8 flex items-center px-3 bg-white text-sm rounded-full cursor-pointer border border-grey-200',
+                    'w-max h-8 flex items-center px-3 bg-white text-xs rounded-full cursor-pointer border border-grey-200',
                     item?.categoryCodeLevel1 ===
                       selectedCategory?.categoryCodeLevel1 &&
                       '!bg-grey-50 border-1.5 !border-black -order-1',
@@ -90,16 +90,16 @@ const OtcMedicineCategories = () => {
 
   return (
     <div className="flex px-4 flex-col gap-y-2">
-      <span className="text-base font-medium mb-4">نوع دارو</span>
+      <span className="text-sm font-medium mb-4">نوع دارو</span>
 
       <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-4">
         {data?.queryResult?.map((item) => (
           <div
             key={item?.categoryCodeLevel1}
             onClick={() => handleSelectCategory(item)}
-            className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-grey-50 cursor-pointer gap-y-2"
+            className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-base bg-grey-50 cursor-pointer gap-y-2"
           >
-            <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-lg">
+            <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-base">
               {item?.iconLink && (
                 <NextImage
                   src={item?.iconLink}
@@ -110,7 +110,7 @@ const OtcMedicineCategories = () => {
               )}
             </div>
 
-            <span className="text-xs w-full text-center truncate">
+            <span className="text-2xs w-full text-center truncate">
               {item?.categoryNameLevel1}
             </span>
           </div>

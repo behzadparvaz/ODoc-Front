@@ -16,11 +16,11 @@ const FailurePayment = ({ className = '' }) => {
           <FailIcon width={32} height={32} fill={colors?.red[400]} />
         </div>
 
-        <h1 className="text-lg font-semibold mt-4 mb-7">
+        <h1 className="text-base font-semibold mt-4 mb-7">
           {orderText?.failurePaymentText}
         </h1>
 
-        <span className="text-xs font-normal">
+        <span className="text-2xs font-normal">
           {orderText?.failurePaymentHelperText}
         </span>
       </div>

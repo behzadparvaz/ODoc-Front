@@ -93,7 +93,7 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             <PlusIconOutline width={20} height={20} fill={'black'} />
           </button>
 
-          <div className="min-w-8 text-center">
+          <div className="min-w-8 text-center  text-xs">
             {count}
             {unitName ? <span className="pr-1">{unitName}</span> : null}
             {isLoading && <div className="" />}
