@@ -18,6 +18,9 @@ interface Props {
   data: any;
   twoRow?: boolean;
   carouselIsLoading?: boolean;
+  carouselCardClassName?: string;
+  containerClassName?: string;
+  scrollSliderClassName?: string;
 }
 
 const shimerData = [1, 2, 3, 4, 5, 6];
@@ -27,10 +30,13 @@ const CarouselLine = ({
   twoRow,
   data,
   carouselIsLoading,
+  carouselCardClassName,
+  containerClassName,
+  scrollSliderClassName,
 }: Props) => {
   const { push } = useRouter();
   return (
-    <div className="px-4">
+    <div className={classNames(twoRow ? 'px-4' : '', containerClassName)}>
       <div
         className={classNames(
           ' flex flex-col',
@@ -44,7 +50,7 @@ const CarouselLine = ({
             twoRow ? 'bg-[#E41C40] pr-[36px] pl-4' : '',
           )}
         >
-          <div className="flex items-center gap-x-[24px]">
+          <div className="flex items-center ">
             {twoRow && (
               <CouponPuchedFillIcon
                 width={24}
@@ -55,7 +61,7 @@ const CarouselLine = ({
 
             <span
               className={classNames(
-                'text-sm font-semibold leading-6',
+                'text-sm font-semibold leading-6 px-2',
                 twoRow ? 'text-content-onInverse' : 'text-content-primary',
               )}
             >
@@ -64,7 +70,7 @@ const CarouselLine = ({
           </div>
 
           <Button
-            variant="secondary"
+            variant={twoRow ? 'secondary' : 'text'}
             size="small"
             className={twoRow && 'w-[32px] bg-opacity-20 !p-0'}
             onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
@@ -85,6 +91,7 @@ const CarouselLine = ({
             twoRow
               ? 'px-4 py-2 grid grid-rows-2 grid-flow-col'
               : 'flex items-center',
+            scrollSliderClassName,
           )}
         >
           <>
@@ -106,11 +113,13 @@ const CarouselLine = ({
                 <VerticalProductCard
                   hasAddToCart
                   productData={item}
-                  className={
-                    twoRow
-                      ? 'w-[128px] h-[204px] !p-2'
-                      : 'w-[128px] h-[212px] border-l border-border-primary'
-                  }
+                  className={classNames(
+                    !carouselCardClassName
+                      ? twoRow
+                        ? 'w-[110px] h-[204px] !p-2'
+                        : 'w-[110px] h-[212px] border-border-primary border-l'
+                      : `w-[110px] mr-4 ${carouselCardClassName}`,
+                  )}
                   key={index}
                 />
               );
@@ -121,7 +130,7 @@ const CarouselLine = ({
             onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
             className="w-[157px] h-full flex flex-col items-center justify-center row-start-1 row-end-3 cursor-pointer"
           >
-            <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
+            <span className="h-8 w-8 bg-white rounded-full flex justify-center items-center">
               <ArrowLeftIconOutline width={20} height={20} fill="#000" />
             </span>
             <span className="text-xs font-medium pt-4">
