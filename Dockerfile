@@ -10,7 +10,7 @@ RUN npm install --legacy-peer-deps
 
 COPY . .
 
-COPY .env.staging .env; 
+COPY .env.staging .env
 
 RUN rm -f .env.* 
 
