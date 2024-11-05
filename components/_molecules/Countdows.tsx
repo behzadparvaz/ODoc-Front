@@ -1,11 +1,17 @@
+import classNames from 'classnames';
 import { useState, useEffect } from 'react';
 
 interface CountdownProps {
   expirationTime: number | null;
   onFinishTimer?: () => void;
+  className?: string;
 }
 
-const Countdown = ({ expirationTime, onFinishTimer }: CountdownProps) => {
+const Countdown = ({
+  expirationTime,
+  onFinishTimer,
+  className,
+}: CountdownProps) => {
   const [remainingTime, setRemainingTime] = useState<number | null>(null);
 
   useEffect(() => {
@@ -47,7 +53,12 @@ const Countdown = ({ expirationTime, onFinishTimer }: CountdownProps) => {
   return (
     <>
       {remainingTime > 0 ? (
-        <span className="w-max h-[24px] px-4 bg-surface-accentLight rounded-full text-xs text-content-accent flex items-center justify-center">
+        <span
+          className={classNames(
+            className,
+            'w-max h-[24px] px-4 bg-surface-accentLight rounded-full text-xs text-content-accent flex items-center justify-center',
+          )}
+        >
           {Math.floor(remainingTime / 60)}:
           {(remainingTime % 60).toString().padStart(2, '0')}
         </span>
