@@ -5,7 +5,7 @@ services:
     image: tapsi-doctor
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.prod
     ports:
       - "5000:3000"
     environment:
