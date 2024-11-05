@@ -177,10 +177,10 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
         تایید شماره موبایل
       </div>
 
-      <p className="text-sm text-grey-500 text-center py-3 font-medium">
+      <p className="text-xs text-grey-500 text-center py-3 font-medium">
         لطفاً کد ارسال شده برای شماره {data?.phoneNumber} را وارد کنید.
       </p>
-      <p className="flex justify-end px-4 text-sm font-medium pb-1.5">
+      <p className="flex justify-end px-4 text-xs font-medium pb-1.5">
         <span
           className="flex gap-x-1"
           onClick={() => handleChangeForm('enterMobileNumber')}
@@ -204,7 +204,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
         <div className="w-full">
           <div className="text-center my-6">
             {hasTime ? (
-              <div className="text-sm flex justify-center">
+              <div className="text-xs flex justify-center">
                 {loginTexts.receiveOtp}
                 <p className="w-11">
                   <b className="px-2 w-14">
@@ -218,7 +218,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
             ) : (
               <p
                 onClick={() => timer?.min === 0 && handleResendOtp()}
-                className="cursor-pointer inline-block bg-grey-100 py-2 font-medium px-4 rounded-full text-sm"
+                className="cursor-pointer inline-block bg-grey-100 py-2 font-medium px-4 rounded-full text-xs"
               >
                 {loginTexts.resend}
               </p>

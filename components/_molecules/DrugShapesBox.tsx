@@ -114,7 +114,7 @@ export default function DrugShapesBox({
             className={`flex flex-col border-[1px] py-5 rounded-xl px-2 mt-4 ${matchedProducts?.length > 0 ? 'border-black' : 'border-grey-200'}`}
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >
-            <p className="text-sm font-medium truncate mr-2">{item?.shape}</p>
+            <p className="text-xs font-medium truncate mr-2">{item?.shape}</p>
             {matchedProducts?.length > 0 && (
               <div className="flex flex-col">
                 {matchedProducts.map((matchedProduct, idx) => {
@@ -127,7 +127,7 @@ export default function DrugShapesBox({
                       key={idx}
                       className="flex items-center justify-between mt-4 mx-3 gap-x-3"
                     >
-                      <p className="text-grey-500 text-sm">
+                      <p className="text-grey-500 text-xs">
                         {matchedProduct?.name}
                       </p>
                       <AddButton

@@ -62,7 +62,7 @@ const ParsiSearchModal = ({
           <span className="text-xl  font-bold leading-8">
             نتیجه ای پیدا نشد
           </span>
-          <span className="text-base text-grey-600">
+          <span className="text-sm text-grey-600">
             لطفا از نوشتار صحیح و اتصال به اینترنت مطمئن شوید
           </span>
         </div>
@@ -86,11 +86,11 @@ const ParsiSearchModal = ({
             </div>
 
             <div className="flex flex-col gap-y-2 ">
-              <span className="text-base font-semibold">
+              <span className="text-sm font-semibold">
                 {item?.geo_location?.title}
               </span>
 
-              <span className="text-sm font-medium">{item?.description}</span>
+              <span className="text-xs font-medium">{item?.description}</span>
             </div>
           </div>
         ))}

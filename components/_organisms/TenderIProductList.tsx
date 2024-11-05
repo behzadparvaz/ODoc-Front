@@ -38,11 +38,11 @@ const TenderProductList = ({
               />
             </div>
             <div className="flex flex-col gap-y-2">
-              <span className="text-sm font-semibold">
+              <span className="text-xs font-semibold">
                 {isSpecialPatient ? 'نسخه بیماری خاص' : 'دارو با نسخه'}
               </span>
               {referenceNumber ? (
-                <span className="text-sm font-semibold">
+                <span className="text-xs font-semibold">
                   {`کد نسخه ${referenceNumber}`}
                 </span>
               ) : null}
@@ -80,7 +80,7 @@ const TenderProductList = ({
         <span className="text-start text-md leading-6 font-bold">
           جزییات پرداخت
         </span>
-        <div className="flex items-center justify-between text-sm leading-5">
+        <div className="flex items-center justify-between text-xs leading-5">
           <span>{`جمع سفارش ${orderItems?.length > 1 ? `(${orderItems?.length})` : ''}`}</span>
 
           <span>
@@ -88,7 +88,7 @@ const TenderProductList = ({
           </span>
         </div>
 
-        <div className="flex items-center justify-between text-sm leading-5">
+        <div className="flex items-center justify-between text-xs leading-5">
           <span>هزینه بسته بندی</span>
 
           <span>
@@ -96,7 +96,7 @@ const TenderProductList = ({
           </span>
         </div>
 
-        <div className="flex items-center justify-between text-sm leading-5">
+        <div className="flex items-center justify-between text-xs leading-5">
           <span>هزینه ارسال</span>
 
           <span className="flex items-center text-md gap-x-1">

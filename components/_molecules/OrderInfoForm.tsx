@@ -134,7 +134,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       </div>
       <Accordion
         header={
-          <label className="font-semibold text-sm text-gray-800 block">
+          <label className="font-semibold text-xs text-gray-800 block">
             {orderText?.insuranceType}
           </label>
         }
@@ -149,7 +149,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                 );
               }}
               label={item?.name}
-              labelClassName="text-sm mr-6 font-normal text-grey-700"
+              labelClassName="text-xs mr-6 font-normal text-grey-700"
               name="insuranceTypeId"
               id={item?.id}
               value={item?.id}
@@ -173,7 +173,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         <>
           <Accordion
             header={
-              <label className="font-semibold text-sm text-gray-800 block">
+              <label className="font-semibold text-xs text-gray-800 block">
                 {orderText?.additionalInsuranceType}
               </label>
             }
@@ -209,7 +209,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                           );
                         }}
                         label={item?.name}
-                        labelClassName="text-sm mr-6 font-normal text-grey-700"
+                        labelClassName="text-xs mr-6 font-normal text-grey-700"
                         name="supplementaryInsuranceType"
                         id={item?.id}
                         value={item?.id}
@@ -234,14 +234,14 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                 </div>
 
                 {filteredInsurances?.length === 0 && (
-                  <p className="text-gray-500 text-sm">بیمه‌ای یافت نشد</p>
+                  <p className="text-gray-500 text-xs">بیمه‌ای یافت نشد</p>
                 )}
               </>
             }
           />
           <Accordion
             header={
-              <label className="font-semibold text-sm text-gray-800 block">
+              <label className="font-semibold text-xs text-gray-800 block">
                 {orderText?.selectDrugStore}
               </label>
             }
@@ -258,7 +258,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
                     );
                   }}
                   label={item.vendorName}
-                  labelClassName="text-sm mr-6 font-normal text-grey-700"
+                  labelClassName="text-xs mr-6 font-normal text-grey-700"
                   name="vendorCode"
                   id={item?.vendorCode}
                   value={item?.vendorCode}

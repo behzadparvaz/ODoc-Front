@@ -65,7 +65,7 @@ const Input = forwardRef(
           }}
         />
         {isTouched && (
-          <p className="text-xs font-normal text-red-800 mx-1 mt-2">
+          <p className="text-2xs font-normal text-red-800 mx-1 mt-2">
             {errorMessage}
           </p>
         )}

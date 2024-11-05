@@ -51,7 +51,7 @@ const ProfileContainer = () => {
 
             <div className="flex flex-col gap-y-2 items-start">
               <span className="text-xl font-semibold">{`${data?.queryResult[0]?.firstName ? data?.queryResult[0]?.firstName : ''} ${data?.queryResult[0]?.lastName ? data?.queryResult[0]?.lastName : ''}`}</span>
-              <span className="leading-6 text-sm font-normal">
+              <span className="leading-6 text-xs font-normal">
                 {data?.queryResult[0]?.phoneNumber}
               </span>
             </div>
@@ -60,7 +60,7 @@ const ProfileContainer = () => {
           <div className="w-full h-[100px] flex gap-x-3 justify-between items-center px-4 py-2">
             <div className="w-1/2 h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
               <WalletOutlineIcon width={24} height={24} fill={colors.black} />
-              <span className="text-sm font-normal leading-6 text-black">
+              <span className="text-xs font-normal leading-6 text-black">
                 کیف پول
               </span>
             </div>
@@ -72,7 +72,7 @@ const ProfileContainer = () => {
                   height={24}
                   fill={colors.black}
                 />
-                <span className="text-sm font-normal leading-6 text-black">
+                <span className="text-xs font-normal leading-6 text-black">
                   پشتیبانی
                 </span>
               </div>

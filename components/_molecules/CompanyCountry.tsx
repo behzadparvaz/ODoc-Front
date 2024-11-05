@@ -37,7 +37,7 @@ const CompanyName = ({ data }: CompanyNameProps) => {
               />
             }
           />
-          <span className="w-max text-sm leading-5">{`${item?.price} تومان`}</span>
+          <span className="w-max text-xs leading-5">{`${item?.price} تومان`}</span>
         </div>
       ))}
     </div>

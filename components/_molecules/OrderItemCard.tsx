@@ -23,9 +23,9 @@ const OrderItemCard = ({
   return (
     <>
       {isUnavaiable ? (
-        <div className="flex h-14 bg-yellow-50 items-center px-3 rounded-lg">
+        <div className="flex h-14 bg-yellow-50 items-center px-3 rounded-base">
           <DangerIcon width={22} height={22} fill={colors.yellow[500]} />
-          <p className="text-grey-600 text-sm mr-3">
+          <p className="text-grey-600 text-xs mr-3">
             این کالا در این داروخانه ناموجود است.
           </p>
         </div>
@@ -48,7 +48,7 @@ const OrderItemCard = ({
         <div className="flex flex-col gap-1 w-full">
           <p
             className={classNames(
-              'text-sm font-medium leading-6',
+              'text-xs font-medium leading-6',
               isUnavaiable && 'text-grey-400',
             )}
           >
@@ -58,7 +58,7 @@ const OrderItemCard = ({
           <div className="w-full flex items-center justify-between">
             <span
               className={classNames(
-                'text-xs leading-5 text-grey-500',
+                'text-2xs leading-5 text-grey-500',
                 isUnavaiable && 'text-grey-400',
               )}
             >
@@ -69,11 +69,11 @@ const OrderItemCard = ({
             ) : (
               <>
                 {isUnavaiable ? (
-                  <span className="text-xs text-grey-400 leading-5 h-5">
+                  <span className="text-2xs text-grey-400 leading-5 h-5">
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
+                  <span className="text-2xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
                 )}
               </>
             )}

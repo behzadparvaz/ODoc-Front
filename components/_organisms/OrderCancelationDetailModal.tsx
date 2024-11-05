@@ -16,7 +16,9 @@ export default function OrderCancelationDetailModal({ reason }: Props) {
       className="!overflow-hidden"
       title={orderText?.reasonCancelationOrder}
     >
-      <p className='py-3 mt-4 border-t border-grey-100 text-sm bg-red-50 text-red-900 px-3'>{reason}</p>
+      <p className="py-3 mt-4 border-t border-grey-100 text-xs bg-red-50 text-red-900 px-3">
+        {reason}
+      </p>
       <div className="flex gap-x-2 mt-8 mb-5">
         <Button
           variant="tertiary"

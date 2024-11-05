@@ -168,7 +168,7 @@ const ConfirmRequestDrugs = () => {
           <div className="h-[1px] bg-grey-200 w-full mt-4" />
         </div>
         <div className="flex flex-col px-4">
-          <h1 className="font-bold text-lg">اقلام درخواست</h1>
+          <h1 className="font-bold text-base">اقلام درخواست</h1>
           <div className="mt-5 mb-5">
             {drugs.length > 0 ? (
               drugs.map((item, index) => (
@@ -185,7 +185,7 @@ const ConfirmRequestDrugs = () => {
                   </div>
                   <div className="w-full">
                     <p className="text-xl font-medium">{item.drugName}</p>
-                    <p className="text-sm font-light text-grey-500">
+                    <p className="text-xs font-light text-grey-500">
                       {item.drugShape?.name}
                     </p>
                   </div>
@@ -218,15 +218,15 @@ const ConfirmRequestDrugs = () => {
                     age: e?.target?.value,
                   });
                 }}
-                labelClassName="text-base font-medium mt-5"
+                labelClassName="text-sm font-medium mt-5"
                 label="سن"
                 type="number"
-                inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+                inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
                 value={state.age}
               />
             </div>
             <div className="w-full flex flex-col">
-              <label className=" text-grey-800 mb-2 text-base font-medium mt-5">
+              <label className=" text-grey-800 mb-2 text-sm font-medium mt-5">
                 جنسیت
               </label>
               <div
@@ -257,7 +257,7 @@ const ConfirmRequestDrugs = () => {
                   sensitivity: e?.target?.value,
                 });
               }}
-              labelClassName="text-base font-medium mt-5"
+              labelClassName="text-sm font-medium mt-5"
               label="حساسیت های دارویی"
               placeholder="برای داروخانه توضیح بنویسید"
               rows={5}
@@ -272,7 +272,7 @@ const ConfirmRequestDrugs = () => {
                 description: e?.target?.value,
               });
             }}
-            labelClassName="text-base font-medium mt-5"
+            labelClassName="text-sm font-medium mt-5"
             label="توضیحات سفارش"
             placeholder="برای داروخانه توضیح بنویسید"
             rows={5}
@@ -281,10 +281,10 @@ const ConfirmRequestDrugs = () => {
 
           <Input
             onChange={handleNationalCodeChange}
-            labelClassName="text-base font-medium mt-5"
+            labelClassName="text-sm font-medium mt-5"
             label="کد ملی"
             type="text"
-            inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+            inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
             placeholder="1234567890"
             value={state.nationalCode}
           />

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { BasketContainer } from '@containers/basket';
+import BasketContainer from '@containers/basket';
 
 const BasketPage = () => {
   return <BasketContainer />;

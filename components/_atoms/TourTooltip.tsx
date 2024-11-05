@@ -25,7 +25,7 @@ const TourTooltip = ({
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ ease: 'anticipate', duration: 0.2 }}
-      className="w-3/4 h-max flex flex-col items-end py-4 px-5 gap-2 bg-grey-50 rounded-lg"
+      className="w-3/4 h-max flex flex-col items-end py-4 px-5 gap-2 bg-grey-50 rounded-base"
       {...tooltipProps}
       style={
         step?.styles?.tooltip?.width && {
@@ -42,7 +42,7 @@ const TourTooltip = ({
         </button>
       </div>
 
-      <p className="text-sm text-right font-normal text-grey-600">
+      <p className="text-xs text-right font-normal text-grey-600">
         {step.content}
       </p>
 

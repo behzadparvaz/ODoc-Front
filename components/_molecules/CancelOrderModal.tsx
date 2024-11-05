@@ -97,11 +97,11 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
         backIconHandler={removeLastModal}
       >
         <div className="h-full w-full flex flex-col gap-y-4 bg-surface-primary overflow-y-scroll pb-[84px]">
-          <span className="text-content-tertiary text-sm font-medium pt-4 px-4">
+          <span className="text-content-tertiary text-xs font-medium pt-4 px-4">
             دلیل لغو سفارش خود انتخاب کنید.
           </span>
 
-          <div className="flex flex-col text-content-primary text-base font-normal gap-y-2 px-[21px]">
+          <div className="flex flex-col text-content-primary text-sm font-normal gap-y-2 px-[21px]">
             {renderReasonList().map((item, index) => (
               <div key={index} className="h-[52px] flex flex-col">
                 <div className="h-[51.5px] flex items-center">

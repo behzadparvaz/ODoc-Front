@@ -85,7 +85,7 @@ const TenderContainer = () => {
         {isBannerOpen && (
           <div className="p-4">
             <div className="flex justify-between items-center w-full h-[80px] bg-grey-200 p-4 rounded-xl gap-x-4">
-              <span className="text-sm">
+              <span className="text-xs">
                 شما میتوانید سبد خرید خود را مشاهده کنید و یک داروخانه را برای
                 پرداخت و ادامه فرآیند ارسال انتخاب کنید.
               </span>

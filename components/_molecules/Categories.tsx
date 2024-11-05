@@ -87,7 +87,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
             >
               <CategoryItem
                 isSoon={item?.isSoon}
-                className=" bg-grey-50 w-full rounded-lg"
+                className=" bg-grey-50 w-full rounded-base"
                 link={`${item?.link}${item?.query ? item?.query : ''}`}
                 imgHeight={item?.imageHeight}
                 alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
@@ -110,11 +110,11 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           <div
             key={index}
             style={{ minWidth: '70px', flexBasis: '17.3%' }}
-            className="relative text-xs"
+            className="relative text-2xs"
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className={'w-full rounded-lg'}
+              className={'w-full rounded-base'}
               titleClassName="!text-[9px] !p-0 whitespace-nowrap"
               imageClassName={
                 pathname === item?.link && 'border border-border-selected'

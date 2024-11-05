@@ -24,10 +24,10 @@ const QuickOrderSuccessContainer = () => {
             <TimerIcon width={32} height={32} fill={colors.blue[400]} />
           </span>
         </div>
-        <p className="text-lg text-center font-semibold mt-5">
+        <p className="text-base text-center font-semibold mt-5">
           درخواست شما ثبت و در انتظار تأیید پزشک است
         </p>
-        <p className="text-base text-gray-500 px-6 text-center mt-4">
+        <p className="text-sm text-gray-500 px-6 text-center mt-4">
           سفارش شما در مرحله بررسی پزشک است و در صورت تأیید، توسط داروخانه اعلام
           قیمت خواهد شد.
         </p>
