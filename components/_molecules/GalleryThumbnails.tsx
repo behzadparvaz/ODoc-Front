@@ -1,13 +1,26 @@
 import NextImage from '@com/_core/NextImage';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 const GalleryThumbnails = ({ images }) => {
-  const [image, setImage] = useState(images[0]);
+  const serializeData = useMemo(() => {
+    return images.map((image, index) => ({
+      id: index,
+      src: image,
+    }));
+  }, [images]);
+
+  const [image, setImage] = useState({
+    id: null,
+    src: null,
+  });
 
   const clickOnThumbnailHandler = (selectedImage) => {
     setImage(selectedImage);
   };
+  useEffect(() => {
+    clickOnThumbnailHandler(serializeData[0]);
+  }, [images]);
 
   return (
     <>
@@ -21,7 +34,7 @@ const GalleryThumbnails = ({ images }) => {
         />
       </div>
       <div className="flex justify-start mt-2">
-        {images.map((thumbImage) => (
+        {serializeData.map((thumbImage) => (
           <div
             key={thumbImage.id}
             onClick={() => clickOnThumbnailHandler(thumbImage)}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
@@ -36,6 +36,7 @@ type VerticalProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
   imageWidth?: number;
   imageHeight?: number;
+  productRoute?: string;
 };
 
 const VerticalProductCard = ({
@@ -45,6 +46,7 @@ const VerticalProductCard = ({
   onSuccessChanged,
   imageWidth = 100,
   imageHeight = 100,
+  productRoute,
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
@@ -108,7 +110,8 @@ const VerticalProductCard = ({
       )}
       onClick={() => {
         push(
-          `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
+          productRoute ||
+            `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
         );
       }}
     >

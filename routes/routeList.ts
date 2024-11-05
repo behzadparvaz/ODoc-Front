@@ -33,4 +33,5 @@ export const routeList = {
   QuickOrderDetail: `${baseUrl}/request-drugs/detail`,
   confirmBasket: `${baseUrl}/basket/confirm-basket`,
   basketSuccess: `${baseUrl}/basket/success`,
+  supplementProduct: `${baseUrl}/supplement/product`,
 };
