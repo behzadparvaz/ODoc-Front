@@ -34,8 +34,8 @@ type VerticalProductCardProps<PrT> = {
   className?: string;
   hasAddToCart?: boolean;
   onSuccessChanged?: () => void;
-  imageWidth?: number;
-  imageHeight?: number;
+  imageWidth?: string;
+  imageHeight?: string;
 };
 
 const VerticalProductCard = ({
@@ -43,8 +43,8 @@ const VerticalProductCard = ({
   className = '',
   hasAddToCart = false,
   onSuccessChanged,
-  imageWidth = 100,
-  imageHeight = 100,
+  imageWidth = '100px',
+  imageHeight = '100px',
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
@@ -56,7 +56,7 @@ const VerticalProductCard = ({
     }),
     enabled: true,
   });
-  const { mutate: addToCart, isPending: isAddingToCart } =
+  const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         onSuccessChanged?.();

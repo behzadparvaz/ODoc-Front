@@ -1,4 +1,4 @@
-import { useQueryClient } from '@tanstack/react-query';
+import { useQueryClient } from 'react-query';
 
 export const useGetFetchQuery = (name) => {
   const queryClient = useQueryClient();

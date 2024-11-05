@@ -1,6 +1,18 @@
-import RequestDrugsContainer from '@containers/medicine/request-drugs/request-drugs';
+import RequestDrugsContainer from '@com/_organisms/RequestDrugsContainer';
+import { MainLayout } from '@com/Layout';
 
-const RequestDrugsPage = () => {
-  return <RequestDrugsContainer />;
+const RequestDrugs = () => {
+  return (
+    <MainLayout
+      hasHeader
+      headerType="withoutLogo"
+      hasBackButton
+      title="ثبت درخواست دارو"
+    >
+      <div className="px-4 mb-14">
+        <RequestDrugsContainer />
+      </div>
+    </MainLayout>
+  );
 };
-export default RequestDrugsPage;
+export default RequestDrugs;

@@ -105,7 +105,7 @@ const OtcProductsSlider = ({
                   hasAddToCart={true}
                   productData={item}
                   key={index}
-                  className="w-[128px] h-[212px] border-l border-primary"
+                  className="w-[128px] h-[212px] border-l border border-primary"
                 />
               );
             },

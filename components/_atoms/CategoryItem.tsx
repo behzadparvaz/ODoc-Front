@@ -33,7 +33,7 @@ const CategoryItem = ({
 }: Props) => {
   return (
     <NextLink href={link}>
-      <span
+      <a
         onClick={
           handleClick
             ? (e) => {
@@ -80,7 +80,7 @@ const CategoryItem = ({
         >
           {name}
         </p>
-      </span>
+      </a>
     </NextLink>
   );
 };

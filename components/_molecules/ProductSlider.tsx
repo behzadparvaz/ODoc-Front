@@ -29,9 +29,9 @@ const ProductSlider = ({ className, data }: Props) => {
                   alt={'productSlider-' + index}
                   placeholder="blur"
                   blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(192, 192))}`}
-                  fill
-                  style={{ objectFit: 'contain' }}
+                  layout="fill"
                   quality={100}
+                  objectFit="contain"
                 />
               </div>
             </SwiperSlide>

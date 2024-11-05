@@ -29,7 +29,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
   const { viewport, defaultViewPort } = useSelector(
     (state: RootState) => state.mapInfo,
   );
-  const { mutate: mutateAddLocation, isPending: mutateAddLocationLoading } =
+  const { mutate: mutateAddLocation, isLoading: mutateAddLocationLoading } =
     useAddLocation({
       isInAddressPage: pathname === routeList.newAddress,
     });

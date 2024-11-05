@@ -32,7 +32,7 @@ const ProductPage = () => {
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
 
-  const { mutate: addToCart, isPending: isAddingToCart } =
+  const { mutate: addToCart, isLoading: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
         refetchGetBasket();

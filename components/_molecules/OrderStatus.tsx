@@ -79,9 +79,9 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
           <span className="text-base leading-6">تماس با پشتیبانی</span>
 
           <Link href={`tel:02196861727`}>
-            <span className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
+            <a className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
               <HeadsetOutlineIcon />
-            </span>
+            </a>
           </Link>
         </div>
       )}

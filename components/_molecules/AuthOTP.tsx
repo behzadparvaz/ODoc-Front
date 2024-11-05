@@ -32,11 +32,11 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
   const { timer, setTimer } = useAuthTimer();
   const { openNotification } = useNotification();
   const fromUrl = query?.from_url;
-  const { mutate: mutateSendVerifyCode, isPending: sendVerifyCodeLoading } =
+  const { mutate: mutateSendVerifyCode, isLoading: sendVerifyCodeLoading } =
     useSendVerifyCode();
   const {
     mutate: mutateSendOtpForLoginWithOtp,
-    isPending: sendOtpForLoginWithOtp,
+    isLoading: sendOtpForLoginWithOtp,
   } = useSendOtpForLoginWithOtp();
 
   const handleChangeOtp = (e) => {

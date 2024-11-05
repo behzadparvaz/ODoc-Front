@@ -1,13 +1,10 @@
-import { useRouter } from 'next/router';
-import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 import {
   useMutation,
   useQuery,
   useQueryClient,
   UseQueryOptions,
   UseQueryResult,
-} from '@tanstack/react-query';
+} from 'react-query';
 import {
   AddFamilyMembers,
   AddLocation,
@@ -23,9 +20,12 @@ import {
 import useNotification from '@hooks/useNotification';
 import useModal from '@hooks/useModal';
 import { selectStoreTexts } from '@com/texts/selectStoreTexts';
+import { useRouter } from 'next/router';
 import { Relation } from '@utilities/interfaces/user';
 import { routeList } from '@routes/routeList';
+import Cookies from 'js-cookie';
 import useStorage from '@hooks/useStorage';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
 
@@ -38,8 +38,7 @@ export const useAddLocation = ({
   const { removeLastModal } = useModal();
   const { push } = useRouter();
   const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: AddLocation,
+  return useMutation(AddLocation, {
     onSuccess: (data: any) => {
       if (data?.length) {
         openNotification({
@@ -48,7 +47,7 @@ export const useAddLocation = ({
           notifType: 'successOrFailedMessage',
         });
       } else {
-        queryClient?.invalidateQueries({ queryKey: ['getUserLocations'] });
+        queryClient?.invalidateQueries('getUserLocations');
         removeLastModal();
         openNotification({
           message: `${selectStoreTexts?.successAddAddress}`,
@@ -70,11 +69,10 @@ export const useDeleteLocation = () => {
   const defaultAddress = user?.defaultAddress;
   const { refetch: refetchAddresses } = useGetUserLocations();
   const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: DeleteUserLocations,
+  return useMutation(DeleteUserLocations, {
     onSuccess: (data, variables) => {
       refetchAddresses();
-      queryClient?.invalidateQueries({ queryKey: ['getUserLocations'] });
+      queryClient?.invalidateQueries('getUserLocations');
       openNotification({
         message: 'مکان منتخب با موفقیت حذف شد',
         type: 'info',
@@ -96,28 +94,23 @@ export const useDeleteLocation = () => {
 export const useGetUserLocations = (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ): UseQueryResult<any[]> => {
-  return useQuery({
-    queryKey: ['getUserLocations'],
-    queryFn: () => GetUserLocations(),
-  });
+  return useQuery(['getUserLocations'], () => GetUserLocations());
 };
 
 export const useGetProfile = () => {
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
-  const { data, isLoading } = useQuery({
-    queryKey: ['getProfile'],
-    queryFn: () => GetProfile(),
+  const { data, isLoading } = useQuery(['getProfile'], () => GetProfile(), {
     enabled: token ? true : false,
   });
   return { data: data as any, isLoading };
 };
 
 export const useGetProfileRelation = () => {
-  const { data, isLoading } = useQuery<Relation[], unknown>({
-    queryKey: ['getProfileRelation'],
-    queryFn: () => GetProfileRelation(),
-  });
+  const { data, isLoading } = useQuery<Relation[], unknown>(
+    ['getProfileRelation'],
+    () => GetProfileRelation(),
+  );
 
   return { data, isLoading };
 };
@@ -126,10 +119,9 @@ export const useAddProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  return useMutation({
-    mutationFn: AddProfileInfo,
+  return useMutation(AddProfileInfo, {
     onSuccess: (data) => {
-      queryClient?.invalidateQueries({ queryKey: ['getProfile'] });
+      queryClient?.invalidateQueries('getProfile');
       openNotification({
         message: 'اطلاعات شما با موفقیت ثبت شد',
         type: 'success',
@@ -142,10 +134,9 @@ export const useAddProfileInfo = () => {
 export const useAddFamilyMembers = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: AddFamilyMembers,
+  return useMutation(AddFamilyMembers, {
     onSuccess: () => {
-      queryClient?.invalidateQueries({ queryKey: ['getProfile'] });
+      queryClient?.invalidateQueries('getProfile');
       openNotification({
         message: 'اطلاعات فرد تحت تکفل شما با موفقیت ثبت شد',
         type: 'success',
@@ -158,10 +149,9 @@ export const useUpdateProfileInfo = () => {
   const { openNotification } = useNotification();
   const queryClient = useQueryClient();
   const { push } = useRouter();
-  return useMutation({
-    mutationFn: UpdateProfileInfo,
+  return useMutation(UpdateProfileInfo, {
     onSuccess: () => {
-      queryClient?.invalidateQueries({ queryKey: ['getProfile'] });
+      queryClient?.invalidateQueries('getProfile');
       openNotification({
         message: 'اطلاعات شما با موفقیت ویرایش شد',
         type: 'success',
@@ -174,8 +164,7 @@ export const useUpdateProfileInfo = () => {
 export const useUserSetPassword = () => {
   const { openNotification } = useNotification();
   const { push } = useRouter();
-  return useMutation({
-    mutationFn: UserSetPassword,
+  return useMutation(UserSetPassword, {
     onSuccess: () => {
       openNotification({
         message: 'رمز عبور شما با موفقیت ثبت شد',
@@ -189,8 +178,7 @@ export const useUserSetPassword = () => {
 export const useLoginWithTapsiSSO = () => {
   const { push } = useRouter();
   const dispatch = useDispatch();
-  return useMutation({
-    mutationFn: LoginWithTapsiSSO,
+  return useMutation(LoginWithTapsiSSO, {
     onSuccess: (data: any) => {
       Cookies.set('token', data?.token, { expires: 365 });
       Cookies.set('loginWithTapsiSSO', true, { expires: 365 });

@@ -1,4 +1,4 @@
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 import {
   GetCategoryLevel2,
   GetCategoryLevel2Description,
@@ -11,23 +11,16 @@ interface categoriesLevel {
   parentCode?: string;
 }
 
-type GetCategoryLevel2Response = {
-  pageNumber: number;
-  pageSize: number;
-  queryResult: any[];
-  totalCount: number;
-};
-
 export const useGetCategories = ({ level, parentCode }: categoriesLevel) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['getCategoryLevel', level, parentCode],
-    queryFn: () =>
+  const { data, isLoading } = useQuery(
+    ['getCategoryLevel', level, parentCode],
+    () =>
       level === 1
         ? GetMainCategories()
         : level === 2
           ? GetCategoryLevel2(parentCode)
           : GetCategoryLevel3(parentCode),
-  });
+  );
   return { data: data as any, isLoading };
 };
 
@@ -40,22 +33,22 @@ export const useGetInfiniteCategoryLevel2 = (body) => {
     isFetching,
     isFetchingNextPage,
     status,
-  } = useInfiniteQuery({
-    queryKey: ['getSearchProducts', body],
-    queryFn: ({ pageParam }) =>
+  } = useInfiniteQuery<any>(
+    ['getSearchProducts', body],
+    ({ pageParam }) =>
       GetCategoryLevel2({
         ...body,
         pageNumber: pageParam || body.pageNumber,
       }),
-    initialPageParam: 1,
-    getNextPageParam: (data: any) => {
-      return data?.totalCount === data?.pageNumber
-        ? undefined
-        : data?.pageNumber + 1;
+    {
+      getNextPageParam: (data) => {
+        return data?.totalCount === data?.pageNumber
+          ? undefined
+          : data?.pageNumber + 1;
+      },
+      enabled: !!body && !!body.search,
     },
-    enabled: !!body && !!body.search,
-  });
-
+  );
   return {
     data,
     error,
@@ -67,19 +60,20 @@ export const useGetInfiniteCategoryLevel2 = (body) => {
   };
 };
 export const useGetCategoryLevel4 = (body) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['getCategoryLeve4', body?.otcLevel3, body?.categoryCodeLevel2],
-    queryFn: () => GetCategoryLevel4(body),
-  });
+  const { data, isLoading } = useQuery(
+    ['getCategoryLeve4', body?.otcLevel3, body?.categoryCodeLevel2],
+    () => GetCategoryLevel4(body),
+  );
   return { data: data as any, isLoading };
 };
 
 export const useGetCategoryDescription = (categoryCode: string) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['getCategoryDescription', categoryCode],
-    queryFn: () => GetCategoryLevel2Description(categoryCode),
-
-    enabled: categoryCode && categoryCode !== undefined ? true : false,
-  });
+  const { data, isLoading } = useQuery(
+    ['getCategoryDescription', categoryCode],
+    () => GetCategoryLevel2Description(categoryCode),
+    {
+      enabled: categoryCode && categoryCode !== undefined ? true : false,
+    },
+  );
   return { data: data as any, isLoading };
 };
