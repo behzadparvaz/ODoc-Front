@@ -124,7 +124,7 @@ const Page = () => {
       hasBackButton
       backIconHandler={() => {
         if (!isLoadingcreateOrderDraft || isLoadingDeleteBasket) {
-          router?.push(routeList?.homeRoute);
+          router?.back();
         }
       }}
     >
