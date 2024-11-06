@@ -1,5 +1,6 @@
-const SuplementProductPage = () => {
-  return <div>SuplementProductPage</div>;
-};
+import SupplementProductContainer from '@containers/supplement/product/[productId]';
 
-export default SuplementProductPage;
+const SupplementProductPage = () => {
+  return <SupplementProductContainer />;
+};
+export default SupplementProductPage;
