@@ -19,9 +19,10 @@ import AddButton from '@com/_atoms/AddButton';
 import { Button } from '@com/_atoms/NewButton';
 import {
   useAddProductToBasket,
+  useDeleteProductBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const SupplementProductContainer = () => {
   // routes
@@ -33,10 +34,15 @@ const SupplementProductContainer = () => {
   const summaryReviews = useGetSupplementReviewSummery(currentProductId);
   const reviews = useGetSupplementReview(currentProductId);
 
-  // basket
-  const { data: basketData, refetch: refetchGetBasket } = useGetCurrentBasket();
+  const { mutate: popProductOfCart } = useDeleteProductBasket({
+    onSuccess: () => {
+      refetchGetBasket();
+    },
+  });
 
-  // add to Cart
+  const { data: basketDatat, refetch: refetchGetBasket } =
+    useGetCurrentBasket();
+
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
@@ -44,15 +50,42 @@ const SupplementProductContainer = () => {
       },
     });
 
-  const filteredBasketProducts = basketData?.products?.filter(
-    (item) => product?.data?.masterId === item?.irc,
+  const basketFilteredProducts = basketDatat?.products?.filter((item) =>
+    product.data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
+  const [selectedItem, setSelectedItem] = useState<any>();
 
-  const [selectedProduct, setSelectedProduct] = useState<any>();
+  // const scrollToSection = (sectionRef) => {
+  //   window.scrollTo({
+  //     top: sectionRef.current.offsetTop,
+  //     behavior: 'smooth',
+  //   });
+  // };
 
-  const renderBottomSection = () => {
-    const selectedDoseCount = filteredBasketProducts?.find(
-      (item) => item?.irc === selectedProduct?.irc,
+  const handleChangeCount = (count: number) => {
+    if (count > 0) {
+      addToCart({
+        type: 'IRC',
+        orderType: 'OTC',
+        irc: selectedItem?.irc,
+        quantity: count,
+      });
+    } else {
+      popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
+    }
+  };
+
+  const handleSelectDose = (item) => {
+    setSelectedItem(item);
+  };
+
+  useEffect(() => {
+    setSelectedItem(product.data?.drugDoses?.[0]);
+  }, [product.data]);
+
+  const rendeBottomSection = () => {
+    const selectedDoseCount = basketFilteredProducts?.find(
+      (item) => item?.irc === selectedItem?.irc,
     )?.quantity;
 
     if (selectedDoseCount) {
@@ -60,8 +93,13 @@ const SupplementProductContainer = () => {
         <>
           <div className="flex px-4 py-4">
             <AddButton
-              count={selectedDoseCount}
-              onChangeCount={() => {}}
+              unitName={product.data.unit}
+              count={
+                basketFilteredProducts?.find(
+                  (item) => item?.irc === selectedItem?.irc,
+                )?.quantity
+              }
+              onChangeCount={handleChangeCount}
               isLoading={isAddingToCart}
               className="px-2 py-2"
             />
@@ -77,7 +115,6 @@ const SupplementProductContainer = () => {
         </>
       );
     }
-
     return (
       <Button
         variant="primary"
@@ -88,7 +125,7 @@ const SupplementProductContainer = () => {
             orderType: 'OTC',
             quantity: 1,
             type: 'IRC',
-            irc: currentProductId,
+            irc: selectedItem?.irc,
           })
         }
       >
@@ -148,7 +185,7 @@ const SupplementProductContainer = () => {
       )}
       <ActionBar type="singleAction" hasDivider>
         <div className="flex justify-between items-center w-full px-4 py-4">
-          {renderBottomSection()}
+          {rendeBottomSection()}
         </div>
       </ActionBar>
     </MainLayout>
