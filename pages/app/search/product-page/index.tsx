@@ -304,12 +304,18 @@ const ProductPage = () => {
       }
     >
       {renderContent()}
-      {data?.isOtc && (
+      {data?.isOtc ? (
         <ActionBar type="singleAction" hasDivider>
           <div className="flex justify-between items-center w-full px-4 py-4">
             {rendeBottomSection()}
           </div>
         </ActionBar>
+      ) : (
+        <div className="bg-surface-warning flex justify-center items-center h-[84px]">
+          <span className="text-content-onWarning">
+            سفارش این دارو فقط با نسخه پزشک امکان پذیر است
+          </span>
+        </div>
       )}
     </MainLayout>
   );
