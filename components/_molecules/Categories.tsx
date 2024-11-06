@@ -66,11 +66,11 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     },
     {
       title: 'مکمل',
-      link: routeList?.homeRoute,
+      link: routeList?.supplementPage,
       image: supplement,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
-      isSoon: true,
+      isSoon: false,
       ratio: '33.3333%',
     },
   ];
@@ -110,7 +110,10 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           <div
             key={index}
             style={{ minWidth: '70px', flexBasis: '17.3%' }}
-            className="relative text-2xs"
+            className={classNames(
+              'relative text-2xs',
+              pathname === item?.link && '-order-1',
+            )}
           >
             <CategoryItem
               isSoon={item?.isSoon}
