@@ -51,7 +51,12 @@ const SupplementProductContainer = () => {
             <div className="my-4">
               <GalleryThumbnails images={[product?.data?.imageLink]} />
             </div>
-            <GeneralDetail title={product?.data?.shortProductName} />
+            <GeneralDetail
+              title={product?.data?.shortProductName}
+              comments={summeryReviews?.data?.commentsCount}
+              rate={summeryReviews?.data?.ratingAverage}
+              likes={summeryReviews?.data?.likesCount}
+            />
           </div>
           <div className="h-[8px] bg-surface-secondary w-full my-4" />
           <Detail
@@ -61,7 +66,7 @@ const SupplementProductContainer = () => {
             licenseProvider={null}
           />
           <Carousel products={product?.data?.suggestProducts} />
-          <Comments />
+          <Comments comments={reviews?.data} />
         </>
       )}
     </MainLayout>
