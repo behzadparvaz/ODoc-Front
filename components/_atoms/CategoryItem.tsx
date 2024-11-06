@@ -48,7 +48,7 @@ const CategoryItem = ({
         className={`block py-1.5 rounded-base
           ${
             isSoon &&
-            "after:content-[''] after:inline-block after:absolute  after:rounded-base after:bg-gray-50 after:opacity-50 cursor-default"
+            "after:content-[''] after:inline-block after:absolute  after:rounded-base after:bg-gray-50 after:opacity-50 cursor-default after:rounded-xl"
           } 
           ${
             isSoon && !isHomePage

@@ -1,5 +1,7 @@
+import SupplementContainer from '@containers/supplement/supplement';
+
 const SuplementPage = () => {
-  return <div>SuplementPage</div>;
+  return <SupplementContainer />;
 };
 
 export default SuplementPage;
