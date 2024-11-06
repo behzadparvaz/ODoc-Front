@@ -34,4 +34,5 @@ export const routeList = {
   supplementPage: `${baseUrl}/supplement`,
   confirmBasket: `${baseUrl}/basket/confirm-basket`,
   basketSuccess: `${baseUrl}/basket/success`,
+  supplementProduct: `${baseUrl}/supplement/product`,
 };
