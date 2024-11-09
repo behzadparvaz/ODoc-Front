@@ -3,8 +3,8 @@ import { colors } from '@configs/Theme';
 
 const GeneralDetail = ({
   title = '',
-  comments = '125',
-  rate = '4/8',
+  comments = '0',
+  rate = '0',
   likes = Math.floor(Math.random() * 1000),
   isActiveLike = false,
 }) => (
