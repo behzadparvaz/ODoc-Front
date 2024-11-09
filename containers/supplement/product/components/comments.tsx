@@ -27,7 +27,7 @@ const Comments = ({ comments = [], onSubmitReview = () => {} }) => {
 
   const ShowMoreHandler = () => {
     setIsShowMoreComments((prev) => !prev);
-    setCommentsList([...comments]); // Show all comments when toggled
+    setCommentsList([...comments]);
   };
 
   useEffect(() => {
