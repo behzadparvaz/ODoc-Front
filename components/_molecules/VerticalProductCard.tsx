@@ -37,7 +37,6 @@ type VerticalProductCardProps<PrT> = {
   imageWidth?: number;
   imageHeight?: number;
   onClick?: () => void;
-  productRoute?: string;
 };
 
 const VerticalProductCard = ({
@@ -48,7 +47,6 @@ const VerticalProductCard = ({
   imageWidth = 100,
   imageHeight = 100,
   onClick,
-  productRoute,
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
