@@ -87,7 +87,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
             >
               <CategoryItem
                 isSoon={item?.isSoon}
-                className=" bg-grey-50 w-full rounded-base"
+                className=" bg-grey-50 w-full rounded-md overflow-hidden"
                 link={`${item?.link}${item?.query ? item?.query : ''}`}
                 imgHeight={item?.imageHeight}
                 alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}

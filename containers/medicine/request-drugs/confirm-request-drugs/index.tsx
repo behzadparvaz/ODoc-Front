@@ -258,8 +258,9 @@ const ConfirmRequestDrugs = () => {
                 });
               }}
               labelClassName="text-sm font-medium mt-5"
+              inputClassName="rounded-md"
               label="حساسیت های دارویی"
-              placeholder="برای داروخانه توضیح بنویسید"
+              placeholder="حساسیت های دارویی خود را برای داروخانه بنویسید"
               rows={5}
               value={state.sensitivity}
             />
@@ -273,8 +274,9 @@ const ConfirmRequestDrugs = () => {
               });
             }}
             labelClassName="text-sm font-medium mt-5"
+            inputClassName="rounded-md"
             label="توضیحات سفارش"
-            placeholder="برای داروخانه توضیح بنویسید"
+            placeholder="توضیحات سفارش خود را برای داروخانه بنویسید"
             rows={5}
             value={state.description}
           />

@@ -53,7 +53,7 @@ const CategoryItem = ({
           ${
             isSoon && !isHomePage
               ? 'after:w-full after:left-0 after:h-[68px] after:top-1.5'
-              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)]'
+              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)] after:rounded-md'
           }
           ${className}`}
       >
