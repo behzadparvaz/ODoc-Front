@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
 
 import { useGetSupplementCategoryLevel2 } from '@api/supplement/supplementApis.rq';
-import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
+import { routeList } from '@routes/routeList';
 
 type Categories = {
   categoryNameLevel2: string;
@@ -11,16 +11,22 @@ type Categories = {
   sort: number;
 };
 
+const shimerItems = [1, 2, 3, 4];
+
 const CategoryLevel1 = () => {
   const { push } = useRouter();
   const { data: categories, isLoading: categoriesIsLoading } =
     useGetSupplementCategoryLevel2();
 
-  console.log('categories', categories);
   if (categoriesIsLoading) {
     return (
-      <div className="w-full h-[100px] flex justify-center items-center">
-        <Spinner />
+      <div className="w-full h-[240px] grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
+        {shimerItems.map((item) => (
+          <div
+            key={item}
+            className="w-[206px] h-[112px] bg-surface-secondary animate-pulse rounded-lg"
+          />
+        ))}
       </div>
     );
   }
@@ -29,6 +35,11 @@ const CategoryLevel1 = () => {
     <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-2">
       {categories?.map((category) => (
         <div
+          onClick={() =>
+            push(
+              `${routeList.supplementProductListPage}?categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
+            )
+          }
           key={category?.id}
           className="flex flex-col h-full bg-surface-secondary pr-4 pl-2 pt-1 pb-3 rounded-lg cursor-pointer"
         >

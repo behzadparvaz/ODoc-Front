@@ -1,3 +1,5 @@
+import { ArrowRightIconOutline } from '@com/icons';
+import { colors } from '@configs/Theme';
 import React, { ReactNode } from 'react';
 import { CSSProperties } from 'react';
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
   descriptionClassName?: string;
   color?: string;
   style?: CSSProperties;
+  rightActionButton?: ReactNode;
 }
 
 const SectionTitle = ({
@@ -26,6 +29,7 @@ const SectionTitle = ({
   descriptionClassName = '',
   style,
   color,
+  rightActionButton,
 }: Props) => {
   const CustomTag: any = `${tag ? tag : 'p'}`;
   return (
@@ -41,6 +45,7 @@ const SectionTitle = ({
       <div
         className={`flex justify-between ${sectionName ? 'items-end' : 'items-center'}`}
       >
+        {rightActionButton && <div>{rightActionButton}</div>}
         <CustomTag className={`typo-subtitle-2 truncate ${titleClassName}`}>
           {title}
         </CustomTag>
