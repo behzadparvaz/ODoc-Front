@@ -89,7 +89,6 @@ const HomeContainer = () => {
 
         <CarouselLine
           data={getCarouselDataData(3)}
-          className="my-4"
           carouselIsLoading={carouselIsLoading}
           carouselCardClassName="bg-white rounded-md"
           containerClassName="bg-indigo-50 pb-2"

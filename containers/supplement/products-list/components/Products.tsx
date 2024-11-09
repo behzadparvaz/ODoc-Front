@@ -64,7 +64,7 @@ const Products = () => {
     <div className="h-full w-full grid grid-cols-2 overflow-y-scroll pb-80px">
       {productList?.map((item) => (
         <VerticalProductCard
-          onClick={() => push(`${routeList.supplementProductPage}/${item?.id}`)}
+          onClick={() => push(`${routeList.supplementProduct}/${item?.id}`)}
           className="border border-border-primary"
           productData={item}
           key={item?.id}
