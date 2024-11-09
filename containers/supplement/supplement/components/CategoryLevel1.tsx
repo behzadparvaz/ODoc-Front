@@ -21,26 +21,25 @@ const CategoryLevel1 = () => {
   if (categoriesIsLoading) {
     return (
       <div className="w-full h-[240px] grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
-        {shimerItems.map((item) => (
+        {shimerItems.map((_, idx) => (
           <div
-            key={item}
+            key={idx}
             className="w-[206px] h-[112px] bg-surface-secondary animate-pulse rounded-lg"
           />
         ))}
       </div>
     );
   }
-
   return (
     <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-2">
-      {categories?.map((category) => (
+      {categories?.map((category, idx) => (
         <div
           onClick={() =>
             push(
               `${routeList.supplementProductListPage}?categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
-          key={category?.id}
+          key={idx}
           className="flex flex-col h-full bg-surface-secondary pr-4 pl-2 pt-1 pb-3 rounded-lg cursor-pointer"
         >
           <div className="self-end h-[72px] w-[72px] flex items-center justify-center overflow-hidde">
