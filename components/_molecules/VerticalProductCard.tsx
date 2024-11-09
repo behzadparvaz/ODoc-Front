@@ -36,6 +36,7 @@ type VerticalProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
   imageWidth?: number;
   imageHeight?: number;
+  onClick?: () => void;
   productRoute?: string;
 };
 
@@ -46,6 +47,7 @@ const VerticalProductCard = ({
   onSuccessChanged,
   imageWidth = 100,
   imageHeight = 100,
+  onClick,
   productRoute,
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
@@ -108,12 +110,15 @@ const VerticalProductCard = ({
         `flex flex-col items-center h-full p-4 cursor-pointer`,
         className,
       )}
-      onClick={() => {
-        push(
-          productRoute ||
-            `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
-        );
-      }}
+      onClick={
+        onClick
+          ? onClick
+          : () => {
+              push(
+                `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
+              );
+            }
+      }
     >
       <div className="flex justify-center relative mb-3">
         <NextImage

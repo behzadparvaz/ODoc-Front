@@ -8,6 +8,7 @@ import { builder } from '@utilities/queryBuilder';
 //     body,
 //   );
 // };
+
 export const GetSearchProducts = async (body) => {
   const params = builder(body);
   return await request.get(`Product/management/SearchProducts${params}`, body);
