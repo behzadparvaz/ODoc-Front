@@ -41,9 +41,9 @@ const ConfirmBasketContainer = () => {
 
   const { mutate: createOrderDraft, isPending: isLoadingcreateOrderDraft } =
     useCreateOrderDraft({
-      onSuccess: (res) => {
+      onSuccess: (res: any) => {
         refetchGetBasket();
-        router.push(`${routeList.basketSuccess}/${res}`);
+        if (res) router.push(`${routeList.basketSuccess}/${res}`);
       },
     });
 
