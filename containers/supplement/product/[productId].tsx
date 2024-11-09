@@ -83,7 +83,7 @@ const SupplementProductContainer = () => {
     setSelectedItem(product.data?.drugDoses?.[0]);
   }, [product.data]);
 
-  const rendeBottomSection = () => {
+  const renderBottomSection = () => {
     const selectedDoseCount = basketFilteredProducts?.find(
       (item) => item?.irc === selectedItem?.irc,
     )?.quantity;
@@ -185,7 +185,7 @@ const SupplementProductContainer = () => {
       )}
       <ActionBar type="singleAction" hasDivider>
         <div className="flex justify-between items-center w-full px-4 py-4">
-          {rendeBottomSection()}
+          {renderBottomSection()}
         </div>
       </ActionBar>
     </MainLayout>

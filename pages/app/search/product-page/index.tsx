@@ -121,7 +121,7 @@ const ProductPage = () => {
     setSelectedItem(data?.drugDoses?.[0]);
   }, [data]);
 
-  const rendeBottomSection = () => {
+  const renderBottomSection = () => {
     const selectedDoseCount = basketFilteredProducts?.find(
       (item) => item?.irc === selectedItem?.irc,
     )?.quantity;
@@ -157,7 +157,7 @@ const ProductPage = () => {
       <Button
         variant="primary"
         size="large"
-        className="w-full"
+        className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
         onClick={() =>
           addToCart({
             orderType: 'OTC',
@@ -307,7 +307,7 @@ const ProductPage = () => {
       {data?.isOtc ? (
         <ActionBar type="singleAction" hasDivider>
           <div className="flex justify-between items-center w-full px-4 py-4">
-            {rendeBottomSection()}
+            {renderBottomSection()}
           </div>
         </ActionBar>
       ) : (
