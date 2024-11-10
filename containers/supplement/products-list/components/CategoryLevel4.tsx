@@ -109,7 +109,9 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
     <div className="h-[80px] bg-surface-secondary flex flex-col">
       <ScrollSlider className="flex flex-col">
         <div className="w-max min-w-full flex bg-surface-secondary">
-          {subCategories?.map((item) => <>{renderCategoryItem(item)}</>)}
+          {subCategories?.map((item) => (
+            <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
+          ))}
         </div>
       </ScrollSlider>
     </div>

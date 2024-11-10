@@ -72,7 +72,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
         <div className="min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap">
           {item?.categoryNameLevel3}
         </div>
-        <div className="relative h-2 w-full bg-surface-secondary ">
+        <div className="relative h-1 w-full bg-surface-secondary ">
           {selectedCategory?.categoryCodeLevel3 ===
             item?.categoryCodeLevel3 && (
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[calc(100%-32px)] bg-surface-Gradient.brand transition-all duration-300 rounded-full" />
@@ -108,7 +108,9 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
               categoryNameLevel3: 'همه',
             })}
           </>
-          {categoryLevel3?.map((item) => <>{renderCategoryItem(item)}</>)}
+          {categoryLevel3?.map((item) => (
+            <>{item?.categoryCodeLevel3 && renderCategoryItem(item)}</>
+          ))}
         </div>
       </ScrollSlider>
 

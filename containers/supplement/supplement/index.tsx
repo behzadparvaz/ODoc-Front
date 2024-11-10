@@ -1,7 +1,10 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+
 import { SearchIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import Banner from '@com/_molecules/Banner';
+import { routeList } from '@routes/routeList';
 
 const CategoryLevel1 = dynamic(() => import('./components/CategoryLevel1'));
 
@@ -22,12 +25,14 @@ const bannerData = [
 ];
 
 const SupplementContainer = () => {
+  const { push } = useRouter();
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
       title="مکمل"
       hasBackButton
+      backIconHandler={() => push(routeList?.homeRoute)}
       hasBasketIcon
       leftSection={
         <span className="flex items-center justify-center">
