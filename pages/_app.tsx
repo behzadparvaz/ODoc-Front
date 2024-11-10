@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>تپسی دکتر - داروهای مورد نیاز را به سرعت دریافت کنید</title>
+        <title>تپسی دکتر -سلامتی هر لحظه هرجا</title>
         <link rel="manifest" href="/manifast.json" />
         <link rel="robots" href="/robots.txt" />
         <meta name="application-name" content="تپسی دکتر" />
