@@ -142,14 +142,6 @@ const SupplementProductContainer = () => {
       hasBackButton
       scrollToTop
       hasBasketIcon
-      rightIcon={
-        <div
-          className="w-10 h-10 flex justify-center items-center cursor-pointer"
-          onClick={() => router.back()}
-        >
-          <CloseIconOutline width={32} height={42} stroke={colors.black} />
-        </div>
-      }
     >
       {product?.isLoading && (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />

@@ -120,7 +120,7 @@ const ConfirmBasketContainer = () => {
               });
             }}
             labelClassName="text-base font-medium mt-5"
-            label="حساسیت های دارویی"
+            label="توضیحات سفارش"
             placeholder="برای داروخانه توضیح بنویسید"
             rows={5}
             value={state.description}
