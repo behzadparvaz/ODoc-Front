@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 
 import { useGetSupplementCategoryLevel4 } from '@api/supplement/supplementApis.rq';
 import NextImage from '@com/_core/NextImage';
-import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
+
+const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
 type CategoryLevel4Props = {
   categoryCodeLevel3?: string;
@@ -60,12 +62,12 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
       >
         <div
           className={classNames(
-            'w-[33.5px] h-[33.5px] flex items-center justify-center overflow-hidden rounded-full',
+            'w-[34px] h-[34px] flex items-center justify-center overflow-hidden rounded-full',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
               'bg-surface-Gradient.brand',
           )}
         >
-          <div className="flex items-center justify-center w-[32px] h-[32px] overflow-hidden rounded-full">
+          <div className="h-8 w-8 flex justify-center items-center overflow-hidden rounded-full object-fill">
             <NextImage
               alt="supplement-category-l4"
               src={item?.iconImage}
@@ -107,7 +109,9 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
     <div className="h-[80px] bg-surface-secondary flex flex-col">
       <ScrollSlider className="flex flex-col">
         <div className="w-max min-w-full flex bg-surface-secondary">
-          {subCategories?.map((item) => <>{renderCategoryItem(item)}</>)}
+          {subCategories?.map((item) => (
+            <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
+          ))}
         </div>
       </ScrollSlider>
     </div>

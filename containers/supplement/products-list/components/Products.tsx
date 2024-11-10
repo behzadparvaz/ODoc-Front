@@ -1,11 +1,12 @@
+import { useEffect, useMemo } from 'react';
 import { useRouter } from 'next/router';
+import { useInView } from 'react-intersection-observer';
 
 import { useGetSupplementProducts } from '@api/supplement/supplementApis.rq';
 import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
-import { useEffect, useMemo, useState } from 'react';
-import { useInView } from 'react-intersection-observer';
 import { routeList } from '@routes/routeList';
+import classNames from 'classnames';
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -15,6 +16,7 @@ const Products = () => {
 
   const {
     data,
+    isLoading,
     fetchNextPage,
     hasPreviousPage,
     hasNextPage,
@@ -45,9 +47,14 @@ const Products = () => {
     }
   }, [inView, fetchNextPage]);
 
-  if (isFetchingNextPage && !productList?.length) {
+  if ((isLoading || isFetchingNextPage) && !productList?.length) {
     return (
-      <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
+      <div
+        className={classNames(
+          'h-full w-full grid grid-cols-2 overflow-y-scroll',
+          query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
+        )}
+      >
         {shimerItems.map((item) => (
           <div
             key={item}
@@ -61,7 +68,12 @@ const Products = () => {
   }
 
   return (
-    <div className="h-full w-full grid grid-cols-2 overflow-y-scroll pb-80px">
+    <div
+      className={classNames(
+        'h-full w-full grid grid-cols-2 overflow-y-scroll',
+        query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
+      )}
+    >
       {productList?.map((item) => (
         <VerticalProductCard
           onClick={() => push(`${routeList.supplementProduct}/${item?.id}`)}

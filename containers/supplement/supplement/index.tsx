@@ -1,17 +1,38 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+
 import { SearchIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
+import Banner from '@com/_molecules/Banner';
+import { routeList } from '@routes/routeList';
 
-const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CategoryLevel1 = dynamic(() => import('./components/CategoryLevel1'));
 
+const bannerData = [
+  {
+    backgroundColor: null,
+    carouselType: 2,
+    endDateTime: null,
+    icon: 'https://s3.ir-thr-at1.arvanstorage.ir/tapsidr/Shop/HomePage/Banner/BannerImage/Banner1.png',
+    isActive: true,
+    products: null,
+    recId: 18,
+    sectionPosition: 1,
+    startDateTime: null,
+    subTitle: null,
+    title: 'بنر',
+  },
+];
+
 const SupplementContainer = () => {
+  const { push } = useRouter();
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
       title="مکمل"
       hasBackButton
+      backIconHandler={() => push(routeList?.homeRoute)}
       hasBasketIcon
       leftSection={
         <span className="flex items-center justify-center">
@@ -19,9 +40,9 @@ const SupplementContainer = () => {
         </span>
       }
     >
-      <Categories />
-
       <CategoryLevel1 />
+
+      <Banner data={bannerData} className="px-4 py-6" />
     </MainLayout>
   );
 };

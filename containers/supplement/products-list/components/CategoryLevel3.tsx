@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { useGetSupplementCategoryLevel3 } from '@api/supplement/supplementApis.rq';
-import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
 
+const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
+const Filter = dynamic(() => import('./Filter'));
 const CategoryLevel4 = dynamic(() => import('./CategoryLevel4'));
 
 type CategoryLevel3Props = {
@@ -15,7 +16,7 @@ const shimerItems = [1, 2, 3, 4];
 const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
   const { query, pathname, push } = useRouter();
 
-  const { data: subCategories, isLoading: subCategoriesIsLoading } =
+  const { data: categoryLevel3, isLoading: categoryLevel3IsLoading } =
     useGetSupplementCategoryLevel3(categoryCodeLevel2);
 
   const [selectedCategory, setSelectedCategory] = useState({
@@ -26,6 +27,17 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
   const handleSelectCategory = (item) => {
     setSelectedCategory(item);
   };
+
+  useEffect(() => {
+    if (!!query?.categoryCodeLevel3) {
+      const fleteredCategories = categoryLevel3?.filter(
+        (item) => item?.categoryCodeLevel3 === query?.categoryCodeLevel3,
+      );
+      if (fleteredCategories) {
+        setSelectedCategory(fleteredCategories?.[0]);
+      }
+    }
+  }, [query?.categoryCodeLevel3, categoryLevel3]);
 
   const renderCategoryItem = (item) => {
     return (
@@ -60,7 +72,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
         <div className="min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap">
           {item?.categoryNameLevel3}
         </div>
-        <div className="relative h-2 w-full bg-surface-secondary ">
+        <div className="relative h-1 w-full bg-surface-secondary ">
           {selectedCategory?.categoryCodeLevel3 ===
             item?.categoryCodeLevel3 && (
             <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[calc(100%-32px)] bg-surface-Gradient.brand transition-all duration-300 rounded-full" />
@@ -70,7 +82,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
     );
   };
 
-  if (subCategoriesIsLoading) {
+  if (categoryLevel3IsLoading) {
     return (
       <div className="w-full h-[44px] flex flex-col gap-0">
         <div className="h-full w-full flex">
@@ -87,7 +99,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
   }
 
   return (
-    <div className=" flex flex-col z-1">
+    <div className="flex flex-col absolute top-[56px] left-0 w-full bg-surface-primary z-50">
       <ScrollSlider className="flex flex-col">
         <div className="w-max min-w-full flex">
           <>
@@ -96,7 +108,9 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
               categoryNameLevel3: 'همه',
             })}
           </>
-          {subCategories?.map((item) => <>{renderCategoryItem(item)}</>)}
+          {categoryLevel3?.map((item) => (
+            <>{item?.categoryCodeLevel3 && renderCategoryItem(item)}</>
+          ))}
         </div>
       </ScrollSlider>
 
@@ -105,6 +119,8 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
           categoryCodeLevel3={selectedCategory?.categoryCodeLevel3}
         />
       )}
+
+      <Filter />
     </div>
   );
 };

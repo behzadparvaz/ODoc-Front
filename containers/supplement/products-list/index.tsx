@@ -7,7 +7,6 @@ import { routeList } from '@routes/routeList';
 
 const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'));
 const Products = dynamic(() => import('./components/Products'));
-const Filter = dynamic(() => import('./components/Filter'));
 
 const ProductsListContainer = () => {
   const { query, push } = useRouter();
@@ -26,12 +25,10 @@ const ProductsListContainer = () => {
         </span>
       }
     >
-      <div className="relative">
+      <div>
         <CategoryLevel3
           categoryCodeLevel2={query?.categoryCodeLevel2 as string}
         />
-
-        <Filter />
 
         <Products />
       </div>
