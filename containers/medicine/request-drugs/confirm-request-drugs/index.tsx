@@ -162,7 +162,7 @@ const ConfirmRequestDrugs = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="flex justify-center flex-col h-full">
+      <div className="flex justify-center flex-col">
         <div className="flex flex-col cursor-pointer min-h-[102px] justify-center px-4">
           <SelectAddressAction />
           <div className="h-[1px] bg-grey-200 w-full mt-4" />
