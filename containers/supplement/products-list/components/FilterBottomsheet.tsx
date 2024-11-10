@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import { Button } from '@com/_atoms/NewButton';
 import { Radio } from '@com/_atoms/Radio';
 import { ArrowRightIconOutline, ChevronLeftIconOutline } from '@com/icons';
@@ -5,8 +8,6 @@ import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 const shapesList = ['قرص', 'کپسول', 'شربت', 'پودر', 'سایر'];
 

@@ -25,6 +25,7 @@ export const useGetSupplementCategoryLevel3 = (categoryCodeLevel2: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['GetSupplementCategoryLevel3', categoryCodeLevel2],
     queryFn: () => GetSupplementCategoryLevel3(categoryCodeLevel2),
+    enabled: !!categoryCodeLevel2,
   });
   return { data: data as any, isLoading };
 };
@@ -33,6 +34,7 @@ export const useGetSupplementCategoryLevel4 = (categoryCodeLevel3: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['GetSupplementCategoryLevel4', categoryCodeLevel3],
     queryFn: () => GetSupplementCategoryLevel4(categoryCodeLevel3),
+    enabled: !!categoryCodeLevel3,
   });
   return { data: data as any, isLoading };
 };
@@ -40,6 +42,7 @@ export const useGetSupplementCategoryLevel4 = (categoryCodeLevel3: string) => {
 export const useGetSupplementProducts = (body?: any) => {
   const {
     data,
+    isLoading,
     fetchNextPage,
     fetchPreviousPage,
     hasNextPage,
@@ -60,6 +63,7 @@ export const useGetSupplementProducts = (body?: any) => {
 
   return {
     data,
+    isLoading,
     fetchNextPage,
     fetchPreviousPage,
     hasNextPage,

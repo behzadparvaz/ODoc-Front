@@ -1,12 +1,14 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import {
   ArrowUpArrowDownIcon,
   ChevronDownIcon,
   SliderHorizontalIcon,
 } from '@com/icons';
 import useModal from '@hooks/useModal';
+
 import FilterBottomsheet from './FilterBottomsheet';
-import { useRouter } from 'next/router';
-import { useState } from 'react';
 
 const Filter = () => {
   const { addModal } = useModal();
