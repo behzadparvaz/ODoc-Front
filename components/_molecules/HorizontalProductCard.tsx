@@ -133,7 +133,6 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       </div>
     );
   };
-
   return (
     <div className="w-full flex gap-x-6 justify-between items-center py-4">
       <div

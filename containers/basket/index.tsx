@@ -57,6 +57,7 @@ const Page = () => {
   });
 
   const products = useMemo(() => basket?.products ?? [], [basket]);
+
   return (
     <MainLayout
       title="سبد خرید"
