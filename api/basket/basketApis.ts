@@ -34,47 +34,57 @@ export const updateCountProductBasket = async ({
 
 export type AddProductToBasketPayload =
   | (OneOfCodes & {
-      quantity: number;
-      orderType: 'OTC';
-      categoryCode?: number;
-      otcLevel3?: string;
-    })
+    quantity: number;
+    orderType: 'OTC';
+    categoryCode?: number;
+    otcLevel3?: string;
+    imageLink?: string;
+    productName: string;
+  })
   | {
-      orderType: 'RX';
-      refrenceNumber: string;
-      nationalCode: string;
-      insuranceType: number;
-      supplementaryInsuranceType: number;
-      isSpecialPatient: boolean;
-      referenceNumber: string;
-      phoneNumber: string;
-      insuranceTypeId: number;
-      vendorCode: string;
-    };
+    orderType: 'RX';
+    refrenceNumber: string;
+    nationalCode: string;
+    insuranceType: number;
+    supplementaryInsuranceType: number;
+    isSpecialPatient: boolean;
+    referenceNumber: string;
+    phoneNumber: string;
+    insuranceTypeId: number;
+    vendorCode: string;
+    imageLink?: string;
+    productName: string;
+    quantity?: number;
+  };
 
 export const addProductToBasket = async (
   payload: AddProductToBasketPayload,
 ) => {
   await request.post(
-    '/Product/management/AddToCart',
+    '/Baskets/AddToCart',
     payload.orderType === 'RX'
       ? {
-          refrenceNumber: String(payload.refrenceNumber),
-          nationalCode: payload.nationalCode,
-          insuranceType: payload.insuranceType,
-          supplementaryInsuranceType: payload.supplementaryInsuranceType,
-          isSpecialPatient: payload.isSpecialPatient,
-          phoneNumber: payload.phoneNumber,
-          insuranceTypeId: payload.insuranceTypeId,
-          vendorCode: payload.vendorCode,
-        }
+        productName: payload.productName,
+        quantity: payload.quantity,
+        refrenceNumber: String(payload.refrenceNumber),
+        nationalCode: payload.nationalCode,
+        insuranceType: payload.insuranceType,
+        supplementaryInsuranceType: payload.supplementaryInsuranceType,
+        isSpecialPatient: payload.isSpecialPatient,
+        phoneNumber: payload.phoneNumber,
+        insuranceTypeId: payload.insuranceTypeId,
+        vendorCode: payload.vendorCode,
+        imageLink: payload.imageLink,
+      }
       : {
-          ...(payload.type === 'IRC'
-            ? { irc: String(payload.irc) }
-            : { gtin: String(payload.gtin) }),
-          quantity: payload.quantity,
-          CategoryCode: payload?.categoryCode,
-          otcLevel: payload?.otcLevel3,
-        },
+        ...(payload.type === 'IRC'
+          ? { irc: String(payload.irc) }
+          : { gtin: String(payload.gtin) }),
+        productName: payload.productName,
+        quantity: payload.quantity,
+        CategoryCode: payload?.categoryCode,
+        otcLevel: payload?.otcLevel3,
+        imageLink: payload.imageLink,
+      },
   );
 };

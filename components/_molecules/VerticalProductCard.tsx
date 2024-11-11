@@ -86,6 +86,8 @@ const VerticalProductCard = ({
       irc: productData?.irc || productData?.genericCode,
       quantity: count,
       categoryCode: productData?.categoryCode,
+      imageLink: productData?.imageLink,
+      productName: productData?.productName,
     });
 
   const onChange = (count) => {

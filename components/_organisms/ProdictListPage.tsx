@@ -11,15 +11,10 @@ import { productListPageTexts } from '@com/texts/productListPageTexts';
 import { colors } from '@configs/Theme';
 import useCheckPage from '@hooks/useCheckPage';
 import { routeList } from '@routes/routeList';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import VerticalProductCard from '../_molecules/VerticalProductCard';
-
-const HorizontalProductCard = dynamic(
-  () => import('@com/_molecules/HorizontalProductCard'),
-);
 
 type Props = {};
 

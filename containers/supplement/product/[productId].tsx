@@ -69,14 +69,12 @@ const SupplementProductContainer = () => {
         orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
+        imageLink: product.data?.imageLink,
+        productName: product.data?.productName,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
     }
-  };
-
-  const handleSelectDose = (item) => {
-    setSelectedItem(item);
   };
 
   useEffect(() => {
@@ -126,6 +124,8 @@ const SupplementProductContainer = () => {
             quantity: 1,
             type: 'IRC',
             irc: selectedItem?.irc,
+            imageLink: product.data?.imageLink,
+            productName: product.data?.productName,
           })
         }
       >
