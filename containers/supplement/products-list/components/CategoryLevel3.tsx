@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
 import { useGetSupplementCategoryLevel3 } from '@api/supplement/supplementApis.rq';
+import classNames from 'classnames';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const Filter = dynamic(() => import('./Filter'));
@@ -69,7 +70,13 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
         key={item?.categoryCodeLevel3}
         className="w-full flex flex-col cursor-pointer"
       >
-        <div className="min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap">
+        <div
+          className={classNames(
+            'min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
+            selectedCategory?.categoryCodeLevel3 === item?.categoryCodeLevel3 &&
+              '!text-content-primary',
+          )}
+        >
           {item?.categoryNameLevel3}
         </div>
         <div className="relative h-1 w-full bg-surface-secondary ">
@@ -84,16 +91,19 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
 
   if (categoryLevel3IsLoading) {
     return (
-      <div className="w-full h-[44px] flex flex-col gap-0">
-        <div className="h-full w-full flex">
-          {shimerItems.map((item) => (
-            <div
-              key={item}
-              className="h-full w-1/4 bg-surface-secondary animate-pulse"
-            />
-          ))}
+      <div className="flex flex-col h-[100px] absolute top-[56px] left-0 w-full bg-surface-primary z-50">
+        <div className="w-full h-[44px] flex flex-col gap-0">
+          <div className="h-full w-full flex">
+            {shimerItems.map((item) => (
+              <div
+                key={item}
+                className="h-full w-1/4 bg-surface-secondary animate-pulse"
+              />
+            ))}
+          </div>
+          <div className="h-[8px] w-full bg-surface-secondary" />
         </div>
-        <div className="h-[8px] w-full bg-surface-secondary" />
+        <Filter />
       </div>
     );
   }

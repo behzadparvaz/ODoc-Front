@@ -4461,3 +4461,24 @@ export const SliderHorizontalIcon = ({
     />
   </svg>
 );
+
+export const ChevronRightIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M8.55029 15.5356L12.0851 12.0007L8.55029 8.46451L9.96451 7.05029L14.9143 12L9.96451 16.9498L8.55029 15.5356Z"
+      fill={fill}
+    />
+  </svg>
+);

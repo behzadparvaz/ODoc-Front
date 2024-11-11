@@ -1,12 +1,15 @@
 import { useEffect, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
+import classNames from 'classnames';
 
 import { useGetSupplementProducts } from '@api/supplement/supplementApis.rq';
 import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
 import { routeList } from '@routes/routeList';
-import classNames from 'classnames';
+
+const Pagination = dynamic(() => import('./Pagination'));
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -41,6 +44,11 @@ const Products = () => {
     [data],
   );
 
+  const isShownPagination = useMemo(
+    () => data?.pages?.at(-1).pageNumber >= 10 || query?.page,
+    [data?.pages?.at(-1)?.pageNumber, query?.page],
+  );
+
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
@@ -72,6 +80,7 @@ const Products = () => {
       className={classNames(
         'h-full w-full grid grid-cols-2 overflow-y-scroll',
         query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
+        (data?.pages?.at(-1)?.pageNumber >= 10 || query?.page) && 'mb-[86px]',
       )}
     >
       {productList?.map((item) => (
@@ -83,20 +92,29 @@ const Products = () => {
           hasAddToCart
         />
       ))}
-      <div ref={ref} className="w-full col-start-1 col-end-3">
-        {hasNextPage && isFetchingNextPage && (
-          <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
-            {shimerItems.map((item) => (
-              <div
-                key={item}
-                className="w-full flex justify-center border border-border-primary"
-              >
-                <VerticalProductCardShimmer />
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+
+      {data?.pages?.at(-1)?.pageNumber < 10 && !query?.page && (
+        <div ref={ref} className="w-full col-start-1 col-end-3">
+          {hasNextPage && isFetchingNextPage && (
+            <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
+              {shimerItems.map((item) => (
+                <div
+                  key={item}
+                  className="w-full flex justify-center border border-border-primary"
+                >
+                  <VerticalProductCardShimmer />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+
+      {isShownPagination && (
+        <Pagination
+          lastPage={Math.floor(data?.pages?.[0]?.totalCount / 10) + 1}
+        />
+      )}
     </div>
   );
 };
