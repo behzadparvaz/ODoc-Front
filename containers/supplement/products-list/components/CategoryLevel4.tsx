@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
@@ -17,7 +17,7 @@ const shimerItems = [1, 2, 3, 4];
 const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   const { query, pathname, push } = useRouter();
 
-  const { data: subCategories, isLoading: subCategoriesIsLoading } =
+  const { data: categoryLevel4, isLoading: categoryLevel4IsLoading } =
     useGetSupplementCategoryLevel4(categoryCodeLevel3);
 
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -29,6 +29,17 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
       setSelectedCategory(item);
     }
   };
+
+  useEffect(() => {
+    if (!!query?.categoryCodeLevel3) {
+      const fleteredCategories = categoryLevel4?.filter(
+        (item) => item?.categoryCodeLevel4 === query?.categoryCodeLevel4,
+      );
+      if (fleteredCategories) {
+        setSelectedCategory(fleteredCategories?.[0]);
+      }
+    }
+  }, [query?.categoryCodeLevel4, categoryLevel4]);
 
   const renderCategoryItem = (item) => {
     return (
@@ -77,7 +88,13 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           </div>
         </div>
 
-        <span className="min-w-max w-full text-content-tertiary text-xs text-center">
+        <span
+          className={classNames(
+            'min-w-max w-full text-content-tertiary text-xs text-center',
+            selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
+              '!text-content-primary font-medium',
+          )}
+        >
           {item?.categoryNameLevel4}
         </span>
       </div>
@@ -85,14 +102,14 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   };
 
   if (
-    !subCategoriesIsLoading &&
-    subCategories?.length === 1 &&
-    subCategories?.[0]?.categoryCodeLevel4 === null
+    !categoryLevel4IsLoading &&
+    categoryLevel4?.length === 1 &&
+    categoryLevel4?.[0]?.categoryCodeLevel4 === null
   ) {
     return;
   }
 
-  if (subCategoriesIsLoading) {
+  if (categoryLevel4IsLoading) {
     return (
       <div className="w-full h-[80px] flex justify-center items-center">
         {shimerItems.map((item) => (
@@ -109,7 +126,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
     <div className="h-[80px] bg-surface-secondary flex flex-col">
       <ScrollSlider className="flex flex-col">
         <div className="w-max min-w-full flex bg-surface-secondary">
-          {subCategories?.map((item) => (
+          {categoryLevel4?.map((item) => (
             <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
           ))}
         </div>
