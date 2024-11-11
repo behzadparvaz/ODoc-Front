@@ -39,6 +39,7 @@ export type AddProductToBasketPayload =
     categoryCode?: number;
     otcLevel3?: string;
     imageLink?: string;
+    productName: string;
   })
   | {
     orderType: 'RX';
@@ -52,6 +53,8 @@ export type AddProductToBasketPayload =
     insuranceTypeId: number;
     vendorCode: string;
     imageLink?: string;
+    productName: string;
+    quantity?: number;
   };
 
 export const addProductToBasket = async (
@@ -61,6 +64,8 @@ export const addProductToBasket = async (
     '/Baskets/AddToCart',
     payload.orderType === 'RX'
       ? {
+        productName: payload.productName,
+        quantity: payload.quantity,
         refrenceNumber: String(payload.refrenceNumber),
         nationalCode: payload.nationalCode,
         insuranceType: payload.insuranceType,
@@ -75,6 +80,7 @@ export const addProductToBasket = async (
         ...(payload.type === 'IRC'
           ? { irc: String(payload.irc) }
           : { gtin: String(payload.gtin) }),
+        productName: payload.productName,
         quantity: payload.quantity,
         CategoryCode: payload?.categoryCode,
         otcLevel: payload?.otcLevel3,

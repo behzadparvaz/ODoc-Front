@@ -69,7 +69,7 @@ export default function DrugShapesBox({
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChange = (count, otcLevel3, irc, imageLink) => {
+  const onChange = (count, otcLevel3, irc, imageLink, productName) => {
     const productToUpdate = basketData?.products?.find(
       (product) => product.irc === irc,
     );
@@ -80,6 +80,7 @@ export default function DrugShapesBox({
         categoryCode: productToUpdate?.categoryCode,
         otcLevel3: otcLevel3,
         imageLink,
+        productName,
       });
     } else {
       onDeleteProduct?.(productToUpdate);
@@ -92,6 +93,7 @@ export default function DrugShapesBox({
     categoryCode,
     otcLevel3,
     imageLink,
+    productName,
   }) =>
     addToCart({
       type: 'IRC',
@@ -101,6 +103,7 @@ export default function DrugShapesBox({
       categoryCode: categoryCode,
       otcLevel3: otcLevel3,
       imageLink: imageLink,
+      productName: productName,
     });
 
   const filteredProducts = basketData?.products?.filter((product) =>
@@ -147,6 +150,7 @@ export default function DrugShapesBox({
                             item?.otcLevel3,
                             matchedProduct?.irc,
                             matchedProduct?.imageLink,
+                            matchedProduct?.name,
                           )
                         }
                         isLoading={isAddingToCart}

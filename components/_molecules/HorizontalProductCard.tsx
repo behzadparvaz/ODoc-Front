@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import AddButton from '@com/_atoms/AddButton';
 import {
   useAddProductToBasket,
   useDeleteProductBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import AddButton from '@com/_atoms/AddButton';
 import NextImage from '@com/_core/NextImage';
-import AddToCartButton from './AddToCartButton';
-import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
-import ScrollSlider from './ScrollSlider.nd';
-import Link from 'next/link';
 import classNames from 'classnames';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import ScrollSlider from './ScrollSlider.nd';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -83,6 +81,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     categoryCode,
     otcLevel3,
     imageLink,
+    productName,
   }) =>
     addToCart({
       type: 'IRC',
@@ -92,6 +91,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       categoryCode: categoryCode,
       otcLevel3: otcLevel3,
       imageLink: imageLink,
+      productName: productName,
     });
 
   const onChange = (count: number) => {
@@ -102,12 +102,12 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         categoryCode: prInfo?.categoryCode,
         otcLevel3: otcLevel3,
         imageLink: prInfo?.imageLink,
+        productName: prInfo?.productName || prInfo?.name,
       });
     } else {
       onDeleteProduct?.(prInfo);
     }
   };
-
   const renderLeftSection = () => {
     if (hasAddToCartButton) {
       if (isInSearchPage && !prInfo?.isOtc) {
