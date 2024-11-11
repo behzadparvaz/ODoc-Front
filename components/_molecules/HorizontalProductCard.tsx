@@ -82,6 +82,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     otcLevel3,
     imageLink,
     productName,
+    unit,
   }) =>
     addToCart({
       type: 'IRC',
@@ -92,6 +93,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       otcLevel3: otcLevel3,
       imageLink: imageLink,
       productName: productName,
+      unit: unit,
     });
 
   const onChange = (count: number) => {
@@ -103,6 +105,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         otcLevel3: otcLevel3,
         imageLink: prInfo?.imageLink,
         productName: prInfo?.productName || prInfo?.name,
+        unit: prInfo?.unit,
       });
     } else {
       onDeleteProduct?.(prInfo);

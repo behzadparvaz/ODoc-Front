@@ -40,6 +40,7 @@ export type AddProductToBasketPayload =
     otcLevel3?: string;
     imageLink?: string;
     productName: string;
+    unit: string;
   })
   | {
     orderType: 'RX';
@@ -55,6 +56,7 @@ export type AddProductToBasketPayload =
     imageLink?: string;
     productName: string;
     quantity?: number;
+    unit: string;
   };
 
 export const addProductToBasket = async (
@@ -75,6 +77,7 @@ export const addProductToBasket = async (
         insuranceTypeId: payload.insuranceTypeId,
         vendorCode: payload.vendorCode,
         imageLink: payload.imageLink,
+        unit: payload.unit,
       }
       : {
         ...(payload.type === 'IRC'
@@ -85,6 +88,7 @@ export const addProductToBasket = async (
         CategoryCode: payload?.categoryCode,
         otcLevel: payload?.otcLevel3,
         imageLink: payload.imageLink,
+        unit: payload.unit,
       },
   );
 };
