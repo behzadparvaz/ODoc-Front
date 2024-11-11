@@ -17,23 +17,17 @@ const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
 
-  const {
-    data,
-    isLoading,
-    fetchNextPage,
-    hasPreviousPage,
-    hasNextPage,
-    isFetchingNextPage,
-  } = useGetSupplementProducts(
-    Object.fromEntries(
-      Object.entries(query).filter(
-        ([key, value]) =>
-          value !== undefined &&
-          key !== 'categoryCodeLevel2' &&
-          key !== 'categoryNameLevel2',
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
+    useGetSupplementProducts(
+      Object.fromEntries(
+        Object.entries(query).filter(
+          ([key, value]) =>
+            !!value &&
+            key !== 'categoryCodeLevel2' &&
+            key !== 'categoryNameLevel2',
+        ),
       ),
-    ),
-  );
+    );
 
   const productList = useMemo(
     () =>

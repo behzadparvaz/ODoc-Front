@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Button } from '@com/_atoms/NewButton';
@@ -8,31 +8,62 @@ import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
+import { useGetSupplementProductsShapes } from '@api/supplement/supplementApis.rq';
+import { TextInput } from '@com/_atoms/NewTextInput';
+import ShapesFilter from './ShapesFilter';
+import shape from '@material-ui/core/styles/shape';
+import BrandFilter from './BrandFilter';
 
-const shapesList = ['قرص', 'کپسول', 'شربت', 'پودر', 'سایر'];
+type Shapes = {
+  shapeName?: string;
+  shapeCode?: string;
+};
 
-const FilterBottomsheet = () => {
+type FilterBottomsheetProps = {
+  plpQuery?: any;
+};
+
+const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
   const { push, query, pathname } = useRouter();
   const { removeLastModal } = useModal();
-
+  console.log('plpQuery', plpQuery);
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<
     'brand' | 'shape' | null
   >(null);
 
-  const [selectedShape, setSelectedShape] = useState<string | null>(null);
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedShape, setSelectedShape] = useState<Shapes | null>(() => {
+    if (plpQuery?.shapeCode) {
+      return {
+        shapeCode: plpQuery?.shapeCode as string,
+        shapeName: plpQuery?.shapeName as string,
+      };
+    } else null;
+  });
+  const [selectedBrand, setSelectedBrand] = useState<string>('');
+
+  const handleSelectBrand = (item: string) => {
+    setSelectedBrand(item);
+    setSelectedFilterCategory(null);
+  };
+
+  const handleSelectShape = (item: Shapes) => {
+    setSelectedShape(item);
+    setSelectedFilterCategory(null);
+  };
 
   const handleConfirmFilter = () => {
     const filterQuery = {
       ...query,
       brand: selectedBrand,
-      shape: selectedShape,
+      shapeCode: selectedShape?.shapeCode,
+      shapeName: selectedShape?.shapeName,
     };
+
     push(
       {
         pathname: pathname,
         query: Object.fromEntries(
-          Object.entries(filterQuery).filter(([value]) => value !== undefined),
+          Object.entries(filterQuery).filter(([_, value]) => !!value),
         ),
       },
       undefined,
@@ -43,29 +74,11 @@ const FilterBottomsheet = () => {
 
   const renderFilterContent = () => {
     if (selectedFilterCategory === 'brand') {
-      return <div></div>;
+      return <BrandFilter onSelectBrand={handleSelectBrand} />;
     }
 
     if (selectedFilterCategory === 'shape') {
-      return (
-        <>
-          {shapesList.map((item, index) => (
-            <div key={index} className="h-[52px] flex flex-col">
-              <div className="h-[51.5px] flex items-center">
-                <Radio
-                  label={item}
-                  checked={selectedShape === item}
-                  handleChange={() => {
-                    setSelectedShape(item);
-                    setSelectedFilterCategory(null);
-                  }}
-                />
-              </div>
-              <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-            </div>
-          ))}
-        </>
-      );
+      return <ShapesFilter onSelectShape={handleSelectShape} />;
     }
   };
 
@@ -117,7 +130,7 @@ const FilterBottomsheet = () => {
                 </span>
 
                 <span className="text-sm text-content-tertiary">
-                  {selectedShape}
+                  {selectedShape?.shapeName}
                 </span>
               </div>
 
@@ -134,7 +147,7 @@ const FilterBottomsheet = () => {
                 variant="secondary"
                 size="large"
                 onClick={() => {
-                  setSelectedShape(null);
+                  // setSelectedShape(null);
                   setSelectedBrand(null);
                 }}
               >
