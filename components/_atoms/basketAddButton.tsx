@@ -85,7 +85,7 @@ const BasketAddButton: React.FC<ProductCounterProps> = ({
             <PlusIconOutline width={20} height={20} fill={'black'} />
           </button>
 
-          <div className="">
+          <div className="text-xs">
             {count}
             {unitName ? <span className="pr-1">{unitName}</span> : null}
             {isLoading && <div className="" />}

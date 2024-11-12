@@ -83,8 +83,8 @@ export default function AddFamilyMembers({ data }) {
           placeholder={profileText?.firstName}
           label={profileText?.firstName}
           className="flex-auto"
-          labelClassName="font-normal text-sm"
-          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          labelClassName="font-normal text-xs"
+          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
           id="firstName"
           name="firstName"
           value={formik.values.firstName}
@@ -98,8 +98,8 @@ export default function AddFamilyMembers({ data }) {
           placeholder={profileText?.lastName}
           label={profileText?.lastName}
           className="flex-auto"
-          labelClassName="font-normal text-sm"
-          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          labelClassName="font-normal text-xs"
+          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
           id="lastName"
           name="lastName"
           value={formik.values.lastName}
@@ -109,8 +109,8 @@ export default function AddFamilyMembers({ data }) {
         />
         <Select
           name="relation"
-          labelClassName="font-normal text-sm"
-          selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          labelClassName="font-normal text-xs"
+          selectClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
           options={relations}
           label={'نسبت'}
           onChange={formik.handleChange}
@@ -121,8 +121,8 @@ export default function AddFamilyMembers({ data }) {
           placeholder={profileText?.nationalCode}
           label={profileText?.nationalCode}
           className="flex-auto"
-          labelClassName="font-normal text-sm"
-          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          labelClassName="font-normal text-xs"
+          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
           id="nationalCode"
           name="nationalCode"
           type="string"
@@ -137,8 +137,8 @@ export default function AddFamilyMembers({ data }) {
           placeholder={'09123456789'}
           label={generalTexts?.phoneNumber}
           className="flex-auto"
-          labelClassName="font-normal text-sm"
-          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-sm px-4 custom-input"
+          labelClassName="font-normal text-xs"
+          inputClassName="placeholder-grey-300 border border-grey-300 text-grey-600 text-xs px-4 custom-input"
           id="phoneNumber"
           name="phoneNumber"
           type="string"
@@ -150,7 +150,7 @@ export default function AddFamilyMembers({ data }) {
           errorMessage={formik.errors.phoneNumber}
         />
         <Calender
-          labelClassName="font-normal text-sm"
+          labelClassName="font-normal text-xs"
           label={'تاریخ تولد'}
           name={'dateOfBirth'}
           value={formik?.values.dateOfBirth}

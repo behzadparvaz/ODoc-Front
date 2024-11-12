@@ -16,7 +16,7 @@ const Banner = ({ className = '', data, isShownTitle }: Props) => {
         <SectionTitle
           className="py-3"
           title={'پیشنهادهای شگفت انگیز'}
-          titleClassName="text-base font-semibold text-black"
+          titleClassName="text-sm font-semibold text-black"
         />
       )}
       <div className="!aspect-w-23 !aspect-h-9">
@@ -30,7 +30,7 @@ const Banner = ({ className = '', data, isShownTitle }: Props) => {
           quality={100}
           objectFit="contain"
           loading={'eager'}
-          className="!rounded-lg"
+          className="!rounded-base"
         />
       </div>
     </div>

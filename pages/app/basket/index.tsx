@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
+<<<<<<< HEAD
 import { MainLayout } from '@com/Layout';
 import {
   useDeleteCurrentBasket,
@@ -22,6 +23,9 @@ import NextImage from '@com/_core/NextImage';
 import { Button } from '@com/_atoms/NewButton';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import ActionBar from '@com/Layout/ActionBar';
+=======
+import BasketContainer from '@containers/basket';
+>>>>>>> stage
 
 const Page = () => {
   const router = useRouter();

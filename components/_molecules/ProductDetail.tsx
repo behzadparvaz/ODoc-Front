@@ -8,14 +8,14 @@ const ProductDetail = ({ className = '', data }: Props) => {
   return (
     <div className={`w-full ${className} flex flex-col`}>
       <div className="grid gap-y-1">
-        <span className="text-base font-semibold">موارد مصرف</span>
+        <span className="text-sm font-semibold">موارد مصرف</span>
         {data?.medicalUses ? (
-          <ListItem className="text-sm text-justify" text={data?.medicalUses} />
+          <ListItem className="text-xs text-justify" text={data?.medicalUses} />
         ) : null}
 
-        {/* <span className="text-base font-semibold">تداخلات دارویی</span>
+        {/* <span className="text-sm font-semibold">تداخلات دارویی</span>
         <ListItem
-          className="text-sm text-justify"
+          className="text-xs text-justify"
           text={data?.drugInteraction ? data?.drugInteraction : 'فاقد اطلاعات'}
         /> */}
       </div>

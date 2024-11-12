@@ -60,7 +60,7 @@ const Header = ({
         onClick={() => push(routeList.basket)}
       >
         {(!!basketData?.products?.length || basketData?.refrenceNumber) && (
-          <span className="absolute left-0 top-0 !w-[20px] !h-[20px] rounded-full bg-surface-negative text-xs z-10 text-white flex justify-center items-center">
+          <span className="absolute left-0 top-0 !w-[20px] !h-[20px] rounded-full bg-surface-negative text-2xs z-10 text-white flex justify-center items-center">
             {renderBasketCount()}
           </span>
         )}
@@ -138,7 +138,7 @@ const Header = ({
               ) : (
                 <>
                   {title && (
-                    <span className="flex-1 text-base text-content-primary font-medium leading-7 flex items-center">
+                    <span className="flex-1 text-sm text-content-primary font-medium leading-7 flex items-center">
                       {title}
                     </span>
                   )}

@@ -34,7 +34,7 @@ const SearchSuggestionItem = ({
       className={`${className} flex flex-col`}
     >
       <p
-        className={`text-sm text-grey-800 flex justify-between items-start pb-2`}
+        className={`text-xs text-grey-800 flex justify-between items-start pb-2`}
       >
         {text}
 
@@ -44,7 +44,7 @@ const SearchSuggestionItem = ({
           fill={colors?.grey?.[500]}
         />
       </p>
-      {category ? <p className="text-sm text-grey-500">{category}</p> : null}
+      {category ? <p className="text-xs text-grey-500">{category}</p> : null}
     </div>
   );
 };

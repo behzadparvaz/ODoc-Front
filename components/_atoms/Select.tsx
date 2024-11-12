@@ -42,7 +42,7 @@ const Select: React.FC<SelectProps> = ({
       <select
         name={name}
         value={value}
-        className={`w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-sm ${selectClassName} ${errorMessage ? 'border border-red-800' : ''}`}
+        className={`w-full h-10 rounded-md outline-none placeholder-grey-300 border border-grey-300 text-grey-600 text-xs ${selectClassName} ${errorMessage ? 'border border-red-800' : ''}`}
         onChange={onChange}
       >
         {children ??
@@ -53,7 +53,7 @@ const Select: React.FC<SelectProps> = ({
           ))}
       </select>
       {errorMessage && (
-        <p className="text-xs font-normal text-red-800 mx-1 mt-2">
+        <p className="text-2xs font-normal text-red-800 mx-1 mt-2">
           {errorMessage}
         </p>
       )}

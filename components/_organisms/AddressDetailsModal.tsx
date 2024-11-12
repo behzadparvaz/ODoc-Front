@@ -136,7 +136,7 @@ export default function AddressDetailsModal({ addressData }: Props) {
     >
       <form className="flex flex-col p-4">
         <div className="flex flex-col gap-y-2 py-3">
-          <p className="text-sm font-semibold text-grey-800">
+          <p className="text-xs font-semibold text-grey-800">
             {selectStoreTexts?.title}
           </p>
 
@@ -153,12 +153,12 @@ export default function AddressDetailsModal({ addressData }: Props) {
 
         <div className="flex flex-col gap-y-2 py-3">
           <div className="flex flex-col gap-y-2">
-            <p className="text-sm font-normal text-grey-800">
+            <p className="text-xs font-normal text-grey-800">
               {selectStoreTexts?.AddressDetail}
             </p>
 
             <textarea
-              className="w-full h-[72px] resize-none rounded-md outline-none text-sm text-grey-600 font-normal px-4 py-3 bg-grey-100"
+              className="w-full h-[72px] resize-none rounded-md outline-none text-xs text-grey-600 font-normal px-4 py-3 bg-grey-100"
               id="address"
               name="address"
               value={addressReadonlyPart + addressEditablePart}

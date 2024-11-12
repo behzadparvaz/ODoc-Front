@@ -8,9 +8,9 @@ services:
       args:
         ENV_FILE: .env.staging
     ports:
-      - "5000:3000"
+      - '5000:3000'
     environment:
       - NODE_ENV=production
       - PORT=3000
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app

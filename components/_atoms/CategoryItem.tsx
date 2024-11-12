@@ -45,15 +45,15 @@ const CategoryItem = ({
                 }
               : null
         }
-        className={`block py-1.5 rounded-lg
+        className={`block py-1.5 rounded-base
           ${
             isSoon &&
-            "after:content-[''] after:inline-block after:absolute  after:rounded-lg after:bg-gray-50 after:opacity-50 cursor-default"
+            "after:content-[''] after:inline-block after:absolute  after:rounded-base after:bg-gray-50 after:opacity-50 cursor-default after:rounded-xl"
           } 
           ${
             isSoon && !isHomePage
               ? 'after:w-full after:left-0 after:h-[68px] after:top-1.5'
-              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)]'
+              : 'after:top-0 after:left-2 after:h-full after:w-[calc(100%-16px)] after:rounded-md'
           }
           ${className}`}
       >
@@ -72,7 +72,7 @@ const CategoryItem = ({
         </div>
         <p
           className={classNames(
-            'text-xs my-1.5 text-black font-medium',
+            'text-sm my-1.5 text-black font-medium',
             alignmentType === 'center' ? 'text-center px-1' : 'px-3',
             titleClassName,
             isSoon && !isHomePage && 'text-content-disabled',

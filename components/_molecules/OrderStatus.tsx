@@ -30,15 +30,15 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
 
   return (
     <div className="flex flex-col gap-y-3 px-4 py-3">
-      <span className="text-base leading-6 font-medium">ارسال به</span>
-      <span className="text-sm text-grey-500">
+      <span className="text-sm leading-6 font-medium">ارسال به</span>
+      <span className="text-xs text-grey-500">
         {data?.customer?.addresses[0]?.valueAddress}
       </span>
 
       <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
 
       <div className="flex justify-between items-center py-2">
-        <span className="text-base leading-6 font-medium">
+        <span className="text-sm leading-6 font-medium">
           {renderOrderStatus()}
         </span>
       </div>
@@ -60,7 +60,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
               <span className="text-md">{data?.bikerDetails?.bikerName}</span>
             </div>
 
-            <span className="w-16 h-12 text-base leading-6 text-center justify-self-end border rounded border-grey-100">
+            <span className="w-16 h-12 text-sm leading-6 text-center justify-self-end border rounded border-grey-100">
               {data?.bikerDetails?.bikePlateNumber}
             </span>
 
@@ -76,7 +76,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
         </>
       ) : (
         <div className="w-full flex justify-between items-center py-2">
-          <span className="text-base leading-6">تماس با پشتیبانی</span>
+          <span className="text-sm leading-6">تماس با پشتیبانی</span>
 
           <Link href={`tel:02196861727`}>
             <a className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">

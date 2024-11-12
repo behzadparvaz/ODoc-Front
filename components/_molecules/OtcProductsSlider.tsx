@@ -117,7 +117,7 @@ const OtcProductsSlider = ({
               <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
                 <ArrowLeftIconOutline width={20} height={20} fill="#000" />
               </span>
-              <span className="text-sm font-medium pt-4">
+              <span className="text-xs font-medium pt-4">
                 {generalTexts?.viewAll}
               </span>
             </div>
@@ -145,7 +145,7 @@ const OtcProductsSlider = ({
             <span className="bg-grey-100 h-8 w-8 rounded-full flex justify-center items-center">
               <ArrowLeftIconOutline width={20} height={20} fill="#000" />
             </span>
-            <span className="text-sm font-medium pt-4">
+            <span className="text-xs font-medium pt-4">
               {generalTexts?.viewAll}
             </span>
           </div>

@@ -86,7 +86,7 @@ const MainPageLayout = ({
               >
                 <ArrowRightIconOutline width={20} height={20} fill={'#000'} />
               </span>
-              <span className="text-base font-semibold">{title}</span>
+              <span className="text-sm font-semibold">{title}</span>
             </div>
           ) : (
             <NextImage
@@ -112,7 +112,7 @@ const MainPageLayout = ({
               >
                 {(!!basketData?.products?.length ||
                   basketData?.refrenceNumber) && (
-                  <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-negative text-base z-10 text-white flex justify-center items-center">
+                  <span className="absolute right-0 top-0 !w-6 !h-6 border border-white rounded-full bg-surface-negative text-sm z-10 text-white flex justify-center items-center">
                     {renderBasketCount()}
                   </span>
                 )}

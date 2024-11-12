@@ -46,11 +46,11 @@ const SelectAddress = ({ setAddressSelected }: Props) => {
   return (
     <Box>
       <div className="flex items-center justify-between mb-2">
-        <span className="text-sm">انتخاب آدرس</span>
+        <span className="text-xs">انتخاب آدرس</span>
         <Button
           handleClick={() => handleClickOpenModal()}
           size="small"
-          className="text-xs"
+          className="text-2xs"
           buttonType="contained"
           variant={'primary'}
         >
@@ -69,7 +69,7 @@ const SelectAddress = ({ setAddressSelected }: Props) => {
               data={addressItem}
             />
           ) : (
-            <div className="text-red text-sm text-red-600 text-center py-11">
+            <div className="text-red text-xs text-red-600 text-center py-11">
               در حال حاضر آدرسی برای شما ثبت نشده است
             </div>
           )}

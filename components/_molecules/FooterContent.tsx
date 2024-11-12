@@ -15,14 +15,14 @@ export default function FooterContent({}: Props) {
       {/* About us Section */}
       <div className="grid grid-cols-2 border-b border-grey-100">
         <div className="mb-4">
-          <p className="text-base font-semibold mb-2">
+          <p className="text-sm font-semibold mb-2">
             {homePageText.aboutTapsiDoc}
           </p>
-          <p className="text-xs text-grey-500">
+          <p className="text-2xs text-grey-500">
             {homePageText.aboutTapsiDocDesc}
           </p>
         </div>
-        <div className="flex flex-col items-end text-sm font-semibold pl-6 gap-y-4 mb-4">
+        <div className="flex flex-col items-end text-xs font-semibold pl-6 gap-y-4 mb-4">
           <p>{homePageText.tapsiDocMag}</p>
           <p>{homePageText.policy}</p>
           <Link href={`tel:02196861727`}>
@@ -39,7 +39,7 @@ export default function FooterContent({}: Props) {
       {/* Contact us Section */}
       <div className="grid grid-cols-2 w-full mt-3">
         <div className="mb-4">
-          <p className="text-xs text-grey-500 mb-1">{homePageText.followUs}</p>
+          <p className="text-2xs text-grey-500 mb-1">{homePageText.followUs}</p>
           <div className="flex">
             <Link
               href="https://www.linkedin.com/company/tapsi-doctor/"
@@ -83,11 +83,11 @@ export default function FooterContent({}: Props) {
         </div>
 
         <div className="space-y-2 text-left ml-6">
-          <h3 className="text-xs text-grey-500 mb-2">
+          <h3 className="text-2xs text-grey-500 mb-2">
             {homePageText.contactUs}
           </h3>
           <Link href={`tel:02196861727`}>
-            <p className="text-xs text-grey-800 cursor-pointer">
+            <p className="text-2xs text-grey-800 cursor-pointer">
               {homePageText.contactNumber}
             </p>
           </Link>

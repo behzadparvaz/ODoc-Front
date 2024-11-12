@@ -45,11 +45,11 @@ export const Button = ({
   const sizeClassNames = () => {
     switch (size) {
       case 'large':
-        return 'h-[52px] py-2.5 px-6 text-lg leading-8 font-medium';
+        return 'h-[52px] py-2.5 px-6 text-base leading-8 font-medium';
       case 'medium':
-        return 'h-[40px] py-2 px-4 text-sm leading-6 font-medium';
+        return 'h-[40px] py-2 px-4 text-xs leading-6 font-medium';
       case 'small':
-        return 'h-[32px] py-1 px-3 text-sm leading-6 font-medium';
+        return 'h-[32px] py-1 px-3 text-xs leading-6 font-medium';
     }
   };
 

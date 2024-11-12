@@ -53,8 +53,8 @@ const AutoComplete = <OpT extends OptionItem>({
           className={classNames(
             'shadow-md shadow-grey-100 border-grey-100 bg-white',
             isOpen && focused && suggestions.length > 0
-              ? 'rounded-t-lg border-b'
-              : 'rounded-lg',
+              ? 'rounded-t-base border-b'
+              : 'rounded-base',
           )}
           inputClassName="px-3 !shadow-none"
           dir={'rtl'}
@@ -72,12 +72,12 @@ const AutoComplete = <OpT extends OptionItem>({
             dir="rtl"
             id="suggestions_list"
             ref={listRef}
-            className="appearance-none w-full bg-white shadow-lg px-4 pt-2 absolute max-h-52 overflow-y-auto rounded-b-lg text-right"
+            className="appearance-none w-full bg-white shadow-base px-4 pt-2 absolute max-h-52 overflow-y-auto rounded-b-base text-right"
           >
             {suggestions.map((item) => (
               <div
                 key={getOptionLabel?.(item) ?? item.description}
-                className="w-full [&:not(:last-child)]:border-b border-grey-100 py-2 text-sm font-light"
+                className="w-full [&:not(:last-child)]:border-b border-grey-100 py-2 text-xs font-light"
                 onClick={(event) => {
                   onClickItem(item);
                 }}

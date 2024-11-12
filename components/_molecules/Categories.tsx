@@ -56,18 +56,18 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       query: `${'?title=داروی با نسخه&type=SP'}`,
     },
     {
-      title: 'آرایشی بهداشتی',
-      link: routeList?.homeRoute,
-      image: cosmetics,
+      title: 'مکمل',
+      link: routeList?.supplementPage,
+      image: supplement,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
-      isSoon: true,
+      isSoon: false,
       ratio: '33.3333%',
     },
     {
-      title: 'مکمل',
+      title: 'آرایشی بهداشتی',
       link: routeList?.homeRoute,
-      image: supplement,
+      image: cosmetics,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: true,
@@ -77,7 +77,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
 
   if (isHomePage) {
     return (
-      <div className="flex flex-wrap gap-y-4 w-full py-2">
+      <div className="flex flex-wrap gap-y-4 w-full py-4 px-2">
         {categoryMockData?.map((item: ICategory, index) => {
           return (
             <div
@@ -87,7 +87,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
             >
               <CategoryItem
                 isSoon={item?.isSoon}
-                className=" bg-grey-50 w-full rounded-lg"
+                className=" bg-grey-50 w-full rounded-md overflow-hidden"
                 link={`${item?.link}${item?.query ? item?.query : ''}`}
                 imgHeight={item?.imageHeight}
                 alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
@@ -110,11 +110,14 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
           <div
             key={index}
             style={{ minWidth: '70px', flexBasis: '17.3%' }}
-            className="relative text-xs"
+            className={classNames(
+              'relative text-2xs',
+              pathname === item?.link && '-order-1',
+            )}
           >
             <CategoryItem
               isSoon={item?.isSoon}
-              className={'w-full rounded-lg'}
+              className={'w-full rounded-base'}
               titleClassName="!text-[9px] !p-0 whitespace-nowrap"
               imageClassName={
                 pathname === item?.link && 'border border-border-selected'

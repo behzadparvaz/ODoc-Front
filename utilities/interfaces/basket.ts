@@ -21,6 +21,7 @@ type ProductInBasket = {
   isOtc: boolean;
   unit: string
   slangs?: string[]
+  imagelink?: string
 };
 
 interface Basket {

@@ -9,7 +9,11 @@ interface props {
   handleCheckDelete?: () => void;
 }
 
-const QuickOrderItem = ({ data, hasDelete = false ,handleCheckDelete}: props) => {
+const QuickOrderItem = ({
+  data,
+  hasDelete = false,
+  handleCheckDelete,
+}: props) => {
   const { data: drugTypes, isLoading } = useGetDrugTypes();
   const handleReturnDrugTypeName = (drugType: number) => {
     return drugTypes?.data?.filter((item) => item?.id === drugType)?.[0]?.name;
@@ -35,15 +39,15 @@ const QuickOrderItem = ({ data, hasDelete = false ,handleCheckDelete}: props) =>
         <div className="flex justify-between w-full items-center">
           <div className="">
             {data?.drugName && (
-              <p className="text-sm mb-1"> {data?.drugName}</p>
+              <p className="text-xs mb-1"> {data?.drugName}</p>
             )}
             {data?.drugType && (
-              <p className="text-sm text-gray-500">
+              <p className="text-xs text-gray-500">
                 {handleReturnDrugTypeName(data?.drugType)}
               </p>
             )}
             {data?.drugCount && (
-              <p className="text-sm text-gray-500"> {data?.drugCount} عدد</p>
+              <p className="text-xs text-gray-500"> {data?.drugCount} عدد</p>
             )}
           </div>
           {hasDelete && (

@@ -1,0 +1,28 @@
+# production : Build
+FROM 20.14.0-alpine AS builder
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN npm install --legacy-peer-deps
+
+COPY . .
+
+RUN .env.production .env; 
+
+RUN rm -f .env.*
+
+RUN npm run build
+
+FROM 20.14.0-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app ./
+
+ENV PORT 3000
+
+EXPOSE $PORT
+
+CMD ["sh", "-c", "npm run start"]

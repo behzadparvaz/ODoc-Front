@@ -16,23 +16,21 @@ const NextImage = ({
   height,
   ...rest
 }: ImageComponentProps): JSX.Element => {
+<<<<<<< HEAD
   const [imageSrc, setImageSrc] = useState(src);
+=======
+>>>>>>> stage
   const [imageError, setImageError] = useState<boolean>(false);
 
   const handleImageError = () => {
     if (!imageError) {
-      setImageSrc('/static/images/staticImages/errorImage.png');
       setImageError(true);
     }
   };
 
-  const handleLoad = () => {
-    setImageError(false);
-  };
-
   return (
     <Image
-      src={imageSrc}
+      src={src || '/static/images/staticImages/errorImage.png'}
       unoptimized={unoptimized ?? true}
       alt={alt}
       placeholder="blur"
@@ -40,7 +38,6 @@ const NextImage = ({
       width={width}
       height={height}
       onError={handleImageError}
-      onLoad={handleLoad}
       {...rest}
     />
   );
