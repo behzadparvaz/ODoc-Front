@@ -9,7 +9,7 @@ RUN npm install --force
 
 COPY . .
 
-RUN .env.production .env; 
+COPY .env.production .env; 
 
 RUN rm -f .env.*
 
