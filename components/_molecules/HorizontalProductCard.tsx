@@ -1,18 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import AddButton from '@com/_atoms/AddButton';
 import {
   useAddProductToBasket,
   useDeleteProductBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import AddButton from '@com/_atoms/AddButton';
 import NextImage from '@com/_core/NextImage';
-import AddToCartButton from './AddToCartButton';
-import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
-import ScrollSlider from './ScrollSlider.nd';
-import Link from 'next/link';
 import classNames from 'classnames';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
+import ScrollSlider from './ScrollSlider.nd';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -77,7 +75,15 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChangeCount = ({ irc, quantity, categoryCode, otcLevel3 }) =>
+  const onChangeCount = ({
+    irc,
+    quantity,
+    categoryCode,
+    otcLevel3,
+    imageLink,
+    productName,
+    unit,
+  }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
@@ -85,6 +91,9 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       quantity: quantity,
       categoryCode: categoryCode,
       otcLevel3: otcLevel3,
+      imageLink: imageLink,
+      productName: productName,
+      unit: unit,
     });
 
   const onChange = (count: number) => {
@@ -94,12 +103,14 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         quantity: count,
         categoryCode: prInfo?.categoryCode,
         otcLevel3: otcLevel3,
+        imageLink: prInfo?.imageLink,
+        productName: prInfo?.productName || prInfo?.name,
+        unit: prInfo?.unit,
       });
     } else {
       onDeleteProduct?.(prInfo);
     }
   };
-
   const renderLeftSection = () => {
     if (hasAddToCartButton) {
       if (isInSearchPage && !prInfo?.isOtc) {
@@ -125,7 +136,6 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       </div>
     );
   };
-
   return (
     <div className="w-full flex gap-x-6 justify-between items-center py-4">
       <div

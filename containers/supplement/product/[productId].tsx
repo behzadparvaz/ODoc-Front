@@ -5,7 +5,7 @@ import {
 } from '@api/supplement/plp/plp.rq';
 import Spinner from '@com/_atoms/Spinner';
 import GalleryThumbnails from '@com/_molecules/GalleryThumbnails';
-import { CloseIconOutline } from '@com/icons';
+import { ArrowRightIconOutline, CloseIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
@@ -69,14 +69,13 @@ const SupplementProductContainer = () => {
         orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
+        imageLink: product.data?.imageLink,
+        productName: product.data?.productName,
+        unit: product.data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
     }
-  };
-
-  const handleSelectDose = (item) => {
-    setSelectedItem(item);
   };
 
   useEffect(() => {
@@ -126,6 +125,9 @@ const SupplementProductContainer = () => {
             quantity: 1,
             type: 'IRC',
             irc: selectedItem?.irc,
+            imageLink: product.data?.imageLink,
+            productName: product.data?.productName,
+            unit: product.data?.unit,
           })
         }
       >
@@ -139,9 +141,18 @@ const SupplementProductContainer = () => {
       title="سبد خرید"
       hasHeader
       headerType="withoutLogo"
-      hasBackButton
       scrollToTop
       hasBasketIcon
+      rightIcon={
+        <span
+          className="cursor-pointer"
+          onClick={() => {
+            router.push(routeList.supplementPage);
+          }}
+        >
+          <ArrowRightIconOutline width={24} height={24} fill={colors?.black} />
+        </span>
+      }
     >
       {product?.isLoading && (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />

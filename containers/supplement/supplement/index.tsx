@@ -13,7 +13,7 @@ const bannerData = [
     backgroundColor: null,
     carouselType: 2,
     endDateTime: null,
-    icon: 'https://s3.ir-thr-at1.arvanstorage.ir/tapsidr/Shop/HomePage/Banner/BannerImage/Banner1.png',
+    icon: '/static/images/staticImages/supplement-banner.png',
     isActive: true,
     products: null,
     recId: 18,
@@ -42,7 +42,15 @@ const SupplementContainer = () => {
     >
       <CategoryLevel1 />
 
-      <Banner data={bannerData} className="px-4 py-6" />
+      <div
+        onClick={() =>
+          push(
+            `${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1269&categoryNameLevel2=مکمل%20ورزشی`,
+          )
+        }
+      >
+        <Banner data={bannerData} className="py-6" />
+      </div>
     </MainLayout>
   );
 };

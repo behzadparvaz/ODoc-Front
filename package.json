@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:prod": "env-cmd -f .env.production next dev",
     "dev:staging": "env-cmd -f .env.staging next dev",
     "build": "next build",
     "build:staging": "env-cmd -f .env.staging next build",

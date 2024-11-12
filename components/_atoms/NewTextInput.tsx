@@ -118,12 +118,12 @@ export const TextInput = ({
           }}
           disabled={disabled}
           className={classNames(
-            'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-base  bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_white]',
+            'appearance-none w-full h-10 py-2 px-4 truncate no-spinner rounded-md bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_#eaeded]',
             // remove arrows on number input
             '[-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
             isTouched &&
               errorMessage &&
-              'border-2 !border-[#F1998E] focus:!ring-0 !bg-[#FFEFED]',
+              'border-2 !border-[#F1998E] focus:!ring-0 !bg-[#FFEFED] autofill:shadow-[inset_0_0_0px_1000px_#FFEFED]',
             rightIcon && 'pr-10',
             leftIcon && 'pl-10',
             disabled && ' bg-grey-50 text-grey-400 pointer-events-none',

@@ -1,6 +1,7 @@
 import NextImage from '@com/_core/NextImage';
 import NextLink from '@com/_core/NextLink';
 import useWindowSize from '@hooks/useWindowSize';
+import { routeList } from '@routes/routeList';
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 import { memo, useRef } from 'react';
 
@@ -20,12 +21,12 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
       <NextLink
         href={
           index === 0
-            ? 'app/prescription-registeration?title=داروی%20با%20نسخه&type=SP'
-            : 'app/otc-medicine'
+            ? `${routeList?.supplementPage}`
+            : `${routeList?.prescriptionRegisteration}`
         }
       >
-        <div className={`relative w-full h-full px-4 py-2`}>
-          <div className="!aspect-w-23 !aspect-h-10" ref={ref}>
+        <div className={`relative w-full h-full px-4`}>
+          <div className="!aspect-w-23 !aspect-h-11" ref={ref}>
             <NextImage
               src={imageUrl}
               unoptimized

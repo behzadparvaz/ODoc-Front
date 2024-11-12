@@ -19,7 +19,11 @@ import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import ActionBar from '@com/Layout/ActionBar';
 
-type ProductDetailDosesModel = { dose: string; irc: string };
+type ProductDetailDosesModel = {
+  dose: string;
+  irc: string;
+  imageLink?: string;
+};
 
 const ProductPage = () => {
   const { query, push, back } = useRouter();
@@ -69,6 +73,9 @@ const ProductPage = () => {
         orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
+        imageLink: data?.imageLink,
+        productName: data?.name,
+        unit: data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -164,6 +171,9 @@ const ProductPage = () => {
             quantity: 1,
             type: 'IRC',
             irc: selectedItem?.irc,
+            imageLink: data?.imageLink,
+            productName: data?.productName,
+            unit: data?.unit,
           })
         }
       >

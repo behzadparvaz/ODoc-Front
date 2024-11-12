@@ -2,16 +2,24 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Button } from '@com/_atoms/NewButton';
-import { Radio } from '@com/_atoms/Radio';
 import { ArrowRightIconOutline, ChevronLeftIconOutline } from '@com/icons';
 import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
+import ShapesFilter from './ShapesFilter';
+import BrandFilter from './BrandFilter';
 
-const shapesList = ['قرص', 'کپسول', 'شربت', 'پودر', 'سایر'];
+type Shapes = {
+  shapeName?: string;
+  shapeCode?: string;
+};
 
-const FilterBottomsheet = () => {
+type FilterBottomsheetProps = {
+  plpQuery?: any;
+};
+
+const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
   const { push, query, pathname } = useRouter();
   const { removeLastModal } = useModal();
 
@@ -19,20 +27,41 @@ const FilterBottomsheet = () => {
     'brand' | 'shape' | null
   >(null);
 
-  const [selectedShape, setSelectedShape] = useState<string | null>(null);
-  const [selectedBrand, setSelectedBrand] = useState<string | null>(null);
+  const [selectedShape, setSelectedShape] = useState<Shapes | null>(() => {
+    if (plpQuery?.shapeCode) {
+      return {
+        shapeCode: plpQuery?.shapeCode as string,
+        shapeName: plpQuery?.shapeName as string,
+      };
+    } else null;
+  });
+  const [selectedBrand, setSelectedBrand] = useState<string>(() =>
+    plpQuery?.shapeCode ? (plpQuery?.brand as string) : '',
+  );
+
+  const handleSelectBrand = (item: string) => {
+    setSelectedBrand(item);
+    setSelectedFilterCategory(null);
+  };
+
+  const handleSelectShape = (item: Shapes) => {
+    setSelectedShape(item);
+    setSelectedFilterCategory(null);
+  };
 
   const handleConfirmFilter = () => {
     const filterQuery = {
       ...query,
       brand: selectedBrand,
-      shape: selectedShape,
+      shapeCode: selectedShape?.shapeCode,
+      shapeName: selectedShape?.shapeName,
     };
+
     push(
       {
         pathname: pathname,
         query: Object.fromEntries(
-          Object.entries(filterQuery).filter(([value]) => value !== undefined),
+          Object.entries(filterQuery).filter(([_, value]) => !!value),
         ),
       },
       undefined,
@@ -43,29 +72,11 @@ const FilterBottomsheet = () => {
 
   const renderFilterContent = () => {
     if (selectedFilterCategory === 'brand') {
-      return <div></div>;
+      return <BrandFilter onSelectBrand={handleSelectBrand} />;
     }
 
     if (selectedFilterCategory === 'shape') {
-      return (
-        <>
-          {shapesList.map((item, index) => (
-            <div key={index} className="h-[52px] flex flex-col">
-              <div className="h-[51.5px] flex items-center">
-                <Radio
-                  label={item}
-                  checked={selectedShape === item}
-                  handleChange={() => {
-                    setSelectedShape(item);
-                    setSelectedFilterCategory(null);
-                  }}
-                />
-              </div>
-              <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-            </div>
-          ))}
-        </>
-      );
+      return <ShapesFilter onSelectShape={handleSelectShape} />;
     }
   };
 
@@ -77,12 +88,20 @@ const FilterBottomsheet = () => {
       className="bg-white"
       isDraggable={false}
       rightActionButton={
-        <div
-          className="h-6 w-6 flex items-center justify-center rounded-full bg-surface-tertiary"
-          onClick={() => setSelectedFilterCategory(null)}
-        >
-          <ArrowRightIconOutline width={20} height={20} fill={colors.black} />
-        </div>
+        <>
+          {(selectedBrand || selectedShape) && (
+            <div
+              className="h-6 w-6 flex items-center justify-center rounded-full bg-surface-tertiary"
+              onClick={() => setSelectedFilterCategory(null)}
+            >
+              <ArrowRightIconOutline
+                width={20}
+                height={20}
+                fill={colors.black}
+              />
+            </div>
+          )}
+        </>
       }
     >
       <>
@@ -94,9 +113,15 @@ const FilterBottomsheet = () => {
               className="w-full h-[52px] flex items-center justify-between cursor-pointer"
               onClick={() => setSelectedFilterCategory('brand')}
             >
-              <span className="text-content-primary text-base leading-6">
-                برند محصول
-              </span>
+              <div className="flex flex-col">
+                <span className="text-content-primary text-base leading-6">
+                  برند محصول
+                </span>
+
+                <span className="text-sm text-content-tertiary">
+                  {selectedBrand}
+                </span>
+              </div>
 
               <ChevronLeftIconOutline
                 width={24}
@@ -117,7 +142,7 @@ const FilterBottomsheet = () => {
                 </span>
 
                 <span className="text-sm text-content-tertiary">
-                  {selectedShape}
+                  {selectedShape?.shapeName}
                 </span>
               </div>
 

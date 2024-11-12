@@ -28,7 +28,7 @@ import SelectAddressAction from '@com/_molecules/SelectAddressAction';
 
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
-  const { back, push } = useRouter();
+  const { push } = useRouter();
   const { data, isLoading: profileDataLoading } = useGetProfile();
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
@@ -162,13 +162,13 @@ const ConfirmRequestDrugs = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="flex justify-center flex-col h-full">
+      <div className="flex justify-center flex-col">
         <div className="flex flex-col cursor-pointer min-h-[102px] justify-center px-4">
           <SelectAddressAction />
           <div className="h-[1px] bg-grey-200 w-full mt-4" />
         </div>
         <div className="flex flex-col px-4">
-          <h1 className="font-bold text-base">اقلام درخواست</h1>
+          <h1 className="font-bold text-base mt-4">اقلام درخواست</h1>
           <div className="mt-5 mb-5">
             {drugs.length > 0 ? (
               drugs.map((item, index) => (

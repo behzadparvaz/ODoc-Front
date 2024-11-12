@@ -4,6 +4,8 @@ import {
   GetSupplementCategoryLevel3,
   GetSupplementCategoryLevel4,
   GetSupplementProducts,
+  GetSupplementProductsBrands,
+  GetSupplementProductsShapes,
 } from './supplementApis';
 
 type Categories = {
@@ -71,4 +73,20 @@ export const useGetSupplementProducts = (body?: any) => {
     isFetchingNextPage,
     isFetchingPreviousPage,
   };
+};
+
+export const useGetSupplementProductsShapes = (body?: any) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['GetSupplementProductsShapes', body],
+    queryFn: () => GetSupplementProductsShapes(body),
+  });
+  return { data: data as any, isLoading };
+};
+
+export const useGetSupplementProductsBrands = (body?: any) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['GetSupplementProductsBrands', body],
+    queryFn: () => GetSupplementProductsBrands(body),
+  });
+  return { data: data as any, isLoading };
 };

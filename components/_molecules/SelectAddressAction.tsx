@@ -22,7 +22,7 @@ const SelectAddressAction = () => {
         <LocationIconOutline width={36} height={36} fill={colors.grey[600]} />
       </div>
       <div className="w-full">
-        <h1 className="font-bold text-xl">آدرس</h1>
+        <h1 className="font-bold">آدرس</h1>
         <p className="font-normal text-grey-500">
           {user?.defaultAddress?.description
             ? user?.defaultAddress?.description

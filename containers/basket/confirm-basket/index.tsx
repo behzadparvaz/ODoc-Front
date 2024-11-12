@@ -120,6 +120,7 @@ const ConfirmBasketContainer = () => {
               });
             }}
             labelClassName="text-base font-medium mt-5"
+            inputClassName="rounded-md"
             label="توضیحات سفارش"
             placeholder="برای داروخانه توضیح بنویسید"
             rows={5}
