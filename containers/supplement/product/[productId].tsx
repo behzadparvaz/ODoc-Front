@@ -106,7 +106,7 @@ const SupplementProductContainer = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2"
+            className="w-1/2 whitespace-nowrap"
             onClick={() => router.push(routeList.basket)}
           >
             مشاهده سبد خرید
@@ -147,7 +147,11 @@ const SupplementProductContainer = () => {
         <span
           className="cursor-pointer"
           onClick={() => {
-            router.push(routeList.supplementPage);
+            const { productId, ...filteredQuery } = router.query;
+            router.push({
+              pathname: `${routeList.supplementProductListPage}`,
+              query: filteredQuery,
+            });
           }}
         >
           <ArrowRightIconOutline width={24} height={24} fill={colors?.black} />

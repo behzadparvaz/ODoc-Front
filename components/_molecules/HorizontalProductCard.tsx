@@ -19,6 +19,7 @@ type ProductCardProps<PrT> = {
   isInSearchPage?: boolean;
   otcLevel3?: string;
   isShowSlangs?: boolean;
+  onClick?: () => void;
 };
 
 const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
@@ -28,6 +29,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   isInSearchPage,
   otcLevel3,
   isShowSlangs = false,
+  onClick,
 }) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
@@ -145,6 +147,9 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         )}
         onClick={() => {
           if (isInSearchPage) {
+            if (onClick) {
+             return onClick();
+            }
             push(
               `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}&irc=${prInfo?.irc}`,
             );

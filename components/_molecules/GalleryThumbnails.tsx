@@ -2,36 +2,47 @@ import NextImage from '@com/_core/NextImage';
 import classNames from 'classnames';
 import { useEffect, useMemo, useState } from 'react';
 
-const GalleryThumbnails = ({ images }) => {
+interface image {
+  id?: number;
+  src?: string;
+}
+interface GalleryThumbnailsProps {
+  images: image[] | [];
+}
+const GalleryThumbnails = ({ images = [] }: GalleryThumbnailsProps) => {
   const serializeData = useMemo(() => {
     return images.map((image, index) => ({
-      id: index,
-      src: image,
+      id: image.id || index,
+      src: image.src || image,
     }));
   }, [images]);
 
-  const [image, setImage] = useState({
-    id: null,
-    src: null,
-  });
+  const [selectedImage, setSelectedImage] = useState<any>(
+    serializeData[0] || {},
+  );
 
-  const clickOnThumbnailHandler = (selectedImage) => {
-    setImage(selectedImage);
+  const clickOnThumbnailHandler = (thumbImage) => {
+    setSelectedImage(thumbImage);
   };
+
   useEffect(() => {
-    clickOnThumbnailHandler(serializeData[0]);
-  }, [images]);
+    if (serializeData.length > 0) {
+      setSelectedImage(serializeData[0]);
+    }
+  }, [serializeData]);
 
   return (
     <>
       <div className="relative w-full h-[140px]">
-        <NextImage
-          src={image.src}
-          alt={`thumbnail-image-${image.id}`}
-          fill
-          className="object-contain"
-          loading="lazy"
-        />
+        {selectedImage.src && (
+          <NextImage
+            src={selectedImage.src}
+            alt={`thumbnail-image-${selectedImage.id}`}
+            fill
+            className="object-contain"
+            loading="lazy"
+          />
+        )}
       </div>
       <div className="flex justify-start mt-2">
         {serializeData.map((thumbImage) => (
@@ -39,8 +50,10 @@ const GalleryThumbnails = ({ images }) => {
             key={thumbImage.id}
             onClick={() => clickOnThumbnailHandler(thumbImage)}
             className={classNames(
-              'cursor-pointer mx-1 border rounded-lg p-2',
-              thumbImage.id === image.id ? 'border-black' : 'border-grey-200',
+              'cursor-pointer mx-1 border rounded-lg p-2 transition duration-200 ease-in-out',
+              thumbImage.id === selectedImage?.id
+                ? 'border-black'
+                : 'border-grey-200 hover:border-black',
             )}
           >
             <NextImage
