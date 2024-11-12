@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import {
@@ -14,16 +14,18 @@ const Filter = () => {
   const { addModal } = useModal();
   const { query } = useRouter();
 
-  const [filterItemsNumber, setFilterItemsNumber] = useState(() => {
+  const [filterItemsNumber, setFilterItemsNumber] = useState<number | null>();
+
+  useEffect(() => {
     const brandQuantity = query?.brand ? 1 : 0;
-    const shapeQuantity = query?.shape ? 1 : 0;
-    return brandQuantity + shapeQuantity;
-  });
+    const shapeQuantity = query?.shapeCode ? 1 : 0;
+    setFilterItemsNumber(brandQuantity + shapeQuantity);
+  }, [query]);
 
   const handleFilterModal = () => {
     addModal({
       modal: FilterBottomsheet,
-      props: {},
+      props: { plpQuery: query },
     });
   };
 
