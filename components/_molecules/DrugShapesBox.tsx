@@ -65,7 +65,7 @@ export default function DrugShapesBox({
       refetchGetBasket();
     },
   });
-  console.log(basketData);
+
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 

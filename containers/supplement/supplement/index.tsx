@@ -42,7 +42,15 @@ const SupplementContainer = () => {
     >
       <CategoryLevel1 />
 
-      <Banner data={bannerData} className="py-6" />
+      <div
+        onClick={() =>
+          push(
+            `${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1269&categoryNameLevel2=مکمل%20ورزشی`,
+          )
+        }
+      >
+        <Banner data={bannerData} className="py-6" />
+      </div>
     </MainLayout>
   );
 };

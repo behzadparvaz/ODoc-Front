@@ -57,17 +57,11 @@ const HomeContainer = () => {
 
         <Categories isHomePage />
 
-        <div className="w-full h-[168px] px-4 py-2">
-          {bannerData?.queryResult && (
-            <MainSlider
-              autoPlay
-              data={[
-                bannerData?.queryResult?.[0],
-                bannerData?.queryResult?.[1],
-              ]}
-            />
-          )}
-        </div>
+        {bannerData?.queryResult && (
+          <MainSlider
+            data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
+          />
+        )}
 
         <CarouselLine
           data={getCarouselDataData(1)}

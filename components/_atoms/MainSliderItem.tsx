@@ -25,8 +25,8 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
             : `${routeList?.prescriptionRegisteration}`
         }
       >
-        <span className={`relative w-full h-full`}>
-          <div className="!aspect-w-23 !aspect-h-9" ref={ref}>
+        <div className={`relative w-full h-full px-4`}>
+          <div className="!aspect-w-23 !aspect-h-11" ref={ref}>
             <NextImage
               src={imageUrl}
               unoptimized
@@ -41,7 +41,7 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
               priority={index === 0 ? true : false}
             />
           </div>
-        </span>
+        </div>
       </NextLink>
     </>
   );

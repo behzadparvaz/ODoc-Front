@@ -56,15 +56,6 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       query: `${'?title=داروی با نسخه&type=SP'}`,
     },
     {
-      title: 'آرایشی بهداشتی',
-      link: routeList?.homeRoute,
-      image: cosmetics,
-      imageHeight: isHomePage ? 64 : 68,
-      imageWidth: isHomePage ? 64 : 68,
-      isSoon: true,
-      ratio: '33.3333%',
-    },
-    {
       title: 'مکمل',
       link: routeList?.supplementPage,
       image: supplement,
@@ -73,11 +64,20 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       isSoon: false,
       ratio: '33.3333%',
     },
+    {
+      title: 'آرایشی بهداشتی',
+      link: routeList?.homeRoute,
+      image: cosmetics,
+      imageHeight: isHomePage ? 64 : 68,
+      imageWidth: isHomePage ? 64 : 68,
+      isSoon: true,
+      ratio: '33.3333%',
+    },
   ];
 
   if (isHomePage) {
     return (
-      <div className="flex flex-wrap gap-y-4 w-full py-2">
+      <div className="flex flex-wrap gap-y-4 w-full py-4 px-2">
         {categoryMockData?.map((item: ICategory, index) => {
           return (
             <div
