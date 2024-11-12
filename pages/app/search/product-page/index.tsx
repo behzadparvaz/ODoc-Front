@@ -75,6 +75,7 @@ const ProductPage = () => {
         quantity: count,
         imageLink: data?.imageLink,
         productName: data?.name,
+        unit: data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -172,6 +173,7 @@ const ProductPage = () => {
             irc: selectedItem?.irc,
             imageLink: data?.imageLink,
             productName: data?.productName,
+            unit: data?.unit,
           })
         }
       >

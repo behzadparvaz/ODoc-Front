@@ -78,7 +78,6 @@ const VerticalProductCard = ({
       type: 'IRC',
       irc: productData.irc || productData?.genericCode,
     });
-
   const onChangeCount = (count) =>
     addToCart({
       type: 'IRC',
@@ -88,6 +87,7 @@ const VerticalProductCard = ({
       categoryCode: productData?.categoryCode,
       imageLink: productData?.imageLink,
       productName: productData?.productName,
+      unit: productData?.unit,
     });
 
   const onChange = (count) => {

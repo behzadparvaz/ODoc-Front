@@ -71,6 +71,7 @@ const SupplementProductContainer = () => {
         quantity: count,
         imageLink: product.data?.imageLink,
         productName: product.data?.productName,
+        unit: product.data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -126,6 +127,7 @@ const SupplementProductContainer = () => {
             irc: selectedItem?.irc,
             imageLink: product.data?.imageLink,
             productName: product.data?.productName,
+            unit: product.data?.unit,
           })
         }
       >
