@@ -59,6 +59,7 @@ const HomeContainer = () => {
 
         {bannerData?.queryResult && (
           <MainSlider
+            autoPlay
             data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
           />
         )}

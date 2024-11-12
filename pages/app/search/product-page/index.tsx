@@ -152,7 +152,7 @@ const ProductPage = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2"
+            className="w-1/2 whitespace-nowrap"
             onClick={() => push(routeList.basket)}
           >
             مشاهده سبد خرید
