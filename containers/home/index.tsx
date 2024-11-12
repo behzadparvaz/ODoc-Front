@@ -60,6 +60,7 @@ const HomeContainer = () => {
         <div className="w-full h-[168px] px-4 py-2">
           {bannerData?.queryResult && (
             <MainSlider
+              autoPlay
               data={[
                 bannerData?.queryResult?.[0],
                 bannerData?.queryResult?.[1],
