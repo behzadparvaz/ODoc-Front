@@ -22,10 +22,7 @@ const Products = () => {
       Object.fromEntries(
         Object.entries(query).filter(
           ([key, value]) =>
-            !!value &&
-            key !== 'categoryCodeLevel2' &&
-            key !== 'categoryNameLevel2' &&
-            key !== 'shapeName',
+            !!value && key !== 'categoryNameLevel2' && key !== 'shapeName',
         ),
       ),
     );
