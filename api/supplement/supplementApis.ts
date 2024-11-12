@@ -22,3 +22,21 @@ export const GetSupplementProducts = async (body) => {
     body,
   );
 };
+
+export const GetSupplementProductsShapes = async (body) => {
+  const params = builder(body);
+
+  return await request.get(
+    `Supplement/management/GetSupplementShapes${params}`,
+    body,
+  );
+};
+
+export const GetSupplementProductsBrands = async (body) => {
+  const params = builder(body);
+
+  return await request.get(
+    `Supplement/management/GetSupplementBrands${params}`,
+    body,
+  );
+};
