@@ -16,7 +16,6 @@ const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
 const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
-
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetSupplementProducts(
       Object.fromEntries(
@@ -77,7 +76,12 @@ const Products = () => {
     >
       {productList?.map((item) => (
         <VerticalProductCard
-          onClick={() => push(`${routeList.supplementProduct}/${item?.id}`)}
+          onClick={() =>
+            push({
+              pathname: `${routeList.supplementProduct}/${item?.id}`,
+              query: { ...query },
+            })
+          }
           className="border border-border-primary"
           productData={item}
           key={item?.id}

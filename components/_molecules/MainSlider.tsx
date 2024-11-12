@@ -6,10 +6,11 @@ interface Props {
   data: any;
   className?: string;
   autoPlay?: boolean;
+  delay?: number;
 }
-const MainSlider = ({ data, className = '', autoPlay }: Props) => {
+const MainSlider = ({ data, className = '', autoPlay, delay }: Props) => {
   return (
-    <Slider autoPlay={autoPlay} className={className}>
+    <Slider autoPlay={autoPlay} delay={delay} className={className}>
       {data?.map((item, index) => {
         return (
           <SwiperSlide key={index}>

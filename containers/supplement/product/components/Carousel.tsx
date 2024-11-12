@@ -44,9 +44,13 @@ const Carousel = ({ products = null }) => {
             return (
               <VerticalProductCard
                 hasAddToCart
-                onClick={() =>
-                  router.push(`${routeList.supplementProduct}/${item.masterId}`)
-                }
+                onClick={() => {
+                  const { productId, ...filteredQuery } = router.query;
+                  router.push({
+                    pathname: `${routeList.supplementProduct}/${item.masterId}`,
+                    query: filteredQuery,
+                  });
+                }}
                 productData={data}
                 className={classNames(
                   `!w-[110px] items-center border-border-primary py-5 bg-white rounded-md mr-4`,

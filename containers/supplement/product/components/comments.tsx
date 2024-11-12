@@ -8,25 +8,22 @@ import AddNewComment from './AddNewComment';
 import classNames from 'classnames';
 import moment from 'jalali-moment';
 
-// Define the type for a single comment
 interface Comment {
-  id: string; // or number, depending on your ID type
+  id: string;
   rating: number;
-  createdAt: string; // Assuming this is a date string
+  createdAt: string;
   comment: string;
 }
 
-// Define the props for the Comments component
 interface CommentsProps {
   comments?: Comment[];
   onSubmitReview?: () => void;
 }
 
-// Main Comments component
-const Comments: React.FC<CommentsProps> = ({
+const Comments = ({
   comments = [],
   onSubmitReview = () => {},
-}) => {
+}: CommentsProps) => {
   const { addModal } = useModal();
   const [isShowMoreComments, setIsShowMoreComments] = useState<boolean>(
     comments.length > 4,
