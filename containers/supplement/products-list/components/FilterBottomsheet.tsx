@@ -1,17 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { Button } from '@com/_atoms/NewButton';
-import { Radio } from '@com/_atoms/Radio';
 import { ArrowRightIconOutline, ChevronLeftIconOutline } from '@com/icons';
 import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import { useGetSupplementProductsShapes } from '@api/supplement/supplementApis.rq';
-import { TextInput } from '@com/_atoms/NewTextInput';
 import ShapesFilter from './ShapesFilter';
-import shape from '@material-ui/core/styles/shape';
 import BrandFilter from './BrandFilter';
 
 type Shapes = {
@@ -26,7 +22,7 @@ type FilterBottomsheetProps = {
 const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
   const { push, query, pathname } = useRouter();
   const { removeLastModal } = useModal();
-  console.log('plpQuery', plpQuery);
+
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<
     'brand' | 'shape' | null
   >(null);
@@ -39,7 +35,9 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
       };
     } else null;
   });
-  const [selectedBrand, setSelectedBrand] = useState<string>('');
+  const [selectedBrand, setSelectedBrand] = useState<string>(() =>
+    plpQuery?.shapeCode ? (plpQuery?.brand as string) : '',
+  );
 
   const handleSelectBrand = (item: string) => {
     setSelectedBrand(item);
@@ -90,12 +88,20 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
       className="bg-white"
       isDraggable={false}
       rightActionButton={
-        <div
-          className="h-6 w-6 flex items-center justify-center rounded-full bg-surface-tertiary"
-          onClick={() => setSelectedFilterCategory(null)}
-        >
-          <ArrowRightIconOutline width={20} height={20} fill={colors.black} />
-        </div>
+        <>
+          {(selectedBrand || selectedShape) && (
+            <div
+              className="h-6 w-6 flex items-center justify-center rounded-full bg-surface-tertiary"
+              onClick={() => setSelectedFilterCategory(null)}
+            >
+              <ArrowRightIconOutline
+                width={20}
+                height={20}
+                fill={colors.black}
+              />
+            </div>
+          )}
+        </>
       }
     >
       <>
@@ -107,9 +113,15 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
               className="w-full h-[52px] flex items-center justify-between cursor-pointer"
               onClick={() => setSelectedFilterCategory('brand')}
             >
-              <span className="text-content-primary text-base leading-6">
-                برند محصول
-              </span>
+              <div className="flex flex-col">
+                <span className="text-content-primary text-base leading-6">
+                  برند محصول
+                </span>
+
+                <span className="text-sm text-content-tertiary">
+                  {selectedBrand}
+                </span>
+              </div>
 
               <ChevronLeftIconOutline
                 width={24}
@@ -147,7 +159,7 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
                 variant="secondary"
                 size="large"
                 onClick={() => {
-                  // setSelectedShape(null);
+                  setSelectedShape(null);
                   setSelectedBrand(null);
                 }}
               >

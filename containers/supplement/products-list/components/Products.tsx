@@ -24,7 +24,8 @@ const Products = () => {
           ([key, value]) =>
             !!value &&
             key !== 'categoryCodeLevel2' &&
-            key !== 'categoryNameLevel2',
+            key !== 'categoryNameLevel2' &&
+            key !== 'shapeName',
         ),
       ),
     );

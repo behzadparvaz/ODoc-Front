@@ -74,20 +74,32 @@ const BrandFilter = ({ onSelectBrand }: BrandFilterProps) => {
           renderShimer()
         ) : (
           <>
-            {(!!filteredBrands?.length ? filteredBrands : brandData)?.map(
-              (item) => (
-                <div key={item} className="h-[52px] flex flex-col">
-                  <div className="h-[51.5px] flex items-center">
-                    <Radio
-                      label={item}
-                      checked={selectedBrand === item}
-                      handleChange={() => handleSelectShape(item)}
-                    />
+            {filteredBrands?.length > 0
+              ? filteredBrands?.map((item) => (
+                  <div key={item} className="h-[52px] flex flex-col">
+                    <div className="h-[51.5px] flex items-center">
+                      <Radio
+                        label={item}
+                        checked={selectedBrand === item}
+                        handleChange={() => handleSelectShape(item)}
+                      />
+                    </div>
+                    <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
                   </div>
-                  <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-                </div>
-              ),
-            )}
+                ))
+              : !!brandData.length &&
+                brandData?.map((item) => (
+                  <div key={item} className="h-[52px] flex flex-col">
+                    <div className="h-[51.5px] flex items-center">
+                      <Radio
+                        label={item}
+                        checked={selectedBrand === item}
+                        handleChange={() => handleSelectShape(item)}
+                      />
+                    </div>
+                    <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
+                  </div>
+                ))}
           </>
         )}
       </div>
