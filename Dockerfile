@@ -9,7 +9,7 @@ COPY package.json ./
 #COPY package-lock.json ./
 
 # Install dependencies
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 # Copy the rest of your application code
 COPY . .
