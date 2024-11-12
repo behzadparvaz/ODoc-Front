@@ -12,7 +12,8 @@ import { useRouter } from 'next/router';
 
 const QuickOrderSuccessContainer = () => {
   const { query, push } = useRouter();
-  const draftId = query?.draftId;
+  const draftId: string = query?.draftId as string;
+
   return (
     <MainLayout>
       <div
@@ -30,6 +31,11 @@ const QuickOrderSuccessContainer = () => {
         <p className="text-base text-gray-500 px-6 text-center mt-4">
           سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
           منتظر تأیید داروخانه باشید
+        </p>
+
+        <p className="flex text-normal text-gray-500 px-6 text-center mt-4 gap-2 justify-center">
+          کد سفارش:
+          <span className="cursor-pointer font-semibold">{draftId}</span>
         </p>
 
         <ActionBar type="twoActionVertical" hasDivider>
