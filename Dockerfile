@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy only package.json and package-lock.json to install dependencies
 COPY package.json package-lock.json .npmrc ./
 
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 COPY . .
 
