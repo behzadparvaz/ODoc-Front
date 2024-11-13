@@ -52,3 +52,8 @@ export const formattingDate = (date: Date) => {
 export const convertDateToTimestamp = (date: string) => {
   return new Date(moment.from(date, 'fa', 'YYYY/MM/DD').format()).getTime();
 };
+
+export const convertRialToTomanNumber = (price: number) => {
+  if (price === 0) return 0;
+  return Math.floor(price / 10);
+};

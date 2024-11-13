@@ -4500,3 +4500,44 @@ export const ChevronRightIcon = ({
     />
   </svg>
 );
+
+export const CircleCheckFillIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM16.2929 8.29297L11 13.5859L8.70712 11.293L7.29291 12.7072L11 16.4143L17.7071 9.70718L16.2929 8.29297Z"
+      fill={fill}
+    />
+  </svg>
+);
+export const CircleCrossFillIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM14.1213 8.46447L15.5355 9.87868L13.414 12L15.5355 14.1213L14.1213 15.5355L12 13.414L9.87868 15.5355L8.46447 14.1213L10.586 12L8.46447 9.87868L9.87868 8.46447L12 10.586L14.1213 8.46447Z"
+      fill={fill}
+    />
+  </svg>
+);
