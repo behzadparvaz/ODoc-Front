@@ -134,7 +134,7 @@ const Page = () => {
         )}
       </div>
 
-      <ActionBar type="twoActionHorizontal" hasDivider={products.length > 0}>
+      <ActionBar type="twoActionVertical" hasDivider={products.length > 0}>
         {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
           !draftData && (
             <>
@@ -147,6 +147,16 @@ const Page = () => {
                 disabled={isLoadingDeleteBasket}
               >
                 تأیید و ادامه
+              </Button>
+              <Button
+                variant="secondary"
+                className="w-full"
+                size="large"
+                onClick={deleteBasket}
+                isLoading={isLoadingDeleteBasket}
+                disabled={isLoadingcreateOrderDraft}
+              >
+                حذف سبد خرید
               </Button>
             </>
           )}
