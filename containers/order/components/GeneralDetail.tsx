@@ -1,0 +1,139 @@
+import { useMemo } from 'react';
+
+import Countdown from '@com/_molecules/Countdows';
+import OrderHistoryProgress from '@com/_molecules/OrderHistoryProgress';
+import { CircleCheckFillIcon, CircleCrossFillIcon } from '@com/icons';
+import { colors } from '@configs/Theme';
+import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
+import { persianDate } from '@utilities/persianDate';
+
+type GeneralDetailProps = {
+  data?: any;
+};
+
+const GeneralDetail = ({ data }: GeneralDetailProps) => {
+  const acceptExpirationTime = useMemo(() => {
+    const parsedDate = new Date(data?.createDateTime);
+
+    parsedDate.setMinutes(parsedDate.getMinutes() + 60);
+
+    return parsedDate.getTime();
+  }, [data?.createDateTime]);
+
+  const renderStep = () => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+        return 0;
+      case 'apay':
+      case 'nfc':
+        return 1;
+
+      case 'pick':
+      case 'accept':
+        return 2;
+
+      case 'adelivery':
+      case 'senddelivery':
+        return 3;
+
+      case 'deliverd':
+        return 4;
+
+      default:
+        return;
+    }
+  };
+
+  const renderStepComponents = () => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+      case 'apay':
+      case 'nfc':
+      case 'pick':
+      case 'accept':
+      case 'adelivery':
+      case 'senddelivery':
+        return <OrderHistoryProgress activeStepId={renderStep()} />;
+      case 'deliverd':
+        return (
+          <div className="h-10 flex items-center px-4 gap-[22px]">
+            <CircleCheckFillIcon
+              width={24}
+              height={24}
+              fill={colors.green[400]}
+            />
+
+            <span className="text-sm text-content-primary font-medium">
+              تحویل داده شده
+            </span>
+          </div>
+        );
+      case 'return':
+      case 'cancelcustomer':
+      case 'cancelvendor':
+      case 'reject':
+        return (
+          <div className="h-10 flex items-center px-4 gap-[22px]">
+            <CircleCrossFillIcon
+              width={24}
+              height={24}
+              fill={colors.red[400]}
+            />
+
+            <span className="text-sm text-content-primary font-medium">
+              لغو شده
+            </span>
+          </div>
+        );
+    }
+  };
+
+  const renderStatusComponent = () => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+      case 'apay':
+      case 'nfc':
+      case 'pick':
+      case 'accept':
+      case 'adelivery':
+      case 'senddelivery':
+        return (
+          <div className="h-10 flex items-center justify-between px-4">
+            {getOrderStatusMessage(data?.orderStatus?.name)}
+
+            {data?.orderStatus?.name === 'draft' && (
+              <Countdown
+                expirationTime={acceptExpirationTime}
+                className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
+              />
+            )}
+          </div>
+        );
+      case 'deliverd':
+      case 'return':
+      case 'cancelcustomer':
+      case 'cancelvendor':
+      case 'reject':
+        return;
+    }
+  };
+
+  return (
+    <div className="w-full h-[104px] flex flex-col bg-background-gradient.white-to-gray">
+      {renderStepComponents()}
+
+      {renderStatusComponent()}
+
+      <div className="h-[44px] flex items-center justify-between text-content-tertiary text-sm leading-5 px-4">
+        <span>{`کد سفارش: ${data?.orderCode}`}</span>
+
+        {persianDate({ date: data?.createDateTime, isShownTime: true })}
+      </div>
+    </div>
+  );
+};
+
+export default GeneralDetail;

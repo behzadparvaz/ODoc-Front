@@ -10,6 +10,7 @@ export const getOrderStatusMessage = (statusId) => {
     case 'accept':
       return 'در حال آماده سازی سفارش';
     case 'adelivery':
+      return 'در حال جمع آوری سفارش';
     case 'senddelivery':
       return 'ارسال توسط پیک';
     case 'deliverd':

@@ -10,7 +10,6 @@ import {
 } from '@utilities/interfaces/tender';
 import { ChevronDownIcon, ChevronUpIcon } from '@com/icons';
 import NextImage from '@com/_core/NextImage';
-import Divider from '@com/_atoms/Divider';
 
 import OrderItemCard from './OrderItemCard';
 
@@ -29,9 +28,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
   return (
     <>
       {data?.orderStatus?.name !== 'apay' && (
-        <div>
-          <Divider />
-
+        <>
           <div
             onClick={() => setItemsCollapseOpen(!itemsCollapseOpen)}
             className="flex items-center justify-between cursor-pointer px-4 py-3"
@@ -55,7 +52,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
             animate={animate}
             exit={{ height: 0, opacity: 1 }}
           >
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 px-3">
               {data?.referenceNumber && (
                 <div className="flex justify-start items-center gap-x-2">
                   <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
@@ -97,7 +94,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
               )}
             </div>
           </motion.div>
-        </div>
+        </>
       )}
     </>
   );
