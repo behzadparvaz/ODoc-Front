@@ -12,7 +12,6 @@ import {
   TimerFillIcon,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
-import { bool, boolean } from 'yup';
 
 type Steps = {
   id: number;
@@ -58,9 +57,12 @@ const steps: Steps[] = [
   },
 ];
 
-type OrderHistoryProgressProps = { activeStepId: number };
+type OrderHistoryProgressProps = { activeStepId: number; className?: string };
 
-const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
+const OrderHistoryProgress = ({
+  activeStepId,
+  className,
+}: OrderHistoryProgressProps) => {
   const renderIcon = (index) => {
     if (activeStepId > index) {
       return steps[index].passedIcon;
@@ -72,7 +74,12 @@ const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
   };
 
   return (
-    <div className="h-[32px] grid grid-cols-[2fr_repeat(3,3fr)_2fr] w-full items-center">
+    <div
+      className={classNames(
+        className,
+        'h-[32px] grid grid-cols-[2fr_repeat(3,3fr)_2fr] w-full items-center',
+      )}
+    >
       {steps.map((item, index) => (
         <div key={item?.id} className="flex items-center justify-center w-full">
           {index !== 0 && (

@@ -31,21 +31,23 @@ const OrderItemCard = ({
         </div>
       ) : null}
       <div
-        className={`h-[84px] flex gap-2 items-center justify-between pb-2 ${isUnavaiable ? 'opacity-60' : ' '}`}
+        className={`h-max min-h-[78px] grid grid-cols-[64px_1fr] gap-2 items-center justify-between pb-2 ${isUnavaiable ? 'opacity-60' : ' '} `}
       >
-        <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
-          <NextImage
-            src={
-              item?.imageLink
-                ? item?.imageLink
-                : '/static/images/staticImages/emptyProduct.png'
-            }
-            alt="order-details"
-            width={68}
-            height={68}
-          />
+        <div className="col-start-1 col-end-2 flex justify-center items-center">
+          <div className="w-[40px] h-[40px] rounded-xl overflow-hidden flex justify-center items-center">
+            <NextImage
+              src={
+                item?.imageLink
+                  ? item?.imageLink
+                  : '/static/images/staticImages/emptyProduct.png'
+              }
+              alt="order-details"
+              width={40}
+              height={40}
+            />
+          </div>
         </div>
-        <div className="flex flex-col gap-1 w-full">
+        <div className="col-start-2 col-end-3 flex flex-col gap-1 w-full">
           <p
             className={classNames(
               'text-xs font-medium leading-6',
@@ -58,8 +60,8 @@ const OrderItemCard = ({
           <div className="w-full flex items-center justify-between">
             <span
               className={classNames(
-                'text-2xs leading-5 text-grey-500',
-                isUnavaiable && 'text-grey-400',
+                'text-2xs leading-5 text-content-tertiary',
+                isUnavaiable && 'text-content-disabled',
               )}
             >
               {`${item?.quantity} عدد`}
@@ -69,11 +71,11 @@ const OrderItemCard = ({
             ) : (
               <>
                 {isUnavaiable ? (
-                  <span className="text-2xs text-grey-400 leading-5 h-5">
+                  <span className="text-2xs text-content-disabled leading-5 h-5">
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-2xs leading-5 text-grey-500">{`${convertRialToToman(item?.price)}`}</span>
+                  <span className="text-2xs leading-5">{`${item?.price ? convertRialToToman(item?.price) : ''}`}</span>
                 )}
               </>
             )}
