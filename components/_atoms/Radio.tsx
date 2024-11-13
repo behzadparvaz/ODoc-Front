@@ -54,7 +54,7 @@ export const Radio = ({
         >
           <label
             className={classNames(
-              'text-sm font-semibold text-grey-1000  cursor-pointer',
+              'text-xs font-semibold text-grey-1000  cursor-pointer',
               labelClassName,
             )}
             htmlFor={id}
@@ -63,7 +63,7 @@ export const Radio = ({
           </label>
 
           {subLable && (
-            <p className={classNames('text-xs font-light', subLabelClassName)}>
+            <p className={classNames('text-2xs font-light', subLabelClassName)}>
               {subLable}
             </p>
           )}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
@@ -36,6 +36,7 @@ type VerticalProductCardProps<PrT> = {
   onSuccessChanged?: () => void;
   imageWidth?: number;
   imageHeight?: number;
+  onClick?: () => void;
 };
 
 const VerticalProductCard = ({
@@ -45,6 +46,7 @@ const VerticalProductCard = ({
   onSuccessChanged,
   imageWidth = 100,
   imageHeight = 100,
+  onClick,
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
@@ -76,7 +78,6 @@ const VerticalProductCard = ({
       type: 'IRC',
       irc: productData.irc || productData?.genericCode,
     });
-
   const onChangeCount = (count) =>
     addToCart({
       type: 'IRC',
@@ -84,6 +85,9 @@ const VerticalProductCard = ({
       irc: productData?.irc || productData?.genericCode,
       quantity: count,
       categoryCode: productData?.categoryCode,
+      imageLink: productData?.imageLink,
+      productName: productData?.productName,
+      unit: productData?.unit,
     });
 
   const onChange = (count) => {
@@ -106,11 +110,15 @@ const VerticalProductCard = ({
         `flex flex-col items-center h-full p-4 cursor-pointer`,
         className,
       )}
-      onClick={() => {
-        push(
-          `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
-        );
-      }}
+      onClick={
+        onClick
+          ? onClick
+          : () => {
+              push(
+                `${routeList.searchProductPage}?brandName=${productData?.brandName}&categoryCodeLevel3=${productData?.categoryCodeLevel3}&irc=${productData?.irc || productData?.genericCode}`,
+              );
+            }
+      }
     >
       <div className="flex justify-center relative mb-3">
         <NextImage
@@ -136,7 +144,7 @@ const VerticalProductCard = ({
         )}
       </div>
 
-      <span className="text-sm leading-6 font-medium text-right line-clamp-3 h-[72px]">
+      <span className="text-xs leading-6 font-medium text-right line-clamp-3 h-[72px]">
         {productData?.productName}
       </span>
     </div>

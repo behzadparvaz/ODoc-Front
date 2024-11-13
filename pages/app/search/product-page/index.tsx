@@ -19,7 +19,11 @@ import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import ActionBar from '@com/Layout/ActionBar';
 
-type ProductDetailDosesModel = { dose: string; irc: string };
+type ProductDetailDosesModel = {
+  dose: string;
+  irc: string;
+  imageLink?: string;
+};
 
 const ProductPage = () => {
   const { query, push, back } = useRouter();
@@ -69,6 +73,9 @@ const ProductPage = () => {
         orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
+        imageLink: data?.imageLink,
+        productName: data?.name,
+        unit: data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -121,7 +128,7 @@ const ProductPage = () => {
     setSelectedItem(data?.drugDoses?.[0]);
   }, [data]);
 
-  const rendeBottomSection = () => {
+  const renderBottomSection = () => {
     const selectedDoseCount = basketFilteredProducts?.find(
       (item) => item?.irc === selectedItem?.irc,
     )?.quantity;
@@ -145,7 +152,7 @@ const ProductPage = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2"
+            className="w-1/2 whitespace-nowrap"
             onClick={() => push(routeList.basket)}
           >
             مشاهده سبد خرید
@@ -157,13 +164,16 @@ const ProductPage = () => {
       <Button
         variant="primary"
         size="large"
-        className="w-full"
+        className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
         onClick={() =>
           addToCart({
             orderType: 'OTC',
             quantity: 1,
             type: 'IRC',
             irc: selectedItem?.irc,
+            imageLink: data?.imageLink,
+            productName: data?.productName,
+            unit: data?.unit,
           })
         }
       >
@@ -191,10 +201,10 @@ const ProductPage = () => {
                 alt="product-page-image"
               />
             </div>
-            <span className="text-base text-content-primary text-bold">
+            <span className="text-sm text-content-primary text-bold">
               {data?.productName}
             </span>
-            <span className="text-sm text-content-tertiary">دوز دارو</span>
+            <span className="text-xs text-content-tertiary">دوز دارو</span>
             <div className="flex items-center gap-x-2">
               {data?.drugDoses?.map((item) => (
                 <span
@@ -217,10 +227,10 @@ const ProductPage = () => {
           <div className="w-full p-4 flex flex-col gap-y-4">
             {data?.medicalUses && (
               <div className="w-full flex flex-col gap-y-4">
-                <span className="text-base text-semibold text-content-primary">
+                <span className="text-sm text-semibold text-content-primary">
                   موارد مصرف
                 </span>
-                <span className="text-sm text-normal text-content-tertiary">
+                <span className="text-xs text-normal text-content-tertiary">
                   {data?.medicalUses}
                 </span>
               </div>
@@ -232,7 +242,7 @@ const ProductPage = () => {
           <div className="w-full h-[42px] flex items-center justify-center">
             <span
               className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
                 activeTab === 0 && 'border-border-selected',
               )}
               onClick={() => {
@@ -244,7 +254,7 @@ const ProductPage = () => {
             </span>
             <span
               className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
                 activeTab === 1 && 'border-border-selected',
               )}
               onClick={() => {
@@ -262,10 +272,10 @@ const ProductPage = () => {
               id="warning"
               ref={warningRef}
             >
-              <span className="text-base text-semibold text-content-primary">
+              <span className="text-sm text-semibold text-content-primary">
                 هشدارها
               </span>
-              <span className="text-sm text-normal text-content-tertiary">
+              <span className="text-xs text-normal text-content-tertiary">
                 {data?.warning}
               </span>
             </div>
@@ -279,10 +289,10 @@ const ProductPage = () => {
               id="adverseEffects"
               ref={adverseEffectsRef}
             >
-              <span className="text-base text-semibold text-content-primary">
+              <span className="text-sm text-semibold text-content-primary">
                 عوارض جانبی
               </span>
-              <span className="text-sm text-normal text-content-tertiary">
+              <span className="text-xs text-normal text-content-tertiary">
                 {data?.adverseEffects}
               </span>
             </div>
@@ -304,12 +314,18 @@ const ProductPage = () => {
       }
     >
       {renderContent()}
-      {data?.isOtc && (
+      {data?.isOtc ? (
         <ActionBar type="singleAction" hasDivider>
           <div className="flex justify-between items-center w-full px-4 py-4">
-            {rendeBottomSection()}
+            {renderBottomSection()}
           </div>
         </ActionBar>
+      ) : (
+        <div className="bg-surface-warning flex justify-center items-center h-[84px]">
+          <span className="text-content-onWarning">
+            سفارش این دارو فقط با نسخه پزشک امکان پذیر است
+          </span>
+        </div>
       )}
     </MainLayout>
   );

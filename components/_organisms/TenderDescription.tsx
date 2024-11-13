@@ -10,7 +10,7 @@ const TenderDescription = ({
   comment,
 }: TenderDescriptionProps) => {
   return (
-    <div className="w-full h-max min-h-[250px] flex flex-col items-start gap-y-3 text-base leading-6">
+    <div className="w-full h-max min-h-[250px] flex flex-col items-start gap-y-3 text-sm leading-6">
       {comment && (
         <div className="w-full h-max flex flex-col items-start gap-y-2 py-3 px-4">
           <span className="font-bold">توضیحات شما</span>

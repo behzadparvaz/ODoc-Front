@@ -1,7 +1,7 @@
 import useModal from '@hooks/useModal';
 import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { ReactNode, useRef, useState } from 'react';
 import { CloseSquareIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { CSSProperties } from 'react';
@@ -25,6 +25,7 @@ interface Props {
   title?: string;
   style?: CSSProperties;
   titleClassName?: string;
+  rightActionButton?: ReactNode;
 }
 
 export const BottomModalContainer: React.FC<Props> = ({
@@ -41,6 +42,7 @@ export const BottomModalContainer: React.FC<Props> = ({
   title = '',
   style = {},
   titleClassName = '',
+  rightActionButton = false,
 }) => {
   const { removeLastModal } = useModal();
   const bottomModalRef = useRef(null);
@@ -114,6 +116,7 @@ export const BottomModalContainer: React.FC<Props> = ({
             </div>
           ) : null
         }
+        rightActionButton={rightActionButton}
         style={{ direction: 'rtl' }}
         className={`cursor-pointer select-none border-b px-4 py-2.5 border-grey-200 ${titleClassName}`}
       />

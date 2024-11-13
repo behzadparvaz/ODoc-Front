@@ -15,7 +15,7 @@ Welcome to the **ODoc-Front** Next.js project repository. This repository contai
 
 ## 👋 Introduction
 
-This project is a web application developed using React and Next.js, offering a powerful combination for modern web development. React's component-based architecture allows for reusable UI components, making development efficient and maintainable. Its simplicity, flexibility, and extensive ecosystem make it a better choice compared to Vue and Angular, facilitating easy access to resources and tools. The modularity of React ensures changes in one part do not affect others, reducing bugs and simplifying debugging. Additionally, React's virtual DOM improves performance with faster updates and a smoother user interface.
+This project is a web application developed using React and Next.js, offering a powerful combination for modern web development. React's component-smd architecture allows for reusable UI components, making development efficient and maintainable. Its simplicity, flexibility, and extensive ecosystem make it a better choice compared to Vue and Angular, facilitating easy access to resources and tools. The modularity of React ensures changes in one part do not affect others, reducing bugs and simplifying debugging. Additionally, React's virtual DOM improves performance with faster updates and a smoother user interface.
 
 ## 📦 Framework and Packages
 

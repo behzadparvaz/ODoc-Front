@@ -41,7 +41,7 @@ const OtcProductContainer = () => {
               <div className="flex flex-col gap-y-2 rounded-xl bg-white p-4">
                 <ProductSlider
                   data={productSliderData}
-                  className="px-4 bg-white rounded-2xl"
+                  className="px-4 bg-white rounded-lg"
                 />
               </div>
               <SectionTitle

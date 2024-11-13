@@ -76,7 +76,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'pick':
       case 'accept':
         return (
-          <span className="text-content-primary text-sm text-medium">
+          <span className="text-content-primary text-xs text-medium">
             {vendorData?.vendorName}
           </span>
         );
@@ -84,8 +84,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'senddelivery':
         return (
           <div className="flex items-center justify-between">
-            <span className="text-base text-content-primary">مجتبی فرجی</span>
-            <span className="text-sm text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
+            <span className="text-sm text-content-primary">مجتبی فرجی</span>
+            <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
               123 56789
             </span>
           </div>
@@ -118,9 +118,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'senddelivery':
         return (
           <div className="w-full h-full flex items-center justify-between">
-            <span className="text-base text-content-primary">
-              کد تحویل سفارش
-            </span>
+            <span className="text-sm text-content-primary">کد تحویل سفارش</span>
 
             <div className="flex items-center flex-row-reverse gap-x-2">
               {deliveryCode
@@ -129,7 +127,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
                 .map((item, index) => (
                   <span
                     key={index + item}
-                    className="flex items-center justify-center bg-surface-disable h-[24px] w-[24px] rounded-lg text-content-secondary text-base"
+                    className="flex items-center justify-center bg-surface-disable h-[24px] w-[24px] rounded-base text-content-secondary text-sm"
                   >
                     {item}
                   </span>
@@ -159,11 +157,11 @@ const OrderItem = ({ data }: OrderItemProps) => {
       >
         <div className="flex flex-col gap-y-3">
           {data?.orderStatus?.name === 'deliverd' && (
-            <span className="text-base font-semibold">
+            <span className="text-sm font-semibold">
               {vendorData?.vendorName}
             </span>
           )}
-          <span className="text-sm text-content-tertiary">
+          <span className="text-xs text-content-tertiary">
             {persianDate({ date: data?.createDateTime, isShownTime: true })}
           </span>
 
@@ -171,7 +169,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
             {!data?.orderDetails?.length ? (
               <div className="flex items-center justify-between">
                 <span> نسخه الکترونیک</span>
-                <span className="text-base text-content-primary">
+                <span className="text-sm text-content-primary">
                   {data?.orderStatus?.name === 'deliverd'
                     ? convertRialToToman(data?.finalPrice)
                     : 'لغو شده'}
@@ -192,7 +190,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
                           />
                         )}
                         {index === 4 && (
-                          <span className="text-sm text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
+                          <span className="text-xs text-content-tertiary">{`${data?.orderDetails?.length - 4}+`}</span>
                         )}
                       </div>
                     </div>
@@ -222,7 +220,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
                         />
                       )}
                     </span>
-                    <span className="text-content-primary text-base">
+                    <span className="text-content-primary text-sm">
                       {data?.orderStatus?.name === 'deliverd'
                         ? 'تحویل شده'
                         : 'لغو شده'}
@@ -245,7 +243,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
   return (
     <div
       className={
-        'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg p-4 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
+        'w-full border border-0.5 border-border-primary overflow-hidden rounded-base p-4 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
       }
       onClick={() =>
         router.push(
@@ -258,7 +256,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       <div className="pb-2">{renderIcon()}</div>
 
       <div className="w-full flex items-center justify-between">
-        <span className="text-content-primary text-base text-bold ">
+        <span className="text-content-primary text-sm text-bold ">
           {getOrderStatusMessage(data.orderStatus?.name)}
         </span>
 
@@ -269,7 +267,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
           )}
       </div>
 
-      <span className="text-sm text-content-tertiary">
+      <span className="text-xs text-content-tertiary">
         {persianDate({ date: data?.createDateTime, isShownTime: true })}
       </span>
 

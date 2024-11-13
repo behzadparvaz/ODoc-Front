@@ -17,10 +17,10 @@ const BlockedLocationPermissionModal = (props: Props) => {
         <h5 className="text-xl font-medium text-grey-900 mb-2">
           {selectStoreTexts.blockedLocationPermissionTitle}
         </h5>
-        <p className="text-sm font-normal text-grey-800 pl-2">
+        <p className="text-xs font-normal text-grey-800 pl-2">
           {selectStoreTexts.blockedLocationPermissionCaption}
         </p>
-        <p className="text-sm font-normal text-grey-800 pl-2 mb-9">
+        <p className="text-xs font-normal text-grey-800 pl-2 mb-9">
           {selectStoreTexts.blockedLocationPermissionHint}
         </p>
 

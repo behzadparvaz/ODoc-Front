@@ -11,7 +11,7 @@ export const persianDate = ({ date, isShownTime }: PersianDateProps) => {
     Ordibehesht: 'اردیبهشت',
     Khordaad: 'خرداد',
     Tir: 'تیر',
-    Amordaad: 'مرداد',
+    Mordaad: 'مرداد',
     Shahrivar: 'شهریور',
     Mehr: 'مهر',
     Aabaan: 'آبان',
@@ -39,7 +39,6 @@ export const persianDate = ({ date, isShownTime }: PersianDateProps) => {
   const jalaliDate = moment(date, 'MM/DD/YYYY h:mm:ss A').format(
     'dddd jD jMMMM jYYYY',
   );
-
   const today = moment().startOf('day');
   const inputDate = moment(date, 'MM/DD/YYYY h:mm:ss A').startOf('day');
   const diffDays = today.diff(inputDate, 'days');

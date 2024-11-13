@@ -50,7 +50,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
       className="flex justify-between items-center"
     >
       <div
-        className={`w-[calc(100%-24px)] text-grey-800 font-bold text-sm truncate ${className}`}
+        className={`w-[calc(100%-24px)] text-grey-800 font-bold text-xs truncate ${className}`}
       >
         {defaultAddress
           ? defaultAddress?.description

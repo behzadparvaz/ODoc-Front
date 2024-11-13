@@ -33,7 +33,7 @@ const FamilyMembersContainer = () => {
                   return (
                     <div
                       key={item?.id}
-                      className="w-full border overflow-hidden mb-4 border-grey-200 rounded-lg"
+                      className="w-full border overflow-hidden mb-4 border-grey-200 rounded-base"
                     >
                       <div className="text-left border-b px-4 py-2 bg-grey-50 flex justify-between border-grey-200">
                         <div>{item?.fisrtname + ' ' + item?.lastName}</div>

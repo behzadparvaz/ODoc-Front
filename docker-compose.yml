@@ -6,8 +6,6 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      args:
-        ENV_MODE: staging
     ports:
       - "5000:3000"
     environment:

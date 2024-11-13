@@ -43,7 +43,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
               <span className="text-md">{data?.bikerDetails?.bikerName}</span>
             </div>
 
-            <span className="w-16 h-12 text-base leading-6 text-center justify-self-end border rounded border-grey-100">
+            <span className="w-16 h-12 text-sm leading-6 text-center justify-self-end border rounded border-grey-100">
               {data?.bikerDetails?.bikePlateNumber}
             </span>
 

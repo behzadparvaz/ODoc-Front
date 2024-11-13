@@ -1,4 +1,5 @@
-import { PropsWithChildren, ReactNode } from 'react';
+import { PropsWithChildren, ReactNode, useEffect, useRef } from 'react';
+import { useRouter } from 'next/router';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
@@ -16,11 +17,15 @@ export interface MainLayoutProps {
   hasAddress?: boolean;
   backIconHandler?: () => void;
   headerClassName?: string;
+
   // bottom.props
   hasBottomNavigation?: boolean;
 
   mainClassName?: string;
   loginWithTapsiSSO?: boolean;
+
+  // New prop for scrolling to top
+  scrollToTop?: boolean;
 }
 
 export const MainLayout = ({
@@ -40,8 +45,19 @@ export const MainLayout = ({
 
   mainClassName,
   loginWithTapsiSSO,
+  scrollToTop, // Destructure new prop
   children,
 }: PropsWithChildren<MainLayoutProps>) => {
+  const router = useRouter();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to top on route change if scrollToTop is true
+  useEffect(() => {
+    if (scrollToTop) {
+      scrollRef?.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [router.asPath, scrollToTop]); // Dependency on router.asPath
+
   return (
     <div className="w-full h-svh flex justify-center bg-grey-100">
       <div
@@ -64,7 +80,8 @@ export const MainLayout = ({
         )}
 
         <div
-          className={`h-full scroll-smooth overflow-y-scroll ${mainClassName}`}
+          ref={scrollRef}
+          className={`h-full scroll-xsooth overflow-y-scroll ${mainClassName}`}
         >
           {children}
         </div>
@@ -82,6 +99,7 @@ export const MainLayout = ({
 export const getServerSideProps = async ({ req }) => {
   const cookies = req.headers.cookie;
   const loginWithTapsiSSO = cookies?.loginWithTapsiSSO;
+
   return {
     props: {
       loginWithTapsiSSO,

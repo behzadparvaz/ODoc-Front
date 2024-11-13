@@ -69,7 +69,7 @@ export default function DrugShapesBox({
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChange = (count, otcLevel3, irc) => {
+  const onChange = (count, otcLevel3, irc, imageLink, productName, unit) => {
     const productToUpdate = basketData?.products?.find(
       (product) => product.irc === irc,
     );
@@ -79,13 +79,24 @@ export default function DrugShapesBox({
         quantity: count,
         categoryCode: productToUpdate?.categoryCode,
         otcLevel3: otcLevel3,
+        imageLink,
+        productName,
+        unit,
       });
     } else {
       onDeleteProduct?.(productToUpdate);
     }
   };
 
-  const onChangeCount = ({ irc, quantity, categoryCode, otcLevel3 }) =>
+  const onChangeCount = ({
+    irc,
+    quantity,
+    categoryCode,
+    otcLevel3,
+    imageLink,
+    productName,
+    unit,
+  }) =>
     addToCart({
       type: 'IRC',
       orderType: 'OTC',
@@ -93,6 +104,9 @@ export default function DrugShapesBox({
       quantity: quantity,
       categoryCode: categoryCode,
       otcLevel3: otcLevel3,
+      imageLink: imageLink,
+      productName: productName,
+      unit: unit,
     });
 
   const filteredProducts = basketData?.products?.filter((product) =>
@@ -114,7 +128,7 @@ export default function DrugShapesBox({
             className={`flex flex-col border-[1px] py-5 rounded-xl px-2 mt-4 ${matchedProducts?.length > 0 ? 'border-black' : 'border-grey-200'}`}
             onClick={() => handleClickOnDrugShape(item?.otcLevel3)}
           >
-            <p className="text-sm font-medium truncate mr-2">{item?.shape}</p>
+            <p className="text-xs font-medium truncate mr-2">{item?.shape}</p>
             {matchedProducts?.length > 0 && (
               <div className="flex flex-col">
                 {matchedProducts.map((matchedProduct, idx) => {
@@ -127,14 +141,21 @@ export default function DrugShapesBox({
                       key={idx}
                       className="flex items-center justify-between mt-4 mx-3 gap-x-3"
                     >
-                      <p className="text-grey-500 text-sm">
+                      <p className="text-grey-500 text-xs">
                         {matchedProduct?.name}
                       </p>
                       <AddButton
                         unitName={item?.unit}
                         count={productBasketQuantity}
                         onChangeCount={(count) =>
-                          onChange(count, item?.otcLevel3, matchedProduct?.irc)
+                          onChange(
+                            count,
+                            item?.otcLevel3,
+                            matchedProduct?.irc,
+                            matchedProduct?.imageLink,
+                            matchedProduct?.name,
+                            matchedProduct?.unit,
+                          )
                         }
                         isLoading={isAddingToCart}
                       />

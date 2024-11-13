@@ -24,6 +24,11 @@ const SearchBox = ({
   const debouncedSetBody = useMemo(() => debounce(setValue, 600), []);
   const { push } = useRouter();
 
+  const handlePaste = (e: React.ClipboardEvent) => {
+    const target = e.target as HTMLInputElement;
+    setValue(target.value);
+  };
+
   useEffect(() => {
     handleChange(value);
     return () => {
@@ -65,7 +70,8 @@ const SearchBox = ({
         //     : null;
         // }}
         onChange={(e) => debouncedSetBody(e?.target?.value)}
-        className="h-[48px] pr-12 pl-3 bg-grey-100 text-grey-500 placeholder:text-grey-500 font-bold w-full py-3.5 rounded-full text-base"
+        onPaste={handlePaste}
+        className="h-[48px] pr-12 pl-3 bg-grey-100 text-grey-500 placeholder:text-grey-500 font-bold w-full py-3.5 rounded-full text-sm"
         placeholder={`${title ? title : generalTexts?.drugSearch}` + '...'}
       />
     </div>

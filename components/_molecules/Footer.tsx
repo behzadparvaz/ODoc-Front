@@ -11,9 +11,9 @@ export default function Footer({}: Props) {
     <div
       className={`w-full flex  border-t border-grey-100 ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
     >
-      <div className="flex flex-col w-full rounded-lg bg-grey-50 m-4 p-4">
+      <div className="flex flex-col w-full rounded-base bg-grey-50 m-4 p-4">
         <div className="flex items-center justify-between">
-          <h1 className="font-semibold text-lg text-grey-800">تپسی دکتر</h1>
+          <h1 className="font-semibold text-base text-grey-800">تپسی دکتر</h1>
           <p className="font-medium text-tiny text-grey-700 hidden md:block">
             تپسی دکتر
           </p>

@@ -34,7 +34,7 @@ const OtcSelectShapeBottomsheet = ({
         maxWidth: '412px',
       }}
     >
-      <div className="w-full h-full flex flex-col gap-2 p-4 text-xs font-normal cursor-pointer odd:bg-grey-50 even:bg-white">
+      <div className="w-full h-full flex flex-col gap-2 p-4 text-2xs font-normal cursor-pointer odd:bg-grey-50 even:bg-white">
         <span
           onClick={() => handleSelectShape(null)}
           className={classNames(

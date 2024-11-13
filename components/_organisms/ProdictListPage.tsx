@@ -11,15 +11,10 @@ import { productListPageTexts } from '@com/texts/productListPageTexts';
 import { colors } from '@configs/Theme';
 import useCheckPage from '@hooks/useCheckPage';
 import { routeList } from '@routes/routeList';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import VerticalProductCard from '../_molecules/VerticalProductCard';
-
-const HorizontalProductCard = dynamic(
-  () => import('@com/_molecules/HorizontalProductCard'),
-);
 
 type Props = {};
 
@@ -75,7 +70,7 @@ export default function ProdictListPage({}: Props) {
       hasBasketIcon
     >
       {/* <div className="flex items-center justify-between m-4">
-        <span className="text-sm font-medium text-grey-900">داروی کمیاب</span>
+        <span className="text-xs font-medium text-grey-900">داروی کمیاب</span>
         <label className="cursor-pointer">
         <input type="checkbox" value="" className="sr-only peer" />
         <div className="relative w-11 h-6 bg-grey-300 peer-focus:outline-none rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-grey-600"></div>

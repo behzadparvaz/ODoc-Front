@@ -11,8 +11,8 @@ const OrderTracking = () => {
   };
 
   return (
-    <div className="w-full mx-auto p-4 bg-grey-100 rounded-lg mb-4">
-      <div className="flex justify-between text-xs text-gray-600 mb-4">
+    <div className="w-full mx-auto p-4 bg-grey-100 rounded-base mb-4">
+      <div className="flex justify-between text-2xs text-gray-600 mb-4">
         <span
           className={orderStatus.step >= 1 ? 'text-black' : 'text-gray-400'}
         >
@@ -40,15 +40,15 @@ const OrderTracking = () => {
         </span>
       </div>
 
-      <div className="bg-gray-100 p-3 rounded-lg">
-        <div className="text-sm font-bold">
+      <div className="bg-gray-100 p-3 rounded-base">
+        <div className="text-xs font-bold">
           داروخانه {orderStatus.pharmacyName} ({orderStatus.pharmacyBranch})
         </div>
-        <div className="text-xs text-gray-600">{orderStatus.orderStatus}</div>
+        <div className="text-2xs text-gray-600">{orderStatus.orderStatus}</div>
       </div>
       <NextLink href={'/app/orderDetail'}>
         <div className="flex justify-end mt-4">
-          <button className="text-blue-500 text-xs">جزئیات</button>
+          <button className="text-blue-500 text-2xs">جزئیات</button>
         </div>
       </NextLink>
     </div>

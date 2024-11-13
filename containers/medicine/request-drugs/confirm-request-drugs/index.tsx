@@ -24,10 +24,11 @@ import classNames from 'classnames';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import SelectAddressAction from '@com/_molecules/SelectAddressAction';
 
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
-  const { back, push } = useRouter();
+  const { push } = useRouter();
   const { data, isLoading: profileDataLoading } = useGetProfile();
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
@@ -161,43 +162,13 @@ const ConfirmRequestDrugs = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="flex justify-between flex-col h-full">
-        <div className="flex flex-col px-4 cursor-pointer">
-          <div
-            onClick={() => {
-              addModal({
-                modal: SelectAddress,
-              });
-            }}
-            className="flex justify-between gap-6"
-          >
-            <div>
-              <LocationIconOutline
-                width={36}
-                height={36}
-                fill={colors.grey[600]}
-              />
-            </div>
-            <div className="w-full">
-              <h1 className="font-bold text-xl">آدرس</h1>
-              <p className="font-normal text-grey-500">
-                {user?.defaultAddress?.description
-                  ? user?.defaultAddress?.description
-                  : 'آدرس خود را انتخاب کنید'}
-              </p>
-            </div>
-            <div>
-              <ChevronLeftIconOutline
-                width={36}
-                height={36}
-                fill={colors.grey[400]}
-              />
-            </div>
-          </div>
-          <div className="h-[1px] bg-grey-200 w-full mt-5 mb-5" />
+      <div className="flex justify-center flex-col">
+        <div className="flex flex-col cursor-pointer min-h-[102px] justify-center px-4">
+          <SelectAddressAction />
+          <div className="h-[1px] bg-grey-200 w-full mt-4" />
         </div>
         <div className="flex flex-col px-4">
-          <h1 className="font-bold text-lg">اقلام درخواست</h1>
+          <h1 className="font-bold text-base mt-4">اقلام درخواست</h1>
           <div className="mt-5 mb-5">
             {drugs.length > 0 ? (
               drugs.map((item, index) => (
@@ -214,7 +185,7 @@ const ConfirmRequestDrugs = () => {
                   </div>
                   <div className="w-full">
                     <p className="text-xl font-medium">{item.drugName}</p>
-                    <p className="text-sm font-light text-grey-500">
+                    <p className="text-xs font-light text-grey-500">
                       {item.drugShape?.name}
                     </p>
                   </div>
@@ -247,15 +218,15 @@ const ConfirmRequestDrugs = () => {
                     age: e?.target?.value,
                   });
                 }}
-                labelClassName="text-base font-medium mt-5"
+                labelClassName="text-sm font-medium mt-5"
                 label="سن"
                 type="number"
-                inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+                inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
                 value={state.age}
               />
             </div>
             <div className="w-full flex flex-col">
-              <label className=" text-grey-800 mb-2 text-base font-medium mt-5">
+              <label className=" text-grey-800 mb-2 text-sm font-medium mt-5">
                 جنسیت
               </label>
               <div
@@ -286,9 +257,10 @@ const ConfirmRequestDrugs = () => {
                   sensitivity: e?.target?.value,
                 });
               }}
-              labelClassName="text-base font-medium mt-5"
+              labelClassName="text-sm font-medium mt-5"
+              inputClassName="rounded-md"
               label="حساسیت های دارویی"
-              placeholder="برای داروخانه توضیح بنویسید"
+              placeholder="حساسیت های دارویی خود را برای داروخانه بنویسید"
               rows={5}
               value={state.sensitivity}
             />
@@ -301,19 +273,20 @@ const ConfirmRequestDrugs = () => {
                 description: e?.target?.value,
               });
             }}
-            labelClassName="text-base font-medium mt-5"
+            labelClassName="text-sm font-medium mt-5"
+            inputClassName="rounded-md"
             label="توضیحات سفارش"
-            placeholder="برای داروخانه توضیح بنویسید"
+            placeholder="توضیحات سفارش خود را برای داروخانه بنویسید"
             rows={5}
             value={state.description}
           />
 
           <Input
             onChange={handleNationalCodeChange}
-            labelClassName="text-base font-medium mt-5"
+            labelClassName="text-sm font-medium mt-5"
             label="کد ملی"
             type="text"
-            inputClassName="h-[52px] text-base bg-gray-100 py-4 px-3"
+            inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
             placeholder="1234567890"
             value={state.nationalCode}
           />
