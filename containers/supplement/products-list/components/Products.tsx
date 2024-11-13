@@ -9,6 +9,14 @@ import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
 import { routeList } from '@routes/routeList';
 
+enum SortEnum {
+  BestSeller = 'BestSeller',
+  MostVisited = 'MostVisited',
+  MostDiscounted = 'MostDiscounted',
+  MostExpensive = 'MostExpensive',
+  Cheapest = 'Cheapest',
+}
+
 const Pagination = dynamic(() => import('./Pagination'));
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -20,10 +28,28 @@ const Products = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetSupplementProducts(
       Object.fromEntries(
-        Object.entries(query).filter(
-          ([key, value]) =>
-            !!value && key !== 'categoryNameLevel2' && key !== 'shapeName',
-        ),
+        Object.entries(query)
+          .map(([key, value]) => {
+            if (
+              key === 'sort' &&
+              (value === 'BestSeller' ||
+                value === 'MostVisited' ||
+                value === 'MostDiscounted' ||
+                value === 'MostExpensive' ||
+                value === 'Cheapest')
+            ) {
+              return [value, 1];
+            }
+            if (
+              !!value &&
+              key !== 'categoryNameLevel2' &&
+              key !== 'shapeName'
+            ) {
+              return [key, value];
+            }
+            return null;
+          })
+          .filter((entry) => entry !== null),
       ),
     );
 

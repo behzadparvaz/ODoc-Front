@@ -70,13 +70,37 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
     removeLastModal();
   };
 
+  const handleClearFilters = () => {
+    push(
+      {
+        pathname: pathname,
+        query: Object.fromEntries(
+          Object.entries(query).filter(
+            ([key, value]) =>
+              !!value &&
+              key !== 'brand' &&
+              key !== 'shapeName' &&
+              key !== 'shapeCode',
+          ),
+        ),
+      },
+      undefined,
+      { shallow: true },
+    );
+    removeLastModal();
+  };
+
   const renderFilterContent = () => {
     if (selectedFilterCategory === 'brand') {
-      return <BrandFilter onSelectBrand={handleSelectBrand} />;
+      return (
+        <BrandFilter onSelectBrand={handleSelectBrand} plpQuery={plpQuery} />
+      );
     }
 
     if (selectedFilterCategory === 'shape') {
-      return <ShapesFilter onSelectShape={handleSelectShape} />;
+      return (
+        <ShapesFilter onSelectShape={handleSelectShape} plpQuery={plpQuery} />
+      );
     }
   };
 
@@ -89,7 +113,7 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
       isDraggable={false}
       rightActionButton={
         <>
-          {(selectedBrand || selectedShape) && (
+          {!!selectedFilterCategory && (
             <div
               className="h-6 w-6 flex items-center justify-center rounded-full bg-surface-tertiary"
               onClick={() => setSelectedFilterCategory(null)}
@@ -158,10 +182,11 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
                 className="w-full"
                 variant="secondary"
                 size="large"
-                onClick={() => {
-                  setSelectedShape(null);
-                  setSelectedBrand(null);
-                }}
+                onClick={handleClearFilters}
+                // onClick={() => {
+                //   setSelectedShape(null);
+                //   setSelectedBrand(null);
+                // }}
               >
                 حذف همه
               </Button>
