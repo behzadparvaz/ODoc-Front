@@ -57,8 +57,8 @@ const OtcMedicineCategories = () => {
 
   if (!!selectedCategory) {
     return (
-      <>
-        <div className="h-10 flex items-center px-4 mb-2">
+      <div>
+        <div className="absolute right-0 top-[56px] h-[58px] w-full flex items-center px-4 mb-2 z-10 bg-surface-primary">
           <ScrollSlider className="flex flex-col">
             <div className="w-max min-w-full flex">
               {data?.queryResult?.map((item) => {
@@ -90,12 +90,12 @@ const OtcMedicineCategories = () => {
           </ScrollSlider>
         </div>
 
-        <div className="w-full">
+        <div className="pt-[58px]">
           <OtcMedicineFamilyNames
             categoryCode={selectedCategory?.categoryCodeLevel1}
           />
         </div>
-      </>
+      </div>
     );
   }
 
