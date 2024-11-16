@@ -6,9 +6,9 @@ import { MainLayout } from '@com/Layout';
 import Spinner from '@com/_atoms/Spinner';
 import dynamic from 'next/dynamic';
 import Divider from '@com/_atoms/Divider';
+import GeneralDetail from '../components/GeneralDetail';
 
 const Rules = dynamic(() => import('../components/Rules'));
-const GeneralDetail = dynamic(() => import('../components/GeneralDetail'));
 const AddressDetail = dynamic(() => import('../components/AddressDetail'));
 const DescriptionDetail = dynamic(
   () => import('../components/DescriptionDetail'),

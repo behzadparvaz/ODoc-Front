@@ -7,9 +7,10 @@ import Spinner from '@com/_atoms/Spinner';
 import Divider from '@com/_atoms/Divider';
 import OrderDetailItems from '@com/_molecules/OrderDetailItems';
 
+import GeneralDetail from '../components/GeneralDetail';
+
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const Rules = dynamic(() => import('../components/Rules'));
-const GeneralDetail = dynamic(() => import('../components/GeneralDetail'));
 const AddressDetail = dynamic(() => import('../components/AddressDetail'));
 const DescriptionDetail = dynamic(
   () => import('../components/DescriptionDetail'),
