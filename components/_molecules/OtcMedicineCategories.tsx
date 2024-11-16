@@ -89,33 +89,29 @@ const OtcMedicineCategories = () => {
   }
 
   return (
-    <div className="flex px-4 flex-col gap-y-2">
-      <span className="text-sm font-medium mb-4">نوع دارو</span>
-
-      <div className="w-full h-max grid grid-rows-4 grid-cols-2 gap-4">
-        {data?.queryResult?.map((item) => (
-          <div
-            key={item?.categoryCodeLevel1}
-            onClick={() => handleSelectCategory(item)}
-            className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-base bg-grey-50 cursor-pointer gap-y-2"
-          >
-            <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-base">
-              {item?.iconLink && (
-                <NextImage
-                  src={item?.iconLink}
-                  width={56}
-                  height={56}
-                  alt={item?.categoryNameLevel1}
-                />
-              )}
-            </div>
-
-            <span className="text-2xs w-full text-center truncate">
-              {item?.categoryNameLevel1}
-            </span>
+    <div className="w-full px-4 h-max grid grid-rows-4 grid-cols-2 gap-4">
+      {data?.queryResult?.map((item) => (
+        <div
+          key={item?.categoryCodeLevel1}
+          onClick={() => handleSelectCategory(item)}
+          className="h-[104px] flex flex-col items-center gap-2 px-4 py-2 rounded-lg bg-surface-secondary cursor-pointer gap-y-2"
+        >
+          <div className="!w-[56px] !h-[56px] flex items-center justify-center overflow-hidden rounded-base">
+            {item?.iconLink && (
+              <NextImage
+                src={item?.iconLink}
+                width={56}
+                height={56}
+                alt={item?.categoryNameLevel1}
+              />
+            )}
           </div>
-        ))}
-      </div>
+
+          <span className="text-2xs w-full text-center truncate">
+            {item?.categoryNameLevel1}
+          </span>
+        </div>
+      ))}
     </div>
   );
 };
