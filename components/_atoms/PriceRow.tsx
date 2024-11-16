@@ -10,10 +10,14 @@ const RenderPriceRow = ({ name, value }: RenderPriceRowProps) => {
     <div className="flex items-center justify-between">
       <span className="text-content-tertiary text-sm font-normal">{name}</span>
       <span className="flex items-center text-content-primary text-base font-normal">
-        {!!value && convertRialToTomanNumber(value)}
-        <span className="text-xs text-content-primary">
-          {!!value ? 'تومان' : 'رایگان'}
-        </span>
+        {!!value ? (
+          <>
+            {convertRialToTomanNumber(value)}
+            <span className="text-xs text-content-primary"> تومان</span>
+          </>
+        ) : (
+          <span className="text-xs text-content-primary">رایگان</span>
+        )}
       </span>
     </div>
   );

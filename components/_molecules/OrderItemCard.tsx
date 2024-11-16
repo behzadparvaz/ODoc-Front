@@ -2,7 +2,10 @@ import {
   TenderItemsOrderDataModel,
   TenderOrderAltDataModel,
 } from '@utilities/interfaces/tender';
-import { convertRialToToman } from '@utilities/mainUtils';
+import {
+  convertRialToToman,
+  convertRialToTomanNumber,
+} from '@utilities/mainUtils';
 import NextImage from '@com/_core/NextImage';
 import { DangerIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
@@ -22,14 +25,6 @@ const OrderItemCard = ({
 }: OrderItemCardProps) => {
   return (
     <>
-      {isUnavaiable ? (
-        <div className="flex h-14 bg-yellow-50 items-center px-3 rounded-base">
-          <DangerIcon width={22} height={22} fill={colors.yellow[500]} />
-          <p className="text-grey-600 text-xs mr-3">
-            این کالا در این داروخانه ناموجود است.
-          </p>
-        </div>
-      ) : null}
       <div
         className={`h-max min-h-[78px] grid grid-cols-[64px_1fr] gap-2 items-center justify-between pb-2 ${isUnavaiable ? 'opacity-60' : ' '} `}
       >
@@ -47,17 +42,16 @@ const OrderItemCard = ({
             />
           </div>
         </div>
-        <div className="col-start-2 col-end-3 flex flex-col gap-1 w-full">
-          <p
-            className={classNames(
-              'text-xs font-medium leading-6',
-              isUnavaiable && 'text-grey-400',
-            )}
-          >
-            {item?.productName}
-          </p>
-
-          <div className="w-full flex items-center justify-between">
+        <div className="col-start-2 col-end-3 flex items-center justify-between gap-1 w-full">
+          <div className="flex flex-col gap-y-1 w-full">
+            <p
+              className={classNames(
+                'text-xs font-medium leading-6 line-clamp-2',
+                isUnavaiable && 'text-grey-400',
+              )}
+            >
+              {item?.productName}
+            </p>
             <span
               className={classNames(
                 'text-2xs leading-5 text-content-tertiary',
@@ -66,16 +60,22 @@ const OrderItemCard = ({
             >
               {`${item?.quantity} عدد`}
             </span>
+          </div>
+
+          <div className="min-w-max flex items-center justify-between">
             {orderStatus === 'draft' ? (
               <></>
             ) : (
               <>
                 {isUnavaiable ? (
-                  <span className="text-2xs text-content-disabled leading-5 h-5">
+                  <span className="text-xs text-content-disabled leading-5 h-5">
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-2xs leading-5">{`${item?.price ? convertRialToToman(item?.price) : ''}`}</span>
+                  <span className="text-sm font-medium leading-5">
+                    {item?.price ? convertRialToTomanNumber(item?.price) : ''}
+                    <span className="text-xs"> تومان</span>
+                  </span>
                 )}
               </>
             )}

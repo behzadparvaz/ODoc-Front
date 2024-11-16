@@ -37,7 +37,9 @@ const OrderDetailsContainer = () => {
 
           <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
 
-          <OrderDetailItems data={data} />
+          {data?.orderStatus?.name !== 'draft' && (
+            <OrderDetailItems data={data} />
+          )}
 
           {data?.description && (
             <>

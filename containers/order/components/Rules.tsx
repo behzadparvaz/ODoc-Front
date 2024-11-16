@@ -1,7 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-import { ChevronDownIcon, ChevronUpIcon } from '@com/icons';
+import {
+  ChevronDownIcon,
+  ChevronLeftIconOutline,
+  ChevronUpIcon,
+} from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
 import { colors } from '@configs/Theme';
 
@@ -25,7 +29,11 @@ const Rules = () => {
         {collapseOpen ? (
           <ChevronUpIcon width={20} height={20} fill={colors.gray[400]} />
         ) : (
-          <ChevronDownIcon width={20} height={20} stroke={colors.gray[400]} />
+          <ChevronLeftIconOutline
+            width={20}
+            height={20}
+            fill={colors.gray[400]}
+          />
         )}
       </div>
 
