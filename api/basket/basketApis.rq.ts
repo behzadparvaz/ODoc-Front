@@ -1,12 +1,12 @@
 import {
   addProductToBasket,
-  AddProductToBasketPayload,
+  BasketPayload,
   deleteCurrentBasket,
   deleteProductBasket,
   getCurrentBasket,
   OneOfCodes,
   updateCountProductBasket,
-  UpdateCountProductBasketPayload,
+  UpdateCountProductBasketPayload
 } from '@api/basket/basketApis';
 import {
   useMutation,
@@ -58,8 +58,8 @@ export const useUpdateCountProductBasket: (
     });
 
 export const useAddProductToBasket: (
-  options?: UseMutationOptions<unknown, unknown, AddProductToBasketPayload>,
-) => UseMutationResult<unknown, unknown, AddProductToBasketPayload> = (
+  options?: UseMutationOptions<unknown, unknown, BasketPayload>,
+) => UseMutationResult<unknown, unknown, BasketPayload> = (
   options,
 ) =>
     useMutation({

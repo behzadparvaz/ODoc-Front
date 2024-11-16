@@ -1,4 +1,4 @@
-import SupplementProductContainer from '@containers/supplement/product/[productId]';
+import SupplementProductContainer from '@containers/supplement/product/[irc]';
 
 const SupplementProductPage = () => {
   return <SupplementProductContainer />;

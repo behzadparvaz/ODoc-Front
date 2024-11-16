@@ -19,8 +19,6 @@ enum SortEnum {
 
 const Pagination = dynamic(() => import('./Pagination'));
 
-const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
-
 const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
@@ -80,7 +78,7 @@ const Products = () => {
           query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
         )}
       >
-        {shimerItems.map((item) => (
+        {[...Array(8).keys()].map((item) => (
           <div
             key={item}
             className="w-full flex justify-center border border-border-primary"
@@ -104,13 +102,13 @@ const Products = () => {
         <VerticalProductCard
           onClick={() =>
             push({
-              pathname: `${routeList.supplementProduct}/${item?.id}`,
+              pathname: `${routeList.supplementProduct}/${item?.irc}`,
               query: { ...query },
             })
           }
           className="border border-border-primary"
           productData={item}
-          key={item?.id}
+          key={item?.irc}
           hasAddToCart
         />
       ))}
@@ -119,7 +117,7 @@ const Products = () => {
         <div ref={ref} className="w-full col-start-1 col-end-3">
           {hasNextPage && isFetchingNextPage && (
             <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
-              {shimerItems.map((item) => (
+              {[...Array(8).keys()].map((item) => (
                 <div
                   key={item}
                   className="w-full flex justify-center border border-border-primary"

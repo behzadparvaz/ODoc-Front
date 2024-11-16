@@ -1,22 +1,22 @@
 import request from "@api/request";
 
-export const GetSupplementProductById = async (productId: string) =>
-    await request.get(`Supplement/GetById/${productId}`);
+export const GetSupplementProductByIrc = async (irc: string) =>
+    await request.get(`Supplement/GetByIrc/${irc}`);
 
-export const GetSupplementReviewSummery = async (productId: string) =>
-    await request.get(`Supplement/GetReviewSummary/${productId}`);
+export const GetSupplementReviewSummery = async (irc: string) =>
+    await request.get(`Supplement/GetReviewSummary/${irc}`);
 
-export const GetSupplementReviews = async (productId: string) =>
-    await request.get(`Supplement/GetReviews/${productId}`);
+export const GetSupplementReviews = async (irc: string) =>
+    await request.get(`Supplement/GetReviews/${irc}`);
 
 interface IPayloadAddSupplementReview {
-    productId: string | number,
+    irc: string | number,
     comment: string,
     rating: number
 }
 export const PostSupplementReviews = async (payload: IPayloadAddSupplementReview) =>
     await request.post(`Supplement/Review`, {
-        productId: payload.productId,
+        irc: payload.irc,
         comment: payload.comment,
         rating: payload.rating
     });

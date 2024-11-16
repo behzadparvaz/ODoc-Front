@@ -24,9 +24,14 @@ const NextImage = ({
   const handleImageError = () => {
     setImageError(true);
   };
+
+  // Determine the source to use: either the provided src or the error image
+  const effectiveSrc =
+    imageError || !src ? '/static/images/staticImages/errorImage.png' : src;
+
   return (
     <Image
-      src={imageError ? '/static/images/staticImages/errorImage.png' : src}
+      src={effectiveSrc}
       unoptimized={unoptimized ?? true}
       alt={alt}
       placeholder="blur"
