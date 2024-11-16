@@ -130,7 +130,8 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
       <div className="h-[44px] flex items-center justify-between text-content-tertiary text-sm leading-5 px-4">
         <span>{`کد سفارش: ${data?.orderCode}`}</span>
 
-        {persianDate({ date: data?.createDateTime, isShownTime: true })}
+        {data?.createDateTime &&
+          persianDate({ date: data?.createDateTime, isShownTime: true })}
       </div>
     </div>
   );
