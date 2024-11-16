@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
@@ -80,11 +80,8 @@ const VerticalProductCard = ({
     });
   const onChangeCount = (count) =>
     addToCart({
-      type: 'IRC',
-      orderType: 'OTC',
       irc: productData?.irc || productData?.genericCode,
       quantity: count,
-      categoryCode: productData?.categoryCode,
       imageLink: productData?.imageLink,
       productName: productData?.productName,
       unit: productData?.unit,

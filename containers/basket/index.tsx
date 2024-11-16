@@ -154,7 +154,7 @@ const Page = () => {
                 size="large"
                 onClick={deleteBasket}
                 isLoading={isLoadingDeleteBasket}
-                disabled={isLoadingcreateOrderDraft}
+                disabled={isLoadingcreateOrderDraft || isDisabled}
               >
                 حذف سبد خرید
               </Button>

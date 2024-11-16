@@ -21,12 +21,12 @@ type Level2DataModel = {
 };
 
 export type Level3ProductsDataModel = {
-  categoryLevel3: string;
+  categoryLevel3?: string;
   imageLink: string;
   irc: string;
   productName: string;
-  shapeCode: number;
-  shapeName: string;
+  shapeCode?: number;
+  shapeName?: string;
   unit?: string;
 };
 

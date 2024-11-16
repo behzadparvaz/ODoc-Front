@@ -1,11 +1,11 @@
 import {
-  useGetSupplementProductById,
+  useGetSupplementProductByIrc,
   useGetSupplementReview,
   useGetSupplementReviewSummery,
 } from '@api/supplement/plp/plp.rq';
 import Spinner from '@com/_atoms/Spinner';
 import GalleryThumbnails from '@com/_molecules/GalleryThumbnails';
-import { ArrowRightIconOutline, CloseIconOutline } from '@com/icons';
+import { ArrowRightIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
@@ -27,12 +27,12 @@ import { useEffect, useState } from 'react';
 const SupplementProductContainer = () => {
   // routes
   const router = useRouter();
-  const currentProductId = router.query.productId as string;
+  const irc = router.query.irc as string;
 
   // apis
-  const product = useGetSupplementProductById(currentProductId);
-  const summaryReviews = useGetSupplementReviewSummery(currentProductId);
-  const reviews = useGetSupplementReview(currentProductId);
+  const product = useGetSupplementProductByIrc(irc);
+  const summaryReviews = useGetSupplementReviewSummery(irc);
+  const reviews = useGetSupplementReview(irc);
 
   const { mutate: popProductOfCart } = useDeleteProductBasket({
     onSuccess: () => {
@@ -65,8 +65,6 @@ const SupplementProductContainer = () => {
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({
-        type: 'IRC',
-        orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
         imageLink: product.data?.imageLink,
@@ -106,7 +104,7 @@ const SupplementProductContainer = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2 whitespace-nowrap"
+            className="w-1/2"
             onClick={() => router.push(routeList.basket)}
           >
             مشاهده سبد خرید
@@ -121,9 +119,7 @@ const SupplementProductContainer = () => {
         className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
         onClick={() =>
           addToCart({
-            orderType: 'OTC',
             quantity: 1,
-            type: 'IRC',
             irc: selectedItem?.irc,
             imageLink: product.data?.imageLink,
             productName: product.data?.productName,
@@ -138,25 +134,12 @@ const SupplementProductContainer = () => {
 
   return (
     <MainLayout
-      title="سبد خرید"
+      title="محصول"
       hasHeader
       headerType="withoutLogo"
+      hasBackButton
       scrollToTop
       hasBasketIcon
-      rightIcon={
-        <span
-          className="cursor-pointer"
-          onClick={() => {
-            const { productId, ...filteredQuery } = router.query;
-            router.push({
-              pathname: `${routeList.supplementProductListPage}`,
-              query: filteredQuery,
-            });
-          }}
-        >
-          <ArrowRightIconOutline width={24} height={24} fill={colors?.black} />
-        </span>
-      }
     >
       {product?.isLoading && (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
