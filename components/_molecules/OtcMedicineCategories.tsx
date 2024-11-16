@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import classNames from 'classnames';
 
@@ -6,7 +7,6 @@ import { useGetCategories } from '@api/category/categoryApis.rq';
 import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
-import { useRouter } from 'next/router';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 
@@ -59,23 +59,34 @@ const OtcMedicineCategories = () => {
     return (
       <>
         <div className="h-10 flex items-center px-4 mb-2">
-          <ScrollSlider className="gap-x-2">
-            {data?.queryResult?.map((item) => {
-              return (
-                <div
-                  key={item?.categoryCodeLevel1}
-                  onClick={() => handleSelectCategory(item)}
-                  className={classNames(
-                    'w-max h-8 flex items-center px-3 bg-white text-xs rounded-full cursor-pointer border border-grey-200',
-                    item?.categoryCodeLevel1 ===
-                      selectedCategory?.categoryCodeLevel1 &&
-                      '!bg-grey-50 border-1.5 !border-black -order-1',
-                  )}
-                >
-                  {item?.categoryNameLevel1}
-                </div>
-              );
-            })}
+          <ScrollSlider className="flex flex-col">
+            <div className="w-max min-w-full flex">
+              {data?.queryResult?.map((item) => {
+                return (
+                  <div
+                    key={item?.categoryCodeLevel3}
+                    className="w-full flex flex-col cursor-pointer"
+                    onClick={() => handleSelectCategory(item)}
+                  >
+                    <div
+                      className={classNames(
+                        'min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
+                        selectedCategory?.categoryCodeLevel1 ===
+                          item?.categoryCodeLevel1 && '!text-content-primary',
+                      )}
+                    >
+                      {item?.categoryNameLevel1}
+                    </div>
+                    <div className="relative h-1 w-full bg-surface-secondary ">
+                      {selectedCategory?.categoryCodeLevel1 ===
+                        item?.categoryCodeLevel1 && (
+                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[calc(100%-32px)] bg-surface-Gradient.brand transition-all duration-300 rounded-full" />
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </ScrollSlider>
         </div>
 
