@@ -12,9 +12,10 @@ const paymentDetail = {
 
 type PaymentDetailProps = {
   data: any;
+  isPaymentPage?: boolean;
 };
 
-const PaymentDetail = ({ data }: PaymentDetailProps) => {
+const PaymentDetail = ({ data, isPaymentPage }: PaymentDetailProps) => {
   return (
     <div className="w-full flex flex-col gap-3 py-3 px-4">
       <span className="text-content-primary text-base leading-6 font-medium">
@@ -38,9 +39,16 @@ const PaymentDetail = ({ data }: PaymentDetailProps) => {
         value={data?.delivery?.deliveryPrice}
       />
 
-      <Divider />
+      {!isPaymentPage && (
+        <>
+          <Divider />
 
-      <RenderPriceRow name={paymentDetail?.total} value={data?.finalPrice} />
+          <RenderPriceRow
+            name={paymentDetail?.total}
+            value={data?.finalPrice}
+          />
+        </>
+      )}
     </div>
   );
 };
