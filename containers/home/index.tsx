@@ -14,6 +14,7 @@ const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
+const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
@@ -48,6 +49,10 @@ const HomeContainer = () => {
         hasAddress
         hasBottomNavigation
       >
+        <div className="px-4 py-2">
+          <SearchBox className="px-4" />
+        </div>
+
         <HomeOrderSlider />
 
         <Categories isHomePage />
