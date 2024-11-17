@@ -44,60 +44,69 @@ const OrderItem = ({ data }: OrderItemProps) => {
     switch (data?.orderStatus?.name) {
       case 'ack':
         return <OrderHistoryProgress activeStepId={0} />;
+      case 'draft':
+        return <OrderHistoryProgress activeStepId={1} />;
       case 'apay':
       case 'nfc':
-        return <OrderHistoryProgress activeStepId={1} />;
-      case 'draft':
-        return <OrderHistoryProgress activeStepId={2} />;
-      case 'pick':
-      case 'accept':
         return <OrderHistoryProgress activeStepId={2} />;
 
-      case 'adelivery':
-      case 'senddelivery':
+      case 'pick':
+      case 'accept':
         return <OrderHistoryProgress activeStepId={3} />;
 
-      case 'deliverd':
-        return <OrderHistoryProgress activeStepId={4} />;
-
-      default:
-        return <></>;
-    }
-  };
-
-  const renderContent = () => {
-    switch (data?.orderStatus?.name) {
-      case 'apay':
-      case 'nfc':
-        return (
-          <div className="flex flex-col gap-y-3">
-            <span className="w-full h-[48px] text-md text-content-primary flex items-center">
-              داروخانه نسخه شما را تأیید کرد
-            </span>
-          </div>
-        );
-      case 'pick':
-      case 'accept':
-        return (
-          <span className="text-content-primary text-xs text-medium">
-            {vendorData?.vendorName}
-          </span>
-        );
       case 'adelivery':
       case 'senddelivery':
-        return (
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-content-primary">مجتبی فرجی</span>
-            <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
-              123 56789
-            </span>
-          </div>
-        );
+        return <OrderHistoryProgress activeStepId={4} />;
+
+      case 'deliverd':
+        return <OrderHistoryProgress activeStepId={5} />;
 
       default:
         return <></>;
     }
   };
+
+  // const renderContent = () => {
+  //   switch (data?.orderStatus?.name) {
+  //     case 'draft':
+  //       return (
+  //         <div className="flex flex-col gap-y-3">
+  //           <span className="w-full h-[48px] text-md text-content-primary flex items-center">
+  //             در انتظار تایید پزشک
+  //           </span>
+  //         </div>
+  //       );
+  //     case 'apay':
+  //     case 'nfc':
+  //       return (
+  //         <div className="flex flex-col gap-y-3">
+  //           <span className="w-full h-[48px] text-md text-content-primary flex items-center">
+  //             داروخانه نسخه شما را تأیید کرد
+  //           </span>
+  //         </div>
+  //       );
+  //     case 'pick':
+  //     case 'accept':
+  //       return (
+  //         <span className="text-content-primary text-xs text-medium">
+  //           {vendorData?.vendorName}
+  //         </span>
+  //       );
+  //     case 'adelivery':
+  //     case 'senddelivery':
+  //       return (
+  //         <div className="flex items-center justify-between">
+  //           <span className="text-sm text-content-primary">مجتبی فرجی</span>
+  //           <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
+  //             123 56789
+  //           </span>
+  //         </div>
+  //       );
+
+  //     default:
+  //       return <></>;
+  //   }
+  // };
 
   const renderButom = () => {
     return (
@@ -236,7 +245,6 @@ const OrderItem = ({ data }: OrderItemProps) => {
             {persianDate({ date: data?.createDateTime, isShownTime: true })}
           </span>
         </div>
-        {renderContent()}
         {renderButom()}
       </div>
     </div>

@@ -56,6 +56,7 @@ const ConfirmBasketContainer = () => {
         imageLink: pr.imageLink,
         quantity: pr.quantity,
         productName: pr.name,
+        unit: pr.unit,
       })) ?? [];
 
     if (!defaultAddress?.id) {

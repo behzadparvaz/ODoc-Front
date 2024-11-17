@@ -7,24 +7,19 @@ import {
 import OrderItem from '@com/_molecules/OrderItem';
 
 const HomeOrderSlider = () => {
-  const { data: quickOrderData } = useGetActiveOrderStatus();
+  // const { data: quickOrderData } = useGetActiveOrderStatus();
   const { data: currentOrder } = useGetCurrentOrder();
   return (
     <>
-      {quickOrderData || currentOrder ? (
+      {currentOrder ? (
         <div
           className={classNames(
-            'py-4 bg-background-gradient.white-to-gray',
-            quickOrderData ? 'pr-4' : 'pr-2',
+            'py-4 bg-background-gradient.white-to-gray pr-2',
           )}
         >
-          <div className={classNames('gap-x-2', quickOrderData && 'pl-2')}>
+          <div className={classNames('gap-x-2 pl-2')}>
             {currentOrder && currentOrder?.orderStatus?.name !== 'deliverd' && (
-              <div
-                className={classNames(
-                  !quickOrderData ? 'w-full' : 'w-[calc(100%-8px)]',
-                )}
-              >
+              <div className="w-full">
                 <OrderItem data={currentOrder} />
               </div>
             )}

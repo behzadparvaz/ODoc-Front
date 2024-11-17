@@ -1,6 +1,7 @@
 export const getOrderStatusMessage = (statusId) => {
   switch (statusId) {
     case 'draft':
+      return 'در انتظار تایید پزشک';
     case 'ack':
       return 'در انتظار تایید داروخانه';
     case 'apay':
