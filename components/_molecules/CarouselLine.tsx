@@ -112,6 +112,24 @@ const CarouselLine = ({
               return (
                 <VerticalProductCard
                   hasAddToCart
+                  onClick={() => {
+                    console.log(item.productType);
+                    if (item.productType === 1) {
+                      push({
+                        pathname: `${routeList?.searchProductPage}`,
+                        query: {
+                          brandName: item.brandName,
+                          categoryCodeLevel3: item.categoryCodeLevel3,
+                          irc: item.genericCode,
+                        },
+                      });
+                    }
+                    if (item.productType === 2) {
+                      push({
+                        pathname: `${routeList?.supplementProduct}/${item.genericCode}`,
+                      });
+                    }
+                  }}
                   productData={item}
                   className={classNames(
                     !carouselCardClassName

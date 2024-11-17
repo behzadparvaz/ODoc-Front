@@ -83,14 +83,20 @@ const ProductList = ({ searchTerm }: Props) => {
                 <HorizontalProductCard
                   key={index}
                   onClick={() => {
-                    if (product.categoryCodeLevel3.split('_')[0] === '10') {
-                      return push(
-                        `${routeList.supplementProduct}/${product.irc}`,
-                      );
-                    } else {
-                      push(
-                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}&irc=${product?.irc}`,
-                      );
+                    if (product.productType === 1) {
+                      push({
+                        pathname: `${routeList?.searchProductPage}`,
+                        query: {
+                          brandName: product.brandName,
+                          categoryCodeLevel3: product.categoryCodeLevel3,
+                          irc: product.genericCode,
+                        },
+                      });
+                    }
+                    if (product.productType === 2) {
+                      push({
+                        pathname: `${routeList?.supplementProduct}/${product.genericCode}`,
+                      });
                     }
                   }}
                   prInfo={{
