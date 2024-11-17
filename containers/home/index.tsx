@@ -9,12 +9,12 @@ import { searchParamToObject } from '@utilities/queryBuilder';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
+const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
