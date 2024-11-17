@@ -122,7 +122,7 @@ const OrderHistoryContainer = () => {
                   'w-max h-8 flex items-center px-3 bg-white text-xs rounded-full cursor-pointer border border-grey-200',
                   (item?.id === Number(query?.statusId) ||
                     (item?.id === -1 && !query?.statusId)) &&
-                    '!bg-grey-50 border-1.5 !border-black -order-1',
+                    '!bg-grey-50 border-1.5 !border-black',
                 )}
               >
                 {item?.name}
