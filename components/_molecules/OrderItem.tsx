@@ -17,7 +17,6 @@ import {
 } from '@com/icons';
 import { colors } from '@configs/Theme';
 import classNames from 'classnames';
-import Countdown from './Countdows';
 import OrderHistoryProgress from './OrderHistoryProgress';
 
 type OrderItemProps = {
@@ -231,12 +230,6 @@ const OrderItem = ({ data }: OrderItemProps) => {
             <span className="text-content-primary text-sm text-bold ">
               {getOrderStatusMessage(data.orderStatus?.name)}
             </span>
-
-            {(data.orderStatus?.name === 'draft' ||
-              data.orderStatus?.name === 'ack') &&
-              acceptExpirationTime && (
-                <Countdown expirationTime={acceptExpirationTime} />
-              )}
           </div>
 
           <span className="text-xs text-content-tertiary">
