@@ -136,7 +136,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
   ) {
     return (
       <div
-        className="w-full h-full flex flex-col gap-y-3 p-4 cursor-pointer"
+        className="w-full h-full flex flex-col gap-y-3 p-4"
         onClick={() =>
           router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
         }
