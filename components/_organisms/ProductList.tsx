@@ -128,7 +128,12 @@ const ProductList = ({ searchTerm }: Props) => {
                 variant="primary"
                 size="medium"
                 className="w-max px-4"
-                onClick={() => push(routeList.QuickOrder)}
+                onClick={() =>
+                  push({
+                    pathname: routeList.QuickOrder,
+                    query: { searchText: searchTerm },
+                  })
+                }
               >
                 سفارش سریع دارو
               </Button>
