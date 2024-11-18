@@ -20,25 +20,31 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
     return parsedDate.getTime();
   }, [data?.createDateTime]);
 
+  const isHasQuickOrder = data?.orderDetails?.some(
+    (item) => item?.type?.id === 3,
+  );
+
   const renderStep = () => {
     switch (data?.orderStatus?.name) {
-      case 'draft':
       case 'ack':
         return 0;
+
+      case 'draft':
+        return isHasQuickOrder ? 1 : 0;
       case 'apay':
       case 'nfc':
-        return 1;
+        return isHasQuickOrder ? 2 : 1;
 
       case 'pick':
       case 'accept':
-        return 2;
+        return isHasQuickOrder ? 3 : 2;
 
       case 'adelivery':
       case 'senddelivery':
-        return 3;
+        return isHasQuickOrder ? 4 : 3;
 
       case 'deliverd':
-        return 4;
+        return isHasQuickOrder ? 5 : 4;
 
       default:
         return;
@@ -55,7 +61,12 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
       case 'accept':
       case 'adelivery':
       case 'senddelivery':
-        return <OrderHistoryProgress activeStepId={renderStep()} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={renderStep()}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
       case 'deliverd':
         return (
           <div className="h-10 flex items-center px-4 gap-[22px]">

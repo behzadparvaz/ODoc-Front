@@ -1,26 +1,29 @@
-import { useMemo } from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
+import { useGetDeliveryCode } from '@api/order/orderApis.rq';
+import { useGetVendorDetails } from '@api/vendor/vendor.rq';
+import { routeList } from '@routes/routeList';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { convertRialToToman } from '@utilities/mainUtils';
-import { routeList } from '@routes/routeList';
 import { persianDate } from '@utilities/persianDate';
-import { useGetVendorDetails } from '@api/vendor/vendor.rq';
-import { useGetDeliveryCode } from '@api/order/orderApis.rq';
 
-import OrderHistoryProgress from './OrderHistoryProgress';
-import Countdown from './Countdows';
 import { Button } from '@com/_atoms/NewButton';
-import classNames from 'classnames';
-import { CloseIconOutline, NewTickIcon } from '@com/icons';
+import {
+  ArrowLeftIconOutline,
+  CloseIconOutline,
+  NewTickIcon,
+} from '@com/icons';
 import { colors } from '@configs/Theme';
+import classNames from 'classnames';
+import OrderHistoryProgress from './OrderHistoryProgress';
 
-type OrderItemProps = {
+type HomeOrderItemProps = {
   data: any;
 };
 
-const OrderItem = ({ data }: OrderItemProps) => {
+const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
   const router = useRouter();
   const { data: vendorData } = useGetVendorDetails(data?.vendorCode);
   const { data: deliveryCode } = useGetDeliveryCode(
@@ -97,83 +100,23 @@ const OrderItem = ({ data }: OrderItemProps) => {
     }
   };
 
-  const renderContent = () => {
-    switch (data?.orderStatus?.name) {
-      case 'apay':
-      case 'nfc':
-        return (
-          <div className="flex flex-col gap-y-3">
-            <span className="w-full h-[48px] text-md text-content-primary flex items-center">
-              داروخانه نسخه شما را تأیید کرد
-            </span>
-          </div>
-        );
-      case 'pick':
-      case 'accept':
-        return (
-          <span className="text-content-primary text-xs text-medium">
-            {vendorData?.vendorName}
-          </span>
-        );
-      case 'adelivery':
-      case 'senddelivery':
-        return (
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-content-primary">مجتبی فرجی</span>
-            <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
-              123 56789
-            </span>
-          </div>
-        );
-
-      default:
-        return <></>;
-    }
-  };
-
   const renderButom = () => {
-    switch (data?.orderStatus?.name) {
-      case 'draft':
-      case 'ack':
-      case 'nfc':
-      case 'pick':
-      case 'accept':
-        return (
-          <span className="w-full h-[40px] flex justify-center items-center">
-            مشاهده جزییات سفارش
-          </span>
-        );
-      case 'apay':
-        return (
-          <span className="w-full h-[40px] flex justify-center items-center">
-            مشاهده داروخانه ها
-          </span>
-        );
-      case 'adelivery':
-      case 'senddelivery':
-        return (
-          <div className="w-full h-full flex items-center justify-between">
-            <span className="text-sm text-content-primary">کد تحویل سفارش</span>
-
-            <div className="flex items-center flex-row-reverse gap-x-2">
-              {deliveryCode
-                ?.toString()
-                .split('')
-                .map((item, index) => (
-                  <span
-                    key={index + item}
-                    className="flex items-center justify-center bg-surface-disable h-[24px] w-[24px] rounded-base text-content-secondary text-sm"
-                  >
-                    {item}
-                  </span>
-                ))}
-            </div>
-          </div>
-        );
-
-      default:
-        return <></>;
-    }
+    return (
+      <div className="flex items-center justify-between">
+        <div
+          className="w-[32px] h-[32px] flex justify-center items-center bg-surface-tertiary rounded-full cursor-pointer"
+          onClick={() =>
+            router.push(
+              data?.orderStatus?.name === 'apay'
+                ? `${routeList.tender}/${data?.orderCode}`
+                : `${routeList.ordersHistory}/${data?.orderCode}`,
+            )
+          }
+        >
+          <ArrowLeftIconOutline width={24} height={24} fill={colors.black} />
+        </div>
+      </div>
+    );
   };
 
   if (
@@ -185,7 +128,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
   ) {
     return (
       <div
-        className="w-full h-full flex flex-col gap-y-3 p-4 cursor-pointer"
+        className="w-full h-full flex flex-col gap-y-3 p-4"
         onClick={() =>
           router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
         }
@@ -278,40 +221,25 @@ const OrderItem = ({ data }: OrderItemProps) => {
   return (
     <div
       className={
-        'w-full border border-0.5 border-border-primary overflow-hidden rounded-base p-4 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
-      }
-      onClick={() =>
-        router.push(
-          data?.orderStatus?.name === 'apay'
-            ? `${routeList.tender}/${data?.orderCode}`
-            : `${routeList.ordersHistory}/${data?.orderCode}`,
-        )
+        'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg py-2 px-3 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
       }
     >
-      <div className="pb-2">{renderIcon()}</div>
+      <div className="w-full">{renderIcon()}</div>
+      <div className="flex justify-between">
+        <div>
+          <div className="w-full flex items-center justify-between">
+            <span className="text-content-primary text-sm text-bold ">
+              {getOrderStatusMessage(data.orderStatus?.name)}
+            </span>
+          </div>
 
-      <div className="w-full flex items-center justify-between">
-        <span className="text-content-primary text-sm text-bold ">
-          {getOrderStatusMessage(data.orderStatus?.name)}
-        </span>
-
-        {(data.orderStatus?.name === 'draft' ||
-          data.orderStatus?.name === 'ack') &&
-          acceptExpirationTime && (
-            <Countdown expirationTime={acceptExpirationTime} />
-          )}
+          <span className="text-xs text-content-tertiary">
+            {persianDate({ date: data?.createDateTime, isShownTime: true })}
+          </span>
+        </div>
+        {renderButom()}
       </div>
-
-      <span className="text-xs text-content-tertiary">
-        {persianDate({ date: data?.createDateTime, isShownTime: true })}
-      </span>
-
-      <div className="w-full">{renderContent()}</div>
-
-      <div className="w-full h-[1px] bg-border-primary" />
-
-      <div className="w-full">{renderButom()}</div>
     </div>
   );
 };
-export default OrderItem;
+export default HomeOrderItem;
