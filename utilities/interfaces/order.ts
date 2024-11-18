@@ -41,7 +41,6 @@ export type OrderDetailsDataModel = {
 };
 export interface ProductInDraft {
   irc: string;
-  gtin: string;
   productName: string;
   quantity: number;
   description: string;

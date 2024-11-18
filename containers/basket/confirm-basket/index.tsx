@@ -1,5 +1,4 @@
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import { createOrderDraft } from '@api/order/orderApis';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
 import CheckBox from '@com/_atoms/CheckBox.nd';
@@ -14,7 +13,7 @@ import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const ConfirmBasketContainer = () => {
@@ -54,9 +53,10 @@ const ConfirmBasketContainer = () => {
       basket?.products?.map((pr) => ({
         description: pr.name,
         irc: pr.irc,
+        imageLink: pr.imageLink,
         quantity: pr.quantity,
-        gtin: pr.gtin,
         productName: pr.name,
+        unit: pr.unit,
       })) ?? [];
 
     if (!defaultAddress?.id) {

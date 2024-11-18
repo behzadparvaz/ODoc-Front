@@ -7,6 +7,7 @@ import {
   CheckBoxIcon,
   DebitCardFillIcon,
   DebitCardOutlineIcon,
+  DoctorFillIcon,
   StoreFillIcon,
   StoreOutlineIcon,
   TimerFillIcon,
@@ -29,6 +30,12 @@ const steps: Steps[] = [
   },
   {
     id: 2,
+    icon: <DoctorFillIcon width={24} height={24} fill={colors.gray[400]} />,
+    passedIcon: <DoctorFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <DoctorFillIcon width={24} height={24} gradient />,
+  },
+  {
+    id: 3,
     icon: (
       <DebitCardOutlineIcon width={24} height={24} fill={colors.gray[400]} />
     ),
@@ -38,19 +45,19 @@ const steps: Steps[] = [
     activeIcon: <DebitCardFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 3,
+    id: 4,
     icon: <StoreOutlineIcon width={24} height={24} fill={colors.gray[400]} />,
     passedIcon: <StoreFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <StoreFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 4,
+    id: 5,
     icon: <BikerOutlineIcon fill={colors.gray[400]} />,
     passedIcon: <BikerFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <BikerFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 5,
+    id: 6,
     icon: <CheckBoxIcon width={24} height={24} fill={colors.grey[400]} />,
     passedIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
@@ -77,7 +84,7 @@ const OrderHistoryProgress = ({
     <div
       className={classNames(
         className,
-        'h-[32px] grid grid-cols-[2fr_repeat(3,3fr)_2fr] w-full items-center',
+        'h-[32px] grid grid-cols-[3fr_repeat(4,4fr)_3fr] w-full items-center',
       )}
     >
       {steps.map((item, index) => (
@@ -93,7 +100,10 @@ const OrderHistoryProgress = ({
 
           <div
             key={item.id}
-            className="w-full flex justify-center items-center px-2"
+            className={classNames(
+              `w-full flex justify-center items-center`,
+              `first:pr-0 last:pl-0 px-2`,
+            )}
           >
             {renderIcon(index)}
           </div>
