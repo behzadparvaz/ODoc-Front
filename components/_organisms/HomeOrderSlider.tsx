@@ -1,10 +1,8 @@
 import classNames from 'classnames';
 
-import {
-  useGetActiveOrderStatus,
-  useGetCurrentOrder,
-} from '@api/order/orderApis.rq';
-import OrderItem from '@com/_molecules/OrderItem';
+import { useGetCurrentOrder } from '@api/order/orderApis.rq';
+
+import HomeOrderItem from '@com/_molecules/homeOrderItem';
 
 const HomeOrderSlider = () => {
   // const { data: quickOrderData } = useGetActiveOrderStatus();
@@ -20,7 +18,7 @@ const HomeOrderSlider = () => {
           <div className={classNames('gap-x-2 pl-2')}>
             {currentOrder && currentOrder?.orderStatus?.name !== 'deliverd' && (
               <div className="w-full">
-                <OrderItem data={currentOrder} />
+                <HomeOrderItem data={currentOrder} />
               </div>
             )}
           </div>

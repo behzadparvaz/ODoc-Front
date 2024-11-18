@@ -59,9 +59,10 @@ const OrderDetailsContainer = () => {
             </>
           )}
 
-          {data?.orderStatus?.name !== 'draft' && (
-            <OrderDetailItems data={data} />
-          )}
+          {data?.orderStatus?.name !== 'draft' &&
+            data?.orderStatus?.name !== 'ack' && (
+              <OrderDetailItems data={data} />
+            )}
 
           {data?.description && (
             <>
