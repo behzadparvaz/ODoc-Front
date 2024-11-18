@@ -118,16 +118,18 @@ const ProductList = ({ searchTerm }: Props) => {
               title={mobileSearchTexts?.waiting}
             />
           ) : (
-            <div className="flex flex-col gap-y-2 items-center">
-              <EmptyContent
-                imgSrc="/static/images/staticImages/search-empty-content.png"
-                title={mobileSearchTexts?.noSearchResult}
-              />
+            <div className="flex flex-col justify-center gap-y-2 items-center w-full h-[200px] ">
+              <span className="text-sm text-content-primary font-medium">
+                محصولی با این نام یافت نشد
+              </span>
+              <span className="text-sm text-content-tertiary">
+                می توانید این محصول را به لیست سفارش های خود اضافه کنید
+              </span>
 
               <Button
-                variant="primary"
+                variant="secondary"
                 size="medium"
-                className="w-max px-4"
+                className="w-max px-4 mt-2"
                 onClick={() =>
                   push({
                     pathname: routeList.QuickOrder,
@@ -135,7 +137,7 @@ const ProductList = ({ searchTerm }: Props) => {
                   })
                 }
               >
-                سفارش سریع دارو
+                سفارش محصول
               </Button>
             </div>
           )}
