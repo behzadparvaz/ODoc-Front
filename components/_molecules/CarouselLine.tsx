@@ -113,7 +113,6 @@ const CarouselLine = ({
                 <VerticalProductCard
                   hasAddToCart
                   onClick={() => {
-                    console.log(item.productType);
                     if (item.productType === 1) {
                       push({
                         pathname: `${routeList?.searchProductPage}`,
