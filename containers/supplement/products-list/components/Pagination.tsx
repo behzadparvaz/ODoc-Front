@@ -12,7 +12,7 @@ type PaginationProps = {
 const Pagination = ({ lastPage }: PaginationProps) => {
   const { pathname, query, push } = useRouter();
 
-  const currentPage = Number(query?.page ? query?.page : 10);
+  const currentPage = Number(query?.pageNumber ? query?.pageNumber : 10);
   const nextPage = currentPage + 1;
   const previousPage = currentPage - 1;
 
@@ -20,7 +20,7 @@ const Pagination = ({ lastPage }: PaginationProps) => {
     push(
       {
         pathname: pathname,
-        query: { ...query, page: pageNumber },
+        query: { ...query, pageNumber: pageNumber },
       },
       undefined,
       { shallow: true },

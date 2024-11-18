@@ -36,7 +36,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
       <div className="h-[102px] px-4 py-2 flex items-center gap-2 justify-between">
         <Shop height={24} width={24} fill={colors.gray[600]} />
 
-        <div className="flex flex-col gap-1 h-full w-full">
+        <div className="flex flex-col justify-center gap-4 h-full w-full">
           <h3 className="text-base font-medium">
             {vendorData?.isShowName
               ? vendorData?.vendorName

@@ -17,6 +17,7 @@ const VendorDescriptionDetail = dynamic(
 const OrderDetailItems = dynamic(
   () => import('@com/_molecules/OrderDetailItems'),
 );
+const VendorSection = dynamic(() => import('../components/VendorSection'));
 
 const OfferPreviewContainer = () => {
   const { query } = useRouter();
@@ -54,6 +55,8 @@ const OfferPreviewContainer = () => {
       hasBackButton
     >
       <div className="w-full pb-[120px] flex flex-col overflow-y-scroll">
+        <VendorSection vendorCode={selectedOffer?.vendorCode} />
+
         <OrderDetailItems data={selectedOffer} />
 
         {!!selectedOffer?.description?.comment && (

@@ -142,7 +142,7 @@ const OtcMedicineCategories = () => {
         </div>
       )}
 
-      <div className="w-full px-4 h-max grid grid-rows-4 grid-cols-2 gap-4">
+      <div className="w-full px-4 h-max grid grid-cols-2 gap-4">
         {data?.queryResult?.map((item) => (
           <div
             key={item?.categoryCodeLevel1}
