@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 import NextImage from '@com/_core/NextImage';
@@ -13,14 +14,15 @@ import {
   FullModalContainer,
 } from '@com/modal/containers/fullMobileContainer';
 import { colors } from '@configs/Theme';
-import Link from 'next/link';
 import Divider from '@com/_atoms/Divider';
+import useModal from '@hooks/useModal';
 
 type VendorDetailModalProps = {
   data: any;
 };
 
 const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
+  const { removeLastModal } = useModal();
   const [staffColapseOpen, setStaffColapseOpen] = useState(true);
   const [contactColapseOpen, setcontactColapseOpen] = useState(true);
 
@@ -37,7 +39,10 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
       <MainLayout>
         <div className="relative aspect-w-23 aspect-h-10">
           <div className="w-full h-10 px-4 absolute z-20 top-1/4 flex justify-end items-center">
-            <div className="w-10 h-10 flex items-center justify-center bg-surface-primary overflow-hidden rounded-full">
+            <div
+              className="w-10 h-10 flex items-center justify-center bg-surface-primary overflow-hidden rounded-full cursor-pointer"
+              onClick={removeLastModal}
+            >
               <CloseIconOutline width={24} height={24} stroke={colors.black} />
             </div>
           </div>
@@ -90,10 +95,7 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
             >
               <div className="py-3 flex flex-col gap-y-3">
                 <span className="text-sm font-normal text-content-secondary">
-                  {`مدیر داروخانه: `}
-                </span>
-                <span className="text-sm font-normal text-content-secondary">
-                  {`مدیر فنی داروخانه: `}
+                  {`مدیر داروخانه: ${data?.founder?.name}`}
                 </span>
               </div>
             </motion.div>

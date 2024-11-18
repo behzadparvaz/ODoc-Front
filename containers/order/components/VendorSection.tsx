@@ -1,8 +1,9 @@
 import { CircleInfromationIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import VendorDetailModal from './VendorDetailModal';
 import { useGetVendorDetails } from '@api/vendor/vendor.rq';
+
+import VendorDetailModal from './VendorDetailModal';
 
 type VendorSectionProps = {
   vendorCode?: string;
@@ -35,7 +36,7 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
       </div>
 
       <span
-        className="w-6 h-6 flex items-center justify-center"
+        className="w-6 h-6 flex items-center justify-center cursor-pointer"
         onClick={handleVendorDetailModal}
       >
         <CircleInfromationIcon width={20} height={20} fill={colors?.black} />

@@ -49,15 +49,15 @@ const OrderDetailsContainer = () => {
 
           <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
 
-          {/* {data?.orderStatus?.name === 'pick' && ( */}
-          <>
-            <Divider />
+          {!!data?.vendorCode && (
+            <>
+              <Divider />
 
-            <div className="px-4 py-4">
-              <VendorDetail data={data} />
-            </div>
-          </>
-          {/* )} */}
+              <div className="px-4 py-4">
+                <VendorDetail data={data} />
+              </div>
+            </>
+          )}
 
           {data?.orderStatus?.name !== 'draft' && (
             <OrderDetailItems data={data} />
