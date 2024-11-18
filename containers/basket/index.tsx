@@ -17,6 +17,7 @@ import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import Divider from '@com/_atoms/Divider';
 
 const Page = () => {
   const router = useRouter();
@@ -56,7 +57,18 @@ const Page = () => {
     },
   });
 
-  const products = useMemo(() => basket?.products ?? [], [basket]);
+  const products = useMemo(() => {
+    const basketProducts = basket?.products?.map((item) => {
+      if (item?.productType?.id === 3) {
+        return {
+          ...item,
+          imageLink: '/static/images/staticImages/fast-order.png',
+        };
+      } else return item;
+    });
+
+    return basketProducts ?? [];
+  }, [basket]);
 
   return (
     <MainLayout
@@ -83,7 +95,7 @@ const Page = () => {
               <div className="w-full min-h-[400px] flex flex-col gap-y-4">
                 {!!basket?.refrenceNumber && (
                   <>
-                    <div className="w-full h-20 flex items-center justify-start gap-x-4">
+                    <div className="w-full h-20 flex items-center justify-start gap-x-2">
                       <NextImage
                         src={
                           basket?.isSpecialPatient
@@ -91,22 +103,20 @@ const Page = () => {
                             : prescriptionMedicine
                         }
                         alt="rx-image"
-                        width={72}
-                        height={72}
+                        width={68}
+                        height={68}
                       />
                       <div className="flex flex-col gap-y-1">
-                        <span className="text-base font-semibold">
+                        <span className="text-xs font-medium">
                           {basket?.isSpecialPatient
                             ? 'نسخه بیماری خاص'
                             : 'دارو با نسخه'}
                         </span>
-                        <span className="text-base font-semibold">{`کد نسخه ${basket?.refrenceNumber}`}</span>
+                        <span className="text-xs">{`کد نسخه ${basket?.refrenceNumber}`}</span>
                       </div>
                     </div>
 
-                    <div className="w-full px-4">
-                      <div className="w-full h-[1px] bg-grey-200" />
-                    </div>
+                    <Divider className="h-[0.5px]" padding={0} />
                   </>
                 )}
 
