@@ -1111,5 +1111,4 @@ const Icon = memo(
   },
 );
 
-// Export the fully memoized Icon component
 export default Icon;
