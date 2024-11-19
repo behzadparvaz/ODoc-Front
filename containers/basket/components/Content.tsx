@@ -1,9 +1,11 @@
 import Spinner from '@com/_atoms/Spinner';
-import { useEffect, useMemo, useState } from 'react';
-import BasketEmpty from './BasketEmpty';
-import BasketItems from './BasketItems';
-import OrderInProgress from './OrderInProgress';
-import PrescriptionItem from './PrescriptionItem';
+import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+
+const PrescriptionItem = dynamic(() => import('./PrescriptionItem'));
+const OrderInProgress = dynamic(() => import('./OrderInProgress'));
+const BasketItems = dynamic(() => import('./BasketItems'));
+const BasketEmpty = dynamic(() => import('./BasketEmpty'));
 
 interface IRenderContentProps {
   products: any[];

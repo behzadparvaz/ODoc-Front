@@ -1,16 +1,20 @@
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import {
   useDeleteCurrentBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
+
 import { Button } from '@com/_atoms/NewButton';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
+
 import { routeList } from '@routes/routeList';
-import Content from './components/Content';
+
+const Content = dynamic(() => import('./components/Content'));
 
 const Page = () => {
   const router = useRouter();
