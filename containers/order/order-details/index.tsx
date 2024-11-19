@@ -60,6 +60,8 @@ const OrderDetailsContainer = () => {
               </>
             )}
 
+          <Divider />
+
           {<OrderDetailItems data={data} />}
 
           {data?.description && (
@@ -92,6 +94,7 @@ const OrderDetailsContainer = () => {
           <Divider />
 
           {(data?.orderStatus?.name === 'draft' ||
+            data?.orderStatus?.name === 'ack' ||
             data?.orderStatus?.name === 'apay') && <CancelOrder />}
         </div>
       )}
