@@ -1,15 +1,11 @@
+import classNames from 'classnames';
+
 import {
   TenderItemsOrderDataModel,
   TenderOrderAltDataModel,
 } from '@utilities/interfaces/tender';
-import {
-  convertRialToToman,
-  convertRialToTomanNumber,
-} from '@utilities/mainUtils';
+import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import NextImage from '@com/_core/NextImage';
-import { DangerIcon } from '@com/icons';
-import { colors } from '@configs/Theme';
-import classNames from 'classnames';
 
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel | TenderOrderAltDataModel;
@@ -58,7 +54,7 @@ const OrderItemCard = ({
                 isUnavaiable && 'text-content-disabled',
               )}
             >
-              {`${item?.quantity} عدد`}
+              {`${item?.quantity} ${item?.unit}`}
             </span>
           </div>
 

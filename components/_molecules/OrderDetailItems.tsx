@@ -87,7 +87,11 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                   item={item}
                   dataLength={data?.orderDetails?.length}
                   orderStatus={data?.orderStatus?.name}
-                  isUnavaiable={!item?.price}
+                  isUnavaiable={
+                    data?.orderStatus?.name !== 'draft' &&
+                    data?.orderStatus?.name !== 'ack' &&
+                    !item?.price
+                  }
                 />
               ),
             )}

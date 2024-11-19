@@ -24,15 +24,15 @@ type Steps = {
 const steps: Steps[] = [
   {
     id: 1,
-    icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
-    passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
-    activeIcon: <TimerFillIcon width={24} height={24} gradient />,
-  },
-  {
-    id: 2,
     icon: <DoctorFillIcon width={24} height={24} fill={colors.gray[400]} />,
     passedIcon: <DoctorFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <DoctorFillIcon width={24} height={24} gradient />,
+  },
+  {
+    id: 2,
+    icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
+    passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <TimerFillIcon width={24} height={24} gradient />,
   },
   {
     id: 3,
@@ -96,7 +96,7 @@ const OrderHistoryProgress = ({
       )}
     >
       {steps.map((item, index) => {
-        if (!isHasQuickOrder && index === 1) {
+        if (!isHasQuickOrder && index === 0) {
           return null;
         }
         return (
@@ -104,14 +104,15 @@ const OrderHistoryProgress = ({
             key={item?.id}
             className="flex items-center justify-center w-full"
           >
-            {index !== 0 && (
-              <div
-                className={classNames(
-                  'w-full h-2 bg-surface-tertiary',
-                  activeStepId >= index && '!bg-surface-inverse-primary',
-                )}
-              />
-            )}
+            {index !== 0 &&
+              (!isHasQuickOrder && index === 1 ? null : (
+                <div
+                  className={classNames(
+                    'w-full h-2 bg-surface-tertiary',
+                    activeStepId >= index && '!bg-surface-inverse-primary',
+                  )}
+                />
+              ))}
 
             <div
               key={item.id}
