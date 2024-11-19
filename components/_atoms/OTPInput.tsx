@@ -50,6 +50,7 @@ export function OTPInputComponent(props: OTPInputProps) {
     helperText = '',
     ...rest
   } = props;
+  const { openNotification } = useNotification();
   const router = useRouter();
   const autoOtp = getDataFromCookies('otp');
   const [activeInput, setActiveInput] = useState(0);
@@ -213,6 +214,11 @@ export function OTPInputComponent(props: OTPInputProps) {
         signal: controler.signal,
       })
       .then((otp) => {
+        openNotification({
+          message: `code:${otp?.code}, id:${otp?.id}, type:${otp?.type}`,
+          type: 'info',
+          notifType: 'successOrFailedMessage',
+        });
         const otpCode = otp?.code
           ?.trim()
           ?.slice(0, length - activeInput)
