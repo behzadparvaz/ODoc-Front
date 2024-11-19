@@ -88,11 +88,20 @@ const ConfirmBasketContainer = () => {
       insuranceTypeId: basket?.insuranceType,
       supplementaryInsuranceTypeId: basket?.supplementaryInsuranceType,
 
-      items: products,
+      items: !basket?.refrenceNumber
+        ? products
+        : [
+            ...products,
+            {
+              referenceNumber: basket?.refrenceNumber,
+              productType: 1,
+            },
+          ],
 
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
     };
+
     createOrderDraft(data);
   };
 

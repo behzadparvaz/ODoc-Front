@@ -95,6 +95,7 @@ const TenderContainer = () => {
             <Divider />
 
             {(tenderData?.queryResult?.[0]?.orderStatus?.name === 'draft' ||
+              tenderData?.queryResult?.[0]?.orderStatus?.name === 'ack' ||
               tenderData?.queryResult?.[0]?.orderStatus?.name === 'apay') && (
               <CancelOrder />
             )}
