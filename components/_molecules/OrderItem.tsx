@@ -15,6 +15,10 @@ import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
 import { CloseIconOutline, NewTickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import {
+  useAddProductToBasket,
+  useGetCurrentBasket,
+} from '@api/basket/basketApis.rq';
 
 type OrderItemProps = {
   data: any;
@@ -28,6 +32,13 @@ const OrderItem = ({ data }: OrderItemProps) => {
       data?.orderStatus?.name === 'senddelivery') &&
       data?.orderCode,
   );
+  const { refetch: refetchGetBasket } = useGetCurrentBasket();
+  const { mutate: addToCart, isPending: isAddingToCart } =
+    useAddProductToBasket({
+      onSuccess: () => {
+        refetchGetBasket();
+      },
+    });
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -40,6 +51,19 @@ const OrderItem = ({ data }: OrderItemProps) => {
   const isHasQuickOrder = data?.orderDetails?.some(
     (item) => item?.type?.id === 3,
   );
+
+  const handleCreateOrderAgain = (e) => {
+    e?.stopPropagation();
+    data?.orderDetails?.map((item) =>
+      addToCart({
+        irc: item?.irc,
+        quantity: item?.quantity,
+        imageLink: item?.imageLink,
+        productName: item?.productName,
+        unit: item?.unit,
+      }),
+    );
+  };
 
   const renderIcon = () => {
     switch (data?.orderStatus?.name) {
@@ -261,7 +285,12 @@ const OrderItem = ({ data }: OrderItemProps) => {
                         : 'لغو شده'}
                     </span>
                   </span>
-                  <Button variant="secondary" size="medium">
+                  <Button
+                    variant="secondary"
+                    size="medium"
+                    className="z-10"
+                    onClick={handleCreateOrderAgain}
+                  >
                     سفارش مجدد
                   </Button>
                 </div>

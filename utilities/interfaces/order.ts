@@ -39,12 +39,17 @@ export type OrderDetailsDataModel = {
     deliveryCode?: number;
   };
 };
-export interface ProductInDraft {
-  irc: string;
-  productName: string;
-  quantity: number;
-  description: string;
-}
+export type ProductInDraft =
+  | {
+      irc: string;
+      productName: string;
+      quantity: number;
+      description: string;
+    }
+  | {
+      referenceNumber: string;
+      productType: number;
+    };
 
 export interface CreateOrderDraftPayload {
   referenceNumber: string;
