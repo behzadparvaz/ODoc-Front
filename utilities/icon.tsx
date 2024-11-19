@@ -1089,6 +1089,7 @@ const Icon = memo(
     const IconComponent = IconDictionary[name];
 
     if (!IconComponent) {
+      console.error(`Icon ${name as string} not found`);
       return null; // Return null if icon not found
     }
 
