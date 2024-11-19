@@ -139,36 +139,10 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
     );
   };
 
-  const handleAutoReadSMS = () => {
-    const controler = new AbortController();
-    setTimeout(
-      () => {
-        controler.abort();
-      },
-      1 * 60 * 1000,
-    );
-    const credentials: CredentialsContainer = navigator.credentials;
-    credentials
-      ?.get({
-        otp: { transport: ['sms'] },
-        signal: controler.signal,
-      })
-      .then((otp) => {
-        formik.setFieldValue('Code', otp?.code);
-        formik.handleSubmit();
-      })
-      .catch((err) => {
-        openNotification({
-          type: 'error',
-          message: err.message,
-          notifType: 'successOrFailedMessage',
-        });
-      });
+  const handleAutoReadSMS = (e) => {
+    e !== otpCode && setOtpCode(e);
+    e.length >= 6 ? formik.submitForm() : null;
   };
-
-  useEffect(() => {
-    handleAutoReadSMS();
-  }, []);
 
   const hasTime = timer.min + timer.sec > 0;
   return (
@@ -182,7 +156,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
       </p>
       <p className="flex justify-end px-4 text-xs font-medium pb-1.5">
         <span
-          className="flex gap-x-1"
+          className="flex gap-x-1 cursor-pointer"
           onClick={() => handleChangeForm('enterMobileNumber')}
         >
           <PencilOutline width={20} height={20} fill={colors?.black} />
@@ -199,6 +173,7 @@ const AuthOTP = ({ handleChangeForm, data }: Props) => {
           inputClassName="otpInput"
           onChangeOTP={handleChangeOtp}
           onPasteOtp={handlePasteOtp}
+          onAutoReadSMS={handleAutoReadSMS}
           disabled={sendVerifyCodeLoading}
         />
         <div className="w-full">
