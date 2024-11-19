@@ -83,6 +83,24 @@ const OrderDetailsContainer = () => {
             </>
           )}
 
+          {(data?.orderStatus?.name === 'cancelcustomer' ||
+            data?.orderStatus?.name === 'cancelvendor' ||
+            data?.orderStatus?.name === 'reject' ||
+            data?.orderStatus?.name === 'return') && (
+            <>
+              <Divider />
+
+              <div className="flex flex-col gap-y-2 p-4">
+                <span className="text-base text-content-primary font-medium">
+                  علت لغو توسط داروخانه
+                </span>
+                <span className="text-sm text-content-tertiary">
+                  {data?.cancelReason}
+                </span>
+              </div>
+            </>
+          )}
+
           <Divider />
 
           <Rules />
