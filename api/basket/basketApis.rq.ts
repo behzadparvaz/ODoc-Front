@@ -23,7 +23,6 @@ export const useGetCurrentBasket = <TQuery = Basket>(
     queryKey: ['getCurrentBasket'],
     queryFn: () => getCurrentBasket(),
     refetchOnMount: 'always',
-    // refetchInterval: 5000,
     ...options,
   });
 

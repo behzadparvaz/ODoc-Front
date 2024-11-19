@@ -1,0 +1,66 @@
+import Spinner from '@com/_atoms/Spinner';
+import { useEffect, useMemo, useState } from 'react';
+import BasketEmpty from './BasketEmpty';
+import BasketItems from './BasketItems';
+import OrderInProgress from './OrderInProgress';
+import PrescriptionItem from './PrescriptionItem';
+
+interface IRenderContentProps {
+  products: any[];
+  prescriptionId: string;
+  isSpecialPatient: boolean;
+  isLoading: boolean;
+  isOrderInProgress: boolean;
+  isEmpty: boolean;
+  refetchBasketHandler: () => void;
+}
+
+const Content = ({
+  products,
+  prescriptionId,
+  isSpecialPatient,
+  isLoading,
+  isOrderInProgress,
+  isEmpty,
+  refetchBasketHandler,
+}: IRenderContentProps) => {
+  const renderContent = useMemo(() => {
+    return (
+      <div className="relative h-full pb-[180px] pt-4 px-4 md:pb-[94px] overflow-auto">
+        {!isOrderInProgress && (
+          <div className="w-full min-h-[400px] flex flex-col gap-y-4">
+            {!!prescriptionId && (
+              <PrescriptionItem
+                BasketRefrenceNumber={prescriptionId}
+                BasketIsSpecialPatient={isSpecialPatient}
+              />
+            )}
+
+            <BasketItems
+              products={products}
+              refetchGetBasket={refetchBasketHandler}
+            />
+          </div>
+        )}
+      </div>
+    );
+  }, [isOrderInProgress, isSpecialPatient, products, prescriptionId]);
+
+  if (isLoading) {
+    return (
+      <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+    );
+  }
+
+  if (isOrderInProgress) {
+    return <OrderInProgress />;
+  }
+
+  if (isEmpty) {
+    return <BasketEmpty />;
+  }
+
+  return renderContent;
+};
+
+export default Content;
