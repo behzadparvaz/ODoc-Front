@@ -26,25 +26,24 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
 
   const renderStep = () => {
     switch (data?.orderStatus?.name) {
-      case 'ack':
-        return 0;
-
       case 'draft':
-        return isHasQuickOrder ? 1 : 0;
+        return 0;
+      case 'ack':
+        return 1;
       case 'apay':
       case 'nfc':
-        return isHasQuickOrder ? 2 : 1;
+        return 2;
 
       case 'pick':
       case 'accept':
-        return isHasQuickOrder ? 3 : 2;
+        return 3;
 
       case 'adelivery':
       case 'senddelivery':
-        return isHasQuickOrder ? 4 : 3;
+        return 4;
 
       case 'deliverd':
-        return isHasQuickOrder ? 5 : 4;
+        return 5;
 
       default:
         return;

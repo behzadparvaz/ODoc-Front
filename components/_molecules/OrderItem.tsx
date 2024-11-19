@@ -43,17 +43,17 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
   const renderIcon = () => {
     switch (data?.orderStatus?.name) {
-      case 'ack':
+      case 'draft':
         return (
           <OrderHistoryProgress
             activeStepId={0}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
-      case 'draft':
+      case 'ack':
         return (
           <OrderHistoryProgress
-            activeStepId={isHasQuickOrder ? 1 : 0}
+            activeStepId={1}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
@@ -61,7 +61,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'nfc':
         return (
           <OrderHistoryProgress
-            activeStepId={isHasQuickOrder ? 2 : 1}
+            activeStepId={2}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
@@ -70,7 +70,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'accept':
         return (
           <OrderHistoryProgress
-            activeStepId={isHasQuickOrder ? 3 : 2}
+            activeStepId={3}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
@@ -79,7 +79,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'senddelivery':
         return (
           <OrderHistoryProgress
-            activeStepId={isHasQuickOrder ? 4 : 3}
+            activeStepId={4}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
@@ -87,7 +87,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'deliverd':
         return (
           <OrderHistoryProgress
-            activeStepId={isHasQuickOrder ? 5 : 4}
+            activeStepId={5}
             isHasQuickOrder={isHasQuickOrder}
           />
         );
