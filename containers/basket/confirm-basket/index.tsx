@@ -57,6 +57,7 @@ const ConfirmBasketContainer = () => {
         quantity: pr.quantity,
         productName: pr.name,
         unit: pr.unit,
+        productType: pr?.productType?.id,
       })) ?? [];
 
     if (!defaultAddress?.id) {

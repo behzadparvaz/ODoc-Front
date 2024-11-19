@@ -183,10 +183,6 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
                 variant="secondary"
                 size="large"
                 onClick={handleClearFilters}
-                // onClick={() => {
-                //   setSelectedShape(null);
-                //   setSelectedBrand(null);
-                // }}
               >
                 حذف همه
               </Button>

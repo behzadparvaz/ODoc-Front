@@ -6,6 +6,7 @@ export const orderText = {
   enterPhoneNumber: 'شماره تماس را وارد کنید',
   enterDoctorName: 'نام پزشک را وارد کنید',
   insuranceType: 'نوع بیمه خود را مشخص کنید',
+  insurancePlaceholder: 'نام بیمه',
   additionalInsuranceType: 'نوع بیمه تکمیلی خود را مشخص کنید',
   doctorName: 'نام پزشک',
   description: 'توضیحات',
@@ -20,4 +21,5 @@ export const orderText = {
   failurePaymentHelperText: 'برای اطلاعات بیشتر با پشتیبانی تماس بگیرید',
   successPaymentText: 'پرداخت شما با موفقیت انجام شد',
   selectDrugStore: 'داروخانه را انتخاب کنید',
+  drugStorePlaceholder: 'نام داروخانه',
 };

@@ -133,9 +133,14 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
         />
       </div>
       <Accordion
+        label={orderText?.insuranceType}
         header={
           <label className="font-semibold text-xs text-gray-800 block">
-            {orderText?.insuranceType}
+            {formik.values?.insuranceTypeId
+              ? insurances?.find(
+                  (item) => item?.id === formik?.values?.insuranceTypeId,
+                )?.name
+              : orderText?.insurancePlaceholder}
           </label>
         }
         content={insurances?.map((item, index) => (
@@ -172,9 +177,15 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
       {isSpecialPatient ? (
         <>
           <Accordion
+            label={orderText?.additionalInsuranceType}
             header={
               <label className="font-semibold text-xs text-gray-800 block">
-                {orderText?.additionalInsuranceType}
+                {formik.values?.supplementaryInsuranceType
+                  ? filteredInsurances?.find(
+                      (item) =>
+                        item?.id === formik?.values?.supplementaryInsuranceType,
+                    )?.name
+                  : orderText?.insurancePlaceholder}
               </label>
             }
             content={
@@ -240,9 +251,14 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
             }
           />
           <Accordion
+            label={orderText?.selectDrugStore}
             header={
               <label className="font-semibold text-xs text-gray-800 block">
-                {orderText?.selectDrugStore}
+                {formik.values?.vendorCode
+                  ? vendors?.find(
+                      (item) => item?.vendorCode === formik?.values?.vendorCode,
+                    )?.vendorName
+                  : orderText?.drugStorePlaceholder}
               </label>
             }
             content={vendors?.map((item) => (

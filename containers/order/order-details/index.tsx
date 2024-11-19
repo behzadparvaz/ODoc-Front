@@ -17,6 +17,8 @@ const DescriptionDetail = dynamic(
 );
 const CancelOrder = dynamic(() => import('../components/CancelOrder'));
 const Contact = dynamic(() => import('../components/Contact'));
+const DeliveryDetail = dynamic(() => import('../components/DeliveryDetail'));
+const VendorDetail = dynamic(() => import('../components/VendorDetail'));
 
 const OrderDetailsContainer = () => {
   const { query } = useRouter();
@@ -36,11 +38,29 @@ const OrderDetailsContainer = () => {
         <div className="w-full h-max rounded-t-lg flex flex-col">
           <GeneralDetail data={data} />
 
+          {(data?.orderStatus?.name === 'adelivery' ||
+            data?.orderStatus?.name === 'senddelivery') && (
+            <>
+              <DeliveryDetail data={data} />
+
+              <Divider />
+            </>
+          )}
+
           <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
 
-          {data?.orderStatus?.name !== 'draft' && (
-            <OrderDetailItems data={data} />
-          )}
+          {data?.orderStatus?.name !== 'draft' &&
+            data?.orderStatus?.name !== 'ack' && (
+              <>
+                <Divider />
+
+                <div className="px-4 py-4">
+                  <VendorDetail data={data} />
+                </div>
+              </>
+            )}
+
+          {<OrderDetailItems data={data} />}
 
           {data?.description && (
             <>

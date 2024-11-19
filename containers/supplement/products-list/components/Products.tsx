@@ -60,8 +60,8 @@ const Products = () => {
   );
 
   const isShownPagination = useMemo(
-    () => data?.pages?.at(-1).pageNumber >= 10 || query?.page,
-    [data?.pages?.at(-1)?.pageNumber, query?.page],
+    () => data?.pages?.at(-1).pageNumber >= 10 || query?.pageNumber,
+    [data?.pages?.at(-1)?.pageNumber, query?.pageNumber],
   );
 
   useEffect(() => {
@@ -95,7 +95,8 @@ const Products = () => {
       className={classNames(
         'h-full w-full grid grid-cols-2 overflow-y-scroll',
         query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
-        (data?.pages?.at(-1)?.pageNumber >= 10 || query?.page) && 'mb-[86px]',
+        (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
+          'mb-[86px]',
       )}
     >
       {productList?.map((item) => (
@@ -106,14 +107,14 @@ const Products = () => {
               query: { ...query },
             })
           }
-          className="border border-border-primary"
+          className="border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
           key={item?.irc}
           hasAddToCart
         />
       ))}
 
-      {data?.pages?.at(-1)?.pageNumber < 10 && !query?.page && (
+      {data?.pages?.at(-1)?.pageNumber < 10 && !query?.pageNumber && (
         <div ref={ref} className="w-full col-start-1 col-end-3">
           {hasNextPage && isFetchingNextPage && (
             <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">

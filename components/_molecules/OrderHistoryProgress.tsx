@@ -24,15 +24,15 @@ type Steps = {
 const steps: Steps[] = [
   {
     id: 1,
-    icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
-    passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
-    activeIcon: <TimerFillIcon width={24} height={24} gradient />,
-  },
-  {
-    id: 2,
     icon: <DoctorFillIcon width={24} height={24} fill={colors.gray[400]} />,
     passedIcon: <DoctorFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <DoctorFillIcon width={24} height={24} gradient />,
+  },
+  {
+    id: 2,
+    icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
+    passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <TimerFillIcon width={24} height={24} gradient />,
   },
   {
     id: 3,
@@ -64,11 +64,16 @@ const steps: Steps[] = [
   },
 ];
 
-type OrderHistoryProgressProps = { activeStepId: number; className?: string };
+type OrderHistoryProgressProps = {
+  activeStepId: number;
+  className?: string;
+  isHasQuickOrder?: boolean;
+};
 
 const OrderHistoryProgress = ({
   activeStepId,
   className,
+  isHasQuickOrder,
 }: OrderHistoryProgressProps) => {
   const renderIcon = (index) => {
     if (activeStepId > index) {
@@ -84,41 +89,53 @@ const OrderHistoryProgress = ({
     <div
       className={classNames(
         className,
-        'h-[32px] grid grid-cols-[3fr_repeat(4,4fr)_3fr] w-full items-center',
+        'h-[32px] grid  w-full items-center',
+        isHasQuickOrder
+          ? 'grid-cols-[3fr_repeat(4,4fr)_3fr]'
+          : 'grid-cols-[2fr_repeat(3,3fr)_2fr]',
       )}
     >
-      {steps.map((item, index) => (
-        <div key={item?.id} className="flex items-center justify-center w-full">
-          {index !== 0 && (
-            <div
-              className={classNames(
-                'w-full h-2 bg-surface-tertiary',
-                activeStepId >= index && '!bg-surface-inverse-primary',
-              )}
-            />
-          )}
-
+      {steps.map((item, index) => {
+        if (!isHasQuickOrder && index === 0) {
+          return null;
+        }
+        return (
           <div
-            key={item.id}
-            className={classNames(
-              `w-full flex justify-center items-center`,
-              `first:pr-0 last:pl-0 px-2`,
-            )}
+            key={item?.id}
+            className="flex items-center justify-center w-full"
           >
-            {renderIcon(index)}
-          </div>
+            {index !== 0 &&
+              (!isHasQuickOrder && index === 1 ? null : (
+                <div
+                  className={classNames(
+                    'w-full h-2 bg-surface-tertiary',
+                    activeStepId >= index && '!bg-surface-inverse-primary',
+                  )}
+                />
+              ))}
 
-          {index !== steps?.length - 1 && (
             <div
+              key={item.id}
               className={classNames(
-                'w-full h-2 bg-surface-tertiary',
-                activeStepId > index && '!bg-surface-inverse-primary',
-                activeStepId === index && '!bg-surface-Gradient.brand',
+                `w-full flex justify-center items-center`,
+                `first:pr-0 last:pl-0 px-2`,
               )}
-            />
-          )}
-        </div>
-      ))}
+            >
+              {renderIcon(index)}
+            </div>
+
+            {index !== steps?.length - 1 && (
+              <div
+                className={classNames(
+                  'w-full h-2 bg-surface-tertiary',
+                  activeStepId > index && '!bg-surface-inverse-primary',
+                  activeStepId === index && '!bg-surface-Gradient.brand',
+                )}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

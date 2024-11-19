@@ -62,7 +62,18 @@ const Page = () => {
     },
   });
 
-  const products = useMemo(() => basket?.products ?? [], [basket]);
+  const products = useMemo(() => {
+    const basketProducts = basket?.products?.map((item) => {
+      if (item?.productType?.id === 3) {
+        return {
+          ...item,
+          imageLink: '/static/images/staticImages/fast-order.png',
+        };
+      } else return item;
+    });
+
+    return basketProducts ?? [];
+  }, [basket]);
 
   return (
     <MainLayout
