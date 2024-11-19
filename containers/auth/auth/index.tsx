@@ -38,7 +38,7 @@ const AuthContainer = () => {
       >
         <div className="absolute w-full text-center flex justify-center items-center top-14 z-10">
           <NextImage
-            src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+            src={'/images/logo/tapsi-doctor-logo.svg'}
             width={145}
             height={24}
             alt="tapsi-daroo-logo"
@@ -46,7 +46,7 @@ const AuthContainer = () => {
         </div>
         <div className="h-full">
           <NextImage
-            src={'/static/images/staticImages/login-bg.png'}
+            src={'/images/login-bg.png'}
             alt="login"
             fill
             style={{ objectFit: 'cover' }}

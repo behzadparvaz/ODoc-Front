@@ -114,7 +114,7 @@ const ProductList = ({ searchTerm }: Props) => {
             ))
           ) : plpData?.isLoading || plpData?.isFetching ? (
             <EmptyContent
-              imgSrc="/static/images/staticImages/search-empty-content.png"
+              imgSrc="/images/search-empty-content.png"
               title={mobileSearchTexts?.waiting}
             />
           ) : (

@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
+import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
+import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
 import { colors } from '@configs/Theme';
 import {
   TenderItemsListDataModel,
@@ -55,8 +55,8 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     <NextImage
                       src={
                         data?.isSpecialPatient
-                          ? specialPatients
-                          : prescriptionMedicine
+                          ? SpecialPatients
+                          : PrescriptionMedicine
                       }
                       alt="Rx-image"
                       width={40}

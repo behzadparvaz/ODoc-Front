@@ -13,7 +13,7 @@ const bannerData = [
     backgroundColor: null,
     carouselType: 2,
     endDateTime: null,
-    icon: '/static/images/staticImages/supplement-banner.png',
+    icon: '/images/supplement-banner.png',
     isActive: true,
     products: null,
     recId: 18,

@@ -62,7 +62,7 @@ const TenderItemDetail = ({
         <div className="w-full h-[128] grid grid-rows-1 grid-cols-1 items-start">
           <div className="row-start-1 row-end-2 col-sart-1 col-end-2 flex justify-start items-center object-contain overflow-hidden">
             <Image
-              src={'/static/images/staticImages/tender-detail-banner.png'}
+              src={'/images/tender-detail-banner.png'}
               width={460}
               height={128}
               alt="tender-detail-banner"

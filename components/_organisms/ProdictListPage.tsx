@@ -121,7 +121,7 @@ export default function ProdictListPage({}: Props) {
               ) : (
                 <div className="flex justify-center items-center">
                   <EmptyContent
-                    imgSrc="/static/images/staticImages/search-empty-content.png"
+                    imgSrc="/images/search-empty-content.png"
                     title={mobileSearchTexts?.noSearchResult}
                   />
                 </div>

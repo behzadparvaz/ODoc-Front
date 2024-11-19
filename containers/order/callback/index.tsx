@@ -8,7 +8,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import NextImage from '@com/_core/NextImage';
 
-import tapsiLogo from '@static/images/staticImages/tapsi-doctor-logo.svg';
+import tapsiLogo from '@public/images/logo/tapsi-doctor-logo.svg';
 
 const CallBackContainer = () => {
   const { query } = useRouter();

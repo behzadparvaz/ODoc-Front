@@ -15,8 +15,8 @@ import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import specialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
+import prescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
 import Divider from '@com/_atoms/Divider';
 
 const Page = () => {
@@ -62,7 +62,7 @@ const Page = () => {
       if (item?.productType?.id === 3) {
         return {
           ...item,
-          imageLink: '/static/images/staticImages/fast-order.png',
+          imageLink: '/images/fast-order.png',
         };
       } else return item;
     });
