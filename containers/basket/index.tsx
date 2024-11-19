@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import {
   useDeleteCurrentBasket,
@@ -67,7 +67,7 @@ const Page = () => {
       if (item?.productType?.id === 3) {
         return {
           ...item,
-          imageLink: '/static/images/staticImages/fast-order.png',
+          imageLink: '/images/fast-order.png',
         };
       } else return item;
     });

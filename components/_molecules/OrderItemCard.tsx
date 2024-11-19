@@ -28,9 +28,7 @@ const OrderItemCard = ({
           <div className="w-[40px] h-[40px] rounded-xl overflow-hidden flex justify-center items-center">
             <NextImage
               src={
-                item?.imageLink
-                  ? item?.imageLink
-                  : '/static/images/staticImages/emptyProduct.png'
+                item?.imageLink ? item?.imageLink : '/images/emptyProduct.png'
               }
               alt="order-details"
               width={40}

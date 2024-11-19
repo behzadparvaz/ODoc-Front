@@ -1,6 +1,6 @@
 import NextImage from '@com/_core/NextImage';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
+import specialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
+import prescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
 
 interface NotOtcProps {
   BasketRefrenceNumber: string;

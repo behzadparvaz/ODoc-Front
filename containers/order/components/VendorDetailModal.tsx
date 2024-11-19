@@ -47,11 +47,7 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
             </div>
           </div>
 
-          <NextImage
-            alt="vendor-page"
-            src={'/static/images/staticImages/vendor-page.png'}
-            fill
-          />
+          <NextImage alt="vendor-page" src={'/images/vendor-page.png'} fill />
         </div>
 
         <div className="w-full flex justify-end px-[20px] -translate-y-[46px]">

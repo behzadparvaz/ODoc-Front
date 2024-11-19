@@ -119,7 +119,7 @@ const OtcMedicineCategories = () => {
               <div className="w-[64px] h-[64px] flex items-center justify-center rounded-lg overflow-hidden">
                 <NextImage
                   alt="fast-order"
-                  src={'/static/images/staticImages/fast-order.png'}
+                  src={'/images/fast-order.png'}
                   width={64}
                   height={64}
                 />
@@ -171,7 +171,7 @@ const OtcMedicineCategories = () => {
         <div className="w-full px-4">
           <div className="!aspect-w-23 !aspect-h-10">
             <NextImage
-              src={'/static/images/staticImages/otc-medicine-banner.png'}
+              src={'/images/otc-medicine-banner.png'}
               alt="fast-order"
               fill
               style={{ objectFit: 'contain' }}

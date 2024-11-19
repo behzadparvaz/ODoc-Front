@@ -26,8 +26,7 @@ const NextImage = ({
   };
 
   // Determine the source to use: either the provided src or the error image
-  const effectiveSrc =
-    imageError || !src ? '/static/images/staticImages/errorImage.png' : src;
+  const effectiveSrc = imageError || !src ? 'images/emptyImage.png' : src;
 
   return (
     <Image
