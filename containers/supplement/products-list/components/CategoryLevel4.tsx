@@ -32,11 +32,13 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
 
   useEffect(() => {
     if (!!query?.categoryCodeLevel3) {
-      const fleteredCategories = categoryLevel4?.filter(
-        (item) => item?.categoryCodeLevel4 === query?.categoryCodeLevel4,
-      );
-      if (fleteredCategories) {
-        setSelectedCategory(fleteredCategories?.[0]);
+      if (!!categoryLevel4?.length) {
+        const fleteredCategories = categoryLevel4?.filter(
+          (item) => item?.categoryCodeLevel4 === query?.categoryCodeLevel4,
+        );
+        if (fleteredCategories) {
+          setSelectedCategory(fleteredCategories?.[0]);
+        }
       }
     }
   }, [query?.categoryCodeLevel4, categoryLevel4]);
@@ -102,9 +104,10 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   };
 
   if (
-    !categoryLevel4IsLoading &&
-    categoryLevel4?.length === 1 &&
-    categoryLevel4?.[0]?.categoryCodeLevel4 === null
+    (!categoryLevel4IsLoading &&
+      categoryLevel4?.length === 1 &&
+      categoryLevel4?.[0]?.categoryCodeLevel4 === null) ||
+    !categoryLevel4?.length
   ) {
     return;
   }
@@ -112,7 +115,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   if (categoryLevel4IsLoading) {
     return (
       <div className="w-full h-[80px] flex justify-center items-center">
-        {shimerItems.map((item) => (
+        {shimerItems?.map((item) => (
           <div
             key={item}
             className="h-full w-1/4 bg-surface-secondary animate-pulse"
@@ -126,9 +129,10 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
     <div className="h-[80px] bg-surface-secondary flex flex-col justify-center items-center">
       <ScrollSlider className="flex flex-col justify-center h-full">
         <div className="w-max min-w-full flex items-center bg-surface-secondary">
-          {categoryLevel4?.map((item) => (
-            <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
-          ))}
+          {categoryLevel4.length > 0 &&
+            categoryLevel4?.map((item) => (
+              <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
+            ))}
         </div>
       </ScrollSlider>
     </div>
