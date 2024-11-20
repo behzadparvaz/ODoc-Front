@@ -52,6 +52,9 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
 
       <div className="h-[68px] flex items-center px-4 gap-2">
         {data?.orderDetails?.map((item, index) => {
+          if (item?.referenceNumber) {
+            return;
+          }
           return (
             <div
               key={index}
@@ -81,7 +84,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
           قابل پرداخت
         </span>
         <span className="text-sm text-content-primary font-medium">
-          {convertRialToTomanNumber(data?.finalPrice)}
+          {convertRialToTomanNumber(data?.finalPrice)?.toLocaleString('fa-IR')}
           <span className="text-xs"> تومان</span>
         </span>
       </div>

@@ -61,7 +61,7 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
             {data?.vendorName}
           </span>
 
-          <span className="w-full px-5 py-3 h-[32px] text-xs text-content-primary">
+          <span className="w-full px-5 py-3 h-full min-h-[32px] text-xs text-content-primary">
             {data?.location?.address}
           </span>
 

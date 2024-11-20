@@ -51,7 +51,7 @@ const ConfirmBasketContainer = () => {
     const { defaultAddress } = user;
     const products =
       basket?.products?.map((pr) => ({
-        description: pr.name,
+        description: pr.description,
         irc: pr.irc,
         imageLink: pr.imageLink,
         quantity: pr.quantity,
