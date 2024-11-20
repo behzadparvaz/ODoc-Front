@@ -114,12 +114,13 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
 
-            {data?.orderStatus?.name === 'draft' && (
-              <Countdown
-                expirationTime={acceptExpirationTime}
-                className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
-              />
-            )}
+            {data?.orderStatus?.name === 'draft' ||
+              (data?.orderStatus?.name === 'ack' && (
+                <Countdown
+                  expirationTime={acceptExpirationTime}
+                  className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
+                />
+              ))}
           </div>
         );
       case 'deliverd':

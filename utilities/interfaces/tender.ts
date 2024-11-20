@@ -10,6 +10,7 @@ export type TenderOrderAltDataModel = {
   quantity: number;
   imageLink: string;
   unit?: string;
+  description?: string;
 };
 export type TenderOrderdisCountDataModel = {
   amount: number;
@@ -38,6 +39,7 @@ export type TenderItemsOrderDataModel = {
   status: { name: string; id: number };
   tax: number;
   unit: string;
+  referenceNumber?: string;
 };
 
 export type TenderCustomerAddressDataModel = {

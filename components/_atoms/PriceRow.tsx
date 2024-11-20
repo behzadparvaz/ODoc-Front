@@ -9,10 +9,10 @@ const RenderPriceRow = ({ name, value }: RenderPriceRowProps) => {
   return (
     <div className="flex items-center justify-between">
       <span className="text-content-tertiary text-sm font-normal">{name}</span>
-      <span className="flex items-center text-content-primary text-base font-normal">
+      <span className="flex items-center text-content-primary text-base font-normal gap-x-1">
         {!!value ? (
           <>
-            {convertRialToTomanNumber(value)}
+            {convertRialToTomanNumber(value)?.toLocaleString('fa-IR')}
             <span className="text-xs text-content-primary"> تومان</span>
           </>
         ) : (

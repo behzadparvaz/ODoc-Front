@@ -46,13 +46,14 @@ const OrderItemCard = ({
             >
               {item?.productName}
             </p>
+
             <span
               className={classNames(
                 'text-2xs leading-5 text-content-tertiary',
                 isUnavaiable && 'text-content-disabled',
               )}
             >
-              {`${item?.quantity} ${item?.unit}`}
+              {`${item?.quantity} ${item?.unit ? item?.unit : 'عدد'}`}
             </span>
           </div>
 
@@ -66,9 +67,15 @@ const OrderItemCard = ({
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-sm font-medium leading-5">
-                    {item?.price ? convertRialToTomanNumber(item?.price) : ''}
-                    <span className="text-xs"> تومان</span>
+                  <span className="text-sm font-medium leading-5 flex items-center gap-x-1">
+                    {item?.price
+                      ? convertRialToTomanNumber(item?.price)?.toLocaleString(
+                          'fa-IR',
+                        )
+                      : ''}
+                    <span className="text-xs">
+                      {item?.price ? 'تومان' : ''}
+                    </span>
                   </span>
                 )}
               </>

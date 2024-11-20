@@ -23,6 +23,7 @@ type ProductInBasket = {
   slangs?: string[];
   imagelink?: string;
   isRequestOrder?: boolean;
+  description?: string;
   productType: {
     id: number;
     name: string;
