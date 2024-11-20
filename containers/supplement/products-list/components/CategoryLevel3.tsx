@@ -91,7 +91,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
 
   if (categoryLevel3IsLoading) {
     return (
-      <div className="flex flex-col h-[100px] absolute top-[56px] left-0 w-full bg-surface-primary z-50">
+      <div className="flex flex-col h-[100px] sticky top-0 left-0 w-full bg-surface-primary z-50">
         <div className="w-full h-[44px] flex flex-col gap-0">
           <div className="h-full w-full flex">
             {shimerItems.map((item) => (
@@ -109,7 +109,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
   }
 
   return (
-    <div className="flex flex-col absolute top-[56px] left-0 w-full bg-surface-primary z-50">
+    <div className="flex flex-col sticky top-0 left-0 w-full bg-surface-primary z-50">
       <ScrollSlider className="flex flex-col">
         <div className="w-max min-w-full flex">
           <>

@@ -75,7 +75,6 @@ const Products = () => {
       <div
         className={classNames(
           'h-full w-full grid grid-cols-2 overflow-y-scroll',
-          query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
         )}
       >
         {[...Array(8).keys()].map((item) => (
@@ -94,7 +93,6 @@ const Products = () => {
     <div
       className={classNames(
         'h-full w-full grid grid-cols-2 overflow-y-scroll',
-        query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
         (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
           'mb-[86px]',
       )}
