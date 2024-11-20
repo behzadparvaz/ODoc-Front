@@ -1,4 +1,5 @@
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
+import classNames from 'classnames';
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
@@ -38,6 +39,7 @@ const NextImage = ({
       width={width}
       height={height}
       onError={handleImageError}
+      className={classNames('pointer-events-none select-none', rest.className)}
       {...rest}
     />
   );
