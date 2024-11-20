@@ -67,7 +67,7 @@ const OrderItemCard = ({
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-sm font-medium leading-5 flex items-center gap-x-1">
+                  <span className="text-sm font-medium leading-5 flex items-center gap-x-1 pr-4">
                     {item?.price
                       ? convertRialToTomanNumber(item?.price)?.toLocaleString(
                           'fa-IR',

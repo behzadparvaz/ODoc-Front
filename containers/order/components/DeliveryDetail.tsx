@@ -11,8 +11,6 @@ const DeliveryDetail = ({ data }: DeliveryDetailProps) => {
       data?.orderCode,
   );
 
-  const deliveryCodeMock = '1643';
-
   return (
     <div className="w-full flex flex-col px-4 py-2">
       <span className="text-base font-medium h-[52px] py-3">اطلاعات پیک</span>
@@ -26,7 +24,7 @@ const DeliveryDetail = ({ data }: DeliveryDetailProps) => {
         <span className="text-sm text-content-primary">کد تحویل سفارش</span>
 
         <div className="flex items-center flex-row-reverse gap-x-2">
-          {deliveryCodeMock
+          {deliveryCode
             ?.toString()
             .split('')
             .map((item, index) => (
