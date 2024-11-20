@@ -8,6 +8,7 @@ import {
   updateCountProductBasket,
   UpdateCountProductBasketPayload
 } from '@api/basket/basketApis';
+import useNotification from '@hooks/useNotification';
 import {
   useMutation,
   UseMutationOptions,
@@ -60,8 +61,20 @@ export const useAddProductToBasket: (
   options?: UseMutationOptions<unknown, unknown, BasketPayload>,
 ) => UseMutationResult<unknown, unknown, BasketPayload> = (
   options,
-) =>
-    useMutation({
+) => {
+    const { openNotification } = useNotification()
+    return useMutation({
       mutationFn: (variables) => addProductToBasket(variables),
+      onSuccess(data, variables, context) {
+        console.log(data, variables, context);
+      },
+      onError: (err: any) => {
+        openNotification({
+          type: 'error',
+          message: err?.response?.data?.message,
+          notifType: 'successOrFailedMessage',
+        });
+      },
       ...options,
-    });
+    })
+  };
