@@ -33,9 +33,23 @@ const Carousel = ({ products = null }) => {
             return (
               <VerticalProductCard
                 hasAddToCart
-                onClick={() =>
-                  router.push(`${routeList.supplementProduct}/${item.irc}`)
-                }
+                onClick={() => {
+                  if (item.productType === 1) {
+                    router.push({
+                      pathname: `${routeList?.searchProductPage}`,
+                      query: {
+                        brandName: item.brandName,
+                        categoryCodeLevel3: item.categoryCodeLevel3,
+                        irc: item.genericCode || item.irc,
+                      },
+                    });
+                  }
+                  if (item.productType === 2) {
+                    router.push({
+                      pathname: `${routeList?.supplementProduct}/${item.genericCode || item.irc}`,
+                    });
+                  }
+                }}
                 productData={data}
                 className={classNames(
                   `!w-[110px] items-center border-border-primary py-5 bg-white rounded-md mr-4`,
