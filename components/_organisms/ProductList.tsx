@@ -89,7 +89,7 @@ const ProductList = ({ searchTerm }: Props) => {
                         query: {
                           brandName: product.brandName,
                           categoryCodeLevel3: product.categoryCodeLevel3,
-                          irc: product.genericCode,
+                          irc: product.genericCode || product.irc,
                         },
                       });
                     }
