@@ -69,21 +69,21 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           );
         }}
         key={item?.categoryCodeLevel4}
-        className="w-full flex flex-col items-center cursor-pointer px-4 py-3 gap-y-1"
+        className="w-full flex flex-col items-center cursor-pointer px-4 gap-y-1"
       >
         <div
           className={classNames(
-            'w-[34px] h-[34px] flex items-center justify-center overflow-hidden rounded-full',
+            'w-[48px] h-[48px] flex items-center justify-center overflow-hidden rounded-full',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
               'bg-surface-Gradient.brand',
           )}
         >
-          <div className="h-8 w-8 flex justify-center items-center overflow-hidden rounded-full object-fill">
+          <div className="h-[48px] w-[48px] flex justify-center items-center overflow-hidden rounded-full object-fill">
             <NextImage
               alt="supplement-category-l4"
-              src={item?.iconImage}
-              width={32}
-              height={32}
+              src={item?.iconLink}
+              width={48}
+              height={48}
             />
           </div>
         </div>
@@ -123,9 +123,9 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   }
 
   return (
-    <div className="h-[80px] bg-surface-secondary flex flex-col">
-      <ScrollSlider className="flex flex-col">
-        <div className="w-max min-w-full flex bg-surface-secondary">
+    <div className="h-[80px] bg-surface-secondary flex flex-col justify-center items-center">
+      <ScrollSlider className="flex flex-col h-full">
+        <div className="w-max min-w-full flex items-center bg-surface-secondary">
           {categoryLevel4?.map((item) => (
             <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
           ))}
