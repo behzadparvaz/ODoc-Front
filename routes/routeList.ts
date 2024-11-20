@@ -16,7 +16,6 @@ export const routeList = {
   ordersHistory: '/app/orders-history',
   successOrder: '/app/success-order',
   orderDetail: '/app/order-detail',
-  mobileSearch: '/app/mobileSearch',
   search: '/app/search',
   offer: '/app/offer',
   category: '/app/category',

@@ -1,4 +1,5 @@
-import ProductListContainer from '@containers/offer';
+import dynamic from 'next/dynamic';
+const ProductListContainer = dynamic(() => import('@containers/offer'));
 
 const ProductListPage = () => {
   return <ProductListContainer />;

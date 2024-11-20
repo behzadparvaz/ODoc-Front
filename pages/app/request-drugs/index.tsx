@@ -1,4 +1,7 @@
-import RequestDrugsContainer from '@containers/medicine/request-drugs/request-drugs';
+import dynamic from 'next/dynamic';
+const RequestDrugsContainer = dynamic(
+  () => import('@containers/medicine/request-drugs/request-drugs'),
+);
 
 const RequestDrugsPage = () => {
   return <RequestDrugsContainer />;
