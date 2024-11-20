@@ -90,7 +90,7 @@ const MainPageLayout = ({
             </div>
           ) : (
             <NextImage
-              src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+              src={'/images/logo/tapsi-doctor-logo.svg'}
               height={20}
               width={110}
               alt=""

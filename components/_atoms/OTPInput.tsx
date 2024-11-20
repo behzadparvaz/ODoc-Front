@@ -11,11 +11,13 @@ import SingleInput from './SingleOTPInput';
 import { useRouter } from 'next/router';
 import Cookies from 'js-cookie';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
+import useNotification from '@hooks/useNotification';
 
 export interface OTPInputProps {
   length: number;
   onChangeOTP?: (otp: string) => any;
   onPasteOtp?: (otp: string) => any;
+  onAutoReadSMS?: (otp: string) => any;
   setState?: Dispatch<
     SetStateAction<{ mobileNumber: string; code: string; handleReset: boolean }>
   >;
@@ -39,6 +41,7 @@ export function OTPInputComponent(props: OTPInputProps) {
     disabled,
     onChangeOTP,
     onPasteOtp,
+    onAutoReadSMS,
     inputClassName,
     inputStyle,
     name,
@@ -47,6 +50,7 @@ export function OTPInputComponent(props: OTPInputProps) {
     helperText = '',
     ...rest
   } = props;
+  const { openNotification } = useNotification();
   const router = useRouter();
   const autoOtp = getDataFromCookies('otp');
   const [activeInput, setActiveInput] = useState(0);
@@ -195,6 +199,38 @@ export function OTPInputComponent(props: OTPInputProps) {
     [activeInput, getRightValue, length, otpValues],
   );
 
+  const handleAutoReadSMS = () => {
+    const controler = new AbortController();
+    setTimeout(
+      () => {
+        controler.abort();
+      },
+      3 * 60 * 1000,
+    );
+    const credentials: CredentialsContainer = navigator.credentials;
+    credentials
+      ?.get({
+        otp: { transport: ['sms'] },
+        signal: controler.signal,
+      })
+      .then((otp) => {
+        openNotification({
+          message: `code:${otp?.code}, id:${otp?.id}, type:${otp?.type}`,
+          type: 'info',
+          notifType: 'successOrFailedMessage',
+        });
+        const otpCode = otp?.code
+          ?.trim()
+          ?.slice(0, length - activeInput)
+          ?.split('');
+        setOTPValues(otpCode);
+        onAutoReadSMS(otpCode?.join(''));
+      })
+      .catch((err) => {
+        return;
+      });
+  };
+
   const handleReset = useCallback(() => {
     const updatedOTPValues = [...otpValues];
     updatedOTPValues.forEach((val, index) => {
@@ -209,6 +245,10 @@ export function OTPInputComponent(props: OTPInputProps) {
       handleReset();
     }
   }, [reset]);
+
+  useEffect(() => {
+    handleAutoReadSMS();
+  }, []);
 
   return (
     <div className="flex flex-col relative">

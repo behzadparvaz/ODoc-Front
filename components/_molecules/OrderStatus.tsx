@@ -1,15 +1,11 @@
-import Image from 'next/image';
-
-import { HeadsetOutlineIcon } from '@com/icons';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
-import Link from 'next/link';
 
 type OrderStatusProps = {
   data: TenderItemsListDataModel;
 };
 
 const OrderStatus = ({ data }: OrderStatusProps) => {
-  const renderOrderStatus = () => {
+  const renderContent = () => {
     switch (data?.orderStatus?.name) {
       case 'draft':
         return 'در انتظار تایید داروخانه';
@@ -29,20 +25,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-y-3 px-4 py-3">
-      <span className="text-sm leading-6 font-medium">ارسال به</span>
-      <span className="text-xs text-grey-500">
-        {data?.customer?.addresses[0]?.valueAddress}
-      </span>
-
-      <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
-
-      <div className="flex justify-between items-center py-2">
-        <span className="text-sm leading-6 font-medium">
-          {renderOrderStatus()}
-        </span>
-      </div>
-
+    <div className="flex flex-col ">
       {data?.orderStatus?.name === '' ? (
         <>
           {/* <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
@@ -75,15 +58,16 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
           </div> */}
         </>
       ) : (
-        <div className="w-full flex justify-between items-center py-2">
-          <span className="text-sm leading-6">تماس با پشتیبانی</span>
+        <></>
+        // <div className="w-full flex justify-between items-center py-2">
+        //   <span className="text-base leading-6">تماس با پشتیبانی</span>
 
-          <Link href={`tel:02196861727`}>
-            <span className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
-              <HeadsetOutlineIcon />
-            </span>
-          </Link>
-        </div>
+        //   <Link href={`tel:02196861727`}>
+        //     <span className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
+        //       <HeadsetOutlineIcon />
+        //     </span>
+        //   </Link>
+        // </div>
       )}
     </div>
   );

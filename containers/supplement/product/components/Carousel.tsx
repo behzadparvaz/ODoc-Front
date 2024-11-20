@@ -29,28 +29,13 @@ const Carousel = ({ products = null }) => {
               irc: item?.irc,
               masterId: item?.masterId,
               imageLink: item?.shapeLinkUrl,
-              categoryCodeLevel3: null,
-              brandName: null,
-              unit: null,
-              categoryLevel3: null,
-              shapeCode: null,
-              shapeName: null,
-              shortDescription: null,
-              discountPrice: null,
-              discountPercent: null,
-              quantity: null,
-              maxOrderLimit: null,
             };
             return (
               <VerticalProductCard
                 hasAddToCart
-                onClick={() => {
-                  const { productId, ...filteredQuery } = router.query;
-                  router.push({
-                    pathname: `${routeList.supplementProduct}/${item.masterId}`,
-                    query: filteredQuery,
-                  });
-                }}
+                onClick={() =>
+                  router.push(`${routeList.supplementProduct}/${item.irc}`)
+                }
                 productData={data}
                 className={classNames(
                   `!w-[110px] items-center border-border-primary py-5 bg-white rounded-md mr-4`,

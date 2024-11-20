@@ -54,7 +54,10 @@ export const useGetSupplementProducts = (body?: any) => {
   } = useInfiniteQuery({
     queryKey: ['GetSupplementProducts', body],
     queryFn: ({ pageParam = 1 }) =>
-      GetSupplementProducts({ ...body, pageNumber: pageParam }),
+      GetSupplementProducts({
+        ...body,
+        pageNumber: body?.pageNumber ?? pageParam,
+      }),
     initialPageParam: 1,
     getNextPageParam: (data: any) => {
       return data?.totalCount === data?.pageNumber

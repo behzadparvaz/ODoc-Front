@@ -32,63 +32,16 @@ export const updateCountProductBasket = async ({
     quantity,
   });
 
-export type AddProductToBasketPayload =
-  | (OneOfCodes & {
-    quantity: number;
-    orderType: 'OTC';
-    categoryCode?: number;
-    otcLevel3?: string;
-    imageLink?: string;
-    productName: string;
-    unit: string;
-  })
-  | {
-    orderType: 'RX';
-    refrenceNumber: string;
-    nationalCode: string;
-    insuranceType: number;
-    supplementaryInsuranceType: number;
-    isSpecialPatient: boolean;
-    referenceNumber: string;
-    phoneNumber: string;
-    insuranceTypeId: number;
-    vendorCode: string;
-    imageLink?: string;
-    productName: string;
-    quantity?: number;
-    unit: string;
-  };
+export type ProductBasket = {
+  irc?: string;
+  quantity: number;
+  imageLink?: string;
+  productName: string;
+  unit?: string;
+}
+export type BasketPayload = ProductBasket | ProductBasket[]
 
-export const addProductToBasket = async (
-  payload: AddProductToBasketPayload,
-) => {
-  await request.post(
-    '/Baskets/AddToCart',
-    payload.orderType === 'RX'
-      ? {
-        productName: payload.productName,
-        quantity: payload.quantity,
-        refrenceNumber: String(payload.refrenceNumber),
-        nationalCode: payload.nationalCode,
-        insuranceType: payload.insuranceType,
-        supplementaryInsuranceType: payload.supplementaryInsuranceType,
-        isSpecialPatient: payload.isSpecialPatient,
-        phoneNumber: payload.phoneNumber,
-        insuranceTypeId: payload.insuranceTypeId,
-        vendorCode: payload.vendorCode,
-        imageLink: payload.imageLink,
-        unit: payload.unit,
-      }
-      : {
-        ...(payload.type === 'IRC'
-          ? { irc: String(payload.irc) }
-          : { gtin: String(payload.gtin) }),
-        productName: payload.productName,
-        quantity: payload.quantity,
-        CategoryCode: payload?.categoryCode,
-        otcLevel: payload?.otcLevel3,
-        imageLink: payload.imageLink,
-        unit: payload.unit,
-      },
-  );
+export const addProductToBasket = async (payload: BasketPayload) => {
+
+  await request.post('/Baskets/AddToCart', payload);
 };

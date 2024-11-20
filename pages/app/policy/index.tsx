@@ -1,4 +1,11 @@
+import { useRouter } from 'next/router';
+
+import { ArrowRightIconOutline } from '@com/icons';
+import { MainLayout } from '@com/Layout';
+import { colors } from '@configs/Theme';
+
 const Policy = () => {
+  const { back } = useRouter();
   return (
     <div className="w-full px-4 pb-6 pt-4 bg-white">
       <h1 className="text-sm">قوانین استفاده از تپسی دکتر</h1>

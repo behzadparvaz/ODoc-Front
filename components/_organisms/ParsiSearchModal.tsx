@@ -54,7 +54,7 @@ const ParsiSearchModal = ({
       return (
         <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center">
           <NextImage
-            src={'/static/images/staticImages/search-empty-content.png'}
+            src={'/images/search-empty-content.png'}
             width={64}
             height={64}
             alt="search-empty-content"

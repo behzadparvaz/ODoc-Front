@@ -30,18 +30,24 @@ const CategoryLevel1 = () => {
       </div>
     );
   }
+
   return (
     <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-2">
-      {categories?.map((category, idx) => (
+      {categories?.map((category) => (
         <div
           onClick={() =>
             push(
               `${routeList.supplementProductListPage}?categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
-          key={idx}
-          className="flex flex-col h-full bg-surface-secondary pr-4 pl-2 pt-1 pb-3 rounded-lg cursor-pointer"
+          key={category?.categoryCodeLevel2}
+          className="relative flex flex-col h-full bg-surface-secondary pr-4 pl-2 pt-1 pb-3 rounded-lg cursor-pointer"
         >
+          {category?.categoryCodeLevel2 === '10_1269' && (
+            <div className="absolute top-2 right-2 w-max h-[32px] bg-surface-accent z-10 rounded-full px-2 text-content-onInverse text-xs flex items-center justify-center">
+              ارسال رایگان
+            </div>
+          )}
           <div className="self-end h-[72px] w-[72px] flex items-center justify-center overflow-hidde">
             <NextImage
               alt="supplement-category-l1"

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import { useRouter } from 'next/router';
 import useModal from '@hooks/useModal';
@@ -88,22 +88,10 @@ export default function DrugShapesBox({
     }
   };
 
-  const onChangeCount = ({
-    irc,
-    quantity,
-    categoryCode,
-    otcLevel3,
-    imageLink,
-    productName,
-    unit,
-  }) =>
+  const onChangeCount = ({ irc, quantity, imageLink, productName, unit }) =>
     addToCart({
-      type: 'IRC',
-      orderType: 'OTC',
       irc: irc,
       quantity: quantity,
-      categoryCode: categoryCode,
-      otcLevel3: otcLevel3,
       imageLink: imageLink,
       productName: productName,
       unit: unit,

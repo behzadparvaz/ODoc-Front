@@ -12,10 +12,11 @@ type Shapes = {
 const shimerData = ['1', '2', '3', '4', '5'];
 
 type ShapesFilterProps = {
+  plpQuery?: any;
   onSelectShape: (item: Shapes) => void;
 };
 
-const ShapesFilter = ({ onSelectShape }: ShapesFilterProps) => {
+const ShapesFilter = ({ plpQuery, onSelectShape }: ShapesFilterProps) => {
   const { query } = useRouter();
   const { data: shapesData, isLoading: shapesIsLoading } =
     useGetSupplementProductsShapes(
@@ -23,12 +24,18 @@ const ShapesFilter = ({ onSelectShape }: ShapesFilterProps) => {
         Object.entries(query).filter(
           ([key, value]) =>
             value !== undefined &&
-            (key === 'categoryCodeLevel4' || key === 'categoryCodeLevel3'),
+            (key === 'categoryCodeLevel4' ||
+              key === 'categoryCodeLevel3' ||
+              key === 'categoryCodeLevel2'),
         ),
       ),
     );
 
-  const [selectedShape, setSelectedShape] = useState<Shapes>(null);
+  const [selectedShape, setSelectedShape] = useState<Shapes>(
+    plpQuery?.shapeCode
+      ? { shapeName: plpQuery?.shapeName, shapeCode: plpQuery?.shapeCode }
+      : null,
+  );
   const [filteredShapes, setFilteredShapes] = useState<Shapes[] | null>(null);
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +94,7 @@ const ShapesFilter = ({ onSelectShape }: ShapesFilterProps) => {
                   <div className="h-[51.5px] flex items-center">
                     <Radio
                       label={item?.shapeName}
-                      checked={selectedShape === item}
+                      checked={selectedShape?.shapeName === item?.shapeName}
                       handleChange={() => handleSelectShape(item)}
                     />
                   </div>

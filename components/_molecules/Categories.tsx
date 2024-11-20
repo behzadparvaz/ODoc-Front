@@ -1,11 +1,12 @@
 import CategoryItem from '@com/_atoms/CategoryItem';
 import { routeList } from '@routes/routeList';
 
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import nonPrescriptionMedicine from '@static/images/staticImages/mainCategories/specialPatients.png';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
-import cosmetics from '@static/images/staticImages/mainCategories/cosmetics.png';
-import supplement from '@static/images/staticImages/mainCategories/supplement.png';
+import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
+import NonPrescriptionMedicine from '@public/images/tiles/specialPatients.png';
+import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
+import Cosmetics from '@public/images/tiles/cosmetics.png';
+import Supplement from '@public/images/tiles/supplement.png';
+
 import ScrollSlider from './ScrollSlider.nd';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
@@ -32,7 +33,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     {
       title: ' داروی بدون نسخه',
       link: routeList?.otcMedicine,
-      image: nonPrescriptionMedicine,
+      image: NonPrescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
@@ -40,7 +41,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     {
       title: 'داروی با نسخه ',
       link: routeList?.prescriptionRegisteration,
-      image: prescriptionMedicine,
+      image: PrescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
       ratio: '50%',
@@ -49,7 +50,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     {
       title: 'داروی بیماران خاص',
       link: routeList?.prescriptionRegisteration,
-      image: specialPatients,
+      image: SpecialPatients,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       ratio: '33.3333%',
@@ -58,7 +59,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     {
       title: 'مکمل',
       link: routeList?.supplementPage,
-      image: supplement,
+      image: Supplement,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: false,
@@ -67,7 +68,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     {
       title: 'آرایشی بهداشتی',
       link: routeList?.homeRoute,
-      image: cosmetics,
+      image: Cosmetics,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: true,

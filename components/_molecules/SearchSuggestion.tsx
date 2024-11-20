@@ -16,7 +16,7 @@ const SearchSuggestion = ({ searchText, className = '' }: Props) => {
         {isLoading ? null : !data?.categories?.length &&
           !data?.suggestions?.length ? (
           <EmptyContent
-            imgSrc="/static/images/staticImages/search-empty-content.png"
+            imgSrc="/images/search-empty-content.png"
             title={mobileSearchTexts?.noSearchResult}
           />
         ) : (

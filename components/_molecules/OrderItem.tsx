@@ -15,6 +15,10 @@ import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
 import { CloseIconOutline, NewTickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
+import {
+  useAddProductToBasket,
+  useGetCurrentBasket,
+} from '@api/basket/basketApis.rq';
 
 type OrderItemProps = {
   data: any;
@@ -28,6 +32,13 @@ const OrderItem = ({ data }: OrderItemProps) => {
       data?.orderStatus?.name === 'senddelivery') &&
       data?.orderCode,
   );
+  const { refetch: refetchGetBasket } = useGetCurrentBasket();
+  const { mutate: addToCart, isPending: isAddingToCart } =
+    useAddProductToBasket({
+      onSuccess: () => {
+        refetchGetBasket();
+      },
+    });
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -37,25 +48,73 @@ const OrderItem = ({ data }: OrderItemProps) => {
     return parsedDate.getTime();
   }, [data?.createDateTime]);
 
+  const isHasQuickOrder = data?.orderDetails?.some(
+    (item) => item?.type?.id === 3,
+  );
+
+  const handleCreateOrderAgain = (e) => {
+    e?.stopPropagation();
+    data?.orderDetails?.map((item) =>
+      addToCart({
+        irc: item?.irc,
+        quantity: item?.quantity,
+        imageLink: item?.imageLink,
+        productName: item?.productName,
+        unit: item?.unit,
+      }),
+    );
+  };
+
   const renderIcon = () => {
     switch (data?.orderStatus?.name) {
       case 'draft':
+        return (
+          <OrderHistoryProgress
+            activeStepId={0}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
       case 'ack':
-        return <OrderHistoryProgress activeStepId={0} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={1}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
       case 'apay':
       case 'nfc':
-        return <OrderHistoryProgress activeStepId={1} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={2}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
 
       case 'pick':
       case 'accept':
-        return <OrderHistoryProgress activeStepId={2} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={3}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
 
       case 'adelivery':
       case 'senddelivery':
-        return <OrderHistoryProgress activeStepId={3} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={4}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
 
       case 'deliverd':
-        return <OrderHistoryProgress activeStepId={4} />;
+        return (
+          <OrderHistoryProgress
+            activeStepId={5}
+            isHasQuickOrder={isHasQuickOrder}
+          />
+        );
 
       default:
         return <></>;
@@ -226,7 +285,12 @@ const OrderItem = ({ data }: OrderItemProps) => {
                         : 'لغو شده'}
                     </span>
                   </span>
-                  <Button variant="secondary" size="medium">
+                  <Button
+                    variant="secondary"
+                    size="medium"
+                    className="z-10"
+                    onClick={handleCreateOrderAgain}
+                  >
                     سفارش مجدد
                   </Button>
                 </div>

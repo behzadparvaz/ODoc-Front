@@ -1,34 +1,34 @@
 import { useMutation, UseMutationOptions, UseMutationResult, useQuery } from '@tanstack/react-query';
-import { GetSupplementProductById, GetSupplementReviews, GetSupplementReviewSummery, PostSupplementReviews } from './plp';
+import { GetSupplementProductByIrc, GetSupplementReviews, GetSupplementReviewSummery, PostSupplementReviews } from './plp';
 
-export const useGetSupplementProductById = (productId: string) => {
+export const useGetSupplementProductByIrc = (irc: string) => {
     const { data, isLoading, isSuccess } = useQuery({
-        queryKey: ['getSupplementProductById', productId],
-        queryFn: () => GetSupplementProductById(productId),
-        enabled: !!productId,
+        queryKey: ['getSupplementProductByIrc', irc],
+        queryFn: () => GetSupplementProductByIrc(irc),
+        enabled: !!irc,
     });
     return { data: data as any, isLoading, isSuccess };
 };
 
-export const useGetSupplementReviewSummery = (productId: string) => {
+export const useGetSupplementReviewSummery = (irc: string) => {
     const { data, isLoading, isSuccess } = useQuery({
-        queryKey: ['getSupplementReviewSummery', productId],
-        queryFn: () => GetSupplementReviewSummery(productId),
-        enabled: !!productId,
+        queryKey: ['getSupplementReviewSummery', irc],
+        queryFn: () => GetSupplementReviewSummery(irc),
+        enabled: !!irc,
     });
     return { data: data as any, isLoading, isSuccess };
 };
-export const useGetSupplementReview = (productId: string) => {
+export const useGetSupplementReview = (irc: string) => {
     const { data, isLoading, isSuccess, refetch } = useQuery({
-        queryKey: ['getSupplementReview', productId],
-        queryFn: () => GetSupplementReviews(productId),
-        enabled: !!productId,
+        queryKey: ['getSupplementReview', irc],
+        queryFn: () => GetSupplementReviews(irc),
+        enabled: !!irc,
     });
     return { data: data as any, isLoading, isSuccess, refetch };
 };
 
 interface IPayloadAddSupplementReview {
-    productId: string | number,
+    irc: string | number,
     comment: string
     rating: number
 }

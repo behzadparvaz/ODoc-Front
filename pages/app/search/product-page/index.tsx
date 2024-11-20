@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { useRouter } from 'next/router';
+import { useEffect, useRef, useState } from 'react';
 
 import {
   useAddProductToBasket,
@@ -9,15 +9,14 @@ import {
 } from '@api/basket/basketApis.rq';
 import { useGetProductsFromSearch } from '@api/product/productApis.rq';
 import AddButton from '@com/_atoms/AddButton';
-import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { Button } from '@com/_atoms/NewButton';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
-import { BasketIconOutline, CloseIconOutline } from '@com/icons';
+import { CloseIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
-import ActionBar from '@com/Layout/ActionBar';
 
 type ProductDetailDosesModel = {
   dose: string;
@@ -69,8 +68,6 @@ const ProductPage = () => {
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({
-        type: 'IRC',
-        orderType: 'OTC',
         irc: selectedItem?.irc,
         quantity: count,
         imageLink: data?.imageLink,
@@ -167,9 +164,7 @@ const ProductPage = () => {
         className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
         onClick={() =>
           addToCart({
-            orderType: 'OTC',
             quantity: 1,
-            type: 'IRC',
             irc: selectedItem?.irc,
             imageLink: data?.imageLink,
             productName: data?.productName,

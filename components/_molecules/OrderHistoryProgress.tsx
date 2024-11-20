@@ -7,12 +7,12 @@ import {
   CheckBoxIcon,
   DebitCardFillIcon,
   DebitCardOutlineIcon,
+  DoctorFillIcon,
   StoreFillIcon,
   StoreOutlineIcon,
   TimerFillIcon,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
-import { bool, boolean } from 'yup';
 
 type Steps = {
   id: number;
@@ -24,12 +24,18 @@ type Steps = {
 const steps: Steps[] = [
   {
     id: 1,
+    icon: <DoctorFillIcon width={24} height={24} fill={colors.gray[400]} />,
+    passedIcon: <DoctorFillIcon width={24} height={24} fill={colors.black} />,
+    activeIcon: <DoctorFillIcon width={24} height={24} gradient />,
+  },
+  {
+    id: 2,
     icon: <TimerFillIcon width={24} height={24} fill={colors.gray[400]} />,
     passedIcon: <TimerFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <TimerFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 2,
+    id: 3,
     icon: (
       <DebitCardOutlineIcon width={24} height={24} fill={colors.gray[400]} />
     ),
@@ -39,28 +45,36 @@ const steps: Steps[] = [
     activeIcon: <DebitCardFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 3,
+    id: 4,
     icon: <StoreOutlineIcon width={24} height={24} fill={colors.gray[400]} />,
     passedIcon: <StoreFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <StoreFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 4,
+    id: 5,
     icon: <BikerOutlineIcon fill={colors.gray[400]} />,
     passedIcon: <BikerFillIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <BikerFillIcon width={24} height={24} gradient />,
   },
   {
-    id: 5,
+    id: 6,
     icon: <CheckBoxIcon width={24} height={24} fill={colors.grey[400]} />,
     passedIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
     activeIcon: <CheckBoxIcon width={24} height={24} fill={colors.black} />,
   },
 ];
 
-type OrderHistoryProgressProps = { activeStepId: number };
+type OrderHistoryProgressProps = {
+  activeStepId: number;
+  className?: string;
+  isHasQuickOrder?: boolean;
+};
 
-const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
+const OrderHistoryProgress = ({
+  activeStepId,
+  className,
+  isHasQuickOrder,
+}: OrderHistoryProgressProps) => {
   const renderIcon = (index) => {
     if (activeStepId > index) {
       return steps[index].passedIcon;
@@ -72,36 +86,56 @@ const OrderHistoryProgress = ({ activeStepId }: OrderHistoryProgressProps) => {
   };
 
   return (
-    <div className="h-[32px] grid grid-cols-[2fr_repeat(3,3fr)_2fr] w-full items-center">
-      {steps.map((item, index) => (
-        <div key={item?.id} className="flex items-center justify-center w-full">
-          {index !== 0 && (
-            <div
-              className={classNames(
-                'w-full h-2 bg-surface-tertiary',
-                activeStepId >= index && '!bg-surface-inverse-primary',
-              )}
-            />
-          )}
-
+    <div
+      className={classNames(
+        className,
+        'h-[32px] grid  w-full items-center',
+        isHasQuickOrder
+          ? 'grid-cols-[3fr_repeat(4,4fr)_3fr]'
+          : 'grid-cols-[2fr_repeat(3,3fr)_2fr]',
+      )}
+    >
+      {steps.map((item, index) => {
+        if (!isHasQuickOrder && index === 0) {
+          return null;
+        }
+        return (
           <div
-            key={item.id}
-            className="w-full flex justify-center items-center px-2"
+            key={item?.id}
+            className="flex items-center justify-center w-full"
           >
-            {renderIcon(index)}
-          </div>
+            {index !== 0 &&
+              (!isHasQuickOrder && index === 1 ? null : (
+                <div
+                  className={classNames(
+                    'w-full h-2 bg-surface-tertiary',
+                    activeStepId >= index && '!bg-surface-inverse-primary',
+                  )}
+                />
+              ))}
 
-          {index !== steps?.length - 1 && (
             <div
+              key={item.id}
               className={classNames(
-                'w-full h-2 bg-surface-tertiary',
-                activeStepId > index && '!bg-surface-inverse-primary',
-                activeStepId === index && '!bg-surface-Gradient.brand',
+                `w-full flex justify-center items-center`,
+                `first:pr-0 last:pl-0 px-2`,
               )}
-            />
-          )}
-        </div>
-      ))}
+            >
+              {renderIcon(index)}
+            </div>
+
+            {index !== steps?.length - 1 && (
+              <div
+                className={classNames(
+                  'w-full h-2 bg-surface-tertiary',
+                  activeStepId > index && '!bg-surface-inverse-primary',
+                  activeStepId === index && '!bg-surface-Gradient.brand',
+                )}
+              />
+            )}
+          </div>
+        );
+      })}
     </div>
   );
 };

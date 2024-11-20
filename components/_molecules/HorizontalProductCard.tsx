@@ -17,7 +17,6 @@ type ProductCardProps<PrT> = {
   hasAddToCartButton?: boolean;
   onSuccessChanged?: () => void;
   isInSearchPage?: boolean;
-  otcLevel3?: string;
   isShowSlangs?: boolean;
   onClick?: () => void;
 };
@@ -27,7 +26,6 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   hasAddToCartButton,
   onSuccessChanged,
   isInSearchPage,
-  otcLevel3,
   isShowSlangs = false,
   onClick,
 }) => {
@@ -77,22 +75,10 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   const onDeleteProduct = ({ irc }) =>
     popProductOfCart({ type: 'IRC', irc: irc });
 
-  const onChangeCount = ({
-    irc,
-    quantity,
-    categoryCode,
-    otcLevel3,
-    imageLink,
-    productName,
-    unit,
-  }) =>
+  const onChangeCount = ({ irc, quantity, imageLink, productName, unit }) =>
     addToCart({
-      type: 'IRC',
-      orderType: 'OTC',
       irc: irc,
       quantity: quantity,
-      categoryCode: categoryCode,
-      otcLevel3: otcLevel3,
       imageLink: imageLink,
       productName: productName,
       unit: unit,
@@ -103,8 +89,6 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       onChangeCount({
         ...prInfo,
         quantity: count,
-        categoryCode: prInfo?.categoryCode,
-        otcLevel3: otcLevel3,
         imageLink: prInfo?.imageLink,
         productName: prInfo?.productName || prInfo?.name,
         unit: prInfo?.unit,
@@ -148,7 +132,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         onClick={() => {
           if (isInSearchPage) {
             if (onClick) {
-             return onClick();
+              return onClick();
             }
             push(
               `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}&irc=${prInfo?.irc}`,
@@ -160,7 +144,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
           <NextImage
             unoptimized
             src={prInfo?.imageLink}
-            alt={prInfo?.productName}
+            alt={prInfo?.productName ?? ''}
             width={68}
             height={68}
           />
@@ -172,16 +156,17 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
             <div className="flex flex-col">
               <div className="flex items-center gap-x-2 mt-2">
                 <ScrollSlider className="w-full">
-                  {prInfo.slangs?.map((slang, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center text-center rounded-full bg-surface-accentLight text-content-accent px-2 ml-1 py-0.5"
-                    >
-                      <span className="text-2xs max-w-[80px] truncate">
-                        {slang}
-                      </span>
-                    </div>
-                  ))}
+                  {isShowSlangs &&
+                    prInfo.slangs?.map((slang, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center text-center rounded-full bg-surface-accentLight text-content-accent px-2 ml-1 py-0.5"
+                      >
+                        <span className="text-2xs max-w-[80px] truncate">
+                          {slang}
+                        </span>
+                      </div>
+                    ))}
                 </ScrollSlider>
               </div>
             </div>

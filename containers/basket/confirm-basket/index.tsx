@@ -1,5 +1,4 @@
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
-import { createOrderDraft } from '@api/order/orderApis';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
 import CheckBox from '@com/_atoms/CheckBox.nd';
@@ -14,7 +13,7 @@ import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
 import { useRouter } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 const ConfirmBasketContainer = () => {
@@ -54,9 +53,11 @@ const ConfirmBasketContainer = () => {
       basket?.products?.map((pr) => ({
         description: pr.name,
         irc: pr.irc,
+        imageLink: pr.imageLink,
         quantity: pr.quantity,
-        gtin: pr.gtin,
         productName: pr.name,
+        unit: pr.unit,
+        productType: pr?.productType?.id,
       })) ?? [];
 
     if (!defaultAddress?.id) {
@@ -87,11 +88,20 @@ const ConfirmBasketContainer = () => {
       insuranceTypeId: basket?.insuranceType,
       supplementaryInsuranceTypeId: basket?.supplementaryInsuranceType,
 
-      items: products,
+      items: !basket?.refrenceNumber
+        ? products
+        : [
+            ...products,
+            {
+              referenceNumber: basket?.refrenceNumber,
+              productType: 1,
+            },
+          ],
 
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
     };
+
     createOrderDraft(data);
   };
 

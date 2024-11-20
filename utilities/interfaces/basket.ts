@@ -19,9 +19,14 @@ type ProductInBasket = {
   categoryCodeLevel3: string;
   categoryCode: string;
   isOtc: boolean;
-  unit: string
-  slangs?: string[]
-  imagelink?: string
+  unit: string;
+  slangs?: string[];
+  imagelink?: string;
+  isRequestOrder?: boolean;
+  productType: {
+    id: number;
+    name: string;
+  };
 };
 
 interface Basket {

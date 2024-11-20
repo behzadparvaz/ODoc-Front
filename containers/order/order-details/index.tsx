@@ -1,36 +1,29 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import OrderItemCard from '@com/_molecules/OrderItemCard';
-import OrderStatus from '@com/_molecules/OrderStatus';
+
 import { MainLayout } from '@com/Layout';
-import ProgressStepper from '@com/_molecules/ProgressBar';
-import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
 import { useGetOrderDetails } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
-import NextImage from '@com/_core/NextImage';
-import { generalTexts } from '@com/texts/generalTexts';
-import CancelOrderModal from '@com/_molecules/CancelOrderModal';
-import useModal from '@hooks/useModal';
-import { Button } from '@com/_atoms/NewButton';
+import Divider from '@com/_atoms/Divider';
+import OrderDetailItems from '@com/_molecules/OrderDetailItems';
 
-// const Map = dynamic(() => import('@com/_molecules/Map'));
+import GeneralDetail from '../components/GeneralDetail';
+
+const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
+const Rules = dynamic(() => import('../components/Rules'));
+const AddressDetail = dynamic(() => import('../components/AddressDetail'));
+const DescriptionDetail = dynamic(
+  () => import('../components/DescriptionDetail'),
+);
+const CancelOrder = dynamic(() => import('../components/CancelOrder'));
+const Contact = dynamic(() => import('../components/Contact'));
+const DeliveryDetail = dynamic(() => import('../components/DeliveryDetail'));
+const VendorDetail = dynamic(() => import('../components/VendorDetail'));
 
 const OrderDetailsContainer = () => {
   const { query } = useRouter();
 
-  const { addModal } = useModal();
-
-  const handleCancelOrder = () => {
-    addModal({
-      modal: CancelOrderModal,
-      props: { orderCode: query?.orderCode as string, step: 'draft' },
-    });
-  };
-
   const { data, isLoading } = useGetOrderDetails(query?.orderCode as string);
-
-  // const { parsiMapLocationAddress, isLoadingMapsAddress } = useMapApiCalls(0);
 
   return (
     <MainLayout
@@ -42,94 +35,85 @@ const OrderDetailsContainer = () => {
       {isLoading ? (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
       ) : (
-        <div className="relative">
-          {/* <div className="w-full h-[460px]  flex justify-center items-center overflow-hidden after:bg-gradient-to-b after:from-white after:absolute after:inset-0 after:h-40 after:w-full">
-            <Map
-              addressData={parsiMapLocationAddress}
-              loadingAddress={isLoadingMapsAddress}
-              addressId={0}
-              latitude={35.69976003841564}
-              longitude={51.33808390275898}
-            />
-          </div> */}
+        <div className="w-full h-max rounded-t-lg flex flex-col">
+          <GeneralDetail data={data} />
 
-          <div className="w-full h-max rounded-t-base bg-white flex flex-col">
-            <ProgressStepper activeStepId={data?.orderStatus?.id + 2} />
+          {(data?.orderStatus?.name === 'adelivery' ||
+            data?.orderStatus?.name === 'senddelivery') && (
+            <>
+              <DeliveryDetail data={data} />
 
-            <div className="px-4">
-              <div className="h-[0.5px] w-full rounded-xl bg-grey-100" />
-            </div>
+              <Divider />
+            </>
+          )}
 
-            <OrderStatus data={data} />
+          <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
 
-            <div className="flex flex-col gap-3">
-              <div className="h-24 flex flex-col gap-y-3 bg-grey-50 py-3 px-4 ">
-                <span className="text-sm font-semibold">جزییات سفارش</span>
-                <span className="text-md text-grey-400">
-                  {data?.createDateTimeOrder}
-                </span>
-              </div>
-              <div className="flex flex-col gap-3 p-4">
-                {data?.referenceNumber && (
-                  <div className="flex justify-start items-center gap-x-2">
-                    <div className="w-[68px] h-[68px] rounded-xl overflow-hidden flex justify-center items-center border-[0.5px]">
-                      <NextImage
-                        src={
-                          data?.isSpecialPatient
-                            ? specialPatients
-                            : prescriptionMedicine
-                        }
-                        alt="Rx-image"
-                        width={68}
-                        height={68}
-                      />
-                    </div>
-                    <div className="flex flex-col gap-y-2">
-                      <span className="text-xs font-semibold">
-                        {data?.isSpecialPatient
-                          ? 'نسخه بیماری خاص'
-                          : 'دارو با نسخه'}
-                      </span>
-                      {data?.referenceNumber ? (
-                        <span className="text-xs font-semibold">
-                          {`کد نسخه ${data?.referenceNumber}`}
-                        </span>
-                      ) : null}
-                    </div>
-                  </div>
-                )}
-                {data?.orderDetails?.map(
-                  (item: TenderItemsOrderDataModel, index) => (
-                    <OrderItemCard
-                      key={item.irc}
-                      item={item}
-                      dataLength={data?.orderDetails?.length}
-                      orderStatus={data?.orderStatus?.name}
-                    />
-                  ),
-                )}
-              </div>
-              <div className="flex flex-col justify-center border-t-8 border-grey-50 mb-9">
-                <span className="text-md font-semibold px-4 mt-2">
-                  {generalTexts.policiesTitle}
-                </span>
-                <span className="text-xs font-normal text-justify text-grey-600 mt-2 px-4">
-                  {generalTexts.policiesDesc}
-                </span>
-              </div>
+          {data?.orderStatus?.name !== 'draft' &&
+            data?.orderStatus?.name !== 'ack' && (
+              <>
+                <Divider />
 
-              <div className="flex flex-col p-4">
-                <div className="w-full h-[0.5px] bg-border-primary" />
-
-                <div
-                  className="flex h-[52px] items-center text-content-negative cursor-pointer"
-                  onClick={handleCancelOrder}
-                >
-                  لغو سفارش
+                <div className="px-4 py-4">
+                  <VendorDetail data={data} />
                 </div>
+              </>
+            )}
+
+          <Divider />
+
+          {<OrderDetailItems data={data} />}
+
+          {data?.description && (
+            <>
+              <Divider />
+
+              <DescriptionDetail description={data?.description} />
+            </>
+          )}
+
+          {(data?.orderStatus?.name === 'pick' ||
+            data?.orderStatus?.name === 'accept' ||
+            data?.orderStatus?.name === 'adelivery' ||
+            data?.orderStatus?.name === 'senddelivery' ||
+            data?.orderStatus?.name === 'deliverd') && (
+            <>
+              <Divider />
+              <PaymentDetail data={data} />
+            </>
+          )}
+
+          {(data?.orderStatus?.name === 'cancelcustomer' ||
+            data?.orderStatus?.name === 'cancelvendor' ||
+            data?.orderStatus?.name === 'reject' ||
+            data?.orderStatus?.name === 'return') && (
+            <>
+              <Divider />
+
+              <div className="flex flex-col gap-y-2 p-4">
+                <span className="text-base text-content-primary font-medium">
+                  علت لغو توسط داروخانه
+                </span>
+                <span className="text-sm text-content-tertiary">
+                  {data?.cancelReason}
+                </span>
               </div>
-            </div>
-          </div>
+            </>
+          )}
+
+          <Divider />
+
+          <Rules />
+
+          <Divider />
+
+          <Contact />
+
+          <Divider />
+
+          {(data?.orderStatus?.name === 'draft' ||
+            data?.orderStatus?.name === 'ack' ||
+            data?.orderStatus?.name === 'apay') && <CancelOrder />}
         </div>
       )}
     </MainLayout>

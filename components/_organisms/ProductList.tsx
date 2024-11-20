@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 
-import Button from '@com/_atoms/Button';
 import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
@@ -12,6 +11,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import EmptyContent from '@com/_atoms/EmptyContent';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import ActionBar from '@com/Layout/ActionBar';
+import { Button } from '@com/_atoms/NewButton';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -83,14 +83,20 @@ const ProductList = ({ searchTerm }: Props) => {
                 <HorizontalProductCard
                   key={index}
                   onClick={() => {
-                    if (product.categoryCodeLevel3.split('_')[0] === '10') {
-                      return push(
-                        `${routeList.supplementProduct}/${product.irc}`,
-                      );
-                    } else {
-                      push(
-                        `${routeList.searchProductPage}?brandName=${product?.brandName}&categoryCodeLevel3=${product?.categoryCodeLevel3}&irc=${product?.irc}`,
-                      );
+                    if (product.productType === 1) {
+                      push({
+                        pathname: `${routeList?.searchProductPage}`,
+                        query: {
+                          brandName: product.brandName,
+                          categoryCodeLevel3: product.categoryCodeLevel3,
+                          irc: product.genericCode,
+                        },
+                      });
+                    }
+                    if (product.productType === 2) {
+                      push({
+                        pathname: `${routeList?.supplementProduct}/${product.genericCode}`,
+                      });
                     }
                   }}
                   prInfo={{
@@ -108,14 +114,32 @@ const ProductList = ({ searchTerm }: Props) => {
             ))
           ) : plpData?.isLoading || plpData?.isFetching ? (
             <EmptyContent
-              imgSrc="/static/images/staticImages/search-empty-content.png"
+              imgSrc="/images/search-empty-content.png"
               title={mobileSearchTexts?.waiting}
             />
           ) : (
-            <EmptyContent
-              imgSrc="/static/images/staticImages/search-empty-content.png"
-              title={mobileSearchTexts?.noSearchResult}
-            />
+            <div className="flex flex-col justify-center gap-y-2 items-center w-full h-[200px] ">
+              <span className="text-sm text-content-primary font-medium">
+                محصولی با این نام یافت نشد
+              </span>
+              <span className="text-sm text-content-tertiary">
+                می توانید این محصول را به لیست سفارش های خود اضافه کنید
+              </span>
+
+              <Button
+                variant="secondary"
+                size="medium"
+                className="w-max px-4 mt-2"
+                onClick={() =>
+                  push({
+                    pathname: routeList.QuickOrder,
+                    query: { searchText: searchTerm },
+                  })
+                }
+              >
+                سفارش محصول
+              </Button>
+            </div>
           )}
         </div>
       </InfiniteScroll>
@@ -123,11 +147,10 @@ const ProductList = ({ searchTerm }: Props) => {
       {itemsInBasket && itemsInBasket?.length > 0 && (
         <ActionBar type="singleAction" hasDivider>
           <Button
-            className="w-full !rounded-full"
+            className="w-full"
             size="large"
-            backgroundColor={colors.black}
-            color={colors.white}
-            handleClick={() => {
+            variant="primary"
+            onClick={() => {
               push(routeList.basket);
             }}
           >

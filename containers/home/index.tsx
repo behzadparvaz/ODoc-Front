@@ -6,15 +6,17 @@ import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
+import Link from 'next/link';
+import { routeList } from '@routes/routeList';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
+const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
@@ -80,7 +82,14 @@ const HomeContainer = () => {
         />
 
         {bannerData?.queryResult && (
-          <Banner className="px-4 py-6" data={[bannerData?.queryResult?.[2]]} />
+          <Link
+            href={`${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
+          >
+            <Banner
+              className="px-3 py-3"
+              data={[bannerData?.queryResult?.[2]]}
+            />
+          </Link>
         )}
 
         <CarouselLine

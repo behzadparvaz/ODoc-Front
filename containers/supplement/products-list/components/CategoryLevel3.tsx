@@ -6,7 +6,7 @@ import { useGetSupplementCategoryLevel3 } from '@api/supplement/supplementApis.r
 import classNames from 'classnames';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
-const Filter = dynamic(() => import('./Filter'));
+const FilterAndSort = dynamic(() => import('./FilterAndSort'));
 const CategoryLevel4 = dynamic(() => import('./CategoryLevel4'));
 
 type CategoryLevel3Props = {
@@ -103,7 +103,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
           </div>
           <div className="h-[8px] w-full bg-surface-secondary" />
         </div>
-        <Filter />
+        <FilterAndSort />
       </div>
     );
   }
@@ -130,7 +130,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
         />
       )}
 
-      <Filter />
+      <FilterAndSort />
     </div>
   );
 };
