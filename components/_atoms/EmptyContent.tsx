@@ -1,5 +1,4 @@
 import NextImage from '@com/_core/NextImage';
-import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 
 interface Props {
   imgSrc: string;

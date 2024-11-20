@@ -95,7 +95,7 @@ const ProductList = ({ searchTerm }: Props) => {
                     }
                     if (product.productType === 2) {
                       push({
-                        pathname: `${routeList?.supplementProduct}/${product.genericCode}`,
+                        pathname: `${routeList?.supplementProduct}/${product.genericCode || product.irc}`,
                       });
                     }
                   }}

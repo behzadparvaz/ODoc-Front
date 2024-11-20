@@ -99,24 +99,45 @@ export default function ProdictListPage({}: Props) {
             <>
               {items?.length ? (
                 <div className="flex flex-wrap mb-5">
-                  {items?.map((product, index) => (
-                    <div className="w-1/2 cursor-pointer" key={index}>
-                      <VerticalProductCard
-                        productData={{
-                          ...product,
-                          quantity:
-                            basket?.productsById?.[Number(product.irc)]
-                              ?.quantity ?? 0,
-                        }}
-                        hasAddToCart
-                        onSuccessChanged={refetchGetBasket}
-                        className={`
+                  {items?.map((product, index) => {
+                    console.log(product);
+                    return (
+                      <div className="w-1/2 cursor-pointer" key={index}>
+                        <VerticalProductCard
+                          productData={{
+                            ...product,
+                            quantity:
+                              basket?.productsById?.[Number(product.irc)]
+                                ?.quantity ?? 0,
+                          }}
+                          hasAddToCart
+                          onClick={() => {
+                            if (product.productType === 1) {
+                              push({
+                                pathname: `${routeList?.searchProductPage}`,
+                                query: {
+                                  brandName: product.brandName,
+                                  categoryCodeLevel3:
+                                    product.categoryCodeLevel3,
+                                  irc: product.genericCode,
+                                },
+                              });
+                            }
+                            if (product.productType === 2) {
+                              push({
+                                pathname: `${routeList?.supplementProduct}/${product.irc}`,
+                              });
+                            }
+                          }}
+                          onSuccessChanged={refetchGetBasket}
+                          className={`
                       ${index % 2 === 0 ? 'border-l border-t' : 'border-t'} 
                       ${index >= items.length - 2 ? 'border-b' : ''}
                     `}
-                      />
-                    </div>
-                  ))}
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               ) : (
                 <div className="flex justify-center items-center">

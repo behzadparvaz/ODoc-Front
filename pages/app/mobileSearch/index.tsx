@@ -1,4 +1,5 @@
-import SearchContainer from '@containers/search/otc-search';
+import dynamic from 'next/dynamic';
+const SearchContainer = dynamic(() => import('@containers/search/otc-search'));
 
 const SearchPage = () => {
   return <SearchContainer />;
