@@ -114,7 +114,9 @@ export const useFinishOrderPayment = () => {
           notifType: 'successOrFailedMessage',
         });
       } else {
-        push(data);
+        if (data) {
+          push(data);
+        }
       }
     },
   });

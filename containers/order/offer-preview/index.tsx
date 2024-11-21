@@ -73,9 +73,13 @@ const OfferPreviewContainer = () => {
           <div className="w-full flex items-center justify-between">
             <span className="text-md">قابل پرداخت</span>
 
-            <span className="text-sm font-semibold">
-              {`${convertRialToToman(selectedOffer?.finalPrice)}`}
-            </span>
+            {selectedOffer?.finalPrice ? (
+              <span className="text-sm font-semibold">
+                {`${convertRialToToman(selectedOffer?.finalPrice)}`}
+              </span>
+            ) : (
+              <span className="text-sm font-semibold">رایگان</span>
+            )}
           </div>
 
           <Button
