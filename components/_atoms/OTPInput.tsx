@@ -214,11 +214,6 @@ export function OTPInputComponent(props: OTPInputProps) {
         signal: controler.signal,
       })
       .then((otp) => {
-        openNotification({
-          message: `code:${otp?.code}, id:${otp?.id}, type:${otp?.type}`,
-          type: 'info',
-          notifType: 'successOrFailedMessage',
-        });
         const otpCode = otp?.code
           ?.trim()
           ?.slice(0, length - activeInput)

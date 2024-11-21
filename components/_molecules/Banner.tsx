@@ -1,5 +1,4 @@
 import NextImage from '@com/_core/NextImage';
-import { CSSProperties } from 'react';
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 import SectionTitle from './SectionTitle.nd';
 

@@ -100,7 +100,6 @@ export default function ProdictListPage({}: Props) {
               {items?.length ? (
                 <div className="flex flex-wrap mb-5">
                   {items?.map((product, index) => {
-                    console.log(product);
                     return (
                       <div className="w-1/2 cursor-pointer" key={index}>
                         <VerticalProductCard
