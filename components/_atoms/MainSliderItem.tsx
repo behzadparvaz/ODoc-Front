@@ -26,7 +26,7 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
         }
       >
         <div className={`relative w-full h-full px-4`}>
-          <div className="!aspect-w-23 !aspect-h-14 overflow-hidden" ref={ref}>
+          <div className="!aspect-w-23 !aspect-h-11 overflow-hidden" ref={ref}>
             <NextImage
               src={imageUrl}
               unoptimized
