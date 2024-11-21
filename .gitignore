@@ -39,3 +39,7 @@ next-env.d.ts
 
 # packages
 package-lock.json
+
+# docker
+dockerfile.prod
+Dockerfile

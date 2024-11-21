@@ -8,6 +8,7 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import { colors } from '@configs/Theme';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import { routeList } from '@routes/routeList';
+import classNames from 'classnames';
 
 const Divider = dynamic(() => import('@com/_atoms/Divider'));
 
@@ -30,7 +31,10 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
 
   return (
     <div
-      className="border border-grey-200 rounded-xl h-[217px] cursor-pointer"
+      className={classNames(
+        'border border-grey-200 rounded-xl  cursor-pointer',
+        !!data?.finalPrice ? 'h-[217px]' : 'h-[160px]',
+      )}
       onClick={handleProccessOrder}
     >
       <div className="h-[102px] px-4 py-2 flex items-center gap-2 justify-between">
@@ -50,32 +54,34 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
         <ChevronLeftIconOutline width={24} height={24} fill={colors.black} />
       </div>
 
-      <div className="h-[68px] flex items-center px-4 gap-2">
-        {data?.orderDetails?.map((item, index) => {
-          if (item?.referenceNumber) {
-            return;
-          }
-          return (
-            <div
-              key={index}
-              className="h-[44px] w-[44px] relative flex justify-center items-center"
-            >
-              <div className="absolute left-0 top-0 h-[24px] w-[24px] flex justify-center items-center bg-surface-accentLight rounded-full text-content-accent font-medium text-base z-10">
-                {item?.quantity}
-              </div>
+      {!!data?.finalPrice && (
+        <div className="h-[68px] flex items-center px-4 gap-2">
+          {data?.orderDetails?.map((item, index) => {
+            if (item?.referenceNumber) {
+              return;
+            }
+            return (
+              <div
+                key={index}
+                className="h-[44px] w-[44px] relative flex justify-center items-center"
+              >
+                <div className="absolute left-0 top-0 h-[24px] w-[24px] flex justify-center items-center bg-surface-accentLight rounded-full text-content-accent font-medium text-base z-10">
+                  {item?.quantity}
+                </div>
 
-              <div className="rounded-md h-[32px] overflow-hidden">
-                <NextImage
-                  width={32}
-                  height={32}
-                  src={item?.imageLink}
-                  alt={item?.irc}
-                />
+                <div className="rounded-md h-[32px] overflow-hidden">
+                  <NextImage
+                    width={32}
+                    height={32}
+                    src={item?.imageLink}
+                    alt={item?.irc}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </div>
+            );
+          })}
+        </div>
+      )}
 
       <Divider />
 
@@ -83,10 +89,18 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
         <span className="text-sm font-normal text-content-tertiary">
           قابل پرداخت
         </span>
-        <span className="text-sm text-content-primary font-medium">
-          {convertRialToTomanNumber(data?.finalPrice)?.toLocaleString('fa-IR')}
-          <span className="text-xs"> تومان</span>
-        </span>
+        {!!data?.finalPrice ? (
+          <span className="text-sm text-content-primary font-medium">
+            {convertRialToTomanNumber(data?.finalPrice)?.toLocaleString(
+              'fa-IR',
+            )}
+            <span className="text-xs"> تومان</span>
+          </span>
+        ) : (
+          <span className="text-sm text-content-primary font-medium">
+            رایگان
+          </span>
+        )}
       </div>
     </div>
   );
