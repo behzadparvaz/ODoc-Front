@@ -32,11 +32,13 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
 
   useEffect(() => {
     if (!!query?.categoryCodeLevel3) {
-      const fleteredCategories = categoryLevel4?.filter(
-        (item) => item?.categoryCodeLevel4 === query?.categoryCodeLevel4,
-      );
-      if (fleteredCategories) {
-        setSelectedCategory(fleteredCategories?.[0]);
+      if (!!categoryLevel4?.length) {
+        const fleteredCategories = categoryLevel4?.filter(
+          (item) => item?.categoryCodeLevel4 === query?.categoryCodeLevel4,
+        );
+        if (fleteredCategories) {
+          setSelectedCategory(fleteredCategories?.[0]);
+        }
       }
     }
   }, [query?.categoryCodeLevel4, categoryLevel4]);
@@ -69,21 +71,21 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           );
         }}
         key={item?.categoryCodeLevel4}
-        className="w-full flex flex-col items-center cursor-pointer px-4 py-3 gap-y-1"
+        className="w-full flex flex-col items-center cursor-pointer px-4 gap-y-1"
       >
         <div
           className={classNames(
-            'w-[34px] h-[34px] flex items-center justify-center overflow-hidden rounded-full',
+            'w-[48px] h-[48px] flex items-center justify-center overflow-hidden rounded-full',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
               'bg-surface-Gradient.brand',
           )}
         >
-          <div className="h-8 w-8 flex justify-center items-center overflow-hidden rounded-full object-fill">
+          <div className="h-[48px] w-[48px] flex justify-center items-center overflow-hidden rounded-full object-fill">
             <NextImage
               alt="supplement-category-l4"
-              src={item?.iconImage}
-              width={32}
-              height={32}
+              src={item?.iconLink}
+              width={48}
+              height={48}
             />
           </div>
         </div>
@@ -102,9 +104,10 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   };
 
   if (
-    !categoryLevel4IsLoading &&
-    categoryLevel4?.length === 1 &&
-    categoryLevel4?.[0]?.categoryCodeLevel4 === null
+    (!categoryLevel4IsLoading &&
+      categoryLevel4?.length === 1 &&
+      categoryLevel4?.[0]?.categoryCodeLevel4 === null) ||
+    !categoryLevel4?.length
   ) {
     return;
   }
@@ -112,7 +115,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   if (categoryLevel4IsLoading) {
     return (
       <div className="w-full h-[80px] flex justify-center items-center">
-        {shimerItems.map((item) => (
+        {shimerItems?.map((item) => (
           <div
             key={item}
             className="h-full w-1/4 bg-surface-secondary animate-pulse"
@@ -123,12 +126,13 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   }
 
   return (
-    <div className="h-[80px] bg-surface-secondary flex flex-col">
-      <ScrollSlider className="flex flex-col">
-        <div className="w-max min-w-full flex bg-surface-secondary">
-          {categoryLevel4?.map((item) => (
-            <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
-          ))}
+    <div className="h-[80px] bg-surface-secondary flex flex-col justify-center items-center">
+      <ScrollSlider className="flex flex-col justify-center h-full">
+        <div className="w-max min-w-full flex items-center bg-surface-secondary">
+          {categoryLevel4.length > 0 &&
+            categoryLevel4?.map((item) => (
+              <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
+            ))}
         </div>
       </ScrollSlider>
     </div>

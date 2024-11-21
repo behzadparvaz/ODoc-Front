@@ -4,7 +4,7 @@ import { colors } from '@configs/Theme';
 import { useRouter } from 'next/router';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import NextImage from '@com/_core/NextImage';
-import sampleImage from '@static/images/staticImages/sample-druge.png';
+import sampleImage from '@public/images/sample-drug.png';
 import { generalTexts } from '@com/texts/generalTexts';
 import {
   mobileModeMaxWidthClassName,

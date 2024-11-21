@@ -9,9 +9,15 @@ import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
 import { routeList } from '@routes/routeList';
 
-const Pagination = dynamic(() => import('./Pagination'));
+enum SortEnum {
+  BestSeller = 'BestSeller',
+  MostVisited = 'MostVisited',
+  MostDiscounted = 'MostDiscounted',
+  MostExpensive = 'MostExpensive',
+  Cheapest = 'Cheapest',
+}
 
-const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8];
+const Pagination = dynamic(() => import('./Pagination'));
 
 const Products = () => {
   const { query, push } = useRouter();
@@ -19,10 +25,28 @@ const Products = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetSupplementProducts(
       Object.fromEntries(
-        Object.entries(query).filter(
-          ([key, value]) =>
-            !!value && key !== 'categoryNameLevel2' && key !== 'shapeName',
-        ),
+        Object.entries(query)
+          .map(([key, value]) => {
+            if (
+              key === 'sort' &&
+              (value === 'BestSeller' ||
+                value === 'MostVisited' ||
+                value === 'MostDiscounted' ||
+                value === 'MostExpensive' ||
+                value === 'Cheapest')
+            ) {
+              return [value, 1];
+            }
+            if (
+              !!value &&
+              key !== 'categoryNameLevel2' &&
+              key !== 'shapeName'
+            ) {
+              return [key, value];
+            }
+            return null;
+          })
+          .filter((entry) => entry !== null),
       ),
     );
 
@@ -36,8 +60,8 @@ const Products = () => {
   );
 
   const isShownPagination = useMemo(
-    () => data?.pages?.at(-1).pageNumber >= 10 || query?.page,
-    [data?.pages?.at(-1)?.pageNumber, query?.page],
+    () => data?.pages?.at(-1).pageNumber >= 10 || query?.pageNumber,
+    [data?.pages?.at(-1)?.pageNumber, query?.pageNumber],
   );
 
   useEffect(() => {
@@ -51,10 +75,9 @@ const Products = () => {
       <div
         className={classNames(
           'h-full w-full grid grid-cols-2 overflow-y-scroll',
-          query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
         )}
       >
-        {shimerItems.map((item) => (
+        {[...Array(8).keys()].map((item) => (
           <div
             key={item}
             className="w-full flex justify-center border border-border-primary"
@@ -70,30 +93,30 @@ const Products = () => {
     <div
       className={classNames(
         'h-full w-full grid grid-cols-2 overflow-y-scroll',
-        query?.categoryCodeLevel3 ? 'mt-[180px]' : 'mt-[100px]',
-        (data?.pages?.at(-1)?.pageNumber >= 10 || query?.page) && 'mb-[86px]',
+        (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
+          'mb-[86px]',
       )}
     >
       {productList?.map((item) => (
         <VerticalProductCard
           onClick={() =>
             push({
-              pathname: `${routeList.supplementProduct}/${item?.id}`,
+              pathname: `${routeList.supplementProduct}/${item?.irc}`,
               query: { ...query },
             })
           }
-          className="border border-border-primary"
+          className="border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
-          key={item?.id}
+          key={item?.irc}
           hasAddToCart
         />
       ))}
 
-      {data?.pages?.at(-1)?.pageNumber < 10 && !query?.page && (
+      {data?.pages?.at(-1)?.pageNumber < 10 && !query?.pageNumber && (
         <div ref={ref} className="w-full col-start-1 col-end-3">
           {hasNextPage && isFetchingNextPage && (
             <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
-              {shimerItems.map((item) => (
+              {[...Array(8).keys()].map((item) => (
                 <div
                   key={item}
                   className="w-full flex justify-center border border-border-primary"

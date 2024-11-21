@@ -1,4 +1,7 @@
-import SupplementContainer from '@containers/supplement/supplement';
+import dynamic from 'next/dynamic';
+const SupplementContainer = dynamic(
+  () => import('@containers/supplement/supplement'),
+);
 
 const SuplementPage = () => {
   return <SupplementContainer />;

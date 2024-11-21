@@ -21,12 +21,12 @@ type Level2DataModel = {
 };
 
 export type Level3ProductsDataModel = {
-  categoryLevel3: string;
+  categoryLevel3?: string;
   imageLink: string;
   irc: string;
   productName: string;
-  shapeCode: number;
-  shapeName: string;
+  shapeCode?: number;
+  shapeName?: string;
   unit?: string;
 };
 
@@ -68,7 +68,7 @@ const OtcProductsSlider = ({
         <div className="w-full h-[194px] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             <Image
-              src={'/static/images/staticImages/search-empty-content.png'}
+              src={'/images/search-empty-content.png'}
               width={64}
               height={64}
               alt="product-not-found"
@@ -84,7 +84,7 @@ const OtcProductsSlider = ({
         <div className="w-full h-[194px] flex flex-col justify-center items-center">
           <div className="flex justify-center items-center">
             <Image
-              src={'/static/images/staticImages/search-empty-content.png'}
+              src={'/images/search-empty-content.png'}
               width={64}
               height={64}
               alt="product-not-found"

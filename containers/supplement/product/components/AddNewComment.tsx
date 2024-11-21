@@ -2,7 +2,6 @@ import { usePostSupplementReview } from '@api/supplement/plp/plp.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { StarIcon } from '@com/icons';
-import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
@@ -12,7 +11,7 @@ import { useState } from 'react';
 
 const AddNewComment = ({ onSubmitReview = () => {} }) => {
   const router = useRouter();
-  const productId = router.query.productId as string;
+  const irc = router.query.irc as string;
   const { removeLastModal } = useModal();
 
   const [state, setState] = useState({
@@ -51,7 +50,7 @@ const AddNewComment = ({ onSubmitReview = () => {} }) => {
 
   const handleSubmit = () => {
     postSupplementReview({
-      productId: productId,
+      irc: irc,
       comment: state.comment,
       rating: state.rate,
     });

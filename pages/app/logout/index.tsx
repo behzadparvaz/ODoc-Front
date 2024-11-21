@@ -1,7 +1,9 @@
+import dynamic from 'next/dynamic';
 import { GetServerSideProps } from 'next';
 import Cookies from 'js-cookie';
-
-import { LogoutContainer } from '@containers/auth';
+const LogoutContainer = dynamic(() =>
+  import('@containers/auth').then((mod) => mod.LogoutContainer),
+);
 
 const Logout = () => {
   return <LogoutContainer />;

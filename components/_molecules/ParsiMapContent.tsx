@@ -31,7 +31,7 @@ function ParsiMapContent({
   useEffect(() => {
     MarkerIcon = document?.createElement('div');
     MarkerIcon.className = 'marker';
-    MarkerIcon.style.backgroundImage = `url("/static/images/staticImages/mapbox-marker-icon.svg")`;
+    MarkerIcon.style.backgroundImage = `url("/images/mapbox-marker-icon.svg")`;
     MarkerIcon.style.width = `66px`;
     MarkerIcon.style.height = `71px`;
     MarkerIcon.style.backgroundSize = '100%';

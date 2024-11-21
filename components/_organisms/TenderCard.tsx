@@ -1,13 +1,16 @@
+import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
+
 import { useGetVendorDetails } from '@api/vendor/vendor.rq';
-
-import { Shop, ThreeDots } from '@com/icons';
+import { ChevronLeftIconOutline, Shop } from '@com/icons';
 import NextImage from '@com/_core/NextImage';
-
-import useModal from '@hooks/useModal';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
+import { colors } from '@configs/Theme';
+import { convertRialToTomanNumber } from '@utilities/mainUtils';
+import { routeList } from '@routes/routeList';
+import classNames from 'classnames';
 
-import TenderItemDetailModal from './TenderItemDetailModal';
-import { convertRialToToman } from '@utilities/mainUtils';
+const Divider = dynamic(() => import('@com/_atoms/Divider'));
 
 type TenderCardProps = {
   data: TenderItemsListDataModel;
@@ -16,70 +19,88 @@ type TenderCardProps = {
 };
 
 const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
-  const { addModal } = useModal();
+  const { push } = useRouter();
+
   const { data: vendorData, isLoading: vendorIsLoading } = useGetVendorDetails(
     data?.vendorCode,
   );
 
-  const handleOpenDetailModal = () => {
-    addModal({
-      modal: TenderItemDetailModal,
-      props: {
-        tenderData: data,
-        vendorData: vendorData,
-        orderCode: orderCode,
-        offerId: offerId,
-      },
-    });
+  const handleProccessOrder = () => {
+    push(`${routeList.tender}/${orderCode}/${offerId}/preview`);
   };
 
   return (
-    <div className="border border-grey-200 rounded-xl">
-      <div className="px-4 py-2 flex items-center gap-2">
-        <span className="p-1 rounded-full border border-orange-600">
-          <Shop />
-        </span>
-        <h3>
-          {vendorData?.isShowName
-            ? vendorData?.vendorName
-            : vendorData?.secondaryName}
-        </h3>
+    <div
+      className={classNames(
+        'border border-grey-200 rounded-xl  cursor-pointer',
+        !!data?.finalPrice ? 'h-[217px]' : 'h-[160px]',
+      )}
+      onClick={handleProccessOrder}
+    >
+      <div className="h-[102px] px-4 py-2 flex items-center gap-2 justify-between">
+        <Shop height={24} width={24} fill={colors.gray[600]} />
+
+        <div className="flex flex-col justify-center gap-4 h-full w-full">
+          <h3 className="text-base font-medium">
+            {vendorData?.isShowName
+              ? vendorData?.vendorName
+              : vendorData?.secondaryName}
+          </h3>
+          <span className="text-sm text-content-tertiary line-clamp-2">
+            {vendorData?.location?.address}
+          </span>
+        </div>
+
+        <ChevronLeftIconOutline width={24} height={24} fill={colors.black} />
       </div>
 
-      <div className="px-4 py-2 flex justify-between items-center">
-        <div className="flex gap-2">
+      {!!data?.finalPrice && (
+        <div className="h-[68px] flex items-center px-4 gap-2">
           {data?.orderDetails?.map((item, index) => {
-            if (index > 2) {
+            if (item?.referenceNumber) {
               return;
             }
             return (
               <div
                 key={index}
-                className="border border-grey-400 rounded-md h-[32px] overflow-hidden"
+                className="h-[44px] w-[44px] relative flex justify-center items-center"
               >
-                <NextImage
-                  width={32}
-                  height={32}
-                  src={item?.imageLink}
-                  alt={item?.irc}
-                />
+                <div className="absolute left-0 top-0 h-[24px] w-[24px] flex justify-center items-center bg-surface-accentLight rounded-full text-content-accent font-medium text-base z-10">
+                  {item?.quantity}
+                </div>
+
+                <div className="rounded-md h-[32px] overflow-hidden">
+                  <NextImage
+                    width={32}
+                    height={32}
+                    src={item?.imageLink}
+                    alt={item?.irc}
+                  />
+                </div>
               </div>
             );
           })}
-
-          <div className="border border-grey-400 bg-grey-100 rounded-md w-[32px] h-[32px] flex items-center justify-center">
-            <ThreeDots />
-          </div>
         </div>
+      )}
 
-        <div className="text-grey-500 text-xs">{`${convertRialToToman(data?.finalPrice)}`}</div>
-      </div>
+      <Divider />
 
-      <div
-        className="border-t border-t-grey-200 text-center font-medium cursor-pointer"
-        onClick={handleOpenDetailModal}
-      >
-        <div className="p-3 text-md font-semibold">جزییات سفارش</div>
+      <div className="h-[48px] flex items-center justify-between px-4 py-2 cursor-pointer">
+        <span className="text-sm font-normal text-content-tertiary">
+          قابل پرداخت
+        </span>
+        {!!data?.finalPrice ? (
+          <span className="text-sm text-content-primary font-medium">
+            {convertRialToTomanNumber(data?.finalPrice)?.toLocaleString(
+              'fa-IR',
+            )}
+            <span className="text-xs"> تومان</span>
+          </span>
+        ) : (
+          <span className="text-sm text-content-primary font-medium">
+            رایگان
+          </span>
+        )}
       </div>
     </div>
   );

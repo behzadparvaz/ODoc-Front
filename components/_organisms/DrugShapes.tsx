@@ -4,9 +4,10 @@ import useModal from '@hooks/useModal';
 
 interface Props {
   handleClick: (item) => void;
+  isShowUnit?: boolean;
 }
 
-const DrugShapes = ({ handleClick }: Props) => {
+const DrugShapes = ({ handleClick, isShowUnit = true }: Props) => {
   const { removeLastModal } = useModal();
 
   const { data, isLoading } = useGetDrugTypes();
@@ -24,9 +25,12 @@ const DrugShapes = ({ handleClick }: Props) => {
             <div
               onClick={() => handleClickItem(item)}
               key={item?.id}
-              className="py-2.5 border-b cursor-pointer border-gray-100"
+              className="py-2.5 border-b cursor-pointer border-gray-100 flex gap-1"
             >
-              {item?.name}
+              <span>{item?.name}</span>
+              <span>
+                {isShowUnit && item.unit !== '-' ? `(${item.unit})` : ''}
+              </span>
             </div>
           );
         })}

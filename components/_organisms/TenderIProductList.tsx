@@ -2,8 +2,8 @@ import NextImage from '@com/_core/NextImage';
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 import TenderProductItem from './TenderProductItem';
 import { convertRialToToman } from '@utilities/mainUtils';
-import prescriptionMedicine from '@static/images/staticImages/mainCategories/prescriptionMedicine.png';
-import specialPatients from '@static/images/staticImages/mainCategories/nonPrescriptionMedicine.png';
+import prescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
+import specialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
 
 type TenderProductListProps = {
   orderItems: TenderItemsOrderDataModel[];

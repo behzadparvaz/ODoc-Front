@@ -4374,6 +4374,24 @@ export const CouponPuchedFillIcon = ({
   );
 };
 
+export const ChevronUpIcon = ({ width, height, fill = 'black' }: IconType) => {
+  return (
+    <svg
+      width={width}
+      height={height}
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M15.4853 15.364L11.9505 11.8291L8.41421 15.364L7 13.9497L11.9497 9L16.8995 13.9497L15.4853 15.364Z"
+        fill={fill}
+      />
+    </svg>
+  );
+};
 export const HeartIcon = ({
   width = 22,
   height = 19,
@@ -4478,6 +4496,97 @@ export const ChevronRightIcon = ({
       fill-rule="evenodd"
       clip-rule="evenodd"
       d="M8.55029 15.5356L12.0851 12.0007L8.55029 8.46451L9.96451 7.05029L14.9143 12L9.96451 16.9498L8.55029 15.5356Z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const CircleCheckFillIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM16.2929 8.29297L11 13.5859L8.70712 11.293L7.29291 12.7072L11 16.4143L17.7071 9.70718L16.2929 8.29297Z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const CircleCrossFillIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg
+    width={width}
+    height={height}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fill-rule="evenodd"
+      clip-rule="evenodd"
+      d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM14.1213 8.46447L15.5355 9.87868L13.414 12L15.5355 14.1213L14.1213 15.5355L12 13.414L9.87868 15.5355L8.46447 14.1213L10.586 12L8.46447 9.87868L9.87868 8.46447L12 10.586L14.1213 8.46447Z"
+      fill={fill}
+    />
+  </svg>
+);
+
+export const DoctorFillIcon = ({
+  fill = 'black',
+  width = 24,
+  height = 24,
+  gradient = false,
+}) => (
+  <svg
+    width="18"
+    height="19"
+    viewBox="0 0 18 19"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4 0V2H2V6C2 8.21 3.79 10 6 10C8.21 10 10 8.21 10 6V2H8V0H11C11.2652 0 11.5196 0.105357 11.7071 0.292893C11.8946 0.48043 12 0.734784 12 1V6C11.9998 7.41797 11.4976 8.79009 10.5824 9.87315C9.66719 10.9562 8.39807 11.6803 7 11.917V13.5C6.99945 14.3196 7.28656 15.1134 7.81129 15.7431C8.33601 16.3727 9.06506 16.7982 9.87135 16.9454C10.6776 17.0926 11.51 16.9522 12.2234 16.5486C12.9368 16.1451 13.4859 15.5039 13.775 14.737C13.1315 14.4484 12.6103 13.9424 12.3028 13.3078C11.9953 12.6732 11.9212 11.9505 12.0935 11.2666C12.2658 10.5828 12.6735 9.98154 13.245 9.56839C13.8165 9.15525 14.5153 8.95664 15.2187 9.00745C15.9221 9.05825 16.5851 9.35522 17.0913 9.84621C17.5975 10.3372 17.9145 10.9908 17.9868 11.6923C18.059 12.3938 17.8818 13.0983 17.4863 13.6822C17.0908 14.266 16.5023 14.6919 15.824 14.885C15.4881 16.1808 14.6911 17.3096 13.5825 18.0598C12.4739 18.81 11.1297 19.1302 9.80193 18.9603C8.47414 18.7904 7.2539 18.1421 6.3699 17.1369C5.4859 16.1317 4.99884 14.8386 5 13.5V11.917C3.60184 11.6805 2.33261 10.9565 1.41736 9.87335C0.502115 8.79025 -1.77509e-05 7.41803 4.70646e-10 6V1C4.70646e-10 0.734784 0.105357 0.48043 0.292893 0.292893C0.48043 0.105357 0.734784 0 1 0H4Z"
+      fill={gradient ? `url(#paint0_linear_2797_21189)` : fill}
+    />
+    {gradient && (
+      <defs>
+        <linearGradient
+          id="paint0_linear_2797_21189"
+          x1="0"
+          y1="0"
+          x2="18.4291"
+          y2="0.423009"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stop-color="#FF7733" />
+          <stop offset="0.50153" stop-color="#FF5722" />
+          <stop offset="1" stop-color="#E64917" />
+        </linearGradient>
+      </defs>
+    )}
+  </svg>
+);
+
+export const CircleInfromationIcon = ({
+  width = 24,
+  height = 24,
+  fill = 'black',
+}) => (
+  <svg width={width} height={height} viewBox="0 0 24 24">
+    <path
+      d="M11 7H13V9H11V7ZM11 11H13V17H11V11ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z"
       fill={fill}
     />
   </svg>

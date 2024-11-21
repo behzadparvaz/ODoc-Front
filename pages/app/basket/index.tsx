@@ -1,6 +1,5 @@
-import React from 'react';
-
-import BasketContainer from '@containers/basket';
+import dynamic from 'next/dynamic';
+const BasketContainer = dynamic(() => import('@containers/basket'));
 
 const BasketPage = () => {
   return <BasketContainer />;

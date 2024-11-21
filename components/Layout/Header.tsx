@@ -79,7 +79,7 @@ const Header = ({
             {hasLogo && (
               <div className="col-start-1 col-end-4 overflow-hidden flex items-center">
                 <NextImage
-                  src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+                  src={'/images/logo/tapsi-doctor-logo.svg'}
                   height={20}
                   width={110}
                   alt="tapsi-logo"

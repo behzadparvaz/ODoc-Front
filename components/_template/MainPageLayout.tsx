@@ -90,7 +90,7 @@ const MainPageLayout = ({
             </div>
           ) : (
             <NextImage
-              src={'/static/images/staticImages/tapsi-doctor-logo.svg'}
+              src={'/images/logo/tapsi-doctor-logo.svg'}
               height={20}
               width={110}
               alt=""
@@ -100,7 +100,7 @@ const MainPageLayout = ({
             {hasSearchIcon && (
               <div
                 className="w-[22px] cursor-pointer"
-                onClick={() => push(routeList.mobileSearch)}
+                onClick={() => push(routeList.search)}
               >
                 <SearchIconOutline width={22} height={22} fill={'#000'} />
               </div>

@@ -86,7 +86,7 @@ class Request {
             }
             if (options?.returnError) {
               const data = JSON.parse(error?.request?.response)
-              return { data: data }
+              // return { data: data }
             }
           } catch {
             console.log(
@@ -95,6 +95,7 @@ class Request {
             );
           }
         }
+        return Promise.reject(error)
       },
     );
 

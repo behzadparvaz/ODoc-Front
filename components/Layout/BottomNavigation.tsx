@@ -1,15 +1,14 @@
-import { useRouter } from 'next/router';
-import classNames from 'classnames';
-
-import NextLink from '@com/_core/NextLink';
 import {
   HomeFillIcon,
   OrderNotesOutlineIcon,
   ProfileOutlineIcon,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
+import classNames from 'classnames';
+import { useRouter } from 'next/router';
+import { memo } from 'react';
 
-const tabs = {
+const tabs: Record<string, string> = {
   home: 'خانه',
   orders: 'سفارش‌ها',
   profile: 'پروفایل',
@@ -21,69 +20,44 @@ enum Routes {
   profile = '/app/profile',
 }
 
-const BottomNavigation = () => {
-  const { pathname } = useRouter();
+const BottomNavigation: React.FC = () => {
+  const { pathname, push } = useRouter();
+
+  const handleTabClick = (route: Routes) => {
+    if (pathname !== route) {
+      push(route);
+    }
+  };
+
+  const renderTab = (
+    route: Routes,
+    label: string,
+    Icon: React.FC<{ width?: number; height?: number; fill?: string }>,
+  ) => (
+    <span
+      onClick={() => handleTabClick(route)}
+      aria-label={label}
+      className={classNames(
+        'flex flex-col items-center gap-2 text-xs cursor-pointer transition-colors ease-in-out duration-500',
+        pathname === route ? '!text-black' : 'text-grey-500',
+      )}
+    >
+      <Icon
+        width={24}
+        height={24}
+        fill={pathname === route ? colors?.black : colors?.grey?.[300]}
+      />
+      {label}
+    </span>
+  );
 
   return (
-    <div
-      className={`h-[64px] w-full flex justify-around items-center bg-surface-secondary border-t border-border-primary box-border`}
-    >
-      <NextLink href={Routes.home}>
-        <span
-          className={classNames(
-            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer transition-colors ease-in-out duration-500',
-            pathname === Routes.home && '!text-black',
-          )}
-        >
-          <HomeFillIcon
-            width={24}
-            height={24}
-            fill={
-              pathname === Routes.home ? colors?.black : colors?.grey?.[300]
-            }
-          />
-          {tabs.home}
-        </span>
-      </NextLink>
-
-      <NextLink href={Routes.orders}>
-        <span
-          className={classNames(
-            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer',
-            pathname === Routes.orders && '!text-black',
-          )}
-        >
-          <OrderNotesOutlineIcon
-            width={24}
-            height={24}
-            fill={
-              pathname === Routes.orders ? colors?.black : colors?.grey?.[300]
-            }
-          />
-
-          {tabs.orders}
-        </span>
-      </NextLink>
-
-      <NextLink href={Routes.profile}>
-        <span
-          className={classNames(
-            'flex flex-col items-center gap-2 text-xs text-grey-500 cursor-pointer',
-            pathname === Routes.profile && '!text-black',
-          )}
-        >
-          <ProfileOutlineIcon
-            width={24}
-            height={24}
-            fill={
-              pathname === Routes.profile ? colors?.black : colors?.grey?.[300]
-            }
-          />
-          {tabs.profile}
-        </span>
-      </NextLink>
+    <div className="h-[64px] w-full flex justify-around items-center bg-surface-secondary border-t border-border-primary box-border">
+      {renderTab(Routes.home, tabs.home, HomeFillIcon)}
+      {renderTab(Routes.orders, tabs.orders, OrderNotesOutlineIcon)}
+      {renderTab(Routes.profile, tabs.profile, ProfileOutlineIcon)}
     </div>
   );
 };
 
-export default BottomNavigation;
+export default memo(BottomNavigation);

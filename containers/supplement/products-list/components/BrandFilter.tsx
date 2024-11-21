@@ -7,10 +7,11 @@ import { Radio } from '@com/_atoms/Radio';
 const shimerData = ['1', '2', '3', '4', '5'];
 
 type BrandFilterProps = {
+  plpQuery?: any;
   onSelectBrand: (item: string) => void;
 };
 
-const BrandFilter = ({ onSelectBrand }: BrandFilterProps) => {
+const BrandFilter = ({ plpQuery, onSelectBrand }: BrandFilterProps) => {
   const { query } = useRouter();
   const { data: brandData, isLoading: brandIsLoading } =
     useGetSupplementProductsBrands(
@@ -18,12 +19,16 @@ const BrandFilter = ({ onSelectBrand }: BrandFilterProps) => {
         Object.entries(query).filter(
           ([key, value]) =>
             value !== undefined &&
-            (key === 'categoryCodeLevel4' || key === 'categoryCodeLevel3'),
+            (key === 'categoryCodeLevel4' ||
+              key === 'categoryCodeLevel3' ||
+              key === 'categoryCodeLevel2'),
         ),
       ),
     );
 
-  const [selectedBrand, setSelectedBrand] = useState<string>(null);
+  const [selectedBrand, setSelectedBrand] = useState<string>(
+    plpQuery?.brand ?? '',
+  );
   const [filteredBrands, setFilteredBrands] = useState<string[] | null>(null);
 
   const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
@@ -87,7 +92,7 @@ const BrandFilter = ({ onSelectBrand }: BrandFilterProps) => {
                     <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
                   </div>
                 ))
-              : !!brandData.length &&
+              : !!brandData?.length &&
                 brandData?.map((item) => (
                   <div key={item} className="h-[52px] flex flex-col">
                     <div className="h-[51.5px] flex items-center">

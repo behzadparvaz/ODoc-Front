@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { Field, useFormikContext } from 'formik';
+
 import Input from '@com/_atoms/Input.nd';
 import { ChevronDownIcon, NewDeleteIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import DrugShapes from './DrugShapes';
-import { Field, useFormikContext } from 'formik';
 
 interface DrugShape {
   name: string;
@@ -33,6 +36,7 @@ const AddNewRequestDrugForm = ({
   data,
   totalDrugs,
 }: AddNewRequestDrugFormProps) => {
+  const { query } = useRouter();
   const { setFieldValue, values } = useFormikContext<FormValues>(); // Specify the type here
 
   const { addModal } = useModal();
@@ -54,6 +58,12 @@ const AddNewRequestDrugForm = ({
       values.drugs[index].quantity ||
       values.drugs[index].drugShape,
   );
+
+  useEffect(() => {
+    if (query.searchText) {
+      setFieldValue(`drugs.0.drugName`, query.searchText);
+    }
+  }, []);
 
   return (
     <>

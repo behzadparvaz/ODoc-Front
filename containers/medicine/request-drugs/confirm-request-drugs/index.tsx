@@ -25,6 +25,10 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SelectAddressAction from '@com/_molecules/SelectAddressAction';
+import {
+  useAddProductToBasket,
+  useGetCurrentBasket,
+} from '@api/basket/basketApis.rq';
 
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
@@ -114,14 +118,17 @@ const ConfirmRequestDrugs = () => {
     }
   };
 
+  const { mutate: addToCart } = useAddProductToBasket();
+
   const handleSendForm = () => {
     const serializeData = (drugs: any) => {
       const body: any = {};
       const data = drugs.map((item) => {
         return {
-          drugName: item.drugName,
-          drugCount: item.quantity,
-          drugType: item.drugShape?.id,
+          irc: item.id,
+          productName: item.drugName,
+          quantity: item.quantity,
+          unit: item.drugShape?.unit === '_' ? null : item.drugShape?.unit,
         };
       });
       // Generate formatted description
@@ -134,23 +141,14 @@ const ConfirmRequestDrugs = () => {
         .filter(Boolean)
         .join('\n'); // Join with line breaks
 
-      body.nationalCode = state.nationalCode;
       body.description = formattedDescription;
-      body.orderDetails = data;
-      body.addressId = user?.defaultAddress?.id;
+      body.requestOrders = data;
       return body;
     };
-    mutate(serializeData(drugs), {
-      onSuccess: (data: any) => {
-        if (data?.isSuccess) {
-          push(`${routeList?.QuickOrderSuccess}/${data?.data?.orderUuid}`);
-        } else {
-          openNotification({
-            type: 'error',
-            message: data?.message,
-            notifType: 'successOrFailedMessage',
-          });
-        }
+    console.log(serializeData(drugs));
+    addToCart(serializeData(drugs), {
+      onSuccess: () => {
+        push(routeList.basket);
       },
     });
   };
@@ -162,11 +160,7 @@ const ConfirmRequestDrugs = () => {
       headerType="withoutLogo"
       hasBackButton
     >
-      <div className="flex justify-center flex-col">
-        <div className="flex flex-col cursor-pointer min-h-[102px] justify-center px-4">
-          <SelectAddressAction />
-          <div className="h-[1px] bg-grey-200 w-full mt-4" />
-        </div>
+      <div className="flex justify-center flex-col mb-24">
         <div className="flex flex-col px-4">
           <h1 className="font-bold text-base mt-4">اقلام درخواست</h1>
           <div className="mt-5 mb-5">

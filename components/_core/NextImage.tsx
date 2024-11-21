@@ -1,4 +1,5 @@
 import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
+import classNames from 'classnames';
 import Image, { ImageProps } from 'next/image';
 import { useState } from 'react';
 
@@ -24,9 +25,13 @@ const NextImage = ({
   const handleImageError = () => {
     setImageError(true);
   };
+
+  // Determine the source to use: either the provided src or the error image
+  const effectiveSrc = imageError || !src ? '/images/emptyImage.png' : src;
+
   return (
     <Image
-      src={imageError ? '/static/images/staticImages/errorImage.png' : src}
+      src={effectiveSrc}
       unoptimized={unoptimized ?? true}
       alt={alt}
       placeholder="blur"
@@ -34,6 +39,7 @@ const NextImage = ({
       width={width}
       height={height}
       onError={handleImageError}
+      className={classNames('pointer-events-none select-none', rest.className)}
       {...rest}
     />
   );

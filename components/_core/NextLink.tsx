@@ -1,9 +1,12 @@
 import React from 'react';
 import Link, { LinkProps } from 'next/link';
 
-const NextLink = ({ prefetch, ...otherProps }: React.PropsWithChildren<LinkProps>) => {
+const NextLink = ({
+  prefetch,
+  ...otherProps
+}: React.PropsWithChildren<LinkProps>) => {
   return (
-    <Link {...otherProps} prefetch={prefetch ?? false}>
+    <Link draggable="false" {...otherProps} prefetch={prefetch ?? false}>
       {otherProps.children}
     </Link>
   );
