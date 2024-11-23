@@ -123,7 +123,7 @@ export default function ProdictListPage({}: Props) {
                             }
                             if (product.productType === 2) {
                               push({
-                                pathname: `${routeList?.supplementProduct}/${product.irc}`,
+                                pathname: `${routeList?.supplementProduct}/${product.irc || product.genericCode}`,
                               });
                             }
                           }}
