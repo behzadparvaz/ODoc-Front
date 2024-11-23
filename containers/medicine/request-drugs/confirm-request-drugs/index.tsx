@@ -33,7 +33,9 @@ import {
 const ConfirmRequestDrugs = () => {
   const dispatch = useDispatch();
   const { push } = useRouter();
-  const { data, isLoading: profileDataLoading } = useGetProfile();
+  const { data, isLoading: profileDataLoading } = useGetProfile({
+    enabled: true,
+  });
   const [loading, setLoading] = useState(true);
   const [state, setState] = useState({
     description: '',

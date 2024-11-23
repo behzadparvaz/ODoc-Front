@@ -26,7 +26,7 @@ const Page = () => {
     data: basket,
     isLoading,
     refetch: refetchGetBasket,
-  } = useGetCurrentBasket();
+  } = useGetCurrentBasket({ enabled: true });
 
   useEffect(() => {
     const timer = setTimeout(() => {

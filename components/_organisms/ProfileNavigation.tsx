@@ -15,7 +15,7 @@ import NextImage from '@com/_core/NextImage';
 import Spinner from '@com/_atoms/Spinner';
 
 const ProfileNavigation = () => {
-  const { data, isLoading } = useGetProfile();
+  const { data, isLoading } = useGetProfile({ enabled: true });
 
   if (isLoading) {
     return (

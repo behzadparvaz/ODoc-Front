@@ -43,8 +43,11 @@ const AuthMobileNumber = ({ handleChangeForm }: Props) => {
         ورود | ثبت نام
       </div>
       <form className="my-4 px-4" onSubmit={formik.handleSubmit}>
+        <span className="text-xs text-content-tertiary text-center">
+          برای استفاده از تمام امکانات تپسی دکتر لازم است وارد شوید. برای ورود
+          شماره موبایل خود را وارد کنید
+        </span>
         <TextInput
-          label="شماره موبایل"
           labelClassName="text-md  font-medium"
           className="!rounded-base !h-[52px] !bg-grey-100 placeholder:text-grey-500 !border-none"
           id="PhoneNumber"

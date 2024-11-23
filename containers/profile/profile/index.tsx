@@ -21,7 +21,7 @@ import useModal from '@hooks/useModal';
 import LogoutModal from '@com/_organisms/LogoutModal';
 
 const ProfileContainer = () => {
-  const { data, isLoading } = useGetProfile();
+  const { data, isLoading } = useGetProfile({ enabled: true });
 
   const { addModal } = useModal();
 

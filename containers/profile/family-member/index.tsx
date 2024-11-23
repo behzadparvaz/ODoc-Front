@@ -10,7 +10,9 @@ import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 
 const FamilyMembersContainer = () => {
-  const { data, isLoading: profileDataLoding } = useGetProfile();
+  const { data, isLoading: profileDataLoding } = useGetProfile({
+    enabled: true,
+  });
   const profileData: any = data;
   const profileInfo = profileData?.queryResult[0];
   const { push } = useRouter();

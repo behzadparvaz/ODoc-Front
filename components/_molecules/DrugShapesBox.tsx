@@ -48,7 +48,6 @@ export default function DrugShapesBox({
         res?.products &&
         Object.fromEntries((res?.products || [])?.map((pr) => [pr.irc, pr])),
     }),
-    enabled: true,
   });
 
   const { mutate: addToCart, isPending: isAddingToCart } =
