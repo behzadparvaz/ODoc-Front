@@ -32,7 +32,6 @@ const ProductList = ({ searchTerm }: Props) => {
         res?.products?.map((pr) => [pr.irc, pr]),
       ),
     }),
-    enabled: true,
   });
   const [itemsInBasket, setItemsInBasket] = useState<any[] | null>(null);
   const body = {

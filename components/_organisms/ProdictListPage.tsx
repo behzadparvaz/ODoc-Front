@@ -30,7 +30,6 @@ export default function ProdictListPage({}: Props) {
         res?.products?.map((pr) => [pr.irc, pr]),
       ),
     }),
-    enabled: true,
   });
 
   const searchTerm = query?.search;
@@ -124,7 +123,7 @@ export default function ProdictListPage({}: Props) {
                             }
                             if (product.productType === 2) {
                               push({
-                                pathname: `${routeList?.supplementProduct}/${product.irc}`,
+                                pathname: `${routeList?.supplementProduct}/${product.irc || product.genericCode}`,
                               });
                             }
                           }}

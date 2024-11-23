@@ -37,9 +37,11 @@ const VendorDetail = ({ data }: VendorDetailProps) => {
             ? vendorData?.vendorName
             : vendorData?.secondaryName}
         </h3>
-        <span className="text-sm text-content-tertiary line-clamp-2">
-          {vendorData?.location?.address}
-        </span>
+        {vendorData?.isShowName && (
+          <span className="text-sm text-content-tertiary line-clamp-2">
+            {vendorData?.location?.address}
+          </span>
+        )}
       </div>
 
       <ChevronLeftIconOutline width={24} height={24} fill={colors.black} />

@@ -36,6 +36,7 @@ import {
   OrderStatuses,
 } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
+import useStorage from '@hooks/useStorage';
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -232,9 +233,12 @@ export const useDeleteOrderDetail = () => {
 };
 
 export const useGetCurrentOrder = () => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
   const { data, isLoading } = useQuery({
     queryKey: ['getDeliveryCode'],
     queryFn: () => getCurrentOrder(),
+    enabled: !!token,
   });
 
   return { data: data as any, isLoading: isLoading };

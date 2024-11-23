@@ -29,7 +29,7 @@ const ConfirmBasketContainer = () => {
   const { user } = useSelector((state: RootState) => state?.user);
 
   //   apis
-  const { data: profileQuery } = useGetProfile();
+  const { data: profileQuery } = useGetProfile({ enabled: true });
   const profile: any = profileQuery?.queryResult?.[0];
 
   const {

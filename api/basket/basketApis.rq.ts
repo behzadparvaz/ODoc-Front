@@ -9,6 +9,7 @@ import {
   UpdateCountProductBasketPayload,
 } from '@api/basket/basketApis';
 import useNotification from '@hooks/useNotification';
+import useStorage from '@hooks/useStorage';
 import {
   useMutation,
   UseMutationOptions,
@@ -19,13 +20,18 @@ import {
 
 export const useGetCurrentBasket = <TQuery = Basket>(
   options?: any,
-): UseQueryResult<TQuery> =>
-  useQuery({
+): UseQueryResult<TQuery> => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+
+  return useQuery({
     queryKey: ['getCurrentBasket'],
     queryFn: () => getCurrentBasket(),
     refetchOnMount: 'always',
+    enabled: token ? true : false,
     ...options,
   });
+};
 
 export const useDeleteCurrentBasket: (
   options?: UseMutationOptions<unknown, unknown, any>,

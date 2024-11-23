@@ -136,7 +136,9 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
         <div className="flex flex-col gap-y-3">
           {data?.orderStatus?.name === 'deliverd' && (
             <span className="text-sm font-semibold">
-              {vendorData?.vendorName}
+              {vendorData?.isShowName
+                ? vendorData?.vendorName
+                : vendorData?.secondaryName}
             </span>
           )}
           <span className="text-xs text-content-tertiary">
