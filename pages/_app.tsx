@@ -132,7 +132,7 @@ function MyApp({ Component, pageProps }) {
         <NotificationWrapper />
 
         <ModalCreator ref={modalNode} />
-        <CheckRedirectLoginOrNotLogin />
+        {/* <CheckRedirectLoginOrNotLogin /> */}
 
         <div dir="rtl">
           <Component {...pageProps} />

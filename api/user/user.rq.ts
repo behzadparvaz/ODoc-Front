@@ -96,19 +96,23 @@ export const useDeleteLocation = () => {
 export const useGetUserLocations = (
   options?: UseQueryOptions<unknown, unknown, any[]>,
 ): UseQueryResult<any[]> => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
   return useQuery({
     queryKey: ['getUserLocations'],
     queryFn: () => GetUserLocations(),
+    enabled: token ? true : false,
   });
 };
 
-export const useGetProfile = () => {
+export const useGetProfile = (options?: any) => {
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
   const { data, isLoading } = useQuery({
     queryKey: ['getProfile'],
     queryFn: () => GetProfile(),
     enabled: token ? true : false,
+    ...options,
   });
   return { data: data as any, isLoading };
 };

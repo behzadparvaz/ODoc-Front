@@ -46,7 +46,9 @@ const MainPageLayout = ({
   backButtonAction,
 }: Props) => {
   const { push, back } = useRouter();
-  const { data: basketData } = useGetCurrentBasket({ enabled: hasBasketIcon });
+  const { data: basketData } = useGetCurrentBasket({
+    //  enabled: hasBasketIcon
+  });
 
   const renderBasketCount = () => {
     const rxCount = basketData?.refrenceNumber ? 1 : 0;

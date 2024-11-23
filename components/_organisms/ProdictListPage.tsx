@@ -30,7 +30,6 @@ export default function ProdictListPage({}: Props) {
         res?.products?.map((pr) => [pr.irc, pr]),
       ),
     }),
-    enabled: true,
   });
 
   const searchTerm = query?.search;
