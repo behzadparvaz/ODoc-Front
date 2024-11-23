@@ -16,19 +16,23 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
     useGetVendorDetails(vendorCode);
 
   const handleVendorDetailModal = () => {
-    addModal({
-      modal: VendorDetailModal,
-      props: {
-        data: vendorData,
-      },
-    });
+    if (vendorData?.isShowName) {
+      addModal({
+        modal: VendorDetailModal,
+        props: {
+          data: vendorData,
+        },
+      });
+    }
   };
 
   return (
     <div className="w-full h-[78px] flex items-center justify-between bg-surface-secondary px-4">
       <div className="flex flex-col py-3">
         <span className="text-content-primary text-base font-medium">
-          {vendorData?.vendorName}
+          {vendorData?.isShowName
+            ? vendorData?.vendorName
+            : vendorData?.secondaryName}
         </span>
         <span className="text-content-tertiary text-sm">
           {`ساعت کاری ${parseInt(vendorData?.fromTimeActive.split(':')[0], 10)} - ${parseInt(vendorData?.toTimeActive.split(':')[0], 10)}`}
