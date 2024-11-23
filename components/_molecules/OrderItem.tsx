@@ -136,7 +136,9 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'accept':
         return (
           <span className="text-content-primary text-xs text-medium">
-            {vendorData?.vendorName}
+            {vendorData?.isShowName
+              ? vendorData?.vendorName
+              : vendorData?.secondaryName}
           </span>
         );
       case 'adelivery':
@@ -217,7 +219,9 @@ const OrderItem = ({ data }: OrderItemProps) => {
         <div className="flex flex-col gap-y-3">
           {data?.orderStatus?.name === 'deliverd' && (
             <span className="text-sm font-semibold">
-              {vendorData?.vendorName}
+              {vendorData?.isShowName
+                ? vendorData?.vendorName
+                : vendorData?.secondaryName}
             </span>
           )}
           <span className="text-xs text-content-tertiary">
