@@ -1,5 +1,6 @@
 import { SearchIconOutline } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
+import { routeList } from '@routes/routeList';
 import { debounce } from '@utilities/debounce';
 import { useRouter } from 'next/router';
 import { useEffect, useMemo, useRef, useState } from 'react';
@@ -22,7 +23,7 @@ const SearchBox = ({
   const inputRef = useRef(null);
   const [value, setValue] = useState<any>(inputRef?.current?.value);
   const debouncedSetBody = useMemo(() => debounce(setValue, 600), []);
-  const { push } = useRouter();
+  const { query, push } = useRouter();
 
   const handlePaste = (e: React.ClipboardEvent) => {
     const target = e.target as HTMLInputElement;
@@ -59,16 +60,17 @@ const SearchBox = ({
       <input
         defaultValue={defualtValue}
         ref={inputRef}
-        // onKeyUp={(e: any) => {
-        //   e?.key === 'Enter'
-        //     ? push({
-        //         pathname: routeList?.search,
-        //         query: {
-        //           search: e?.target?.value,
-        //         },
-        //       })
-        //     : null;
-        // }}
+        onKeyUp={(e: any) => {
+          e?.key === 'Enter'
+            ? push({
+                pathname: routeList?.search,
+                query: {
+                  ...query,
+                  searchText: e?.target?.value,
+                },
+              })
+            : null;
+        }}
         onChange={(e) => debouncedSetBody(e?.target?.value)}
         onPaste={handlePaste}
         className="h-[48px] pr-12 pl-3 bg-grey-100 text-grey-500 placeholder:text-grey-500 font-bold w-full py-3.5 rounded-full text-sm"

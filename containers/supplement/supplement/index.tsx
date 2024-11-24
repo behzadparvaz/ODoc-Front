@@ -35,7 +35,12 @@ const SupplementContainer = () => {
       backIconHandler={() => push(routeList?.homeRoute)}
       hasBasketIcon
       leftSection={
-        <span className="flex items-center justify-center">
+        <span
+          onClick={() =>
+            push({ pathname: routeList?.search, query: { section: 'مکمل' } })
+          }
+          className="flex items-center justify-center cursor-pointer"
+        >
           <SearchIconOutline width={24} height={24} fill={'black'} />
         </span>
       }
