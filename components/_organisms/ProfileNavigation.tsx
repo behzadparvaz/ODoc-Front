@@ -57,7 +57,7 @@ const ProfileNavigation = () => {
           </span>
         </div>
 
-        <Link href={`tel:02196861727`}>
+        <Link href={`tel:02141630500`}>
           <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
             <HeadsetOutlineIcon width={24} height={24} fill={colors.black} />
             <span className="text-xs font-normal leading-6 text-black">

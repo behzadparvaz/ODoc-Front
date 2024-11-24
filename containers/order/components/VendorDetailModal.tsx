@@ -124,7 +124,7 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
               exit={{ height: 0, opacity: 1 }}
             >
               <div className="py-3 flex flex-col gap-y-3">
-                <Link href={`tel:02196861727`}>
+                <Link href={`tel:02141630500`}>
                   <span className="text-sm font-normal text-content-secondary">
                     {data?.contactNumber}
                   </span>

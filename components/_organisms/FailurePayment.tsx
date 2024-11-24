@@ -31,7 +31,7 @@ const FailurePayment = ({ className = '' }) => {
             size="large"
             className="w-full"
             variant={'primary'}
-            onClick={() => push(`tel:02196861727`)}
+            onClick={() => push(`tel:02141630500`)}
           >
             تماس با پشتیبانی
           </Button>
