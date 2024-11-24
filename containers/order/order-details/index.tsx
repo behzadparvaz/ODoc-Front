@@ -64,11 +64,11 @@ const OrderDetailsContainer = () => {
 
           {<OrderDetailItems data={data} />}
 
-          {data?.description && (
+          {data?.description?.comment && (
             <>
               <Divider />
 
-              <DescriptionDetail description={data?.description} />
+              <DescriptionDetail description={data?.description?.comment} />
             </>
           )}
 
