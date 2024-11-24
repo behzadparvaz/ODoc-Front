@@ -62,7 +62,7 @@ const OrderStatus = ({ data }: OrderStatusProps) => {
         // <div className="w-full flex justify-between items-center py-2">
         //   <span className="text-base leading-6">تماس با پشتیبانی</span>
 
-        //   <Link href={`tel:02196861727`}>
+        //   <Link href={`tel:02141630500`}>
         //     <span className="flex items-center justify-center h-10 w-10 bg-grey-50 rounded-full">
         //       <HeadsetOutlineIcon />
         //     </span>

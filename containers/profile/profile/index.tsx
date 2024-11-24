@@ -65,7 +65,7 @@ const ProfileContainer = () => {
               </span>
             </div>
 
-            <Link href={`tel:02196861727`} className="w-1/2 h-full">
+            <Link href={`tel:02141630500`} className="w-1/2 h-full">
               <div className="w-full h-full flex flex-col gap-y-4 justify-center items-center bg-grey-100 rounded-xl cursor-pointer">
                 <HeadsetOutlineIcon
                   width={24}

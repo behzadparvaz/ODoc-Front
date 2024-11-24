@@ -25,7 +25,7 @@ export default function FooterContent({}: Props) {
         <div className="flex flex-col items-end text-xs font-semibold pl-6 gap-y-4 mb-4">
           <p>{homePageText.tapsiDocMag}</p>
           <p>{homePageText.policy}</p>
-          <Link href={`tel:02196861727`}>
+          <Link href={`tel:02141630500`}>
             <p className="cursor-pointer">{homePageText.support}</p>
           </Link>
           <div className="grid grid-rows-1 grid-cols-1 w-10 h-10 overflow-hidden justify-center items-center cursor-pointer">
@@ -92,7 +92,7 @@ export default function FooterContent({}: Props) {
           <h3 className="text-2xs text-grey-500 mb-2">
             {homePageText.contactUs}
           </h3>
-          <Link href={`tel:02196861727`}>
+          <Link href={`tel:02141630500`}>
             <p className="text-2xs text-grey-800 cursor-pointer">
               {homePageText.contactNumber}
             </p>
