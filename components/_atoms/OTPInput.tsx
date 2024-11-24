@@ -214,6 +214,11 @@ export function OTPInputComponent(props: OTPInputProps) {
         signal: controler.signal,
       })
       .then((otp) => {
+        openNotification({
+          type: 'success',
+          message: `code=${otp?.code},id=${otp?.id},type=${otp?.type}`,
+          notifType: 'successOrFailedMessage',
+        });
         const otpCode = otp?.code
           ?.trim()
           ?.slice(0, length - activeInput)
@@ -222,6 +227,11 @@ export function OTPInputComponent(props: OTPInputProps) {
         onAutoReadSMS(otpCode?.join(''));
       })
       .catch((err) => {
+        openNotification({
+          type: 'error',
+          message: 'خواندن خودکار کد ورود ناموفق بود',
+          notifType: 'successOrFailedMessage',
+        });
         return;
       });
   };

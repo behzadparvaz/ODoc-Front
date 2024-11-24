@@ -107,7 +107,12 @@ const OtcMedicineCategories = () => {
   return (
     <>
       {!query?.categoryNameLevel1 && (
-        <div className="px-4 py-2">
+        <div
+          className="px-4 py-2 cursor-pointer"
+          onClick={() =>
+            push({ pathname: routeList?.search, query: { section: 'otc' } })
+          }
+        >
           <SearchBox className="px-4" />
         </div>
       )}

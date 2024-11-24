@@ -25,7 +25,7 @@ const bannerData = [
 ];
 
 const SupplementContainer = () => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
   return (
     <MainLayout
       hasHeader
@@ -36,10 +36,13 @@ const SupplementContainer = () => {
       hasBasketIcon
       leftSection={
         <span
-          onClick={() =>
-            push({ pathname: routeList?.search, query: { section: 'مکمل' } })
-          }
           className="flex items-center justify-center cursor-pointer"
+          onClick={() =>
+            push({
+              pathname: routeList?.search,
+              query: { ...query, section: 'supplement' },
+            })
+          }
         >
           <SearchIconOutline width={24} height={24} fill={'black'} />
         </span>
