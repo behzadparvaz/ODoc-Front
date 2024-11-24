@@ -72,7 +72,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
       >
         <div
           className={classNames(
-            'min-w-max w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
+            'text-nowrap w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
             selectedCategory?.categoryCodeLevel3 === item?.categoryCodeLevel3 &&
               '!text-content-primary',
           )}
