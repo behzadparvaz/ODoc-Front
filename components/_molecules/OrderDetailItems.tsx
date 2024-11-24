@@ -108,12 +108,20 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     isUnavaiable={
                       data?.orderStatus?.name !== 'draft' &&
                       data?.orderStatus?.name !== 'ack' &&
+                      data?.orderStatus?.name !== 'cancelcustomer' &&
+                      data?.orderStatus?.name !== 'cancelvendor' &&
+                      data?.orderStatus?.name !== 'return' &&
+                      data?.orderStatus?.name !== 'reject' &&
                       !item?.price
                     }
                   />
 
                   {data?.orderStatus?.name !== 'draft' &&
                     data?.orderStatus?.name !== 'ack' &&
+                    data?.orderStatus?.name !== 'cancelcustomer' &&
+                    data?.orderStatus?.name !== 'cancelvendor' &&
+                    data?.orderStatus?.name !== 'return' &&
+                    data?.orderStatus?.name !== 'reject' &&
                     !item?.price && (
                       <>
                         <Divider className="h-[0.5px]" />
