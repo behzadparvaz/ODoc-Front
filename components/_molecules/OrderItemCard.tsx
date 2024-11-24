@@ -47,6 +47,10 @@ const OrderItemCard = ({
               {item?.productName}
             </p>
 
+            <span className="text-[9px] text-content-tertiary">
+              {item?.description}
+            </span>
+
             <span
               className={classNames(
                 'text-2xs leading-5 text-content-tertiary',
