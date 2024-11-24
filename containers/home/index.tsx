@@ -51,9 +51,11 @@ const HomeContainer = () => {
         hasAddress
         hasBottomNavigation
       >
-        <div className="px-4 py-2">
-          <SearchBox className="px-4" />
-        </div>
+        <Link href={routeList?.search}>
+          <div className="px-4 py-2">
+            <SearchBox className="px-4" />
+          </div>
+        </Link>
 
         <HomeOrderSlider />
 

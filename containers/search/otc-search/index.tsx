@@ -58,13 +58,30 @@ const SearchContainer = () => {
       hasHeader
       headerType="withoutLogo"
       hasBackButton
-      backIconHandler={() =>
-        push(
-          query?.section === 'مکمل'
-            ? routeList?.supplementPage
-            : routeList?.homeRoute,
-        )
-      }
+      backIconHandler={() => {
+        const { searchText, section, ...rest } = query;
+
+        if (query?.section === 'supplement') {
+          if (query?.categoryCodeLevel2) {
+            push({
+              pathname: routeList?.supplementProductListPage,
+              query: { ...rest },
+            });
+          } else {
+            push({
+              pathname: routeList?.supplementPage,
+            });
+          }
+        } else if (query?.section === 'otc') {
+          push({
+            pathname: routeList?.otcMedicine,
+          });
+        } else {
+          push({
+            pathname: routeList?.homeRoute,
+          });
+        }
+      }}
       searchSection={
         <SearchBox
           defualtValue={searchText}
@@ -79,33 +96,34 @@ const SearchContainer = () => {
       />
 
       <ScrollSlider className="gap-x-2 px-4 mt-2">
-        {(query?.section === 'مکمل' ? supplementMockData : otcMockData)?.map(
-          (item) => {
-            return (
-              <div
-                key={item?.id}
-                onClick={() => {
-                  setSearchText(item?.text);
-                  push(
-                    {
-                      pathname: pathname,
-                      query: {
-                        ...query,
-                        searchText: item?.text,
-                      },
+        {(query?.section === 'supplement'
+          ? supplementMockData
+          : otcMockData
+        )?.map((item) => {
+          return (
+            <div
+              key={item?.id}
+              onClick={() => {
+                setSearchText(item?.text);
+                push(
+                  {
+                    pathname: pathname,
+                    query: {
+                      ...query,
+                      searchText: item?.text,
                     },
-                    undefined,
-                    { shallow: true },
-                  );
-                }}
-                className="flex justify-between items-center px-3 py-1 rounded-full border border-grey-100 text-black text-xs cursor-pointer"
-              >
-                {item?.text}
-                <ChevronLeftIconOutline width={24} height={24} fill="#000" />
-              </div>
-            );
-          },
-        )}
+                  },
+                  undefined,
+                  { shallow: true },
+                );
+              }}
+              className="flex justify-between items-center px-3 py-1 rounded-full border border-grey-100 text-black text-xs cursor-pointer"
+            >
+              {item?.text}
+              <ChevronLeftIconOutline width={24} height={24} fill="#000" />
+            </div>
+          );
+        })}
       </ScrollSlider>
 
       {searchText?.length >= 2 && (
