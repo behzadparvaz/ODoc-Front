@@ -8,5 +8,5 @@ export const homePageText = {
   support: 'پشتیبانی',
   followUs: ' ما را در شبکه‌های اجتماعی دنبال کنید',
   contactUs: 'ارتباط با ما',
-  contactNumber: '۰۲۱-۹۶۸۶۱۷۲۷',
+  contactNumber: '021-41630500',
 };
