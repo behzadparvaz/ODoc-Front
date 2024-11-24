@@ -1084,6 +1084,7 @@ const Icon = memo(
     style,
     fill,
     stroke,
+    viewBox = '0 0 24 24',
     ...props
   }: IconProps): JSX.Element | null => {
     const IconComponent = IconDictionary[name];
@@ -1105,6 +1106,7 @@ const Icon = memo(
           style={style}
           stroke={stroke}
           fill={fill}
+          viewBox={viewBox}
           {...props}
         />
       </Suspense>
