@@ -29,7 +29,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
   isShowSlangs = false,
   onClick,
 }) => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
   >({
@@ -101,7 +101,11 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
       if (isInSearchPage && !prInfo?.isOtc) {
         return (
           <span className="!min-w-[96px] h-[32px] px-1 bg-red-50 text-content-negative text-[10px] rounded-full flex justify-center items-center">
-            <Link href={routeList.QuickOrder}>نیاز به نسخه پزشک</Link>
+            <Link
+              href={`${routeList.QuickOrder}?searchText=${prInfo?.productName}`}
+            >
+              نیاز به نسخه پزشک
+            </Link>
           </span>
         );
       }

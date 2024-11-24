@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import NextImage from '@com/_core/NextImage';
 // import AuthPassword from '@com/_molecules/AuthPassword';
 import {
@@ -37,12 +38,14 @@ const AuthContainer = () => {
         className={`h-full ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
       >
         <div className="absolute w-full text-center flex justify-center items-center top-14 z-10">
-          <NextImage
-            src={'/images/logo/tapsi-doctor-logo.svg'}
-            width={145}
-            height={24}
-            alt="tapsi-daroo-logo"
-          />
+          <Link href={routeList.landingRoute} className="w-[145px]">
+            <NextImage
+              src={'/images/logo/tapsi-doctor-logo.svg'}
+              width={145}
+              height={24}
+              alt="tapsi-daroo-logo"
+            />
+          </Link>
         </div>
         <div className="h-full">
           <NextImage

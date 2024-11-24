@@ -122,7 +122,7 @@ const ProductList = ({ searchTerm }: Props) => {
                 محصولی با این نام یافت نشد
               </span>
               <span className="text-sm text-content-tertiary">
-                می توانید این محصول را به لیست سفارش های خود اضافه کنید
+                جهت تهیه محصول ثبت سفارش نمایید.{' '}
               </span>
 
               <Button
@@ -136,7 +136,7 @@ const ProductList = ({ searchTerm }: Props) => {
                   })
                 }
               >
-                سفارش محصول
+                ثبت سفارش
               </Button>
             </div>
           )}
