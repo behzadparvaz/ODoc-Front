@@ -72,7 +72,7 @@ const CategoryItem = ({
         </div>
         <p
           className={classNames(
-            'text-sm my-1.5 text-black font-medium truncate',
+            'text-xs my-1.5 text-black font-medium truncate',
             alignmentType === 'center' ? 'text-center px-1' : 'px-3',
             titleClassName,
             isSoon && !isHomePage && 'text-content-disabled',
