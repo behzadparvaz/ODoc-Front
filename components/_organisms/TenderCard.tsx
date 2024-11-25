@@ -32,12 +32,11 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
   return (
     <div
       className={classNames(
-        'border border-grey-200 rounded-xl  cursor-pointer',
-        !!data?.finalPrice ? 'h-[217px]' : 'h-[160px]',
+        'border border-grey-200 h-full rounded-xl  cursor-pointer',
       )}
       onClick={handleProccessOrder}
     >
-      <div className="h-[102px] px-4 py-2 flex items-center gap-2 justify-between">
+      <div className="h-max  px-4 pt-4 pb-2 flex items-center gap-2 justify-between">
         <Shop height={24} width={24} fill={colors.gray[600]} />
 
         <div className="flex flex-col justify-center gap-4 h-full w-full">
