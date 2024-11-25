@@ -147,7 +147,6 @@ const ConfirmRequestDrugs = () => {
       body.requestOrders = data;
       return body;
     };
-    console.log(serializeData(drugs));
     addToCart(serializeData(drugs), {
       onSuccess: () => {
         push(routeList.basket);

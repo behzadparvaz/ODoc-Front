@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { AparatIcon, InstagramIcon, LinkedintIcon } from '@com/icons';
 import { homePageText } from '@com/texts/homePage';
 import { colors } from '@configs/Theme';
+import { routeList } from '@routes/routeList';
 
 type Props = {};
 
@@ -24,7 +25,7 @@ export default function FooterContent({}: Props) {
         </div>
         <div className="flex flex-col items-end text-xs font-semibold pl-6 gap-y-4 mb-4">
           <p>{homePageText.tapsiDocMag}</p>
-          <p>{homePageText.policy}</p>
+          <Link href={routeList?.policyRoute}>{homePageText.policy}</Link>
           <Link href={`tel:02141630500`}>
             <p className="cursor-pointer">{homePageText.support}</p>
           </Link>
