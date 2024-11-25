@@ -144,11 +144,11 @@ const OrderItem = ({ data }: OrderItemProps) => {
       case 'adelivery':
       case 'senddelivery':
         return (
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-content-primary">مجتبی فرجی</span>
-            <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
+          <div className="h-[40px] flex items-center justify-between">
+            <span className="text-sm text-content-primary">پیک تپسی دکتر</span>
+            {/* <span className="text-xs text-center text-content-tertiary border border-border-primary rounded-xl w-[63px] h-[50px] flex justify-center items-center overflow-hidden text-wrap ">
               123 56789
-            </span>
+            </span> */}
           </div>
         );
 
@@ -278,7 +278,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
                           name="CircleCrossFill"
                           width={1.25}
                           height={1.25}
-                          fill={'red'}
+                          fill={colors.red[400]}
                         />
                       )}
                     </span>
