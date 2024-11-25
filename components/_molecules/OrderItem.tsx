@@ -12,13 +12,13 @@ import OrderHistoryProgress from './OrderHistoryProgress';
 import Countdown from './Countdows';
 import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
-import { CloseIconOutline, NewTickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import {
   useAddProductToBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
+import Icon from '@utilities/icon';
 
 type OrderItemProps = {
   data: any;
@@ -260,26 +260,25 @@ const OrderItem = ({ data }: OrderItemProps) => {
                   ))}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-x-[22px]">
+                  <span className="flex items-center gap-x-[20px] px-1">
                     <span
                       className={classNames(
                         'w-[24px] h-[24px] rounded-full flex items-center justify-center',
-                        data?.orderStatus?.name === 'deliverd'
-                          ? 'bg-content-positive'
-                          : 'bg-content-negative',
                       )}
                     >
                       {data?.orderStatus?.name === 'deliverd' ? (
-                        <NewTickIcon
-                          width={20}
-                          height={20}
-                          stroke={colors.white}
+                        <Icon
+                          name="CircleCheckFill"
+                          height={1.25}
+                          width={1.25}
+                          fill={colors.green[400]}
                         />
                       ) : (
-                        <CloseIconOutline
-                          width={20}
-                          height={20}
-                          stroke={colors.white}
+                        <Icon
+                          name="CircleCrossFill"
+                          width={1.25}
+                          height={1.25}
+                          fill={'red'}
                         />
                       )}
                     </span>
