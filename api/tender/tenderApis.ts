@@ -4,6 +4,7 @@ export const getTenderItems = async (orderCode: string) => {
   return await request.get(`/Order/OrderTenders?orderCode=${orderCode}`);
 };
 
-export const getTenderPrepartionTime = async (lat: number, lng: number) => {
-  return await request.get(`Tender/PrepartionTime/${lat}/${lng}`);
+
+export const getTenderPrepartionTime = async (body: any): Promise<any> => {
+  return await request.get(`Tender/PrepartionTime/${body.lat}/${body.lng}`);
 };

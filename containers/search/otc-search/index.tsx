@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
@@ -11,18 +11,22 @@ const SearchBox = dynamic(() => import('@com/_atoms/SearchInput'));
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const SectionTitle = dynamic(() => import('@com/_molecules/SectionTitle.nd'));
 
-const mockData = [
+const otcMockData = [
   { text: 'ژلوفن', id: 0 },
   { text: 'استامینوفن', id: 1 },
   { text: 'ستیریزین', id: 2 },
 ];
 
+const supplementMockData = [
+  { text: 'امگا 3', id: 0 },
+  { text: 'ویتامین ث', id: 1 },
+  { text: 'منیزیم', id: 2 },
+];
+
 const SearchContainer = () => {
   const { push, query, pathname } = useRouter();
 
-  const [searchText, setSearchText] = useState<string>(
-    (query.searchText as string) ?? '',
-  );
+  const [searchText, setSearchText] = useState<string>('');
 
   const handleSearchByImage = (e) => {
     push(`${routeList?.searchByImage}/${1236}`);
@@ -43,12 +47,41 @@ const SearchContainer = () => {
     );
   };
 
+  useEffect(() => {
+    if (query?.searchText) {
+      setSearchText(query?.searchText as string);
+    }
+  }, [query?.searchText]);
+
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
       hasBackButton
-      backIconHandler={() => push('/app')}
+      backIconHandler={() => {
+        const { searchText, section, ...rest } = query;
+
+        if (query?.section === 'supplement') {
+          if (query?.categoryCodeLevel2) {
+            push({
+              pathname: routeList?.supplementProductListPage,
+              query: { ...rest },
+            });
+          } else {
+            push({
+              pathname: routeList?.supplementPage,
+            });
+          }
+        } else if (query?.section === 'otc') {
+          push({
+            pathname: routeList?.otcMedicine,
+          });
+        } else {
+          push({
+            pathname: routeList?.homeRoute,
+          });
+        }
+      }}
       searchSection={
         <SearchBox
           defualtValue={searchText}
@@ -63,7 +96,10 @@ const SearchContainer = () => {
       />
 
       <ScrollSlider className="gap-x-2 px-4 mt-2">
-        {mockData?.map((item) => {
+        {(query?.section === 'supplement'
+          ? supplementMockData
+          : otcMockData
+        )?.map((item) => {
           return (
             <div
               key={item?.id}

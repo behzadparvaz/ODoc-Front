@@ -20,7 +20,15 @@ const ProductsListContainer = () => {
       backIconHandler={() => push(routeList.supplementPage)}
       hasBasketIcon
       leftSection={
-        <span className="flex items-center justify-center">
+        <span
+          className="flex items-center justify-center cursor-pointer"
+          onClick={() =>
+            push({
+              pathname: routeList?.search,
+              query: { ...query, section: 'supplement' },
+            })
+          }
+        >
           <SearchIconOutline width={24} height={24} fill={'black'} />
         </span>
       }

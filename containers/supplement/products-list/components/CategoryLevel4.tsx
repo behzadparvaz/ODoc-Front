@@ -75,7 +75,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
       >
         <div
           className={classNames(
-            'w-[48px] h-[48px] flex items-center justify-center overflow-hidden rounded-full',
+            'w-[50px] h-[50px] flex items-center justify-center overflow-hidden rounded-full',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
               'bg-surface-Gradient.brand',
           )}

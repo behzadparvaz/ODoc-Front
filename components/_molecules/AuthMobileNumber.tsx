@@ -2,7 +2,6 @@ import TextInput from '@com/_atoms/TextInput';
 import Button from '@com/_atoms/Button';
 import { useFormik } from 'formik';
 import { useSendMobileNumber } from '@api/auth/oDocAuth.rq';
-import SectionTitle from './SectionTitle.nd';
 import { loginSchema } from '@utilities/validationSchemas';
 import { convertPersianNumbersToEnglishNumbers } from '@utilities/mainUtils';
 import NextLink from '@com/_core/NextLink';

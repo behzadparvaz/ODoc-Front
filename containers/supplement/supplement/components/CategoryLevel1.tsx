@@ -24,7 +24,7 @@ const CategoryLevel1 = () => {
         {shimerItems.map((_, idx) => (
           <div
             key={idx}
-            className="w-[206px] h-[112px] bg-surface-secondary animate-pulse rounded-lg"
+            className="h-[112px] bg-surface-secondary animate-pulse rounded-lg"
           />
         ))}
       </div>

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import dynamic from 'next/dynamic';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
@@ -8,6 +8,9 @@ import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
+import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
+import { useSelector } from 'react-redux';
+import Icon from '@utilities/icon';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -30,6 +33,19 @@ const HomeContainer = () => {
     )?.[0];
     return carouselData;
   };
+  const userLatLng = useSelector(
+    (state: any) => state?.user?.user?.defaultAddress,
+  );
+
+  const getTenderPrepartionTime = useGetTenderPrepartionTime();
+
+  useEffect(() => {
+    if (userLatLng?.latitude || userLatLng?.longitude)
+      getTenderPrepartionTime.mutate({
+        lat: userLatLng?.latitude,
+        lng: userLatLng?.longitude,
+      });
+  }, [userLatLng?.latitude, userLatLng?.longitude]);
 
   const tapsiLinkRef = useRef(null);
   const url =
@@ -51,9 +67,20 @@ const HomeContainer = () => {
         hasAddress
         hasBottomNavigation
       >
-        <div className="px-4 py-2">
-          <SearchBox className="px-4" />
-        </div>
+        <Link href={routeList?.search}>
+          <div className="px-4 py-2">
+            <SearchBox className="px-4" />
+          </div>
+        </Link>
+
+        {getTenderPrepartionTime?.data?.message && (
+          <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
+            <Icon name="BoxCheck" width={1} height={1} />
+            <p className="text-sm font-light">
+              {getTenderPrepartionTime?.data?.message}
+            </p>
+          </div>
+        )}
 
         <HomeOrderSlider />
 

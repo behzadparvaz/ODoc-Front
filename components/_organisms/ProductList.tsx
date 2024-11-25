@@ -17,12 +17,23 @@ const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
 );
 
+enum SearchTypeEnum {
+  home = 1,
+  otc = 2,
+  supplement = 3,
+}
+
 type Props = {
   searchTerm?: string;
 };
 
 const ProductList = ({ searchTerm }: Props) => {
-  const { push } = useRouter();
+  const { query, push } = useRouter();
+
+  const [searchType, setSearchType] = useState<SearchTypeEnum>(
+    SearchTypeEnum.home,
+  );
+
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
   >({
@@ -34,11 +45,22 @@ const ProductList = ({ searchTerm }: Props) => {
     }),
   });
   const [itemsInBasket, setItemsInBasket] = useState<any[] | null>(null);
+
   const body = {
     search: searchTerm,
     pageNumber: 1,
     pageSize: 10,
+    searchType: searchType,
   };
+
+  useEffect(() => {
+    if (query?.section === 'supplement') {
+      setSearchType(SearchTypeEnum.supplement);
+    }
+    if (query?.section === 'otc') {
+      setSearchType(SearchTypeEnum.otc);
+    }
+  }, [query?.section]);
 
   const { plpData } = useGetPlpInfiniteContent(body);
 
@@ -122,7 +144,7 @@ const ProductList = ({ searchTerm }: Props) => {
                 محصولی با این نام یافت نشد
               </span>
               <span className="text-sm text-content-tertiary">
-                می توانید این محصول را به لیست سفارش های خود اضافه کنید
+                جهت تهیه محصول ثبت سفارش نمایید.{' '}
               </span>
 
               <Button
@@ -136,7 +158,7 @@ const ProductList = ({ searchTerm }: Props) => {
                   })
                 }
               >
-                سفارش محصول
+                ثبت سفارش
               </Button>
             </div>
           )}
