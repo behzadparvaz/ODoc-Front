@@ -112,6 +112,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                       data?.orderStatus?.name !== 'cancelvendor' &&
                       data?.orderStatus?.name !== 'return' &&
                       data?.orderStatus?.name !== 'reject' &&
+                      data?.orderStatus?.name !== 'nfc' &&
                       !item?.price
                     }
                   />
@@ -122,6 +123,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     data?.orderStatus?.name !== 'cancelvendor' &&
                     data?.orderStatus?.name !== 'return' &&
                     data?.orderStatus?.name !== 'reject' &&
+                    data?.orderStatus?.name !== 'nfc' &&
                     !item?.price && (
                       <>
                         <Divider className="h-[0.5px]" />

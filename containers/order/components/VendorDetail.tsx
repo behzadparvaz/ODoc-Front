@@ -18,7 +18,7 @@ const VendorDetail = ({ data }: VendorDetailProps) => {
     addModal({
       modal: VendorDescriptionBottomsheet,
       props: {
-        description: data?.description,
+        description: data?.description?.comment,
         vendorCode: data?.vendorCode,
       },
     });

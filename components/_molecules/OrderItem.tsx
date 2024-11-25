@@ -302,7 +302,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
           </>
         </div>
 
-        <div className="h-[0.5px] bg-border-primary" />
+        {<div className="h-[0.5px] bg-border-primary" />}
       </div>
     );
   }
@@ -314,7 +314,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
       }
       onClick={() =>
         router.push(
-          data?.orderStatus?.name === 'apay'
+          data?.orderStatus?.name === 'apay' ||
+            data?.orderStatus?.name === 'nfc'
             ? `${routeList.tender}/${data?.orderCode}`
             : `${routeList.ordersHistory}/${data?.orderCode}`,
         )
