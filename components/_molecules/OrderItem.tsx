@@ -12,13 +12,14 @@ import OrderHistoryProgress from './OrderHistoryProgress';
 import Countdown from './Countdows';
 import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
-import { CloseIconOutline, NewTickIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import {
   useAddProductToBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
+import Icon from '@utilities/icon';
+import moment from 'jalali-moment';
 
 type OrderItemProps = {
   data: any;
@@ -120,6 +121,34 @@ const OrderItem = ({ data }: OrderItemProps) => {
         return <></>;
     }
   };
+
+  const renderTimeLine = useMemo(() => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+      case 'apay':
+      case 'nfc':
+        return (
+          <span className="text-xs text-content-tertiary">
+            {persianDate({ date: data?.createDateTime, isShownTime: true })}
+          </span>
+        );
+      case 'pick':
+      case 'accept':
+      case 'adelivery':
+      case 'senddelivery':
+        return (
+          <span className="text-xs text-content-tertiary flex gap-1">
+            <span>تحویل تا ساعت</span>
+            <span>
+              {moment(data?.createDateTime, 'MM/DD/YYYY hh:mm:ss A')
+                .add(2, 'hours')
+                .format('HH:mm')}
+            </span>
+          </span>
+        );
+    }
+  }, [data?.orderStatus?.name, data?.createDateTime]);
 
   const renderContent = () => {
     switch (data?.orderStatus?.name) {
@@ -260,26 +289,25 @@ const OrderItem = ({ data }: OrderItemProps) => {
                   ))}
                 </div>
                 <div className="flex items-center justify-between">
-                  <span className="flex items-center gap-x-[22px]">
+                  <span className="flex items-center gap-x-[20px] px-1">
                     <span
                       className={classNames(
                         'w-[24px] h-[24px] rounded-full flex items-center justify-center',
-                        data?.orderStatus?.name === 'deliverd'
-                          ? 'bg-content-positive'
-                          : 'bg-content-negative',
                       )}
                     >
                       {data?.orderStatus?.name === 'deliverd' ? (
-                        <NewTickIcon
-                          width={20}
-                          height={20}
-                          stroke={colors.white}
+                        <Icon
+                          name="CircleCheckFill"
+                          height={1.25}
+                          width={1.25}
+                          fill={colors.green[400]}
                         />
                       ) : (
-                        <CloseIconOutline
-                          width={20}
-                          height={20}
-                          stroke={colors.white}
+                        <Icon
+                          name="CircleCrossFill"
+                          width={1.25}
+                          height={1.25}
+                          fill={'red'}
                         />
                       )}
                     </span>
@@ -335,9 +363,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
           )}
       </div>
 
-      <span className="text-xs text-content-tertiary">
-        {persianDate({ date: data?.createDateTime, isShownTime: true })}
-      </span>
+      {renderTimeLine}
 
       <div className="w-full">{renderContent()}</div>
 

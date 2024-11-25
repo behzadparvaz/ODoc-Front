@@ -6,6 +6,7 @@ import { CircleCheckFillIcon, CircleCrossFillIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { persianDate } from '@utilities/persianDate';
+import moment from 'jalali-moment';
 
 type GeneralDetailProps = {
   data?: any;
@@ -132,6 +133,34 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
     }
   };
 
+  const renderTimeLine = useMemo(() => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+      case 'apay':
+      case 'nfc':
+        return (
+          <span className="text-xs text-content-tertiary">
+            {persianDate({ date: data?.createDateTime, isShownTime: true })}
+          </span>
+        );
+      case 'pick':
+      case 'accept':
+      case 'adelivery':
+      case 'senddelivery':
+        return (
+          <span className="text-xs text-content-tertiary flex gap-1">
+            <span>تحویل تا ساعت</span>
+            <span>
+              {moment(data?.createDateTime, 'MM/DD/YYYY hh:mm:ss A')
+                .add(2, 'hours')
+                .format('HH:mm')}
+            </span>
+          </span>
+        );
+    }
+  }, [data?.orderStatus?.name, data?.createDateTime]);
+
   return (
     <div className="w-full h-[104px] flex flex-col bg-background-gradient.white-to-gray">
       {renderStepComponents()}
@@ -141,8 +170,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
       <div className="h-[44px] flex items-center justify-between text-content-tertiary text-sm leading-5 px-4">
         <span>{`کد سفارش: ${data?.orderCode}`}</span>
 
-        {data?.createDateTime &&
-          persianDate({ date: data?.createDateTime, isShownTime: true })}
+        {data?.createDateTime && renderTimeLine}
       </div>
     </div>
   );
