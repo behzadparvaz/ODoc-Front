@@ -1,6 +1,5 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import Image from 'next/image';
 
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { convertRialToToman } from '@utilities/mainUtils';
@@ -19,6 +18,7 @@ import {
   useAddProductToBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import NextImage from '@com/_core/NextImage';
 
 type OrderItemProps = {
   data: any;
@@ -184,8 +184,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
             <div className="flex items-center flex-row-reverse gap-x-2">
               {deliveryCode
                 ?.toString()
-                .split('')
-                .map((item, index) => (
+                ?.split('')
+                ?.map((item, index) => (
                   <span
                     key={index + item}
                     className="flex items-center justify-center bg-surface-disable h-[24px] w-[24px] rounded-base text-content-secondary text-sm"
@@ -242,10 +242,10 @@ const OrderItem = ({ data }: OrderItemProps) => {
               <div className="flex flex-col gap-y-2">
                 <div className="flex items-center gap-x-2">
                   {data?.orderDetails?.map((item, index) => (
-                    <div className="" key={item.irc}>
+                    <div className="" key={item?.irc}>
                       <div className="flex items-center justify-center overflow-hidden">
                         {index < 4 && (
-                          <Image
+                          <NextImage
                             src={item?.imageLink}
                             alt="order-items"
                             width={32}
@@ -325,7 +325,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
       <div className="w-full flex items-center justify-between">
         <span className="text-content-primary text-sm text-bold ">
-          {getOrderStatusMessage(data.orderStatus?.name)}
+          {getOrderStatusMessage(data?.orderStatus?.name)}
         </span>
 
         {(data.orderStatus?.name === 'draft' ||
