@@ -19,6 +19,7 @@ import {
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
+import moment from 'jalali-moment';
 
 type OrderItemProps = {
   data: any;
@@ -120,6 +121,34 @@ const OrderItem = ({ data }: OrderItemProps) => {
         return <></>;
     }
   };
+
+  const renderTimeLine = useMemo(() => {
+    switch (data?.orderStatus?.name) {
+      case 'draft':
+      case 'ack':
+      case 'apay':
+      case 'nfc':
+        return (
+          <span className="text-xs text-content-tertiary">
+            {persianDate({ date: data?.createDateTime, isShownTime: true })}
+          </span>
+        );
+      case 'pick':
+      case 'accept':
+      case 'adelivery':
+      case 'senddelivery':
+        return (
+          <span className="text-xs text-content-tertiary flex gap-1">
+            <span>تحویل تا ساعت</span>
+            <span>
+              {moment(data?.createDateTime, 'MM/DD/YYYY hh:mm:ss A')
+                .add(2, 'hours')
+                .format('HH:mm')}
+            </span>
+          </span>
+        );
+    }
+  }, [data?.orderStatus?.name, data?.createDateTime]);
 
   const renderContent = () => {
     switch (data?.orderStatus?.name) {
@@ -335,9 +364,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
           )}
       </div>
 
-      <span className="text-xs text-content-tertiary">
-        {persianDate({ date: data?.createDateTime, isShownTime: true })}
-      </span>
+      {renderTimeLine}
 
       <div className="w-full">{renderContent()}</div>
 
