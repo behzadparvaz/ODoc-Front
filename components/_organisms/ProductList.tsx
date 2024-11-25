@@ -148,7 +148,7 @@ const ProductList = ({ searchTerm }: Props) => {
               </span>
 
               <Button
-                variant="secondary"
+                variant="brand"
                 size="medium"
                 className="w-max px-4 mt-2"
                 onClick={() =>
