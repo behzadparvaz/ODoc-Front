@@ -36,7 +36,7 @@ const OrderInfoForm = ({ submitForm, userInfo }: Props) => {
 
   const [initialValues] = useState({
     refrenceNumber: '',
-    nationalCode: userInfo?.nationalCode,
+    nationalCode: userInfo?.nationalCode ?? '',
     phoneNumber: userInfo?.phoneNumber,
     insuranceTypeId: '',
     supplementaryInsuranceType: 0,
