@@ -57,7 +57,7 @@ const OtcMedicineCategories = () => {
 
   if (isLoading)
     return (
-      <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+      <Spinner className="h-full w-full flex justify-center items-center" />
     );
 
   if (selectedCategory && selectedCategory?.categoryCodeLevel1) {
@@ -173,7 +173,7 @@ const OtcMedicineCategories = () => {
       </div>
 
       {!query?.categoryNameLevel1 && (
-        <div className="w-full px-4">
+        <div className="w-full px-4 pb-3">
           <div className="!aspect-w-23 !aspect-h-10">
             <NextImage
               src={'/images/otc-medicine-banner.png'}
