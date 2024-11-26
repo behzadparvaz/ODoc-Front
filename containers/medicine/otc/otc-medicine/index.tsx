@@ -31,7 +31,7 @@ const OtcMedicineContainer = () => {
       title="داروی بدون نسخه"
       backIconHandler={handleBackButton}
     >
-      <div className="w-full flex flex-col gap-y-4 pb-10">
+      <div className="w-full h-full flex flex-col gap-y-4">
         <OtcMedicineCategories />
       </div>
     </MainLayout>
