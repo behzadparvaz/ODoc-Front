@@ -6,6 +6,7 @@ import {
   WheelEvent,
 } from 'react';
 import classNames from 'classnames';
+import '@utilities/stringExtensions';
 
 export interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
@@ -96,17 +97,21 @@ export const TextInput = ({
           type="text"
           id={id}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const convertedValue = e.target.value.toEnglishDigits();
+
             if (
               type === 'number' &&
-              e.target.value !== '' &&
-              !/^\d*$/.test(e.target.value)
+              convertedValue !== '' &&
+              !/^\d*$/.test(convertedValue)
             ) {
               e.preventDefault();
               return;
             }
-            if (e.target.value.length > maxLength) {
-              e.target.value = e.target.value.slice(0, maxLength);
+
+            if (convertedValue.length > maxLength) {
+              e.target.value = convertedValue.slice(0, maxLength);
             } else {
+              e.target.value = convertedValue;
               onChange(e);
             }
           }}
