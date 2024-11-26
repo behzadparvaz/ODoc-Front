@@ -7,6 +7,7 @@ import Spinner from '@com/_atoms/Spinner';
 import dynamic from 'next/dynamic';
 import Divider from '@com/_atoms/Divider';
 import GeneralDetail from '../components/GeneralDetail';
+import { routeList } from '@routes/routeList';
 
 const Rules = dynamic(() => import('../components/Rules'));
 const AddressDetail = dynamic(() => import('../components/AddressDetail'));
@@ -17,7 +18,7 @@ const CancelOrder = dynamic(() => import('../components/CancelOrder'));
 const Contact = dynamic(() => import('../components/Contact'));
 
 const TenderContainer = () => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
 
   const { orderCode } = query;
 
@@ -54,6 +55,13 @@ const TenderContainer = () => {
         hasHeader
         headerType="withoutLogo"
         hasBackButton
+        backIconHandler={() =>
+          push(
+            query?.previousPage === 'home' || query?.previousPage === 'basket'
+              ? `${routeList.homeRoute}`
+              : `${routeList.ordersHistory}`,
+          )
+        }
       >
         {tenderIsLoading ? (
           <div className="w-full text-center">
@@ -94,10 +102,9 @@ const TenderContainer = () => {
 
             <Divider />
 
-            {(tenderData?.queryResult?.[0]?.orderStatus?.name === 'draft' ||
-              tenderData?.queryResult?.[0]?.orderStatus?.name === 'ack' ||
-              tenderData?.queryResult?.[0]?.orderStatus?.name === 'apay') && (
-              <CancelOrder />
+            {(tenderData?.queryResult?.[0]?.orderStatus?.name === 'apay' ||
+              tenderData?.queryResult?.[0]?.orderStatus?.name === 'nfc') && (
+              <CancelOrder step="apay" />
             )}
           </div>
         )}
