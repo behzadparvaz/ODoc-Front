@@ -44,7 +44,9 @@ const QuickOrderSuccessContainer = () => {
             className="w-full"
             size="large"
             type="button"
-            onClick={() => push(`${routeList?.ordersHistory}/${draftId}`)}
+            onClick={() =>
+              push(`${routeList?.ordersHistory}/${draftId}?previousPage=basket`)
+            }
           >
             جزییات سفارش
           </Button>

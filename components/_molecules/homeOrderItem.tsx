@@ -136,8 +136,8 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
           onClick={() =>
             router.push(
               data?.orderStatus?.name === 'apay'
-                ? `${routeList.tender}/${data?.orderCode}`
-                : `${routeList.ordersHistory}/${data?.orderCode}`,
+                ? `${routeList.tender}/${data?.orderCode}?previousPage=home`
+                : `${routeList.ordersHistory}/${data?.orderCode}?previousPage=home`,
             )
           }
         >
