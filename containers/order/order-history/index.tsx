@@ -7,6 +7,7 @@ import Spinner from '@com/_atoms/Spinner';
 import OrderItem from '@com/_molecules/OrderItem';
 import { MainLayout } from '@com/Layout';
 import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
+import { routeList } from '@routes/routeList';
 
 const OrderHistoryContainer = () => {
   const { push, query } = useRouter();
@@ -110,6 +111,7 @@ const OrderHistoryContainer = () => {
       hasBackButton
       title="سفارشات من"
       hasBottomNavigation
+      backIconHandler={() => push(routeList.homeRoute)}
     >
       <div className="w-full flex flex-col">
         <ScrollSlider className="gap-x-2 py-2 px-4">

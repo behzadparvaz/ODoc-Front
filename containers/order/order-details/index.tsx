@@ -8,6 +8,7 @@ import Divider from '@com/_atoms/Divider';
 import OrderDetailItems from '@com/_molecules/OrderDetailItems';
 
 import GeneralDetail from '../components/GeneralDetail';
+import { routeList } from '@routes/routeList';
 
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const Rules = dynamic(() => import('../components/Rules'));
@@ -21,16 +22,23 @@ const DeliveryDetail = dynamic(() => import('../components/DeliveryDetail'));
 const VendorDetail = dynamic(() => import('../components/VendorDetail'));
 
 const OrderDetailsContainer = () => {
-  const { query } = useRouter();
+  const { query, push } = useRouter();
 
   const { data, isLoading } = useGetOrderDetails(query?.orderCode as string);
-
+  console.log('query', query);
   return (
     <MainLayout
       title="جزئیات سفارش"
       hasHeader
       headerType="withoutLogo"
       hasBackButton
+      backIconHandler={() =>
+        push(
+          query?.previousPage === 'home' || query?.previousPage === 'basket'
+            ? `${routeList.homeRoute}`
+            : `${routeList.ordersHistory}`,
+        )
+      }
     >
       {isLoading ? (
         <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
@@ -112,8 +120,7 @@ const OrderDetailsContainer = () => {
           <Divider />
 
           {(data?.orderStatus?.name === 'draft' ||
-            data?.orderStatus?.name === 'ack' ||
-            data?.orderStatus?.name === 'apay') && <CancelOrder />}
+            data?.orderStatus?.name === 'ack') && <CancelOrder step="draft" />}
         </div>
       )}
     </MainLayout>
