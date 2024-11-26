@@ -71,7 +71,7 @@ const ConfirmBasketContainer = () => {
     const data = {
       comment: state.description || '',
       customerName: [profile?.firstName, profile?.lastName].join(' '),
-      nationalCode: profile?.nationalCode,
+      nationalCode: basket?.nationalCode || profile?.nationalCode,
 
       deliveryDate: '',
       fromDeliveryTime: '',
