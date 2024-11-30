@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
@@ -9,7 +10,6 @@ import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
 import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
 import Icon from '@utilities/icon';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
@@ -19,7 +19,6 @@ const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
@@ -67,12 +66,6 @@ const HomeContainer = () => {
         hasAddress
         hasBottomNavigation
       >
-        <Link href={routeList?.search}>
-          <div className="px-4 py-2">
-            <SearchBox className="px-4" />
-          </div>
-        </Link>
-
         {getTenderPrepartionTime?.data?.message && (
           <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
             <Icon name="BoxCheck" width={1} height={1} />
