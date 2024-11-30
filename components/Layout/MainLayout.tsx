@@ -73,7 +73,8 @@ export const MainLayout = ({
             leftSection={leftSection}
             hasBackButton={hasBackButton}
             hasBasketIcon={hasBasketIcon}
-            hasLogo={!loginWithTapsiSSO}
+            // hasLogo={!loginWithTapsiSSO}
+            hasLogo={false}
             hasAddress={hasAddress}
             backIconHandler={backIconHandler}
           />
