@@ -2,11 +2,12 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { Field, useFormikContext } from 'formik';
 
-import Input from '@com/_atoms/Input.nd';
+import { TextInput as Input } from '@com/_atoms/NewTextInput';
 import { ChevronDownIcon, NewDeleteIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import DrugShapes from './DrugShapes';
+import { TextAreaInput } from '@com/_atoms/NewTextArea';
 
 interface DrugShape {
   name: string;
@@ -17,6 +18,7 @@ interface DrugForm {
   quantity: string;
   drugName: string;
   drugShape: DrugShape | null;
+  description: string;
 }
 
 interface FormValues {
@@ -47,6 +49,7 @@ const AddNewRequestDrugForm = ({
       setFieldValue(`drugs.${index}.drugName`, '');
       setFieldValue(`drugs.${index}.quantity`, '');
       setFieldValue(`drugs.${index}.drugShape`, null);
+      setFieldValue(`drugs.${index}.discription`, '');
     } else {
       handleDelete(); // Otherwise, just delete the item
     }
@@ -56,7 +59,8 @@ const AddNewRequestDrugForm = ({
   const isDeleteEnabled = Boolean(
     values.drugs[index].drugName ||
       values.drugs[index].quantity ||
-      values.drugs[index].drugShape,
+      values.drugs[index].drugShape ||
+      values.drugs[index].description,
   );
 
   useEffect(() => {
@@ -68,9 +72,9 @@ const AddNewRequestDrugForm = ({
   return (
     <>
       {index !== 0 && (
-        <div className="my-4 min-h-[1px] bg-gray-200 w-full"></div>
+        <div className="my-2 min-h-[1px] bg-gray-200 w-full"></div>
       )}
-      <div className="mb-4 flex justify-between items-center">
+      <div className="mb-2 flex justify-between items-center">
         <h1>درخواست {index + 1}</h1>
         <div
           onClick={isDeleteEnabled || totalDrugs >= 1 ? deleteDrug : undefined}
@@ -90,16 +94,11 @@ const AddNewRequestDrugForm = ({
         <Field name={`drugs.${index}.drugName`}>
           {({ field }: any) => (
             <div>
-              <Input
-                {...field}
-                labelClassName="text-sm font-medium"
-                inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
-                placeholder="نام دارو را بنویسید"
-              />
+              <Input {...field} placeholder="نام دارو را بنویسید" />
             </div>
           )}
         </Field>
-        <div className="flex gap-x-4 mt-4">
+        <div className="flex gap-x-2 mt-2">
           <div className="flex-1">
             <div
               onClick={() =>
@@ -112,12 +111,12 @@ const AddNewRequestDrugForm = ({
                   },
                 })
               }
-              className={`bg-gray-100 flex justify-between items-center cursor-pointer px-3 rounded-md h-[52px]`}
+              className={`bg-gray-100 flex justify-between items-center cursor-pointer px-3 rounded-md h-10 text-sm`}
             >
               {data?.drugShape?.name ? (
                 data?.drugShape?.name
               ) : (
-                <span className="text-gray-400">نوع دارو</span>
+                <span className="text-gray-400 text-2xs">نوع دارو</span>
               )}
               <ChevronDownIcon width={20} height={20} stroke={colors.black} />
             </div>
@@ -129,10 +128,28 @@ const AddNewRequestDrugForm = ({
                   {...field}
                   labelClassName="text-sm font-medium"
                   type="number"
-                  inputClassName="h-[52px] text-sm bg-gray-100 py-4 px-3"
-                  placeholder="تعداد دارو"
+                  placeholder="تعداد دارو (حداکثر 10 عدد)"
+                  onChange={(e) => {
+                    const value =
+                      Number(e.target.value) === 0
+                        ? ''
+                        : `${Math.min(Number(e.target.value), 10)}`;
+                    setFieldValue(`drugs.${index}.quantity`, value);
+                  }}
                 />
               </div>
+            )}
+          </Field>
+        </div>
+        <div className="mt-2 flex">
+          <Field name={`drugs.${index}.description`}>
+            {({ field }) => (
+              <TextAreaInput
+                {...field}
+                inputClassName="rounded-md"
+                placeholder="توضیحات خود را برای دارو درخواستی بنویسید"
+                rows={3}
+              />
             )}
           </Field>
         </div>
