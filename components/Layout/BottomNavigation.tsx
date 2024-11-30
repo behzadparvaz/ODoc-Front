@@ -52,7 +52,7 @@ const BottomNavigation: React.FC = () => {
   );
 
   return (
-    <div className="h-[64px] w-full flex justify-around items-center bg-surface-secondary border-t border-border-primary box-border">
+    <div className="h-[76px] pb-2 w-full flex justify-around items-center bg-surface-secondary border-t border-border-primary box-border">
       {renderTab(Routes.home, tabs.home, HomeFillIcon)}
       {renderTab(Routes.orders, tabs.orders, OrderNotesOutlineIcon)}
       {renderTab(Routes.profile, tabs.profile, ProfileOutlineIcon)}
