@@ -101,7 +101,7 @@ const Header = ({
             <div
               className={classNames(
                 'w-full flex justify-end gap-x-4',
-                leftSection && 'col-start-3 col-end-5',
+                leftSection && 'col-start-3 col-end-5 gap-x-0',
               )}
             >
               {leftSection && <span>{leftSection}</span>}
