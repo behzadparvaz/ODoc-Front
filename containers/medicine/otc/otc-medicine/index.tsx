@@ -40,7 +40,7 @@ const OtcMedicineContainer = () => {
 
         <RequestDrugsContent />
       </div>
-      <div className="w-full h-full flex flex-col gap-y-4">
+      <div className="w-full flex flex-col gap-y-4">
         <OtcMedicineCategories />
       </div>
     </MainLayout>
