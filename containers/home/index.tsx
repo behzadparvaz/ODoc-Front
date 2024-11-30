@@ -80,15 +80,6 @@ const HomeContainer = () => {
           </div>
         }
       >
-        {getTenderPrepartionTime?.data?.message && (
-          <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
-            <Icon name="BoxCheck" width={1} height={1} />
-            <p className="text-sm font-light">
-              {getTenderPrepartionTime?.data?.message}
-            </p>
-          </div>
-        )}
-
         <HomeOrderSlider />
 
         <Categories isHomePage />
