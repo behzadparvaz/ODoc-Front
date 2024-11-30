@@ -35,11 +35,12 @@ const OtcMedicineContainer = () => {
       title="داروی بدون نسخه"
       backIconHandler={handleBackButton}
     >
-      <div>
-        <div className="mb-2 min-h-[1px] bg-gray-200 w-full"></div>
-
-        <RequestDrugsContent />
-      </div>
+      {!(Object.keys(query).length > 0) && (
+        <div className="flex flex-col">
+          <div className="mb-2 min-h-[1px] bg-gray-200 w-full" />
+          <RequestDrugsContent />
+        </div>
+      )}
       <div className="w-full flex flex-col gap-y-4">
         <OtcMedicineCategories />
       </div>
