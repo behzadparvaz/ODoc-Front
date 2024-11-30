@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
@@ -9,8 +10,8 @@ import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
 import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
 import Icon from '@utilities/icon';
+import classNames from 'classnames';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -19,7 +20,6 @@ const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
@@ -38,7 +38,7 @@ const HomeContainer = () => {
   );
 
   const getTenderPrepartionTime = useGetTenderPrepartionTime();
-
+  console.log('getTenderPrepartionTime', getTenderPrepartionTime);
   useEffect(() => {
     if (userLatLng?.latitude || userLatLng?.longitude)
       getTenderPrepartionTime.mutate({
@@ -66,22 +66,20 @@ const HomeContainer = () => {
         headerType="WithLogo"
         hasAddress
         hasBottomNavigation
-      >
-        <Link href={routeList?.search}>
-          <div className="px-4 py-2">
-            <SearchBox className="px-4" />
-          </div>
-        </Link>
-
-        {getTenderPrepartionTime?.data?.message && (
-          <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
-            <Icon name="BoxCheck" width={1} height={1} />
-            <p className="text-sm font-light">
+        leftSection={
+          <div className="h-full flex items-center">
+            <span
+              className={classNames(
+                ' h-[24px] w-max max-w-[107px] px-2 text-[10px] text-content-accent rounded-full truncate flex items-center',
+                getTenderPrepartionTime?.data?.message &&
+                  'bg-surface-accentLight',
+              )}
+            >
               {getTenderPrepartionTime?.data?.message}
-            </p>
+            </span>
           </div>
-        )}
-
+        }
+      >
         <HomeOrderSlider />
 
         <Categories isHomePage />

@@ -73,7 +73,8 @@ export const MainLayout = ({
             leftSection={leftSection}
             hasBackButton={hasBackButton}
             hasBasketIcon={hasBasketIcon}
-            hasLogo={!loginWithTapsiSSO}
+            // hasLogo={!loginWithTapsiSSO}
+            hasLogo={false}
             hasAddress={hasAddress}
             backIconHandler={backIconHandler}
           />
@@ -87,7 +88,7 @@ export const MainLayout = ({
         </div>
 
         {hasBottomNavigation && (
-          <div className="h-[64px]">
+          <div className="h-[76px]">
             <BottomNavigation />
           </div>
         )}
