@@ -25,7 +25,7 @@ const OrderDetailsContainer = () => {
   const { query, push } = useRouter();
 
   const { data, isLoading } = useGetOrderDetails(query?.orderCode as string);
-  console.log('query', query);
+
   return (
     <MainLayout
       title="جزئیات سفارش"
