@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
+import useStorage from '@hooks/useStorage';
 
 export interface MainLayoutProps {
   // header.props

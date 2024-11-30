@@ -12,6 +12,7 @@ import { routeList } from '@routes/routeList';
 import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Icon from '@utilities/icon';
 import classNames from 'classnames';
+import useStorage from '@hooks/useStorage';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -26,6 +27,8 @@ const HomeContainer = () => {
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
 
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
@@ -38,7 +41,7 @@ const HomeContainer = () => {
   );
 
   const getTenderPrepartionTime = useGetTenderPrepartionTime();
-  console.log('getTenderPrepartionTime', getTenderPrepartionTime);
+
   useEffect(() => {
     if (userLatLng?.latitude || userLatLng?.longitude)
       getTenderPrepartionTime.mutate({
@@ -62,7 +65,7 @@ const HomeContainer = () => {
     <>
       <a href={url} ref={tapsiLinkRef} className="hidden" />
       <MainLayout
-        hasHeader
+        hasHeader={!!token}
         headerType="WithLogo"
         hasAddress
         hasBottomNavigation

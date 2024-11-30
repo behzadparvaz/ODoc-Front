@@ -102,7 +102,7 @@ const ConfirmRequestDrugs = () => {
       },
     });
   };
-  console.log(drugs);
+
   return (
     <MainLayout
       title="تایید ثبت درخواست دارو"
