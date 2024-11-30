@@ -5,7 +5,7 @@ const HomePageAddressBox = () => {
   const { data, isLoading } = useGetUserLocations();
   const addressDate: any = data;
   return (
-    <div className="w-full h-full flex items-center cursor-pointer">
+    <div className="h-full flex items-center cursor-pointer">
       {addressDate?.length && isLoading === false ? (
         <AddressBox data={data} />
       ) : null}

@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { routeList } from '@routes/routeList';
 import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Icon from '@utilities/icon';
+import classNames from 'classnames';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -37,7 +38,7 @@ const HomeContainer = () => {
   );
 
   const getTenderPrepartionTime = useGetTenderPrepartionTime();
-
+  console.log('getTenderPrepartionTime', getTenderPrepartionTime);
   useEffect(() => {
     if (userLatLng?.latitude || userLatLng?.longitude)
       getTenderPrepartionTime.mutate({
@@ -65,6 +66,19 @@ const HomeContainer = () => {
         headerType="WithLogo"
         hasAddress
         hasBottomNavigation
+        leftSection={
+          <div className="h-full flex items-center">
+            <span
+              className={classNames(
+                ' h-[24px] w-max max-w-[107px] px-2 text-[10px] text-content-accent rounded-full truncate flex items-center',
+                getTenderPrepartionTime?.data?.message &&
+                  'bg-surface-accentLight',
+              )}
+            >
+              {getTenderPrepartionTime?.data?.message}
+            </span>
+          </div>
+        }
       >
         {getTenderPrepartionTime?.data?.message && (
           <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
