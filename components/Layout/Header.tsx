@@ -89,10 +89,15 @@ const Header = ({
 
             {hasAddress && (
               <div
-                className={`col-start-1 
-                  ${hasLogo ? 'col-end-5' : leftSection ? 'col-end-3' : 'col-end-4'} 
-                  
-                  ${hasLogo ? 'row-start-2' : 'row-start-1'}`}
+                className={classNames(
+                  'col-start-1 flex items-center cursor-pointer',
+                  hasLogo
+                    ? 'col-end-5'
+                    : leftSection
+                      ? 'col-end-3'
+                      : 'col-end-4',
+                  hasLogo ? 'row-start-2' : 'row-start-1',
+                )}
               >
                 <HomePageAddressBox />
               </div>
@@ -100,11 +105,11 @@ const Header = ({
 
             <div
               className={classNames(
-                'w-full flex justify-end gap-x-4',
+                'w-full h-full flex justify-end gap-x-4',
                 leftSection && 'col-start-3 col-end-5 gap-x-0',
               )}
             >
-              {leftSection && <span>{leftSection}</span>}
+              {leftSection && <>{leftSection}</>}
               {renderBasket()}
             </div>
           </div>

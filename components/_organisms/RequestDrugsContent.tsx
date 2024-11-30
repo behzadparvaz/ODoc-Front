@@ -53,7 +53,6 @@ const RequestDrugsContent = () => {
         enableReinitialize
         validationSchema={RequestDrugSchema}
         onSubmit={(values) => {
-          console.log(values);
           dispatch(setDrugsStateAction(values.drugs));
           router.push('/app/request-drugs/confirm-request-drugs');
         }}
