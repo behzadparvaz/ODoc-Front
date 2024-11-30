@@ -94,7 +94,7 @@ export const TextAreaInput = ({
           onBlur={onBlur}
           rows={props.rows ? props.rows : 3}
           className={classNames(
-            'appearance-none w-full py-2 px-4 truncate no-spinner rounded-base  bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-sm placeholder-gray-400 focus:outline-none autofill:shadow-[inset_0_0_0px_1000px_white] resize-none',
+            'block appearance-none w-full py-2 px-4 no-spinner rounded-base bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none autofill:shadow-[inset_0_0_0px_1000px_white] resize-none',
             // remove arrows on number input
             '[-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none',
             isTouched &&
