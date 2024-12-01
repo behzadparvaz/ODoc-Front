@@ -7,12 +7,27 @@ import { colors } from '@configs/Theme';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { persianDate } from '@utilities/persianDate';
 import moment from 'jalali-moment';
+import {
+  useGetOrderPrepartionTime,
+  useGetTenderPrepartionTime,
+} from '@api/tender/tenderApis.rq';
+import { useSelector } from 'react-redux';
+import Icon from '@utilities/icon';
 
 type GeneralDetailProps = {
   data?: any;
 };
 
 const GeneralDetail = ({ data }: GeneralDetailProps) => {
+  const userLatLng = useSelector(
+    (state: any) => state?.user?.user?.defaultAddress,
+  );
+
+  const { data: prepartionTimeData, isLoading } = useGetOrderPrepartionTime({
+    lat: userLatLng?.latitude,
+    lng: userLatLng?.longitude,
+  });
+
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
 
@@ -105,6 +120,16 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
       case 'ack':
+        return (
+          <div className="h-10 flex items-center justify-between px-4">
+            {getOrderStatusMessage(data?.orderStatus?.name)}
+
+            <Countdown
+              expirationTime={acceptExpirationTime}
+              className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
+            />
+          </div>
+        );
       case 'apay':
       case 'nfc':
       case 'pick':
@@ -115,13 +140,11 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
 
-            {data?.orderStatus?.name === 'draft' ||
-              (data?.orderStatus?.name === 'ack' && (
-                <Countdown
-                  expirationTime={acceptExpirationTime}
-                  className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
-                />
-              ))}
+            {!prepartionTimeData?.isPreOrder && (
+              <span className="text-sm text-content-tertiary">
+                {prepartionTimeData?.message}
+              </span>
+            )}
           </div>
         );
       case 'deliverd':
@@ -172,6 +195,20 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
 
         {data?.createDateTime && renderTimeLine}
       </div>
+
+      {prepartionTimeData?.isPreOrder && (
+        <div className="py-2 flex items-center justify-center gap-x-2">
+          <Icon
+            name="ClockDashed"
+            height={1.5}
+            width={1.5}
+            fill={colors?.green[400]}
+          />
+          <span className="text-sm text-content-secondary">
+            {prepartionTimeData?.message}
+          </span>
+        </div>
+      )}
     </div>
   );
 };
