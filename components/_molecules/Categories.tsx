@@ -1,15 +1,17 @@
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
+
 import CategoryItem from '@com/_atoms/CategoryItem';
 import { routeList } from '@routes/routeList';
 
 import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
 import NonPrescriptionMedicine from '@public/images/tiles/specialPatients.png';
 import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
-import Cosmetics from '@public/images/tiles/cosmetics.png';
 import Supplement from '@public/images/tiles/supplement.png';
+import MotherChildSupplement from '@public/images/tiles/mother&Baby.png';
+import MedicineEquipment from '@public/images/tiles/medicineEquipment.png';
 
 import ScrollSlider from './ScrollSlider.nd';
-import { useRouter } from 'next/router';
-import classNames from 'classnames';
 
 interface ICategory {
   title: string;
@@ -36,7 +38,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       image: NonPrescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: '50%',
+      ratio: '33.3333%',
     },
     {
       title: 'داروی با نسخه ',
@@ -44,7 +46,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       image: PrescriptionMedicine,
       imageHeight: 68,
       imageWidth: 68,
-      ratio: '50%',
+      ratio: '33.3333%',
       query: `${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
@@ -57,6 +59,16 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       query: `${'?title=داروی با نسخه&type=SP'}`,
     },
     {
+      title: 'مادر و کودک',
+      link: routeList?.supplementProductListPage,
+      image: MotherChildSupplement,
+      imageHeight: isHomePage ? 64 : 68,
+      imageWidth: isHomePage ? 64 : 68,
+      isSoon: false,
+      ratio: '33.3333%',
+      query: '?categoryCodeLevel2=10_1266&categoryNameLevel2=مادر%20و%20کودک',
+    },
+    {
       title: 'مکمل',
       link: routeList?.supplementPage,
       image: Supplement,
@@ -66,13 +78,14 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       ratio: '33.3333%',
     },
     {
-      title: 'آرایشی بهداشتی',
-      link: routeList?.homeRoute,
-      image: Cosmetics,
+      title: 'تجهیزات پزشکی',
+      link: routeList?.otcMedicine,
+      image: MedicineEquipment,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
-      isSoon: true,
+      isSoon: false,
       ratio: '33.3333%',
+      query: '?categoryNameLevel1=تجهیزات+پزشکی&categoryCodeLevel1=11',
     },
   ];
 

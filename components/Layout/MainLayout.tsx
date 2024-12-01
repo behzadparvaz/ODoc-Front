@@ -89,7 +89,7 @@ export const MainLayout = ({
         </div>
 
         {hasBottomNavigation && (
-          <div className="h-[76px]">
+          <div className="absolute bottom-0 left-0 w-full h-[76px]">
             <BottomNavigation />
           </div>
         )}
