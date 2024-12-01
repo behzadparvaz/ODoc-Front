@@ -3,17 +3,14 @@ import { useGetProfile } from '@api/user/user.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { TextInput as Input } from '@com/_atoms/NewTextInput';
-import SelectGender from '@com/_organisms/selectGender';
-import { ChevronDownIcon, ClipboardClockIcon, NewDeleteIcon } from '@com/icons';
+import { ClipboardClockIcon, NewDeleteIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
-import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
 import { removeDrugAction } from '@redux/requestDrugs/requestDrugsActions';
 import { routeList } from '@routes/routeList';
 import isValidIranianNationalCode from '@utilities/isValidIranianNationalCode';
-import classNames from 'classnames';
 import { Field, Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -24,6 +21,7 @@ interface Drug {
   id: string;
   drugName: string;
   quantity: number;
+  description: string;
   drugShape?: {
     unit?: string;
     name?: string;
@@ -32,10 +30,7 @@ interface Drug {
 
 interface FormValues {
   description: string;
-  age: string;
-  gender: string;
   nationalCode: string;
-  sensitivity: string;
 }
 
 const ConfirmRequestDrugs = () => {
@@ -60,14 +55,11 @@ const ConfirmRequestDrugs = () => {
   const drugs = useSelector((state: any) => state.requestDrugs.drugs);
   const { mutate: addToCart, isPending } = useAddProductToBasket();
   const { openNotification } = useNotification();
-  const { addModal, removeLastModal } = useModal();
 
   const initialValues: FormValues = {
     description: '',
-    age: '',
-    gender: '',
+
     nationalCode: data?.queryResult?.[0]?.nationalCode || '',
-    sensitivity: '',
   };
 
   useEffect(() => {
@@ -92,19 +84,13 @@ const ConfirmRequestDrugs = () => {
 
     const serializeData = (drugs: Drug[]): any => {
       const body = {
-        description: [
-          values.age ? `سن: ${values.age}` : '',
-          values.gender ? `جنسیت: ${values.gender}` : '',
-          values.sensitivity ? `حساسیت: ${values.sensitivity}` : '',
-          values.description,
-        ]
-          .filter(Boolean)
-          .join('\n'),
+        description: values.description,
         requestOrders: drugs.map((item) => ({
           irc: item.id,
           productName: item.drugName,
           quantity: item.quantity,
           unit: item.drugShape?.unit === '_' ? null : item.drugShape?.unit,
+          description: item?.description,
         })),
       };
       return body;
@@ -148,11 +134,26 @@ const ConfirmRequestDrugs = () => {
                           fill={colors.grey[600]}
                         />
                       </div>
-                      <div className="w-full">
-                        <p className="text-xl font-medium">{item.drugName}</p>
-                        <p className="text-xs font-light text-grey-500">
-                          {item.drugShape?.name}
-                        </p>
+                      <div className="w-full overflow-hidden truncate">
+                        <span className="text-xl font-medium">
+                          {item.drugName}
+                        </span>
+                        <div className="text-xs font-light text-grey-500 flex">
+                          <span>نوع دارو:</span>
+                          <span>{item.drugShape?.name}</span>
+                        </div>
+                        <div className="text-xs font-light text-grey-500 flex">
+                          <span>تعداد درخواست:</span>
+                          <span>{item.quantity}</span>
+                        </div>
+                        {item.description && (
+                          <div className="text-xs font-light text-grey-500 flex truncate">
+                            <span>توضیحات:</span>
+                            <span className="overflow-hidden truncate">
+                              {item.description}
+                            </span>
+                          </div>
+                        )}
                       </div>
                       <div
                         onClick={() => handleDeleteDrug(item.id)}
@@ -172,66 +173,17 @@ const ConfirmRequestDrugs = () => {
                   </p>
                 )}
               </div>
-              <div className="h-[1px] bg-grey-200 w-full mb-5" />
+              <div className="h-[1px] bg-grey-200 w-full mb-2" />
             </div>
             <div className="w-full px-4">
-              <div className="flex gap-4">
-                <Field name="age">
-                  {({ field }) => <Input {...field} label="سن" type="number" />}
-                </Field>
-                <div className="w-full flex flex-col gap-y-1 justify-between">
-                  <label className="text-xs font-semibold leading-6 flex gap-x-1 items-center">
-                    جنسیت
-                  </label>
-                  <div
-                    onClick={() =>
-                      addModal({
-                        modal: SelectGender,
-                        props: {
-                          handleClick: (item) => {
-                            setFieldValue('gender', item?.name);
-                            removeLastModal();
-                          },
-                        },
-                      })
-                    }
-                    className={`bg-gray-100 flex justify-between items-center cursor-pointer px-3 rounded-md h-[40px]`}
-                  >
-                    <span
-                      className={classNames(
-                        !values.gender ? 'text-grey-400 text-sm' : 'text-black',
-                      )}
-                    >
-                      {values.gender || 'جنسیت'}
-                    </span>
-                    <ChevronDownIcon
-                      width={20}
-                      height={20}
-                      stroke={colors.black}
-                    />
-                  </div>
-                </div>
-              </div>
-              <Field name="sensitivity">
-                {({ field }) => (
-                  <TextAreaInput
-                    {...field}
-                    labelClassName="text-sm font-medium mt-5"
-                    inputClassName="rounded-md"
-                    label="حساسیت های دارویی"
-                    placeholder="حساسیت های دارویی خود را برای داروخانه بنویسید"
-                    rows={5}
-                  />
-                )}
-              </Field>
               <Field name="description">
                 {({ field }) => (
                   <TextAreaInput
                     {...field}
-                    labelClassName="text-sm font-medium mt-5"
+                    labelClassName="text-sm font-medium"
                     inputClassName="rounded-md"
                     label="توضیحات سفارش"
-                    placeholder="توضیحات سفارش خود را برای داروخانه بنویسید"
+                    placeholder="سن، جنسیت و توضیحات سفارش خود را برای داروخانه بنویسید"
                     rows={5}
                   />
                 )}
@@ -243,6 +195,7 @@ const ConfirmRequestDrugs = () => {
                     type="number"
                     label="کد ملی"
                     placeholder="1234567890"
+                    className="mt-4"
                     id="nationalCode"
                     isTouched={
                       touched.nationalCode && Boolean(errors.nationalCode)
@@ -263,7 +216,7 @@ const ConfirmRequestDrugs = () => {
                 isLoading={isPending || profileDataLoading}
                 disabled={profileDataLoading}
               >
-                تأیید و ادامه
+                افزودن به سبد خرید
               </Button>
             </ActionBar>
           </Form>

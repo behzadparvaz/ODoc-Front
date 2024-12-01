@@ -47,7 +47,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
           modal: SelectAddress,
         });
       }}
-      className="flex justify-between items-center"
+      className="w-full flex justify-between items-center"
     >
       <div
         className={`w-[calc(100%-24px)] text-grey-800 font-bold text-xs truncate ${className}`}
