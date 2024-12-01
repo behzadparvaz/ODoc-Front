@@ -13,6 +13,9 @@ const RequestDrugsContent = dynamic(
 const OtcMedicineContainer = () => {
   const { push, query } = useRouter();
   const dispatch = useDispatch();
+  const conditionShowRequestDrugsContent =
+    !Object.keys(query).length ||
+    !!(query?.searchText && Object.keys(query)?.length === 1);
 
   const handleBackButton = () => {
     if (query?.categoryNameLevel1 && query?.categoryCodeLevel1) {
@@ -35,7 +38,7 @@ const OtcMedicineContainer = () => {
       title="داروی بدون نسخه"
       backIconHandler={handleBackButton}
     >
-      {!(Object.keys(query).length > 0) && (
+      {conditionShowRequestDrugsContent && (
         <div className="flex flex-col">
           <div className="mb-2 min-h-[1px] bg-gray-200 w-full" />
           <RequestDrugsContent />

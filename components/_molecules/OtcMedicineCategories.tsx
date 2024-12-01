@@ -1,16 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { useGetCategories } from '@api/category/categoryApis.rq';
-import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
-import NextLink from '@com/_core/NextLink';
 import { routeList } from '@routes/routeList';
-import { ChevronLeftIconOutline } from '@com/icons';
-import { colors } from '@configs/Theme';
+import OtcMedicineFamilyNames from './OtcMedicineFamilyNames';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
@@ -30,14 +27,20 @@ const OtcMedicineCategories = () => {
 
   const handleSelectCategory = (item: CategoryItemsDataModel) => {
     setSelectedCategory(item);
+
+    const newQuery = { ...query };
+
+    if (newQuery.searchText !== undefined) {
+      delete newQuery.searchText;
+    }
+
+    newQuery.categoryNameLevel1 = item?.categoryNameLevel1;
+    newQuery.categoryCodeLevel1 = item?.categoryCodeLevel1;
+
     push(
       {
         pathname: pathname,
-        query: {
-          ...query,
-          categoryNameLevel1: item?.categoryNameLevel1,
-          categoryCodeLevel1: item?.categoryCodeLevel1,
-        },
+        query: newQuery,
       },
       undefined,
       { shallow: true },
