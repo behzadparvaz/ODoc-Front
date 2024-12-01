@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useSelector } from 'react-redux';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import Banner from '@com/_molecules/Banner';
@@ -8,9 +9,12 @@ import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
-import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
-import Icon from '@utilities/icon';
+import {
+  useGetOrderPrepartionTime,
+  useGetTenderPrepartionTime,
+} from '@api/tender/tenderApis.rq';
+import classNames from 'classnames';
+import useStorage from '@hooks/useStorage';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
@@ -19,13 +23,17 @@ const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
+  const tapsiLinkRef = useRef(null);
+
+  const { getItem } = useStorage();
+
+  const token = getItem('token', 'local');
 
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
@@ -37,19 +45,14 @@ const HomeContainer = () => {
     (state: any) => state?.user?.user?.defaultAddress,
   );
 
-  const getTenderPrepartionTime = useGetTenderPrepartionTime();
+  const getTenderPrepartionTime = useGetOrderPrepartionTime({
+    lat: userLatLng?.latitude,
+    lng: userLatLng?.longitude,
+  });
 
-  useEffect(() => {
-    if (userLatLng?.latitude || userLatLng?.longitude)
-      getTenderPrepartionTime.mutate({
-        lat: userLatLng?.latitude,
-        lng: userLatLng?.longitude,
-      });
-  }, [userLatLng?.latitude, userLatLng?.longitude]);
-
-  const tapsiLinkRef = useRef(null);
   const url =
     'https://accounts.tapsi.ir/login?client_id=doctor.tapsi&redirect_uri=https://tapsi.doctor/app&response_type=code&scope=tapsidoctor_access&prompt=none';
+
   useEffect(() => {
     const query: any = searchParamToObject(window?.location?.search);
     const isFromTapsi = query?.utm_source && query?.utm_source === 'TAPSI';
@@ -62,26 +65,24 @@ const HomeContainer = () => {
     <>
       <a href={url} ref={tapsiLinkRef} className="hidden" />
       <MainLayout
-        hasHeader
+        hasHeader={!!token}
         headerType="WithLogo"
         hasAddress
         hasBottomNavigation
-      >
-        <Link href={routeList?.search}>
-          <div className="px-4 py-2">
-            <SearchBox className="px-4" />
-          </div>
-        </Link>
-
-        {getTenderPrepartionTime?.data?.message && (
-          <div className="h-8 bg-surface-warningLight flex items-center p-[10px] mt-1 gap-1">
-            <Icon name="BoxCheck" width={1} height={1} />
-            <p className="text-sm font-light">
+        leftSection={
+          <div className="h-full flex items-center">
+            <span
+              className={classNames(
+                ' h-[24px] w-max max-w-[107px] px-2 text-[10px] text-content-accent rounded-full truncate flex items-center',
+                getTenderPrepartionTime?.data?.message &&
+                  'bg-surface-accentLight',
+              )}
+            >
               {getTenderPrepartionTime?.data?.message}
-            </p>
+            </span>
           </div>
-        )}
-
+        }
+      >
         <HomeOrderSlider />
 
         <Categories isHomePage />

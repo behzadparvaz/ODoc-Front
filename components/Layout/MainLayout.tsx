@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
+import useStorage from '@hooks/useStorage';
 
 export interface MainLayoutProps {
   // header.props
@@ -73,7 +74,8 @@ export const MainLayout = ({
             leftSection={leftSection}
             hasBackButton={hasBackButton}
             hasBasketIcon={hasBasketIcon}
-            hasLogo={!loginWithTapsiSSO}
+            // hasLogo={!loginWithTapsiSSO}
+            hasLogo={false}
             hasAddress={hasAddress}
             backIconHandler={backIconHandler}
           />
@@ -87,7 +89,7 @@ export const MainLayout = ({
         </div>
 
         {hasBottomNavigation && (
-          <div className="h-[64px]">
+          <div className="absolute bottom-0 left-0 w-full h-[76px]">
             <BottomNavigation />
           </div>
         )}

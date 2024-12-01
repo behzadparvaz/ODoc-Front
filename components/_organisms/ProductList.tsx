@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { useEffect, useState } from 'react';
 
-import { colors } from '@configs/Theme';
-import { useRouter } from 'next/router';
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useGetPlpInfiniteContent } from '@api/plp/plpApi.rq';
-import { routeList } from '@routes/routeList';
-import { productListPageTexts } from '@com/texts/productListPageTexts';
-import InfiniteScroll from 'react-infinite-scroll-component';
-import EmptyContent from '@com/_atoms/EmptyContent';
-import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import ActionBar from '@com/Layout/ActionBar';
+import EmptyContent from '@com/_atoms/EmptyContent';
 import { Button } from '@com/_atoms/NewButton';
+import { mobileSearchTexts } from '@com/texts/mobileSearchText';
+import { productListPageTexts } from '@com/texts/productListPageTexts';
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -153,7 +152,7 @@ const ProductList = ({ searchTerm }: Props) => {
                 className="w-max px-4 mt-2"
                 onClick={() =>
                   push({
-                    pathname: routeList.QuickOrder,
+                    pathname: routeList.otcMedicine,
                     query: { searchText: searchTerm },
                   })
                 }

@@ -77,7 +77,7 @@ export const RequestDrugSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         drugName: Yup.string().required('نام دارو الزامی است'),
-        quantity: Yup.number().required('تعداد دارو الزامی است').nullable(),
+        quantity: Yup.number().required('تعداد دارو الزامی است').max(10).nullable(),
         drugShape: Yup.object().required('نوع دارو الزامی است'),
       })
     )
