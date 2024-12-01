@@ -1,29 +1,115 @@
+import { useAuthLoginWithOtp } from '@api/auth/oDocAuth.rq';
 import { MainLayout } from '@com/Layout';
-import { useState } from 'react';
+import useNotification from '@hooks/useNotification';
+import useStorage from '@hooks/useStorage';
+import { routeList } from '@routes/routeList';
+import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import BackgroundSection from './components/backgroundSection';
-import PhoneStep from './components/phoneStep';
-import OtpStep from './components/otpStep';
+
+const PhoneStep = dynamic(() => import('./components/phoneStep'), {
+  ssr: false,
+});
+const OtpStep = dynamic(() => import('./components/otpStep'), { ssr: false });
 
 type TSteps = 'phone' | 'otp';
+interface IData {
+  phone: string;
+  securityStamp: string;
+}
 interface IState {
   step: TSteps;
-  data: any;
+  data?: IData;
+}
+interface IOnSubmitPhoneStep {
+  phone: string;
+  securityStamp: string;
 }
 
 const AuthContainer = () => {
-  const [state, setState] = useState<IState>({ step: 'otp', data: null });
+  const initState: IState = { step: 'phone', data: null };
+  const [state, setState] = useState<IState>({ step: 'phone', data: null });
+  const { openNotification } = useNotification();
+  const { mutate: mutateAuthLoginWithOtp, isPending: pendingAuthLoginWithOtp } =
+    useAuthLoginWithOtp();
 
-  const onSubmitPhoneStep = () => {
-    setState((prev) => ({ ...prev, step: 'otp' }));
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  const { replace } = useRouter();
+
+  const onSubmitPhoneStep = ({ phone, securityStamp }: IOnSubmitPhoneStep) => {
+    setState((prev) => ({
+      ...prev,
+      data: { ...prev.data, phone, securityStamp },
+      step: 'otp',
+    }));
   };
+
   const EditPhoneAction = () => {
-    setState((prev) => ({ ...prev, step: 'phone' }));
+    setState(initState);
   };
+
+  const mutateSubmitHandler = (phoneNumber: string) => {
+    mutateAuthLoginWithOtp(
+      { phoneNumber },
+      {
+        onSuccess: (res: any) => {
+          if (!res?.data?.rejectReason) {
+            return onSubmitPhoneStep({
+              phone: phoneNumber,
+              securityStamp: res?.data?.securityStamp,
+            });
+          }
+          if (res?.data?.rejectReason)
+            return openNotification({
+              type: 'error',
+              message: res?.data?.rejectReason,
+              notifType: 'successOrFailedMessage',
+            });
+        },
+        onError: (error: any) => {
+          const errorMessage =
+            error?.errors?.fieldErrors?.[0]?.error ||
+            'مشکلی پیش آمده است لطفا مجدد تلاش کنید';
+
+          return openNotification({
+            type: 'error',
+            message: errorMessage,
+            notifType: 'successOrFailedMessage',
+          });
+        },
+      },
+    );
+  };
+
+  const onSubmitFormAction = ({ phone }) => {
+    mutateSubmitHandler(phone);
+  };
+
+  useEffect(() => {
+    if (token) {
+      replace(routeList.homeRoute);
+    }
+  }, []);
+
   return (
     <MainLayout>
       <BackgroundSection />
-      {state.step === 'phone' && <PhoneStep onSubmit={onSubmitPhoneStep} />}
-      {state.step === 'otp' && <OtpStep EditPhoneAction={EditPhoneAction} />}
+      {state.step === 'phone' && (
+        <PhoneStep
+          isLoading={pendingAuthLoginWithOtp}
+          onSubmit={onSubmitFormAction}
+        />
+      )}
+      {state.step === 'otp' && (
+        <OtpStep
+          phone={state?.data?.phone}
+          securityStamp={state?.data?.securityStamp}
+          retry={onSubmitFormAction}
+          EditPhone={EditPhoneAction}
+        />
+      )}
     </MainLayout>
   );
 };

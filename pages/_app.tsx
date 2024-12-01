@@ -1,28 +1,25 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import '../styles/globals.css';
-import { createRef, useEffect, useMemo, useState } from 'react';
-import { wrapper } from '../redux/store';
-import dynamic from 'next/dynamic';
+import LoginWithSSO from '@com/_atoms/loginWithSSO';
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
-import CheckRedirectLoginOrNotLogin from '@com/_atoms/CheckRedirectLoginStatus';
-import Head from 'next/head';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import dynamic from 'next/dynamic';
+import Head from 'next/head';
+import { createRef, useMemo } from 'react';
+import { wrapper } from '../redux/store';
+import '../styles/globals.css';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: Infinity,
+      retry: 3,
+    },
+  },
+});
 
 function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
   const modalNode = createRef<HTMLDivElement>();
-
-  const [queryClient] = useState(
-    () =>
-      new QueryClient({
-        defaultOptions: {
-          queries: {
-            staleTime: Infinity,
-            retry: 3,
-          },
-        },
-      }),
-  );
 
   return (
     <>
@@ -132,7 +129,7 @@ function MyApp({ Component, pageProps }) {
         <NotificationWrapper />
 
         <ModalCreator ref={modalNode} />
-        {/* <CheckRedirectLoginOrNotLogin /> */}
+        <LoginWithSSO />
 
         <div dir="rtl">
           <Component {...pageProps} />

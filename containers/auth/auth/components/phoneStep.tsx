@@ -1,15 +1,21 @@
 import { Button } from '@com/_atoms/NewButton';
 import { TextInput as Input } from '@com/_atoms/NewTextInput';
 import { Field, Form, Formik } from 'formik';
+import { motion } from 'framer-motion';
+import { memo, useCallback } from 'react';
 import * as Yup from 'yup';
 import PrivacyPolicyText from './PrivacyPolicyText';
-import { motion } from 'framer-motion';
 
-interface PhoneStepProps {
-  onSubmit: (values: { PhoneNumber: string }) => void;
+interface IOnSubmit {
+  phone: string;
 }
 
-const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
+interface PhoneStepProps {
+  onSubmit: (values: IOnSubmit) => void;
+  isLoading: boolean;
+}
+
+const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit, isLoading }) => {
   const initialValues = { PhoneNumber: '' };
 
   const validationSchema = Yup.object({
@@ -18,11 +24,17 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
       .matches(/^[0-9]{11}$/, 'شماره موبایل باید 11 رقم باشد'),
   });
 
-  // Animation variants
   const variants = {
     hidden: { y: '100%', opacity: 0 },
     visible: { y: '0%', opacity: 1 },
   };
+
+  const handleSubmit = useCallback(
+    (values) => {
+      onSubmit({ phone: values.PhoneNumber });
+    },
+    [onSubmit],
+  );
 
   return (
     <motion.div
@@ -36,10 +48,11 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
       <div className="text-md border-b border-grey-200 py-4 flex justify-center font-medium">
         ورود | ثبت نام
       </div>
+
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
         {({ handleSubmit, touched, errors }) => (
           <Form className="my-4 px-4" onSubmit={handleSubmit}>
@@ -56,7 +69,7 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
                   id="PhoneNumber"
                   placeholder={'09XXXXXXXXX'}
                   maxLength={11}
-                  isTouched={touched.PhoneNumber && errors.PhoneNumber}
+                  isTouched={touched.PhoneNumber && Boolean(errors.PhoneNumber)}
                   errorMessage={errors.PhoneNumber}
                   autoComplete="off"
                 />
@@ -68,6 +81,8 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
               className="w-full mb-5"
               size="large"
               type="submit"
+              isLoading={isLoading}
+              disabled={isLoading}
             >
               تأیید
             </Button>
@@ -78,4 +93,4 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit }) => {
   );
 };
 
-export default PhoneStep;
+export default memo(PhoneStep);
