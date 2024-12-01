@@ -100,7 +100,7 @@ const OrderDetailsContainer = () => {
 
               <div className="flex flex-col gap-y-2 p-4">
                 <span className="text-base text-content-primary font-medium">
-                  علت لغو توسط داروخانه
+                  علت لغو سفارش
                 </span>
                 <span className="text-sm text-content-tertiary">
                   {data?.cancelReason}
