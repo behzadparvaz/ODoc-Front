@@ -9,8 +9,10 @@ import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
-import { useGetTenderPrepartionTime } from '@api/tender/tenderApis.rq';
-import Icon from '@utilities/icon';
+import {
+  useGetOrderPrepartionTime,
+  useGetTenderPrepartionTime,
+} from '@api/tender/tenderApis.rq';
 import classNames from 'classnames';
 import useStorage from '@hooks/useStorage';
 
@@ -27,7 +29,10 @@ const HomeContainer = () => {
   const { data: bannerData } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
+  const tapsiLinkRef = useRef(null);
+
   const { getItem } = useStorage();
+
   const token = getItem('token', 'local');
 
   const getCarouselDataData = (position: number) => {
@@ -40,19 +45,14 @@ const HomeContainer = () => {
     (state: any) => state?.user?.user?.defaultAddress,
   );
 
-  const getTenderPrepartionTime = useGetTenderPrepartionTime();
+  const getTenderPrepartionTime = useGetOrderPrepartionTime({
+    lat: userLatLng?.latitude,
+    lng: userLatLng?.longitude,
+  });
 
-  useEffect(() => {
-    if (userLatLng?.latitude || userLatLng?.longitude)
-      getTenderPrepartionTime.mutate({
-        lat: userLatLng?.latitude,
-        lng: userLatLng?.longitude,
-      });
-  }, [userLatLng?.latitude, userLatLng?.longitude]);
-
-  const tapsiLinkRef = useRef(null);
   const url =
     'https://accounts.tapsi.ir/login?client_id=doctor.tapsi&redirect_uri=https://tapsi.doctor/app&response_type=code&scope=tapsidoctor_access&prompt=none';
+
   useEffect(() => {
     const query: any = searchParamToObject(window?.location?.search);
     const isFromTapsi = query?.utm_source && query?.utm_source === 'TAPSI';

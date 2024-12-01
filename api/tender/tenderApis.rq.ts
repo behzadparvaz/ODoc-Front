@@ -14,5 +14,15 @@ export const useGetTenderItems = (orderCode: string) => {
 export const useGetTenderPrepartionTime = () => {
   return useMutation<any, unknown, any>({
     mutationFn: getTenderPrepartionTime,
-  })
+  });
+};
+
+export const useGetOrderPrepartionTime = (body: any) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['getTenderPrepartionTime', body],
+    queryFn: () => getTenderPrepartionTime(body),
+
+    enabled: !!body?.lat && !!body?.lng,
+  });
+  return { data: data as any, isLoading };
 };
