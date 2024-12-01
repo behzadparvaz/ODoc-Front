@@ -14,7 +14,6 @@ const Pagination = dynamic(() => import('@com/_molecules/Pagination'));
 const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
-  console.log('query', query);
 
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetOtcMedicineProducts(
@@ -78,7 +77,7 @@ const Products = () => {
               query: { ...query },
             })
           }
-          className="border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
+          className="h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
           key={item?.irc}
           hasAddToCart
@@ -92,7 +91,7 @@ const Products = () => {
               {[...Array(8).keys()].map((item) => (
                 <div
                   key={item}
-                  className="w-full flex justify-center border border-border-primary"
+                  className="w-full flex justify-center border-border-primary h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
                 >
                   <VerticalProductCardShimmer />
                 </div>

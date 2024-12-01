@@ -84,14 +84,15 @@ export const useGetOtcMedicineProducts = (body?: any) => {
     isFetchingPreviousPage,
   } = useInfiniteQuery({
     queryKey: ['GetOtcMedicineProducts', body],
-    queryFn: ({ pageParam = 1 }) =>
-      GetOtcMedicineProducts({
+    queryFn: ({ pageParam = 1 }) => {
+      return GetOtcMedicineProducts({
         ...body,
         pageNumber: body?.pageNumber ?? pageParam,
-      }),
+      });
+    },
     initialPageParam: 1,
     getNextPageParam: (data: any) => {
-      return data?.totalCount === data?.pageNumber
+      return Math.floor(data?.totalCount / 10) + 1 === data?.pageNumber
         ? undefined
         : data?.pageNumber + 1;
     },

@@ -20,7 +20,7 @@ const shimerItems = [1, 2, 3, 4];
 const Categories = () => {
   const { pathname, query, push } = useRouter();
   const { data, isLoading } = useGetCategories({ level: 1 });
-  console.log('data', data);
+
   if (isLoading)
     return (
       <Spinner className="h-full w-full flex justify-center items-center" />
@@ -30,11 +30,12 @@ const Categories = () => {
     return (
       <div
         onClick={() => {
+          const { pageNumber, ...rest } = query;
           push(
             {
               pathname: pathname,
               query: {
-                ...query,
+                ...rest,
                 categoryCodeLevel1: item?.categoryCodeLevel1,
               },
             },

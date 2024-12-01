@@ -1,13 +1,8 @@
-import { useRouter } from 'next/router';
-import dynamic from 'next/dynamic';
 import Link from 'next/link';
 
 import { useGetCategories } from '@api/category/categoryApis.rq';
-import Spinner from '@com/_atoms/Spinner';
 import NextImage from '@com/_core/NextImage';
 import { routeList } from '@routes/routeList';
-
-const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 type CategoryItemsDataModel = {
   categoryNameLevel1: string;
@@ -16,25 +11,29 @@ type CategoryItemsDataModel = {
 };
 
 const OtcMedicineCategories = () => {
-  const { push } = useRouter();
   const { data, isLoading } = useGetCategories({ level: 1 });
 
-  if (isLoading)
+  if (isLoading) {
     return (
-      <Spinner className="h-full w-full flex justify-center items-center" />
+      <>
+        <div className="w-full px-4 h-max grid grid-cols-2 gap-4">
+          {[...Array(8).keys()].map((item, index) => (
+            <div
+              key={index}
+              className="relative h-[104px] flex items-end px-4 py-2 rounded-lg bg-surface-secondary cursor-pointer gap-y-2 animate-pulse"
+            ></div>
+          ))}
+        </div>
+
+        <div className="w-full h-[200px] px-4 pb-3">
+          <div className="!aspect-w-23 !aspect-h-10 bg-surface-secondary animate-pulse rounded-xl" />
+        </div>
+      </>
     );
+  }
 
   return (
     <>
-      <div
-        className="px-4 py-2 cursor-pointer"
-        onClick={() =>
-          push({ pathname: routeList?.search, query: { section: 'otc' } })
-        }
-      >
-        <SearchBox className="px-4" />
-      </div>
-
       <div className="w-full px-4 h-max grid grid-cols-2 gap-4">
         {data?.queryResult?.map((item) => (
           <Link

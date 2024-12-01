@@ -6,9 +6,13 @@ import OtcMedicineCategories from '@com/_molecules/OtcMedicineCategories';
 import { MainLayout } from '@com/Layout';
 import { clearDrugsStateAction } from '@redux/requestDrugs/requestDrugsActions';
 import dynamic from 'next/dynamic';
+import { routeList } from '@routes/routeList';
+
 const RequestDrugsContent = dynamic(
   () => import('@com/_organisms/RequestDrugsContent'),
 );
+
+const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
 const OtcMedicineContainer = () => {
   const { push, query } = useRouter();
@@ -44,6 +48,16 @@ const OtcMedicineContainer = () => {
           <RequestDrugsContent />
         </div>
       )}
+
+      <div
+        className="px-4 py-4 cursor-pointer"
+        onClick={() =>
+          push({ pathname: routeList?.search, query: { section: 'otc' } })
+        }
+      >
+        <SearchBox className="px-4" />
+      </div>
+
       <div className="w-full flex flex-col gap-y-4">
         <OtcMedicineCategories />
       </div>

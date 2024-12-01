@@ -9,7 +9,7 @@ const Products = dynamic(() => import('./components/Products'));
 const Categories = dynamic(() => import('./components/Categories'));
 
 const ProductsListContainer = () => {
-  const { push } = useRouter();
+  const { push, query } = useRouter();
 
   return (
     <MainLayout
@@ -22,7 +22,10 @@ const ProductsListContainer = () => {
           <span
             className="flex items-center justify-center cursor-pointer"
             onClick={() =>
-              push({ pathname: routeList?.search, query: { section: 'otc' } })
+              push({
+                pathname: routeList?.search,
+                query: { section: 'otc-products', ...query },
+              })
             }
           >
             <SearchIconOutline width={24} height={24} fill={'black'} />

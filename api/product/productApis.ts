@@ -48,8 +48,5 @@ export const GetProductsFromSearch = async ({
 export const GetOtcMedicineProducts = async (body: any) => {
   const params = builder(body);
 
-  return await request.get(
-    `/Product/management/GetCategoryLevel3Products${params}`,
-    body,
-  );
+  return await request.get(`/Product/management/OtcProducts${params}`, body);
 };
