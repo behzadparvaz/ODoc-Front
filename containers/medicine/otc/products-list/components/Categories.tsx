@@ -47,7 +47,7 @@ const Categories = () => {
       >
         <div
           className={classNames(
-            'text-nowrap w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
+            'whitespace-nowrap text-nowrap w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
             query?.categoryCodeLevel1 === item?.categoryCodeLevel1 &&
               '!text-content-primary',
           )}
