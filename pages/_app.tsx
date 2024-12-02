@@ -1,4 +1,3 @@
-import LoginWithSSO from '@com/_atoms/loginWithSSO';
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
@@ -7,6 +6,7 @@ import Head from 'next/head';
 import { createRef, useMemo } from 'react';
 import { wrapper } from '../redux/store';
 import '../styles/globals.css';
+const LoginWithSSO = dynamic(() => import('@com/_atoms/loginWithSSO'));
 
 const queryClient = new QueryClient({
   defaultOptions: {
