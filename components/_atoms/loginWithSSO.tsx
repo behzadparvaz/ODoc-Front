@@ -29,15 +29,17 @@ const LoginWithSSO = () => {
             {
               onSuccess: () => {
                 console.log('SSO login success');
+                return replace(routeList.homeRoute);
               },
             },
           );
         } catch (error) {
           console.error('SSO login failed');
+          return replace(routeList.homeRoute);
         }
       }
     }
-    replace(routeList.homeRoute);
+    return null;
   };
 
   useEffect(() => {
