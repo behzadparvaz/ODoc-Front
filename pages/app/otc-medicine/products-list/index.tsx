@@ -1,4 +1,8 @@
-import ProductsListContainer from '@containers/medicine/otc/products-list';
+import dynamic from 'next/dynamic';
+
+const ProductsListContainer = dynamic(
+  () => import('@containers/medicine/otc/products-list'),
+);
 
 const ProductsListPage = () => {
   return <ProductsListContainer />;
