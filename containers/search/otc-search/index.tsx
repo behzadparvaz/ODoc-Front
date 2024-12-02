@@ -76,6 +76,11 @@ const SearchContainer = () => {
           push({
             pathname: routeList?.otcMedicine,
           });
+        } else if (query?.section === 'otc-products') {
+          push({
+            pathname: routeList?.otcMedicineProductsList,
+            query: { ...rest },
+          });
         } else {
           push({
             pathname: routeList?.homeRoute,

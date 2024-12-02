@@ -135,7 +135,7 @@ const ConfirmRequestDrugs = () => {
                         />
                       </div>
                       <div className="w-full overflow-hidden truncate">
-                        <span className="text-xl font-medium">
+                        <span className="text-md font-medium">
                           {item.drugName}
                         </span>
                         <div className="text-xs font-light text-grey-500 flex">
