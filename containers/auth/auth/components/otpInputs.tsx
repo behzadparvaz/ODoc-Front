@@ -73,9 +73,14 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
             type="text"
             maxLength={1}
             value={OTP[index]}
-            onChange={(e) => handleTextChange(e.target.value, index)}
+            onChange={(e) => {
+              const newValue = e.target.value?.toEnglishDigits();
+              if (/^\d*$/.test(newValue)) {
+                handleTextChange(newValue, index);
+              }
+            }}
             onKeyDown={(e) => handleKeyDown(e, index)}
-            className="appearance-none text-left min-w-[42px] h-[52px] py-2 px-4 truncate no-spinner rounded-md bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_#eaeded]"
+            className="text-center appearance-none min-w-[42px] h-[52px] py-2 px-4 truncate no-spinner rounded-md bg-grey-100 text-sm font-normal leading-6 text-black placeholder:text-2xs placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-black focus:border-black autofill:shadow-[inset_0_0_0px_1000px_#eaeded]"
             autoComplete="one-time-code"
             disabled={disabled}
             onFocus={() => handleFocus(index)}

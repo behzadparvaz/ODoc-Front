@@ -5,13 +5,11 @@ import { setUserAction } from '@redux/user/userActions';
 import { routeList } from '@routes/routeList';
 import Icon from '@utilities/icon';
 import Cookies from 'js-cookie';
-import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useCallback, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-
-const CountDownTimer = dynamic(() => import('./countDown'), { ssr: false });
-const OTPInput = dynamic(() => import('./otpInputs'), { ssr: false });
+import CountDownTimer from './countDown';
+import OTPInput from './otpInputs';
 
 interface OtpStepProps {
   phone: string;
@@ -69,9 +67,14 @@ const OtpStep: React.FC<OtpStepProps> = ({
           });
         },
         onError: (error: any) => {
+          const errorMessage =
+            error.response?.data?.errors?.fieldErrors?.[0]?.error ||
+            error.response?.data?.error?.message ||
+            'مشکلی پیش آمده است لطفا مجدد تلاش کنید';
+
           openNotification({
             type: 'error',
-            message: error?.response?.data?.message,
+            message: errorMessage,
             notifType: 'successOrFailedMessage',
           });
         },
@@ -88,9 +91,11 @@ const OtpStep: React.FC<OtpStepProps> = ({
   }, [phone]);
 
   const clickOnSubmitButton = () => {
-    const otpValue = otpInputRef.current?.getOTP();
-    if (otpValue) {
-      onCompleteAction(otpValue);
+    if (otpInputRef.current) {
+      const otpValue = otpInputRef.current?.getOTP();
+      if (otpValue) {
+        onCompleteAction(otpValue);
+      }
     }
   };
 

@@ -72,6 +72,7 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit, isLoading }) => {
                   isTouched={touched.PhoneNumber && Boolean(errors.PhoneNumber)}
                   errorMessage={errors.PhoneNumber}
                   autoComplete="off"
+                  disabled={isLoading}
                 />
               )}
             </Field>

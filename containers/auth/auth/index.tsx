@@ -55,22 +55,15 @@ const AuthContainer = () => {
       { phoneNumber },
       {
         onSuccess: (res: any) => {
-          if (!res?.data?.rejectReason) {
-            return onSubmitPhoneStep({
-              phone: phoneNumber,
-              securityStamp: res?.data?.securityStamp,
-            });
-          }
-          if (res?.data?.rejectReason)
-            return openNotification({
-              type: 'error',
-              message: res?.data?.rejectReason,
-              notifType: 'successOrFailedMessage',
-            });
+          return onSubmitPhoneStep({
+            phone: phoneNumber,
+            securityStamp: res?.data?.securityStamp,
+          });
         },
         onError: (error: any) => {
           const errorMessage =
-            error?.errors?.fieldErrors?.[0]?.error ||
+            error.response?.data?.errors?.fieldErrors?.[0]?.error ||
+            error.response?.data?.error?.message ||
             'مشکلی پیش آمده است لطفا مجدد تلاش کنید';
 
           return openNotification({
