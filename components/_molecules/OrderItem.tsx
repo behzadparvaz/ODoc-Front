@@ -342,12 +342,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
         'w-full border border-0.5 border-border-primary overflow-hidden rounded-base p-4 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
       }
       onClick={() =>
-        router.push(
-          data?.orderStatus?.name === 'apay' ||
-            data?.orderStatus?.name === 'nfc'
-            ? `${routeList.tender}/${data?.orderCode}`
-            : `${routeList.ordersHistory}/${data?.orderCode}`,
-        )
+        router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
       }
     >
       <div className="pb-2">{renderIcon()}</div>

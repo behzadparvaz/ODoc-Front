@@ -26,7 +26,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
   );
 
   const handleProccessOrder = () => {
-    push(`${routeList.tender}/${orderCode}/${offerId}/preview`);
+    push(`${routeList.ordersHistory}/${orderCode}/${offerId}/preview`);
   };
 
   return (
@@ -36,7 +36,7 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
       )}
       onClick={handleProccessOrder}
     >
-      <div className="h-max  px-4 pt-4 pb-2 flex items-center gap-2 justify-between">
+      <div className="h-max px-4 pt-4 pb-2 flex items-center gap-2 justify-between">
         <Shop height={24} width={24} fill={colors.gray[600]} />
 
         <div className="flex flex-col justify-center gap-4 h-full w-full">

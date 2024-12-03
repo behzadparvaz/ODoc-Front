@@ -10,6 +10,7 @@ import OrderDetailItems from '@com/_molecules/OrderDetailItems';
 import GeneralDetail from '../components/GeneralDetail';
 import { routeList } from '@routes/routeList';
 
+const Tender = dynamic(() => import('../components/Tender'));
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const Rules = dynamic(() => import('../components/Rules'));
 const AddressDetail = dynamic(() => import('../components/AddressDetail'));
@@ -57,8 +58,19 @@ const OrderDetailsContainer = () => {
 
           <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
 
+          {(data?.orderStatus?.name === 'apay' ||
+            data?.orderStatus?.name === 'nfc') && (
+            <>
+              <Divider />
+
+              <Tender orderCode={data?.orderCode} />
+            </>
+          )}
+
           {data?.orderStatus?.name !== 'draft' &&
-            data?.orderStatus?.name !== 'ack' && (
+            data?.orderStatus?.name !== 'ack' &&
+            data?.orderStatus?.name !== 'apay' &&
+            data?.orderStatus?.name !== 'nfc' && (
               <>
                 <Divider />
 
@@ -68,9 +80,14 @@ const OrderDetailsContainer = () => {
               </>
             )}
 
-          <Divider />
+          {data?.orderStatus?.name !== 'apay' &&
+            data?.orderStatus?.name !== 'nfc' && (
+              <>
+                <Divider />
 
-          {<OrderDetailItems data={data} />}
+                <OrderDetailItems data={data} />
+              </>
+            )}
 
           {data?.description?.comment && (
             <>
@@ -87,6 +104,7 @@ const OrderDetailsContainer = () => {
             data?.orderStatus?.name === 'deliverd') && (
             <>
               <Divider />
+
               <PaymentDetail data={data} />
             </>
           )}
@@ -120,7 +138,18 @@ const OrderDetailsContainer = () => {
           <Divider />
 
           {(data?.orderStatus?.name === 'draft' ||
-            data?.orderStatus?.name === 'ack') && <CancelOrder step="draft" />}
+            data?.orderStatus?.name === 'ack' ||
+            data?.orderStatus?.name === 'apay' ||
+            data?.orderStatus?.name === 'nfc') && (
+            <CancelOrder
+              step={
+                data?.orderStatus?.name === 'draft' ||
+                data?.orderStatus?.name === 'ack'
+                  ? 'draft'
+                  : 'apay'
+              }
+            />
+          )}
         </div>
       )}
     </MainLayout>
