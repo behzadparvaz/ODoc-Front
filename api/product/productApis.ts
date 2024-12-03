@@ -50,3 +50,8 @@ export const GetOtcMedicineProducts = async (body: any) => {
 
   return await request.get(`/Product/management/OtcProducts${params}`, body);
 };
+
+export const GetOtcProductsShapes = async (categoryCodeLevel1: string) =>
+  await request.get(
+    `/Product/management/Shapes?categoryCodeLevel1=${categoryCodeLevel1}`,
+  );

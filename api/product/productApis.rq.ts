@@ -11,6 +11,7 @@ import {
   GetProductsShapes,
   GetProductsFromSearch,
   GetOtcMedicineProducts,
+  GetOtcProductsShapes,
 } from '@api/product/productApis';
 import { GetSupplementProducts } from '@api/supplement/supplementApis';
 
@@ -108,4 +109,13 @@ export const useGetOtcMedicineProducts = (body?: any) => {
     isFetchingNextPage,
     isFetchingPreviousPage,
   };
+};
+
+export const useGetOtcProductsShapes = (categoryCodeLevel1: string) => {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['GetOtcProductsShapes', categoryCodeLevel1],
+    queryFn: () => GetOtcProductsShapes(categoryCodeLevel1),
+    enabled: !!categoryCodeLevel1,
+  });
+  return { data: data as any, isLoading, refetch: refetch };
 };
