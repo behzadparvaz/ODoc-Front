@@ -18,7 +18,9 @@ const Products = () => {
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetOtcMedicineProducts(
       Object.fromEntries(
-        Object.entries(query).filter((entry) => entry !== null),
+        Object.entries(query).filter(
+          ([key, value]) => value !== null && key !== 'shapeName',
+        ),
       ),
     );
 
@@ -77,7 +79,7 @@ const Products = () => {
               query: { ...query },
             })
           }
-          className="h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
+          className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
           key={item?.irc}
           hasAddToCart

@@ -1,13 +1,12 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import Spinner from '@com/_atoms/Spinner';
 
-import { useRouter } from 'next/router';
-import classNames from 'classnames';
-
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
-// const FilterAndSort = dynamic(() => import('./FilterAndSort'));
+const Filter = dynamic(() => import('./Filter'));
 
 type CategoryItemsDataModel = {
   categoryNameLevel1: string;
@@ -77,7 +76,8 @@ const Categories = () => {
           </div>
           <div className="h-[8px] w-full bg-surface-secondary" />
         </div>
-        {/* <Filter/> */}
+
+        <Filter />
       </div>
     );
   }
@@ -90,7 +90,7 @@ const Categories = () => {
         </div>
       </ScrollSlider>
 
-      {/* <Filter /> */}
+      <Filter />
     </div>
   );
 };
