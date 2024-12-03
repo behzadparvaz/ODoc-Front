@@ -47,7 +47,7 @@ const ConfirmRequestDrugs = () => {
       ),
   });
   const dispatch = useDispatch();
-  const { push } = useRouter();
+  const { replace } = useRouter();
   const { data, isLoading: profileDataLoading } = useGetProfile({
     enabled: true,
   });
@@ -64,10 +64,10 @@ const ConfirmRequestDrugs = () => {
 
   useEffect(() => {
     if (!loading && (!drugs || drugs.length === 0)) {
-      push('/app/otc-medicine');
+      replace('/app/otc-medicine');
     }
     setLoading(false);
-  }, [drugs, loading, push]);
+  }, [drugs, loading, replace]);
 
   const handleDeleteDrug = (drugId: string) => {
     dispatch(removeDrugAction(drugId));
@@ -98,7 +98,7 @@ const ConfirmRequestDrugs = () => {
 
     addToCart(serializeData(drugs), {
       onSuccess: () => {
-        push(routeList.basket);
+        replace(routeList.basket);
       },
     });
   };
@@ -116,7 +116,7 @@ const ConfirmRequestDrugs = () => {
         onSubmit={handleSendForm}
         enableReinitialize
       >
-        {({ setFieldValue, errors, touched, values }) => (
+        {({ errors, touched }) => (
           <Form className="flex justify-center flex-col mb-24">
             <div className="flex flex-col px-4">
               <h1 className="font-bold text-base mt-4">اقلام درخواست</h1>
