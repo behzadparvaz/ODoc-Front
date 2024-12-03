@@ -17,7 +17,7 @@ const OtcMedicineCategories = () => {
     return (
       <>
         <div className="w-full px-4 h-max grid grid-cols-2 gap-4">
-          {[...Array(8).keys()].map((item, index) => (
+          {[...Array(6).keys()].map((item, index) => (
             <div
               key={index}
               className="relative h-[104px] flex items-end px-4 py-2 rounded-lg bg-surface-secondary cursor-pointer gap-y-2 animate-pulse"
