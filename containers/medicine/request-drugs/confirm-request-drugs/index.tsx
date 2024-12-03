@@ -214,7 +214,7 @@ const ConfirmRequestDrugs = () => {
                 size="large"
                 type="submit"
                 isLoading={isPending || profileDataLoading}
-                disabled={profileDataLoading}
+                disabled={isPending || profileDataLoading}
               >
                 افزودن به سبد خرید
               </Button>
