@@ -1,76 +1,108 @@
-import Link from 'next/link';
-import NextImage from '@com/_core/NextImage';
-// import AuthPassword from '@com/_molecules/AuthPassword';
-import {
-  mobileModeMaxWidthClassName,
-  shouldShowMobileMode,
-} from '@configs/ControlMobileView';
+import { useAuthLoginWithOtp } from '@api/auth/oDocAuth.rq';
+import { MainLayout } from '@com/Layout';
+import useNotification from '@hooks/useNotification';
 import useStorage from '@hooks/useStorage';
 import { routeList } from '@routes/routeList';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import BackgroundSection from './components/backgroundSection';
 
-import { MainLayout } from '@com/Layout';
+const PhoneStep = dynamic(() => import('./components/phoneStep'), {
+  ssr: false,
+});
+const OtpStep = dynamic(() => import('./components/otpStep'), { ssr: false });
 
-const AuthMobileNumber = dynamic(
-  () => import('@com/_molecules/AuthMobileNumber'),
-);
-const AuthOTP = dynamic(() => import('@com/_molecules/AuthOTP'));
+type TSteps = 'phone' | 'otp';
+interface IData {
+  phone: string;
+  securityStamp: string;
+}
+interface IState {
+  step: TSteps;
+  data?: IData;
+}
+interface IOnSubmitPhoneStep {
+  phone: string;
+  securityStamp: string;
+}
 
 const AuthContainer = () => {
-  const [activeForm, setActiveForm] = useState<
-    'enterMobileNumber' | 'otp' | 'password'
-  >('enterMobileNumber');
-  const [registerData, setRegisterData] = useState<any>(null);
+  const initState: IState = { step: 'phone', data: null };
+  const [state, setState] = useState<IState>({ step: 'phone', data: null });
+  const { openNotification } = useNotification();
+  const { mutate: mutateAuthLoginWithOtp, isPending: pendingAuthLoginWithOtp } =
+    useAuthLoginWithOtp();
+
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
   const { replace } = useRouter();
+
+  const onSubmitPhoneStep = ({ phone, securityStamp }: IOnSubmitPhoneStep) => {
+    setState((prev) => ({
+      ...prev,
+      data: { ...prev.data, phone, securityStamp },
+      step: 'otp',
+    }));
+  };
+
+  const EditPhoneAction = () => {
+    setState(initState);
+  };
+
+  const mutateSubmitHandler = (phoneNumber: string) => {
+    mutateAuthLoginWithOtp(
+      { phoneNumber },
+      {
+        onSuccess: (res: any) => {
+          return onSubmitPhoneStep({
+            phone: phoneNumber,
+            securityStamp: res?.data?.securityStamp,
+          });
+        },
+        onError: (error: any) => {
+          const errorMessage =
+            error.response?.data?.errors?.fieldErrors?.[0]?.error ||
+            error.response?.data?.error?.message ||
+            'مشکلی پیش آمده است لطفا مجدد تلاش کنید';
+
+          return openNotification({
+            type: 'error',
+            message: errorMessage,
+            notifType: 'successOrFailedMessage',
+          });
+        },
+      },
+    );
+  };
+
+  const onSubmitFormAction = ({ phone }) => {
+    mutateSubmitHandler(phone);
+  };
 
   useEffect(() => {
     if (token) {
       replace(routeList.homeRoute);
     }
-  });
+  }, []);
+
   return (
     <MainLayout>
-      <div
-        className={`h-full ${shouldShowMobileMode ? mobileModeMaxWidthClassName + ' mx-auto' : ''}`}
-      >
-        <div className="absolute w-full text-center flex justify-center items-center top-14 z-10">
-          <Link href={routeList.landingRoute} className="w-[145px]">
-            <NextImage
-              src={'/images/logo/tapsi-doctor-logo.svg'}
-              width={145}
-              height={24}
-              alt="tapsi-daroo-logo"
-            />
-          </Link>
-        </div>
-        <div className="h-full">
-          <NextImage
-            src={'/images/login-bg.png'}
-            alt="login"
-            fill
-            style={{ objectFit: 'cover' }}
-          />
-        </div>
-        <div className="bg-white rounded-t-[20px] shadow-lg absolute inset-x-0 bottom-0">
-          {activeForm === 'enterMobileNumber' && (
-            <AuthMobileNumber
-              handleChangeForm={(registerData, formStatus) => {
-                setRegisterData(registerData), setActiveForm(formStatus);
-              }}
-            />
-          )}
-          {activeForm === 'otp' && (
-            <AuthOTP
-              data={registerData}
-              handleChangeForm={(formStatus) => setActiveForm(formStatus)}
-            />
-          )}
-        </div>
-      </div>
+      <BackgroundSection />
+      {state.step === 'phone' && (
+        <PhoneStep
+          isLoading={pendingAuthLoginWithOtp}
+          onSubmit={onSubmitFormAction}
+        />
+      )}
+      {state.step === 'otp' && (
+        <OtpStep
+          phone={state?.data?.phone}
+          securityStamp={state?.data?.securityStamp}
+          retry={onSubmitFormAction}
+          EditPhone={EditPhoneAction}
+        />
+      )}
     </MainLayout>
   );
 };

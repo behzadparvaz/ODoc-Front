@@ -11,7 +11,7 @@ export const getOrderStatusMessage = (statusId) => {
     case 'accept':
       return 'در حال آماده سازی سفارش';
     case 'adelivery':
-      return 'در حال جمع آوری سفارش';
+      return 'پیک در مسیر داروخانه';
     case 'senddelivery':
       return 'ارسال توسط پیک';
     case 'deliverd':

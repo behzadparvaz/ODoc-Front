@@ -15,6 +15,7 @@ const OrderHistoryContainer = () => {
   const { data: orderHistoryData, isLoading } = useGetOrdersHistory(statusId);
 
   const handleChangeFilter = (item) => {
+    if (item?.id === statusId) return;
     push({ query: { ...query, statusId: item?.id } }, undefined, {
       shallow: true,
     });

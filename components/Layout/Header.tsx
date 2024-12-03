@@ -169,6 +169,6 @@ const Header = ({
     }
   };
 
-  return <header className={classname}>{renderHeaderContent()}</header>;
+  return <div className={classname}>{renderHeaderContent()}</div>;
 };
 export default Header;

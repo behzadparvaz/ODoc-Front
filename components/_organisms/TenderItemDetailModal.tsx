@@ -48,7 +48,7 @@ const TenderItemDetail = ({
   };
 
   const handleProccessOrder = () => {
-    push(`${routeList.tender}/${orderCode}/${offerId}/preview`);
+    push(`${routeList.ordersHistory}/${orderCode}/${offerId}/preview`);
   };
 
   return (

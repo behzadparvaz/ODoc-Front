@@ -1,4 +1,5 @@
 import request from '@api/request';
+import { builder } from '@utilities/queryBuilder';
 
 export const getProducts = async () =>
   await request.get('/Product/management/CategoryProducts', null, {
@@ -40,6 +41,17 @@ export const GetProductsFromSearch = async ({
     params: {
       brandName,
       categoryCodeLevel3,
-      irc
+      irc,
     },
   });
+
+export const GetOtcMedicineProducts = async (body: any) => {
+  const params = builder(body);
+
+  return await request.get(`/Product/management/OtcProducts${params}`, body);
+};
+
+export const GetOtcProductsShapes = async (categoryCodeLevel1: string) =>
+  await request.get(
+    `/Product/management/Shapes?categoryCodeLevel1=${categoryCodeLevel1}`,
+  );

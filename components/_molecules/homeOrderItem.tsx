@@ -135,10 +135,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
           className="w-[32px] h-[32px] flex justify-center items-center bg-surface-tertiary rounded-full cursor-pointer"
           onClick={() =>
             router.push(
-              data?.orderStatus?.name === 'apay' ||
-                data?.orderStatus?.name === 'nfc'
-                ? `${routeList.tender}/${data?.orderCode}?previousPage=home`
-                : `${routeList.ordersHistory}/${data?.orderCode}?previousPage=home`,
+              `${routeList.ordersHistory}/${data?.orderCode}?previousPage=home`,
             )
           }
         >

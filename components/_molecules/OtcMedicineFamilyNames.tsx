@@ -1,5 +1,6 @@
 import { useGetCategories } from '@api/category/categoryApis.rq';
 import Spinner from '@com/_atoms/Spinner';
+
 import OtcSlider from './OtcSlider';
 
 type Level2DataModel = {

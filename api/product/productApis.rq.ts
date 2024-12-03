@@ -1,4 +1,5 @@
 import {
+  useInfiniteQuery,
   useQuery,
   UseQueryOptions,
   UseQueryResult,
@@ -9,7 +10,10 @@ import {
   GetFilteredProductsByShapes,
   GetProductsShapes,
   GetProductsFromSearch,
+  GetOtcMedicineProducts,
+  GetOtcProductsShapes,
 } from '@api/product/productApis';
+import { GetSupplementProducts } from '@api/supplement/supplementApis';
 
 export const useGetProducts: (
   options?: UseQueryOptions<unknown, Error, any[]>,
@@ -67,4 +71,51 @@ export const useGetProductsFromSearch = ({
   });
 
   return { data: data as any, isLoading };
+};
+
+export const useGetOtcMedicineProducts = (body?: any) => {
+  const {
+    data,
+    isLoading,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+  } = useInfiniteQuery({
+    queryKey: ['GetOtcMedicineProducts', body],
+    queryFn: ({ pageParam = 1 }) => {
+      return GetOtcMedicineProducts({
+        ...body,
+        pageNumber: body?.pageNumber ?? pageParam,
+      });
+    },
+    initialPageParam: 1,
+    getNextPageParam: (data: any) => {
+      return Math.floor(data?.totalCount / 10) + 1 === data?.pageNumber
+        ? undefined
+        : data?.pageNumber + 1;
+    },
+  });
+
+  return {
+    data,
+    isLoading,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+  };
+};
+
+export const useGetOtcProductsShapes = (categoryCodeLevel1: string) => {
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ['GetOtcProductsShapes', categoryCodeLevel1],
+    queryFn: () => GetOtcProductsShapes(categoryCodeLevel1),
+    enabled: !!categoryCodeLevel1,
+  });
+  return { data: data as any, isLoading, refetch: refetch };
 };
