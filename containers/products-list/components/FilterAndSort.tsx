@@ -48,16 +48,17 @@ const Filter = () => {
         <ChevronDownIcon width={20} height={20} stroke={'black'} />
       </div>
 
-      {query?.categoryCodeLevel1 !== '11' && (
-        <div
-          className="flex items-center gap-[6px] cursor-pointer"
-          onClick={handleFilterModal}
-        >
-          <SliderHorizontalIcon width={24} height={24} fill={'black'} />
-          <span>{`فیلتر ${filterItemsNumber ? `(${filterItemsNumber})` : ''}`}</span>
-          <ChevronDownIcon width={20} height={20} stroke={'black'} />
-        </div>
-      )}
+      {query?.categoryCodeLevel1 !== '11' &&
+        query?.categoryCodeLevel1 !== '15' && (
+          <div
+            className="flex items-center gap-[6px] cursor-pointer"
+            onClick={handleFilterModal}
+          >
+            <SliderHorizontalIcon width={24} height={24} fill={'black'} />
+            <span>{`فیلتر ${filterItemsNumber ? `(${filterItemsNumber})` : ''}`}</span>
+            <ChevronDownIcon width={20} height={20} stroke={'black'} />
+          </div>
+        )}
     </div>
   );
 };

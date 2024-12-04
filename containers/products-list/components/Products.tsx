@@ -80,7 +80,7 @@ const Products = () => {
         {[...Array(8).keys()].map((item) => (
           <div
             key={item}
-            className="w-full flex justify-center border border-border-primary"
+            className="w-full flex justify-center border-border-primary first:!border-t [&:nth-child(2)]:border-t h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
           >
             <VerticalProductCardShimmer />
           </div>
