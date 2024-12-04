@@ -6,18 +6,18 @@ import { routeList } from '@routes/routeList';
 import { SearchIconOutline } from '@com/icons';
 
 const Products = dynamic(() => import('../components/Products'));
-const CategoryLevel3 = dynamic(() => import('../components/CategoryLevel3'));
+const FilterAndSort = dynamic(() => import('../components/FilterAndSort'));
 
-const EquipmentProductsContainer = () => {
+const MotherKidProductsContainer = () => {
   const { query, push } = useRouter();
 
   return (
     <MainLayout
       headerType="withoutLogo"
-      title="تجهیزات پزشکی"
+      title="مادر و کودک"
       hasHeader
       hasBackButton
-      backIconHandler={() => push(routeList?.equipment)}
+      backIconHandler={() => push(routeList?.homeRoute)}
       hasBasketIcon
       leftSection={
         <span
@@ -25,7 +25,7 @@ const EquipmentProductsContainer = () => {
           onClick={() =>
             push({
               pathname: routeList?.search,
-              query: { ...query, section: 'equipment' },
+              query: { ...query, section: 'mother-kid' },
             })
           }
         >
@@ -33,11 +33,13 @@ const EquipmentProductsContainer = () => {
         </span>
       }
     >
-      <CategoryLevel3 categoryCodeLevel2="11_1270" />
+      <div className="sticky top-0 right-0 w-full bg-surface-primary z-50">
+        <FilterAndSort />
+      </div>
 
       <Products />
     </MainLayout>
   );
 };
 
-export default EquipmentProductsContainer;
+export default MotherKidProductsContainer;

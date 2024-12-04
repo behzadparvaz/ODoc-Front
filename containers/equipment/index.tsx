@@ -51,9 +51,10 @@ const EquipmentContainer = () => {
       <CategoryLevel3 />
 
       <div
+        className="cursor-pointer"
         onClick={() =>
           push(
-            `${routeList?.equipment}?categoryCodeLevel1=11&categoryCodeLevel2=111270&categoryNameLevel2=تجهیزات%20پزشکی&categoryCodeLevel3=11_1270_92&categoryNameLevel3=دستگاه%20های%20خانگی`,
+            `${routeList?.equipmentProductsList}?categoryCodeLevel1=11&categoryCodeLevel2=11_1270&categoryNameLevel2=تجهیزات%20پزشکی&categoryCodeLevel3=11_1270_92&categoryNameLevel3=دستگاه%20های%20خانگی`,
           )
         }
       >

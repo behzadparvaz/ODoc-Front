@@ -51,6 +51,7 @@ const SupplementContainer = () => {
       <CategoryLevel1 />
 
       <div
+        className="cursor-pointer"
         onClick={() =>
           push(
             `${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1269&categoryNameLevel2=مکمل%20ورزشی`,

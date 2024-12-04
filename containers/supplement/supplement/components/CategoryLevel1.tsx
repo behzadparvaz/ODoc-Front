@@ -11,7 +11,7 @@ type Categories = {
   sort: number;
 };
 
-const shimerItems = [1, 2, 3, 4];
+const shimerItems = [1, 2];
 
 const CategoryLevel1 = () => {
   const { push } = useRouter();
@@ -36,7 +36,7 @@ const CategoryLevel1 = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-2">
+    <div className="grid grid-cols-2 gap-4 px-4 py-2">
       {categories?.map((category) => (
         <div
           onClick={() =>

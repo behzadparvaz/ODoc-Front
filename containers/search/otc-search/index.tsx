@@ -87,6 +87,12 @@ const SearchContainer = () => {
             });
             break;
 
+          case 'mother-kid':
+            push({
+              pathname: routeList?.motherKidProductsList,
+              query: { ...rest },
+            });
+            break;
           case 'equipment':
             if (query?.categoryCodeLevel2) {
               push({
