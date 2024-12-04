@@ -15,10 +15,11 @@ type Categories = {
   sort: number;
 };
 
-export const useGetSupplementCategoryLevel2 = () => {
+export const useGetSupplementCategoryLevel2 = (body: any) => {
   const { data, isLoading } = useQuery({
-    queryKey: ['GetSupplementCategoryLevel2'],
-    queryFn: () => GetSupplementCategoryLevel2(),
+    queryKey: ['GetSupplementCategoryLevel2', body],
+    queryFn: () => GetSupplementCategoryLevel2(body),
+    enabled: !!body,
   });
   return { data: data as any, isLoading };
 };
@@ -64,6 +65,7 @@ export const useGetSupplementProducts = (body?: any) => {
         ? undefined
         : data?.pageNumber + 1;
     },
+    enabled: !!body?.categoryCodeLevel1,
   });
 
   return {

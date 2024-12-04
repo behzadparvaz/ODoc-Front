@@ -15,8 +15,12 @@ const shimerItems = [1, 2, 3, 4];
 
 const CategoryLevel1 = () => {
   const { push } = useRouter();
+  const body = {
+    CategoryCodeLevel1: 10,
+  };
+
   const { data: categories, isLoading: categoriesIsLoading } =
-    useGetSupplementCategoryLevel2();
+    useGetSupplementCategoryLevel2(body);
 
   if (categoriesIsLoading) {
     return (
@@ -37,7 +41,7 @@ const CategoryLevel1 = () => {
         <div
           onClick={() =>
             push(
-              `${routeList.supplementProductListPage}?categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
+              `${routeList.supplementProductListPage}?categoryCodeLevel1=${10}&categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
           key={category?.categoryCodeLevel2}
