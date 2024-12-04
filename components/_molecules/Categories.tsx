@@ -79,13 +79,12 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     },
     {
       title: 'تجهیزات پزشکی',
-      link: routeList?.otcMedicine,
+      link: routeList?.equipment,
       image: MedicineEquipment,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: false,
       ratio: '33.3333%',
-      query: '?categoryNameLevel1=تجهیزات+پزشکی&categoryCodeLevel1=11',
     },
   ];
 
