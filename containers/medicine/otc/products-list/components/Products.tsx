@@ -75,8 +75,12 @@ const Products = () => {
         <VerticalProductCard
           onClick={() =>
             push({
-              pathname: `${routeList.supplementProduct}/${item?.irc}`,
-              query: { ...query },
+              pathname: `${routeList?.searchProductPage}`,
+              query: {
+                brandName: item.brandName,
+                categoryCodeLevel3: item.categoryCodeLevel3,
+                irc: item?.irc ?? item.genericCode,
+              },
             })
           }
           className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"

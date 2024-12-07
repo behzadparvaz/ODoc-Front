@@ -29,7 +29,9 @@ const ConfirmBasketContainer = () => {
   const { user } = useSelector((state: RootState) => state?.user);
 
   //   apis
-  const { data: profileQuery } = useGetProfile({ enabled: true });
+  const { data: profileQuery, isLoading: isLoadingProfile } = useGetProfile({
+    enabled: true,
+  });
   const profile: any = profileQuery?.queryResult?.[0];
 
   const {
@@ -165,7 +167,8 @@ const ConfirmBasketContainer = () => {
           className="w-full"
           size="large"
           onClick={onSubmitBasket}
-          isLoading={isLoading || isLoadingcreateOrderDraft}
+          isLoading={isLoadingcreateOrderDraft}
+          disabled={isLoading || isLoadingProfile}
         >
           ثبت سفارش
         </Button>

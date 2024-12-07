@@ -53,11 +53,13 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
                 pathname: pathname,
                 query: item?.categoryCodeLevel3
                   ? {
+                      categoryCodeLevel1: query?.categoryCodeLevel1,
                       categoryCodeLevel2: query?.categoryCodeLevel2,
                       categoryNameLevel2: query?.categoryNameLevel2,
                       categoryCodeLevel3: item?.categoryCodeLevel3,
                     }
                   : {
+                      categoryCodeLevel1: query?.categoryCodeLevel1,
                       categoryCodeLevel2: query?.categoryCodeLevel2,
                       categoryNameLevel2: query?.categoryNameLevel2,
                     },
