@@ -55,12 +55,14 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
                 selectedCategory?.categoryCodeLevel4 !==
                 item?.categoryCodeLevel4
                   ? {
+                      categoryCodeLevel1: query?.categoryCodeLevel1,
                       categoryCodeLevel2: query?.categoryCodeLevel2,
                       categoryNameLevel2: query?.categoryNameLevel2,
                       categoryCodeLevel3: query?.categoryCodeLevel3,
                       categoryCodeLevel4: item?.categoryCodeLevel4,
                     }
                   : {
+                      categoryCodeLevel1: query?.categoryCodeLevel1,
                       categoryCodeLevel2: query?.categoryCodeLevel2,
                       categoryNameLevel2: query?.categoryNameLevel2,
                       categoryCodeLevel3: query?.categoryCodeLevel3,

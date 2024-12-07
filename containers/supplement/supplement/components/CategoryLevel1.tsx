@@ -24,7 +24,7 @@ const CategoryLevel1 = () => {
 
   if (categoriesIsLoading) {
     return (
-      <div className="w-full h-[240px] grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
+      <div className="w-full h-max grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
         {shimerItems.map((_, idx) => (
           <div
             key={idx}

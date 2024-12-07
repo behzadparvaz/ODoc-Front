@@ -9,10 +9,7 @@ import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import Link from 'next/link';
 import { routeList } from '@routes/routeList';
-import {
-  useGetOrderPrepartionTime,
-  useGetTenderPrepartionTime,
-} from '@api/tender/tenderApis.rq';
+import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import classNames from 'classnames';
 import useStorage from '@hooks/useStorage';
 
@@ -30,10 +27,6 @@ const HomeContainer = () => {
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
   const tapsiLinkRef = useRef(null);
-
-  const { getItem } = useStorage();
-
-  const token = getItem('token', 'local');
 
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
@@ -65,7 +58,7 @@ const HomeContainer = () => {
     <>
       <a href={url} ref={tapsiLinkRef} className="hidden" />
       <MainLayout
-        hasHeader={!!token}
+        hasHeader
         headerType="WithLogo"
         hasAddress
         hasBottomNavigation
