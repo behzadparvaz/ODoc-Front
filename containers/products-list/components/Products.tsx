@@ -4,23 +4,49 @@ import { useRouter } from 'next/router';
 import { useInView } from 'react-intersection-observer';
 import classNames from 'classnames';
 
+import { useGetSupplementProducts } from '@api/supplement/supplementApis.rq';
 import VerticalProductCard from '@com/_molecules/VerticalProductCard';
 import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
 import { routeList } from '@routes/routeList';
-import { useGetOtcMedicineProducts } from '@api/product/productApis.rq';
 
-const Pagination = dynamic(() => import('@com/_molecules/Pagination'));
+enum SortEnum {
+  BestSeller = 'BestSeller',
+  MostVisited = 'MostVisited',
+  MostDiscounted = 'MostDiscounted',
+  MostExpensive = 'MostExpensive',
+  Cheapest = 'Cheapest',
+}
+
+const Pagination = dynamic(() => import('./Pagination'));
 
 const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
-
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
-    useGetOtcMedicineProducts(
+    useGetSupplementProducts(
       Object.fromEntries(
-        Object.entries(query).filter(
-          ([key, value]) => value !== null && key !== 'shapeName',
-        ),
+        Object.entries(query)
+          .map(([key, value]) => {
+            if (
+              key === 'sort' &&
+              (value === 'BestSeller' ||
+                value === 'MostVisited' ||
+                value === 'MostDiscounted' ||
+                value === 'MostExpensive' ||
+                value === 'Cheapest')
+            ) {
+              return [value, 1];
+            }
+            if (
+              !!value &&
+              key !== 'categoryNameLevel2' &&
+              key !== 'shapeName'
+            ) {
+              return [key, value];
+            }
+            return null;
+          })
+          .filter((entry) => entry !== null),
       ),
     );
 
@@ -66,7 +92,7 @@ const Products = () => {
   return (
     <div
       className={classNames(
-        'h-full w-full grid grid-cols-2 overflow-y-scroll',
+        'h-max w-full grid grid-cols-2 overflow-y-scroll',
         (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
           'mb-[86px]',
       )}
@@ -75,12 +101,8 @@ const Products = () => {
         <VerticalProductCard
           onClick={() =>
             push({
-              pathname: `${routeList?.searchProductPage}`,
-              query: {
-                brandName: item.brandName,
-                categoryCodeLevel3: item.categoryCodeLevel3,
-                irc: item?.irc ?? item.genericCode,
-              },
+              pathname: `${routeList.supplementProduct}/${item?.irc}`,
+              query: { ...query },
             })
           }
           className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
@@ -115,5 +137,4 @@ const Products = () => {
     </div>
   );
 };
-
 export default Products;

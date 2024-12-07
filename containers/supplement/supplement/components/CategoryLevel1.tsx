@@ -11,16 +11,20 @@ type Categories = {
   sort: number;
 };
 
-const shimerItems = [1, 2, 3, 4];
+const shimerItems = [1, 2];
 
 const CategoryLevel1 = () => {
   const { push } = useRouter();
+  const body = {
+    CategoryCodeLevel1: 10,
+  };
+
   const { data: categories, isLoading: categoriesIsLoading } =
-    useGetSupplementCategoryLevel2();
+    useGetSupplementCategoryLevel2(body);
 
   if (categoriesIsLoading) {
     return (
-      <div className="w-full h-[240px] grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
+      <div className="w-full h-max grid grid-cols-2 justify-center items-center px-4 py-2 gap-4">
         {shimerItems.map((_, idx) => (
           <div
             key={idx}
@@ -32,12 +36,12 @@ const CategoryLevel1 = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 grid-rows-2 gap-4 px-4 py-2">
+    <div className="grid grid-cols-2 gap-4 px-4 py-2">
       {categories?.map((category) => (
         <div
           onClick={() =>
             push(
-              `${routeList.supplementProductListPage}?categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
+              `${routeList.supplementProductListPage}?categoryCodeLevel1=${10}&categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
           key={category?.categoryCodeLevel2}

@@ -61,30 +61,55 @@ const SearchContainer = () => {
       backIconHandler={() => {
         const { searchText, section, ...rest } = query;
 
-        if (query?.section === 'supplement') {
-          if (query?.categoryCodeLevel2) {
+        switch (section) {
+          case 'supplement':
+            if (query?.categoryCodeLevel2) {
+              push({
+                pathname: routeList?.supplementProductListPage,
+                query: { ...rest },
+              });
+            } else {
+              push({
+                pathname: routeList?.supplementPage,
+              });
+            }
+            break;
+          case 'otc':
             push({
-              pathname: routeList?.supplementProductListPage,
+              pathname: routeList?.otcMedicine,
+            });
+            break;
+
+          case 'otc-products':
+            push({
+              pathname: routeList?.otcMedicineProductsList,
               query: { ...rest },
             });
-          } else {
+            break;
+
+          case 'mother-kid':
             push({
-              pathname: routeList?.supplementPage,
+              pathname: routeList?.motherKidProductsList,
+              query: { ...rest },
             });
-          }
-        } else if (query?.section === 'otc') {
-          push({
-            pathname: routeList?.otcMedicine,
-          });
-        } else if (query?.section === 'otc-products') {
-          push({
-            pathname: routeList?.otcMedicineProductsList,
-            query: { ...rest },
-          });
-        } else {
-          push({
-            pathname: routeList?.homeRoute,
-          });
+            break;
+          case 'equipment':
+            if (query?.categoryCodeLevel2) {
+              push({
+                pathname: routeList?.equipmentProductsList,
+                query: { ...rest },
+              });
+            } else {
+              push({
+                pathname: routeList?.equipment,
+              });
+            }
+            break;
+
+          default:
+            push({
+              pathname: routeList?.homeRoute,
+            });
         }
       }}
       searchSection={

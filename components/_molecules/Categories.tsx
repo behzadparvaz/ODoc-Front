@@ -60,13 +60,13 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     },
     {
       title: 'مادر و کودک',
-      link: routeList?.supplementProductListPage,
+      link: routeList?.motherKidProductsList,
       image: MotherChildSupplement,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: false,
       ratio: '33.3333%',
-      query: '?categoryCodeLevel2=10_1266&categoryNameLevel2=مادر%20و%20کودک',
+      query: '?categoryCodeLevel1=15',
     },
     {
       title: 'مکمل',
@@ -79,13 +79,12 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
     },
     {
       title: 'تجهیزات پزشکی',
-      link: routeList?.otcMedicine,
+      link: routeList?.equipment,
       image: MedicineEquipment,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       isSoon: false,
       ratio: '33.3333%',
-      query: '?categoryNameLevel1=تجهیزات+پزشکی&categoryCodeLevel1=11',
     },
   ];
 
