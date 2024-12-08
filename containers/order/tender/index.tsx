@@ -104,7 +104,7 @@ const TenderContainer = () => {
 
             {(tenderData?.queryResult?.[0]?.orderStatus?.name === 'apay' ||
               tenderData?.queryResult?.[0]?.orderStatus?.name === 'nfc') && (
-              <CancelOrder step="apay" />
+              <CancelOrder />
             )}
           </div>
         )}
