@@ -15,21 +15,21 @@ import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 
 const apayCancelReasons = [
-  'هزینه ارسال زیاد است',
-  'هزینه سفارش بیشتر از حد انتظار من است',
-  'مدت زمان تحویل سفارش زیاد است',
-  'میخواهم دارو را از داروخانه حضوری بگیرم',
-  'از طریق دیگری خریداری کردم',
-  'از خرید منصرف شدم',
-  'می‌خواهم تغییراتی در سفارش خود ایجادکنم',
-  'سایر دلایل',
+  { id: 9, value: 'هزینه ارسال زیاد است' },
+  { id: 10, value: 'هزینه سفارش بیشتر از حد انتظار من است' },
+  { id: 11, value: 'مدت زمان تحویل سفارش زیاد است' },
+  { id: 12, value: 'میخواهم دارو را از داروخانه حضوری بگیرم' },
+  { id: 13, value: 'از طریق دیگری خریداری کردم' },
+  { id: 14, value: 'از خرید منصرف شدم' },
+  { id: 15, value: 'می‌خواهم تغییراتی در سفارش خود ایجادکنم' },
+  { id: 17, value: 'سایر دلایل' },
 ];
 
 const draftCancelReason = [
-  'زمان زیادی برای تأیید سفارش منتظر بودم',
-  'از طریق دیگری خریداری کردم',
-  'می‌خواهم تغییراتی در سفارش خود ایجادکنم',
-  'سایر دلایل',
+  { id: 16, value: 'زمان زیادی برای تأیید سفارش منتظر بودم' },
+  { id: 13, value: 'از طریق دیگری خریداری کردم' },
+  { id: 15, value: 'می‌خواهم تغییراتی در سفارش خود ایجادکنم' },
+  { id: 17, value: 'سایر دلایل' },
 ];
 
 type CancelOrderModalProps = {
@@ -45,31 +45,41 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
   const [isShownInput, setIsShownInput] = useState(false);
 
   const initialValues = {
-    cancelReason: '',
+    cancelReasonValue: '',
+    cancelReasonId: 9,
   };
 
-  const handleCancelOrder = (value?: string) => {
-    mutateCancelOrder(
-      {
-        orderCode: orderCode,
-        reason: value,
+  const handleCancelOrder = (reasonValue?: string, reasonId?: number) => {
+    const cancelOrderBody =
+      formik.values?.cancelReasonId === 17
+        ? {
+            orderCode: orderCode,
+            declineType: reasonId,
+            reason: reasonValue,
+          }
+        : {
+            orderCode: orderCode,
+            declineType: reasonId,
+          };
+
+    mutateCancelOrder(cancelOrderBody, {
+      onSuccess: () => {
+        removeLastModal();
       },
-      {
-        onSuccess: () => {
-          removeLastModal();
-        },
-      },
-    );
+    });
   };
 
   const formik = useFormik({
     initialValues,
     validationSchema: CancelOrderSchema,
     onSubmit: (values) => {
-      if (!values?.cancelReason) {
-        formik.setFieldError('cancelReason', 'لطفا دلیل خود را انتخاب کنید');
+      if (values?.cancelReasonId === 17 && !values?.cancelReasonValue) {
+        formik.setFieldError(
+          'cancelReasonValue',
+          'لطفا دلیل خود را انتخاب کنید',
+        );
       } else {
-        handleCancelOrder(values?.cancelReason);
+        handleCancelOrder(values?.cancelReasonValue, values?.cancelReasonId);
       }
     },
   });
@@ -106,19 +116,20 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
               <div key={index} className="h-[52px] flex flex-col">
                 <div className="h-[51.5px] flex items-center">
                   <Radio
-                    id={item}
-                    label={item}
+                    id={String(item?.id)}
+                    label={item?.value}
                     checked={
-                      (item === 'سایر دلایل' && isShownInput) ||
-                      formik.values.cancelReason === item
+                      (item?.value === 'سایر دلایل' && isShownInput) ||
+                      formik?.values?.cancelReasonId === item?.id
                     }
                     handleChange={() => {
-                      if (item === 'سایر دلایل') {
+                      if (item?.value === 'سایر دلایل') {
                         setIsShownInput(true);
-                        formik?.setFieldValue('cancelReason', '');
+                        formik?.setFieldValue('cancelReasonValue', '');
+                        formik?.setFieldValue('cancelReasonId', 17);
                       } else {
                         setIsShownInput(false);
-                        formik?.setFieldValue('cancelReason', item);
+                        formik?.setFieldValue('cancelReasonId', item?.id);
                       }
                     }}
                   />
@@ -134,18 +145,18 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
           {isShownInput && (
             <TextAreaInput
               placeholder={'توضیحات خود را برای لغو سفارش بنویسید'}
-              id="cancelReason"
-              name="cancelReason"
+              id="cancelReasonValue"
+              name="cancelReasonValue"
               className="px-4"
-              value={formik.values.cancelReason}
-              onChange={(e) => handleChangeForm('cancelReason', e)}
+              value={formik.values.cancelReasonValue}
+              onChange={(e) => handleChangeForm('cancelReasonValue', e)}
               onBlur={formik.handleBlur}
               isTouched={
-                formik.touched.cancelReason &&
-                Boolean(formik.errors.cancelReason)
+                formik.touched.cancelReasonValue &&
+                Boolean(formik.errors.cancelReasonValue)
               }
               inputClassName="h-[102px] w-full text-wrap"
-              errorMessage={formik.errors.cancelReason as string}
+              errorMessage={formik.errors.cancelReasonValue as string}
               maxLength={150}
             />
           )}
@@ -160,7 +171,10 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
               className="w-full"
               onClick={formik.handleSubmit}
               isLoading={isLoadingCancelOrder}
-              disabled={!formik.values.cancelReason}
+              disabled={
+                formik?.values?.cancelReasonId === 17 &&
+                !formik.values.cancelReasonValue
+              }
             >
               لغو سفارش
             </Button>
