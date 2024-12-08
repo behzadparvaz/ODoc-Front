@@ -121,7 +121,9 @@ const OrderDetailsContainer = () => {
                   علت لغو سفارش
                 </span>
                 <span className="text-sm text-content-tertiary">
-                  {data?.cancelReason}
+                  {data?.declineType?.id === 17
+                    ? data?.cancelReason
+                    : data?.declineType?.name}
                 </span>
               </div>
             </>
@@ -140,16 +142,7 @@ const OrderDetailsContainer = () => {
           {(data?.orderStatus?.name === 'draft' ||
             data?.orderStatus?.name === 'ack' ||
             data?.orderStatus?.name === 'apay' ||
-            data?.orderStatus?.name === 'nfc') && (
-            <CancelOrder
-              step={
-                data?.orderStatus?.name === 'draft' ||
-                data?.orderStatus?.name === 'ack'
-                  ? 'draft'
-                  : 'apay'
-              }
-            />
-          )}
+            data?.orderStatus?.name === 'nfc') && <CancelOrder />}
         </div>
       )}
     </MainLayout>
