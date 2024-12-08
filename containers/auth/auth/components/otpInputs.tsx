@@ -71,6 +71,7 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
             key={index}
             ref={(el) => (inputRef.current[index] = el)}
             type="text"
+            inputMode="numeric"
             maxLength={1}
             value={OTP[index]}
             onChange={(e) => {
