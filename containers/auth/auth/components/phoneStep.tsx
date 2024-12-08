@@ -67,12 +67,14 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit, isLoading }) => {
                   className="my-2 rounded-md placeholder:text-grey-500"
                   inputClassName="text-left"
                   id="PhoneNumber"
-                  placeholder={'09XXXXXXXXX'}
+                  placeholder="09XXXXXXXXX"
                   maxLength={11}
                   isTouched={touched.PhoneNumber && Boolean(errors.PhoneNumber)}
                   errorMessage={errors.PhoneNumber}
                   autoComplete="off"
                   disabled={isLoading}
+                  inputMode="numeric"
+                  autocomplete="one-time-code"
                 />
               )}
             </Field>

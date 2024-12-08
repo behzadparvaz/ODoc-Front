@@ -183,7 +183,7 @@ const ConfirmRequestDrugs = () => {
                     labelClassName="text-sm font-medium"
                     inputClassName="rounded-md"
                     label="توضیحات سفارش"
-                    placeholder="سن، جنسیت و توضیحات سفارش خود را برای داروخانه بنویسید"
+                    placeholder="سن، جنسیت، حساسیت دارویی و توضیحات سفارش خود را برای داروخانه بنویسید"
                     rows={5}
                   />
                 )}

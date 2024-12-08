@@ -94,7 +94,10 @@ const AddNewRequestDrugForm = ({
         <Field name={`drugs.${index}.drugName`}>
           {({ field }: any) => (
             <div>
-              <Input {...field} placeholder="نام دارو را بنویسید" />
+              <Input
+                {...field}
+                placeholder="نام دارو را بنویسید (مثال استامینوفن 500)"
+              />
             </div>
           )}
         </Field>
