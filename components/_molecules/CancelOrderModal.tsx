@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 
-import { useCancelOrder } from '@api/order/orderApis.rq';
+import { useCancelOrder, useGetDeclineTypes } from '@api/order/orderApis.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { Radio } from '@com/_atoms/Radio';
@@ -14,33 +14,16 @@ import {
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 
-const apayCancelReasons = [
-  { id: 9, value: 'هزینه ارسال زیاد است' },
-  { id: 10, value: 'هزینه سفارش بیشتر از حد انتظار من است' },
-  { id: 11, value: 'مدت زمان تحویل سفارش زیاد است' },
-  { id: 12, value: 'میخواهم دارو را از داروخانه حضوری بگیرم' },
-  { id: 13, value: 'از طریق دیگری خریداری کردم' },
-  { id: 14, value: 'از خرید منصرف شدم' },
-  { id: 15, value: 'می‌خواهم تغییراتی در سفارش خود ایجادکنم' },
-  { id: 17, value: 'سایر دلایل' },
-];
-
-const draftCancelReason = [
-  { id: 16, value: 'زمان زیادی برای تأیید سفارش منتظر بودم' },
-  { id: 13, value: 'از طریق دیگری خریداری کردم' },
-  { id: 15, value: 'می‌خواهم تغییراتی در سفارش خود ایجادکنم' },
-  { id: 17, value: 'سایر دلایل' },
-];
-
+const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 type CancelOrderModalProps = {
   orderCode: string;
-  step: 'draft' | 'apay';
 };
 
-const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
+const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
   const { mutate: mutateCancelOrder, isPending: isLoadingCancelOrder } =
     useCancelOrder();
   const { removeLastModal } = useModal();
+  const { data, isLoading } = useGetDeclineTypes();
 
   const [isShownInput, setIsShownInput] = useState(false);
 
@@ -89,12 +72,46 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
   };
 
   const renderReasonList = () => {
-    switch (step) {
-      case 'draft':
-        return draftCancelReason;
-      case 'apay':
-        return apayCancelReasons;
+    if (isLoading) {
+      return shimerItems?.map((item) => (
+        <div key={item} className="h-[52px] w-full pl-20">
+          <div className="h-8 w-full rounded-lg bg-surface-secondary animate-pulse " />
+        </div>
+      ));
     }
+
+    return (
+      <>
+        {data?.map((item, index) => (
+          <div key={item?.id} className="h-[52px] flex flex-col">
+            <div className="h-[51.5px] flex items-center">
+              <Radio
+                id={String(item?.id)}
+                label={item?.name}
+                checked={
+                  (item?.name === 'سایر دلایل' && isShownInput) ||
+                  formik?.values?.cancelReasonId === item?.id
+                }
+                handleChange={() => {
+                  if (item?.name === 'سایر دلایل') {
+                    setIsShownInput(true);
+                    formik?.setFieldValue('cancelReasonValue', '');
+                    formik?.setFieldValue('cancelReasonId', 17);
+                  } else {
+                    setIsShownInput(false);
+                    formik?.setFieldValue('cancelReasonId', item?.id);
+                  }
+                }}
+              />
+            </div>
+
+            {data?.length - 1 !== index && (
+              <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
+            )}
+          </div>
+        ))}
+      </>
+    );
   };
 
   return (
@@ -112,34 +129,7 @@ const CancelOrderModal = ({ orderCode, step }: CancelOrderModalProps) => {
           </span>
 
           <div className="flex flex-col text-content-primary text-sm font-normal gap-y-2 px-[21px]">
-            {renderReasonList().map((item, index) => (
-              <div key={index} className="h-[52px] flex flex-col">
-                <div className="h-[51.5px] flex items-center">
-                  <Radio
-                    id={String(item?.id)}
-                    label={item?.value}
-                    checked={
-                      (item?.value === 'سایر دلایل' && isShownInput) ||
-                      formik?.values?.cancelReasonId === item?.id
-                    }
-                    handleChange={() => {
-                      if (item?.value === 'سایر دلایل') {
-                        setIsShownInput(true);
-                        formik?.setFieldValue('cancelReasonValue', '');
-                        formik?.setFieldValue('cancelReasonId', 17);
-                      } else {
-                        setIsShownInput(false);
-                        formik?.setFieldValue('cancelReasonId', item?.id);
-                      }
-                    }}
-                  />
-                </div>
-
-                {renderReasonList().length - 1 !== index && (
-                  <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-                )}
-              </div>
-            ))}
+            {renderReasonList()}
           </div>
 
           {isShownInput && (
