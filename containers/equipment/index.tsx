@@ -6,14 +6,14 @@ import { MainLayout } from '@com/Layout';
 import Banner from '@com/_molecules/Banner';
 import { routeList } from '@routes/routeList';
 
-const CategoryLevel1 = dynamic(() => import('./components/CategoryLevel1'));
+const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'));
 
 const bannerData = [
   {
     backgroundColor: null,
     carouselType: 2,
     endDateTime: null,
-    icon: '/images/supplement-banner.png',
+    icon: '/images/MedicineEquipmentsBanner.png',
     isActive: true,
     products: null,
     recId: 18,
@@ -24,13 +24,13 @@ const bannerData = [
   },
 ];
 
-const SupplementContainer = () => {
+const EquipmentContainer = () => {
   const { query, push } = useRouter();
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
-      title="مکمل"
+      title="تجهیزات پزشکی"
       hasBackButton
       backIconHandler={() => push(routeList?.homeRoute)}
       hasBasketIcon
@@ -40,7 +40,7 @@ const SupplementContainer = () => {
           onClick={() =>
             push({
               pathname: routeList?.search,
-              query: { ...query, section: 'supplement' },
+              query: { ...query, section: 'equipment' },
             })
           }
         >
@@ -48,13 +48,13 @@ const SupplementContainer = () => {
         </span>
       }
     >
-      <CategoryLevel1 />
+      <CategoryLevel3 />
 
       <div
         className="cursor-pointer"
         onClick={() =>
           push(
-            `${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`,
+            `${routeList?.equipmentProductsList}?categoryCodeLevel1=11&categoryCodeLevel2=11_1270&categoryNameLevel2=تجهیزات%20پزشکی&categoryCodeLevel3=11_1270_92&categoryNameLevel3=دستگاه%20های%20خانگی`,
           )
         }
       >
@@ -64,4 +64,4 @@ const SupplementContainer = () => {
   );
 };
 
-export default SupplementContainer;
+export default EquipmentContainer;
