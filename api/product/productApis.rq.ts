@@ -67,7 +67,8 @@ export const useGetProductsFromSearch = ({
     queryKey: ['GetProductsFromSearch', brandName, categoryCodeLevel3, irc],
     queryFn: () =>
       GetProductsFromSearch({ brandName, categoryCodeLevel3, irc }),
-    enabled: !!brandName && !!categoryCodeLevel3,
+    enabled: !!irc,
+    // enabled: !!brandName && !!categoryCodeLevel3,
   });
 
   return { data: data as any, isLoading };
