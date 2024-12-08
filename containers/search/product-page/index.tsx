@@ -34,7 +34,7 @@ const ProductPageContainer = () => {
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
-
+  console.log('data', data);
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
@@ -178,123 +178,121 @@ const ProductPageContainer = () => {
   };
 
   const renderContent = () => {
-    if (query?.brandName && query?.categoryCodeLevel3) {
-      if (isLoading) {
-        return (
-          <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
-        );
-      }
-
+    if (isLoading) {
       return (
-        <div className="overflow-auto pb-[84px]">
-          <div className="flex flex-col p-4 gap-y-4">
-            <div className="flex justify-center items-center rounded-xl overflow-hidden">
-              <NextImage
-                src={data?.imageLink}
-                width={140}
-                height={140}
-                alt="product-page-image"
-              />
-            </div>
-            <span className="text-sm text-content-primary text-bold">
-              {data?.productName}
-            </span>
-            <span className="text-xs text-content-tertiary">دوز دارو</span>
-            <div className="flex items-center gap-x-2">
-              {data?.drugDoses?.map((item) => (
-                <span
-                  key={item?.irc}
-                  onClick={() => handleSelectDose(item)}
-                  className={classNames(
-                    'w-max flex justify-between items-center py-2 px-4 border border-border-primary rounded-full cursor-pointer',
-                    selectedItem?.irc === item?.irc &&
-                      'border-[1.5px] border-border-inversePrimary bg-surface-secondary',
-                  )}
-                >
-                  {item?.dose}
-                </span>
-              ))}
-            </div>
+        <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+      );
+    }
+
+    return (
+      <div className="overflow-auto pb-[84px]">
+        <div className="flex flex-col p-4 gap-y-4">
+          <div className="flex justify-center items-center rounded-xl overflow-hidden">
+            <NextImage
+              src={data?.imageLink}
+              width={140}
+              height={140}
+              alt="product-page-image"
+            />
           </div>
-
-          <div className="h-2 bg-surface-secondary" />
-
-          <div className="w-full p-4 flex flex-col gap-y-4">
-            {data?.medicalUses && (
-              <div className="w-full flex flex-col gap-y-4">
-                <span className="text-sm text-semibold text-content-primary">
-                  موارد مصرف
-                </span>
-                <span className="text-xs text-normal text-content-tertiary">
-                  {data?.medicalUses}
-                </span>
-              </div>
-            )}
+          <span className="text-sm text-content-primary text-bold">
+            {data?.productName}
+          </span>
+          <span className="text-xs text-content-tertiary">دوز دارو</span>
+          <div className="flex items-center gap-x-2">
+            {data?.drugDoses?.map((item) => (
+              <span
+                key={item?.irc}
+                onClick={() => handleSelectDose(item)}
+                className={classNames(
+                  'w-max flex justify-between items-center py-2 px-4 border border-border-primary rounded-full cursor-pointer',
+                  selectedItem?.irc === item?.irc &&
+                    'border-[1.5px] border-border-inversePrimary bg-surface-secondary',
+                )}
+              >
+                {item?.dose}
+              </span>
+            ))}
           </div>
+        </div>
 
-          <div className="h-2 bg-surface-secondary" />
+        <div className="h-2 bg-surface-secondary" />
 
-          <div className="w-full h-[42px] flex items-center justify-center">
-            <span
-              className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
-                activeTab === 0 && 'border-border-selected',
-              )}
-              onClick={() => {
-                // scrollToSection(warningRef);
-                setActiveTab(0);
-              }}
-            >
-              هشدارها
-            </span>
-            <span
-              className={classNames(
-                'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
-                activeTab === 1 && 'border-border-selected',
-              )}
-              onClick={() => {
-                // scrollToSection(adverseEffectsRef);
-                setActiveTab(1);
-              }}
-            >
-              عوارض جانبی
-            </span>
-          </div>
-
-          {data?.warning && (
-            <div
-              className="w-full p-4 flex flex-col gap-y-4"
-              id="warning"
-              ref={warningRef}
-            >
+        <div className="w-full p-4 flex flex-col gap-y-4">
+          {data?.medicalUses && (
+            <div className="w-full flex flex-col gap-y-4">
               <span className="text-sm text-semibold text-content-primary">
-                هشدارها
+                موارد مصرف
               </span>
               <span className="text-xs text-normal text-content-tertiary">
-                {data?.warning}
-              </span>
-            </div>
-          )}
-
-          <div className="h-2 bg-surface-secondary" />
-
-          {data?.adverseEffects && (
-            <div
-              className="w-full p-4 flex flex-col gap-y-4"
-              id="adverseEffects"
-              ref={adverseEffectsRef}
-            >
-              <span className="text-sm text-semibold text-content-primary">
-                عوارض جانبی
-              </span>
-              <span className="text-xs text-normal text-content-tertiary">
-                {data?.adverseEffects}
+                {data?.medicalUses}
               </span>
             </div>
           )}
         </div>
-      );
-    }
+
+        <div className="h-2 bg-surface-secondary" />
+
+        <div className="w-full h-[42px] flex items-center justify-center">
+          <span
+            className={classNames(
+              'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+              activeTab === 0 && 'border-border-selected',
+            )}
+            onClick={() => {
+              // scrollToSection(warningRef);
+              setActiveTab(0);
+            }}
+          >
+            هشدارها
+          </span>
+          <span
+            className={classNames(
+              'w-1/2 h-full flex justify-center items-center text-center text-2xs text-medium text-content-primary cursor-pointer border-b-2 border-border-primary',
+              activeTab === 1 && 'border-border-selected',
+            )}
+            onClick={() => {
+              // scrollToSection(adverseEffectsRef);
+              setActiveTab(1);
+            }}
+          >
+            عوارض جانبی
+          </span>
+        </div>
+
+        {data?.warning && (
+          <div
+            className="w-full p-4 flex flex-col gap-y-4"
+            id="warning"
+            ref={warningRef}
+          >
+            <span className="text-sm text-semibold text-content-primary">
+              هشدارها
+            </span>
+            <span className="text-xs text-normal text-content-tertiary">
+              {data?.warning}
+            </span>
+          </div>
+        )}
+
+        <div className="h-2 bg-surface-secondary" />
+
+        {data?.adverseEffects && (
+          <div
+            className="w-full p-4 flex flex-col gap-y-4"
+            id="adverseEffects"
+            ref={adverseEffectsRef}
+          >
+            <span className="text-sm text-semibold text-content-primary">
+              عوارض جانبی
+            </span>
+            <span className="text-xs text-normal text-content-tertiary">
+              {data?.adverseEffects}
+            </span>
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -309,13 +307,14 @@ const ProductPageContainer = () => {
       }
     >
       {renderContent()}
-      {data?.isOtc ? (
+      {!isLoading && data?.isOtc && (
         <ActionBar type="singleAction" hasDivider>
           <div className="flex justify-between items-center w-full px-4 py-4">
             {renderBottomSection()}
           </div>
         </ActionBar>
-      ) : (
+      )}
+      {!isLoading && !data?.isOtc && (
         <div className="bg-surface-warning flex justify-center items-center h-[84px]">
           <span className="text-content-onWarning">
             سفارش این دارو فقط با نسخه پزشک امکان پذیر است
