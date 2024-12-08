@@ -28,6 +28,7 @@ import {
   DeleteOrderDetail,
   CreateOrderInline,
   getCurrentOrder,
+  getDeclineTypes,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -239,6 +240,15 @@ export const useGetCurrentOrder = () => {
     queryKey: ['getDeliveryCode'],
     queryFn: () => getCurrentOrder(),
     enabled: !!token,
+  });
+
+  return { data: data as any, isLoading: isLoading };
+};
+
+export const useGetDeclineTypes = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['getDeclineTypes'],
+    queryFn: () => getDeclineTypes(),
   });
 
   return { data: data as any, isLoading: isLoading };

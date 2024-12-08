@@ -18,8 +18,10 @@ export const addFamilyMemberSchema = Yup.object().shape({
     .required('شماره ملی الزامی می باشد!')
     .min(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
     .max(10, 'شماره ملی وارد شده صحیح نمی‌باشد!')
-    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
-      isValidIranianNationalCode(value)
+    .test(
+      'is-valid-national-code',
+      'شماره ملی وارد شده صحیح نمی‌باشد!',
+      (value) => isValidIranianNationalCode(value),
     ),
   phoneNumber: Yup.string()
     .matches(phoneRegExp, 'شماره تماس وارد شده صحیح نمی‌باشد!')
@@ -47,8 +49,10 @@ export const userInfoSchema = Yup.object().shape({
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
     .max(10, 'شماره ملی 10 رقم می باشد')
-    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
-      isValidIranianNationalCode(value)
+    .test(
+      'is-valid-national-code',
+      'شماره ملی وارد شده صحیح نمی‌باشد!',
+      (value) => isValidIranianNationalCode(value),
     ),
 });
 export const userPasswordSchema = Yup.object().shape({
@@ -61,15 +65,22 @@ export const OrderRegistrationSchema = Yup.object().shape({
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
     .max(10, 'شماره ملی 10 رقم می باشد')
-    .test('is-valid-national-code', 'شماره ملی وارد شده صحیح نمی‌باشد!', value =>
-      isValidIranianNationalCode(value)
+    .test(
+      'is-valid-national-code',
+      'شماره ملی وارد شده صحیح نمی‌باشد!',
+      (value) => isValidIranianNationalCode(value),
     ),
 });
 export const VoucherCodeSchema = Yup.object().shape({
   voucherCode: Yup.string().required('این فیلد الزامی است'),
 });
 export const CancelOrderSchema = Yup.object().shape({
-  cancelReason: Yup.string().required('لطفا دلیل لفو سفارش خود را وارد نمایید'),
+  cancelReasonValue: Yup.string().when('cancelReasonId', {
+    is: (value) => value === 17,
+    then: Yup.string().required('لطفا دلیل لفو سفارش خود را وارد نمایید'),
+    otherwise: Yup.string().optional(),
+  }),
+  cancelReasonId: Yup.string().optional(),
 });
 
 export const RequestDrugSchema = Yup.object().shape({
@@ -77,9 +88,12 @@ export const RequestDrugSchema = Yup.object().shape({
     .of(
       Yup.object().shape({
         drugName: Yup.string().required('نام دارو الزامی است'),
-        quantity: Yup.number().required('تعداد دارو الزامی است').max(10).nullable(),
+        quantity: Yup.number()
+          .required('تعداد دارو الزامی است')
+          .max(10)
+          .nullable(),
         drugShape: Yup.object().required('نوع دارو الزامی است'),
-      })
+      }),
     )
     .required('حداقل یک دارو باید اضافه شود')
     .min(1, 'حداقل یک دارو باید اضافه شود'),

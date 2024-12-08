@@ -83,3 +83,7 @@ export const DeleteOrderDetail = async (id) => {
 export const getCurrentOrder = async () => {
   return await request.get(`/Order/CurrentOrder`);
 };
+
+export const getDeclineTypes = async () => {
+  return await request.get(`/Order/GetDeclineTypes`);
+};
