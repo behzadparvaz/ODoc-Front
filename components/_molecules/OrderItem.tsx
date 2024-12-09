@@ -13,11 +13,7 @@ import Countdown from './Countdows';
 import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
 import { colors } from '@configs/Theme';
-import {
-  useAddListToBasket,
-  useAddProductToBasket,
-  useGetCurrentBasket,
-} from '@api/basket/basketApis.rq';
+import { useAddListToBasket } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
 import Icon from '@utilities/icon';
 import moment from 'jalali-moment';
@@ -34,15 +30,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
       data?.orderStatus?.name === 'senddelivery') &&
       data?.orderCode,
   );
-  const { mutate: addListToBasket, isPending: isAddingToBasket } =
+  const { mutate: addListToBasket, isPending: isAddListToBasketLoading } =
     useAddListToBasket();
-  const { refetch: refetchGetBasket } = useGetCurrentBasket();
-  const { mutate: addToCart, isPending: isAddingToCart } =
-    useAddProductToBasket({
-      onSuccess: () => {
-        refetchGetBasket();
-      },
-    });
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -333,8 +322,9 @@ const OrderItem = ({ data }: OrderItemProps) => {
                   <Button
                     variant="secondary"
                     size="medium"
-                    className="z-10"
+                    className="z-10 w-40"
                     onClick={handleCreateOrderAgain}
+                    isLoading={isAddListToBasketLoading}
                   >
                     سفارش مجدد
                   </Button>
