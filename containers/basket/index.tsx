@@ -67,16 +67,7 @@ const Page = () => {
   });
 
   const products = useMemo(() => {
-    const basketProducts = basket?.products?.map((item) => {
-      if (item?.productType?.id === 3) {
-        return {
-          ...item,
-          imageLink: '/images/fast-order.png',
-        };
-      } else return item;
-    });
-
-    return basketProducts ?? [];
+    return basket?.products ?? [];
   }, [basket]);
 
   return (
