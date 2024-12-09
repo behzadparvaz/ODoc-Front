@@ -15,6 +15,14 @@ interface IOtpInputRef {
   getOTP: () => string;
 }
 
+interface OTPResponse extends Credential {
+  code?: string;
+}
+
+interface OTPRequestOptions extends CredentialRequestOptions {
+  otp?: { transport?: string[] };
+}
+
 const OTPInput = forwardRef<IOtpInputRef, InputProps>(
   ({ length = 6, onComplete, disabled }: InputProps, ref) => {
     const inputRef = useRef<(HTMLInputElement | null)[]>(
@@ -60,43 +68,52 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
       inputRef.current[index]?.select();
     };
 
+    const extractOTPFromMessage = (message: string): string | null => {
+      const otpRegex = /\b\d{6}\b/;
+      const match = message.match(otpRegex);
+      return match ? match[0] : null;
+    };
+
     useEffect(() => {
       inputRef.current[0]?.focus();
     }, []);
 
     useEffect(() => {
-      const controller = new AbortController();
-      // WebOTP API implementation
-      const handleOTPAutofill = async () => {
-        if (!('OTPCredential' in window)) return;
+      console.log('useEffect OTPCredential');
 
-        try {
-          const otp = await navigator.credentials.get({
-            otp: { transport: ['sms'] },
-            signal: controller.signal,
+      if ('OTPCredential' in window) {
+        console.log('OTPCredential in window');
+
+        const ac = new AbortController();
+
+        const options: OTPRequestOptions = {
+          otp: { transport: ['sms'] },
+          signal: ac.signal,
+        };
+
+        navigator.credentials
+          .get(options)
+          .then((otpCredential: OTPResponse | null) => {
+            if (otpCredential?.code) {
+              console.log('OTP autofill:', otpCredential.code);
+              const extractedOTP = extractOTPFromMessage(otpCredential.code);
+              if (extractedOTP) {
+                setOTP(extractedOTP.split(''));
+                onComplete(extractedOTP);
+              }
+            }
+          })
+          .catch((err: Error) => {
+            if (err.name !== 'AbortError') {
+              console.error('OTP autofill error:', err);
+            }
           });
-          console.log('WebOTP otp:', otp);
 
-          if (otp && otp.code) {
-            const otpCode = otp.code;
-            const otpDigits = otpCode.split('').slice(0, length);
-
-            setOTP(otpDigits);
-            onComplete(otpCode);
-          }
-        } catch (error) {
-          console.error('WebOTP error:', error);
-        } finally {
-          controller.abort();
-        }
-      };
-
-      handleOTPAutofill();
-
-      return () => {
-        controller.abort();
-      };
-    }, [length, setOTP, onComplete]);
+        return () => {
+          ac.abort();
+        };
+      }
+    }, [setOTP, onComplete]);
 
     return (
       <div className="flex justify-center gap-2 flex-row-reverse m-auto">
