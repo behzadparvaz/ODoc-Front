@@ -38,10 +38,17 @@ export type ProductBasket = {
   imageLink?: string;
   productName: string;
   unit?: string;
-}
-export type BasketPayload = ProductBasket | ProductBasket[]
+};
+
+export type ProductsListBasket = {
+  nationalCode: string;
+  items: ProductBasket[];
+};
+export type BasketPayload = ProductBasket | ProductBasket[];
 
 export const addProductToBasket = async (payload: BasketPayload) => {
-
   await request.post('/Baskets/AddToCart', payload);
+};
+export const addListToBasket = async (payload: ProductsListBasket) => {
+  await request.post('/Baskets/AddListToCart', payload);
 };

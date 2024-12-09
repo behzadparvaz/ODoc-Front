@@ -14,6 +14,7 @@ import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
 import { colors } from '@configs/Theme';
 import {
+  useAddListToBasket,
   useAddProductToBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
@@ -33,6 +34,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
       data?.orderStatus?.name === 'senddelivery') &&
       data?.orderCode,
   );
+  const { mutate: addListToBasket, isPending: isAddingToBasket } =
+    useAddListToBasket();
   const { refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
@@ -55,15 +58,25 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
   const handleCreateOrderAgain = (e) => {
     e?.stopPropagation();
-    data?.orderDetails?.map((item) =>
-      addToCart({
-        irc: item?.irc,
-        quantity: item?.quantity,
-        imageLink: item?.imageLink,
-        productName: item?.productName,
-        unit: item?.unit,
-      }),
-    );
+
+    const bodyItems = data?.orderDetails?.map((item) => {
+      if (!item?.refrenceNumber) {
+        return {
+          description: item?.description,
+          irc: item?.irc,
+          quantity: item?.quantity,
+          imageLink: item?.imageLink,
+          productName: item?.productName,
+          unit: item?.unit,
+          productType: item?.type?.id,
+        };
+      }
+    });
+
+    addListToBasket({
+      nationalCode: data?.customer?.nationalCode,
+      items: bodyItems,
+    });
   };
 
   const renderIcon = () => {
