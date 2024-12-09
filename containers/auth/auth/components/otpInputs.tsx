@@ -64,6 +64,40 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
       inputRef.current[0]?.focus();
     }, []);
 
+    useEffect(() => {
+      const controller = new AbortController();
+      // WebOTP API implementation
+      const handleOTPAutofill = async () => {
+        if (!('OTPCredential' in window)) return;
+
+        try {
+          const otp = await navigator.credentials.get({
+            otp: { transport: ['sms'] },
+            signal: controller.signal,
+          });
+          console.log('WebOTP otp:', otp);
+
+          if (otp && otp.code) {
+            const otpCode = otp.code;
+            const otpDigits = otpCode.split('').slice(0, length);
+
+            setOTP(otpDigits);
+            onComplete(otpCode);
+          }
+        } catch (error) {
+          console.error('WebOTP error:', error);
+        } finally {
+          controller.abort();
+        }
+      };
+
+      handleOTPAutofill();
+
+      return () => {
+        controller.abort();
+      };
+    }, [length, setOTP, onComplete]);
+
     return (
       <div className="flex justify-center gap-2 flex-row-reverse m-auto">
         {Array.from({ length }).map((_, index) => (
