@@ -48,8 +48,21 @@ const OrderItem = ({ data }: OrderItemProps) => {
   const handleCreateOrderAgain = (e) => {
     e?.stopPropagation();
 
-    const bodyItems = data?.orderDetails?.map((item) => {
-      if (!item?.refrenceNumber) {
+    const filteredItems = data?.orderDetails?.filter(
+      (item) => !item?.referenceNumber,
+    );
+    filteredItems?.forEach((item) => {
+      if (!!item?.alternatives?.length) {
+        return {
+          description: item?.alternatives?.[0]?.description,
+          irc: item?.alternatives?.[0]?.irc,
+          quantity: item?.quantity,
+          imageLink: item?.alternatives?.[0]?.imageLink,
+          productName: item?.alternatives?.[0]?.productName,
+          unit: item?.alternatives?.[0]?.unit,
+          productType: item?.alternatives?.[0]?.type?.id,
+        };
+      } else {
         return {
           description: item?.description,
           irc: item?.irc,
@@ -62,10 +75,12 @@ const OrderItem = ({ data }: OrderItemProps) => {
       }
     });
 
-    addListToBasket({
-      nationalCode: data?.customer?.nationalCode,
-      items: bodyItems,
-    });
+    console.log('bodyItems', filteredItems);
+
+    // addListToBasket({
+    //   nationalCode: data?.customer?.nationalCode,
+    //   items: bodyItems,
+    // });
   };
 
   const renderIcon = () => {
