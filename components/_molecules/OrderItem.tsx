@@ -56,11 +56,11 @@ const OrderItem = ({ data }: OrderItemProps) => {
         return {
           description: item?.alternatives?.[0]?.description,
           irc: item?.alternatives?.[0]?.irc,
-          quantity: item?.quantity,
+          quantity: item?.alternatives?.[0]?.quantity,
           imageLink: item?.alternatives?.[0]?.imageLink,
           productName: item?.alternatives?.[0]?.productName,
           unit: item?.alternatives?.[0]?.unit,
-          productType: item?.alternatives?.[0]?.type?.id,
+          productType: item?.alternatives?.[0]?.productType,
         };
       } else {
         return {
@@ -75,12 +75,10 @@ const OrderItem = ({ data }: OrderItemProps) => {
       }
     });
 
-    console.log('bodyItems', filteredItems);
-
-    // addListToBasket({
-    //   nationalCode: data?.customer?.nationalCode,
-    //   items: bodyItems,
-    // });
+    addListToBasket({
+      nationalCode: data?.customer?.nationalCode,
+      items: filteredItems,
+    });
   };
 
   const renderIcon = () => {
