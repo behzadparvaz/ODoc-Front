@@ -1,47 +1,84 @@
-import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
-import classNames from 'classnames';
+import React, { useState } from 'react';
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import classNames from 'classnames';
+import { SkeletonSvg } from '@utilities/SkeletonSvg';
 
-interface ImageComponentProps extends ImageProps {
-  width?: number;
-  height?: number;
-  unoptimized?: boolean;
-  alt: string;
-  onClick?: () => void;
+const toBase64 = (str: string) =>
+  typeof window === 'undefined'
+    ? Buffer.from(str).toString('base64')
+    : window.btoa(str);
+
+interface AdvancedImageProps extends ImageProps {
+  errorImageSrc?: string;
+  blurLevel?: 'sm' | 'md' | 'lg' | 'xl';
 }
 
-const NextImage = ({
+const NextImage: React.FC<AdvancedImageProps> = ({
   src,
-  unoptimized,
   alt,
-  onClick,
   width,
   height,
-  ...rest
-}: ImageComponentProps): JSX.Element => {
-  const [imageError, setImageError] = useState<boolean>(false);
+  errorImageSrc = '/images/emptyImage.png',
+  blurLevel = 'md',
+  className,
+  unoptimized,
+  ...props
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
-  const handleImageError = () => {
-    setImageError(true);
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
   };
 
-  // Determine the source to use: either the provided src or the error image
-  const effectiveSrc = imageError || !src ? '/images/emptyImage.png' : src;
+  const handleError = () => {
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  // Determine the actual image source
+  const imageSrc = hasError ? errorImageSrc : src;
+
+  // Map blur levels to Tailwind classes
+  const blurClasses = {
+    sm: 'blur-sm',
+    md: 'blur-md',
+    lg: 'blur-lg',
+    xl: 'blur-xl',
+  };
 
   return (
-    <Image
-      src={effectiveSrc}
-      unoptimized={unoptimized ?? true}
-      alt={alt}
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}`}
-      width={width}
-      height={height}
-      onError={handleImageError}
-      className={classNames('pointer-events-none select-none', rest.className)}
-      {...rest}
-    />
+    <div className="relative overflow-hidden">
+      {isLoading && (
+        <div
+          className="absolute inset-0 bg-gray-200 animate-pulse rounded-md"
+          style={{
+            backgroundImage: `url("data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}")`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+      )}
+
+      <Image
+        src={imageSrc}
+        unoptimized={unoptimized ?? true}
+        alt={alt}
+        width={width}
+        height={height}
+        placeholder="blur"
+        blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}`}
+        onLoadingComplete={handleLoadingComplete}
+        onError={handleError}
+        className={classNames(
+          'relative z-10 will-change-auto transition-all duration-500',
+          blurClasses[blurLevel],
+          isLoading ? 'opacity-0' : 'opacity-100 !blur-none',
+          className,
+        )}
+        {...props}
+      />
+    </div>
   );
 };
 
