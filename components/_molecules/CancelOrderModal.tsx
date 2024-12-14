@@ -96,7 +96,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
                   if (item?.name === 'سایر دلایل') {
                     setIsShownInput(true);
                     formik?.setFieldValue('cancelReasonValue', '');
-                    formik?.setFieldValue('cancelReasonId', 17);
+                    formik?.setFieldValue('cancelReasonId', item?.id);
                   } else {
                     setIsShownInput(false);
                     formik?.setFieldValue('cancelReasonId', item?.id);
@@ -137,7 +137,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               placeholder={'توضیحات خود را برای لغو سفارش بنویسید'}
               id="cancelReasonValue"
               name="cancelReasonValue"
-              className="px-4"
+              className="px-4 mb-4"
               value={formik.values.cancelReasonValue}
               onChange={(e) => handleChangeForm('cancelReasonValue', e)}
               onBlur={formik.handleBlur}
@@ -145,7 +145,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
                 formik.touched.cancelReasonValue &&
                 Boolean(formik.errors.cancelReasonValue)
               }
-              inputClassName="h-[102px] w-full text-wrap"
+              inputClassName="h-[102px] w-full text-wrap rounded-md"
               errorMessage={formik.errors.cancelReasonValue as string}
               maxLength={150}
             />
