@@ -74,6 +74,7 @@ const PhoneStep: React.FC<PhoneStepProps> = ({ onSubmit, isLoading }) => {
                   autoComplete="off"
                   disabled={isLoading}
                   inputMode="numeric"
+                  type="number"
                 />
               )}
             </Field>
