@@ -71,7 +71,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
         onLoadingComplete={handleLoadingComplete}
         onError={handleError}
         className={classNames(
-          'relative z-10 will-change-auto transition-all duration-500',
+          'relative will-change-auto transition-all duration-500',
           blurClasses[blurLevel],
           isLoading ? 'opacity-0' : 'opacity-100 !blur-none',
           className,
