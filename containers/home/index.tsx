@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { routeList } from '@routes/routeList';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import classNames from 'classnames';
-import useStorage from '@hooks/useStorage';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));

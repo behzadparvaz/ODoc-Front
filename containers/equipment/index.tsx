@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { SearchIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
-import Banner from '@com/_molecules/Banner';
 import { routeList } from '@routes/routeList';
 
+const Icon = dynamic(() => import('@utilities/icon'));
 const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'));
+const Banner = dynamic(() => import('@com/_molecules/Banner'));
 
 const bannerData = [
   {
@@ -26,6 +26,7 @@ const bannerData = [
 
 const EquipmentContainer = () => {
   const { query, push } = useRouter();
+
   return (
     <MainLayout
       hasHeader
@@ -44,7 +45,7 @@ const EquipmentContainer = () => {
             })
           }
         >
-          <SearchIconOutline width={24} height={24} fill={'black'} />
+          <Icon name="Magnifier" width={1.5} height={1.5} fill={'black'} />
         </span>
       }
     >
