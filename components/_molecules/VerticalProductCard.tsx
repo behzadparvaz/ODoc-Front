@@ -49,7 +49,11 @@ const VerticalProductCard = ({
   onClick,
 }: VerticalProductCardProps<ProductDataModel>) => {
   const { push } = useRouter();
-  const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket({
+  const {
+    data: basket,
+    refetch: refetchGetBasket,
+    isRefetching,
+  } = useGetCurrentBasket({
     select: (res: any) => ({
       ...res,
       productsById:
@@ -65,12 +69,13 @@ const VerticalProductCard = ({
       },
     });
 
-  const { mutate: popProductOfCart } = useDeleteProductBasket({
-    onSuccess: () => {
-      onSuccessChanged?.();
-      refetchGetBasket();
-    },
-  });
+  const { mutate: popProductOfCart, isPending: isPendingDeleteBasket } =
+    useDeleteProductBasket({
+      onSuccess: () => {
+        onSuccessChanged?.();
+        refetchGetBasket();
+      },
+    });
 
   const onDeleteProduct = () =>
     popProductOfCart({
@@ -99,7 +104,7 @@ const VerticalProductCard = ({
       (basketItem) =>
         basketItem?.irc === (productData?.irc || productData?.genericCode),
     )?.quantity ?? 0;
-
+  console.log(isAddingToCart || isPendingDeleteBasket);
   return (
     <div
       className={classNames(
@@ -134,7 +139,7 @@ const VerticalProductCard = ({
               unitName={productData.unit}
               count={productBasketQuantity}
               onChangeCount={onChange}
-              isLoading={isAddingToCart}
+              isLoading={isAddingToCart || isPendingDeleteBasket}
             />
           </div>
         )}
