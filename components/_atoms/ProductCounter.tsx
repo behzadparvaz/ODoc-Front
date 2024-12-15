@@ -144,7 +144,12 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
             }}
           >
             {count <= 1 ? (
-              <Icon name="Trash" width={1.25} height={1.25} fill="black" />
+              <Icon
+                name="Trash"
+                width={1.25}
+                height={1.25}
+                fill={isLoading ? '#cecece' : 'black'}
+              />
             ) : (
               <MinusIconOutline
                 width={20}
