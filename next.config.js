@@ -10,10 +10,6 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 const nextConfig = {
   distDir: 'build', // Custom output directory for build files
   swcMinify: true, // Enable SWC minification
-  experimental: {
-    serverSourceMaps: false, // Disable server source maps in production
-    productionBrowserSourceMaps: false, // Disable browser source maps in production
-  },
   images: {
     domains: [
       'trustseal.eNamad.ir',
