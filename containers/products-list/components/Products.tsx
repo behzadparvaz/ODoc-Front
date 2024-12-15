@@ -5,19 +5,15 @@ import { useInView } from 'react-intersection-observer';
 import classNames from 'classnames';
 
 import { useGetSupplementProducts } from '@api/supplement/supplementApis.rq';
-import VerticalProductCard from '@com/_molecules/VerticalProductCard';
-import VerticalProductCardShimmer from '@com/_atoms/verticalProductCardShimmer';
 import { routeList } from '@routes/routeList';
 
-enum SortEnum {
-  BestSeller = 'BestSeller',
-  MostVisited = 'MostVisited',
-  MostDiscounted = 'MostDiscounted',
-  MostExpensive = 'MostExpensive',
-  Cheapest = 'Cheapest',
-}
-
+const VerticalProductCardShimmer = dynamic(
+  () => import('@com/_atoms/verticalProductCardShimmer'),
+);
 const Pagination = dynamic(() => import('./Pagination'));
+const VerticalProductCard = dynamic(
+  () => import('@com/_molecules/VerticalProductCard'),
+);
 
 const Products = () => {
   const { query, push } = useRouter();

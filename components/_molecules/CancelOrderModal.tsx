@@ -34,7 +34,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
 
   const handleCancelOrder = (reasonValue?: string, reasonId?: number) => {
     const cancelOrderBody =
-      formik.values?.cancelReasonId === 17
+      formik.values?.cancelReasonId === 18
         ? {
             orderCode: orderCode,
             declineType: reasonId,
@@ -56,7 +56,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
     initialValues,
     validationSchema: CancelOrderSchema,
     onSubmit: (values) => {
-      if (values?.cancelReasonId === 17 && !values?.cancelReasonValue) {
+      if (values?.cancelReasonId === 18 && !values?.cancelReasonValue) {
         formik.setFieldError(
           'cancelReasonValue',
           'لطفا دلیل خود را انتخاب کنید',
@@ -162,7 +162,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               onClick={formik.handleSubmit}
               isLoading={isLoadingCancelOrder}
               disabled={
-                formik?.values?.cancelReasonId === 17 &&
+                formik?.values?.cancelReasonId === 18 &&
                 !formik.values.cancelReasonValue
               }
             >

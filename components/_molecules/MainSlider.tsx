@@ -3,21 +3,28 @@ import { SwiperSlide } from 'swiper/react';
 import MainSliderItem from '@com/_atoms/MainSliderItem';
 
 interface Props {
+  isLoading?: boolean;
   data: any;
   className?: string;
   autoPlay?: boolean;
-  delay?: number;
 }
-const MainSlider = ({ data, className = '', autoPlay, delay }: Props) => {
+const MainSlider = ({ data, className = '', autoPlay, isLoading }: Props) => {
+  if (isLoading) {
+    return (
+      <div className="w-full h-[260px]">
+        <div className="w-full h-full bg-surface-secondary animate-pulse"></div>
+      </div>
+    );
+  }
+
   return (
-    <Slider autoPlay={autoPlay} delay={delay} className={className}>
+    <Slider autoPlay={autoPlay} className={className}>
       {data?.map((item, index) => {
         return (
           <SwiperSlide key={index}>
             <MainSliderItem
               title={item?.title}
               index={index}
-              // imageLink={'item?.imageLink'}
               imageLink={'/'}
               imageUrl={item?.icon}
             />
