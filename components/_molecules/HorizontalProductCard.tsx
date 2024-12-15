@@ -100,13 +100,13 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
     if (hasAddToCartButton) {
       if (isInSearchPage && !prInfo?.isOtc) {
         return (
-          <span className="!min-w-[96px] h-[32px] px-1 bg-red-50 text-content-negative text-[10px] rounded-full flex justify-center items-center">
-            <Link
-              href={`${routeList.otcMedicine}?searchText=${prInfo?.productName}`}
-            >
+          <Link
+            href={`${routeList.otcMedicine}?searchText=${prInfo?.productName}`}
+          >
+            <span className="!min-w-[96px] h-[32px] px-1 bg-red-50 text-content-negative text-[10px] rounded-full flex justify-center items-center">
               نیاز به نسخه پزشک
-            </Link>
-          </span>
+            </span>
+          </Link>
         );
       }
       return (
