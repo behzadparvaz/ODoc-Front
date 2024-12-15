@@ -23,7 +23,7 @@ interface Props {
   scrollSliderClassName?: string;
 }
 
-const shimerData = [1, 2, 3, 4, 5, 6];
+const shimerData = [...Array(10).keys()];
 
 const CarouselLine = ({
   className = '',
