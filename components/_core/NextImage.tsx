@@ -15,7 +15,7 @@ interface AdvancedImageProps extends ImageProps {
 
 const NextImage: React.FC<AdvancedImageProps> = ({
   src,
-  alt,
+  alt = 'Image', // Default alt text for accessibility
   width,
   height,
   errorImageSrc = '/images/emptyImage.png',
@@ -48,38 +48,23 @@ const NextImage: React.FC<AdvancedImageProps> = ({
   };
 
   return (
-    <div className="relative overflow-hidden">
-      {isLoading && (
-        <div
-          className="absolute inset-0 bg-surface-secondary animate-pulse rounded-md"
-          style={{
-            backgroundImage: `url("data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}")`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+    <Image
+      src={imageSrc}
+      unoptimized={unoptimized ?? true}
+      alt={alt}
+      width={width}
+      height={height}
+      onLoadingComplete={handleLoadingComplete}
+      onError={handleError}
+      className={classNames(
+        'transition-all duration-500',
+        isLoading
+          ? `opacity-0 ${blurClasses[blurLevel]}`
+          : 'opacity-100 blur-none',
+        className,
       )}
-
-      <Image
-        src={imageSrc}
-        unoptimized={unoptimized ?? true}
-        alt={alt}
-        width={width}
-        height={height}
-        placeholder="blur"
-        blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}`}
-        onLoadingComplete={handleLoadingComplete}
-        onError={handleError}
-        className={classNames(
-          'relative z-10 will-change-auto transition-all duration-500',
-          isLoading
-            ? `opacity-0 ${blurClasses[blurLevel]}`
-            : 'opacity-100 blur-none',
-          className,
-        )}
-        {...props}
-      />
-    </div>
+      {...props}
+    />
   );
 };
 
