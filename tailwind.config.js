@@ -1,5 +1,4 @@
 const colors = require('tailwindcss/colors');
-const clamp = require('@tailwindcss/line-clamp');
 const plugin = require('tailwindcss/plugin');
 const { colors: colorPallete } = require('./configs/Theme');
 
@@ -16,7 +15,7 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './containers/**/*.{js,ts,jsx,tsx}',
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       transitionProperty: {
@@ -151,7 +150,6 @@ module.exports = {
     minHeight: ['responsive', 'hover', 'focus', 'important'],
   },
   plugins: [
-    clamp,
     plugin(function ({ addVariant }) {
       addVariant('important', ({ container }) => {
         container.walkRules((rule) => {

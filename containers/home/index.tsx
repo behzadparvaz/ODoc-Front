@@ -13,12 +13,12 @@ import classNames from 'classnames';
 import Link from 'next/link';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
-const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
 const CarouselLine = dynamic(() => import('@com/_molecules/CarouselLine'));
 const HomeOrderSlider = dynamic(
   () => import('@com/_organisms/HomeOrderSlider'),
 );
+const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
