@@ -21,7 +21,8 @@ const BrandFilter = ({ plpQuery, onSelectBrand }: BrandFilterProps) => {
             value !== undefined &&
             (key === 'categoryCodeLevel4' ||
               key === 'categoryCodeLevel3' ||
-              key === 'categoryCodeLevel2'),
+              key === 'categoryCodeLevel2' ||
+              key === 'categoryCodeLevel1'),
         ),
       ),
     );

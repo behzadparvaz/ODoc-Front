@@ -26,7 +26,8 @@ const ShapesFilter = ({ plpQuery, onSelectShape }: ShapesFilterProps) => {
             value !== undefined &&
             (key === 'categoryCodeLevel4' ||
               key === 'categoryCodeLevel3' ||
-              key === 'categoryCodeLevel2'),
+              key === 'categoryCodeLevel2' ||
+              key === 'categoryCodeLevel1'),
         ),
       ),
     );
@@ -74,6 +75,49 @@ const ShapesFilter = ({ plpQuery, onSelectShape }: ShapesFilterProps) => {
     );
   };
 
+  const renderShapesContent = () => {
+    if (shapesIsLoading) {
+      return renderShimer();
+    }
+
+    if (!!filteredShapes?.length) {
+      return (
+        <>
+          {filteredShapes?.map((item) => (
+            <div key={item?.shapeCode} className="h-[52px] flex flex-col">
+              <div className="h-[51.5px] flex items-center">
+                <Radio
+                  label={item?.shapeName}
+                  checked={selectedShape?.shapeName === item?.shapeName}
+                  handleChange={() => handleSelectShape(item)}
+                />
+              </div>
+              <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
+            </div>
+          ))}
+        </>
+      );
+    }
+
+    return (
+      <>
+        {!!shapesData.length &&
+          shapesData?.map((item) => (
+            <div key={item?.shapeCode} className="h-[52px] flex flex-col">
+              <div className="h-[51.5px] flex items-center">
+                <Radio
+                  label={item?.shapeName}
+                  checked={selectedShape?.shapeName === item?.shapeName}
+                  handleChange={() => handleSelectShape(item)}
+                />
+              </div>
+              <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
+            </div>
+          ))}
+      </>
+    );
+  };
+
   return (
     <div className="flex flex-col gap-2 py-4">
       <TextInput
@@ -84,26 +128,7 @@ const ShapesFilter = ({ plpQuery, onSelectShape }: ShapesFilterProps) => {
       />
 
       <div className="h-[300px] overflow-y-scroll overflow-x-hidden">
-        {shapesIsLoading ? (
-          renderShimer()
-        ) : (
-          <>
-            {(!!filteredShapes?.length ? filteredShapes : shapesData)?.map(
-              (item) => (
-                <div key={item?.shapeCode} className="h-[52px] flex flex-col">
-                  <div className="h-[51.5px] flex items-center">
-                    <Radio
-                      label={item?.shapeName}
-                      checked={selectedShape?.shapeName === item?.shapeName}
-                      handleChange={() => handleSelectShape(item)}
-                    />
-                  </div>
-                  <div className="w-[calc(100%-21px)] h-[0.5px] bg-border-primary mr-[42px]" />
-                </div>
-              ),
-            )}
-          </>
-        )}
+        {renderShapesContent()}
       </div>
     </div>
   );

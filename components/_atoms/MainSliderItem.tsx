@@ -3,9 +3,7 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import NextImage from '@com/_core/NextImage';
-import useWindowSize from '@hooks/useWindowSize';
 import { routeList } from '@routes/routeList';
-import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 
 type Props = {
   imageUrl: string;
@@ -14,9 +12,8 @@ type Props = {
   index?: number;
 };
 
-function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
+function MainSliderItem({ imageUrl, title, index }: Props) {
   const { push } = useRouter();
-  const { width } = useWindowSize();
   const ref = useRef();
 
   return (
@@ -35,15 +32,11 @@ function MainSliderItem({ imageUrl, title, imageLink, index }: Props) {
       <div className="!aspect-w-23 !aspect-h-14 overflow-hidden" ref={ref}>
         <NextImage
           src={imageUrl}
-          unoptimized
           alt={title}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, 192))}`}
           fill
           quality={100}
           style={{ objectFit: 'contain' }}
-          loading={index === 0 ? 'eager' : 'lazy'}
-          priority={index === 0 ? true : false}
+          loading={'eager'}
         />
       </div>
     </div>
