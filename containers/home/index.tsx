@@ -1,17 +1,16 @@
-import { useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
+import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
+import { routeList } from '@routes/routeList';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
-import Link from 'next/link';
-import { routeList } from '@routes/routeList';
-import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import classNames from 'classnames';
-import useStorage from '@hooks/useStorage';
+import Link from 'next/link';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
