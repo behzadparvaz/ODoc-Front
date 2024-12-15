@@ -104,7 +104,7 @@ const VerticalProductCard = ({
       (basketItem) =>
         basketItem?.irc === (productData?.irc || productData?.genericCode),
     )?.quantity ?? 0;
-  console.log(isAddingToCart || isPendingDeleteBasket);
+
   return (
     <div
       className={classNames(
