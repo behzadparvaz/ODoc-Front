@@ -44,21 +44,23 @@ const OtcMedicineContainer = () => {
     >
       {conditionShowRequestDrugsContent && (
         <div className="flex flex-col">
-          <div className="mb-2 min-h-[1px] bg-gray-200 w-full" />
+          <div className="mb-2 h-[1px] bg-border-primary w-full" />
           <RequestDrugsContent />
         </div>
       )}
 
-      <div
-        className="px-4 py-4 cursor-pointer"
-        onClick={() =>
-          push({ pathname: routeList?.search, query: { section: 'otc' } })
-        }
-      >
-        <SearchBox className="px-4" />
+      <div className="px-4 py-4">
+        <div
+          className="cursor-pointer rounded-full"
+          onClick={() =>
+            push({ pathname: routeList?.search, query: { section: 'otc' } })
+          }
+        >
+          <SearchBox className="px-4" />
+        </div>
       </div>
 
-      <div className="w-full flex flex-col gap-y-4">
+      <div className="w-full h-max flex flex-col gap-y-4">
         <OtcMedicineCategories />
       </div>
     </MainLayout>

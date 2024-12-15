@@ -1,12 +1,6 @@
 import React, { useState } from 'react';
 import Image, { ImageProps } from 'next/image';
 import classNames from 'classnames';
-import { SkeletonSvg } from '@utilities/SkeletonSvg';
-
-const toBase64 = (str: string) =>
-  typeof window === 'undefined'
-    ? Buffer.from(str).toString('base64')
-    : window.btoa(str);
 
 interface AdvancedImageProps extends ImageProps {
   errorImageSrc?: string;
@@ -15,7 +9,7 @@ interface AdvancedImageProps extends ImageProps {
 
 const NextImage: React.FC<AdvancedImageProps> = ({
   src,
-  alt = 'Image', // Default alt text for accessibility
+  alt = 'Image',
   width,
   height,
   errorImageSrc = '/images/emptyImage.png',
@@ -36,10 +30,8 @@ const NextImage: React.FC<AdvancedImageProps> = ({
     setHasError(true);
   };
 
-  // Determine the actual image source
   const imageSrc = hasError ? errorImageSrc : src;
 
-  // Map blur levels to Tailwind classes
   const blurClasses = {
     sm: 'blur-sm',
     md: 'blur-md',

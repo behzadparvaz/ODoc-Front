@@ -33,7 +33,7 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
           </div>
         )}
 
-        <p className="w-full text-2xs text-grey-600 mb-1 truncate">
+        <span className="w-full text-2xs text-grey-600 mb-1 truncate">
           {addressInfo?.description}
           {addressInfo?.houseNumber?.length && (
             <span className="inline-block px-1">
@@ -42,7 +42,7 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
           )}
           {addressInfo?.homeUnit &&
             `${profileText?.unit} ${addressInfo?.homeUnit}`}
-        </p>
+        </span>
       </div>
 
       <div className="w-[44px] flex justify-end items-center gap-x-2">

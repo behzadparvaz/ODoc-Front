@@ -46,11 +46,7 @@ const Products = () => {
 
   if ((isLoading || isFetchingNextPage) && !productList?.length) {
     return (
-      <div
-        className={classNames(
-          'h-full w-full grid grid-cols-2 overflow-y-scroll',
-        )}
-      >
+      <div className={classNames('w-full grid grid-cols-2 overflow-y-scroll')}>
         {[...Array(8).keys()].map((item) => (
           <div
             key={item}
