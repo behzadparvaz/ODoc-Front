@@ -22,7 +22,7 @@ const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 
 const HomeContainer = () => {
   const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
-  const { data: bannerData } = useGetBanners();
+  const { data: bannerData, isLoading: bannerIsLoading } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
   const tapsiLinkRef = useRef(null);
@@ -79,12 +79,11 @@ const HomeContainer = () => {
 
         <Categories isHomePage />
 
-        {bannerData?.queryResult && (
-          <MainSlider
-            autoPlay
-            data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
-          />
-        )}
+        <MainSlider
+          autoPlay
+          isLoading={bannerIsLoading}
+          data={[bannerData?.queryResult?.[0], bannerData?.queryResult?.[1]]}
+        />
 
         <CarouselLine
           data={getCarouselDataData(1)}
@@ -101,7 +100,7 @@ const HomeContainer = () => {
           containerClassName="bg-indigo-50 pb-2"
         />
 
-        {bannerData?.queryResult && (
+        {bannerData?.queryResult ? (
           <Link
             href={`${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
           >
@@ -110,6 +109,10 @@ const HomeContainer = () => {
               data={[bannerData?.queryResult?.[2]]}
             />
           </Link>
+        ) : (
+          <div className="w-full h-[192px]">
+            <div className="w-full h-full bg-surface-secondary animate-pulse" />
+          </div>
         )}
 
         <CarouselLine

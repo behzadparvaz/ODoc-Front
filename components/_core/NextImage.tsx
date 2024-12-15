@@ -19,7 +19,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
   width,
   height,
   errorImageSrc = '/images/emptyImage.png',
-  blurLevel = 'md',
+  blurLevel = 'sm',
   className,
   unoptimized,
   ...props
@@ -51,7 +51,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
     <div className="relative overflow-hidden">
       {isLoading && (
         <div
-          className="absolute inset-0 bg-gray-200 animate-pulse rounded-md"
+          className="absolute inset-0 bg-surface-secondary animate-pulse rounded-md"
           style={{
             backgroundImage: `url("data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}")`,
             backgroundSize: 'cover',
@@ -71,9 +71,10 @@ const NextImage: React.FC<AdvancedImageProps> = ({
         onLoadingComplete={handleLoadingComplete}
         onError={handleError}
         className={classNames(
-          'relative will-change-auto transition-all duration-500',
-          blurClasses[blurLevel],
-          isLoading ? 'opacity-0' : 'opacity-100 !blur-none',
+          'relative z-10 will-change-auto transition-all duration-500',
+          isLoading
+            ? `opacity-0 ${blurClasses[blurLevel]}`
+            : 'opacity-100 blur-none',
           className,
         )}
         {...props}

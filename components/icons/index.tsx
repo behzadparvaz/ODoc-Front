@@ -4384,8 +4384,8 @@ export const ChevronUpIcon = ({ width, height, fill = 'black' }: IconType) => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
+        fillRule="evenodd"
+        clipRule="evenodd"
         d="M15.4853 15.364L11.9505 11.8291L8.41421 15.364L7 13.9497L11.9497 9L16.8995 13.9497L15.4853 15.364Z"
         fill={fill}
       />
@@ -4430,8 +4430,8 @@ export const ChatFillIcon = ({ width = 13, height = 16, fill = '#747575' }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M1.33333 0H10.6667C11.4 0 11.9933 0.6 11.9933 1.33333L12 12.6667L9.33333 10H1.33333C0.599999 10 0 9.4 0 8.66667V1.33333C0 0.6 0.599999 0 1.33333 0ZM8 5.33333H9.33333V4H8V5.33333ZM5.33333 5.33333H6.66667V4H5.33333V5.33333ZM2.66667 5.33333H4V4H2.66667V5.33333Z"
       fill={fill}
     />
@@ -4451,8 +4451,8 @@ export const ArrowUpArrowDownIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M12.894 6.65381L7.922 2L3 6.65381L4.383 8.104L7.013 5.68408V18H9.02V5.68408L11.542 8.104L12.894 6.65381ZM19.647 15.897L17.047 18.3169V6.0708H15.04V18.3159L12.488 15.896L11.121 17.3462L16.086 22L21 17.3462L19.647 15.897Z"
       fill="black"
     />
@@ -4472,8 +4472,8 @@ export const SliderHorizontalIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8.5 13.5C10.433 13.5 12 15.067 12 17C12 18.933 10.433 20.5 8.5 20.5C6.9148 20.5 5.57573 19.4462 5.14519 18.0008L2 18V16L5.14489 16.0002C5.57511 14.5543 6.91443 13.5 8.5 13.5ZM8.5 15.5C7.67157 15.5 7 16.1716 7 17C7 17.8284 7.67157 18.5 8.5 18.5C9.32843 18.5 10 17.8284 10 17C10 16.1716 9.32843 15.5 8.5 15.5ZM22 16V18H14V16H22ZM15.5 3.5C17.0856 3.5 18.4249 4.55433 18.8551 6.00016L22 6V8L18.8548 8.00084C18.4243 9.44615 17.0852 10.5 15.5 10.5C13.567 10.5 12 8.933 12 7C12 5.067 13.567 3.5 15.5 3.5ZM15.5 5.5C14.6716 5.5 14 6.17157 14 7C14 7.82843 14.6716 8.5 15.5 8.5C16.3284 8.5 17 7.82843 17 7C17 6.17157 16.3284 5.5 15.5 5.5ZM10 6V8H2V6H10Z"
       fill="black"
     />
@@ -4493,8 +4493,8 @@ export const ChevronRightIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M8.55029 15.5356L12.0851 12.0007L8.55029 8.46451L9.96451 7.05029L14.9143 12L9.96451 16.9498L8.55029 15.5356Z"
       fill={fill}
     />
@@ -4514,8 +4514,8 @@ export const CircleCheckFillIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M12 2C17.52 2 22 6.48 22 12C22 17.52 17.52 22 12 22C6.48 22 2 17.52 2 12C2 6.48 6.48 2 12 2ZM16.2929 8.29297L11 13.5859L8.70712 11.293L7.29291 12.7072L11 16.4143L17.7071 9.70718L16.2929 8.29297Z"
       fill={fill}
     />
@@ -4535,8 +4535,8 @@ export const CircleCrossFillIcon = ({
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM14.1213 8.46447L15.5355 9.87868L13.414 12L15.5355 14.1213L14.1213 15.5355L12 13.414L9.87868 15.5355L8.46447 14.1213L10.586 12L8.46447 9.87868L9.87868 8.46447L12 10.586L14.1213 8.46447Z"
       fill={fill}
     />

@@ -1,17 +1,13 @@
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import { SearchIconOutline } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
 import { useCallback } from 'react';
 
-const Banner = dynamic(() => import('@com/_molecules/Banner'), {
-  ssr: false,
-});
-const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'), {
-  ssr: false,
-});
+const Icon = dynamic(() => import('@utilities/icon'));
+const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'));
+const Banner = dynamic(() => import('@com/_molecules/Banner'));
 
 const bannerData = [
   {
@@ -62,7 +58,7 @@ const EquipmentContainer = () => {
           className="flex items-center justify-center cursor-pointer"
           onClick={handleSearchClick}
         >
-          <SearchIconOutline width={24} height={24} fill={'black'} />
+          <Icon name="Magnifier" width={1.5} height={1.5} fill={'black'} />
         </span>
       }
     >
