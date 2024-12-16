@@ -13,10 +13,7 @@ import Countdown from './Countdows';
 import { Button } from '@com/_atoms/NewButton';
 import classNames from 'classnames';
 import { colors } from '@configs/Theme';
-import {
-  useAddProductToBasket,
-  useGetCurrentBasket,
-} from '@api/basket/basketApis.rq';
+import { useAddListToBasket } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
 import Icon from '@utilities/icon';
 import moment from 'jalali-moment';
@@ -33,13 +30,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
       data?.orderStatus?.name === 'senddelivery') &&
       data?.orderCode,
   );
-  const { refetch: refetchGetBasket } = useGetCurrentBasket();
-  const { mutate: addToCart, isPending: isAddingToCart } =
-    useAddProductToBasket({
-      onSuccess: () => {
-        refetchGetBasket();
-      },
-    });
+  const { mutate: addListToBasket, isPending: isAddListToBasketLoading } =
+    useAddListToBasket();
 
   const acceptExpirationTime = useMemo(() => {
     const parsedDate = new Date(data?.createDateTime);
@@ -55,15 +47,38 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
   const handleCreateOrderAgain = (e) => {
     e?.stopPropagation();
-    data?.orderDetails?.map((item) =>
-      addToCart({
-        irc: item?.irc,
-        quantity: item?.quantity,
-        imageLink: item?.imageLink,
-        productName: item?.productName,
-        unit: item?.unit,
-      }),
+
+    const filteredItems = data?.orderDetails?.filter(
+      (item) => !item?.referenceNumber,
     );
+    filteredItems?.forEach((item) => {
+      if (!!item?.alternatives?.length) {
+        return {
+          description: item?.alternatives?.[0]?.description,
+          irc: item?.alternatives?.[0]?.irc,
+          quantity: item?.alternatives?.[0]?.quantity,
+          imageLink: item?.alternatives?.[0]?.imageLink,
+          productName: item?.alternatives?.[0]?.productName,
+          unit: item?.alternatives?.[0]?.unit,
+          productType: item?.alternatives?.[0]?.productType,
+        };
+      } else {
+        return {
+          description: item?.description,
+          irc: item?.irc,
+          quantity: item?.quantity,
+          imageLink: item?.imageLink,
+          productName: item?.productName,
+          unit: item?.unit,
+          productType: item?.type?.id,
+        };
+      }
+    });
+
+    addListToBasket({
+      nationalCode: data?.customer?.nationalCode,
+      items: filteredItems,
+    });
   };
 
   const renderIcon = () => {
@@ -320,8 +335,9 @@ const OrderItem = ({ data }: OrderItemProps) => {
                   <Button
                     variant="secondary"
                     size="medium"
-                    className="z-10"
+                    className="z-10 w-40"
                     onClick={handleCreateOrderAgain}
+                    isLoading={isAddListToBasketLoading}
                   >
                     سفارش مجدد
                   </Button>

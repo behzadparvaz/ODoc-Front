@@ -1,11 +1,7 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
 
-import {
-  ChevronDownIcon,
-  ChevronLeftIconOutline,
-  ChevronUpIcon,
-} from '@com/icons';
+import { ChevronLeftIconOutline, ChevronUpIcon } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
 import { colors } from '@configs/Theme';
 

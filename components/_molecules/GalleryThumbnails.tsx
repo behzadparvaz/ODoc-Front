@@ -39,7 +39,7 @@ const GalleryThumbnails = ({ images = [] }: GalleryThumbnailsProps) => {
             src={selectedImage.src}
             alt={`thumbnail-image-${selectedImage.id}`}
             fill
-            className="object-contain"
+            imageClassName="object-contain"
             loading="lazy"
           />
         )}

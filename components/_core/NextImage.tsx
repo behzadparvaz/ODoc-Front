@@ -1,47 +1,121 @@
-import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
-import classNames from 'classnames';
+import React, { useState, useEffect, useRef } from 'react';
 import Image, { ImageProps } from 'next/image';
-import { useState } from 'react';
+import classNames from 'classnames';
 
-interface ImageComponentProps extends ImageProps {
-  width?: number;
-  height?: number;
-  unoptimized?: boolean;
-  alt: string;
-  onClick?: () => void;
+interface AdvancedImageProps extends ImageProps {
+  errorImageSrc?: string;
+  blurLevel?: 'sm' | 'md' | 'lg' | 'xl';
+  imageClassName?: string;
 }
 
-const NextImage = ({
+const NextImage: React.FC<AdvancedImageProps> = ({
   src,
+  alt = 'Image',
+  errorImageSrc = '/images/emptyImage.png',
+  blurLevel = 'sm',
+  className,
   unoptimized,
-  alt,
-  onClick,
-  width,
-  height,
-  ...rest
-}: ImageComponentProps): JSX.Element => {
-  const [imageError, setImageError] = useState<boolean>(false);
+  imageClassName,
+  fill,
+  ...props
+}) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const handleImageError = () => {
-    setImageError(true);
+  const imageRef = useRef<HTMLDivElement | null>(null);
+
+  const handleLoadingComplete = () => {
+    setIsLoading(false);
   };
 
-  // Determine the source to use: either the provided src or the error image
-  const effectiveSrc = imageError || !src ? '/images/emptyImage.png' : src;
+  const handleError = () => {
+    setIsLoading(false);
+    setHasError(true);
+  };
+
+  const imageSrc = hasError ? errorImageSrc : src;
+
+  const blurClasses = {
+    sm: 'blur-sm',
+    md: 'blur-md',
+    lg: 'blur-lg',
+    xl: 'blur-xl',
+  };
+
+  // Lazy loading logic
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (imageRef.current) {
+      observer.observe(imageRef.current);
+    }
+
+    return () => {
+      if (imageRef.current) {
+        observer.unobserve(imageRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <Image
-      src={effectiveSrc}
-      unoptimized={unoptimized ?? true}
-      alt={alt}
-      placeholder="blur"
-      blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg(width, height))}`}
-      width={width}
-      height={height}
-      onError={handleImageError}
-      className={classNames('pointer-events-none select-none', rest.className)}
-      {...rest}
-    />
+    <div
+      ref={imageRef}
+      className={classNames(
+        className,
+        fill ? 'relative w-full h-full' : 'relative',
+      )}
+      style={
+        fill ? { position: 'relative', width: '100%', height: '100%' } : {}
+      }
+    >
+      {isVisible ? (
+        <Image
+          src={imageSrc}
+          unoptimized={unoptimized ?? true}
+          alt={alt}
+          fill={fill}
+          onLoadingComplete={handleLoadingComplete}
+          onError={handleError}
+          className={classNames(
+            'transition-all duration-500',
+            isLoading
+              ? `opacity-0 ${blurClasses[blurLevel]}`
+              : 'opacity-100 blur-none',
+            imageClassName,
+          )}
+          {...props}
+        />
+      ) : (
+        <Image
+          src={'/images/emptyImage.png'}
+          unoptimized={unoptimized ?? true}
+          alt={alt}
+          fill={fill}
+          onLoadingComplete={handleLoadingComplete}
+          onError={handleError}
+          className={classNames(
+            'transition-all duration-500',
+            isLoading
+              ? `opacity-0 ${blurClasses[blurLevel]}`
+              : 'opacity-100 blur-none',
+          )}
+          {...props}
+        />
+      )}
+      {!isVisible && (
+        <div className="h-full w-full bg-gray-200 animate-pulse" />
+      )}{' '}
+      {/* Placeholder while loading */}
+    </div>
   );
 };
 

@@ -79,11 +79,7 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
     }, []);
 
     useEffect(() => {
-      console.log('useEffect OTPCredential');
-
       if ('OTPCredential' in window) {
-        console.log('OTPCredential in window');
-
         const ac = new AbortController();
 
         const options: OTPRequestOptions = {
@@ -95,7 +91,6 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
           .get(options)
           .then((otpCredential: OTPResponse | null) => {
             if (otpCredential?.code) {
-              console.log('OTP autofill:', otpCredential.code);
               const extractedOTP = extractOTPFromMessage(otpCredential.code);
               if (extractedOTP) {
                 setOTP(extractedOTP.split(''));

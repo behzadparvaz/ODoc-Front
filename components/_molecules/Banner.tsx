@@ -1,5 +1,4 @@
 import NextImage from '@com/_core/NextImage';
-import { SkeletonSvg, toBase64 } from '@utilities/SkeletonSvg';
 import SectionTitle from './SectionTitle.nd';
 
 interface Props {
@@ -7,8 +6,10 @@ interface Props {
   data: any;
   isShownTitle?: boolean;
 }
+
 const Banner = ({ className = '', data, isShownTitle }: Props) => {
   const bannerData = data[0];
+
   return (
     <div className={`w-full ${className}`}>
       {isShownTitle && (
@@ -21,15 +22,11 @@ const Banner = ({ className = '', data, isShownTitle }: Props) => {
       <div className="!aspect-w-23 !aspect-h-9">
         <NextImage
           src={bannerData?.icon}
-          unoptimized
           alt={bannerData?.title}
-          placeholder="blur"
-          blurDataURL={`data:image/svg+xml;base64,${toBase64(SkeletonSvg('100%', 192))}`}
           fill
           style={{ objectFit: 'contain' }}
           quality={100}
           loading={'eager'}
-          className="!rounded-base"
         />
       </div>
     </div>

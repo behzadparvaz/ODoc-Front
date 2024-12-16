@@ -7,6 +7,7 @@ const BackgroundSection = () => {
     <>
       <div className="h-full">
         <NextImage
+          className="w-full h-full absolute"
           src={'/images/login-bg.png'}
           alt="login"
           fill

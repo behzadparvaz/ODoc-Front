@@ -3,27 +3,15 @@ import { useRouter } from 'next/router';
 import classNames from 'classnames';
 
 import { useGetCategories } from '@api/category/categoryApis.rq';
-import Spinner from '@com/_atoms/Spinner';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const Filter = dynamic(() => import('./Filter'));
-
-type CategoryItemsDataModel = {
-  categoryNameLevel1: string;
-  categoryCodeLevel1: string;
-  iconLink?: string;
-};
 
 const shimerItems = [1, 2, 3, 4];
 
 const Categories = () => {
   const { pathname, query, push } = useRouter();
   const { data, isLoading } = useGetCategories({ level: 1 });
-
-  if (isLoading)
-    return (
-      <Spinner className="h-full w-full flex justify-center items-center" />
-    );
 
   const renderCategoryItem = (item) => {
     return (
@@ -64,13 +52,13 @@ const Categories = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col h-[100px] sticky top-0 left-0 w-full bg-surface-primary z-50">
-        <div className="w-full h-[44px] flex flex-col gap-0">
+      <div className="flex flex-col h-[96px] sticky top-0 left-0 w-full bg-surface-primary z-50">
+        <div className="w-full h-[40px] flex flex-col gap-0">
           <div className="h-full w-full flex">
             {shimerItems.map((item) => (
               <div
                 key={item}
-                className="h-full w-1/4 bg-surface-secondary animate-pulse"
+                className="h-full w-1/3 bg-surface-secondary animate-pulse px-4"
               />
             ))}
           </div>

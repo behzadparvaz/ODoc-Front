@@ -1,6 +1,6 @@
-import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
 
 import {
   useAddProductToBasket,
@@ -34,7 +34,7 @@ const ProductPageContainer = () => {
   });
   const { data: basketDatat, refetch: refetchGetBasket } =
     useGetCurrentBasket();
-  console.log('data', data);
+
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
@@ -126,55 +126,74 @@ const ProductPageContainer = () => {
   }, [data]);
 
   const renderBottomSection = () => {
-    const selectedDoseCount = basketFilteredProducts?.find(
-      (item) => item?.irc === selectedItem?.irc,
-    )?.quantity;
-
-    if (selectedDoseCount) {
+    if (isLoading) {
       return (
-        <>
-          <div className="flex px-4 py-4">
-            <AddButton
-              unitName={data.unit}
-              count={
-                basketFilteredProducts?.find(
-                  (item) => item?.irc === selectedItem?.irc,
-                )?.quantity
-              }
-              onChangeCount={handleChangeCount}
-              isLoading={isAddingToCart}
-              className="px-2 py-2"
-            />
-          </div>
-          <Button
-            variant="primary"
-            size="large"
-            className="w-1/2 whitespace-nowrap"
-            onClick={() => push(routeList.basket)}
-          >
-            مشاهده سبد خرید
-          </Button>
-        </>
+        <div className="bg-surface-background-secondary animate-pulse h-full w-full rounded-full" />
       );
     }
-    return (
-      <Button
-        variant="primary"
-        size="large"
-        className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
-        onClick={() =>
-          addToCart({
-            quantity: 1,
-            irc: selectedItem?.irc,
-            imageLink: data?.imageLink,
-            productName: data?.productName,
-            unit: data?.unit,
-          })
-        }
-      >
-        افزودن به سبد خرید
-      </Button>
-    );
+
+    if (!isLoading) {
+      if (!data?.isOtc) {
+        return (
+          <div className="bg-surface-warning flex justify-center items-center h-full w-full ">
+            <span className="text-content-onWarning">
+              سفارش این دارو فقط با نسخه پزشک امکان پذیر است
+            </span>
+          </div>
+        );
+      }
+
+      const selectedDoseCount = basketFilteredProducts?.find(
+        (item) => item?.irc === selectedItem?.irc,
+      )?.quantity;
+
+      return (
+        <div className="flex justify-between items-center h-full w-full ">
+          {selectedDoseCount ? (
+            <>
+              <div className="flex px-4 py-4">
+                <AddButton
+                  unitName={data.unit}
+                  count={
+                    basketFilteredProducts?.find(
+                      (item) => item?.irc === selectedItem?.irc,
+                    )?.quantity
+                  }
+                  onChangeCount={handleChangeCount}
+                  isLoading={isAddingToCart}
+                  className="px-2 py-2"
+                />
+              </div>
+              <Button
+                variant="primary"
+                size="large"
+                className="w-1/2 whitespace-nowrap bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+                onClick={() => push(routeList.basket)}
+              >
+                مشاهده سبد خرید
+              </Button>
+            </>
+          ) : (
+            <Button
+              variant="primary"
+              size="large"
+              className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+              onClick={() =>
+                addToCart({
+                  quantity: 1,
+                  irc: selectedItem?.irc,
+                  imageLink: data?.imageLink,
+                  productName: data?.productName,
+                  unit: data?.unit,
+                })
+              }
+            >
+              افزودن به سبد خرید
+            </Button>
+          )}
+        </div>
+      );
+    }
   };
 
   const renderContent = () => {
@@ -307,20 +326,9 @@ const ProductPageContainer = () => {
       }
     >
       {renderContent()}
-      {!isLoading && data?.isOtc && (
-        <ActionBar type="singleAction" hasDivider>
-          <div className="flex justify-between items-center w-full px-4 py-4">
-            {renderBottomSection()}
-          </div>
-        </ActionBar>
-      )}
-      {!isLoading && !data?.isOtc && (
-        <div className="bg-surface-warning flex justify-center items-center h-[84px]">
-          <span className="text-content-onWarning">
-            سفارش این دارو فقط با نسخه پزشک امکان پذیر است
-          </span>
-        </div>
-      )}
+      <ActionBar type="singleAction" hasDivider>
+        {renderBottomSection()}
+      </ActionBar>
     </MainLayout>
   );
 };

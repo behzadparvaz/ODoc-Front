@@ -13,6 +13,8 @@ import {
   TimerFillIcon,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
+import { useRouter } from 'next/router';
+import { routeList } from '@routes/routeList';
 
 type Steps = {
   id: number;
@@ -75,9 +77,15 @@ const OrderHistoryProgress = ({
   className,
   isHasQuickOrder,
 }: OrderHistoryProgressProps) => {
+  const { pathname } = useRouter();
+
   const renderIcon = (index) => {
     if (activeStepId > index) {
-      return steps[index].passedIcon;
+      if (pathname === '/app') {
+        return steps[index].activeIcon;
+      } else {
+        return steps[index].passedIcon;
+      }
     } else if (activeStepId === index) {
       return steps[index].activeIcon;
     } else {
@@ -109,7 +117,10 @@ const OrderHistoryProgress = ({
                 <div
                   className={classNames(
                     'w-full h-2 bg-surface-tertiary',
-                    activeStepId >= index && '!bg-surface-inverse-primary',
+                    activeStepId >= index &&
+                      (pathname === '/app'
+                        ? '!bg-surface-Gradient.brand rotate-180'
+                        : '!bg-surface-inverse-primary'),
                   )}
                 />
               ))}
@@ -128,7 +139,10 @@ const OrderHistoryProgress = ({
               <div
                 className={classNames(
                   'w-full h-2 bg-surface-tertiary',
-                  activeStepId > index && '!bg-surface-inverse-primary',
+                  activeStepId > index &&
+                    (pathname === '/app'
+                      ? '!bg-surface-Gradient.brand'
+                      : '!bg-surface-inverse-primary'),
                   activeStepId === index && '!bg-surface-Gradient.brand',
                 )}
               />

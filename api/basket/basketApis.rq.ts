@@ -1,10 +1,12 @@
 import {
+  addListToBasket,
   addProductToBasket,
   BasketPayload,
   deleteCurrentBasket,
   deleteProductBasket,
   getCurrentBasket,
   OneOfCodes,
+  ProductsListBasket,
   updateCountProductBasket,
   UpdateCountProductBasketPayload,
 } from '@api/basket/basketApis';
@@ -17,6 +19,7 @@ import {
   useQuery,
   UseQueryResult,
 } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
 export const useGetCurrentBasket = <TQuery = Basket>(
   options?: any,
@@ -70,6 +73,27 @@ export const useAddProductToBasket: (
   return useMutation({
     mutationFn: (variables) => addProductToBasket(variables),
     onSuccess(data, variables, context) {},
+    onError: (err: any) => {
+      openNotification({
+        type: 'error',
+        message: err?.response?.data?.message,
+        notifType: 'successOrFailedMessage',
+      });
+    },
+    ...options,
+  });
+};
+
+export const useAddListToBasket: (
+  options?: UseMutationOptions<unknown, unknown, ProductsListBasket>,
+) => UseMutationResult<unknown, unknown, ProductsListBasket> = (options) => {
+  const { openNotification } = useNotification();
+  const { push } = useRouter();
+  return useMutation({
+    mutationFn: (variables) => addListToBasket(variables),
+    onSuccess(data, variables, context) {
+      push('/app/basket');
+    },
     onError: (err: any) => {
       openNotification({
         type: 'error',
