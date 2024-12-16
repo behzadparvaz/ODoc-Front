@@ -1,15 +1,40 @@
 /** @type {import('next').NextConfig} */
-const withPWA = require('next-pwa');
 const withPlugins = require('next-compose-plugins');
-const runtimeCaching = require('next-pwa/cache');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const withPWA = require('@ducanh2912/next-pwa').default({
+  dest: 'public',
+  register: true,
+  scope: '/',
+  disable: process.env.NODE_ENV === 'development',
+  cacheOnFrontEndNav: true, // Enable caching for front-end navigation
+  aggressiveFrontEndNavCaching: true, // Aggressive caching for smoother navigation
+  reloadOnOnline: true, // Force reload when going back online
+  runtimeCaching: [
+    {
+      urlPattern: /\.(?:js|css|html|svg|png|jpg|jpeg|gif|webp)$/, // Static assets caching
+      handler: 'CacheFirst',
+      options: {
+        cacheName: 'static-resources',
+        expiration: {
+          maxEntries: 100,
+          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+        },
+      },
+    },
+    {
+      // Matches dynamic routes like /store-id
+      urlPattern: /^\/[a-zA-Z0-9]+$/,
+      handler: 'NetworkOnly', // Always fetch from network
+    },
+  ],
+  disableDevLogs: true,
+});
 
-// Next.js configuration object
 const nextConfig = {
-  distDir: 'build', // Custom output directory for build files
-  swcMinify: true, // Enable SWC minification
+  distDir: 'build',
+  swcMinify: true,
   images: {
     domains: [
       'trustseal.eNamad.ir',
@@ -17,10 +42,9 @@ const nextConfig = {
       '5.34.204.173',
       's3.ir-thr-at1.arvanstorage.ir',
     ],
-    minimumCacheTTL: 60, // Minimum cache time for images
+    minimumCacheTTL: 60,
   },
   webpack: (config) => {
-    // Add support for importing SVG files as React components
     config.module.rules.push({
       test: /\.svg$/,
       use: ['@svgr/webpack'],
@@ -34,16 +58,16 @@ const nextConfig = {
         headers: [
           {
             key: 'X-Frame-Options',
-            value: 'SAMEORIGIN', // Prevent clickjacking by allowing framing only from the same origin
+            value: 'SAMEORIGIN',
           },
         ],
       },
       {
-        source: '/(.*).(jpg|png|svg)',
+        source: '/(.*).(jpg|png|svg|webp)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=259200, immutable', // Cache images for 3 days
+            value: 'public, max-age=259200, immutable',
           },
         ],
       },
@@ -51,22 +75,4 @@ const nextConfig = {
   },
 };
 
-// Export the combined configuration with plugins
-module.exports = withPlugins(
-  [
-    [
-      withPWA,
-      {
-        pwa: {
-          disable: process.env.NODE_ENV === 'development', // Disable PWA in development mode
-          dest: 'public', // Destination folder for service worker and manifest
-          register: true, // Automatically register the service worker
-          skipWaiting: true, // Activate the new service worker immediately
-          runtimeCaching,
-        },
-      },
-    ],
-    withBundleAnalyzer,
-  ],
-  nextConfig,
-);
+module.exports = withPlugins([withPWA, withBundleAnalyzer], nextConfig);
