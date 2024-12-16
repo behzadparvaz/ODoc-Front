@@ -14,10 +14,13 @@ import {
   FullModalContainer,
 } from '@com/modal/containers/fullMobileContainer';
 import { MainLayout } from '@com/Layout';
+import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 export default function SelectAddress() {
-  const { data } = useGetUserLocations();
-  const addressData: any = data;
+  const shimmerCount = [...Array(5).keys()];
+  const { data, isLoading } = useGetUserLocations();
+  const addressList: any = data;
   const { removeLastModal, addModal } = useModal();
   const dispatch = useDispatch();
   const { user } = useSelector((state: RootState) => state.user);
@@ -64,26 +67,59 @@ export default function SelectAddress() {
         backIconHandler={removeLastModal}
         title={homePageText?.selectAddress}
       >
-        <Button
-          handleClick={() => handleClickOpenModal()}
-          className={`my-4 mx-4`}
-          size="medium"
-          buttonType="contained"
-          variant={'primary'}
-        >
-          افزودن آدرس
-        </Button>
-
-        <div className="overflow-y-scroll">
-          {addressData?.map((item, index) => {
-            const activeItem = defaultAddress?.id === item?.id;
-            return (
-              <div key={index} onClick={() => handleClickAddress(item)}>
-                <AddressItem activeItem={activeItem} addressInfo={item} />
+        {addressList?.length ? (
+          <Button
+            handleClick={() => handleClickOpenModal()}
+            className={`my-4 mx-4`}
+            size="medium"
+            buttonType="contained"
+            variant={'primary'}
+          >
+            افزودن آدرس
+          </Button>
+        ) : null}
+        {isLoading &&
+          shimmerCount.map((_, idx) => (
+            <div key={idx} className="flex px-5 mb-4">
+              <div className="m-auto">
+                <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
               </div>
-            );
-          })}
-        </div>
+              <div className="flex flex-col w-full gap-y-2 mx-4">
+                <div className="h-[24px] w-full max-w-24 bg-surface-secondary rounded-xl" />
+                <div className="h-[24px] w-full bg-surface-secondary rounded-xl" />
+              </div>
+              <div className="m-auto">
+                <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
+              </div>
+            </div>
+          ))}
+        {!isLoading && addressList?.length > 0 && (
+          <div className="overflow-y-scroll">
+            {addressList?.map((item, index) => {
+              const activeItem = defaultAddress?.id === item?.id;
+              return (
+                <div key={index} onClick={() => handleClickAddress(item)}>
+                  <AddressItem activeItem={activeItem} addressInfo={item} />
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        {!isLoading && !addressList?.length && (
+          <div className="flex flex-col justify-center items-center h-full w-full">
+            <p> در حال حاضر آدرسی برای شما ثبت نشده است</p>
+            <Button
+              handleClick={() => handleClickOpenModal()}
+              className={`my-4 mx-4`}
+              size="medium"
+              buttonType="contained"
+              variant={'primary'}
+            >
+              افزودن آدرس
+            </Button>
+          </div>
+        )}
       </MainLayout>
     </FullModalContainer>
   );
