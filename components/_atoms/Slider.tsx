@@ -1,9 +1,9 @@
-import React, { ReactNode, useEffect, useRef } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { ReactNode, useEffect, useRef } from 'react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { Pagination, Navigation, Autoplay } from 'swiper/modules';
+import 'swiper/css/pagination';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper } from 'swiper/react';
 
 interface Props {
   children: ReactNode;

@@ -4,12 +4,12 @@ import classNames from 'classnames';
 import CategoryItem from '@com/_atoms/CategoryItem';
 import { routeList } from '@routes/routeList';
 
-import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
-import NonPrescriptionMedicine from '@public/images/tiles/specialPatients.png';
-import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
-import Supplement from '@public/images/tiles/supplement.png';
-import MotherChildSupplement from '@public/images/tiles/mother&Baby.png';
-import MedicineEquipment from '@public/images/tiles/medicineEquipment.png';
+import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.webp';
+import NonPrescriptionMedicine from '@public/images/tiles/specialPatients.webp';
+import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.webp';
+import Supplement from '@public/images/tiles/supplement.webp';
+import MotherChildSupplement from '@public/images/tiles/mother&Baby.webp';
+import MedicineEquipment from '@public/images/tiles/medicineEquipment.webp';
 
 import ScrollSlider from './ScrollSlider.nd';
 

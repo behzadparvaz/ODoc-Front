@@ -1,4 +1,3 @@
-const colors = require('tailwindcss/colors');
 const plugin = require('tailwindcss/plugin');
 const { colors: colorPallete } = require('./configs/Theme');
 
