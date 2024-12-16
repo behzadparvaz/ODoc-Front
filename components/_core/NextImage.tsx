@@ -5,24 +5,25 @@ import classNames from 'classnames';
 interface AdvancedImageProps extends ImageProps {
   errorImageSrc?: string;
   blurLevel?: 'sm' | 'md' | 'lg' | 'xl';
+  imageClassName?: string;
 }
 
 const NextImage: React.FC<AdvancedImageProps> = ({
   src,
   alt = 'Image',
-  width,
-  height,
   errorImageSrc = '/images/emptyImage.png',
   blurLevel = 'sm',
   className,
   unoptimized,
+  imageClassName,
+  fill,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  const imageRef = useRef<HTMLImageElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
@@ -48,10 +49,10 @@ const NextImage: React.FC<AdvancedImageProps> = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
-          observer.disconnect(); // Stop observing after the image is loaded
+          observer.disconnect();
         }
       },
-      { threshold: 0.1 }, // Adjust the threshold as needed
+      { threshold: 0.1 },
     );
 
     if (imageRef.current) {
@@ -68,15 +69,20 @@ const NextImage: React.FC<AdvancedImageProps> = ({
   return (
     <div
       ref={imageRef}
-      className={classNames(className ? className : 'relative')}
+      className={classNames(
+        className,
+        fill ? 'relative w-full h-full' : 'relative',
+      )}
+      style={
+        fill ? { position: 'relative', width: '100%', height: '100%' } : {}
+      }
     >
       {isVisible ? (
         <Image
           src={imageSrc}
           unoptimized={unoptimized ?? true}
           alt={alt}
-          width={width}
-          height={height}
+          fill={fill}
           onLoadingComplete={handleLoadingComplete}
           onError={handleError}
           className={classNames(
@@ -84,6 +90,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
             isLoading
               ? `opacity-0 ${blurClasses[blurLevel]}`
               : 'opacity-100 blur-none',
+            imageClassName,
           )}
           {...props}
         />
@@ -92,8 +99,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
           src={'/images/emptyImage.png'}
           unoptimized={unoptimized ?? true}
           alt={alt}
-          width={width}
-          height={height}
+          fill={fill}
           onLoadingComplete={handleLoadingComplete}
           onError={handleError}
           className={classNames(

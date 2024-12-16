@@ -149,7 +149,7 @@ const ProductPageContainer = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2 whitespace-nowrap"
+            className="w-1/2 whitespace-nowrap bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
             onClick={() => push(routeList.basket)}
           >
             مشاهده سبد خرید
