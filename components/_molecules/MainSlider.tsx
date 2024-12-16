@@ -11,8 +11,8 @@ interface Props {
 const MainSlider = ({ data, className = '', autoPlay, isLoading }: Props) => {
   if (isLoading) {
     return (
-      <div className="w-full h-[260px]">
-        <div className="w-full h-full bg-surface-secondary animate-pulse"></div>
+      <div className="w-full h-[260px] px-4">
+        <div className="w-full h-full  rounded-xl bg-surface-secondary animate-pulse"></div>
       </div>
     );
   }

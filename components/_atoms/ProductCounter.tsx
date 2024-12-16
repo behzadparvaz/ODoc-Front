@@ -38,7 +38,6 @@ const ProductCounter: React.FC<ProductCounterProps> = ({
   count = 0,
   className = '',
 }) => {
-  console.log(count);
   const onChange = (e, value) => {
     e.preventDefault();
 
