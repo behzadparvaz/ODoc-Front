@@ -50,11 +50,16 @@ const AddressBox = ({ data, className = '' }: Props) => {
       className="w-full flex justify-between items-center"
     >
       <div
-        className={`w-[calc(100%-24px)] text-grey-800 font-bold text-xs truncate ${className}`}
+        className={`w-[calc(100%-24px)] text-grey-800 font-bold text-xs  ${className} flex flex-col gap-y-1`}
       >
-        {defaultAddress
-          ? defaultAddress?.description
-          : homePageText?.selectAddress}
+        <span>
+          {defaultAddress ? defaultAddress?.name : homePageText?.selectAddress}
+        </span>
+        {/* {defaultAddress && (
+          <span className="truncate text-content-tertiary">
+            {defaultAddress?.description}
+          </span>
+        )} */}
       </div>
       <div className="w-[24px]">
         <ArrowDownIconOutLine

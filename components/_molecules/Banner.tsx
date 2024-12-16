@@ -9,6 +9,7 @@ interface Props {
 
 const Banner = ({ className = '', data, isShownTitle }: Props) => {
   const bannerData = data[0];
+
   return (
     <div className={`w-full ${className}`}>
       {isShownTitle && (

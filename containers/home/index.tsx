@@ -1,6 +1,8 @@
-import dynamic from 'next/dynamic';
 import { useEffect, useRef } from 'react';
+import Link from 'next/link';
+import dynamic from 'next/dynamic';
 import { useSelector } from 'react-redux';
+import classNames from 'classnames';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
@@ -9,8 +11,6 @@ import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
 import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
-import classNames from 'classnames';
-import Link from 'next/link';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
@@ -110,8 +110,8 @@ const HomeContainer = () => {
             />
           </Link>
         ) : (
-          <div className="w-full h-[192px]">
-            <div className="w-full h-full bg-surface-secondary animate-pulse" />
+          <div className="w-full h-[192px] px-4 py-3">
+            <div className="w-full h-full rounded-xl bg-surface-secondary animate-pulse" />
           </div>
         )}
 
