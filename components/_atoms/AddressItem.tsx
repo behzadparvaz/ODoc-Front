@@ -43,7 +43,7 @@ const AddressItem = ({ addressInfo, activeItem }: AddressItemProps) => {
         />
       </div>
 
-      <div className=" flex flex-col gap-y-3 items-start flex-1 overflow-hidden">
+      <div className=" flex flex-col gap-y-3 items-start flex-1 overflow-hidden cursor-pointer">
         {addressInfo?.name && (
           <div className="w-full text-xs text-grey-600 mb-1 font-semibold">
             {addressInfo?.name}
