@@ -6,9 +6,7 @@ import { homePageText } from '@com/texts/homePage';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 
-type Props = {};
-
-export default function FooterContent({}: Props) {
+export default function FooterContent() {
   const enamadCode = `<a referrerpolicy='origin' target='_blank' href='${process.env.NEXT_PUBLIC_ENAMAD_API_URL}/?id=${process.env.NEXT_PUBLIC_ENAMAD_API_TOKEN}'><img referrerpolicy='origin' src='${process.env.NEXT_PUBLIC_ENAMAD_API_URL}/logo.aspx?id=${process.env.NEXT_PUBLIC_ENAMAD_API_TOKEN}' alt='' style='cursor:pointer;height:40px;width:40px' code='${process.env.NEXT_PUBLIC_ENAMAD_API_TOKEN}'></a>`;
 
   return (

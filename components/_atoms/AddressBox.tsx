@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
 import SelectAddress from '@com/_organisms/SelectAddress';
-import { ArrowDownIconOutLine } from '@com/icons';
 import { homePageText } from '@com/texts/homePage';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
@@ -7,9 +9,6 @@ import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurr
 import { setUserAction } from '@redux/user/userActions';
 import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
-import classNames from 'classnames';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
 interface Props {
   data: any;
@@ -44,7 +43,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
     }
   }, [dispatch, addressSelected]);
   const { addModal } = useModal();
-  console.log(defaultAddress);
+
   return (
     <div
       onClick={() => {
