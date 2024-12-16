@@ -16,16 +16,12 @@ interface Props {
 }
 const AddressBox = ({ data, className = '' }: Props) => {
   const { addressSelected, loading } = useSelectAddressByCurrentLocation(data);
+  const { addModal } = useModal();
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress = user?.defaultAddress;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(
-      setUserAction({
-        defaultAddress: null,
-      }),
-    );
     if (!defaultAddress) {
       if (addressSelected) {
         dispatch(
@@ -42,7 +38,6 @@ const AddressBox = ({ data, className = '' }: Props) => {
       }
     }
   }, [dispatch, addressSelected]);
-  const { addModal } = useModal();
 
   return (
     <div
