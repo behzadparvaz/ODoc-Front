@@ -102,7 +102,7 @@ const HomeContainer = () => {
 
         {bannerData?.queryResult ? (
           <Link
-            href={`${routeList?.supplementProductListPage}?categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
+            href={`${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
           >
             <Banner
               className="px-3 py-3"
