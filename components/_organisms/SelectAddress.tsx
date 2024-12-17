@@ -85,23 +85,22 @@ const SelectAddress = () => {
             افزودن آدرس
           </Button>
         ) : null}
-        {isLoading ||
-          isPending ||
-          (isFetching &&
-            shimmerCount.map((_, idx) => (
-              <div key={idx} className="flex px-5 mb-4">
-                <div className="m-auto">
-                  <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
-                </div>
-                <div className="flex flex-col w-full gap-y-2 mx-4">
-                  <div className="h-[24px] w-full max-w-24 bg-surface-secondary rounded-xl" />
-                  <div className="h-[24px] w-full bg-surface-secondary rounded-xl" />
-                </div>
-                <div className="m-auto">
-                  <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
-                </div>
+        {(isLoading || isPending || isFetching) &&
+          shimmerCount.map((_, idx) => (
+            <div key={idx} className="flex px-5 mb-4">
+              <div className="m-auto">
+                <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
               </div>
-            )))}
+              <div className="flex flex-col w-full gap-y-2 mx-4">
+                <div className="h-[24px] w-full max-w-24 bg-surface-secondary rounded-xl" />
+                <div className="h-[24px] w-full bg-surface-secondary rounded-xl" />
+              </div>
+              <div className="m-auto">
+                <div className="h-[45px] w-[45px] bg-surface-secondary rounded-full" />
+              </div>
+            </div>
+          ))}
+
         {!isLoading && !isFetching && !isPending && addressList?.length > 0 && (
           <div className="overflow-y-scroll">
             {addressList?.map((item, index) => {
