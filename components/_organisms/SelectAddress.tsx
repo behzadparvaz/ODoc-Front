@@ -115,7 +115,7 @@ const SelectAddress = () => {
           </div>
         )}
 
-        {!isLoading && !addressList?.length && (
+        {!isLoading && !isFetching && !isPending && !addressList?.length && (
           <div className="flex flex-col justify-center items-center h-full w-full">
             <p> در حال حاضر آدرسی برای شما ثبت نشده است</p>
             <Button
