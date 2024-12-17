@@ -10,43 +10,37 @@ import { setUserAction } from '@redux/user/userActions';
 import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
 
+interface Address {
+  name: string;
+  description: string;
+}
+
 interface Props {
-  data: any;
+  data: any; // Consider replacing 'any' with a more specific type
   className?: string;
 }
+
 const AddressBox = ({ data, className = '' }: Props) => {
-  const { addressSelected, loading } = useSelectAddressByCurrentLocation(data);
+  const { addressSelected } = useSelectAddressByCurrentLocation(data);
   const { addModal } = useModal();
   const { user } = useSelector((state: RootState) => state.user);
-  const defaultAddress = user?.defaultAddress;
+  const defaultAddress: Address | null = user?.defaultAddress || null;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!defaultAddress) {
-      if (addressSelected) {
-        dispatch(
-          setUserAction({
-            defaultAddress: addressSelected,
-          }),
-        );
-      } else {
-        dispatch(
-          setUserAction({
-            defaultAddress: null,
-          }),
-        );
-      }
+    if (!defaultAddress && addressSelected) {
+      dispatch(setUserAction({ defaultAddress: addressSelected }));
     }
-  }, [dispatch, addressSelected]);
+  }, [dispatch, addressSelected, defaultAddress]);
+
+  const handleModalOpen = () => {
+    addModal({ modal: SelectAddress });
+  };
 
   return (
     <div
-      onClick={() => {
-        addModal({
-          modal: SelectAddress,
-        });
-      }}
-      className="w-full flex justify-between items-center"
+      onClick={handleModalOpen}
+      className="w-full flex justify-between items-center cursor-pointer"
     >
       <div
         className={`w-full pl-2 text-content-primary font-bold text-xs truncate ${className}`}
@@ -54,18 +48,18 @@ const AddressBox = ({ data, className = '' }: Props) => {
         {defaultAddress ? (
           <div className="block">
             <span className="block text-sm truncate">
-              ارسال به {defaultAddress?.name}
+              ارسال به {defaultAddress.name}
             </span>
             <div className="flex justify-start items-center">
               <span className="text-xs text-content-tertiary truncate">
-                {defaultAddress?.description}
+                {defaultAddress.description}
               </span>
               <div className="w-[24px]">
                 <Icon
                   name="ChevronDown"
                   width={1.5}
                   height={1.5}
-                  stroke={colors?.grey[500]}
+                  stroke={colors.grey[500]}
                 />
               </div>
             </div>
@@ -73,13 +67,12 @@ const AddressBox = ({ data, className = '' }: Props) => {
         ) : (
           <div className="w-full flex flex-col">
             <div className="text-sm flex justify-start items-center text-content-negative">
-              {homePageText?.selectAddress}
-
+              {homePageText.selectAddress}
               <Icon
                 name="ChevronLeft"
                 width={1}
                 height={1}
-                fill={colors?.red[400]}
+                fill={colors.red[400]}
               />
             </div>
             <span className="w-full text-xs text-content-tertiary truncate">
@@ -91,4 +84,5 @@ const AddressBox = ({ data, className = '' }: Props) => {
     </div>
   );
 };
+
 export default AddressBox;

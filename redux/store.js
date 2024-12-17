@@ -1,40 +1,53 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { HYDRATE, createWrapper } from 'next-redux-wrapper';
 import { persistStore } from 'redux-persist';
 import thunkMiddleware from 'redux-thunk';
 import rootReducer from './rootReducer';
 import modalHistoryMiddleWare from '@redux/middlewares/modalHistoryMiddleware';
 import cookiePersist from '@redux/middlewares/cookiePersistMiddleware';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-const middleWare = [thunkMiddleware, cookiePersist, modalHistoryMiddleWare];
-if (process.env.NODE_ENV !== 'production') {
-  let logger = (store) => (next) => (action) => {
-    // typeof window !== 'undefined' && console.log('dispatching: ', action);
+const logger = (store) => (next) => (action) => {
+  if (process.env.NODE_ENV !== 'production') {
+    // console.log('dispatching: ', action);
     let newState = next(action);
-    // typeof window !== 'undefined' && console.log('state is: ', store.getState());
+    // console.log('state is: ', store.getState());
     return newState;
-  };
-  middleWare.push(logger);
-}
+  }
+  return next(action);
+};
 
+const middleWare = [
+  thunkMiddleware,
+  cookiePersist,
+  modalHistoryMiddleWare,
+  ...(process.env.NODE_ENV !== 'production' ? [logger] : []),
+];
+
+// Create a reducer that handles hydration
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
-    const nextState = {
-      ...state, // use previous state
-      ...action.payload, // apply delta from hydration
+    return {
+      ...state,
+      ...action.payload,
+      user: state.user.user ? state.user : action.payload.user,
     };
-    if (state.user.user) {
-      nextState.user = state.user;
-    }
-    return nextState;
-  } else {
-    return rootReducer(state, action);
   }
+  return rootReducer(state, action);
 };
+
+// Initialize the Redux store
 const initStore = () => {
-  const store = createStore(reducer, compose(applyMiddleware(...middleWare)));
+  const middlewareEnhancer =
+    process.env.NODE_ENV !== 'production'
+      ? composeWithDevTools(applyMiddleware(...middleWare))
+      : applyMiddleware(...middleWare);
+
+  const store = createStore(reducer, middlewareEnhancer);
+
   store.__PERSISTOR = persistStore(store);
   return store;
 };
 
+// Create the Redux wrapper
 export const wrapper = createWrapper(initStore);
