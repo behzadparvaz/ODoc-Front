@@ -1,10 +1,11 @@
 import dynamic from 'next/dynamic';
+import { useRouter } from 'next/router';
+import classNames from 'classnames';
+
 import VerticalProductCard from './VerticalProductCard';
 import { ArrowLeftIconOutline, CouponPuchedFillIcon } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
 import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
-import classNames from 'classnames';
 import { colors } from '@configs/Theme';
 import { Button } from '@com/_atoms/NewButton';
 
@@ -73,7 +74,9 @@ const CarouselLine = ({
             variant={twoRow ? 'secondary' : 'text'}
             size="small"
             className={twoRow && 'w-[32px] bg-opacity-20 !p-0'}
-            onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
+            onClick={() =>
+              push(`${routeList?.offer}/${data?.recId}?title=${data?.title}`)
+            }
             icon={
               <ArrowLeftIconOutline
                 width={24}
