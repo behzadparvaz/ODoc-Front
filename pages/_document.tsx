@@ -1,5 +1,4 @@
 import Document, { Head, Html, Main, NextScript } from 'next/document';
-const GTM_ID = 'GTM-WTGQQVQW';
 import { GoogleTagManager } from '@next/third-parties/google';
 
 class MyDocument extends Document {
@@ -7,7 +6,7 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head>
-          <GoogleTagManager gtmId={GTM_ID} />
+          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         </Head>
         <body>
           <Main />
