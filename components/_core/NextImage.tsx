@@ -77,7 +77,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
         fill ? { position: 'relative', width: '100%', height: '100%' } : {}
       }
     >
-      {isVisible ? (
+      {isVisible && (
         <Image
           src={imageSrc}
           unoptimized={unoptimized ?? true}
@@ -86,7 +86,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
           onLoadingComplete={handleLoadingComplete}
           onError={handleError}
           className={classNames(
-            'transition-all duration-500',
+            'transition-all duration-300',
             isLoading
               ? `opacity-0 ${blurClasses[blurLevel]}`
               : 'opacity-100 blur-none',
@@ -94,7 +94,8 @@ const NextImage: React.FC<AdvancedImageProps> = ({
           )}
           {...props}
         />
-      ) : (
+      )}
+      {!isVisible && (
         <Image
           src={'/images/emptyImage.png'}
           unoptimized={unoptimized ?? true}
@@ -103,7 +104,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
           onLoadingComplete={handleLoadingComplete}
           onError={handleError}
           className={classNames(
-            'transition-all duration-500',
+            'transition-all duration-300',
             isLoading
               ? `opacity-0 ${blurClasses[blurLevel]}`
               : 'opacity-100 blur-none',
@@ -111,9 +112,6 @@ const NextImage: React.FC<AdvancedImageProps> = ({
           {...props}
         />
       )}
-      {!isVisible && (
-        <div className="h-full w-full bg-gray-200 animate-pulse" />
-      )}{' '}
       {/* Placeholder while loading */}
     </div>
   );

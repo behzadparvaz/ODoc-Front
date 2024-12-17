@@ -3,6 +3,8 @@ const withPlugins = require('next-compose-plugins');
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
+const packageJson = require('./package.json');
+
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   register: true,
@@ -16,15 +18,15 @@ const withPWA = require('@ducanh2912/next-pwa').default({
       urlPattern: /\.(?:js|css|html|svg|png|jpg|jpeg|gif|webp)$/, // Static assets caching
       handler: 'CacheFirst',
       options: {
-        cacheName: 'static-resources',
+        cacheName: `${packageJson.name}-static-resources`,
         expiration: {
           maxEntries: 100,
-          maxAgeSeconds: 30 * 24 * 60 * 60, // Cache for 30 days
+          maxAgeSeconds: 3 * 24 * 60 * 60, // Cache for 3 days
         },
       },
     },
     {
-      // Matches dynamic routes like /store-id
+      // Matches dynamic routes like /blog/:slug
       urlPattern: /^\/[a-zA-Z0-9]+$/,
       handler: 'NetworkOnly', // Always fetch from network
     },
