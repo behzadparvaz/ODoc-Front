@@ -1,23 +1,29 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
+
 import { useGetUserLocations } from '@api/user/user.rq';
 import AddressItem from '@com/_atoms/AddressItem';
 import Button from '@com/_atoms/Button';
-import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { homePageText } from '@com/texts/homePage';
 import useModal from '@hooks/useModal';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
-import { useDispatch, useSelector } from 'react-redux';
-import ParsiMapBottomSheet from './ParsiMapBottomSheet';
 import {
   FullModalAnimations,
   FullModalContainer,
 } from '@com/modal/containers/fullMobileContainer';
 import { MainLayout } from '@com/Layout';
-import { useEffect, useState } from 'react';
-import classNames from 'classnames';
+import useStorage from '@hooks/useStorage';
+import { routeList } from '@routes/routeList';
 
-export default function SelectAddress() {
+import ParsiMapBottomSheet from './ParsiMapBottomSheet';
+
+const SelectAddress = () => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  const { push } = useRouter();
+
   const shimmerCount = [...Array(5).keys()];
   const { data, isLoading } = useGetUserLocations();
   const addressList: any = data;
@@ -110,7 +116,13 @@ export default function SelectAddress() {
           <div className="flex flex-col justify-center items-center h-full w-full">
             <p> در حال حاضر آدرسی برای شما ثبت نشده است</p>
             <Button
-              handleClick={() => handleClickOpenModal()}
+              handleClick={() => {
+                if (token) handleClickOpenModal();
+                else {
+                  removeLastModal();
+                  push(routeList?.loginRoute);
+                }
+              }}
               className={`my-4 mx-4`}
               size="medium"
               buttonType="contained"
@@ -123,4 +135,6 @@ export default function SelectAddress() {
       </MainLayout>
     </FullModalContainer>
   );
-}
+};
+
+export default SelectAddress;
