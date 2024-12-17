@@ -1,13 +1,12 @@
-import Document, { Html, Head, Main, NextScript } from 'next/document';
-import { GoogleAnalytics } from '@next/third-parties/google';
-const G_ID = 'G-NK3MD5P0TQ';
+import Document, { Head, Html, Main, NextScript } from 'next/document';
+import { GoogleTagManager } from '@next/third-parties/google';
 
 class MyDocument extends Document {
   render() {
     return (
       <Html>
         <Head>
-          <GoogleAnalytics gaId={G_ID} />
+          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         </Head>
         <body>
           <Main />

@@ -3,10 +3,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
-import { createRef, useMemo } from 'react';
+import { createRef, useEffect, useMemo, useRef } from 'react';
 import { wrapper } from '../redux/store';
 import '../styles/globals.css';
 const LoginWithSSO = dynamic(() => import('@com/_atoms/loginWithSSO'));
+import packageJson from 'package.json';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,54 @@ const queryClient = new QueryClient({
 function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
   const modalNode = createRef<HTMLDivElement>();
+  const refUpdateTimeOut = useRef(null);
+
+  const updateApplication = () => {
+    refUpdateTimeOut.current = setTimeout(() => {
+      hotReload();
+    }, 4000);
+    window.localStorage.setItem('application_version', packageJson?.version);
+  };
+
+  useEffect(() => {
+    if (process.env.REACT_APP_ENV !== 'demo') {
+      document.addEventListener('update-new-content', function (event: any) {
+        if (event?.detail?.hasUpdate) {
+          updateApplication();
+        }
+      });
+      if (
+        localStorage.getItem('application_version') !== packageJson?.version
+      ) {
+        updateApplication();
+      }
+    }
+    return () => {
+      if (refUpdateTimeOut.current) clearTimeout(refUpdateTimeOut.current);
+    };
+  }, []);
+
+  const hotReload = () => {
+    navigator.serviceWorker.ready.then(() => {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          registration.unregister();
+        });
+      });
+      caches
+        .keys()
+        .then((keyList) => {
+          return Promise.all(
+            keyList.map((key) => {
+              return caches.delete(key);
+            }),
+          );
+        })
+        .then(() => {
+          window.location.reload();
+        });
+    });
+  };
 
   return (
     <>
