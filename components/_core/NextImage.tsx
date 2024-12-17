@@ -79,7 +79,7 @@ const NextImage: React.FC<AdvancedImageProps> = ({
     >
       {isVisible && (
         <Image
-          src={imageSrc}
+          src={imageSrc || errorImageSrc}
           unoptimized={unoptimized ?? true}
           alt={alt}
           fill={fill}
