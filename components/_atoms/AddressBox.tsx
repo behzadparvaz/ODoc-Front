@@ -49,7 +49,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
       className="w-full flex justify-between items-center"
     >
       <div
-        className={`w-[calc(100%-24px)] text-grey-800 font-bold text-xs truncate ${className}`}
+        className={`w-full pl-2 text-content-primary font-bold text-xs truncate ${className}`}
       >
         {defaultAddress ? (
           <div className="block">
@@ -57,7 +57,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
               ارسال به {defaultAddress?.name}
             </span>
             <div className="flex justify-start items-center">
-              <span className="text-xs text-grey-500 truncate">
+              <span className="text-xs text-content-tertiary truncate">
                 {defaultAddress?.description}
               </span>
               <div className="w-[24px]">
@@ -71,8 +71,8 @@ const AddressBox = ({ data, className = '' }: Props) => {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col">
-            <span className="text-sm flex justify-start items-center text-red-400">
+          <div className="w-full flex flex-col">
+            <div className="text-sm flex justify-start items-center text-content-negative">
               {homePageText?.selectAddress}
 
               <Icon
@@ -81,8 +81,8 @@ const AddressBox = ({ data, className = '' }: Props) => {
                 height={1}
                 fill={colors?.red[400]}
               />
-            </span>
-            <span className="text-xs flex text-grey-500">
+            </div>
+            <span className="w-full text-xs text-content-tertiary truncate">
               محدوده آدرس خود را مشخص کنید
             </span>
           </div>
