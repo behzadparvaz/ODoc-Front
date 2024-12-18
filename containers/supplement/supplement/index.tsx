@@ -54,7 +54,7 @@ const SupplementContainer = () => {
         className="cursor-pointer"
         onClick={() =>
           push(
-            `${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`,
+            `${routeList?.supplementProductListPage}/?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل+غذایی+و+دارویی&categoryCodeLevel3=10_1267_81`,
           )
         }
       >

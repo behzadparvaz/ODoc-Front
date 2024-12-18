@@ -20,7 +20,8 @@ function MainSliderItem({ imageUrl, title, index }: Props) {
     <div
       onClick={() =>
         push(
-          index === 1 && `${routeList?.supplementPage}`,
+          index === 1 &&
+            `${routeList?.otcMedicineProductsList}/?categoryCodeLevel1=7`,
           // `${routeList?.prescriptionRegisteration}`
         )
       }
