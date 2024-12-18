@@ -122,11 +122,9 @@ const HomeContainer = () => {
           containerClassName="bg-indigo-50 pb-2"
         />
 
-        {!loginWithTapsiSSO && (
-          <div className={`overflow-auto w-full`}>
-            <FooterContent />
-          </div>
-        )}
+        <div className={`overflow-auto w-full`}>
+          <FooterContent />
+        </div>
       </MainLayout>
     </>
   );
