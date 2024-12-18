@@ -56,7 +56,6 @@ const SelectAddress = () => {
   };
 
   const handleClickAddress = (item) => {
-    console.log(item);
     dispatch(
       setUserAction({
         defaultAddress: item,
@@ -64,7 +63,7 @@ const SelectAddress = () => {
     ),
       removeLastModal();
   };
-  console.log(isPending, isFetching);
+
   return (
     <FullModalContainer animation={FullModalAnimations.none}>
       <MainLayout

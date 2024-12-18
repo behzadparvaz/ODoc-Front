@@ -5,7 +5,7 @@ const paymentDetail = {
   paymentDetail: 'جزییات پرداخت',
   patientShare: 'جمع سفارش',
   pharmacyCost: 'تعرفه خدماتی دارویی',
-  packingCost: 'هزینه بسته بندی',
+  packingCost: 'هزینه زیرساخت و خدمات',
   shipingCost: 'هزینه ارسال',
   total: 'جمع کل',
 };

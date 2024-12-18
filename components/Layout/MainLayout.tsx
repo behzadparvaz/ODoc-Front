@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 
 import Header from './Header';
 import BottomNavigation from './BottomNavigation';
-import useStorage from '@hooks/useStorage';
 
 export interface MainLayoutProps {
   // header.props
@@ -23,7 +22,6 @@ export interface MainLayoutProps {
   hasBottomNavigation?: boolean;
 
   mainClassName?: string;
-  loginWithTapsiSSO?: boolean;
 
   // New prop for scrolling to top
   scrollToTop?: boolean;
@@ -45,7 +43,6 @@ export const MainLayout = ({
   hasBottomNavigation,
 
   mainClassName,
-  loginWithTapsiSSO,
   scrollToTop, // Destructure new prop
   children,
 }: PropsWithChildren<MainLayoutProps>) => {
@@ -74,7 +71,6 @@ export const MainLayout = ({
             leftSection={leftSection}
             hasBackButton={hasBackButton}
             hasBasketIcon={hasBasketIcon}
-            // hasLogo={!loginWithTapsiSSO}
             hasLogo={false}
             hasAddress={hasAddress}
             backIconHandler={backIconHandler}
@@ -96,15 +92,4 @@ export const MainLayout = ({
       </div>
     </div>
   );
-};
-
-export const getServerSideProps = async ({ req }) => {
-  const cookies = req.headers.cookie;
-  const loginWithTapsiSSO = cookies?.loginWithTapsiSSO;
-
-  return {
-    props: {
-      loginWithTapsiSSO,
-    },
-  };
 };
