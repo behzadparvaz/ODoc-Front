@@ -102,7 +102,7 @@ const HomeContainer = () => {
 
         {bannerData?.queryResult ? (
           <Link
-            href={`${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
+            href={`${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل+غذایی+و+دارویی&categoryCodeLevel3=10_1267_78&categoryCodeLevel4=10_1267_78_1038`}
           >
             <Banner
               className="px-3 py-3"
@@ -122,11 +122,9 @@ const HomeContainer = () => {
           containerClassName="bg-indigo-50 pb-2"
         />
 
-        {!loginWithTapsiSSO && (
-          <div className={`overflow-auto w-full`}>
-            <FooterContent />
-          </div>
-        )}
+        <div className={`overflow-auto w-full`}>
+          <FooterContent />
+        </div>
       </MainLayout>
     </>
   );
