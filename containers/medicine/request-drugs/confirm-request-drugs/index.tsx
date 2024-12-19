@@ -58,7 +58,6 @@ const ConfirmRequestDrugs = () => {
 
   const initialValues: FormValues = {
     description: '',
-
     nationalCode: data?.queryResult?.[0]?.nationalCode || '',
   };
 
@@ -85,6 +84,7 @@ const ConfirmRequestDrugs = () => {
     const serializeData = (drugs: Drug[]): any => {
       const body = {
         description: values.description,
+        nationalCode: values.nationalCode,
         requestOrders: drugs.map((item) => ({
           irc: item.id,
           productName: item.drugName,
@@ -185,6 +185,7 @@ const ConfirmRequestDrugs = () => {
                     label="توضیحات سفارش"
                     placeholder="سن، جنسیت، حساسیت دارویی و توضیحات سفارش خود را برای داروخانه بنویسید"
                     rows={5}
+                    disabled={profileDataLoading}
                   />
                 )}
               </Field>
