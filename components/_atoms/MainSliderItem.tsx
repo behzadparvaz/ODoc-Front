@@ -1,6 +1,5 @@
 import { memo, useRef } from 'react';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
 
 import NextImage from '@com/_core/NextImage';
 import { routeList } from '@routes/routeList';
@@ -20,15 +19,12 @@ function MainSliderItem({ imageUrl, title, index }: Props) {
     <div
       onClick={() =>
         push(
-          index === 1 &&
-            `${routeList?.otcMedicineProductsList}/?categoryCodeLevel1=7`,
-          // `${routeList?.prescriptionRegisteration}`
+          index === 1
+            ? `${routeList?.prescriptionRegisteration}`
+            : `${routeList?.otcMedicine}`,
         )
       }
-      className={classNames(
-        `relative w-full h-full px-4`,
-        index === 1 && 'cursor-pointer',
-      )}
+      className={`relative w-full h-full px-4 cursor-pointer`}
     >
       <div className="!aspect-w-23 !aspect-h-14 overflow-hidden" ref={ref}>
         <NextImage

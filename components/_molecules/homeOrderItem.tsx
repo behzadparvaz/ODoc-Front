@@ -17,8 +17,8 @@ import {
 } from '@com/icons';
 import { colors } from '@configs/Theme';
 import classNames from 'classnames';
-import OrderHistoryProgress from './OrderHistoryProgress';
 import moment from 'jalali-moment';
+import OrderHistoryProgress from './OrderHistoryProgress';
 
 type HomeOrderItemProps = {
   data: any;
@@ -27,6 +27,7 @@ type HomeOrderItemProps = {
 const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
   const router = useRouter();
   const { data: vendorData } = useGetVendorDetails(data?.vendorCode);
+
   const { data: deliveryCode } = useGetDeliveryCode(
     (data?.orderStatus?.name === 'adelivery' ||
       data?.orderStatus?.name === 'senddelivery') &&
@@ -252,6 +253,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
         'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg py-2 px-3 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
       }
     >
+      <div className="flex justify-end"></div>
       <div className="w-full">{renderIcon()}</div>
       <div className="flex justify-between">
         <div>

@@ -75,21 +75,21 @@ export const useGetOrdersHistory: (
   statusId: number,
   options?: UseQueryOptions<unknown, Error, any[]>,
 ) => UseQueryResult<any[], Error> = (statusId, options) =>
-  useQuery({
-    queryKey: ['getOrdersHistory', statusId],
-    queryFn: () => GetOrdersHistory(statusId),
-    refetchInterval: 20000,
-    ...options,
-  });
+    useQuery({
+      queryKey: ['getOrdersHistory', statusId],
+      queryFn: () => GetOrdersHistory(statusId),
+      refetchInterval: 20000,
+      ...options,
+    });
 
 export const useGetOrderStatuses: (
   options?: UseQueryOptions<unknown, Error, OrderStatuses[]>,
 ) => UseQueryResult<OrderStatuses[], Error> = (options) =>
-  useQuery({
-    queryKey: ['getOrderStatuses'],
-    queryFn: () => GetOrderStatuses(),
-    ...options,
-  });
+    useQuery({
+      queryKey: ['getOrderStatuses'],
+      queryFn: () => GetOrderStatuses(),
+      ...options,
+    });
 
 export const useGetOrderInfo = (id: string) => {
   const { data, isLoading } = useQuery({
@@ -182,10 +182,10 @@ export const useGetSupplementaryInsurances = () => {
 export const useCreateOrderDraft: (
   options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
 ) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = (options) =>
-  useMutation({
-    mutationFn: (variables) => createOrderDraft(variables),
-    ...options,
-  });
+    useMutation({
+      mutationFn: (variables) => createOrderDraft(variables),
+      ...options,
+    });
 
 export const useGetOrderDetails = (orderCode: string) => {
   const { data, isLoading } = useQuery({
@@ -236,13 +236,12 @@ export const useDeleteOrderDetail = () => {
 export const useGetCurrentOrder = () => {
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
-  const { data, isLoading } = useQuery({
+  return useQuery({
     queryKey: ['getDeliveryCode'],
     queryFn: () => getCurrentOrder(),
     enabled: !!token,
   });
 
-  return { data: data as any, isLoading: isLoading };
 };
 
 export const useGetDeclineTypes = () => {
