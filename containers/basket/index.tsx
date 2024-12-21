@@ -111,8 +111,8 @@ const Page = () => {
           variant="text"
           disabled={
             isLoadingDeleteBasket ||
-            products.length === 0 ||
-            !!basket?.refrenceNumber
+            !(products.length > 0) ||
+            !Boolean(basket?.refrenceNumber)
           }
         >
           <Icon
@@ -121,10 +121,10 @@ const Page = () => {
             height={1.5}
             fill={
               isLoadingDeleteBasket ||
-              products.length === 0 ||
-              !!basket?.refrenceNumber
-                ? colors.grey[400]
-                : colors.red[400]
+              products.length > 0 ||
+              Boolean(basket?.refrenceNumber)
+                ? colors.red[400]
+                : colors.grey[400]
             }
           />
         </Button>
