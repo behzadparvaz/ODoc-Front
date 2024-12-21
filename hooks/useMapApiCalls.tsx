@@ -7,14 +7,20 @@ import useModal from './useModal';
 import useNotification from './useNotification';
 import AddressDetailsModal from '@com/_organisms/AddressDetailsModal';
 import { useGetParsiMapLocation } from '@api/map/mapApis.rq';
-function useMapApiCalls(addressId: number) {
+function useMapApiCalls(
+  addressId: number | string,
+  latitude: number,
+  longitude: number,
+) {
   const { openNotification } = useNotification();
   const { replaceLastModal } = useModal();
   const [mapAddressesText, setMapAddressesText] = useState<string>();
   const { viewport } = useSelector((state: RootState) => state.mapInfo);
-
+  console.log('viewport', viewport);
   const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } =
-    useGetParsiMapLocation(`${[viewport.longitude, viewport.latitude]}`);
+    useGetParsiMapLocation(
+      `${[longitude ?? viewport.longitude, latitude ?? viewport.latitude]}`,
+    );
 
   const handleClickOnSaveMyLocation = async () => {
     if (

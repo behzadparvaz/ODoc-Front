@@ -15,6 +15,7 @@ import {
   DeleteUserLocations,
   GetProfile,
   GetProfileRelation,
+  GetUserLocation,
   GetUserLocations,
   LoginWithTapsiSSO,
   UpdateProfileInfo,
@@ -28,6 +29,7 @@ import { routeList } from '@routes/routeList';
 import useStorage from '@hooks/useStorage';
 import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
+import { Location } from '@utilities/interfaces/location';
 
 export const useAddLocation = ({
   isInAddressPage = false,
@@ -102,6 +104,19 @@ export const useGetUserLocations = (
     queryKey: ['getUserLocations'],
     queryFn: () => GetUserLocations(),
     enabled: token ? true : false,
+  });
+};
+
+export const useGetUserLocation = (
+  locationId: string,
+  options?: UseQueryOptions<unknown, unknown, Location>,
+): UseQueryResult<Location> => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  return useQuery({
+    queryKey: ['getUserLocation', locationId],
+    queryFn: () => GetUserLocation(locationId),
+    enabled: !!token && !!locationId,
   });
 };
 

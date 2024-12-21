@@ -6,6 +6,9 @@ export const AddLocation = async (body) =>
 export const GetUserLocations = async () =>
   await request.get(`/Location/GetLocations`);
 
+export const GetUserLocation = async (locationId: string) =>
+  await request.get(`/Location/${locationId}`);
+
 export const DeleteUserLocations = async (body) =>
   await request.post(`/Location/DeleteLocation`, body);
 

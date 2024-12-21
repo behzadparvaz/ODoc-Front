@@ -15,9 +15,11 @@ mapboxgl.accessToken = parsiMapAccessToken;
 type Props = {
   parsiMapAddressData?: any;
   loadingAddress?: boolean;
-  addressId?: number;
+  addressId?: number | string;
   className?: string;
   height?: string;
+  latitude?: number;
+  longitude?: number;
 };
 
 function ParsiMapContent({
@@ -26,6 +28,8 @@ function ParsiMapContent({
   height = '100%',
   loadingAddress = false,
   addressId = 0,
+  latitude,
+  longitude,
 }: Props) {
   let MarkerIcon;
   useEffect(() => {
@@ -44,7 +48,7 @@ function ParsiMapContent({
     mapAddressesText,
     isLoadingMapsAddress,
     setMapAddressesText,
-  } = useMapApiCalls(addressId);
+  } = useMapApiCalls(addressId, latitude, longitude);
   const { viewport, defaultViewPort, filteredCities } = useSelector(
     (state: RootState) => state.mapInfo,
   );
