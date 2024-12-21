@@ -195,6 +195,7 @@ export const useLoginWithTapsiSSO = () => {
   const dispatch = useDispatch();
   return useMutation({
     mutationFn: LoginWithTapsiSSO,
+    retry: false,
     onSuccess: (data: any) => {
       Cookies.set('token', data?.token, { expires: 365 });
       Cookies.set('loginWithTapsiSSO', true, { expires: 365 });
