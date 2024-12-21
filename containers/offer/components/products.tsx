@@ -41,6 +41,23 @@ const Products = () => {
     }
   }, [inView, fetchNextPage]);
 
+  const handleChangeRoute = (item) => {
+    if (item?.productType === 1) {
+      return push({
+        pathname: routeList.searchProductPage,
+        query: {
+          irc: item?.irc ? item?.irc : item?.genericCode,
+        },
+      });
+    }
+
+    if (item?.productType === 2) {
+      return push({
+        pathname: `${routeList.supplementProduct}/${item?.genericCode}`,
+      });
+    }
+  };
+
   if ((isLoading || isFetchingNextPage) && !productList?.length) {
     return (
       <div
@@ -70,12 +87,7 @@ const Products = () => {
     >
       {productList?.map((item) => (
         <VerticalProductCard
-          onClick={() =>
-            push({
-              pathname: `${routeList.supplementProduct}/${item?.irc}`,
-              query: { ...query },
-            })
-          }
+          onClick={() => handleChangeRoute(item)}
           className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
           key={item?.irc}
