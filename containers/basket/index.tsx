@@ -28,16 +28,16 @@ const Page = () => {
     refetch: refetchGetBasket,
   } = useGetCurrentBasket({ enabled: true });
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeOutLoading(true);
-    }, 2000);
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setTimeOutLoading(true);
+  //   }, 100);
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
-
+  //   return () => {
+  //     clearTimeout(timer);
+  //   };
+  // }, []);
+  console.log('isLoading', isLoading);
   const { mutate: deleteBasket, isPending: isLoadingDeleteBasket } =
     useDeleteCurrentBasket({
       onMutate: () => {
@@ -84,7 +84,10 @@ const Page = () => {
     >
       <Content
         products={products}
-        isLoading={isLoading || !timeOutLoading}
+        isLoading={
+          isLoading
+          // || !timeOutLoading
+        }
         isSpecialPatient={basket?.isSpecialPatient}
         refetchBasketHandler={refetchGetBasket}
         isOrderInProgress={!!draftData}
