@@ -1,3 +1,7 @@
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useSelector } from 'react-redux';
+
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
@@ -12,9 +16,6 @@ import { colors } from '@configs/Theme';
 import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
 
 const ConfirmBasketContainer = () => {
   //   router
@@ -139,27 +140,31 @@ const ConfirmBasketContainer = () => {
             value={state.description}
           />
         </div>
-        <div>
-          <div className="h-[1px] bg-grey-200 w-full mt-4" />
-          <CheckBox
-            handleChange={() => {}}
-            label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
-            labelClassName="text-sm mr-16 font-normal text-grey-500"
-            name="vendorCode"
-            icon={
-              <TickIcon
-                width={15}
-                height={15}
-                stroke={colors.white}
-                className="mx-auto mt-[1px]"
-              />
-            }
-            boxClassName="w-5 h-5 !top-3 border-grey-800"
-            boxContainerClassName="min-w-[64px] min-h-[64px] flex justify-center items-center"
-            checked={true}
-            className="w-full flex items-center mb-4 z-0 mt-2"
-          />
-        </div>
+        {basket?.products?.some(
+          (item) => item?.productType?.name === 'otc',
+        ) && (
+          <div>
+            <div className="h-[1px] bg-grey-200 w-full mt-4" />
+            <CheckBox
+              handleChange={() => {}}
+              label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
+              labelClassName="text-sm mr-16 font-normal text-grey-500"
+              name="vendorCode"
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              boxClassName="w-5 h-5 !top-3 border-grey-800 rounded-lg"
+              boxContainerClassName="min-w-[64px] min-h-[64px] flex justify-center items-center"
+              checked={true}
+              className="w-full flex items-center mb-4 z-0 mt-2"
+            />
+          </div>
+        )}
       </div>
       <ActionBar type="singleAction" hasDivider>
         <Button
