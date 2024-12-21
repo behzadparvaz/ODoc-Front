@@ -28,9 +28,9 @@ const Content = ({
 }: IRenderContentProps) => {
   const renderContent = useMemo(() => {
     return (
-      <div className="relative h-full pb-[180px] pt-4 px-4 md:pb-[94px] overflow-auto">
+      <div className="relative pt-4 px-4 overflow-auto">
         {!isOrderInProgress && (
-          <div className="w-full min-h-[400px] flex flex-col gap-y-4">
+          <div className="w-full  flex flex-col gap-y-4">
             {!!prescriptionId && (
               <PrescriptionItem
                 BasketRefrenceNumber={prescriptionId}

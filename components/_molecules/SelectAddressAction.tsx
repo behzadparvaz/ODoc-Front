@@ -2,6 +2,7 @@ import SelectAddress from '@com/_organisms/SelectAddress';
 import { ChevronLeftIconOutline, LocationIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
+import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
 import { useSelector } from 'react-redux';
 
@@ -19,7 +20,12 @@ const SelectAddressAction = () => {
       className="flex justify-between gap-6"
     >
       <div>
-        <LocationIconOutline width={36} height={36} fill={colors.grey[600]} />
+        <Icon
+          name="PinCircleFill"
+          width={1.5}
+          height={1.5}
+          fill={colors.grey[600]}
+        />
       </div>
       <div className="w-full">
         <h1 className="font-bold">آدرس</h1>

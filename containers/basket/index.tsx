@@ -13,6 +13,10 @@ import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 
 import { routeList } from '@routes/routeList';
+import CarouselLine from '@com/_molecules/CarouselLine';
+import { useGetCarousels } from '@api/promotion/promotion.rq';
+import { colors } from '@configs/Theme';
+import Icon from '@utilities/icon';
 
 const Content = dynamic(() => import('./components/Content'));
 
@@ -21,6 +25,16 @@ const Page = () => {
 
   const [isDisabled, setIsDisabled] = useState(false);
   const [timeOutLoading, setTimeOutLoading] = useState(false);
+
+  const { data: carouselsData, isLoading: carouselIsLoading } =
+    useGetCarousels();
+
+  const getCarouselDataData = (position: number) => {
+    const carouselData = carouselsData?.queryResult?.filter(
+      (item) => item?.sectionPosition === position,
+    )?.[0];
+    return carouselData;
+  };
 
   const {
     data: basket,
@@ -67,7 +81,16 @@ const Page = () => {
   });
 
   const products = useMemo(() => {
-    return basket?.products ?? [];
+    const basketProducts = basket?.products?.map((item) => {
+      if (item?.productType?.id === 3) {
+        return {
+          ...item,
+          imageLink: '/images/fast-order.png',
+        };
+      } else return item;
+    });
+
+    return basketProducts ?? [];
   }, [basket]);
 
   return (
@@ -81,26 +104,63 @@ const Page = () => {
           router?.push(routeList?.homeRoute);
         }
       }}
+      leftSection={
+        <Button
+          onClick={deleteBasket}
+          className="h-full flex items-center justify-center cursor-pointer !p-2"
+          variant="text"
+          disabled={
+            isLoadingDeleteBasket ||
+            products.length === 0 ||
+            !!basket?.refrenceNumber
+          }
+        >
+          <Icon
+            name="Trash"
+            width={1.5}
+            height={1.5}
+            fill={
+              isLoadingDeleteBasket ||
+              products.length === 0 ||
+              !!basket?.refrenceNumber
+                ? colors.grey[400]
+                : colors.red[400]
+            }
+          />
+        </Button>
+      }
     >
-      <Content
-        products={products}
-        isLoading={isLoading || !timeOutLoading}
-        isSpecialPatient={basket?.isSpecialPatient}
-        refetchBasketHandler={refetchGetBasket}
-        isOrderInProgress={!!draftData}
-        isEmpty={!products?.length && !basket?.refrenceNumber && !draftData}
-        prescriptionId={basket?.refrenceNumber}
-      />
+      <div className="pb-[85px]">
+        <Content
+          products={products}
+          isLoading={isLoading || !timeOutLoading}
+          isSpecialPatient={basket?.isSpecialPatient}
+          refetchBasketHandler={refetchGetBasket}
+          isOrderInProgress={!!draftData}
+          isEmpty={!products?.length && !basket?.refrenceNumber && !draftData}
+          prescriptionId={basket?.refrenceNumber}
+        />
+
+        <CarouselLine
+          data={getCarouselDataData(2)}
+          carouselIsLoading={carouselIsLoading}
+          isShowMoreButton={false}
+          carouselCardClassName="bg-white rounded-md"
+          containerClassName="bg-indigo-100 pb-5"
+        />
+      </div>
+
       {(basket?.products?.length > 0 || basket?.refrenceNumber) &&
         !draftData && (
           <ActionBar
             type="twoActionHorizontal"
             hasDivider={products.length > 0}
+            className="flex-row-reverse"
           >
             <>
               <Button
                 variant="primary"
-                className="w-full"
+                className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
                 size="large"
                 onClick={() => router.push(`${routeList.confirmBasket}`)}
                 isLoading={isLoadingcreateOrderDraft}
@@ -112,11 +172,11 @@ const Page = () => {
                 variant="secondary"
                 className="w-full"
                 size="large"
-                onClick={deleteBasket}
+                onClick={() => router.push(`${routeList.homeRoute}`)}
                 isLoading={isLoadingDeleteBasket}
                 disabled={isLoadingcreateOrderDraft || isDisabled}
               >
-                حذف سبد خرید
+                ادامه فرآیند خرید
               </Button>
             </>
 
