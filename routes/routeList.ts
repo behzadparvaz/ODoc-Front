@@ -27,6 +27,7 @@ export const routeList = {
   otcMedicineProductsList: '/app/otc-medicine/products-list',
   productPage: '/app/product/',
   newAddress: '/app/profile/addresses/new',
+  editAddress: '/app/profile/addresses',
   searchProductPage: '/app/search/product-page',
   QuickOrder: `${baseUrl}/request-drugs`,
   QuickOrderSuccess: `${baseUrl}/request-drugs/success`,

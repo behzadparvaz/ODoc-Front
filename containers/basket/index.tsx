@@ -17,6 +17,7 @@ import CarouselLine from '@com/_molecules/CarouselLine';
 import { useGetCarousels } from '@api/promotion/promotion.rq';
 import { colors } from '@configs/Theme';
 import Icon from '@utilities/icon';
+import LoadingSpinner from '@com/_atoms/LoadingSpinner';
 
 const Content = dynamic(() => import('./components/Content'));
 
@@ -111,22 +112,23 @@ const Page = () => {
           variant="text"
           disabled={
             isLoadingDeleteBasket ||
-            !(products.length > 0) ||
-            !Boolean(basket?.refrenceNumber)
+            (products.length < 0 && !basket?.refrenceNumber)
           }
         >
-          <Icon
-            name="Trash"
-            width={1.5}
-            height={1.5}
-            fill={
-              isLoadingDeleteBasket ||
-              products.length > 0 ||
-              Boolean(basket?.refrenceNumber)
-                ? colors.red[400]
-                : colors.grey[400]
-            }
-          />
+          {isLoadingDeleteBasket ? (
+            <LoadingSpinner color="danger" />
+          ) : (
+            <Icon
+              name="Trash"
+              width={1.5}
+              height={1.5}
+              fill={
+                products.length > 0 || !!basket?.refrenceNumber
+                  ? colors.red[400]
+                  : colors.grey[400]
+              }
+            />
+          )}
         </Button>
       }
     >
@@ -142,7 +144,7 @@ const Page = () => {
         />
 
         <CarouselLine
-          data={getCarouselDataData(2)}
+          data={getCarouselDataData(4)}
           carouselIsLoading={carouselIsLoading}
           isShowMoreButton={false}
           carouselCardClassName="bg-white rounded-md"
@@ -159,24 +161,27 @@ const Page = () => {
           >
             <>
               <Button
-                variant="primary"
-                className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+                variant="brand"
+                className="w-full"
                 size="large"
                 onClick={() => router.push(`${routeList.confirmBasket}`)}
                 isLoading={isLoadingcreateOrderDraft}
-                disabled={isLoadingDeleteBasket}
+                disabled={isLoadingDeleteBasket || isLoadingDeleteBasket}
               >
-                تأیید و ادامه
+                تأیید و ادامه خرید
               </Button>
               <Button
                 variant="secondary"
                 className="w-full"
                 size="large"
                 onClick={() => router.push(`${routeList.homeRoute}`)}
-                isLoading={isLoadingDeleteBasket}
-                disabled={isLoadingcreateOrderDraft || isDisabled}
+                disabled={
+                  isLoadingDeleteBasket ||
+                  isLoadingcreateOrderDraft ||
+                  isDisabled
+                }
               >
-                ادامه فرآیند خرید
+                افزودن کالای جدید
               </Button>
             </>
 

@@ -20,6 +20,7 @@ import {
 import { Discovery } from '@com/icons';
 import { useGetParsiSearchAddress } from '@api/map/mapApis.rq';
 import AutoComplete from '@com/_molecules/AutoComplete';
+import { Location } from '@utilities/interfaces/location';
 
 const Map = dynamic(() => import('@com/_molecules/Map'), {
   ssr: false,
@@ -31,6 +32,7 @@ interface Props {
   latitude?: number;
   longitude?: number;
   onChangeLoc?: (latLng: { latitude: number; longitude: number }) => void;
+  initialData?: Location;
 }
 
 export default function ParsiMapBottomSheet({
@@ -38,6 +40,7 @@ export default function ParsiMapBottomSheet({
   latitude,
   longitude,
   onChangeLoc,
+  initialData,
 }: Props) {
   const dispatch = useDispatch();
   const [searchTxt, setSearchTxt] = useState('');
@@ -49,7 +52,7 @@ export default function ParsiMapBottomSheet({
     handleClickOnSaveMyLocation,
     parsiMapLocationAddress,
     isLoadingMapsAddress,
-  } = useMapApiCalls(addressId);
+  } = useMapApiCalls(addressId, initialData);
 
   const enableAutoLocationButton = () => {
     setIsLoadingPosition(false);

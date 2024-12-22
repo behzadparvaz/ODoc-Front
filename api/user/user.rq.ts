@@ -8,6 +8,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query';
+
 import {
   AddFamilyMembers,
   AddLocation,
@@ -15,8 +16,10 @@ import {
   DeleteUserLocations,
   GetProfile,
   GetProfileRelation,
+  GetUserLocation,
   GetUserLocations,
   LoginWithTapsiSSO,
+  UpdateLocation,
   UpdateProfileInfo,
   UserSetPassword,
 } from './user';
@@ -28,18 +31,24 @@ import { routeList } from '@routes/routeList';
 import useStorage from '@hooks/useStorage';
 import { setUserAction } from '@redux/user/userActions';
 import { RootState } from '@utilities/types';
+import { Location } from '@utilities/interfaces/location';
 
 export const useAddLocation = ({
   isInAddressPage = false,
+  isInEditAddress = false,
+  addressId,
 }: {
   isInAddressPage?: boolean;
+  isInEditAddress?: boolean;
+  addressId?: string;
 }) => {
+  const { refetch: refetchAddressItem } = useGetUserLocation(addressId);
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
   const { push } = useRouter();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: AddLocation,
+    mutationFn: isInEditAddress ? UpdateLocation : AddLocation,
     onSuccess: (data: any) => {
       if (data?.length) {
         openNotification({
@@ -51,10 +60,14 @@ export const useAddLocation = ({
         queryClient?.invalidateQueries({ queryKey: ['getUserLocations'] });
         removeLastModal();
         openNotification({
-          message: `${selectStoreTexts?.successAddAddress}`,
+          message: `${isInEditAddress ? selectStoreTexts?.successEditAddress : selectStoreTexts?.successAddAddress}`,
           type: 'success',
           notifType: 'successOrFailedMessage',
         });
+        if (addressId) {
+          refetchAddressItem();
+        }
+
         if (isInAddressPage) {
           push(routeList.profileAddresses);
         }
@@ -62,6 +75,7 @@ export const useAddLocation = ({
     },
   });
 };
+
 export const useDeleteLocation = () => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
@@ -101,7 +115,20 @@ export const useGetUserLocations = (
   return useQuery({
     queryKey: ['getUserLocations'],
     queryFn: () => GetUserLocations(),
-    enabled: token ? true : false,
+    enabled: !!token,
+  });
+};
+
+export const useGetUserLocation = (
+  locationId: string,
+  options?: UseQueryOptions<unknown, unknown, Location>,
+): UseQueryResult<Location> => {
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
+  return useQuery({
+    queryKey: ['getUserLocation', locationId],
+    queryFn: () => GetUserLocation(locationId),
+    enabled: !!token && !!locationId,
   });
 };
 
