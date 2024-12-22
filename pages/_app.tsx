@@ -83,7 +83,6 @@ function MyApp({ Component, pageProps }) {
       <QueryClientProvider client={queryClient}>
         <NotificationWrapper />
         <ModalCreator ref={modalNode} />
-        <LoginWithSSO />
         <div dir="rtl">
           <Component {...pageProps} />
           <div id="modal-root"></div>
