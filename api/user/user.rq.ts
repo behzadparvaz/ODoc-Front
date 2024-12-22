@@ -36,10 +36,13 @@ import { Location } from '@utilities/interfaces/location';
 export const useAddLocation = ({
   isInAddressPage = false,
   isInEditAddress = false,
+  addressId,
 }: {
   isInAddressPage?: boolean;
   isInEditAddress?: boolean;
+  addressId?: string;
 }) => {
+  const { refetch: refetchAddressItem } = useGetUserLocation(addressId);
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
   const { push } = useRouter();
@@ -57,10 +60,13 @@ export const useAddLocation = ({
         queryClient?.invalidateQueries({ queryKey: ['getUserLocations'] });
         removeLastModal();
         openNotification({
-          message: `${selectStoreTexts?.successAddAddress}`,
+          message: `${isInEditAddress ? selectStoreTexts?.successEditAddress : selectStoreTexts?.successAddAddress}`,
           type: 'success',
           notifType: 'successOrFailedMessage',
         });
+        if (addressId) {
+          refetchAddressItem();
+        }
         if (isInAddressPage) {
           push(routeList.profileAddresses);
         }

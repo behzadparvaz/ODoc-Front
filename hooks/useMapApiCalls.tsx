@@ -38,7 +38,6 @@ function useMapApiCalls(addressId: number | string, initialData?: Location) {
 
       if (locationAddress || !isEmpty(ParsiMapAddressData)) {
         const data = ParsiMapAddressData;
-        console.log('data', data);
 
         if (errorInSelectedLocation) {
           openNotification({

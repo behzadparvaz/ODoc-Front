@@ -22,6 +22,7 @@ interface Props {
   carouselCardClassName?: string;
   containerClassName?: string;
   scrollSliderClassName?: string;
+  isShowMoreButton?: boolean;
 }
 
 const shimerData = [...Array(10).keys()];
@@ -34,6 +35,7 @@ const CarouselLine = ({
   carouselCardClassName,
   containerClassName,
   scrollSliderClassName,
+  isShowMoreButton = true,
 }: Props) => {
   const { push } = useRouter();
   return (
@@ -70,27 +72,28 @@ const CarouselLine = ({
             </span>
           </div>
 
-          <Button
-            variant={twoRow ? 'secondary' : 'text'}
-            size="small"
-            className={twoRow && 'w-[32px] bg-opacity-20 !p-0'}
-            onClick={() =>
-              push(`${routeList?.offer}/${data?.recId}?title=${data?.title}`)
-            }
-            icon={
-              <ArrowLeftIconOutline
-                width={24}
-                height={24}
-                fill={twoRow ? colors.white : colors.black}
-              />
-            }
-          >
-            {!twoRow ? 'همه' : null}
-          </Button>
+          {isShowMoreButton && (
+            <Button
+              variant={twoRow ? 'secondary' : 'text'}
+              size="small"
+              className={twoRow && 'w-[32px] bg-opacity-20 !p-0'}
+              onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
+              icon={
+                <ArrowLeftIconOutline
+                  width={24}
+                  height={24}
+                  fill={twoRow ? colors.white : colors.black}
+                />
+              }
+            >
+              {!twoRow ? 'همه' : null}
+            </Button>
+          )}
         </div>
 
         <ScrollSlider
           className={classNames(
+            !isShowMoreButton && 'pl-4',
             twoRow
               ? 'px-4 py-2 grid grid-rows-2 grid-flow-col'
               : 'flex items-center',
@@ -146,17 +149,19 @@ const CarouselLine = ({
             })}
           </>
 
-          <div
-            onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
-            className="w-[157px] h-full flex flex-col items-center justify-center row-start-1 row-end-3 cursor-pointer"
-          >
-            <span className="h-8 w-8 bg-white rounded-full flex justify-center items-center">
-              <ArrowLeftIconOutline width={20} height={20} fill="#000" />
-            </span>
-            <span className="text-xs font-medium pt-4">
-              {generalTexts?.viewAll}
-            </span>
-          </div>
+          {isShowMoreButton && (
+            <div
+              onClick={() => push(`${routeList?.offer}/${data?.recId}`)}
+              className="w-[157px] h-full flex flex-col items-center justify-center row-start-1 row-end-3 cursor-pointer"
+            >
+              <span className="h-8 w-8 bg-white rounded-full flex justify-center items-center">
+                <ArrowLeftIconOutline width={20} height={20} fill="#000" />
+              </span>
+              <span className="text-xs font-medium pt-4">
+                {generalTexts?.viewAll}
+              </span>
+            </div>
+          )}
         </ScrollSlider>
       </div>
     </div>

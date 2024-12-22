@@ -1,47 +1,16 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 
 import { profileText } from '@com/texts/profileText';
 import { useGetUserLocations } from '@api/user/user.rq';
-import ParsiMapBottomSheet from '@com/_organisms/ParsiMapBottomSheet';
-import useModal from '@hooks/useModal';
-import { setMapStateAction } from '@redux/map/mapActions';
-import { RootState } from '@utilities/types';
 import AddressList from '@com/_organisms/AddressList';
 import Spinner from '@com/_atoms/Spinner';
 import { MainLayout } from '@com/Layout';
 import { Button } from '@com/_atoms/NewButton';
-import { useRouter } from 'next/router';
 import { routeList } from '@routes/routeList';
 import ActionBar from '@com/Layout/ActionBar';
 
 const AddressesContainer = () => {
-  const { addModal } = useModal();
   const { push } = useRouter();
-
-  const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
-  const dispatch = useDispatch();
-
-  const handleClickOpenModal = () => {
-    dispatch(
-      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false }),
-    );
-    addModal({
-      modal: ParsiMapBottomSheet,
-      props: {
-        latitude: defaultViewPort.latitude,
-        longitude: defaultViewPort.longitude,
-        addressId: 0,
-        onChangeLoc: (latLng) =>
-          dispatch(
-            setMapStateAction({
-              viewport: latLng,
-              defaultViewPort: latLng,
-              mapIsTouched: true,
-            }),
-          ),
-      },
-    });
-  };
 
   const { data: addressData, isLoading } = useGetUserLocations();
 

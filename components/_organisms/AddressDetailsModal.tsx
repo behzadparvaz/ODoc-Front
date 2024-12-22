@@ -8,7 +8,7 @@ import { colors } from '@configs/Theme';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
-import { useAddLocation } from '@api/user/user.rq';
+import { useAddLocation, useGetUserLocation } from '@api/user/user.rq';
 import {
   addressSeparator,
   cedarAddressFixedPartCreator,
@@ -35,8 +35,9 @@ export default function AddressDetailsModal({
   );
   const { mutate: mutateAddLocation, isPending: mutateAddLocationLoading } =
     useAddLocation({
-      isInAddressPage: pathname === routeList.newAddress,
+      isInAddressPage: pathname === routeList.newAddress || !!initialData,
       isInEditAddress: !!initialData,
+      addressId: initialData?.id,
     });
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
   const [addressReadonlyPart, setAddressReadonlyPart] = useState<string>('');
@@ -101,7 +102,21 @@ export default function AddressDetailsModal({
         HouseNumber: values?.plaque,
         HomeUnit: values?.unit,
       };
-      mutateAddLocation(body);
+
+      const editAddressBody = {
+        id: initialData?.id,
+        latitude: viewport?.latitude,
+        longitude: viewport?.longitude,
+        name: values?.name,
+        city: addressData?.subdivision_prefix,
+        description: `${addressReadonlyPart}${addressEditablePart}`,
+        homeUnit: String(values?.unit),
+        houseNumber: String(values?.plaque),
+        postalCode: initialData?.postalCode,
+        modifiedBy: initialData?.modifiedBy,
+      };
+
+      mutateAddLocation(initialData ? editAddressBody : body);
     },
   });
 

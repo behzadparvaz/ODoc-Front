@@ -9,7 +9,6 @@ import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
-import { getDataFromCookies } from '@utilities/cookiesUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
@@ -21,7 +20,6 @@ const HomeOrderSlider = dynamic(
 const FooterContent = dynamic(() => import('@com/_molecules/FooterContent'));
 
 const HomeContainer = () => {
-  const loginWithTapsiSSO = getDataFromCookies('loginWithTapsiSSO');
   const { data: bannerData, isLoading: bannerIsLoading } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
@@ -102,7 +100,7 @@ const HomeContainer = () => {
 
         {bannerData?.queryResult ? (
           <Link
-            href={`${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل+غذایی+و+دارویی&categoryCodeLevel3=10_1267_78&categoryCodeLevel4=10_1267_78_1038`}
+            href={`${routeList?.supplementProductListPage}?categoryCodeLevel1=10&categoryCodeLevel2=10_1267&categoryNameLevel2=مکمل%20غذایی%20و%20دارویی`}
           >
             <Banner
               className="px-3 py-3"
