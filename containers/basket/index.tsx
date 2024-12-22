@@ -142,7 +142,7 @@ const Page = () => {
         />
 
         <CarouselLine
-          data={getCarouselDataData(2)}
+          data={getCarouselDataData(4)}
           carouselIsLoading={carouselIsLoading}
           isShowMoreButton={false}
           carouselCardClassName="bg-white rounded-md"

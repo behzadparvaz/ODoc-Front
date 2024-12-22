@@ -8,7 +8,7 @@ import { colors } from '@configs/Theme';
 import { setMapStateAction } from '@redux/map/mapActions';
 import { RootState } from 'utilities/types';
 import { addNewAddressSchema } from '@utilities/validationSchemas';
-import { useAddLocation } from '@api/user/user.rq';
+import { useAddLocation, useGetUserLocation } from '@api/user/user.rq';
 import {
   addressSeparator,
   cedarAddressFixedPartCreator,
@@ -17,12 +17,16 @@ import { selectStoreTexts } from '@com/texts/selectStoreTexts';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { TextInput } from '@com/_atoms/NewTextInput';
 import { routeList } from '@routes/routeList';
+import { Location } from '@utilities/interfaces/location';
 
 const Button = dynamic(() => import('@com/_atoms/Button'));
 
-type Props = { addressData?: any };
+type Props = { addressData?: any; initialData?: Location };
 
-export default function AddressDetailsModal({ addressData }: Props) {
+export default function AddressDetailsModal({
+  addressData,
+  initialData,
+}: Props) {
   const { pathname } = useRouter();
   const dispatch = useDispatch();
   const addressInputRef = useRef(null);
@@ -31,7 +35,9 @@ export default function AddressDetailsModal({ addressData }: Props) {
   );
   const { mutate: mutateAddLocation, isPending: mutateAddLocationLoading } =
     useAddLocation({
-      isInAddressPage: pathname === routeList.newAddress,
+      isInAddressPage: pathname !== '/app',
+      isInEditAddress: !!initialData,
+      addressId: initialData?.id,
     });
   const [addressIsFocused, setAddressIsFocused] = useState<boolean>(false);
   const [addressReadonlyPart, setAddressReadonlyPart] = useState<string>('');
@@ -51,13 +57,14 @@ export default function AddressDetailsModal({ addressData }: Props) {
     },
   });
 
-  const [initialValues] = useState({
-    plaque: '',
-    unit: '',
+  const initialValues = {
+    plaque: initialData?.houseNumber ?? '',
+    unit: initialData?.homeUnit ?? '',
     latitude: viewport?.latitude,
     longitude: viewport?.longitude,
-    name: '',
-  });
+    name: initialData?.name ?? '',
+  };
+
   const textAreaChangeHandler = (e) => {
     if (
       e.target.value.length >= addressReadonlyPart.length &&
@@ -95,7 +102,21 @@ export default function AddressDetailsModal({ addressData }: Props) {
         HouseNumber: values?.plaque,
         HomeUnit: values?.unit,
       };
-      mutateAddLocation(body);
+
+      const editAddressBody = {
+        id: initialData?.id,
+        latitude: viewport?.latitude,
+        longitude: viewport?.longitude,
+        name: values?.name,
+        city: addressData?.subdivision_prefix,
+        description: `${addressReadonlyPart}${addressEditablePart}`,
+        homeUnit: String(values?.unit),
+        houseNumber: String(values?.plaque),
+        postalCode: initialData?.postalCode,
+        modifiedBy: initialData?.modifiedBy,
+      };
+
+      mutateAddLocation(initialData ? editAddressBody : body);
     },
   });
 

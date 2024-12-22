@@ -6,15 +6,23 @@ import ParsiMapContent from './ParsiMapContent';
 type Props = {
   addressData?: any;
   loadingAddress?: boolean;
-  addressId?: number;
+  addressId?: number | string;
   latitude?: number;
   longitude?: number;
 };
 
-function Map({ addressData, loadingAddress = false, addressId = 0, latitude, longitude }: Props): ReactElement {
+function Map({
+  addressData,
+  loadingAddress = false,
+  addressId = 0,
+}: Props): ReactElement {
   return (
     <>
-      <ParsiMapContent addressId={addressId} parsiMapAddressData={addressData} loadingAddress={loadingAddress} />
+      <ParsiMapContent
+        addressId={addressId}
+        parsiMapAddressData={addressData}
+        loadingAddress={loadingAddress}
+      />
       {/* <MapSearch /> */}
     </>
   );
