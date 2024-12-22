@@ -18,6 +18,8 @@ import useStorage from '@hooks/useStorage';
 import { routeList } from '@routes/routeList';
 
 import ParsiMapBottomSheet from './ParsiMapBottomSheet';
+import { Location } from '@utilities/interfaces/location';
+import { init } from 'next/dist/compiled/webpack/webpack';
 
 const SelectAddress = () => {
   const { getItem } = useStorage();
@@ -33,16 +35,27 @@ const SelectAddress = () => {
   const defaultAddress = user?.defaultAddress;
   const { defaultViewPort } = useSelector((state: RootState) => state.mapInfo);
 
-  const handleClickOpenModal = () => {
+  const handleClickOpenModal = (item?: Location) => {
     dispatch(
-      setMapStateAction({ viewport: defaultViewPort, mapIsTouched: false }),
+      setMapStateAction({
+        viewport: !!item
+          ? {
+              latitude: item?.latitude,
+              longitude: item?.longitude,
+              id: item?.id,
+              name: item?.name,
+            }
+          : defaultViewPort,
+        mapIsTouched: !!item,
+      }),
     );
     addModal({
       modal: ParsiMapBottomSheet,
       props: {
-        latitude: defaultViewPort.latitude,
-        longitude: defaultViewPort.longitude,
+        latitude: item?.latitude,
+        longitude: item?.longitude,
         addressId: 0,
+        initialData: item,
         onChangeLoc: (latLng) =>
           dispatch(
             setMapStateAction({
@@ -106,7 +119,11 @@ const SelectAddress = () => {
               const activeItem = defaultAddress?.id === item?.id;
               return (
                 <div key={index} onClick={() => handleClickAddress(item)}>
-                  <AddressItem activeItem={activeItem} addressInfo={item} />
+                  <AddressItem
+                    activeItem={activeItem}
+                    addressInfo={item}
+                    handleEditItem={() => handleClickOpenModal(item)}
+                  />
                 </div>
               );
             })}

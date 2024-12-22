@@ -35,7 +35,7 @@ export default function AddressDetailsModal({
   );
   const { mutate: mutateAddLocation, isPending: mutateAddLocationLoading } =
     useAddLocation({
-      isInAddressPage: pathname === routeList.newAddress || !!initialData,
+      isInAddressPage: pathname !== '/app',
       isInEditAddress: !!initialData,
       addressId: initialData?.id,
     });

@@ -1,20 +1,26 @@
 import classNames from 'classnames';
+import { useRouter } from 'next/router';
 
 import DeleteAddressModal from '@com/_organisms/DeleteAddressModal';
-import { NewDeleteIcon, NewEditIcon, StarIcon } from '@com/icons';
+import { StarIcon } from '@com/icons';
 import { profileText } from '@com/texts/profileText';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import Icon from '@utilities/icon';
-import Link from 'next/link';
 import { routeList } from '@routes/routeList';
 
 type AddressItemProps = {
   addressInfo: any;
   activeItem?: boolean;
+  handleEditItem?: () => void;
 };
 
-const AddressItem = ({ addressInfo, activeItem }: AddressItemProps) => {
+const AddressItem = ({
+  addressInfo,
+  activeItem,
+  handleEditItem,
+}: AddressItemProps) => {
+  const { push, pathname } = useRouter();
   const { addModal } = useModal();
 
   const handleOpenDeleteAddressModal = () => {
@@ -65,10 +71,14 @@ const AddressItem = ({ addressInfo, activeItem }: AddressItemProps) => {
         </span>
       </div>
 
-      <Link
-        href={`${routeList?.editAddress}/${addressInfo?.id}`}
+      <div
         className="col-start-3 cursor-pointer w-8 h-8 flex justify-center items-center bg-grey-50 rounded-full"
-        onClick={() => {}}
+        onClick={(e) => {
+          e.stopPropagation();
+          return pathname === '/app'
+            ? handleEditItem()
+            : push(`${routeList?.editAddress}/${addressInfo?.id}`);
+        }}
       >
         <Icon
           name="PencilLine"
@@ -76,7 +86,7 @@ const AddressItem = ({ addressInfo, activeItem }: AddressItemProps) => {
           height={1.25}
           fill={colors?.black}
         />
-      </Link>
+      </div>
 
       <div
         className="col-start-4 cursor-pointer w-8 h-8 flex justify-center items-center bg-red-50 rounded-full"

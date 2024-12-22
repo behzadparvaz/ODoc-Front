@@ -67,6 +67,7 @@ export const useAddLocation = ({
         if (addressId) {
           refetchAddressItem();
         }
+
         if (isInAddressPage) {
           push(routeList.profileAddresses);
         }
@@ -114,7 +115,7 @@ export const useGetUserLocations = (
   return useQuery({
     queryKey: ['getUserLocations'],
     queryFn: () => GetUserLocations(),
-    enabled: token ? true : false,
+    enabled: !!token,
   });
 };
 
