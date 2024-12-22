@@ -54,7 +54,7 @@ const SelectAddress = () => {
       props: {
         latitude: item?.latitude,
         longitude: item?.longitude,
-        addressId: 0,
+        addressId: item?.id ?? 0,
         initialData: item,
         onChangeLoc: (latLng) =>
           dispatch(
