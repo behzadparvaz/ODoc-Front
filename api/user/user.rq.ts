@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import Cookies from 'js-cookie';
 import {
   useMutation,
   useQuery,
@@ -190,22 +189,9 @@ export const useUserSetPassword = () => {
     },
   });
 };
-export const useLoginWithTapsiSSO = () => {
-  const { push } = useRouter();
-  const dispatch = useDispatch();
-  return useMutation({
-    mutationFn: LoginWithTapsiSSO,
-    onSuccess: (data: any) => {
-      Cookies.set('token', data?.token, { expires: 365 });
-      Cookies.set('loginWithTapsiSSO', true, { expires: 365 });
-      localStorage.setItem('token', data?.token);
-      dispatch(
-        setUserAction({
-          mobileNumber: data?.phoneNumber,
-          token: data?.token,
-        }),
-      );
-      push(routeList.homeRoute);
-    },
-  });
-};
+
+export const useLoginWithTapsiSSO = () => useMutation({
+  mutationFn: LoginWithTapsiSSO,
+
+});
+
