@@ -92,7 +92,7 @@ export const Button = ({
       case 'danger':
         return 'bg-[#FFEFED] text-[#E11900]';
       case 'brand':
-        return 'bg-gradient-to-r from-[#FF7733] via-[#FF5722] to-[#E54917] text-white';
+        return 'bg-surface-Gradient.brand text-content-onBrand';
       case 'text':
         return 'text-black';
     }
@@ -105,7 +105,7 @@ export const Button = ({
       case 'ghost':
       case 'danger':
       case 'brand':
-        return '!bg-[#F6F6F6] !text-[#AFAFAF]';
+        return '!bg-none !bg-surface-disabled !text-content-disabled';
       case 'text':
         return '!text-[#AFAFAF]';
     }

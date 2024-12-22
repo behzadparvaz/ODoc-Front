@@ -161,8 +161,8 @@ const Page = () => {
           >
             <>
               <Button
-                variant="primary"
-                className="w-full bg-surface-Gradient.brand"
+                variant="brand"
+                className="w-full"
                 size="large"
                 onClick={() => router.push(`${routeList.confirmBasket}`)}
                 isLoading={isLoadingcreateOrderDraft}

@@ -264,8 +264,8 @@ const ConfirmBasketContainer = () => {
       </div>
       <ActionBar type="singleAction" hasDivider>
         <Button
-          variant="primary"
-          className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+          variant="brand"
+          className="w-full"
           size="large"
           onClick={onSubmitBasket}
           isLoading={isLoadingcreateOrderDraft}
