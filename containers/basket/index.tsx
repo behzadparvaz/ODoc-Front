@@ -166,7 +166,7 @@ const Page = () => {
                 isLoading={isLoadingcreateOrderDraft}
                 disabled={isLoadingDeleteBasket}
               >
-                تأیید و ادامه
+                تأیید و ادامه خرید
               </Button>
               <Button
                 variant="secondary"
@@ -176,7 +176,7 @@ const Page = () => {
                 isLoading={isLoadingDeleteBasket}
                 disabled={isLoadingcreateOrderDraft || isDisabled}
               >
-                ادامه فرآیند خرید
+                افزودن کالای جدید
               </Button>
             </>
 

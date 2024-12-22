@@ -9,16 +9,15 @@ import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { TextInput as Input } from '@com/_atoms/NewTextInput';
-import SelectAddressAction from '@com/_molecules/SelectAddressAction';
 import { TickIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
 import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
-import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
 import { AnimatePresence, motion } from 'framer-motion';
+import SelectAddressBasket from '../components/SelectAddressBasket';
 
 const ConfirmBasketContainer = () => {
   //   router
@@ -153,15 +152,15 @@ const ConfirmBasketContainer = () => {
       }}
     >
       <div className="px-4 flex flex-col gap-y-4">
-        <div className="flex flex-col cursor-pointer min-h-[102px] justify-center">
-          <SelectAddressAction />
+        <div className="flex flex-col cursor-pointer justify-center">
+          <SelectAddressBasket />
           {/* <div className="h-[1px] bg-grey-200 w-full mt-4 " /> */}
         </div>
         {/* <div className="flex align-center gap-6">
           <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
           <span>تحویل تا ساعت ۱۸:۳۰</span>
         </div> */}
-        <div className="h-[1px] bg-grey-200 w-full mt-4" />
+        <div className="h-[1px] bg-grey-200 w-full" />
         {/* <div className="flex cursor-pointer align-center">
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
@@ -182,7 +181,7 @@ const ConfirmBasketContainer = () => {
             className="w-full flex items-center z-0"
           />
         </div> */}
-        <AnimatePresence>
+        {/* <AnimatePresence>
           {sendToSomeoneElse.isChecked && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -221,7 +220,7 @@ const ConfirmBasketContainer = () => {
               </div>
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresence> */}
         <div className="w-full">
           <TextAreaInput
             id="description"
@@ -235,31 +234,33 @@ const ConfirmBasketContainer = () => {
             inputClassName="rounded-md"
             label="توضیحات سفارش"
             placeholder="برای داروخانه توضیح بنویسید"
-            rows={5}
+            rows={4}
             value={state.description}
           />
         </div>
-        <div className="w-full">
-          <div className="h-[1px] bg-grey-200 w-full mt-4" />
-          <CheckBox
-            handleChange={() => {}}
-            label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
-            labelClassName="text-sm mr-12 font-normal text-grey-500"
-            name="vendorCode"
-            icon={
-              <TickIcon
-                width={15}
-                height={15}
-                stroke={colors.white}
-                className="mx-auto mt-[1px]"
-              />
-            }
-            boxClassName="w-5 h-5 !top-3 border-grey-800"
-            boxContainerClassName="mr-1 flex justify-center items-center"
-            checked={true}
-            className="w-full flex items-center mb-4 z-0 mt-2"
-          />
-        </div>
+        {basket?.products?.length > 0 && (
+          <div className="w-full">
+            <div className="h-[1px] bg-grey-200 w-full mt-4" />
+            <CheckBox
+              handleChange={() => {}}
+              label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
+              labelClassName="text-xs mr-8 font-normal text-grey-500"
+              name="vendorCode"
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              boxClassName="w-5 h-5 !top-3 border-grey-800"
+              boxContainerClassName="mr-1 flex justify-center items-center"
+              checked={true}
+              className="w-full flex items-center mb-4 z-0 mt-2"
+            />
+          </div>
+        )}
       </div>
       <ActionBar type="singleAction" hasDivider>
         <Button
