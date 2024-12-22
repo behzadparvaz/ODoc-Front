@@ -1,11 +1,11 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapStateAction } from '@redux/map/mapActions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+
+import { setMapStateAction } from '@redux/map/mapActions';
 import useMapApiCalls from '@hooks/useMapApiCalls';
 import { RootState } from '@utilities/interfaces/redux';
-import { MapPinIcon } from '@com/icons';
 
 const parsiMapAccessToken = process.env.NEXT_PUBLIC_PARSI_MAP_TOKEN;
 const token = process.env.NEXT_PUBLIC_PARSI_MAP_API_TOKEN;
@@ -15,7 +15,7 @@ mapboxgl.accessToken = parsiMapAccessToken;
 type Props = {
   parsiMapAddressData?: any;
   loadingAddress?: boolean;
-  addressId?: number;
+  addressId?: number | string;
   className?: string;
   height?: string;
 };
