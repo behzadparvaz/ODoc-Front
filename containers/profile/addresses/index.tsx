@@ -47,9 +47,9 @@ const AddressesContainer = () => {
 
   const renderContent = () => {
     if (isLoading) {
-      <div className="h-full w-full flex justify-center items-center">
-        <Spinner />;
-      </div>;
+      return (
+        <Spinner className="w-full h-full flex justify-center items-center" />
+      );
     }
 
     if (!isLoading && !addressData?.length) {
@@ -60,7 +60,7 @@ const AddressesContainer = () => {
 
     return (
       <>
-        <div className="h-full w-full pb-[84px]">
+        <div className="w-full pb-[84px]">
           <AddressList data={addressData} />
         </div>
 

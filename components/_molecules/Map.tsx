@@ -15,8 +15,6 @@ function Map({
   addressData,
   loadingAddress = false,
   addressId = 0,
-  latitude,
-  longitude,
 }: Props): ReactElement {
   return (
     <>
@@ -24,8 +22,6 @@ function Map({
         addressId={addressId}
         parsiMapAddressData={addressData}
         loadingAddress={loadingAddress}
-        latitude={latitude}
-        longitude={longitude}
       />
       {/* <MapSearch /> */}
     </>

@@ -8,6 +8,7 @@ import {
   UseQueryOptions,
   UseQueryResult,
 } from '@tanstack/react-query';
+
 import {
   AddFamilyMembers,
   AddLocation,
@@ -18,6 +19,7 @@ import {
   GetUserLocation,
   GetUserLocations,
   LoginWithTapsiSSO,
+  UpdateLocation,
   UpdateProfileInfo,
   UserSetPassword,
 } from './user';
@@ -33,15 +35,17 @@ import { Location } from '@utilities/interfaces/location';
 
 export const useAddLocation = ({
   isInAddressPage = false,
+  isInEditAddress = false,
 }: {
   isInAddressPage?: boolean;
+  isInEditAddress?: boolean;
 }) => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
   const { push } = useRouter();
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: AddLocation,
+    mutationFn: isInEditAddress ? UpdateLocation : AddLocation,
     onSuccess: (data: any) => {
       if (data?.length) {
         openNotification({
@@ -64,6 +68,7 @@ export const useAddLocation = ({
     },
   });
 };
+
 export const useDeleteLocation = () => {
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();

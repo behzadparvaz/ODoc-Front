@@ -22,6 +22,7 @@ import FixBottomSection from '@com/_atoms/FixBottomSection';
 import { TextInput } from '@com/_atoms/NewTextInput';
 import ParsiSearchModal from '@com/_organisms/ParsiSearchModal';
 import { useRouter } from 'next/router';
+import { Location } from '@utilities/interfaces/location';
 
 const Map = dynamic(() => import('@com/_molecules/Map'), {
   ssr: false,
@@ -30,15 +31,10 @@ const Button = dynamic(() => import('@com/_atoms/Button'));
 
 interface AddressModalProps {
   addressId?: number | string;
-  latitude?: number;
-  longitude?: number;
+  initialData?: Location;
 }
 
-const AddressModal = ({
-  addressId = 0,
-  latitude,
-  longitude,
-}: AddressModalProps) => {
+const AddressModal = ({ addressId = 0, initialData }: AddressModalProps) => {
   const dispatch = useDispatch();
 
   const { back } = useRouter();
@@ -54,7 +50,7 @@ const AddressModal = ({
     handleClickOnSaveMyLocation,
     parsiMapLocationAddress,
     isLoadingMapsAddress,
-  } = useMapApiCalls(addressId, latitude, longitude);
+  } = useMapApiCalls(addressId, initialData);
 
   const enableAutoLocationButton = () => {
     setIsLoadingPosition(false);
@@ -122,8 +118,6 @@ const AddressModal = ({
             addressData={parsiMapLocationAddress}
             loadingAddress={isLoadingMapsAddress}
             addressId={addressId}
-            latitude={latitude}
-            longitude={longitude}
           />
           <Button
             style={{ direction: 'rtl' }}

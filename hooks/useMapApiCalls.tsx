@@ -7,21 +7,16 @@ import useModal from './useModal';
 import useNotification from './useNotification';
 import AddressDetailsModal from '@com/_organisms/AddressDetailsModal';
 import { useGetParsiMapLocation } from '@api/map/mapApis.rq';
-function useMapApiCalls(
-  addressId: number | string,
-  latitude: number,
-  longitude: number,
-) {
+import { Location } from '@utilities/interfaces/location';
+
+function useMapApiCalls(addressId: number | string, initialData?: Location) {
   const { openNotification } = useNotification();
   const { replaceLastModal } = useModal();
   const [mapAddressesText, setMapAddressesText] = useState<string>();
   const { viewport } = useSelector((state: RootState) => state.mapInfo);
-  console.log('viewport', viewport);
-  const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } =
-    useGetParsiMapLocation(
-      `${[longitude ?? viewport.longitude, latitude ?? viewport.latitude]}`,
-    );
 
+  const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } =
+    useGetParsiMapLocation(`${[viewport.longitude, viewport.latitude]}`);
   const handleClickOnSaveMyLocation = async () => {
     if (
       ParsiMapAddressData?.subdivisions?.shahrestan?.code !== '2301' ||
@@ -43,6 +38,7 @@ function useMapApiCalls(
 
       if (locationAddress || !isEmpty(ParsiMapAddressData)) {
         const data = ParsiMapAddressData;
+        console.log('data', data);
 
         if (errorInSelectedLocation) {
           openNotification({
@@ -56,6 +52,7 @@ function useMapApiCalls(
           replaceLastModal({
             modal: AddressDetailsModal,
             props: {
+              initialData: initialData,
               addressData: data,
               addressId,
             },

@@ -1,11 +1,11 @@
 import { CSSProperties, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setMapStateAction } from '@redux/map/mapActions';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import mapboxgl from 'mapbox-gl';
+
+import { setMapStateAction } from '@redux/map/mapActions';
 import useMapApiCalls from '@hooks/useMapApiCalls';
 import { RootState } from '@utilities/interfaces/redux';
-import { MapPinIcon } from '@com/icons';
 
 const parsiMapAccessToken = process.env.NEXT_PUBLIC_PARSI_MAP_TOKEN;
 const token = process.env.NEXT_PUBLIC_PARSI_MAP_API_TOKEN;
@@ -18,8 +18,6 @@ type Props = {
   addressId?: number | string;
   className?: string;
   height?: string;
-  latitude?: number;
-  longitude?: number;
 };
 
 function ParsiMapContent({
@@ -28,8 +26,6 @@ function ParsiMapContent({
   height = '100%',
   loadingAddress = false,
   addressId = 0,
-  latitude,
-  longitude,
 }: Props) {
   let MarkerIcon;
   useEffect(() => {
@@ -48,7 +44,7 @@ function ParsiMapContent({
     mapAddressesText,
     isLoadingMapsAddress,
     setMapAddressesText,
-  } = useMapApiCalls(addressId, latitude, longitude);
+  } = useMapApiCalls(addressId);
   const { viewport, defaultViewPort, filteredCities } = useSelector(
     (state: RootState) => state.mapInfo,
   );
