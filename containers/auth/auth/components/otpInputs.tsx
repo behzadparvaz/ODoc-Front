@@ -106,7 +106,6 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
             if (err.name !== 'AbortError') {
               console.error('OTP autofill error:', err);
             }
-            ac.abort();
           });
 
         return () => {
