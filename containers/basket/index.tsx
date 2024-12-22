@@ -116,7 +116,7 @@ const Page = () => {
           }
         >
           {isLoadingDeleteBasket ? (
-            <LoadingSpinner />
+            <LoadingSpinner color="danger" />
           ) : (
             <Icon
               name="Trash"
