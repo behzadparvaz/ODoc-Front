@@ -47,7 +47,7 @@ const RXRegistration = () => {
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
-        refetchGetBasket();
+        // refetchGetBasket();
         router.push(routeList.basket);
       },
     });

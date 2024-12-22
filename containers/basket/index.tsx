@@ -39,19 +39,28 @@ const Page = () => {
 
   const {
     data: basket,
+    isPending,
     isLoading,
+    isFetching,
     refetch: refetchGetBasket,
+    isFetchedAfterMount,
+    isRefetching,
   } = useGetCurrentBasket({ enabled: true });
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
   //     setTimeOutLoading(true);
-  //   }, 100);
+  //   }, 2000);
 
   //   return () => {
   //     clearTimeout(timer);
   //   };
   // }, []);
+
+  console.log('isFetchedAfterMount', isFetchedAfterMount);
+  console.log('isRefetching', isRefetching);
+  console.log('isPending', isPending);
+  console.log('isFetching', isFetching);
   console.log('isLoading', isLoading);
   const { mutate: deleteBasket, isPending: isLoadingDeleteBasket } =
     useDeleteCurrentBasket({
@@ -81,18 +90,18 @@ const Page = () => {
     },
   });
 
-  const products = useMemo(() => {
-    const basketProducts = basket?.products?.map((item) => {
-      if (item?.productType?.id === 3) {
-        return {
-          ...item,
-          imageLink: '/images/fast-order.png',
-        };
-      } else return item;
-    });
+  // const products = useMemo(() => {
+  //   const basketProducts = basket?.products?.map((item) => {
+  //     if (item?.productType?.id === 3) {
+  //       return {
+  //         ...item,
+  //         imageLink: '/images/fast-order.png',
+  //       };
+  //     } else return item;
+  //   });
 
-    return basketProducts ?? [];
-  }, [basket]);
+  //   return basketProducts ?? [];
+  // }, [basket]);
 
   return (
     <MainLayout
@@ -112,7 +121,7 @@ const Page = () => {
           variant="text"
           disabled={
             isLoadingDeleteBasket ||
-            (products.length < 0 && !basket?.refrenceNumber)
+            (basket?.products?.length < 0 && !basket?.refrenceNumber)
           }
         >
           {isLoadingDeleteBasket ? (
@@ -123,7 +132,7 @@ const Page = () => {
               width={1.5}
               height={1.5}
               fill={
-                products.length > 0 || !!basket?.refrenceNumber
+                basket?.products?.length > 0 || !!basket?.refrenceNumber
                   ? colors.red[400]
                   : colors.grey[400]
               }
@@ -134,12 +143,17 @@ const Page = () => {
     >
       <div className="pb-[85px]">
         <Content
-          products={products}
-          isLoading={isLoading || !timeOutLoading}
+          products={basket?.products}
+          isLoading={
+            isLoading
+            // || !timeOutLoading
+          }
           isSpecialPatient={basket?.isSpecialPatient}
           refetchBasketHandler={refetchGetBasket}
           isOrderInProgress={!!draftData}
-          isEmpty={!products?.length && !basket?.refrenceNumber && !draftData}
+          isEmpty={
+            !basket?.products?.length && !basket?.refrenceNumber && !draftData
+          }
           prescriptionId={basket?.refrenceNumber}
         />
 
@@ -156,7 +170,7 @@ const Page = () => {
         !draftData && (
           <ActionBar
             type="twoActionHorizontal"
-            hasDivider={products.length > 0}
+            hasDivider={basket?.products?.length > 0}
             className="flex-row-reverse"
           >
             <>
