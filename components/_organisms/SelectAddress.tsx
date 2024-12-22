@@ -16,10 +16,9 @@ import {
 import { MainLayout } from '@com/Layout';
 import useStorage from '@hooks/useStorage';
 import { routeList } from '@routes/routeList';
+import { Location } from '@utilities/interfaces/location';
 
 import ParsiMapBottomSheet from './ParsiMapBottomSheet';
-import { Location } from '@utilities/interfaces/location';
-import { init } from 'next/dist/compiled/webpack/webpack';
 
 const SelectAddress = () => {
   const { getItem } = useStorage();
@@ -52,8 +51,8 @@ const SelectAddress = () => {
     addModal({
       modal: ParsiMapBottomSheet,
       props: {
-        latitude: item?.latitude,
-        longitude: item?.longitude,
+        latitude: !!item ? item?.latitude : defaultViewPort.latitude,
+        longitude: !!item ? item?.longitude : defaultViewPort.longitude,
         addressId: item?.id ?? 0,
         initialData: item,
         onChangeLoc: (latLng) =>
