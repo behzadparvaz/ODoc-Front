@@ -8,7 +8,6 @@ import { useGetProfile } from '@api/user/user.rq';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
-import { TextInput as Input } from '@com/_atoms/NewTextInput';
 import { TickIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
@@ -16,13 +15,12 @@ import { colors } from '@configs/Theme';
 import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
-import { AnimatePresence, motion } from 'framer-motion';
 import SelectAddressBasket from '../components/SelectAddressBasket';
+import Icon from '@utilities/icon';
+import Divider from '@com/_atoms/Divider';
 
 const ConfirmBasketContainer = () => {
-  //   router
   const router = useRouter();
-  //   states
   const [state, setState] = useState({
     description: '',
   });
@@ -38,12 +36,10 @@ const ConfirmBasketContainer = () => {
       phoneRecipient: '',
     });
   };
-  //   notification
   const { openNotification } = useNotification();
-  //   redux
+
   const { user } = useSelector((state: RootState) => state?.user);
 
-  //   apis
   const { data: profileQuery, isLoading: isLoadingProfile } = useGetProfile({
     enabled: true,
   });
@@ -63,7 +59,6 @@ const ConfirmBasketContainer = () => {
       },
     });
 
-  //   actions
   const onSubmitBasket = () => {
     const { defaultAddress } = user;
     const products =
@@ -238,9 +233,11 @@ const ConfirmBasketContainer = () => {
             value={state.description}
           />
         </div>
+
+        <Divider padding={0} />
+
         {basket?.products?.length > 0 && (
           <div className="w-full">
-            <div className="h-[1px] bg-grey-200 w-full mt-4" />
             <CheckBox
               handleChange={() => {}}
               label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
@@ -254,13 +251,40 @@ const ConfirmBasketContainer = () => {
                   className="mx-auto mt-[1px]"
                 />
               }
-              boxClassName="w-5 h-5 !top-3 border-grey-800"
+              boxClassName="w-5 h-5 !top-3 border-grey-800 rounded-md"
               boxContainerClassName="mr-1 flex justify-center items-center"
               checked={true}
-              className="w-full flex items-center mb-4 z-0 mt-2"
+              className="w-full flex items-center z-0 mt-2"
             />
           </div>
         )}
+        <div className="grid grid-cols-[28px_1fr] items-center gap-x-2">
+          <div className="flex items-center justify-center">
+            <Icon
+              name="CircleExclamationFill"
+              width={1.25}
+              height={1.25}
+              fill={colors.red[300]}
+            />
+          </div>
+          <span className="text-xs text-content-secondary">
+            پس از ثبت ، سفارش شما به داروخانه هاى اطراف جهت تعيين قيمت ارسال شده
+            و از طريق پيامک اطلاع رسانى مى شود.
+          </span>
+        </div>
+        <div className="grid grid-cols-[28px_1fr] items-center gap-x-2">
+          <div className="flex items-center justify-center">
+            <Icon
+              name="CircleExclamationFill"
+              width={1.25}
+              height={1.25}
+              fill={colors.red[300]}
+            />
+          </div>
+          <span className="text-xs text-content-secondary">
+            قيمت اعلام شده دارو ها بر اساس نرخ مصوب سازمان غذا و دارو مى باشد.
+          </span>
+        </div>
       </div>
       <ActionBar type="singleAction" hasDivider>
         <Button
