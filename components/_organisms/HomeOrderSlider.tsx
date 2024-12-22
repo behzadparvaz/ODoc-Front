@@ -3,10 +3,32 @@ import classNames from 'classnames';
 import { useGetCurrentOrder } from '@api/order/orderApis.rq';
 
 import HomeOrderItem from '@com/_molecules/homeOrderItem';
+import { useEffect, useRef } from 'react';
 
 const HomeOrderSlider = () => {
   // const { data: quickOrderData } = useGetActiveOrderStatus();
-  const { data: currentOrder } = useGetCurrentOrder();
+  const {
+    data: currentOrder,
+    refetch,
+    isFetched,
+    isRefetching,
+    status,
+  }: any = useGetCurrentOrder();
+  const refInterval = useRef(null);
+
+  useEffect(() => {
+    if (status === 'error' || isFetched) {
+      clearInterval(refInterval.current);
+    }
+    refInterval.current = setInterval(() => {
+      if (status === 'success' && !isRefetching) {
+        refetch();
+      }
+    }, 30000);
+
+    return () => clearInterval(refInterval.current);
+  }, [currentOrder, refetch, status, isRefetching]);
+
   return (
     <>
       {currentOrder ? (

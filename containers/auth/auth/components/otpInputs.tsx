@@ -1,3 +1,5 @@
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
 import React, {
   forwardRef,
   useEffect,
@@ -29,6 +31,7 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
       Array(length).fill(null),
     );
     const [OTP, setOTP] = useState<string[]>(Array(length).fill(''));
+    const { pathname } = useRouter();
 
     useImperativeHandle(ref, () => ({
       getOTP: () => OTP.join(''),
@@ -79,7 +82,7 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
     }, []);
 
     useEffect(() => {
-      if ('OTPCredential' in window) {
+      if ('OTPCredential' in window && pathname === routeList.loginRoute) {
         const ac = new AbortController();
 
         const options: OTPRequestOptions = {
@@ -95,6 +98,7 @@ const OTPInput = forwardRef<IOtpInputRef, InputProps>(
               if (extractedOTP) {
                 setOTP(extractedOTP.split(''));
                 onComplete(extractedOTP);
+                ac.abort();
               }
             }
           })

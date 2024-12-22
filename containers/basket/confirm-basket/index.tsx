@@ -1,10 +1,14 @@
+import { useRouter } from 'next/router';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
-import SelectAddressAction from '@com/_molecules/SelectAddressAction';
+import { TextInput as Input } from '@com/_atoms/NewTextInput';
 import { TickIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
@@ -12,9 +16,8 @@ import { colors } from '@configs/Theme';
 import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { RootState } from '@utilities/types';
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { AnimatePresence, motion } from 'framer-motion';
+import SelectAddressBasket from '../components/SelectAddressBasket';
 
 const ConfirmBasketContainer = () => {
   //   router
@@ -23,6 +26,18 @@ const ConfirmBasketContainer = () => {
   const [state, setState] = useState({
     description: '',
   });
+  const [sendToSomeoneElse, setSendToSomeoneElse] = useState({
+    isChecked: false,
+    recipient: '',
+    phoneRecipient: '',
+  });
+  const handleToggleSendToSomeoneElse = () => {
+    setSendToSomeoneElse({
+      isChecked: !sendToSomeoneElse.isChecked,
+      recipient: '',
+      phoneRecipient: '',
+    });
+  };
   //   notification
   const { openNotification } = useNotification();
   //   redux
@@ -61,7 +76,24 @@ const ConfirmBasketContainer = () => {
         unit: pr.unit,
         productType: pr?.productType?.id,
       })) ?? [];
-
+    if (sendToSomeoneElse.isChecked) {
+      if (!sendToSomeoneElse.recipient) {
+        openNotification({
+          type: 'error',
+          message: 'نام گیرنده را وارد کنید',
+          notifType: 'successOrFailedMessage',
+        });
+        return;
+      }
+      if (!sendToSomeoneElse.phoneRecipient) {
+        openNotification({
+          type: 'error',
+          message: 'شماره تلفن گیرنده را وارد کنید',
+          notifType: 'successOrFailedMessage',
+        });
+        return;
+      }
+    }
     if (!defaultAddress?.id) {
       openNotification({
         type: 'error',
@@ -85,7 +117,6 @@ const ConfirmBasketContainer = () => {
       longitude: defaultAddress?.longitude,
       titleAddress: defaultAddress?.name,
       valueAddress: defaultAddress?.description,
-
       referenceNumber: basket?.refrenceNumber,
       insuranceTypeId: basket?.insuranceType,
       supplementaryInsuranceTypeId: basket?.supplementaryInsuranceType,
@@ -99,7 +130,10 @@ const ConfirmBasketContainer = () => {
               productType: 1,
             },
           ],
-
+      ...(sendToSomeoneElse.isChecked && {
+        recipient: sendToSomeoneElse.recipient,
+        phoneRecipient: sendToSomeoneElse.phoneRecipient,
+      }),
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
     };
@@ -117,11 +151,76 @@ const ConfirmBasketContainer = () => {
         router?.push(routeList?.basket);
       }}
     >
-      <div className="px-4">
-        <div className="flex flex-col cursor-pointer min-h-[102px] justify-center">
-          <SelectAddressAction />
-          <div className="h-[1px] bg-grey-200 w-full mt-4 " />
+      <div className="px-4 flex flex-col gap-y-4">
+        <div className="flex flex-col cursor-pointer justify-center">
+          <SelectAddressBasket />
+          {/* <div className="h-[1px] bg-grey-200 w-full mt-4 " /> */}
         </div>
+        {/* <div className="flex align-center gap-6">
+          <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
+          <span>تحویل تا ساعت ۱۸:۳۰</span>
+        </div> */}
+        <div className="h-[1px] bg-grey-200 w-full" />
+        {/* <div className="flex cursor-pointer align-center">
+          <CheckBox
+            handleChange={handleToggleSendToSomeoneElse}
+            label="ارسال برای دیگری"
+            labelClassName="text-md mr-12 font-bold text-black"
+            name="sendToSomeoneElse"
+            icon={
+              <TickIcon
+                width={15}
+                height={15}
+                stroke={colors.white}
+                className="mx-auto mt-[1px]"
+              />
+            }
+            boxClassName="w-5 h-5 border !top-3 border-grey-800"
+            boxContainerClassName="mr-1 flex justify-center items-center"
+            checked={sendToSomeoneElse?.isChecked}
+            className="w-full flex items-center z-0"
+          />
+        </div> */}
+        {/* <AnimatePresence>
+          {sendToSomeoneElse.isChecked && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{
+                display: sendToSomeoneElse.isChecked ? 'block' : 'none',
+                opacity: sendToSomeoneElse.isChecked ? 1 : 0,
+                height: sendToSomeoneElse.isChecked ? 'auto' : 0,
+              }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="flex flex-col gap-y-2"
+            >
+              <div className="flex flex-col gap-y-2">
+                <Input
+                  id="recipient"
+                  onChange={(e) => {
+                    setSendToSomeoneElse({
+                      ...sendToSomeoneElse,
+                      recipient: e?.target?.value,
+                    });
+                  }}
+                  placeholder="نام تحویل گیرنده"
+                />
+                <Input
+                  id="phone-recipient"
+                  inputMode="numeric"
+                  maxLength={11}
+                  onChange={(e) => {
+                    setSendToSomeoneElse({
+                      ...sendToSomeoneElse,
+                      phoneRecipient: e?.target?.value,
+                    });
+                  }}
+                  placeholder="شماره تلفن گیرنده"
+                />
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence> */}
         <div className="w-full">
           <TextAreaInput
             id="description"
@@ -131,39 +230,41 @@ const ConfirmBasketContainer = () => {
                 description: e?.target?.value,
               });
             }}
-            labelClassName="text-base font-medium mt-5"
+            labelClassName="text-base font-medium"
             inputClassName="rounded-md"
             label="توضیحات سفارش"
             placeholder="برای داروخانه توضیح بنویسید"
-            rows={5}
+            rows={4}
             value={state.description}
           />
         </div>
-        <div>
-          <div className="h-[1px] bg-grey-200 w-full mt-4" />
-          <CheckBox
-            handleChange={() => {}}
-            label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
-            labelClassName="text-sm mr-16 font-normal text-grey-500"
-            name="vendorCode"
-            icon={
-              <TickIcon
-                width={15}
-                height={15}
-                stroke={colors.white}
-                className="mx-auto mt-[1px]"
-              />
-            }
-            boxClassName="w-5 h-5 !top-3 border-grey-800"
-            boxContainerClassName="min-w-[64px] min-h-[64px] flex justify-center items-center"
-            checked={true}
-            className="w-full flex items-center mb-4 z-0 mt-2"
-          />
-        </div>
+        {basket?.products?.length > 0 && (
+          <div className="w-full">
+            <div className="h-[1px] bg-grey-200 w-full mt-4" />
+            <CheckBox
+              handleChange={() => {}}
+              label="اینجانب با مشورت پزشک نسبت به خرید داروی بدون نسخه اقدام کرده ام. "
+              labelClassName="text-xs mr-8 font-normal text-grey-500"
+              name="vendorCode"
+              icon={
+                <TickIcon
+                  width={15}
+                  height={15}
+                  stroke={colors.white}
+                  className="mx-auto mt-[1px]"
+                />
+              }
+              boxClassName="w-5 h-5 !top-3 border-grey-800"
+              boxContainerClassName="mr-1 flex justify-center items-center"
+              checked={true}
+              className="w-full flex items-center mb-4 z-0 mt-2"
+            />
+          </div>
+        )}
       </div>
       <ActionBar type="singleAction" hasDivider>
         <Button
-          variant="primary"
+          variant="brand"
           className="w-full"
           size="large"
           onClick={onSubmitBasket}
