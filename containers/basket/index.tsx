@@ -18,6 +18,7 @@ import { useGetCarousels } from '@api/promotion/promotion.rq';
 import { colors } from '@configs/Theme';
 import Icon from '@utilities/icon';
 import LoadingSpinner from '@com/_atoms/LoadingSpinner';
+import Spinner from '@com/_atoms/Spinner';
 
 const Content = dynamic(() => import('./components/Content'));
 
@@ -142,20 +143,24 @@ const Page = () => {
       }
     >
       <div className="pb-[85px]">
-        <Content
-          products={basket?.products}
-          isLoading={
-            isLoading
-            // || !timeOutLoading
-          }
-          isSpecialPatient={basket?.isSpecialPatient}
-          refetchBasketHandler={refetchGetBasket}
-          isOrderInProgress={!!draftData}
-          isEmpty={
-            !basket?.products?.length && !basket?.refrenceNumber && !draftData
-          }
-          prescriptionId={basket?.refrenceNumber}
-        />
+        {isFetching ? (
+          <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
+        ) : (
+          <Content
+            products={basket?.products}
+            // isLoading={
+            //   isFetching
+            //   // || !timeOutLoading
+            // }
+            isSpecialPatient={basket?.isSpecialPatient}
+            refetchBasketHandler={refetchGetBasket}
+            isOrderInProgress={!!draftData}
+            isEmpty={
+              !basket?.products?.length && !basket?.refrenceNumber && !draftData
+            }
+            prescriptionId={basket?.refrenceNumber}
+          />
+        )}
 
         <CarouselLine
           data={getCarouselDataData(4)}

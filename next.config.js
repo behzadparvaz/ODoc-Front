@@ -4,6 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const packageJson = require('./package.json');
+const { strict } = require('assert');
 
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
@@ -37,6 +38,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 const nextConfig = {
   distDir: 'build',
   swcMinify: true,
+  reactStrictMode: false,
   images: {
     domains: [
       'trustseal.eNamad.ir',
