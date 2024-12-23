@@ -268,8 +268,8 @@ const ConfirmBasketContainer = () => {
             />
           </div>
           <span className="text-xs text-content-secondary">
-            پس از ثبت ، سفارش شما به داروخانه هاى اطراف جهت تعيين قيمت ارسال شده
-            و از طريق پيامک اطلاع رسانى مى شود.
+            پس از ثبت، سفارش شما به داروخانه هاى اطراف جهت تعيين قيمت ارسال شده
+            و نتيجه از طريق پيامك اطلاع رسانى مى شود.
           </span>
         </div>
         <div className="grid grid-cols-[28px_1fr] items-center gap-x-2">
@@ -282,7 +282,8 @@ const ConfirmBasketContainer = () => {
             />
           </div>
           <span className="text-xs text-content-secondary">
-            قيمت اعلام شده دارو ها بر اساس نرخ مصوب سازمان غذا و دارو مى باشد.
+            قيمت داروها بر اساس نرخ مصوب سازمان عذا و دارو مى باشد و توسط
+            داروخانه اعلام مى گردد.
           </span>
         </div>
       </div>
