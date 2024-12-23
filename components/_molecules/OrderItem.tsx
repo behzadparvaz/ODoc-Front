@@ -51,7 +51,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
     const filteredItems = data?.orderDetails?.filter(
       (item) => !item?.referenceNumber,
     );
-    filteredItems?.forEach((item) => {
+    const items = filteredItems?.map((item) => {
       if (!!item?.alternatives?.length) {
         return {
           description: item?.alternatives?.[0]?.description,
@@ -77,7 +77,7 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
     addListToBasket({
       nationalCode: data?.customer?.nationalCode,
-      items: filteredItems,
+      items: items,
     });
   };
 
