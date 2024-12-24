@@ -42,7 +42,6 @@ const AuthContainer = () => {
     setState((prev) => ({
       ...prev,
       data: { ...prev.data, phone, securityStamp },
-      step: 'otp',
     }));
   };
 
@@ -51,6 +50,10 @@ const AuthContainer = () => {
   };
 
   const mutateSubmitHandler = (phoneNumber: string) => {
+    setState((prev) => ({
+      ...prev,
+      step: 'otp',
+    }));
     mutateAuthLoginWithOtp(
       { phoneNumber },
       {
