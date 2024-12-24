@@ -32,6 +32,17 @@ export const updateCountProductBasket = async ({
     quantity,
   });
 
+export type Rxbasket = {
+  refrenceNumber: string;
+  nationalCode: string;
+  phoneNumber: string;
+  insuranceTypeId?: number;
+  supplementaryInsuranceType?: number | null;
+  isSpecialPatient?: boolean;
+  vendorCode: string;
+  orderType: string;
+};
+
 export type ProductBasket = {
   irc?: string;
   quantity: number;
@@ -44,7 +55,7 @@ export type ProductsListBasket = {
   nationalCode: string;
   items: ProductBasket[];
 };
-export type BasketPayload = ProductBasket | ProductBasket[];
+export type BasketPayload = Rxbasket | ProductBasket | ProductBasket[];
 
 export const addProductToBasket = async (payload: BasketPayload) => {
   await request.post('/Baskets/AddToCart', payload);

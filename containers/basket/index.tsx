@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import {
@@ -7,16 +7,14 @@ import {
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
-
+import Icon from '@utilities/icon';
 import { Button } from '@com/_atoms/NewButton';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
-
 import { routeList } from '@routes/routeList';
 import CarouselLine from '@com/_molecules/CarouselLine';
 import { useGetCarousels } from '@api/promotion/promotion.rq';
 import { colors } from '@configs/Theme';
-import Icon from '@utilities/icon';
 import LoadingSpinner from '@com/_atoms/LoadingSpinner';
 
 const Content = dynamic(() => import('./components/Content'));
@@ -25,7 +23,6 @@ const Page = () => {
   const router = useRouter();
 
   const [isDisabled, setIsDisabled] = useState(false);
-  const [timeOutLoading, setTimeOutLoading] = useState(false);
 
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
@@ -39,19 +36,11 @@ const Page = () => {
 
   const {
     data: basket,
-    isLoading,
+    isFetching: isLoading,
     refetch: refetchGetBasket,
-  } = useGetCurrentBasket({ enabled: true });
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTimeOutLoading(true);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  } = useGetCurrentBasket({
+    enabled: true,
+  });
 
   const { mutate: deleteBasket, isPending: isLoadingDeleteBasket } =
     useDeleteCurrentBasket({
@@ -65,34 +54,18 @@ const Page = () => {
         }, 2000);
       },
     });
-  const {
-    mutate: createOrderDraft,
-    data: draftData,
-    isPending: isLoadingcreateOrderDraft,
-  } = useCreateOrderDraft({
-    onMutate: () => {
-      setIsDisabled(true);
-    },
-    onSuccess: () => {
-      refetchGetBasket();
-      setTimeout(() => {
-        setIsDisabled(false);
-      }, 2000);
-    },
-  });
-
-  const products = useMemo(() => {
-    const basketProducts = basket?.products?.map((item) => {
-      if (item?.productType?.id === 3) {
-        return {
-          ...item,
-          imageLink: '/images/fast-order.png',
-        };
-      } else return item;
+  const { data: draftData, isPending: isLoadingcreateOrderDraft } =
+    useCreateOrderDraft({
+      onMutate: () => {
+        setIsDisabled(true);
+      },
+      onSuccess: () => {
+        refetchGetBasket();
+        setTimeout(() => {
+          setIsDisabled(false);
+        }, 2000);
+      },
     });
-
-    return basketProducts ?? [];
-  }, [basket]);
 
   return (
     <MainLayout
@@ -101,7 +74,7 @@ const Page = () => {
       headerType="withoutLogo"
       hasBackButton
       backIconHandler={() => {
-        if (!isLoadingcreateOrderDraft || isLoadingDeleteBasket) {
+        if (!isLoadingcreateOrderDraft && !isLoadingDeleteBasket) {
           router?.push(routeList?.homeRoute);
         }
       }}
@@ -112,7 +85,7 @@ const Page = () => {
           variant="text"
           disabled={
             isLoadingDeleteBasket ||
-            (products.length < 0 && !basket?.refrenceNumber)
+            (basket?.products?.length < 0 && !basket?.refrenceNumber)
           }
         >
           {isLoadingDeleteBasket ? (
@@ -123,7 +96,7 @@ const Page = () => {
               width={1.5}
               height={1.5}
               fill={
-                products.length > 0 || !!basket?.refrenceNumber
+                basket?.products?.length > 0 || !!basket?.refrenceNumber
                   ? colors.red[400]
                   : colors.grey[400]
               }
@@ -134,12 +107,14 @@ const Page = () => {
     >
       <div className="pb-[85px]">
         <Content
-          products={products}
-          isLoading={isLoading || !timeOutLoading}
+          products={basket?.products}
+          isLoading={isLoading}
           isSpecialPatient={basket?.isSpecialPatient}
           refetchBasketHandler={refetchGetBasket}
           isOrderInProgress={!!draftData}
-          isEmpty={!products?.length && !basket?.refrenceNumber && !draftData}
+          isEmpty={
+            !basket?.products?.length && !basket?.refrenceNumber && !draftData
+          }
           prescriptionId={basket?.refrenceNumber}
         />
 
@@ -156,7 +131,7 @@ const Page = () => {
         !draftData && (
           <ActionBar
             type="twoActionHorizontal"
-            hasDivider={products.length > 0}
+            hasDivider={basket?.products?.length > 0}
             className="flex-row-reverse"
           >
             <>

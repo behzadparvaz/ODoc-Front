@@ -19,6 +19,7 @@ import {
   useQuery,
   UseQueryResult,
 } from '@tanstack/react-query';
+import { Basket } from '@utilities/interfaces/basket';
 import { useRouter } from 'next/router';
 
 export const useGetCurrentBasket = <TQuery = Basket>(
@@ -31,7 +32,7 @@ export const useGetCurrentBasket = <TQuery = Basket>(
     queryKey: ['getCurrentBasket'],
     queryFn: () => getCurrentBasket(),
     refetchOnMount: 'always',
-    enabled: token ? true : false,
+    enabled: !!token,
     ...options,
   });
 };

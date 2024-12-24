@@ -30,7 +30,7 @@ type ProductInBasket = {
   };
 };
 
-interface Basket {
+export interface Basket {
   id: string;
   refrenceCode: string;
   nationalCode: string | null;

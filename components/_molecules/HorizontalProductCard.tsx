@@ -11,6 +11,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ScrollSlider from './ScrollSlider.nd';
+import { Basket } from '@utilities/interfaces/basket';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;
@@ -39,6 +40,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         res?.products?.map((pr) => [pr.irc, pr]),
       ),
     }),
+    refetchOnMount: false,
   });
   const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
     () => {
