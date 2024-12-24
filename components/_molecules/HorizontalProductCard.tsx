@@ -11,7 +11,6 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import ScrollSlider from './ScrollSlider.nd';
-import { Basket } from '@utilities/interfaces/basket';
 
 type ProductCardProps<PrT> = {
   prInfo: PrT;

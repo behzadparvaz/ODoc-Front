@@ -1,4 +1,8 @@
-import PrescriptionContainer from '@containers/medicine/prescription';
+import dynamic from 'next/dynamic';
+
+const PrescriptionContainer = dynamic(
+  () => import('@containers/medicine/prescription'),
+);
 
 const PrescriptionPage = () => {
   return <PrescriptionContainer />;
