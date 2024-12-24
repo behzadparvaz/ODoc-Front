@@ -1,9 +1,11 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 
-import RXRegistration from '@com/_organisms/RXRegistration';
 import { MainLayout } from '@com/Layout';
 import { useGetProfile } from '@api/user/user.rq';
-import Spinner from '@com/_atoms/Spinner';
+
+const Spinner = dynamic(() => import('@com/_atoms/Spinner'));
+const RXRegistration = dynamic(() => import('@com/_organisms/RXRegistration'));
 
 const PrescriptionContainer = () => {
   const { query } = useRouter();

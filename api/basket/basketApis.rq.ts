@@ -19,7 +19,6 @@ import {
   useQuery,
   UseQueryResult,
 } from '@tanstack/react-query';
-import { Basket } from '@utilities/interfaces/basket';
 import { useRouter } from 'next/router';
 
 export const useGetCurrentBasket = <TQuery = Basket>(

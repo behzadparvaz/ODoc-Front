@@ -28,7 +28,7 @@ type RxRegistrationProps = {
   userInfo?: any;
 };
 
-const RXRegistration = ({ userInfo }: RxRegistrationProps) => {
+const RxRegistration = ({ userInfo }: RxRegistrationProps) => {
   const { query } = useRouter();
 
   const { data: insurances } = useGetInsurances();
@@ -332,4 +332,4 @@ const RXRegistration = ({ userInfo }: RxRegistrationProps) => {
   );
 };
 
-export default RXRegistration;
+export default RxRegistration;
