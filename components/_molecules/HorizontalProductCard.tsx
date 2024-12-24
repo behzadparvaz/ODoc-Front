@@ -39,6 +39,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
         res?.products?.map((pr) => [pr.irc, pr]),
       ),
     }),
+    refetchOnMount: false,
   });
   const [productBasketQuantity, setProductBasketQuantity] = useState<number>(
     () => {

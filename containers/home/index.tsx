@@ -23,7 +23,6 @@ const HomeContainer = () => {
   const { data: bannerData, isLoading: bannerIsLoading } = useGetBanners();
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
-  const tapsiLinkRef = useRef(null);
 
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
@@ -40,20 +39,8 @@ const HomeContainer = () => {
     lng: userLatLng?.longitude,
   });
 
-  const url =
-    'https://accounts.tapsi.ir/login?client_id=doctor.tapsi&redirect_uri=https://tapsi.doctor/app&response_type=code&scope=tapsidoctor_access&prompt=none';
-
-  useEffect(() => {
-    const query: any = searchParamToObject(window?.location?.search);
-    const isFromTapsi = query?.utm_source && query?.utm_source === 'TAPSI';
-    if (isFromTapsi) {
-      tapsiLinkRef?.current?.click();
-    }
-  }, []);
-
   return (
     <>
-      <a href={url} ref={tapsiLinkRef} className="hidden" />
       <MainLayout
         hasHeader
         headerType="WithLogo"

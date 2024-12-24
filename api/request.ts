@@ -1,6 +1,6 @@
-import { getLocalStorageToken } from '@utilities/localStorageUtils';
+import { getLocalStorageToken, setLocalStorageToken } from '@utilities/localStorageUtils';
 import { routeList } from '@routes/routeList';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -16,6 +16,8 @@ process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
 class Request {
   token: string;
+  private isRefreshing: boolean = false;
+  private pendingRequests: Array<{ resolve: Function; reject: Function }> = [];
 
   constructor() {
     axios.defaults.headers.common['Content-Type'] = 'application/json;';
@@ -47,6 +49,36 @@ class Request {
     });
   }
 
+  private processQueue(error: any, token: string | null = null) {
+    this.pendingRequests.forEach((prom) => {
+      if (error) {
+        prom.reject(error);
+      } else {
+        prom.resolve(token);
+      }
+    });
+    this.pendingRequests = [];
+  }
+
+  private async refreshToken(): Promise<string | null> {
+    try {
+      const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${getLocalStorageToken()}`
+        }
+      });
+      const newAccessToken = response.data.data.token;
+      setLocalStorageToken(newAccessToken);
+      this.setToken(newAccessToken);
+      return newAccessToken;
+    } catch (error) {
+      console.error("Failed to refresh token", error);
+      setLocalStorageToken(null);
+      return null;
+    }
+  }
+
   axiosInstance(options?: optionsLayout) {
     const instance = axios.create({
       baseURL: API_URL,
@@ -71,35 +103,60 @@ class Request {
       (res) => {
         return res;
       },
-      async (error) => {
+      async (error: AxiosError) => {
+        // Log server-side errors
         if (typeof window === 'undefined') {
           console.log('Server-Side Logs:');
           this.logError('API error: ', error);
         }
+
+        // Check if the response status indicates an error
         if (error?.response?.status >= 400) {
-          try {
-            console.log(
-              `Frontend log: API error occurred with status of ${error?.response?.status}`,
-            );
-            if (error?.response?.status === 401) {
-              router.push(routeList.logoutRoute);
+          console.log(`Frontend log: API error occurred with status of ${error?.response?.status}`);
+
+          // Handle unauthorized access
+          if (error?.response?.status === 401) {
+            if (!this.isRefreshing) {
+              this.isRefreshing = true;
+
+              try {
+                const token = await this.refreshToken();
+                if (token) {
+                  this.setToken(token);
+                  error.config.headers['Authorization'] = `Bearer ${token}`;
+                  this.processQueue(null, token);
+                  return instance(error.config); // Retry original request
+                } else {
+                  // If no token is returned, redirect to login
+                  router.push(routeList.loginRoute);
+                }
+              } catch (refreshError) {
+                console.error('Token refresh failed:', refreshError);
+                // Redirect to login on refresh token failure
+              } finally {
+                this.isRefreshing = false;
+              }
+
+              // If we are waiting for a token refresh, handle pending requests
+              return new Promise((resolve, reject) => {
+                this.pendingRequests.push({ resolve, reject });
+              }).then((token) => {
+                error.config.headers['Authorization'] = `Bearer ${token}`;
+                return instance(error.config); // Retry original request
+              });
             }
-            if (options?.returnError) {
-              const data = JSON.parse(error?.request?.response)
-              // return { data: data }
-            }
-          } catch {
-            console.log(
-              `Frontend log: API error occurred with status of ${error?.response?.status} - serverside`,
-              error,
-            );
           }
+
+          // Log additional errors on the frontend
+          console.log(`Frontend log: API error occurred with status of ${error?.response?.status} - serverside`, error);
         }
-        return Promise.reject(error)
-      },
+
+        return Promise.reject(error);
+      }
     );
 
     return instance;
+
   }
 
   post(

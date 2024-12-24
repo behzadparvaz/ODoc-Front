@@ -29,6 +29,7 @@ import {
   CreateOrderInline,
   getCurrentOrder,
   getDeclineTypes,
+  getBikerDetail,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -228,6 +229,16 @@ export const useGetDeliveryCode = (orderCode: string) => {
 
   return { data: data as any, isLoading: isLoading };
 };
+export const useGetBikerDetail = (orderCode: string) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['getBikerDetail', orderCode],
+    queryFn: () => getBikerDetail(orderCode),
+
+    enabled: !!orderCode,
+  });
+
+  return { data: data as any, isLoading: isLoading };
+};
 
 export const useDeleteOrderDetail = () => {
   return useMutation({ mutationFn: DeleteOrderDetail });
@@ -240,8 +251,8 @@ export const useGetCurrentOrder = () => {
     queryKey: ['getDeliveryCode'],
     queryFn: () => getCurrentOrder(),
     enabled: !!token,
+    refetchOnMount: 'always'
   });
-
 };
 
 export const useGetDeclineTypes = () => {

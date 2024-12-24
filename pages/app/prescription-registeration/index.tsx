@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
-const PrescriptionContainer = dynamic(() =>
-  import('@containers/medicine').then((mod) => mod.PrescriptionContainer),
+
+const PrescriptionContainer = dynamic(
+  () => import('@containers/medicine/prescription'),
 );
 
 const PrescriptionPage = () => {

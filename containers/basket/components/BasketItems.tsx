@@ -1,6 +1,11 @@
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
 
-const BasketItems = ({ products, refetchGetBasket }) => (
+type BasketItemsProps = {
+  products: any[];
+  refetchGetBasket?: () => void;
+};
+
+const BasketItems = ({ products, refetchGetBasket }: BasketItemsProps) => (
   <div className="flex flex-col md:px-0 h-full gap-2 justify-between">
     {products?.map((pr, index) => {
       return (

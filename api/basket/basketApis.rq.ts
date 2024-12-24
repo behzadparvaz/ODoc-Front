@@ -31,7 +31,7 @@ export const useGetCurrentBasket = <TQuery = Basket>(
     queryKey: ['getCurrentBasket'],
     queryFn: () => getCurrentBasket(),
     refetchOnMount: 'always',
-    enabled: token ? true : false,
+    enabled: !!token,
     ...options,
   });
 };
