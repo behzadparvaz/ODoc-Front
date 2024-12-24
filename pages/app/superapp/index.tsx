@@ -1,9 +1,13 @@
 import NextImage from '@com/_core/NextImage';
+import { routeList } from '@routes/routeList';
+import { getLocalStorageToken } from '@utilities/localStorageUtils';
 import { searchParamToObject } from '@utilities/queryBuilder';
+import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 
 const SuperAppPage = () => {
   const tapsiLinkRef = useRef<HTMLAnchorElement | null>(null);
+  const { replace } = useRouter();
 
   const Config = {
     baseUrl: 'https://accounts.tapsi.ir/',
@@ -15,9 +19,13 @@ const SuperAppPage = () => {
   };
 
   useEffect(() => {
-    const query: any = searchParamToObject(window?.location?.search);
-    if (query.utm_source === 'TAPSI' && tapsiLinkRef.current) {
-      tapsiLinkRef.current.click();
+    if (getLocalStorageToken()) {
+      replace(routeList.homeRoute);
+    } else {
+      const query: any = searchParamToObject(window?.location?.search);
+      if (query.utm_source === 'TAPSI' && tapsiLinkRef.current) {
+        tapsiLinkRef.current.click();
+      }
     }
   }, []);
 
