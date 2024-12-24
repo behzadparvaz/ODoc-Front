@@ -76,6 +76,10 @@ export const getDeliveryCode = async (orderCode: string) => {
   });
 };
 
+export const getBikerDetail = async (orderCode: string) => {
+  return await request.get(`/Biker/GetBikerInfo/${orderCode}`);
+};
+
 export const DeleteOrderDetail = async (id) => {
   return await request.delete(`/Orderline/DeleteOrderDetail/${id}`);
 };
