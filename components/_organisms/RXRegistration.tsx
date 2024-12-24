@@ -8,7 +8,6 @@ import {
 } from '@api/basket/basketApis.rq';
 
 import { routeList } from '@routes/routeList';
-import { useGetProfile } from '@api/user/user.rq';
 import {
   useGetInsurances,
   useGetSupplementaryInsurances,
@@ -23,13 +22,15 @@ import { useGetVendors } from '@api/vendor/vendor.rq';
 import { TextInput } from '@com/_atoms/NewTextInput';
 import ActionBar from '@com/Layout/ActionBar';
 import Accordion from '@com/_molecules/Accordion';
-import Spinner from '@com/_atoms/Spinner';
 import { Button } from '@com/_atoms/NewButton';
 
-const RXRegistration = () => {
-  const { data, isLoading: profileDataLoading } = useGetProfile();
+type RxRegistrationProps = {
+  userInfo?: any;
+};
 
+const RXRegistration = ({ userInfo }: RxRegistrationProps) => {
   const { query } = useRouter();
+
   const { data: insurances } = useGetInsurances();
   const { data: supplementaryInsurances } = useGetSupplementaryInsurances();
   const { data: vendors } = useGetVendors();
@@ -40,14 +41,13 @@ const RXRegistration = () => {
     item?.name?.toLowerCase()?.includes(searchedInsuranceQuery?.toLowerCase()),
   );
 
-  const userInfo = data?.queryResult[0];
   const router = useRouter();
 
   const { refetch: refetchGetBasket } = useGetCurrentBasket();
   const { mutate: addToCart, isPending: isAddingToCart } =
     useAddProductToBasket({
       onSuccess: () => {
-        // refetchGetBasket();
+        refetchGetBasket();
         router.push(routeList.basket);
       },
     });
@@ -102,12 +102,6 @@ const RXRegistration = () => {
       }
     },
   });
-  console.log('profileDataLoading', profileDataLoading);
-  if (profileDataLoading) {
-    return (
-      <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
-    );
-  }
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full px-4">
@@ -157,6 +151,7 @@ const RXRegistration = () => {
           onChange={formik.handleChange}
         />
       </div>
+
       <Accordion
         label={orderText?.insuranceType}
         header={
@@ -329,7 +324,6 @@ const RXRegistration = () => {
           size="large"
           variant="primary"
           isLoading={isAddingToCart}
-          disabled={profileDataLoading}
         >
           اضافه به سبد خرید و ادامه
         </Button>

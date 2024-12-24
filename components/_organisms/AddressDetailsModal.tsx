@@ -200,6 +200,7 @@ export default function AddressDetailsModal({
           <div className="w-full flex justify-between gap-2  pt-5">
             <TextInput
               placeholder={selectStoreTexts?.plaque}
+              type="number"
               id="plaque"
               name="plaque"
               value={formik.values.plaque}
@@ -210,6 +211,7 @@ export default function AddressDetailsModal({
             />
             <TextInput
               placeholder={selectStoreTexts?.unit}
+              type="number"
               id="unit"
               name="unit"
               value={formik.values.unit}

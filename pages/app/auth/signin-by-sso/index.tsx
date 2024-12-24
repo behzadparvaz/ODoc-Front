@@ -4,6 +4,9 @@ import { routeList } from '@routes/routeList';
 import { searchParamToObject } from '@utilities/queryBuilder';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { setUserAction } from '@redux/user/userActions';
 
 interface QueryParams {
   code?: string;
@@ -12,6 +15,7 @@ interface QueryParams {
 const RedirectPage = () => {
   const { mutate } = useLoginWithTapsiSSO();
   const { replace } = useRouter();
+  const dispatch = useDispatch();
 
   const handleRedirects = async (query: QueryParams) => {
     const codeVendorSSO = query.code;
@@ -21,8 +25,17 @@ const RedirectPage = () => {
         await mutate(
           { code: codeVendorSSO },
           {
-            onSuccess: () => {
+            onSuccess: (data: any) => {
               console.log('SSO login success');
+              Cookies.set('token', data?.token, { expires: 365 });
+              Cookies.set('loginWithTapsiSSO', true, { expires: 365 });
+              localStorage.setItem('token', data?.token);
+              dispatch(
+                setUserAction({
+                  mobileNumber: data?.phoneNumber,
+                  token: data?.token,
+                }),
+              );
               replace(routeList.homeRoute);
             },
             onError: (error) => {
