@@ -1,32 +1,45 @@
 stages:
   - build
   - push
+  - push
 
 variables:
-  DOCKER_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor'
-  TAG: '${CI_COMMIT_TAG}' # Use only commit tag
+  tapsidoctor_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor'
+  tapsidoctor_TAG: '${CI_COMMIT_TAG}'
+  SOTOON_IMAGE: 'registry.tapsi.doctor/local-docker/tapsidoctor'
 
 before_script:
-  # Login to your Docker registry
   - echo "$CI_REGISTRY_PASSWORD" | docker login jfrog.tapsi.doctor -u "$CI_REGISTRY_USER" --password-stdin
 
-build_image:
+build_tapsidoctor:
   stage: build
   tags:
-    - docker-build
+    - runner2
   script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi # Fail if no tag
-    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 --build-arg ENV_MODE=staging -t $DOCKER_IMAGE:$TAG .
-  only:
-    - tags # Run only on tags
-#  when: manual
+    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctor_IMAGE:$tapsidoctor_TAG ./tapsidoctor
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-/' # Runs only for tags starting with 'tapsidoctor-'
 
-push_image:
+push_tapsidoctor:
   stage: push
   tags:
-    - docker-build
+    - runner2
   script:
-    - docker push $DOCKER_IMAGE:$TAG
-  only:
-    - tags # Run only on tags
-#  when: manual
+    - docker push $tapsidoctor_IMAGE:$tapsidoctor_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-/' # Runs only for tags starting with 'tapsidoctor-'
+
+push_to_sotoon:
+  stage: push
+  tags:
+    - runner2
+  before_script:
+    # Login to the Sotoon JFrog registry
+    - echo "$CI_REGISTRY_PASSWORD_SOTOON" | docker login registry.tapsi.doctor -u "$CI_REGISTRY_USER_SOTOON" --password-stdin
+  script:
+    # Push the existing image to the Sotoon registry
+    - docker tag $tapsidoctor_IMAGE:$tapsidoctor_TAG $SOTOON_IMAGE:$tapsidoctor_TAG
+    - docker push $SOTOON_IMAGE:$tapsidoctor_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-/' # Runs only for tags starting with 'tapsidoctor-'
+  when: manual
