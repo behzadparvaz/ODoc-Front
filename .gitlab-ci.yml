@@ -16,7 +16,7 @@ build_tapsidoctorprod:
   tags:
     - runner2
   script:
-    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG -f ./Dockerfile.prod
+    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG -f ./Dockerfile.prod .
   rules:
     - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
 
