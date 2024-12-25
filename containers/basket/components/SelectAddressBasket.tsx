@@ -4,6 +4,7 @@ import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
+import classNames from 'classnames';
 import { useSelector } from 'react-redux';
 
 const SelectAddressBasket = () => {
@@ -19,7 +20,7 @@ const SelectAddressBasket = () => {
       }}
       className="flex justify-between gap-6"
     >
-      <div>
+      <div className="flex justify-center items-center">
         <Icon
           name="PinCircleFill"
           width={1.5}
@@ -28,14 +29,25 @@ const SelectAddressBasket = () => {
         />
       </div>
       <div className="w-full">
-        <h1 className="font-bold text-sm">آدرس</h1>
-        <p className="font-normal text-xs text-grey-500">
+        <h1
+          className={classNames(
+            'font-bold text-sm',
+            !user?.defaultAddress?.name
+              ? 'text-content-negative'
+              : 'text-content-primary',
+          )}
+        >
+          {user?.defaultAddress?.name
+            ? `ارسال به ${user?.defaultAddress?.name}`
+            : 'انتخاب آدرس'}
+        </h1>
+        <p className="font-normal text-xs text-content-tertiary">
           {user?.defaultAddress?.description
             ? user?.defaultAddress?.description
-            : 'آدرس خود را انتخاب کنید'}
+            : 'محدوده آدرس خود را مشخص کنید'}
         </p>
       </div>
-      <div>
+      <div className="flex justify-center items-center">
         <ChevronLeftIconOutline
           width={36}
           height={36}

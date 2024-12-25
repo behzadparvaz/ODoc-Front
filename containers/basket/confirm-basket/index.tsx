@@ -264,7 +264,7 @@ const ConfirmBasketContainer = () => {
               name="CircleExclamationFill"
               width={1.25}
               height={1.25}
-              fill={colors.red[300]}
+              fill={colors.red[400]}
             />
           </div>
           <span className="text-xs text-content-secondary">
@@ -278,11 +278,11 @@ const ConfirmBasketContainer = () => {
               name="CircleExclamationFill"
               width={1.25}
               height={1.25}
-              fill={colors.red[300]}
+              fill={colors.red[400]}
             />
           </div>
           <span className="text-xs text-content-secondary">
-            قيمت داروها بر اساس نرخ مصوب سازمان عذا و دارو مى باشد و توسط
+            قيمت داروها بر اساس نرخ فروش حضوری داروخانه ها بوده و توسط مسئول فنی
             داروخانه اعلام مى گردد.
           </span>
         </div>
