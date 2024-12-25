@@ -5,8 +5,9 @@ import {
 } from '@com/icons';
 import { colors } from '@configs/Theme';
 import classNames from 'classnames';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { memo } from 'react';
+import { memo, useMemo } from 'react';
 
 const tabs: Record<string, string> = {
   home: 'خانه',
@@ -15,47 +16,51 @@ const tabs: Record<string, string> = {
 };
 
 enum Routes {
-  home = '/app',
-  orders = '/app/orders-history',
-  profile = '/app/profile',
+  HOME = '/app',
+  ORDERS = '/app/orders-history',
+  PROFILE = '/app/profile',
 }
 
 const BottomNavigation: React.FC = () => {
-  const { pathname, push } = useRouter();
-
-  const handleTabClick = (route: Routes) => {
-    if (pathname !== route) {
-      push(route);
-    }
-  };
+  const { pathname } = useRouter();
 
   const renderTab = (
     route: Routes,
     label: string,
     Icon: React.FC<{ width?: number; height?: number; fill?: string }>,
-  ) => (
-    <span
-      onClick={() => handleTabClick(route)}
-      aria-label={label}
-      className={classNames(
-        'flex flex-col items-center gap-2 text-xs cursor-pointer transition-colors ease-in-out duration-500',
-        pathname === route ? '!text-black' : 'text-grey-500',
-      )}
-    >
-      <Icon
-        width={24}
-        height={24}
-        fill={pathname === route ? colors?.black : colors?.grey?.[300]}
-      />
-      {label}
-    </span>
+  ) => {
+    const isActive = pathname === route;
+    const iconColor = isActive ? colors.black : colors.grey[300];
+
+    return (
+      <Link key={route} href={route} passHref>
+        <span
+          role="button"
+          aria-label={label}
+          className={classNames(
+            'flex flex-col items-center gap-2 text-xs cursor-pointer transition-colors ease-in-out duration-500',
+            { '!text-black': isActive, 'text-grey-500': !isActive },
+          )}
+        >
+          <Icon width={24} height={24} fill={iconColor} />
+          {label}
+        </span>
+      </Link>
+    );
+  };
+
+  const tabItems = useMemo(
+    () => [
+      { route: Routes.HOME, label: tabs.home, Icon: HomeFillIcon },
+      { route: Routes.ORDERS, label: tabs.orders, Icon: OrderNotesOutlineIcon },
+      { route: Routes.PROFILE, label: tabs.profile, Icon: ProfileOutlineIcon },
+    ],
+    [],
   );
 
   return (
     <div className="h-[76px] pb-2 w-full flex justify-around items-center bg-surface-secondary border-t border-border-primary box-border">
-      {renderTab(Routes.home, tabs.home, HomeFillIcon)}
-      {renderTab(Routes.orders, tabs.orders, OrderNotesOutlineIcon)}
-      {renderTab(Routes.profile, tabs.profile, ProfileOutlineIcon)}
+      {tabItems.map(({ route, label, Icon }) => renderTab(route, label, Icon))}
     </div>
   );
 };

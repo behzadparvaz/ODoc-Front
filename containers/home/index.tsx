@@ -1,15 +1,13 @@
-import { useEffect, useRef } from 'react';
-import Link from 'next/link';
-import dynamic from 'next/dynamic';
-import { useSelector } from 'react-redux';
 import classNames from 'classnames';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { useSelector } from 'react-redux';
 
 import { useGetBanners, useGetCarousels } from '@api/promotion/promotion.rq';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
-import { searchParamToObject } from '@utilities/queryBuilder';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
