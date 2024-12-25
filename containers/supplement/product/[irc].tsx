@@ -104,7 +104,7 @@ const SupplementProductContainer = () => {
           <Button
             variant="primary"
             size="large"
-            className="w-1/2 bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+            className="w-1/2 bg-surface-Gradient.brand whitespace-nowrap"
             onClick={() => router.push(routeList.basket)}
           >
             مشاهده سبد خرید
@@ -116,7 +116,7 @@ const SupplementProductContainer = () => {
       <Button
         variant="primary"
         size="large"
-        className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
+        className="w-full bg-surface-Gradient.brand whitespace-nowrap"
         onClick={() =>
           addToCart({
             quantity: 1,
