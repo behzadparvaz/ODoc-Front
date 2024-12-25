@@ -4,30 +4,30 @@ stages:
   - push
 
 variables:
-  tapsidoctor-p_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor-p'
-  tapsidoctor-p_TAG: '${CI_COMMIT_TAG}'
-  SOTOON_IMAGE: 'registry.tapsi.doctor/local-docker/tapsidoctor-p'
+  tapsidoctorprod_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctorprod'
+  tapsidoctorprod_TAG: '${CI_COMMIT_TAG}'
+  SOTOON_IMAGE: 'registry.tapsi.doctor/local-docker/tapsidoctorprod'
 
 before_script:
   - echo "$CI_REGISTRY_PASSWORD" | docker login jfrog.tapsi.doctor -u "$CI_REGISTRY_USER" --password-stdin
 
-build_tapsidoctor-p:
+build_tapsidoctorprod:
   stage: build
   tags:
     - runner2
   script:
-    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctor-p_IMAGE:$tapsidoctor-p_TAG -f Dockerfile.prod
+    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG -f Dockerfile.prod
   rules:
-    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-p-/' # Runs only for tags starting with 'tapsidoctor-p-'
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
 
-push_tapsidoctor-p:
+push_tapsidoctorprod:
   stage: push
   tags:
     - runner2
   script:
-    - docker push $tapsidoctor-p_IMAGE:$tapsidoctor-p_TAG
+    - docker push $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG
   rules:
-    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-p-/' # Runs only for tags starting with 'tapsidoctor-p-'
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
 
 push_to_sotoon:
   stage: push
@@ -38,8 +38,8 @@ push_to_sotoon:
     - echo "$CI_REGISTRY_PASSWORD_SOTOON" | docker login registry.tapsi.doctor -u "$CI_REGISTRY_USER_SOTOON" --password-stdin
   script:
     # Push the existing image to the Sotoon registry
-    - docker tag $tapsidoctor-p_IMAGE:$tapsidoctor-p_TAG $SOTOON_IMAGE:$tapsidoctor-p_TAG
-    - docker push $SOTOON_IMAGE:$tapsidoctor-p_TAG
+    - docker tag $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG $SOTOON_IMAGE:$tapsidoctorprod_TAG
+    - docker push $SOTOON_IMAGE:$tapsidoctorprod_TAG
   rules:
-    - if: '$CI_COMMIT_TAG =~ /^tapsidoctor-p-/' # Runs only for tags starting with 'tapsidoctor-p-'
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
   when: manual
