@@ -138,9 +138,7 @@ const HorizontalProductCard: React.FC<ProductCardProps<ProductInBasket>> = ({
             if (onClick) {
               return onClick();
             }
-            push(
-              `${routeList.searchProductPage}?brandName=${prInfo?.brandName}&categoryCodeLevel3=${prInfo?.categoryCodeLevel3}&irc=${prInfo?.irc}`,
-            );
+            push(`${routeList.searchProductPage}?irc=${prInfo?.irc}`);
           }
         }}
       >
