@@ -1,6 +1,7 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
@@ -21,8 +22,18 @@ import Divider from '@com/_atoms/Divider';
 import { AnimatePresence, motion } from 'framer-motion';
 import { TextInput as Input } from '@com/_atoms/NewTextInput';
 
+import { setMapStateAction } from '@redux/map/mapActions';
+
+const ParsiMapContent = dynamic(
+  () => import('@com/_molecules/ParsiMapContent'),
+  {
+    ssr: false,
+  },
+);
 const ConfirmBasketContainer = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     description: '',
   });
@@ -138,6 +149,15 @@ const ConfirmBasketContainer = () => {
     createOrderDraft(data);
   };
 
+  const viewport = {
+    latitude: user?.defaultAddress?.latitude,
+    longitude: user?.defaultAddress?.longitude,
+    id: user?.defaultAddress?.id,
+    name: user?.defaultAddress?.name,
+  };
+
+  dispatch(setMapStateAction({ viewport, mapIsTouched: false }));
+
   return (
     <MainLayout
       title="تأیید و ادامه"
@@ -148,10 +168,20 @@ const ConfirmBasketContainer = () => {
         router?.push(routeList?.basket);
       }}
     >
-      <div className="px-4 flex flex-col gap-y-4">
+      <div className="px-4 flex flex-col gap-y-4 pb-[94px]">
         <div className="flex flex-col cursor-pointer justify-center">
           <SelectAddressBasket />
-          {/* <div className="h-[1px] bg-grey-200 w-full mt-4 " /> */}
+
+          {!!user?.defaultAddress && (
+            <div className="w-full h-[200px] flex items-center justify-center rounded-xl overflow-hidden mt-3">
+              <ParsiMapContent
+                parsiMapAddressData={user?.defaultAddress}
+                addressId={user?.defaultAddress?.id}
+                height="200px"
+                interactive={false}
+              />
+            </div>
+          )}
         </div>
         {/* <div className="flex align-center gap-6">
           <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
@@ -162,7 +192,7 @@ const ConfirmBasketContainer = () => {
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
             label="ارسال برای دیگری"
-            labelClassName="text-md mr-12 font-bold text-black"
+            labelClassName="text-md mr-9 font-bold text-black"
             name="sendToSomeoneElse"
             icon={
               <TickIcon
@@ -172,7 +202,7 @@ const ConfirmBasketContainer = () => {
                 className="mx-auto mt-[1px]"
               />
             }
-            boxClassName="w-5 h-5 border !top-3 border-grey-800"
+            boxClassName="w-5 h-5 border !top-3 border-grey-800 rounded-md"
             boxContainerClassName="mr-1 flex justify-center items-center"
             checked={sendToSomeoneElse?.isChecked}
             className="w-full flex items-center z-0"
@@ -218,7 +248,7 @@ const ConfirmBasketContainer = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <Divider padding={0} />
+        {/* <Divider padding={0} /> */}
         <div className="w-full">
           <TextAreaInput
             id="description"
@@ -236,9 +266,7 @@ const ConfirmBasketContainer = () => {
             value={state.description}
           />
         </div>
-
         <Divider padding={0} />
-
         {basket?.products?.length > 0 && (
           <div className="w-full">
             <CheckBox
@@ -267,7 +295,7 @@ const ConfirmBasketContainer = () => {
               name="CircleExclamationFill"
               width={1.25}
               height={1.25}
-              fill={colors.red[300]}
+              fill={colors.red[400]}
             />
           </div>
           <span className="text-xs text-content-secondary">
@@ -281,11 +309,11 @@ const ConfirmBasketContainer = () => {
               name="CircleExclamationFill"
               width={1.25}
               height={1.25}
-              fill={colors.red[300]}
+              fill={colors.red[400]}
             />
           </div>
           <span className="text-xs text-content-secondary">
-            قيمت داروها بر اساس نرخ مصوب سازمان عذا و دارو مى باشد و توسط
+            قيمت داروها بر اساس نرخ فروش حضوری داروخانه ها بوده و توسط مسئول فنی
             داروخانه اعلام مى گردد.
           </span>
         </div>
