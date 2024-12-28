@@ -1,6 +1,5 @@
 import HorizontalProductCard from '@com/_molecules/HorizontalProductCard';
-import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
+import useProductNavigation from '@hooks/useNavigateToPdp';
 
 type BasketItemsProps = {
   products: any[];
@@ -8,34 +7,20 @@ type BasketItemsProps = {
 };
 
 const BasketItems = ({ products, refetchGetBasket }: BasketItemsProps) => {
-  const { push } = useRouter();
+  const { navigateToPdp } = useProductNavigation();
   return (
     <div className="flex flex-col md:px-0 h-full gap-2 justify-between">
       {products?.map((pr, index) => {
         return (
           <div key={pr.irc} className="flex flex-col gap-2">
             <HorizontalProductCard
-              prInfo={{ ...pr, isOtc: pr.productType.name === 'otc' }}
+              prInfo={{ ...pr, isOtc: true }}
               onSuccessChanged={refetchGetBasket}
               hasAddToCartButton
               isInSearchPage
-              onClick={() => {
-                if (pr.productType.id === 1) {
-                  push({
-                    pathname: `${routeList?.searchProductPage}`,
-                    query: {
-                      brandName: pr.brandName,
-                      categoryCodeLevel3: pr.categoryCodeLevel3,
-                      irc: pr.genericCode,
-                    },
-                  });
-                }
-                if (pr.productType.id === 2) {
-                  push({
-                    pathname: `${routeList?.supplementProduct}/${pr.genericCode || pr.irc}`,
-                  });
-                }
-              }}
+              onClick={() =>
+                navigateToPdp({ item: pr, ProductTypeId: pr.productType.id })
+              }
             />
             {products?.length !== index && (
               <div className="w-full">

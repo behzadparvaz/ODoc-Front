@@ -3,6 +3,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 
 import {
+  useAddProductToBasket,
   useDeleteCurrentBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
@@ -33,7 +34,6 @@ const Page = () => {
     )?.[0];
     return carouselData;
   };
-
   const {
     data: basket,
     isFetching: isLoading,
@@ -85,7 +85,7 @@ const Page = () => {
           variant="text"
           disabled={
             isLoadingDeleteBasket ||
-            (basket?.products?.length < 0 && !basket?.refrenceNumber)
+            !(basket?.products?.length > 0 || !!basket?.refrenceNumber)
           }
         >
           {isLoadingDeleteBasket ? (

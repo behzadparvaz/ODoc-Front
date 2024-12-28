@@ -9,7 +9,7 @@ import Spinner from '@com/_atoms/Spinner';
 import { mobileSearchTexts } from '@com/texts/mobileSearchText';
 import { productListPageTexts } from '@com/texts/productListPageTexts';
 import { colors } from '@configs/Theme';
-import useCheckPage from '@hooks/useCheckPage';
+import useProductNavigation from '@hooks/useNavigateToPdp';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
@@ -20,7 +20,7 @@ type Props = {};
 
 export default function ProdictListPage({}: Props) {
   const { push, back, query } = useRouter();
-  const { isInSearchPage } = useCheckPage();
+  const { navigateToPdp } = useProductNavigation();
   const { data: basket, refetch: refetchGetBasket } = useGetCurrentBasket<
     Basket & { productsById: any }
   >({
@@ -109,24 +109,12 @@ export default function ProdictListPage({}: Props) {
                                 ?.quantity ?? 0,
                           }}
                           hasAddToCart
-                          onClick={() => {
-                            if (product.productType === 1) {
-                              push({
-                                pathname: `${routeList?.searchProductPage}`,
-                                query: {
-                                  brandName: product.brandName,
-                                  categoryCodeLevel3:
-                                    product.categoryCodeLevel3,
-                                  irc: product.genericCode,
-                                },
-                              });
-                            }
-                            if (product.productType === 2) {
-                              push({
-                                pathname: `${routeList?.supplementProduct}/${product.irc || product.genericCode}`,
-                              });
-                            }
-                          }}
+                          onClick={() =>
+                            navigateToPdp({
+                              item: product,
+                              ProductTypeId: product.productType,
+                            })
+                          }
                           onSuccessChanged={refetchGetBasket}
                           className={`
                       ${index % 2 === 0 ? 'border-l border-t' : 'border-t'} 

@@ -63,11 +63,9 @@ const SupplementProductContainer = () => {
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({
+        ...product.data,
         irc: selectedItem?.irc,
         quantity: count,
-        imageLink: product.data?.imageLink,
-        productName: product.data?.productName,
-        unit: product.data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -117,11 +115,9 @@ const SupplementProductContainer = () => {
         className="w-full bg-surface-Gradient.brand whitespace-nowrap"
         onClick={() =>
           addToCart({
+            ...product.data,
             quantity: 1,
             irc: selectedItem?.irc,
-            imageLink: product.data?.imageLink,
-            productName: product.data?.productName,
-            unit: product.data?.unit,
           })
         }
       >

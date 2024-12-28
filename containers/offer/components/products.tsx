@@ -1,11 +1,11 @@
-import { useEffect, useMemo } from 'react';
+import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useEffect, useMemo } from 'react';
 import { useInView } from 'react-intersection-observer';
-import classNames from 'classnames';
 
-import { routeList } from '@routes/routeList';
 import { useGetCarouselProduct } from '@api/promotion/promotion.rq';
+import useProductNavigation from '@hooks/useNavigateToPdp';
 
 const VerticalProductCardShimmer = dynamic(
   () => import('@com/_atoms/verticalProductCardShimmer'),
@@ -18,6 +18,7 @@ const VerticalProductCard = dynamic(
 const Products = () => {
   const { query, push } = useRouter();
   const { ref, inView } = useInView();
+  const { navigateToPdp } = useProductNavigation();
   const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } =
     useGetCarouselProduct({ carouselId: query?.carouselId });
 
@@ -40,23 +41,6 @@ const Products = () => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
-
-  const handleChangeRoute = (item) => {
-    if (item?.productType === 1) {
-      return push({
-        pathname: routeList.searchProductPage,
-        query: {
-          irc: item?.irc ? item?.irc : item?.genericCode,
-        },
-      });
-    }
-
-    if (item?.productType === 2) {
-      return push({
-        pathname: `${routeList.supplementProduct}/${item?.genericCode}`,
-      });
-    }
-  };
 
   if ((isLoading || isFetchingNextPage) && !productList?.length) {
     return (
@@ -87,7 +71,9 @@ const Products = () => {
     >
       {productList?.map((item) => (
         <VerticalProductCard
-          onClick={() => handleChangeRoute(item)}
+          onClick={() =>
+            navigateToPdp({ item, ProductTypeId: item.productType })
+          }
           className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b [&:nth-child(2)]:border-t"
           productData={item}
           key={item?.irc}
