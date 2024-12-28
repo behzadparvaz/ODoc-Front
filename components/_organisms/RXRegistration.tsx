@@ -104,7 +104,7 @@ const RxRegistration = ({ userInfo }: RxRegistrationProps) => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="w-full px-4">
+    <form onSubmit={formik.handleSubmit} className="w-full px-4 pb-[84px]">
       <div className="flex flex-col gap-y-3">
         <TextInput
           type="number"

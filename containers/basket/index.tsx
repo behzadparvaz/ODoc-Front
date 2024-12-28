@@ -67,6 +67,11 @@ const Page = () => {
       },
     });
 
+  // const rxItemRefrenceNumber = () => {
+  //   const rxItem = basket?.products?.find((item) => item?.refrenceNumber);
+  //   return rxItem?.refrenceNumber ?? '';
+  // };
+
   return (
     <MainLayout
       title="سبد خرید"
@@ -112,10 +117,7 @@ const Page = () => {
           isSpecialPatient={basket?.isSpecialPatient}
           refetchBasketHandler={refetchGetBasket}
           isOrderInProgress={!!draftData}
-          isEmpty={
-            !basket?.products?.length && !basket?.refrenceNumber && !draftData
-          }
-          prescriptionId={basket?.refrenceNumber}
+          isEmpty={!basket?.products?.length && !draftData}
         />
 
         <CarouselLine
