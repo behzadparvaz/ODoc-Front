@@ -11,6 +11,7 @@ import { productListPageTexts } from '@com/texts/productListPageTexts';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import useProductNavigation from '@hooks/useNavigateToPdp';
 
 const HorizontalProductCard = dynamic(
   () => import('@com/_molecules/HorizontalProductCard'),
@@ -28,7 +29,7 @@ type Props = {
 
 const ProductList = ({ searchTerm }: Props) => {
   const { query, push } = useRouter();
-
+  const { navigateToPdp } = useProductNavigation();
   const [searchType, setSearchType] = useState<SearchTypeEnum>(
     SearchTypeEnum.home,
   );
@@ -102,23 +103,12 @@ const ProductList = ({ searchTerm }: Props) => {
               <div key={index}>
                 <HorizontalProductCard
                   key={index}
-                  onClick={() => {
-                    if (product.productType === 1) {
-                      push({
-                        pathname: `${routeList?.searchProductPage}`,
-                        query: {
-                          brandName: product.brandName,
-                          categoryCodeLevel3: product.categoryCodeLevel3,
-                          irc: product.genericCode || product.irc,
-                        },
-                      });
-                    }
-                    if (product.productType === 2) {
-                      push({
-                        pathname: `${routeList?.supplementProduct}/${product.genericCode || product.irc}`,
-                      });
-                    }
-                  }}
+                  onClick={() =>
+                    navigateToPdp({
+                      item: product,
+                      ProductTypeId: product.productType,
+                    })
+                  }
                   prInfo={{
                     ...product,
                     quantity:

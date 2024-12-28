@@ -84,11 +84,8 @@ const VerticalProductCard = ({
     });
   const onChangeCount = (count) =>
     addToCart({
-      irc: productData?.irc || productData?.genericCode,
+      ...productData,
       quantity: count,
-      imageLink: productData?.imageLink,
-      productName: productData?.productName,
-      unit: productData?.unit,
     });
 
   const onChange = (count) => {
