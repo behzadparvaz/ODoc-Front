@@ -1,28 +1,26 @@
 import {
-  useGetSupplementProductByIrc,
-  useGetSupplementReview,
-  useGetSupplementReviewSummery,
-} from '@api/supplement/plp/plp.rq';
-import Spinner from '@com/_atoms/Spinner';
-import GalleryThumbnails from '@com/_molecules/GalleryThumbnails';
-import { ArrowRightIconOutline } from '@com/icons';
-import { MainLayout } from '@com/Layout';
-import { colors } from '@configs/Theme';
-import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
-import Carousel from './components/Carousel';
-import Comments from './components/comments';
-import Detail from './components/Detail';
-import GeneralDetail from './components/GeneralDetail';
-import ActionBar from '@com/Layout/ActionBar';
-import AddButton from '@com/_atoms/AddButton';
-import { Button } from '@com/_atoms/NewButton';
-import {
   useAddProductToBasket,
   useDeleteProductBasket,
   useGetCurrentBasket,
 } from '@api/basket/basketApis.rq';
+import {
+  useGetSupplementProductByIrc,
+  useGetSupplementReview,
+  useGetSupplementReviewSummery,
+} from '@api/supplement/plp/plp.rq';
+import AddButton from '@com/_atoms/AddButton';
+import { Button } from '@com/_atoms/NewButton';
+import Spinner from '@com/_atoms/Spinner';
+import GalleryThumbnails from '@com/_molecules/GalleryThumbnails';
+import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
+import { routeList } from '@routes/routeList';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Carousel from './components/Carousel';
+import Comments from './components/comments';
+import Detail from './components/Detail';
+import GeneralDetail from './components/GeneralDetail';
 
 const SupplementProductContainer = () => {
   // routes
@@ -53,7 +51,7 @@ const SupplementProductContainer = () => {
   const basketFilteredProducts = basketDatat?.products?.filter((item) =>
     product.data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
-  const [selectedItem, setSelectedItem] = useState<any>();
+  const [selectedItem, setSelectedItem] = useState<any>(null);
 
   // const scrollToSection = (sectionRef) => {
   //   window.scrollTo({
@@ -65,11 +63,9 @@ const SupplementProductContainer = () => {
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({
+        ...product.data,
         irc: selectedItem?.irc,
         quantity: count,
-        imageLink: product.data?.imageLink,
-        productName: product.data?.productName,
-        unit: product.data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -119,11 +115,9 @@ const SupplementProductContainer = () => {
         className="w-full bg-surface-Gradient.brand whitespace-nowrap"
         onClick={() =>
           addToCart({
+            ...product.data,
             quantity: 1,
             irc: selectedItem?.irc,
-            imageLink: product.data?.imageLink,
-            productName: product.data?.productName,
-            unit: product.data?.unit,
           })
         }
       >

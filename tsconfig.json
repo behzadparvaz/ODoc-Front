@@ -15,7 +15,8 @@
       "@styles/*": ["styles/*"],
       "@tools/*": ["tools/*"],
       "@utilities/*": ["utilities/*"],
-      "@containers/*": ["containers/*"]
+      "@containers/*": ["containers/*"],
+      "@constant/*": ["constant/*"]
     },
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],

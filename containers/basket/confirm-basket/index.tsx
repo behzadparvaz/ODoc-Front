@@ -19,6 +19,8 @@ import { RootState } from '@utilities/types';
 import SelectAddressBasket from '../components/SelectAddressBasket';
 import Icon from '@utilities/icon';
 import Divider from '@com/_atoms/Divider';
+import { AnimatePresence, motion } from 'framer-motion';
+import { TextInput as Input } from '@com/_atoms/NewTextInput';
 
 import { setMapStateAction } from '@redux/map/mapActions';
 
@@ -137,8 +139,8 @@ const ConfirmBasketContainer = () => {
             },
           ],
       ...(sendToSomeoneElse.isChecked && {
-        recipient: sendToSomeoneElse.recipient,
-        phoneRecipient: sendToSomeoneElse.phoneRecipient,
+        AlternateRecipientName: sendToSomeoneElse.recipient,
+        AlternateRecipientMobileNumber: sendToSomeoneElse.phoneRecipient,
       }),
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
@@ -185,14 +187,12 @@ const ConfirmBasketContainer = () => {
           <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
           <span>تحویل تا ساعت ۱۸:۳۰</span>
         </div> */}
-        {!user?.defaultAddress && (
-          <div className="h-[1px] bg-grey-200 w-full" />
-        )}
-        {/* <div className="flex cursor-pointer align-center">
+        <Divider padding={0} />
+        <div className="flex cursor-pointer align-center">
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
             label="ارسال برای دیگری"
-            labelClassName="text-md mr-12 font-bold text-black"
+            labelClassName="text-md mr-9 font-bold text-black"
             name="sendToSomeoneElse"
             icon={
               <TickIcon
@@ -202,13 +202,13 @@ const ConfirmBasketContainer = () => {
                 className="mx-auto mt-[1px]"
               />
             }
-            boxClassName="w-5 h-5 border !top-3 border-grey-800"
+            boxClassName="w-5 h-5 border !top-3 border-grey-800 rounded-md"
             boxContainerClassName="mr-1 flex justify-center items-center"
             checked={sendToSomeoneElse?.isChecked}
             className="w-full flex items-center z-0"
           />
-        </div> */}
-        {/* <AnimatePresence>
+        </div>
+        <AnimatePresence>
           {sendToSomeoneElse.isChecked && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -230,7 +230,7 @@ const ConfirmBasketContainer = () => {
                       recipient: e?.target?.value,
                     });
                   }}
-                  placeholder="نام تحویل گیرنده"
+                  placeholder="نام و نام خانوادگی تحویل گیرنده"
                 />
                 <Input
                   id="phone-recipient"
@@ -247,7 +247,8 @@ const ConfirmBasketContainer = () => {
               </div>
             </motion.div>
           )}
-        </AnimatePresence> */}
+        </AnimatePresence>
+        {/* <Divider padding={0} /> */}
         <div className="w-full">
           <TextAreaInput
             id="description"
@@ -265,9 +266,7 @@ const ConfirmBasketContainer = () => {
             value={state.description}
           />
         </div>
-
         <Divider padding={0} />
-
         {basket?.products?.length > 0 && (
           <div className="w-full">
             <CheckBox

@@ -3,10 +3,10 @@ import { ChevronLeftIconOutline, StarIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import { persianDate } from '@utilities/persianDate';
-import { useEffect, useState, useCallback, useMemo } from 'react';
-import AddNewComment from './AddNewComment';
 import classNames from 'classnames';
 import moment from 'jalali-moment';
+import { useCallback, useMemo, useState } from 'react';
+import AddNewComment from './AddNewComment';
 
 interface Comment {
   id: string;
