@@ -66,11 +66,10 @@ const OrderDetailsContainer = () => {
               <Tender orderCode={data?.orderCode} />
             </>
           )}
-
-          {data?.orderStatus?.name !== 'draft' &&
-            data?.orderStatus?.name !== 'ack' &&
-            data?.orderStatus?.name !== 'apay' &&
-            data?.orderStatus?.name !== 'nfc' && (
+          {data?.orderStatus?.name === 'pick' ||
+            data?.orderStatus?.name === 'adelivery' ||
+            data?.orderStatus?.name === 'senddelivery' ||
+            (data?.orderStatus?.name === 'deliverd' && (
               <>
                 <Divider />
 
@@ -78,7 +77,7 @@ const OrderDetailsContainer = () => {
                   <VendorDetail data={data} />
                 </div>
               </>
-            )}
+            ))}
 
           {data?.orderStatus?.name !== 'apay' &&
             data?.orderStatus?.name !== 'nfc' && (
