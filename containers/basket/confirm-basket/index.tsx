@@ -18,6 +18,8 @@ import { RootState } from '@utilities/types';
 import SelectAddressBasket from '../components/SelectAddressBasket';
 import Icon from '@utilities/icon';
 import Divider from '@com/_atoms/Divider';
+import { AnimatePresence, motion } from 'framer-motion';
+import { TextInput as Input } from '@com/_atoms/NewTextInput';
 
 const ConfirmBasketContainer = () => {
   const router = useRouter();
@@ -126,8 +128,8 @@ const ConfirmBasketContainer = () => {
             },
           ],
       ...(sendToSomeoneElse.isChecked && {
-        recipient: sendToSomeoneElse.recipient,
-        phoneRecipient: sendToSomeoneElse.phoneRecipient,
+        AlternateRecipientName: sendToSomeoneElse.recipient,
+        AlternateRecipientMobileNumber: sendToSomeoneElse.phoneRecipient,
       }),
       isSpecialPatient: basket?.isSpecialPatient,
       vendorCode: basket?.isSpecialPatient ? basket?.vendorCode : '',
@@ -156,7 +158,7 @@ const ConfirmBasketContainer = () => {
           <span>تحویل تا ساعت ۱۸:۳۰</span>
         </div> */}
         <div className="h-[1px] bg-grey-200 w-full" />
-        {/* <div className="flex cursor-pointer align-center">
+        <div className="flex cursor-pointer align-center">
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
             label="ارسال برای دیگری"
@@ -175,8 +177,8 @@ const ConfirmBasketContainer = () => {
             checked={sendToSomeoneElse?.isChecked}
             className="w-full flex items-center z-0"
           />
-        </div> */}
-        {/* <AnimatePresence>
+        </div>
+        <AnimatePresence>
           {sendToSomeoneElse.isChecked && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
@@ -198,7 +200,7 @@ const ConfirmBasketContainer = () => {
                       recipient: e?.target?.value,
                     });
                   }}
-                  placeholder="نام تحویل گیرنده"
+                  placeholder="نام و نام خانوادگی تحویل گیرنده"
                 />
                 <Input
                   id="phone-recipient"
@@ -215,7 +217,7 @@ const ConfirmBasketContainer = () => {
               </div>
             </motion.div>
           )}
-        </AnimatePresence> */}
+        </AnimatePresence>
         <div className="w-full">
           <TextAreaInput
             id="description"
