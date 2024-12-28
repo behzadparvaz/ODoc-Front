@@ -1,6 +1,7 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
@@ -19,8 +20,18 @@ import SelectAddressBasket from '../components/SelectAddressBasket';
 import Icon from '@utilities/icon';
 import Divider from '@com/_atoms/Divider';
 
+import { setMapStateAction } from '@redux/map/mapActions';
+
+const ParsiMapContent = dynamic(
+  () => import('@com/_molecules/ParsiMapContent'),
+  {
+    ssr: false,
+  },
+);
 const ConfirmBasketContainer = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const [state, setState] = useState({
     description: '',
   });
@@ -136,6 +147,15 @@ const ConfirmBasketContainer = () => {
     createOrderDraft(data);
   };
 
+  const viewport = {
+    latitude: user?.defaultAddress?.latitude,
+    longitude: user?.defaultAddress?.longitude,
+    id: user?.defaultAddress?.id,
+    name: user?.defaultAddress?.name,
+  };
+
+  dispatch(setMapStateAction({ viewport, mapIsTouched: false }));
+
   return (
     <MainLayout
       title="تأیید و ادامه"
@@ -146,16 +166,28 @@ const ConfirmBasketContainer = () => {
         router?.push(routeList?.basket);
       }}
     >
-      <div className="px-4 flex flex-col gap-y-4">
+      <div className="px-4 flex flex-col gap-y-4 pb-[94px]">
         <div className="flex flex-col cursor-pointer justify-center">
           <SelectAddressBasket />
-          {/* <div className="h-[1px] bg-grey-200 w-full mt-4 " /> */}
+
+          {!!user?.defaultAddress && (
+            <div className="w-full h-[200px] flex items-center justify-center rounded-xl overflow-hidden mt-3">
+              <ParsiMapContent
+                parsiMapAddressData={user?.defaultAddress}
+                addressId={user?.defaultAddress?.id}
+                height="200px"
+                interactive={false}
+              />
+            </div>
+          )}
         </div>
         {/* <div className="flex align-center gap-6">
           <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
           <span>تحویل تا ساعت ۱۸:۳۰</span>
         </div> */}
-        <div className="h-[1px] bg-grey-200 w-full" />
+        {!user?.defaultAddress && (
+          <div className="h-[1px] bg-grey-200 w-full" />
+        )}
         {/* <div className="flex cursor-pointer align-center">
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
