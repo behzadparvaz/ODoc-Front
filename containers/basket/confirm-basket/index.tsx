@@ -218,6 +218,8 @@ const ConfirmBasketContainer = () => {
             </motion.div>
           )}
         </AnimatePresence>
+        <div className="h-[1px] bg-grey-200 w-full " />
+
         <div className="w-full">
           <TextAreaInput
             id="description"
