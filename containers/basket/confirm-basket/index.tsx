@@ -157,7 +157,7 @@ const ConfirmBasketContainer = () => {
           <Icon name="Clock" width={1.5} height={1.5} fill={colors.grey[600]} />
           <span>تحویل تا ساعت ۱۸:۳۰</span>
         </div> */}
-        <div className="h-[1px] bg-grey-200 w-full" />
+        <Divider padding={0} />
         <div className="flex cursor-pointer align-center">
           <CheckBox
             handleChange={handleToggleSendToSomeoneElse}
@@ -218,8 +218,7 @@ const ConfirmBasketContainer = () => {
             </motion.div>
           )}
         </AnimatePresence>
-        <div className="h-[1px] bg-grey-200 w-full " />
-
+        <Divider padding={0} />
         <div className="w-full">
           <TextAreaInput
             id="description"
