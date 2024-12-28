@@ -95,7 +95,7 @@ const OfferPreviewContainer = () => {
             }
             isLoading={isLoadingPayment}
           >
-            پرداخت
+            تأیید و پرداخت
           </Button>
         </div>
       </ActionBar>
