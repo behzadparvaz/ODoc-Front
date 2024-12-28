@@ -6,6 +6,7 @@ import { BottomModalContainer } from '@com/modal/containers/bottomMobileContaine
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
+import { stat } from 'fs';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 
@@ -15,7 +16,7 @@ const AddNewComment = ({ onSubmitReview = () => {} }) => {
   const { removeLastModal } = useModal();
 
   const [state, setState] = useState({
-    rate: 1,
+    rate: 0,
     comment: '',
   });
 
@@ -49,6 +50,22 @@ const AddNewComment = ({ onSubmitReview = () => {} }) => {
     });
 
   const handleSubmit = () => {
+    if (state.rate === 0) {
+      openNotification({
+        type: 'error',
+        message: 'لطفا امتیاز خود را انتخاب کنید',
+        notifType: 'successOrFailedMessage',
+      });
+      return;
+    }
+    if (state.comment === '') {
+      openNotification({
+        type: 'error',
+        message: 'لطفا نظر  خود در مورد محصول این بنویسید',
+        notifType: 'successOrFailedMessage',
+      });
+      return;
+    }
     postSupplementReview({
       irc: irc,
       comment: state.comment,
