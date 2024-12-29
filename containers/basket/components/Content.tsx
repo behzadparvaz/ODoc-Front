@@ -2,7 +2,6 @@ import Spinner from '@com/_atoms/Spinner';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 
-const PrescriptionItem = dynamic(() => import('./PrescriptionItem'));
 const OrderInProgress = dynamic(() => import('./OrderInProgress'));
 const BasketItems = dynamic(() => import('./BasketItems'));
 const BasketEmpty = dynamic(() => import('./BasketEmpty'));
@@ -19,7 +18,6 @@ interface IRenderContentProps {
 
 const Content = ({
   products,
-
   isSpecialPatient,
   isLoading,
   isOrderInProgress,

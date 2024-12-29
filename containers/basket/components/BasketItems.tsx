@@ -34,7 +34,11 @@ const BasketItems = ({
             ) : (
               <div key={pr.irc} className="flex flex-col gap-2">
                 <HorizontalProductCard
-                  prInfo={{ ...pr, isOtc: true }}
+                  prInfo={{
+                    ...pr,
+                    isOtc: true,
+                    productType: pr.productType.id,
+                  }}
                   onSuccessChanged={refetchGetBasket}
                   hasAddToCartButton
                   isInSearchPage
