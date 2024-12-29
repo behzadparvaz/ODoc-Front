@@ -44,6 +44,9 @@ package-lock.json
 dockerfile.prod
 Dockerfile
 
+# gitlab-ci
+gitlab-ci.yml
+
 # PWA files
 **/public/precache.*.*.js
 **/public/sw.js
