@@ -45,7 +45,7 @@ dockerfile.prod
 Dockerfile
 
 # gitlab-ci
-gitlab-ci.yml
+.gitlab-ci.yml
 
 # PWA files
 **/public/precache.*.*.js
