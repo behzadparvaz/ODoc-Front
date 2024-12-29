@@ -55,7 +55,7 @@ const ProductPageContainer = () => {
     data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
   const [selectedItem, setSelectedItem] = useState<ProductDetailDosesModel>();
-  console.log(selectedItem);
+
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({

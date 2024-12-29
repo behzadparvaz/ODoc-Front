@@ -6,6 +6,7 @@ import {
 } from '@utilities/interfaces/tender';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import NextImage from '@com/_core/NextImage';
+import useProductNavigation from '@hooks/useNavigateToPdp';
 
 type OrderItemCardProps = {
   item: TenderItemsOrderDataModel | TenderOrderAltDataModel;
@@ -19,10 +20,18 @@ const OrderItemCard = ({
   isUnavaiable,
   orderStatus,
 }: OrderItemCardProps) => {
+  const { navigateToPdp } = useProductNavigation();
+
   return (
     <>
       <div
-        className={`h-max min-h-[78px] grid grid-cols-[64px_1fr] gap-2 items-center justify-between pb-2 ${isUnavaiable ? 'opacity-60' : ' '} `}
+        className={`h-max min-h-[78px] grid grid-cols-[64px_1fr] gap-2 items-center justify-between pb-2 cursor-pointer ${isUnavaiable ? 'opacity-60' : ' '} `}
+        onClick={() =>
+          navigateToPdp({
+            item: item,
+            ProductTypeId: item?.type?.id,
+          })
+        }
       >
         <div className="col-start-1 col-end-2 flex justify-center items-center">
           <div className="w-[40px] h-[40px] rounded-xl overflow-hidden flex justify-center items-center">
