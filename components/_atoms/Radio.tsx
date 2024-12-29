@@ -85,14 +85,16 @@ export const Radio = ({
         className={classNames(
           'appearance-none w-[22px] h-[22px] rounded-full border border-surface-inverse-primary cursor-pointer',
           inputClassName,
+          rest?.disabled && 'opacity-60',
         )}
         {...rest}
       />
       {checked && (
         <span
           className={classNames(
-            'pointer-events-none absolute right-0 top-0 transition-all flex justify-center items-center z-10 h-[22px] w-[22px] rounded-full bg-black',
+            'pointer-events-none absolute right-0 top-0 transition-all flex justify-center items-center z-10 h-[22px] w-[22px] rounded-full bg-black ',
             boxClassName,
+            rest?.disabled && 'opacity-60',
           )}
         >
           {icon ? (

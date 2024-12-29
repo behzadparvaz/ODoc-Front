@@ -106,6 +106,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
                     formik?.setFieldValue('cancelReasonId', item?.id);
                   }
                 }}
+                disabled={isLoadingCancelOrder}
               />
             </div>
 
@@ -152,6 +153,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               inputClassName="h-[102px] w-full text-wrap rounded-md"
               errorMessage={formik.errors.cancelReasonValue as string}
               maxLength={150}
+              disabled={isLoadingCancelOrder}
             />
           )}
         </div>
