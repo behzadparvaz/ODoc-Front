@@ -82,7 +82,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
               'bg-surface-Gradient.brand',
           )}
         >
-          <div className="h-[48px] w-[48px] flex justify-center items-center overflow-hidden rounded-full object-fill">
+          <div className="h-[48px] w-[48px] flex justify-center items-center overflow-hidden rounded-full object-fill bg-surface-primary">
             <NextImage
               alt="supplement-category-l4"
               src={item?.iconLink}
