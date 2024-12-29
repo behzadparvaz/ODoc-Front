@@ -24,6 +24,7 @@ type ProductInBasket = {
   imagelink?: string;
   isRequestOrder?: boolean;
   description?: string;
+  refrenceNumber?: string;
   productType: {
     id: number;
     name: string;

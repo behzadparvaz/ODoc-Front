@@ -6,6 +6,7 @@ import {
   deleteProductBasket,
   getCurrentBasket,
   OneOfCodes,
+  ItemCode,
   ProductsListBasket,
   updateCountProductBasket,
   UpdateCountProductBasketPayload,
@@ -45,8 +46,8 @@ export const useDeleteCurrentBasket: (
   });
 
 export const useDeleteProductBasket: (
-  options?: UseMutationOptions<unknown, unknown, OneOfCodes>,
-) => UseMutationResult<unknown, unknown, OneOfCodes> = (options) =>
+  options?: UseMutationOptions<unknown, unknown, ItemCode>,
+) => UseMutationResult<unknown, unknown, ItemCode> = (options) =>
   useMutation({
     mutationFn: (variables) => deleteProductBasket(variables),
     ...options,

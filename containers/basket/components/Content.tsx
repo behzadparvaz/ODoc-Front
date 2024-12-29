@@ -9,7 +9,7 @@ const BasketEmpty = dynamic(() => import('./BasketEmpty'));
 
 interface IRenderContentProps {
   products: any[];
-  prescriptionId: string;
+
   isSpecialPatient: boolean;
   isLoading: boolean;
   isOrderInProgress: boolean;
@@ -19,7 +19,7 @@ interface IRenderContentProps {
 
 const Content = ({
   products,
-  prescriptionId,
+
   isSpecialPatient,
   isLoading,
   isOrderInProgress,
@@ -31,14 +31,8 @@ const Content = ({
       <div className="relative pt-4 px-4 overflow-auto">
         {!isOrderInProgress && (
           <div className="w-full  flex flex-col gap-y-4">
-            {!!prescriptionId && (
-              <PrescriptionItem
-                BasketRefrenceNumber={prescriptionId}
-                BasketIsSpecialPatient={isSpecialPatient}
-              />
-            )}
-
             <BasketItems
+              isSpecialPatient={isSpecialPatient}
               products={products}
               refetchGetBasket={refetchBasketHandler}
             />
@@ -46,7 +40,7 @@ const Content = ({
         )}
       </div>
     );
-  }, [isOrderInProgress, isSpecialPatient, products, prescriptionId]);
+  }, [isOrderInProgress, isSpecialPatient, products]);
 
   if (isLoading) {
     return (
