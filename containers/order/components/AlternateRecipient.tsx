@@ -53,7 +53,7 @@ const AlternateRecipient = ({
         exit={{ height: 0, opacity: 1 }}
       >
         <Divider padding={0} />
-        <div className="flex flex-col gap-y-2 justify-between px-4 my-2">
+        <div className="flex flex-col gap-y-2 justify-between my-2">
           <div className="flex gap-1">
             <span className="text-sm text-content-tertiary">نام گیرنده:</span>
             <span className="text-sm truncate">{alternateRecipientName}</span>
