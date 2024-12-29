@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChevronLeftIconOutline, ChevronUpIcon } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
 import { colors } from '@configs/Theme';
+import Icon from '@utilities/icon';
 
 const Rules = () => {
   const [collapseOpen, setCollapseOpen] = useState(true);
@@ -23,11 +24,17 @@ const Rules = () => {
         </span>
 
         {collapseOpen ? (
-          <ChevronUpIcon width={20} height={20} fill={colors.gray[400]} />
+          <Icon
+            name="ChevronUp"
+            width={1.5}
+            height={1.5}
+            fill={colors.gray[400]}
+          />
         ) : (
-          <ChevronLeftIconOutline
-            width={20}
-            height={20}
+          <Icon
+            name="ChevronLeft"
+            width={1.5}
+            height={1.5}
             fill={colors.gray[400]}
           />
         )}
