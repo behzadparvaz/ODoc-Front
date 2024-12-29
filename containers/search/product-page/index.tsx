@@ -59,11 +59,9 @@ const ProductPageContainer = () => {
   const handleChangeCount = (count: number) => {
     if (count > 0) {
       addToCart({
+        ...data,
         irc: selectedItem?.irc,
         quantity: count,
-        imageLink: data?.imageLink,
-        productName: data?.name,
-        unit: data?.unit,
       });
     } else {
       popProductOfCart({ type: 'IRC', irc: selectedItem?.irc });
@@ -133,11 +131,9 @@ const ProductPageContainer = () => {
               className="w-full bg-[linear-gradient(91.39deg,_#FF7733_0%,_#FF5722_50.15%,_#E64917_100%)]"
               onClick={() =>
                 addToCart({
+                  ...data,
                   quantity: 1,
                   irc: selectedItem?.irc,
-                  imageLink: data?.imageLink,
-                  productName: data?.productName,
-                  unit: data?.unit,
                 })
               }
             >

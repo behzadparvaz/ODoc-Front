@@ -18,6 +18,7 @@ type Props = {
   addressId?: number | string;
   className?: string;
   height?: string;
+  interactive?: boolean;
 };
 
 function ParsiMapContent({
@@ -26,6 +27,7 @@ function ParsiMapContent({
   height = '100%',
   loadingAddress = false,
   addressId = 0,
+  interactive = true,
 }: Props) {
   let MarkerIcon;
   useEffect(() => {
@@ -106,6 +108,7 @@ function ParsiMapContent({
       scrollZoom: { around: 'center' },
       touchZoomRotate: { around: 'center' },
       accessToken: token,
+      interactive: interactive,
     });
     if (mapboxgl.getRTLTextPluginStatus() === 'unavailable') {
       mapboxgl.setRTLTextPlugin(

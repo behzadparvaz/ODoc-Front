@@ -1,18 +1,19 @@
-import { useState } from 'react';
 import { useFormik } from 'formik';
+import { useState } from 'react';
 
 import { useCancelOrder, useGetDeclineTypes } from '@api/order/orderApis.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
 import { Radio } from '@com/_atoms/Radio';
-import useModal from '@hooks/useModal';
-import { CancelOrderSchema } from '@utilities/validationSchemas';
+import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
 import {
   FullModalAnimations,
   FullModalContainer,
 } from '@com/modal/containers/fullMobileContainer';
-import { MainLayout } from '@com/Layout';
-import ActionBar from '@com/Layout/ActionBar';
+import useModal from '@hooks/useModal';
+import { CancelOrderSchema } from '@utilities/validationSchemas';
+import Divider from '@com/_atoms/Divider';
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 type CancelOrderModalProps = {
@@ -74,8 +75,11 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
   const renderReasonList = () => {
     if (isLoading) {
       return shimerItems?.map((item) => (
-        <div key={item} className="h-[52px] w-full pl-20">
-          <div className="h-8 w-full rounded-lg bg-surface-secondary animate-pulse " />
+        <div
+          key={item}
+          className="h-[52px] flex justify-center items-center w-full"
+        >
+          <div className="h-10 w-full rounded-lg bg-surface-secondary animate-pulse" />
         </div>
       ));
     }
@@ -102,6 +106,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
                     formik?.setFieldValue('cancelReasonId', item?.id);
                   }
                 }}
+                disabled={isLoadingCancelOrder}
               />
             </div>
 
@@ -148,6 +153,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               inputClassName="h-[102px] w-full text-wrap rounded-md"
               errorMessage={formik.errors.cancelReasonValue as string}
               maxLength={150}
+              disabled={isLoadingCancelOrder}
             />
           )}
         </div>

@@ -1,13 +1,14 @@
+import classNames from 'classnames';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
 
-import VerticalProductCard from './VerticalProductCard';
+import { Button } from '@com/_atoms/NewButton';
 import { ArrowLeftIconOutline, CouponPuchedFillIcon } from '@com/icons';
 import { generalTexts } from '@com/texts/generalTexts';
-import { routeList } from '@routes/routeList';
 import { colors } from '@configs/Theme';
-import { Button } from '@com/_atoms/NewButton';
+import useProductNavigation from '@hooks/useNavigateToPdp';
+import { routeList } from '@routes/routeList';
+import VerticalProductCard from './VerticalProductCard';
 
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const VerticalProductCardShimmer = dynamic(
@@ -38,6 +39,7 @@ const CarouselLine = ({
   isShowMoreButton = true,
 }: Props) => {
   const { push } = useRouter();
+  const { navigateToPdp } = useProductNavigation();
   return (
     <div className={classNames(twoRow ? 'px-4' : '', containerClassName)}>
       <div
@@ -118,23 +120,9 @@ const CarouselLine = ({
               return (
                 <VerticalProductCard
                   hasAddToCart
-                  onClick={() => {
-                    if (item.productType === 1) {
-                      push({
-                        pathname: `${routeList?.searchProductPage}`,
-                        query: {
-                          brandName: item.brandName,
-                          categoryCodeLevel3: item.categoryCodeLevel3,
-                          irc: item.genericCode,
-                        },
-                      });
-                    }
-                    if (item.productType === 2) {
-                      push({
-                        pathname: `${routeList?.supplementProduct}/${item.genericCode}`,
-                      });
-                    }
-                  }}
+                  onClick={() =>
+                    navigateToPdp({ item, ProductTypeId: item.productType })
+                  }
                   productData={item}
                   className={classNames(
                     !carouselCardClassName

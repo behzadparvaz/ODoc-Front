@@ -10,6 +10,9 @@ import OrderDetailItems from '@com/_molecules/OrderDetailItems';
 import GeneralDetail from '../components/GeneralDetail';
 import { routeList } from '@routes/routeList';
 
+const AlternateRecipient = dynamic(
+  () => import('../components/AlternateRecipient'),
+);
 const Tender = dynamic(() => import('../components/Tender'));
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const Rules = dynamic(() => import('../components/Rules'));
@@ -57,6 +60,12 @@ const OrderDetailsContainer = () => {
           )}
 
           <AddressDetail address={data?.customer?.addresses[0]?.valueAddress} />
+          <AlternateRecipient
+            alternateRecipientName={data?.customer?.alternateRecipientName}
+            alternateRecipientMobileNumber={
+              data?.customer?.alternateRecipientMobileNumber
+            }
+          />
 
           {(data?.orderStatus?.name === 'apay' ||
             data?.orderStatus?.name === 'nfc') && (
@@ -66,11 +75,10 @@ const OrderDetailsContainer = () => {
               <Tender orderCode={data?.orderCode} />
             </>
           )}
-
-          {data?.orderStatus?.name !== 'draft' &&
-            data?.orderStatus?.name !== 'ack' &&
-            data?.orderStatus?.name !== 'apay' &&
-            data?.orderStatus?.name !== 'nfc' && (
+          {data?.orderStatus?.name === 'pick' ||
+            data?.orderStatus?.name === 'adelivery' ||
+            data?.orderStatus?.name === 'senddelivery' ||
+            (data?.orderStatus?.name === 'deliverd' && (
               <>
                 <Divider />
 
@@ -78,7 +86,7 @@ const OrderDetailsContainer = () => {
                   <VendorDetail data={data} />
                 </div>
               </>
-            )}
+            ))}
 
           {data?.orderStatus?.name !== 'apay' &&
             data?.orderStatus?.name !== 'nfc' && (

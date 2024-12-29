@@ -28,7 +28,7 @@ function MyApp({ Component, pageProps }) {
     refUpdateTimeOut.current = setTimeout(() => {
       hotReload();
     }, 4000);
-    window.localStorage.setItem('application_version', packageJson?.version);
+    window.localStorage?.setItem('application_version', packageJson?.version);
   };
 
   useEffect(() => {
@@ -39,34 +39,34 @@ function MyApp({ Component, pageProps }) {
         }
       });
       if (
-        localStorage.getItem('application_version') !== packageJson?.version
+        localStorage?.getItem('application_version') !== packageJson?.version
       ) {
         updateApplication();
       }
     }
     return () => {
-      if (refUpdateTimeOut.current) clearTimeout(refUpdateTimeOut.current);
+      if (refUpdateTimeOut?.current) clearTimeout(refUpdateTimeOut?.current);
     };
   }, []);
 
   const hotReload = () => {
-    navigator.serviceWorker.ready.then(() => {
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        registrations.forEach((registration) => {
-          registration.unregister();
+    navigator?.serviceWorker?.ready?.then(() => {
+      navigator?.serviceWorker.getRegistrations().then((registrations) => {
+        registrations?.forEach((registration) => {
+          registration?.unregister();
         });
       });
       caches
         .keys()
         .then((keyList) => {
-          return Promise.all(
-            keyList.map((key) => {
-              return caches.delete(key);
+          return Promise?.all(
+            keyList?.map((key) => {
+              return caches?.delete(key);
             }),
           );
         })
         .then(() => {
-          window.location.reload();
+          window?.location?.reload();
         });
     });
   };

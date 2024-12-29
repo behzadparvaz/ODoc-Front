@@ -9,6 +9,7 @@ import { colors } from '@configs/Theme';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import { routeList } from '@routes/routeList';
 import classNames from 'classnames';
+import { Button } from '@com/_atoms/NewButton';
 
 const Divider = dynamic(() => import('@com/_atoms/Divider'));
 
@@ -86,10 +87,10 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
 
       <Divider />
 
-      <div className="h-[48px] flex items-center justify-between px-4 py-2 cursor-pointer">
-        <span className="text-sm font-normal text-content-tertiary">
-          قابل پرداخت
-        </span>
+      <div className="flex items-center justify-between px-4 py-2 cursor-pointer">
+        <Button size="medium" variant="brand" className="w-1/2">
+          تایید و پرداخت
+        </Button>
         {!!data?.finalPrice ? (
           <span className="text-sm text-content-primary font-medium">
             {convertRialToTomanNumber(data?.finalPrice)?.toLocaleString(

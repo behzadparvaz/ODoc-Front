@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import Loading from './loading';
+import { ProductType } from '@constant/ProductType';
 
 interface Drug {
   id: string;
@@ -100,6 +101,7 @@ const ConfirmRequestDrugs = () => {
         quantity: item.quantity,
         unit: item.drugShape?.unit === '_' ? null : item.drugShape?.unit,
         description: item?.description,
+        productType: ProductType.RequestOrder,
       })),
     });
 

@@ -2,6 +2,14 @@ import request from '@api/request';
 
 type CodeFirst = { type: 'IRC'; irc: string };
 type CodeSecond = { type: 'GTIN'; gtin: string };
+
+export type ItemCode = {
+  type: 'IRC' | 'GTIN' | 'RX';
+  refrenceNumber?: string;
+  irc?: string;
+  gtin?: string;
+};
+
 export type OneOfCodes = CodeFirst | CodeSecond;
 
 export const getCurrentBasket = async () =>
@@ -10,11 +18,21 @@ export const getCurrentBasket = async () =>
 export const deleteCurrentBasket = async () =>
   await request.delete('/Baskets/DeleteBasket');
 
-export const deleteProductBasket = async (payload: OneOfCodes) =>
-  await request.delete('/Baskets/DeleteProduct', null, {
-    data:
-      payload.type === 'IRC' ? { irc: payload.irc } : { gtin: payload.gtin },
+export const deleteProductBasket = async (payload: ItemCode) => {
+  const renderPayload = () => {
+    switch (payload?.type) {
+      case 'IRC':
+        return { irc: payload?.irc };
+      case 'GTIN':
+        return { gtin: payload?.gtin };
+      case 'RX':
+        return { refrenceNumber: payload?.refrenceNumber };
+    }
+  };
+  return await request.delete('/Baskets/DeleteProduct', null, {
+    data: renderPayload(),
   });
+};
 
 export type UpdateCountProductBasketPayload = OneOfCodes & {
   productName: string;

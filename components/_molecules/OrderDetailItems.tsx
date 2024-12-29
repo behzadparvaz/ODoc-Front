@@ -14,6 +14,7 @@ import NextImage from '@com/_core/NextImage';
 import OrderItemCard from './OrderItemCard';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import Divider from '@com/_atoms/Divider';
+import Icon from '@utilities/icon';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -37,9 +38,19 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
           اقلام سفارش
         </span>
         {itemsCollapseOpen ? (
-          <ChevronUpIcon width={20} height={20} fill={colors.gray[400]} />
+          <Icon
+            name="ChevronUp"
+            width={1.5}
+            height={1.5}
+            fill={colors.gray[400]}
+          />
         ) : (
-          <ChevronDownIcon width={20} height={20} stroke={colors.gray[400]} />
+          <Icon
+            name="ChevronLeft"
+            width={1.5}
+            height={1.5}
+            fill={colors.gray[400]}
+          />
         )}
       </div>
       <motion.div
