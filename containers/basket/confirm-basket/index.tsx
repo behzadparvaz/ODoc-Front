@@ -7,20 +7,20 @@ import { useGetCurrentBasket } from '@api/basket/basketApis.rq';
 import { useCreateOrderDraft } from '@api/order/orderApis.rq';
 import { useGetProfile } from '@api/user/user.rq';
 import CheckBox from '@com/_atoms/CheckBox.nd';
+import Divider from '@com/_atoms/Divider';
 import { Button } from '@com/_atoms/NewButton';
 import { TextAreaInput } from '@com/_atoms/NewTextArea';
+import { TextInput as Input } from '@com/_atoms/NewTextInput';
 import { TickIcon } from '@com/icons';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
 import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
-import { RootState } from '@utilities/types';
-import SelectAddressBasket from '../components/SelectAddressBasket';
 import Icon from '@utilities/icon';
-import Divider from '@com/_atoms/Divider';
+import { RootState } from '@utilities/types';
 import { AnimatePresence, motion } from 'framer-motion';
-import { TextInput as Input } from '@com/_atoms/NewTextInput';
+import SelectAddressBasket from '../components/SelectAddressBasket';
 
 import { setMapStateAction } from '@redux/map/mapActions';
 
@@ -83,6 +83,7 @@ const ConfirmBasketContainer = () => {
         productName: pr.name,
         unit: pr.unit,
         productType: pr?.productType?.id,
+        ...(pr?.refrenceNumber && { referenceNumber: pr?.refrenceNumber }),
       })) ?? [];
     if (sendToSomeoneElse.isChecked) {
       if (!sendToSomeoneElse.recipient) {
