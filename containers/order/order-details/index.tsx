@@ -129,7 +129,7 @@ const OrderDetailsContainer = () => {
                   علت لغو سفارش
                 </span>
                 <span className="text-sm text-content-tertiary">
-                  {data?.declineType?.id === 17
+                  {data?.declineType?.id === 18
                     ? data?.cancelReason
                     : data?.declineType?.name}
                 </span>
