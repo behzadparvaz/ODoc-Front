@@ -23,6 +23,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import SelectAddressBasket from '../components/SelectAddressBasket';
 
 import { setMapStateAction } from '@redux/map/mapActions';
+import { ProductBasket } from '@api/basket/basketApis';
 
 const ParsiMapContent = dynamic(
   () => import('@com/_molecules/ParsiMapContent'),
@@ -68,7 +69,13 @@ const ConfirmBasketContainer = () => {
     useCreateOrderDraft({
       onSuccess: (res: any) => {
         refetchGetBasket();
-        if (res) router.push(`${routeList.basketSuccess}/${res}`);
+        const isRequestOrder = basket?.products?.some(
+          (item: ProductInBasket) => item?.productType?.name === 'requestorder',
+        );
+        if (res)
+          router.push(
+            `${routeList.basketSuccess}/${res}${isRequestOrder && '?isRequestOrder=true'}`,
+          );
       },
     });
 
