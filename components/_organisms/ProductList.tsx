@@ -142,7 +142,7 @@ const ProductList = ({ searchTerm }: Props) => {
                 className="w-max px-4 mt-2"
                 onClick={() =>
                   push({
-                    pathname: routeList.otcMedicine,
+                    pathname: routeList.requestDrugs,
                     query: { searchText: searchTerm },
                   })
                 }
