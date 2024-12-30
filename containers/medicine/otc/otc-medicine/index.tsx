@@ -5,12 +5,9 @@ import { useDispatch } from 'react-redux';
 import OtcMedicineCategories from '@com/_molecules/OtcMedicineCategories';
 import { MainLayout } from '@com/Layout';
 import { clearDrugsStateAction } from '@redux/requestDrugs/requestDrugsActions';
-import dynamic from 'next/dynamic';
 import { routeList } from '@routes/routeList';
-
-const RequestDrugsContent = dynamic(
-  () => import('@com/_organisms/RequestDrugsContent'),
-);
+import dynamic from 'next/dynamic';
+import QuickOrderBanner from './components/quickOrderBanner';
 
 const SearchBox = dynamic(() => import('@com/_atoms/SearchBox'));
 
@@ -42,13 +39,6 @@ const OtcMedicineContainer = () => {
       title="داروی بدون نسخه"
       backIconHandler={handleBackButton}
     >
-      {conditionShowRequestDrugsContent && (
-        <div className="flex flex-col">
-          <div className="mb-2 h-[1px] bg-border-primary w-full" />
-          <RequestDrugsContent />
-        </div>
-      )}
-
       <div className="px-4 py-4">
         <div
           className="cursor-pointer rounded-full"
@@ -59,6 +49,8 @@ const OtcMedicineContainer = () => {
           <SearchBox className="px-4" />
         </div>
       </div>
+
+      {conditionShowRequestDrugsContent && <QuickOrderBanner />}
 
       <div className="w-full h-max flex flex-col gap-y-4">
         <OtcMedicineCategories />
