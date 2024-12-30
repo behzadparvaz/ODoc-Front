@@ -9,9 +9,7 @@ const RequestDrugsContainer = () => {
       hasBackButton
       title="ثبت درخواست دارو"
     >
-      <div className="px-4 mb-14">
-        <RequestDrugsContent />
-      </div>
+      <RequestDrugsContent />
     </MainLayout>
   );
 };

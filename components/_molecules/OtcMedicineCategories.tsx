@@ -59,7 +59,7 @@ const OtcMedicineCategories = () => {
     <>
       {renderCategories()}
 
-      <div className="w-full h-[198px] px-4 pb-3">
+      <div className="w-full h-auto px-4 pb-3">
         <div className="!aspect-w-23 !aspect-h-10">
           <NextImage
             src={'/images/otc-medicine-banner.png'}
