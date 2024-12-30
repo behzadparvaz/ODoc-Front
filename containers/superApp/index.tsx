@@ -20,13 +20,7 @@ const SuperAppContainer = () => {
 
   useEffect(() => {
     if (getLocalStorageToken()) {
-      replace(routeList.homeRoute, {
-        query: {
-          utm_source: 'TAPSI',
-          utm_medium: 'superapp',
-          utm_campaign: 'test2',
-        },
-      });
+      replace(routeList.homeRoute);
     } else {
       const query: any = searchParamToObject(window?.location?.search);
       if (query.utm_source === 'TAPSI' && tapsiLinkRef.current) {

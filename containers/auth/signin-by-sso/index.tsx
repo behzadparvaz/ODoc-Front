@@ -26,6 +26,7 @@ const AuthRedirectContainer = () => {
           { code: codeVendorSSO },
           {
             onSuccess: (data: any) => {
+              console.log('SSO login success');
               Cookies.set('token', data?.token, { expires: 365 });
               Cookies.set('loginWithTapsiSSO', true, { expires: 365 });
               localStorage.setItem('token', data?.token);
@@ -35,35 +36,17 @@ const AuthRedirectContainer = () => {
                   token: data?.token,
                 }),
               );
-              replace(routeList.homeRoute, {
-                query: {
-                  utm_source: 'TAPSI',
-                  utm_medium: 'superapp',
-                  utm_campaign: 'test2',
-                },
-              });
+              replace(routeList.homeRoute);
             },
             onError: (error) => {
               console.error('SSO login failed:', error);
-              replace(routeList.homeRoute, {
-                query: {
-                  utm_source: 'TAPSI',
-                  utm_medium: 'superapp',
-                  utm_campaign: 'test2',
-                },
-              });
+              replace(routeList.homeRoute);
             },
           },
         );
       } catch (error) {
         console.error('Error during SSO login:', error);
-        replace(routeList.homeRoute, {
-          query: {
-            utm_source: 'TAPSI',
-            utm_medium: 'superapp',
-            utm_campaign: 'test2',
-          },
-        });
+        replace(routeList.homeRoute);
       }
     }
   };
