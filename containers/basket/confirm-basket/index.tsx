@@ -74,7 +74,7 @@ const ConfirmBasketContainer = () => {
         );
         if (res)
           router.push(
-            `${routeList.basketSuccess}/${res}${isRequestOrder && '?isRequestOrder=true'}`,
+            `${routeList.basketSuccess}/${res}${isRequestOrder ? '?isRequestOrder=true' : ''}`,
           );
       },
     });

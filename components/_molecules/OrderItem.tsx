@@ -20,9 +20,10 @@ import moment from 'jalali-moment';
 
 type OrderItemProps = {
   data: any;
+  isPreOrder?: boolean;
 };
 
-const OrderItem = ({ data }: OrderItemProps) => {
+const OrderItem = ({ data, isPreOrder }: OrderItemProps) => {
   const router = useRouter();
   const { data: vendorData } = useGetVendorDetails(data?.vendorCode);
   const { data: deliveryCode } = useGetDeliveryCode(
@@ -370,9 +371,8 @@ const OrderItem = ({ data }: OrderItemProps) => {
 
         {(data.orderStatus?.name === 'draft' ||
           data.orderStatus?.name === 'ack') &&
-          acceptExpirationTime && (
-            <Countdown expirationTime={acceptExpirationTime} />
-          )}
+          acceptExpirationTime &&
+          !isPreOrder && <Countdown expirationTime={acceptExpirationTime} />}
       </div>
 
       {renderTimeLine}
