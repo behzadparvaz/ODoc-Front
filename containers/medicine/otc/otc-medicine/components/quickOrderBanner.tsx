@@ -1,6 +1,5 @@
 import NextImage from '@com/_core/NextImage';
 import NextLink from '@com/_core/NextLink';
-import { ChevronLeftIconOutline } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import Icon from '@utilities/icon';
