@@ -18,10 +18,10 @@ const QuickOrderBanner = () => (
         </div>
         <div className="w-full flex flex-col gap-4">
           <span className="text-sm text-content-primary font-medium">
-            داروهات رو پیدا نکردی!
+            داروهات رو پیدا نکردی؟!
           </span>
           <span className="text-xs text-content-tertiary font-normal line-clamp-2">
-            در این بخش شما میتوانید عنوان داروی مورد نیازتان را درج کنید
+            در این بخش شما میتوانید عنوان داروی مورد نیازتان را درج کنید.
           </span>
         </div>
         <Icon
