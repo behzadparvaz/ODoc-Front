@@ -76,21 +76,21 @@ export const useGetOrdersHistory: (
   statusId: number,
   options?: UseQueryOptions<unknown, Error, any[]>,
 ) => UseQueryResult<any[], Error> = (statusId, options) =>
-    useQuery({
-      queryKey: ['getOrdersHistory', statusId],
-      queryFn: () => GetOrdersHistory(statusId),
-      refetchInterval: 20000,
-      ...options,
-    });
+  useQuery({
+    queryKey: ['getOrdersHistory', statusId],
+    queryFn: () => GetOrdersHistory(statusId),
+    refetchInterval: 20000,
+    ...options,
+  });
 
 export const useGetOrderStatuses: (
   options?: UseQueryOptions<unknown, Error, OrderStatuses[]>,
 ) => UseQueryResult<OrderStatuses[], Error> = (options) =>
-    useQuery({
-      queryKey: ['getOrderStatuses'],
-      queryFn: () => GetOrderStatuses(),
-      ...options,
-    });
+  useQuery({
+    queryKey: ['getOrderStatuses'],
+    queryFn: () => GetOrderStatuses(),
+    ...options,
+  });
 
 export const useGetOrderInfo = (id: string) => {
   const { data, isLoading } = useQuery({
@@ -183,15 +183,17 @@ export const useGetSupplementaryInsurances = () => {
 export const useCreateOrderDraft: (
   options?: UseMutationOptions<unknown, unknown, CreateOrderDraftPayload>,
 ) => UseMutationResult<unknown, unknown, CreateOrderDraftPayload> = (options) =>
-    useMutation({
-      mutationFn: (variables) => createOrderDraft(variables),
-      ...options,
-    });
+  useMutation({
+    mutationFn: (variables) => createOrderDraft(variables),
+    ...options,
+  });
 
 export const useGetOrderDetails = (orderCode: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['getOrderDetails', orderCode],
     queryFn: () => getOrderDetails(orderCode),
+    refetchOnMount: 'always',
+    refetchInterval: 120000,
     enabled: !!orderCode,
   });
   return { data: data as any, isLoading };
@@ -201,7 +203,6 @@ export const useGetActiveOrderStatus = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['getActiveOrderStatus'],
     queryFn: () => getActiveOrderStatus(),
-
     gcTime: 10000,
   });
   return { data: data as any, isLoading };
@@ -223,7 +224,6 @@ export const useGetDeliveryCode = (orderCode: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['getDeliveryCode', orderCode],
     queryFn: () => getDeliveryCode(orderCode),
-
     enabled: !!orderCode,
   });
 
@@ -233,7 +233,6 @@ export const useGetBikerDetail = (orderCode: string) => {
   const { data, isLoading } = useQuery({
     queryKey: ['getBikerDetail', orderCode],
     queryFn: () => getBikerDetail(orderCode),
-
     enabled: !!orderCode,
   });
 
@@ -251,7 +250,7 @@ export const useGetCurrentOrder = () => {
     queryKey: ['getDeliveryCode'],
     queryFn: () => getCurrentOrder(),
     enabled: !!token,
-    refetchOnMount: 'always'
+    refetchOnMount: 'always',
   });
 };
 

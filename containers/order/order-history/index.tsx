@@ -8,11 +8,22 @@ import OrderItem from '@com/_molecules/OrderItem';
 import { MainLayout } from '@com/Layout';
 import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
 import { routeList } from '@routes/routeList';
+import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
+import { useSelector } from 'react-redux';
 
 const OrderHistoryContainer = () => {
   const { push, query } = useRouter();
   const statusId = Number(query?.statusId ?? '-1');
   const { data: orderHistoryData, isLoading } = useGetOrdersHistory(statusId);
+
+  const userLatLng = useSelector(
+    (state: any) => state?.user?.user?.defaultAddress,
+  );
+
+  const { data: prepartionTimeData } = useGetOrderPrepartionTime({
+    lat: userLatLng?.latitude,
+    lng: userLatLng?.longitude,
+  });
 
   const handleChangeFilter = (item) => {
     if (item?.id === statusId) return;
@@ -85,7 +96,13 @@ const OrderHistoryContainer = () => {
           <div className="flex flex-col gap-y-4 bg-background-gradient.white-to-gray p-4">
             <span className="text-xs text-content-tertiary">{`سفارش فعال ${currentOrders?.length}`}</span>
             {currentOrders?.map((item) => {
-              return <OrderItem key={item?.id} data={item} />;
+              return (
+                <OrderItem
+                  key={item?.id}
+                  data={item}
+                  isPreOrder={prepartionTimeData?.isPreOrder}
+                />
+              );
             })}
           </div>
         )}

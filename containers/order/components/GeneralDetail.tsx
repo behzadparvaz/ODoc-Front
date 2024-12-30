@@ -7,10 +7,7 @@ import { colors } from '@configs/Theme';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { persianDate } from '@utilities/persianDate';
 import moment from 'jalali-moment';
-import {
-  useGetOrderPrepartionTime,
-  useGetTenderPrepartionTime,
-} from '@api/tender/tenderApis.rq';
+import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import { useSelector } from 'react-redux';
 import Icon from '@utilities/icon';
 
@@ -124,10 +121,12 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
 
-            <Countdown
-              expirationTime={acceptExpirationTime}
-              className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
-            />
+            {!prepartionTimeData?.isPreOrder && (
+              <Countdown
+                expirationTime={acceptExpirationTime}
+                className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
+              />
+            )}
           </div>
         );
       case 'apay':
