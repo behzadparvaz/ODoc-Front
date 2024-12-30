@@ -1,32 +1,45 @@
 stages:
   - build
   - push
+  - push
 
 variables:
-  DOCKER_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctor'
-  TAG: '${CI_COMMIT_TAG}' # Use only commit tag
+  tapsidoctorprod_IMAGE: 'jfrog.tapsi.doctor/local-docker/tapsidoctorprod'
+  tapsidoctorprod_TAG: '${CI_COMMIT_TAG}'
+  SOTOON_IMAGE: 'registry.tapsi.doctor/local-docker/tapsidoctorprod'
 
 before_script:
-  # Login to your Docker registry
   - echo "$CI_REGISTRY_PASSWORD" | docker login jfrog.tapsi.doctor -u "$CI_REGISTRY_USER" --password-stdin
 
-build_image:
+build_tapsidoctorprod:
   stage: build
   tags:
-    - docker-build
+    - runner2
   script:
-    - if [ -z "$CI_COMMIT_TAG" ]; then echo "No commit tag provided. Aborting."; exit 1; fi # Fail if no tag
-    - docker build --no-cache --add-host jfrog.tapsi.doctor:172.27.215.78 --build-arg ENV_MODE=staging -t $DOCKER_IMAGE:$TAG .
-  only:
-    - tags # Run only on tags
-#  when: manual
+    - docker build --add-host jfrog.tapsi.doctor:172.27.215.78 -t $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG -f ./Dockerfile.prod .
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
 
-push_image:
+push_tapsidoctorprod:
   stage: push
   tags:
-    - docker-build
+    - runner2
   script:
-    - docker push $DOCKER_IMAGE:$TAG
-  only:
-    - tags # Run only on tags
-#  when: manual
+    - docker push $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
+
+push_to_sotoon:
+  stage: push
+  tags:
+    - runner2
+  before_script:
+    # Login to the Sotoon JFrog registry
+    - echo "$CI_REGISTRY_PASSWORD_SOTOON" | docker login registry.tapsi.doctor -u "$CI_REGISTRY_USER_SOTOON" --password-stdin
+  script:
+    # Push the existing image to the Sotoon registry
+    - docker tag $tapsidoctorprod_IMAGE:$tapsidoctorprod_TAG $SOTOON_IMAGE:$tapsidoctorprod_TAG
+    - docker push $SOTOON_IMAGE:$tapsidoctorprod_TAG
+  rules:
+    - if: '$CI_COMMIT_TAG =~ /^tapsidoctorprod-/' # Runs only for tags starting with 'tapsidoctorprod-'
+  when: manual
