@@ -26,11 +26,14 @@ const QuickOrderSuccessContainer = () => {
           </span>
         </div>
         <p className="text-lg text-center font-semibold mt-5">
-          درخواست شما ثبت و در انتظار تأیید داروخانه است
+          {query?.isRequestOrder
+            ? 'درخواست شما ثبت و در انتظار بررسی پزشک است'
+            : 'درخواست شما ثبت و در انتظار تأیید داروخانه است'}
         </p>
         <p className="text-base text-gray-500 px-6 text-center mt-4">
-          سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید
-          منتظر تأیید داروخانه باشید
+          {query?.isRequestOrder
+            ? 'سفارش شما به پزشک ارسال شد، برای ادامه فرآیند خرید باید منتظر تأیید پزشک باشید.'
+            : 'سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید منتظر تأیید داروخانه باشید.'}
         </p>
 
         <p className="flex text-normal text-gray-500 px-6 text-center mt-4 gap-2 justify-center">
