@@ -31,23 +31,13 @@ const AddressBox = ({ data, className = '' }: Props) => {
   useEffect(() => {
     if (!defaultAddress) {
       if (addressSelected) {
-        dispatch(
-          setUserAction({
-            defaultAddress: addressSelected,
-          }),
-        );
+        dispatch(setUserAction({ defaultAddress: addressSelected }));
       } else {
-        dispatch(
-          setUserAction({
-            defaultAddress: null,
-          }),
-        );
-        addModal({
-          modal: SelectAddress,
-        });
+        dispatch(setUserAction({ defaultAddress: null }));
+        addModal({ modal: SelectAddress });
       }
     }
-  }, [dispatch, addressSelected]);
+  }, [dispatch, addressSelected, defaultAddress]);
 
   const handleModalOpen = () => {
     addModal({ modal: SelectAddress });
