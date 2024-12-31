@@ -35,7 +35,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
       const lastSelectedTime = addressSelected?.lastSelectedTime; // Assuming this is in milliseconds
 
       // Check if lastSelectedTime + 1 hour < current time
-      if (lastSelectedTime + 3600000 < currentTime) {
+      if (lastSelectedTime + 3600000 < currentTime || !defaultAddress) {
         dispatch(
           setUserAction({
             defaultAddress: {
