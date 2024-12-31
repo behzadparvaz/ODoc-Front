@@ -29,24 +29,25 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log(getFutureTime(0, 'now'));
-    if (data && Array.isArray(data) && addressSelected) {
-      const currentTime = Date.now(); // Get current time in milliseconds
-      const lastSelectedTime = addressSelected?.lastSelectedTime; // Assuming this is in milliseconds
-
-      // Check if lastSelectedTime + 1 hour < current time
-      if (lastSelectedTime + 3600000 < currentTime || !defaultAddress) {
+    if (!defaultAddress) {
+      if (addressSelected) {
         dispatch(
           setUserAction({
-            defaultAddress: {
-              ...addressSelected,
-              lastSelectedTime: getFutureTime(0, 'now').getTime,
-            },
+            defaultAddress: addressSelected,
           }),
         );
+      } else {
+        dispatch(
+          setUserAction({
+            defaultAddress: null,
+          }),
+        );
+        addModal({
+          modal: SelectAddress,
+        });
       }
     }
-  }, [dispatch, addressSelected, data]);
+  }, [dispatch, addressSelected]);
 
   const handleModalOpen = () => {
     addModal({ modal: SelectAddress });
