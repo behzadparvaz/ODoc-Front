@@ -1,8 +1,11 @@
-import { useDeleteLocation } from '@api/user/user.rq';
+import { useDeleteLocation, useGetUserLocations } from '@api/user/user.rq';
 import { Button } from '@com/_atoms/NewButton';
 import { FailIcon } from '@com/icons';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import useModal from '@hooks/useModal';
+import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
+import { setUserAction } from '@redux/user/userActions';
+import { useDispatch } from 'react-redux';
 
 type DeleteAddressModalProps = {
   addressId: any;
@@ -10,6 +13,9 @@ type DeleteAddressModalProps = {
 
 const DeleteAddressModal = ({ addressId }: DeleteAddressModalProps) => {
   const { removeLastModal } = useModal();
+  const { data } = useGetUserLocations();
+  const { addressSelected } = useSelectAddressByCurrentLocation(data);
+  const dispatch = useDispatch();
 
   const {
     mutate: mutateDeleteLocation,
@@ -17,6 +23,7 @@ const DeleteAddressModal = ({ addressId }: DeleteAddressModalProps) => {
   } = useDeleteLocation();
 
   const handleDeleteAddress = () => {
+    dispatch(setUserAction({ defaultAddress: addressSelected }));
     mutateDeleteLocation({
       Id: addressId,
     });
