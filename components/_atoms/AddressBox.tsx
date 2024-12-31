@@ -9,6 +9,7 @@ import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurr
 import { setUserAction } from '@redux/user/userActions';
 import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
+import getFutureTime from '@utilities/getFutureTime';
 
 interface Address {
   name: string;
@@ -28,10 +29,24 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (addressSelected) {
-      dispatch(setUserAction({ defaultAddress: addressSelected }));
+    console.log(getFutureTime(0, 'now'));
+    if (data && Array.isArray(data) && addressSelected) {
+      const currentTime = Date.now(); // Get current time in milliseconds
+      const lastSelectedTime = addressSelected?.lastSelectedTime; // Assuming this is in milliseconds
+
+      // Check if lastSelectedTime + 1 hour < current time
+      if (lastSelectedTime + 3600000 < currentTime) {
+        dispatch(
+          setUserAction({
+            defaultAddress: {
+              ...addressSelected,
+              lastSelectedTime: getFutureTime(0, 'now').getTime,
+            },
+          }),
+        );
+      }
     }
-  }, [dispatch, addressSelected, defaultAddress]);
+  }, [dispatch, addressSelected, data]);
 
   const handleModalOpen = () => {
     addModal({ modal: SelectAddress });

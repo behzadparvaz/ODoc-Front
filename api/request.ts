@@ -61,17 +61,20 @@ class Request {
   }
 
   private async refreshToken(): Promise<string | null> {
+    const token = getLocalStorageToken();
     try {
-      const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getLocalStorageToken()}`
-        }
-      });
-      const newAccessToken = response.data.data.token;
-      setLocalStorageToken(newAccessToken);
-      this.setToken(newAccessToken);
-      return newAccessToken;
+      if (token) {
+        const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const newAccessToken = response.data.data.token;
+        setLocalStorageToken(newAccessToken);
+        this.setToken(newAccessToken);
+        return newAccessToken;
+      }
     } catch (error) {
       console.error("Failed to refresh token", error);
       setLocalStorageToken(null);
@@ -120,11 +123,11 @@ class Request {
               this.isRefreshing = true;
 
               try {
-                const token = await this.refreshToken();
-                if (token) {
-                  this.setToken(token);
-                  error.config.headers['Authorization'] = `Bearer ${token}`;
-                  this.processQueue(null, token);
+                const refreshToken = await this.refreshToken();
+                if (refreshToken) {
+                  this.setToken(refreshToken);
+                  error.config.headers['Authorization'] = `Bearer ${refreshToken}`;
+                  this.processQueue(null, refreshToken);
                   return instance(error.config); // Retry original request
                 } else {
                   // If no token is returned, redirect to login

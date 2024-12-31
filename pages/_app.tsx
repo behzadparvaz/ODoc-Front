@@ -63,9 +63,7 @@ function MyApp({ Component, pageProps }) {
   //   });
   // }, []);
   useEffect(() => {
-    if (!navigator?.geolocation) {
-      openLocationsModal();
-    }
+    openLocationsModal();
     if (process.env.REACT_APP_ENV !== 'demo') {
       document.addEventListener('update-new-content', function (event: any) {
         if (event?.detail?.hasUpdate) {
