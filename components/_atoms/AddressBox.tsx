@@ -28,7 +28,7 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!defaultAddress && addressSelected) {
+    if (addressSelected) {
       dispatch(setUserAction({ defaultAddress: addressSelected }));
     }
   }, [dispatch, addressSelected, defaultAddress]);
