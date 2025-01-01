@@ -29,16 +29,17 @@ const OtcSelectShapeBottomsheet = ({
   const shapesList = useMemo(() => shapesData?.queryResult, [shapesData]);
 
   const handleSelectShape = (shapeData: ShapesDataModel | null) => {
+    const { shapeName, shapeCode, ...rest } = query;
     push({
       pathname: pathname,
       query: !!shapeData
         ? {
-            ...plpQuery,
+            ...rest,
             shapeCode: shapeData?.shapeCode,
             shapeName: shapeData?.shapeName,
           }
         : {
-            ...plpQuery,
+            ...rest,
           },
     });
     removeLastModal();
