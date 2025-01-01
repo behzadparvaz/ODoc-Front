@@ -41,6 +41,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
           });
         },
         (error) => {
+          console.log('error in getCurrentLocation', error);
           reject(error);
         },
         {
@@ -79,6 +80,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
           post.longitude,
         ) < 1
       );
+      console.log('nearestAddress', nearestAddress);
       if (nearestAddress) {
         setAddressSelected(nearestAddress || null); // Set to null if no address found
       }
