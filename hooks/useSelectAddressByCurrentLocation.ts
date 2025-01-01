@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import useModal from './useModal';
-import SelectAddress from '@com/_organisms/SelectAddress';
-import useNotification from './useNotification';
 
 interface Location {
   lat: number;
@@ -9,6 +7,7 @@ interface Location {
 }
 
 interface Address {
+  lastSelectedTime: any;
   latitude: number;
   longitude: number;
   // Add any other properties that your address object may have
@@ -18,11 +17,16 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const { addModal } = useModal();
-  const { openNotification } = useNotification();
+  // const { openNotification } = useNotification();
 
-  const handleLocationsModalOpen = () => {
-    addModal({ modal: SelectAddress });
-  };
+  // const handleLocationsModalOpen = () => {
+  //   addModal({ modal: SelectAddress });
+  //   openNotification({
+  //     type: 'error',
+  //     message: 'متأسفانه موقعیت مکانی‌تان را دریافت نکردیم. لطفاً آدرس خود را انتخاب کنید.',
+  //     notifType: 'successOrFailedMessage',
+  //   });
+  // };
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
@@ -79,12 +83,6 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
         setAddressSelected(nearestAddress || null); // Set to null if no address found
       }
     } catch (error) {
-      handleLocationsModalOpen()
-      openNotification({
-        type: 'error',
-        message: 'متأسفانه موقعیت مکانی‌تان را دریافت نکردیم. لطفاً آدرس خود را انتخاب کنید.',
-        notifType: 'successOrFailedMessage',
-      });
       console.error('Error getting location:', error);
     } finally {
       setLoading(false); // Set loading to false after fetching

@@ -27,10 +27,6 @@ function MyApp({ Component, pageProps }) {
   const refUpdateTimeOut = useRef(null);
   const { addModal } = useModal();
 
-  const openLocationsModal = () => {
-    addModal({ modal: SelectAddress });
-  };
-
   const updateApplication = () => {
     refUpdateTimeOut.current = setTimeout(() => {
       hotReload();
@@ -63,9 +59,6 @@ function MyApp({ Component, pageProps }) {
   //   });
   // }, []);
   useEffect(() => {
-    if (!navigator?.geolocation) {
-      openLocationsModal();
-    }
     if (process.env.REACT_APP_ENV !== 'demo') {
       document.addEventListener('update-new-content', function (event: any) {
         if (event?.detail?.hasUpdate) {
