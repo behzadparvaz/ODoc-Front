@@ -5,12 +5,16 @@ import { FailIcon } from '@com/icons';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import useModal from '@hooks/useModal';
 import { routeList } from '@routes/routeList';
+import { clearLastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 const LogoutModal = () => {
   const { removeLastModal } = useModal();
   const { push } = useRouter();
 
   const handleLogout = () => {
+    clearLastSelectedAddressTimeStamp();
+    localStorage.removeItem('persist:root');
+    localStorage.removeItem('token');
     push(routeList?.logoutRoute);
   };
 
