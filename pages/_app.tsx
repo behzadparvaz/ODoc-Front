@@ -105,6 +105,10 @@ function MyApp({ Component, pageProps }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover"
         />
+        <meta
+          name="google-site-verification"
+          content="3NCSkWm67rju_OABL3Otkq53bI_SzF-x3mMRKR9hgLw"
+        />
       </Head>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />
       <QueryClientProvider client={queryClient}>
