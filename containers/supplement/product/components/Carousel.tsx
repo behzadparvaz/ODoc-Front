@@ -25,19 +25,19 @@ const Carousel = ({ products = null }) => {
               />
             ))}
           {products?.map((item, index) => {
-            const data = {
-              productName: item.shortNameFa,
-              irc: item?.irc,
-              masterId: item?.masterId,
-              imageLink: item?.shapeLinkUrl,
-            };
             return (
               <VerticalProductCard
                 hasAddToCart
                 onClick={() =>
                   navigateToPdp({ item, ProductTypeId: item.productType })
                 }
-                productData={data}
+                productData={{
+                  ...item,
+                  productName: item.shortNameFa,
+                  irc: item?.irc,
+                  masterId: item?.masterId,
+                  imageLink: item?.shapeLinkUrl,
+                }}
                 className={classNames(
                   `!w-[110px] items-center border-border-primary py-5 bg-white rounded-md mr-4`,
                   products.length - 1 === index && 'ml-4',

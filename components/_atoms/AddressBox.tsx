@@ -10,6 +10,11 @@ import { setUserAction } from '@redux/user/userActions';
 import Icon from '@utilities/icon';
 import { RootState } from '@utilities/types';
 import getFutureTime from '@utilities/getFutureTime';
+import {
+  isExpiredLastSelectedAddressTimeStamp,
+  setLocalStoragelastSelectedAddressTimeStamp,
+} from '@utilities/addressUtils';
+import useStorage from '@hooks/useStorage';
 
 interface Address {
   name: string;
@@ -27,12 +32,18 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const { user } = useSelector((state: RootState) => state.user);
   const defaultAddress: Address | null = user?.defaultAddress || null;
   const dispatch = useDispatch();
+  const { getItem } = useStorage();
+  const token = getItem('token', 'local');
 
   useEffect(() => {
-    if (!defaultAddress) {
+    console.log('test');
+    if (!!token && isExpiredLastSelectedAddressTimeStamp()) {
       if (addressSelected) {
+        console.log('if');
         dispatch(setUserAction({ defaultAddress: addressSelected }));
+        setLocalStoragelastSelectedAddressTimeStamp();
       } else {
+        console.log('else');
         dispatch(setUserAction({ defaultAddress: null }));
         addModal({ modal: SelectAddress });
       }

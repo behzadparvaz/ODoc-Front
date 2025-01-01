@@ -41,3 +41,24 @@ export const cedarAddressFixedPartCreator = (address: string, maximumFixedPartNu
     return combinedAddressParts;
   }
 };
+
+export const setLocalStoragelastSelectedAddressTimeStamp = (): void => {
+  localStorage.setItem('lastSelectedAddressTimeStamp', `${new Date().getTime()}`);
+};
+
+export const getLocalStoragelastSelectedAddressTimeStamp = (): number => {
+  return Number(localStorage.getItem('lastSelectedAddressTimeStamp'));
+};
+
+export const clearLastSelectedAddressTimeStamp = (): void => {
+  localStorage.removeItem('lastSelectedAddressTimeStamp');
+};
+
+export const isExpiredLastSelectedAddressTimeStamp = (): boolean => {
+  const lastSelectedAddressTimeStamp = getLocalStoragelastSelectedAddressTimeStamp(); // Fixed function name
+  const currentTime = new Date().getTime();
+
+  // Check if more than 1 hour has passed
+  return currentTime - lastSelectedAddressTimeStamp > 1000 * 60 * 60; // 1 hour
+};
+

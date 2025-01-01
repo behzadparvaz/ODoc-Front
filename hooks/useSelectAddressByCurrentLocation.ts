@@ -71,7 +71,6 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const selectAddressByCurrentLocation = async () => {
     try {
       const currentLocation = await getCurrentLocation();
-      console.log(data)
       const nearestAddress = data.find((post) =>
         getDistanceFromLatLonInKm(
           currentLocation.lat,

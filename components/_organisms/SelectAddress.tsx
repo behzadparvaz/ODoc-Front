@@ -21,6 +21,7 @@ import { Location } from '@utilities/interfaces/location';
 
 import ParsiMapBottomSheet from './ParsiMapBottomSheet';
 import getFutureTime from '@utilities/getFutureTime';
+import { setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 const SelectAddress = () => {
   const { getItem } = useStorage();
@@ -83,12 +84,10 @@ const SelectAddress = () => {
   const handleClickAddress = (item) => {
     dispatch(
       setUserAction({
-        defaultAddress: {
-          ...item,
-          lastSelectedTime: getFutureTime(0, 'now').getTime,
-        },
+        defaultAddress: item,
       }),
     );
+    setLocalStoragelastSelectedAddressTimeStamp();
     removeLastModal();
   };
 
