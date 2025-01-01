@@ -33,7 +33,12 @@ const BottomNavigation: React.FC = () => {
     const iconColor = isActive ? colors.black : colors.grey[300];
 
     return (
-      <Link key={route} href={route} passHref>
+      <Link
+        key={route}
+        replace={Routes.HOME === pathname}
+        href={route}
+        passHref
+      >
         <span
           role="button"
           aria-label={label}
