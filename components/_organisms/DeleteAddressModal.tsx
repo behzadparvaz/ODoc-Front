@@ -23,7 +23,8 @@ const DeleteAddressModal = ({ addressId }: DeleteAddressModalProps) => {
   } = useDeleteLocation();
 
   const handleDeleteAddress = () => {
-    dispatch(setUserAction({ defaultAddress: addressSelected }));
+    console.log(addressSelected);
+    dispatch(setUserAction({ defaultAddress: addressSelected || null }));
     mutateDeleteLocation({
       Id: addressId,
     });
