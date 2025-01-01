@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import useModal from './useModal';
 
 interface Location {
   lat: number;
@@ -6,6 +7,7 @@ interface Location {
 }
 
 interface Address {
+  lastSelectedTime: any;
   latitude: number;
   longitude: number;
   // Add any other properties that your address object may have
@@ -14,6 +16,17 @@ interface Address {
 export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
+  const { addModal } = useModal();
+  // const { openNotification } = useNotification();
+
+  // const handleLocationsModalOpen = () => {
+  //   addModal({ modal: SelectAddress });
+  //   openNotification({
+  //     type: 'error',
+  //     message: 'متأسفانه موقعیت مکانی‌تان را دریافت نکردیم. لطفاً آدرس خود را انتخاب کنید.',
+  //     notifType: 'successOrFailedMessage',
+  //   });
+  // };
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
@@ -27,7 +40,9 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
             lng: position.coords.longitude,
           });
         },
-        (error) => reject(error),
+        (error) => {
+          reject(error);
+        },
         {
           enableHighAccuracy: true,
           timeout: 15000,

@@ -34,17 +34,17 @@ export type sliderTemplateProps = {
   data?: any;
   loading: boolean;
   type:
-    | 'mainSlider'
-    | 'productSlider'
-    | 'productBoxSlider'
-    | 'productBoxSliderWithInfiniteScroll'
-    | 'scrollbarCategories'
-    | 'scrollbarBlogs'
-    | 'scrollbarYourStores'
-    | 'scrollbarTopBrands'
-    | 'deliveryTime'
-    | 'mobileProductSlider'
-    | 'mobileDeliveryTime';
+  | 'mainSlider'
+  | 'productSlider'
+  | 'productBoxSlider'
+  | 'productBoxSliderWithInfiniteScroll'
+  | 'scrollbarCategories'
+  | 'scrollbarBlogs'
+  | 'scrollbarYourStores'
+  | 'scrollbarTopBrands'
+  | 'deliveryTime'
+  | 'mobileProductSlider'
+  | 'mobileDeliveryTime';
   lazy?: boolean;
   pagination?: {};
   navigation?: boolean;
@@ -299,7 +299,7 @@ export interface AttributeNames {
 }
 declare global {
   interface Window {
-    dataLayer?: object[];
+    dataLayer?: Object[];
     webengage?: any;
   }
 }

@@ -132,14 +132,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
   const renderButom = () => {
     return (
       <div className="flex items-center justify-between">
-        <div
-          className="w-[32px] h-[32px] flex justify-center items-center bg-surface-tertiary rounded-full cursor-pointer"
-          onClick={() =>
-            router.push(
-              `${routeList.ordersHistory}/${data?.orderCode}?previousPage=home`,
-            )
-          }
-        >
+        <div className="w-[32px] h-[32px] flex justify-center items-center bg-surface-tertiary rounded-full cursor-pointer">
           <ArrowLeftIconOutline width={24} height={24} fill={colors.black} />
         </div>
       </div>
@@ -154,12 +147,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
     data?.orderStatus?.name === 'reject'
   ) {
     return (
-      <div
-        className="w-full h-full flex flex-col gap-y-3 p-4"
-        onClick={() =>
-          router.push(`${routeList.ordersHistory}/${data?.orderCode}`)
-        }
-      >
+      <div className="w-full h-full flex flex-col gap-y-3 p-4">
         <div className="flex flex-col gap-y-3">
           {data?.orderStatus?.name === 'deliverd' && (
             <span className="text-sm font-semibold">
@@ -251,6 +239,11 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
     <div
       className={
         'w-full border border-0.5 border-border-primary overflow-hidden rounded-lg py-2 px-3 flex flex-col gap-y-2 cursor-pointer bg-surface-primary'
+      }
+      onClick={() =>
+        router.push(
+          `${routeList.ordersHistory}/${data?.orderCode}?previousPage=home`,
+        )
       }
     >
       <div className="flex justify-end"></div>

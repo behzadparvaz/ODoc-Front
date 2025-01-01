@@ -5,12 +5,17 @@ import { FailIcon } from '@com/icons';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import useModal from '@hooks/useModal';
 import { routeList } from '@routes/routeList';
+import { useQueryClient } from '@tanstack/react-query';
 
 const LogoutModal = () => {
   const { removeLastModal } = useModal();
   const { push } = useRouter();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    queryClient.clear();
     push(routeList?.logoutRoute);
   };
 
