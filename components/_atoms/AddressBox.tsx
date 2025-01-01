@@ -35,30 +35,15 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
   useEffect(() => {
-    console.log(data, addressSelected);
     if (data !== undefined) {
-      console.log('in condition not undefined', data, addressSelected);
-
       if (
         !!token &&
         (isExpiredLastSelectedAddressTimeStamp() || !defaultAddress)
       ) {
-        console.log(
-          'in condition expired or not defaultAddress',
-          addressSelected,
-        );
         if (addressSelected) {
-          console.log('in condition addressSelected', data, addressSelected);
-
           dispatch(setUserAction({ defaultAddress: addressSelected }));
           setLocalStoragelastSelectedAddressTimeStamp();
         } else {
-          console.log(
-            'in condition not found addressSelected',
-            data,
-            addressSelected,
-          );
-
           dispatch(setUserAction({ defaultAddress: null }));
           addModal({ modal: SelectAddress });
         }
