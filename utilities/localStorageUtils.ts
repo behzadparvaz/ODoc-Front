@@ -13,8 +13,7 @@ export const setLocalStorageToken = (token: string | null): void => {
       localStorage.setItem('token', token);
       Cookies.set('token', token, { expires: 365 });
     } else {
-      localStorage.removeItem('token');
-      localStorage.removeItem('persist:root')
+      localStorage.clear();
       Cookies.remove('token');
     }
   }

@@ -3,6 +3,7 @@ import { routeList } from '@routes/routeList';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
+import { clearLastSelectedAddressTimeStamp, getLocalStoragelastSelectedAddressTimeStamp, setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 interface optionsLayout {
   auth?;
@@ -61,17 +62,20 @@ class Request {
   }
 
   private async refreshToken(): Promise<string | null> {
+    const token = getLocalStorageToken();
     try {
-      const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${getLocalStorageToken()}`
-        }
-      });
-      const newAccessToken = response.data.data.token;
-      setLocalStorageToken(newAccessToken);
-      this.setToken(newAccessToken);
-      return newAccessToken;
+      if (token) {
+        const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        const newAccessToken = response.data.data.token;
+        setLocalStorageToken(newAccessToken);
+        this.setToken(newAccessToken);
+        return newAccessToken;
+      }
     } catch (error) {
       console.error("Failed to refresh token", error);
       setLocalStorageToken(null);
@@ -95,7 +99,9 @@ class Request {
       } else {
         req.headers['Authorization'] = `Bearer ${token}`;
       }
-
+      if (req.headers['Authorization'].split('')[1] && getLocalStoragelastSelectedAddressTimeStamp()) {
+        setLocalStoragelastSelectedAddressTimeStamp();
+      }
       return req;
     });
     // ---------response interceptor----------
@@ -120,17 +126,19 @@ class Request {
               this.isRefreshing = true;
 
               try {
-                const token = await this.refreshToken();
-                if (token) {
-                  this.setToken(token);
-                  error.config.headers['Authorization'] = `Bearer ${token}`;
-                  this.processQueue(null, token);
+                const refreshToken = await this.refreshToken();
+                if (refreshToken) {
+                  this.setToken(refreshToken);
+                  error.config.headers['Authorization'] = `Bearer ${refreshToken}`;
+                  this.processQueue(null, refreshToken);
                   return instance(error.config); // Retry original request
                 } else {
                   // If no token is returned, redirect to login
+                  clearLastSelectedAddressTimeStamp();
                   router.push(routeList.loginRoute);
                 }
               } catch (refreshError) {
+                clearLastSelectedAddressTimeStamp();
                 console.error('Token refresh failed:', refreshError);
                 // Redirect to login on refresh token failure
               } finally {

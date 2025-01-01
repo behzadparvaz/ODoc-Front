@@ -1,14 +1,13 @@
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import packageJson from 'package.json';
 import { createRef, useEffect, useMemo, useRef } from 'react';
 import { wrapper } from '../redux/store';
 import '../styles/globals.css';
-const LoginWithSSO = dynamic(() => import('@com/_atoms/loginWithSSO'));
-import packageJson from 'package.json';
-import { GoogleTagManager } from '@next/third-parties/google';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,6 +69,7 @@ function MyApp({ Component, pageProps }) {
         });
     });
   };
+
   return (
     <>
       <Head>
@@ -77,6 +77,10 @@ function MyApp({ Component, pageProps }) {
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+        />
+        <meta
+          name="google-site-verification"
+          content="3NCSkWm67rju_OABL3Otkq53bI_SzF-x3mMRKR9hgLw"
         />
       </Head>
       <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID as string} />

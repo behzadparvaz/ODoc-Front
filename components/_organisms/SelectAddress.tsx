@@ -20,6 +20,8 @@ import { routeList } from '@routes/routeList';
 import { Location } from '@utilities/interfaces/location';
 
 import ParsiMapBottomSheet from './ParsiMapBottomSheet';
+import getFutureTime from '@utilities/getFutureTime';
+import { setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 const SelectAddress = () => {
   const { getItem } = useStorage();
@@ -80,7 +82,12 @@ const SelectAddress = () => {
 
   // Handle selecting an address
   const handleClickAddress = (item) => {
-    dispatch(setUserAction({ defaultAddress: item }));
+    dispatch(
+      setUserAction({
+        defaultAddress: item,
+      }),
+    );
+    setLocalStoragelastSelectedAddressTimeStamp();
     removeLastModal();
   };
 

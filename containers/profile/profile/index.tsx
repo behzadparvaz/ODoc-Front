@@ -26,6 +26,7 @@ interface IMenuItem {
   icon: string;
   label: string;
   disabled: boolean;
+  href?: string;
 }
 
 const ProfileContainer = () => {
@@ -128,10 +129,7 @@ const ProfileContainer = () => {
     () => (
       <>
         {menuItems.map((item, index) => (
-          <Link
-            href={item.disabled ? '' : routeList?.profileUserInfoRoute}
-            key={index}
-          >
+          <Link href={item.disabled ? '' : item?.href} key={index}>
             <LinkItem
               iconName={item.icon}
               label={item.label}

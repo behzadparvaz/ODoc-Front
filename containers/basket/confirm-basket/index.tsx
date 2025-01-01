@@ -73,7 +73,7 @@ const ConfirmBasketContainer = () => {
           (item: ProductInBasket) => item?.productType?.name === 'requestorder',
         );
         if (res)
-          router.push(
+          router.replace(
             `${routeList.basketSuccess}/${res}${isRequestOrder ? '?isRequestOrder=true' : ''}`,
           );
       },

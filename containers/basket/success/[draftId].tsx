@@ -9,10 +9,23 @@ import {
 import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const QuickOrderSuccessContainer = () => {
-  const { query, push } = useRouter();
-  const draftId: string = query?.draftId as string;
+  const router = useRouter();
+  const draftId: string = router?.query?.draftId as string;
+
+  useEffect(() => {
+    const handleRouteChange = () => {
+      router?.replace(routeList?.homeRoute);
+    };
+
+    window.addEventListener('popstate', handleRouteChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, [router]);
 
   return (
     <MainLayout>
@@ -26,12 +39,12 @@ const QuickOrderSuccessContainer = () => {
           </span>
         </div>
         <p className="text-lg text-center font-semibold mt-5">
-          {query?.isRequestOrder
+          {router?.query?.isRequestOrder
             ? 'درخواست شما ثبت و در انتظار بررسی پزشک است'
             : 'درخواست شما ثبت و در انتظار تأیید داروخانه است'}
         </p>
         <p className="text-base text-gray-500 px-6 text-center mt-4">
-          {query?.isRequestOrder
+          {router?.query?.isRequestOrder
             ? 'سفارش شما به پزشک ارسال شد، برای ادامه فرآیند خرید باید منتظر تأیید پزشک باشید.'
             : 'سفارش شما به داروخانه های اطراف ارسال شد، برای ادامه فرآیند خرید باید منتظر تأیید داروخانه باشید.'}
         </p>
@@ -48,7 +61,9 @@ const QuickOrderSuccessContainer = () => {
             size="large"
             type="button"
             onClick={() =>
-              push(`${routeList?.ordersHistory}/${draftId}?previousPage=basket`)
+              router?.push(
+                `${routeList?.ordersHistory}/${draftId}?previousPage=basket`,
+              )
             }
           >
             جزییات سفارش
@@ -58,7 +73,7 @@ const QuickOrderSuccessContainer = () => {
             className="w-full"
             size="large"
             type="button"
-            onClick={() => push(routeList?.homeRoute)}
+            onClick={() => router?.push(routeList?.homeRoute)}
           >
             برگشت به خانه
           </Button>
