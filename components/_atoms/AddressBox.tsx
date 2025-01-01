@@ -34,7 +34,6 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const dispatch = useDispatch();
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
-  console.log(data);
   useEffect(() => {
     if (data !== undefined) {
       if (

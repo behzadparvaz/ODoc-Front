@@ -1,16 +1,13 @@
 import NotificationWrapper from '@com/_atoms/NotificationWrapper';
+import { GoogleTagManager } from '@next/third-parties/google';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import dynamic from 'next/dynamic';
 import Head from 'next/head';
+import packageJson from 'package.json';
 import { createRef, useEffect, useMemo, useRef } from 'react';
 import { wrapper } from '../redux/store';
 import '../styles/globals.css';
-const LoginWithSSO = dynamic(() => import('@com/_atoms/loginWithSSO'));
-import packageJson from 'package.json';
-import { GoogleTagManager } from '@next/third-parties/google';
-import useModal from '@hooks/useModal';
-import SelectAddress from '@com/_organisms/SelectAddress';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,7 +22,6 @@ function MyApp({ Component, pageProps }) {
   const ModalCreator = useMemo(() => dynamic(() => import('@com/modal')), []);
   const modalNode = createRef<HTMLDivElement>();
   const refUpdateTimeOut = useRef(null);
-  const { addModal } = useModal();
 
   const updateApplication = () => {
     refUpdateTimeOut.current = setTimeout(() => {
@@ -34,30 +30,6 @@ function MyApp({ Component, pageProps }) {
     window.localStorage?.setItem('application_version', packageJson?.version);
   };
 
-  // useEffect(() => {
-  //   new Promise((resolve, reject) => {
-  //     if (!navigator.geolocation) {
-  //       return reject(new Error('Geolocation not supported'));
-  //     }
-  //     navigator.geolocation.getCurrentPosition(
-  //       (position) => {
-  //         resolve({
-  //           lat: position.coords.latitude,
-  //           lng: position.coords.longitude,
-  //         });
-  //       },
-  //       (error) => {
-  //         openLocationsModal();
-  //         reject(error);
-  //       },
-  //       {
-  //         enableHighAccuracy: true,
-  //         timeout: 15000,
-  //         maximumAge: 0,
-  //       },
-  //     );
-  //   });
-  // }, []);
   useEffect(() => {
     if (process.env.REACT_APP_ENV !== 'demo') {
       document.addEventListener('update-new-content', function (event: any) {
@@ -97,6 +69,7 @@ function MyApp({ Component, pageProps }) {
         });
     });
   };
+
   return (
     <>
       <Head>
