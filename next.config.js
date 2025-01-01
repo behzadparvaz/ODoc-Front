@@ -69,9 +69,9 @@ const nextConfig = {
   distDir: 'build',
   swcMinify: true,
   reactStrictMode: false,
-  // compiler: {
-  //   removeConsole: process.env.NODE_ENV === 'production',
-  // },
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
   images: {
     domains: [
       'trustseal.eNamad.ir',
