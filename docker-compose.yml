@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  front-end:
+    image: tapsi-doctor
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+    # volumes:
+      # - .:/app
