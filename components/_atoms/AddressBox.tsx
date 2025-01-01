@@ -36,17 +36,17 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const token = getItem('token', 'local');
 
   useEffect(() => {
-    console.log('test');
     if (!!token && isExpiredLastSelectedAddressTimeStamp()) {
       if (addressSelected) {
-        console.log('if');
         dispatch(setUserAction({ defaultAddress: addressSelected }));
         setLocalStoragelastSelectedAddressTimeStamp();
       } else {
-        console.log('else');
         dispatch(setUserAction({ defaultAddress: null }));
         addModal({ modal: SelectAddress });
       }
+    }
+    if (!defaultAddress) {
+      addModal({ modal: SelectAddress });
     }
   }, [dispatch, addressSelected, defaultAddress]);
 

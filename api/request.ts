@@ -3,7 +3,7 @@ import { routeList } from '@routes/routeList';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import { clearLastSelectedAddressTimeStamp, setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
+import { clearLastSelectedAddressTimeStamp, getLocalStoragelastSelectedAddressTimeStamp, setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 interface optionsLayout {
   auth?;
@@ -99,7 +99,7 @@ class Request {
       } else {
         req.headers['Authorization'] = `Bearer ${token}`;
       }
-      if (req.headers['Authorization'].split('')[1]) {
+      if (req.headers['Authorization'].split('')[1] && getLocalStoragelastSelectedAddressTimeStamp()) {
         setLocalStoragelastSelectedAddressTimeStamp();
       }
       return req;
