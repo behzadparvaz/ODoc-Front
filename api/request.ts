@@ -6,10 +6,7 @@ import { routeList } from '@routes/routeList';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import {
-  getLocalStoragelastSelectedAddressTimeStamp,
-  setLocalStoragelastSelectedAddressTimeStamp,
-} from '@utilities/addressUtils';
+import { clearLastSelectedAddressTimeStamp } from '@utilities/addressUtils';
 
 interface optionsLayout {
   auth?;
@@ -109,12 +106,7 @@ class Request {
       } else {
         req.headers['Authorization'] = `Bearer ${token}`;
       }
-      if (
-        req.headers['Authorization'].split('')[1] &&
-        getLocalStoragelastSelectedAddressTimeStamp()
-      ) {
-        setLocalStoragelastSelectedAddressTimeStamp();
-      }
+
       return req;
     });
     // ---------response interceptor----------
@@ -150,10 +142,11 @@ class Request {
                   return instance(error.config); // Retry original request
                 } else {
                   // If no token is returned, redirect to login
-
+                  clearLastSelectedAddressTimeStamp();
                   router.push(routeList.loginRoute);
                 }
               } catch (refreshError) {
+                clearLastSelectedAddressTimeStamp();
                 console.error('Token refresh failed:', refreshError);
                 // Redirect to login on refresh token failure
               } finally {
