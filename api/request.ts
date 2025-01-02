@@ -1,15 +1,21 @@
-import { getLocalStorageToken, setLocalStorageToken } from '@utilities/localStorageUtils';
+import {
+  getLocalStorageToken,
+  setLocalStorageToken,
+} from '@utilities/localStorageUtils';
 import { routeList } from '@routes/routeList';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import router from 'next/router';
 import { v4 as uuidv4 } from 'uuid';
-import { clearLastSelectedAddressTimeStamp, getLocalStoragelastSelectedAddressTimeStamp, setLocalStoragelastSelectedAddressTimeStamp } from '@utilities/addressUtils';
+import {
+  getLocalStoragelastSelectedAddressTimeStamp,
+  setLocalStoragelastSelectedAddressTimeStamp,
+} from '@utilities/addressUtils';
 
 interface optionsLayout {
   auth?;
   err?: boolean;
   withOutToken?: boolean;
-  returnError?: boolean
+  returnError?: boolean;
 }
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -38,15 +44,15 @@ class Request {
     console.log(title, {
       data: error.response
         ? {
-          url: `${error?.response?.config?.baseURL}${error?.response?.config?.url}`,
-          data: error?.response?.data,
-          status: error?.response?.status,
-        }
+            url: `${error?.response?.config?.baseURL}${error?.response?.config?.url}`,
+            data: error?.response?.data,
+            status: error?.response?.status,
+          }
         : {
-          url: `${error?.config?.baseURL ? error?.config?.baseURL : ''}${error?.config?.url}`,
-          status: 'no status',
-          error: JSON.stringify(error),
-        },
+            url: `${error?.config?.baseURL ? error?.config?.baseURL : ''}${error?.config?.url}`,
+            status: 'no status',
+            error: JSON.stringify(error),
+          },
     });
   }
 
@@ -65,19 +71,23 @@ class Request {
     const token = getLocalStorageToken();
     try {
       if (token) {
-        const response = await axios.patch(`${API_URL}/auth/RefreshToken`, {}, {
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-          }
-        });
+        const response = await axios.patch(
+          `${API_URL}/auth/RefreshToken`,
+          {},
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        );
         const newAccessToken = response.data.data.token;
         setLocalStorageToken(newAccessToken);
         this.setToken(newAccessToken);
         return newAccessToken;
       }
     } catch (error) {
-      console.error("Failed to refresh token", error);
+      console.error('Failed to refresh token', error);
       setLocalStorageToken(null);
       return null;
     }
@@ -99,7 +109,10 @@ class Request {
       } else {
         req.headers['Authorization'] = `Bearer ${token}`;
       }
-      if (req.headers['Authorization'].split('')[1] && getLocalStoragelastSelectedAddressTimeStamp()) {
+      if (
+        req.headers['Authorization'].split('')[1] &&
+        getLocalStoragelastSelectedAddressTimeStamp()
+      ) {
         setLocalStoragelastSelectedAddressTimeStamp();
       }
       return req;
@@ -118,7 +131,9 @@ class Request {
 
         // Check if the response status indicates an error
         if (error?.response?.status >= 400) {
-          console.log(`Frontend log: API error occurred with status of ${error?.response?.status}`);
+          console.log(
+            `Frontend log: API error occurred with status of ${error?.response?.status}`,
+          );
 
           // Handle unauthorized access
           if (error?.response?.status === 401) {
@@ -129,16 +144,16 @@ class Request {
                 const refreshToken = await this.refreshToken();
                 if (refreshToken) {
                   this.setToken(refreshToken);
-                  error.config.headers['Authorization'] = `Bearer ${refreshToken}`;
+                  error.config.headers['Authorization'] =
+                    `Bearer ${refreshToken}`;
                   this.processQueue(null, refreshToken);
                   return instance(error.config); // Retry original request
                 } else {
                   // If no token is returned, redirect to login
-                  clearLastSelectedAddressTimeStamp();
+
                   router.push(routeList.loginRoute);
                 }
               } catch (refreshError) {
-                clearLastSelectedAddressTimeStamp();
                 console.error('Token refresh failed:', refreshError);
                 // Redirect to login on refresh token failure
               } finally {
@@ -156,15 +171,17 @@ class Request {
           }
 
           // Log additional errors on the frontend
-          console.log(`Frontend log: API error occurred with status of ${error?.response?.status} - serverside`, error);
+          console.log(
+            `Frontend log: API error occurred with status of ${error?.response?.status} - serverside`,
+            error,
+          );
         }
 
         return Promise.reject(error);
-      }
+      },
     );
 
     return instance;
-
   }
 
   post(
@@ -223,7 +240,6 @@ class Request {
 
   get(url: string, options?: optionsLayout, config: AxiosRequestConfig = {}) {
     return new Promise<{ data: any }>((resolve, reject) => {
-
       this.axiosInstance(options)
         .get(`${url}`, config)
         .then((response) => {
@@ -256,9 +272,12 @@ class Request {
     });
   }
 
-  delete(url: string, options?: optionsLayout, config: AxiosRequestConfig = {}) {
+  delete(
+    url: string,
+    options?: optionsLayout,
+    config: AxiosRequestConfig = {},
+  ) {
     return new Promise<{ data: any }>((resolve, reject) => {
-
       this.axiosInstance(options)
         .delete(`${url}`, config)
         .then((response) => {
