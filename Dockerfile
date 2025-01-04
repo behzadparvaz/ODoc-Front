@@ -1,5 +1,5 @@
 # Stage : Build
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS builder
+FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ RUN rm -f .env.*
 
 RUN npm run build
 
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
+FROM node:20.14.0-alpine
 
 WORKDIR /app
 
