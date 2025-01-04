@@ -138,18 +138,6 @@ const RxRegistration = ({ userInfo }: RxRegistrationProps) => {
           errorMessage={formik.errors.refrenceNumber}
           maxLength={6}
         />
-
-        <TextInput
-          type="text"
-          placeholder={orderText?.enterPhoneNumber}
-          label={orderText?.phoneNumber}
-          className="flex-auto"
-          id="phoneNumber"
-          name="phoneNumber"
-          disabled
-          value={formik.values.phoneNumber}
-          onChange={formik.handleChange}
-        />
       </div>
 
       <Accordion

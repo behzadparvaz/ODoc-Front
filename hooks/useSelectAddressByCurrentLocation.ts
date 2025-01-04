@@ -59,7 +59,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const selectAddressByCurrentLocation = async () => {
     try {
       const currentLocation = await getCurrentLocation();
-      const nearestAddress = data.find((post) =>
+      const nearestAddress = data?.find((post) =>
         getDistanceFromLatLonInKm(
           currentLocation.lat,
           currentLocation.lng,
@@ -68,10 +68,13 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
         ) < 1
       );
       if (nearestAddress) {
-        setAddressSelected(nearestAddress || null); // Set to null if no address found
+        setAddressSelected(nearestAddress); // Set to null if no address found
+      } else {
+        setAddressSelected(null);
       }
     } catch (error) {
       console.error('Error getting location:', error);
+      setAddressSelected(null);
     } finally {
       setLoading(false); // Set loading to false after fetching
     }
