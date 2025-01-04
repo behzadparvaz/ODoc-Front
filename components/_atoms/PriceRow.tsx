@@ -11,7 +11,7 @@ const RenderPriceRow = ({
   name,
   value,
   deliveryFinalPrice,
-  deliveryDiscountAmount,
+  deliveryDiscountAmount = 0,
 }: RenderPriceRowProps) => {
   return (
     <div className="flex items-center justify-between">
