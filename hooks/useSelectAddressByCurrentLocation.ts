@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import useModal from './useModal';
 
 interface Location {
   lat: number;
@@ -16,17 +15,6 @@ interface Address {
 export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const [addressSelected, setAddressSelected] = useState<Address | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const { addModal } = useModal();
-  // const { openNotification } = useNotification();
-
-  // const handleLocationsModalOpen = () => {
-  //   addModal({ modal: SelectAddress });
-  //   openNotification({
-  //     type: 'error',
-  //     message: 'متأسفانه موقعیت مکانی‌تان را دریافت نکردیم. لطفاً آدرس خود را انتخاب کنید.',
-  //     notifType: 'successOrFailedMessage',
-  //   });
-  // };
 
   const getCurrentLocation = (): Promise<Location> => {
     return new Promise((resolve, reject) => {
@@ -71,7 +59,7 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
   const selectAddressByCurrentLocation = async () => {
     try {
       const currentLocation = await getCurrentLocation();
-      const nearestAddress = data.find((post) =>
+      const nearestAddress = data?.find((post) =>
         getDistanceFromLatLonInKm(
           currentLocation.lat,
           currentLocation.lng,
@@ -80,10 +68,13 @@ export const useSelectAddressByCurrentLocation = (data: Address[]) => {
         ) < 1
       );
       if (nearestAddress) {
-        setAddressSelected(nearestAddress || null); // Set to null if no address found
+        setAddressSelected(nearestAddress); // Set to null if no address found
+      } else {
+        setAddressSelected(null);
       }
     } catch (error) {
       console.error('Error getting location:', error);
+      setAddressSelected(null);
     } finally {
       setLoading(false); // Set loading to false after fetching
     }

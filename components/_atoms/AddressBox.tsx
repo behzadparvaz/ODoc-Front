@@ -34,22 +34,39 @@ const AddressBox = ({ data, className = '' }: Props) => {
   const dispatch = useDispatch();
   const { getItem } = useStorage();
   const token = getItem('token', 'local');
+
   useEffect(() => {
-    if (data !== undefined) {
-      if (
-        !!token &&
-        (isExpiredLastSelectedAddressTimeStamp() || !defaultAddress)
-      ) {
+    if (data && token) {
+      if (isExpiredLastSelectedAddressTimeStamp() || !defaultAddress) {
         if (addressSelected) {
+          console.log(
+            'why Open Modal',
+            data,
+            token,
+            isExpiredLastSelectedAddressTimeStamp(),
+            defaultAddress,
+            addressSelected,
+          );
           dispatch(setUserAction({ defaultAddress: addressSelected }));
           setLocalStoragelastSelectedAddressTimeStamp();
         } else {
+          console.log(
+            'why dont Open Modal',
+            data,
+            token,
+            isExpiredLastSelectedAddressTimeStamp(),
+            defaultAddress,
+            addressSelected,
+          );
           dispatch(setUserAction({ defaultAddress: null }));
           addModal({ modal: SelectAddress });
         }
       }
     }
-  }, [dispatch, addressSelected, defaultAddress, data]);
+    if (!isExpiredLastSelectedAddressTimeStamp()) {
+      setLocalStoragelastSelectedAddressTimeStamp();
+    }
+  }, [dispatch, addressSelected, defaultAddress, data, token]);
 
   const handleModalOpen = () => {
     addModal({ modal: SelectAddress });
