@@ -175,7 +175,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
             <span>تحویل تا ساعت</span>
             <span>
               {moment(data?.createDateTime, 'MM/DD/YYYY hh:mm:ss A')
-                .add(2, 'hours')
+                .add(1, 'hours')
                 .format('HH:mm')}
             </span>
           </span>
