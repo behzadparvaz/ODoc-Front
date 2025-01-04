@@ -1,5 +1,5 @@
 # production : Build
-FROM tapsidoctorprod-1.0.9 AS builder
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
@@ -15,7 +15,7 @@ RUN rm -f .env.*
 
 RUN npm run build
 
-FROM tapsidoctorprod-1.0.9
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
 
 WORKDIR /app
 
