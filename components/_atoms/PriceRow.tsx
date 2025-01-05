@@ -3,23 +3,29 @@ import { convertRialToTomanNumber } from '@utilities/mainUtils';
 type RenderPriceRowProps = {
   name: string;
   value: number;
-  finalPrice?: number;
+  deliveryFinalPrice?: number;
+  deliveryDiscountAmount?: number;
 };
 
-const RenderPriceRow = ({ name, value, finalPrice }: RenderPriceRowProps) => {
+const RenderPriceRow = ({
+  name,
+  value,
+  deliveryFinalPrice,
+  deliveryDiscountAmount = 0,
+}: RenderPriceRowProps) => {
   return (
     <div className="flex items-center justify-between">
       <span className="text-content-tertiary text-sm font-normal">{name}</span>
       <span className="flex items-center text-content-primary text-base font-normal gap-x-1">
         {!!value ? (
           <>
-            {finalPrice > 0 ? (
+            {deliveryDiscountAmount > 0 ? (
               <span className="text-left">
-                <span className="line-through text-xs text-content-tertiary block">
+                <span className="line-through decoration-content-tertiary text-xs text-content-tertiary block">
                   {convertRialToTomanNumber(value)?.toLocaleString('fa-IR')}
                 </span>
                 <span className="text-sm text-content-primary block">
-                  {convertRialToTomanNumber(finalPrice)?.toLocaleString(
+                  {convertRialToTomanNumber(deliveryFinalPrice)?.toLocaleString(
                     'fa-IR',
                   )}
                 </span>

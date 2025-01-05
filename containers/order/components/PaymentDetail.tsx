@@ -35,7 +35,8 @@ const PaymentDetail = ({ data, isPaymentPage }: PaymentDetailProps) => {
         value={data?.packingPrice}
       />
       <RenderPriceRow
-        finalPrice={data?.delivery?.finalPrice}
+        deliveryFinalPrice={data?.delivery?.finalPrice}
+        deliveryDiscountAmount={data?.delivery?.discount.amount}
         name={paymentDetail?.shipingCost}
         value={data?.delivery?.deliveryPrice}
       />
