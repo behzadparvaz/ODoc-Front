@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+
 import {
   useAddProductToBasket,
   useDeleteProductBasket,
@@ -10,13 +13,10 @@ import {
 } from '@api/supplement/plp/plp.rq';
 import AddButton from '@com/_atoms/AddButton';
 import { Button } from '@com/_atoms/NewButton';
-import Spinner from '@com/_atoms/Spinner';
 import GalleryThumbnails from '@com/_molecules/GalleryThumbnails';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { routeList } from '@routes/routeList';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Carousel from './components/Carousel';
 import Comments from './components/comments';
 import Detail from './components/Detail';
@@ -52,13 +52,6 @@ const SupplementProductContainer = () => {
     product.data?.drugDoses?.some((product) => product?.irc === item?.irc),
   );
   const [selectedItem, setSelectedItem] = useState<any>(null);
-
-  // const scrollToSection = (sectionRef) => {
-  //   window.scrollTo({
-  //     top: sectionRef.current.offsetTop,
-  //     behavior: 'smooth',
-  //   });
-  // };
 
   const handleChangeCount = (count: number) => {
     if (count > 0) {
@@ -135,38 +128,74 @@ const SupplementProductContainer = () => {
       scrollToTop
       hasBasketIcon
     >
-      {product?.isLoading && (
-        <Spinner className="h-full min-h-[200px] w-full flex justify-center items-center" />
-      )}
-      {product?.isSuccess && (
-        <div className="mb-24">
-          <div className="w-full px-4">
-            <div className="my-4">
-              <GalleryThumbnails images={[product?.data?.imageLink]} />
+      <div className="mb-24">
+        <div className="w-full px-4">
+          <div className="my-4">
+            {product?.isLoading ? (
+              <div className="flex flex-col gap-y-2">
+                <div className="flex justify-center">
+                  <div className="w-[140px] h-[140px] bg-surface-secondary animate-pulse rounded-xl" />
+                </div>
+
+                <div className="w-[55px] h-[55px] bg-surface-secondary animate-pulse rounded-xl" />
+              </div>
+            ) : (
+              <>
+                {product?.isSuccess && (
+                  <GalleryThumbnails images={[product?.data?.imageLink]} />
+                )}
+              </>
+            )}
+          </div>
+          {product?.isLoading ? (
+            <div className="flex flex-col gap-y-3 mt-5">
+              <div className="h-[80px] flex items-center">
+                <div className="h-6 w-80 bg-surface-secondary animate-pulse rounded-xl" />
+              </div>
+
+              <div className="h-6 flex items-center gap-x-3">
+                <div className="w-20 h-6 bg-surface-secondary animate-pulse rounded-xl" />
+                <div className="w-20 h-6 bg-surface-secondary animate-pulse rounded-xl" />
+              </div>
             </div>
+          ) : (
             <GeneralDetail
               title={product?.data?.shortProductName}
               comments={summaryReviews?.data?.commentsCount}
               rate={summaryReviews?.data?.ratingAverage}
               likes={summaryReviews?.data?.likesCount}
             />
+          )}
+        </div>
+        <div className="h-[8px] bg-surface-secondary w-full my-4" />
+        {product?.isLoading ? (
+          <div className="w-full h-[76px] px-4 flex flex-col justify-between gap-y-2">
+            <div className="w-24 h-6 bg-surface-secondary animate-pulse rounded-xl" />
+            <div className="w-full flex justify-end">
+              <div className="w-24 h-6 bg-surface-secondary animate-pulse rounded-xl" />
+            </div>
           </div>
-          <div className="h-[8px] bg-surface-secondary w-full my-4" />
+        ) : (
           <Detail
             productDescription={product?.data?.medicalUses}
             producerCountry={product?.data?.countryFaName}
             productShape={product?.data?.shapeFa}
             licenseProvider={null}
           />
-          <Carousel products={product?.data?.suggestProducts} />
+        )}
+
+        <Carousel products={product?.data?.suggestProducts} />
+
+        {product?.isSuccess && (
           <Comments
             comments={reviews?.data}
             onSubmitReview={() => {
               reviews.refetch();
             }}
           />
-        </div>
-      )}
+        )}
+      </div>
+
       <ActionBar type="singleAction" hasDivider>
         <div className="flex justify-between items-center w-full px-4 py-4">
           {renderBottomSection()}
