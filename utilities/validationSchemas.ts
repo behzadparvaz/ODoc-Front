@@ -60,7 +60,10 @@ export const userPasswordSchema = Yup.object().shape({
   ConfrimPassword: Yup.string().required('این فیلد الزامی است'),
 });
 export const OrderRegistrationSchema = Yup.object().shape({
-  refrenceNumber: Yup.string().required('این فیلد الزامی است'),
+  refrenceNumber: Yup.string()
+    .required('این فیلد الزامی است')
+    .min(5, ' کد رهگیری حداقل باید 5 کاراکتر باشد')
+    .max(6, ' کد رهگیری حداکثر باید 6 کاراکتر باشد'),
   nationalCode: Yup.string()
     .required('این فیلد الزامی است')
     .min(10, 'شماره ملی 10 رقم می باشد')
