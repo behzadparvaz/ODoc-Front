@@ -17,6 +17,7 @@ import CarouselLine from '@com/_molecules/CarouselLine';
 import { useGetCarousels } from '@api/promotion/promotion.rq';
 import { colors } from '@configs/Theme';
 import LoadingSpinner from '@com/_atoms/LoadingSpinner';
+import { useGetProfile } from '@api/user/user.rq';
 
 const Content = dynamic(() => import('./components/Content'));
 
@@ -27,6 +28,8 @@ const Page = () => {
 
   const { data: carouselsData, isLoading: carouselIsLoading } =
     useGetCarousels();
+
+  const { data: profileData } = useGetProfile({ enabled: true });
 
   const getCarouselDataData = (position: number) => {
     const carouselData = carouselsData?.queryResult?.filter(
