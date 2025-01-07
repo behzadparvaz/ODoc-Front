@@ -16,29 +16,28 @@ const RenderPriceRow = ({
   return (
     <div className="flex items-center justify-between">
       <span className="text-content-tertiary text-sm font-normal">{name}</span>
-      <span className="flex items-center text-content-primary text-base font-normal gap-x-1">
-        {!!value ? (
-          <>
-            {deliveryDiscountAmount > 0 ? (
-              <span className="text-left">
-                <span className="line-through decoration-content-tertiary text-xs text-content-tertiary block">
-                  {convertRialToTomanNumber(value)?.toLocaleString('fa-IR')}
+      <div className="flex items-center flex-col gap-x-1">
+        <span className="flex items-center text-content-primary text-base font-normal gap-x-1">
+          {!!value ? (
+            <>
+              {deliveryDiscountAmount > 0 ? (
+                <span className="text-left">
+                  <span className="text-[#e54917]">ارسال رایگان</span>
+                  <span className="mx-1">-</span>
+                  <span className="line-through decoration-content-primary text-base text-content-tertiary">
+                    {convertRialToTomanNumber(value)?.toLocaleString('fa-IR')}
+                  </span>
                 </span>
-                <span className="text-sm text-content-primary block">
-                  {convertRialToTomanNumber(deliveryFinalPrice)?.toLocaleString(
-                    'fa-IR',
-                  )}
-                </span>
-              </span>
-            ) : (
-              convertRialToTomanNumber(value)?.toLocaleString('fa-IR')
-            )}
-            <span className="text-xs text-content-primary"> تومان</span>
-          </>
-        ) : (
-          <span className="text-xs text-content-primary">رایگان</span>
-        )}
-      </span>
+              ) : (
+                convertRialToTomanNumber(value)?.toLocaleString('fa-IR')
+              )}
+              <span className="text-xs text-content-primary"> تومان</span>
+            </>
+          ) : (
+            <span className="text-xs text-content-primary">رایگان</span>
+          )}
+        </span>
+      </div>
     </div>
   );
 };
