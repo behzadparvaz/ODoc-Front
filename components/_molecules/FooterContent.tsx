@@ -22,7 +22,9 @@ export default function FooterContent() {
           </p>
         </div>
         <div className="flex flex-col items-end text-xs font-semibold pl-6 gap-y-4 mb-4">
-          <p>{homePageText.tapsiDocMag}</p>
+          <Link href={'https://blog.tapsi.doctor/'}>
+            <p>{homePageText.tapsiDocMag}</p>
+          </Link>
           <Link href={routeList?.policyRoute}>{homePageText.policy}</Link>
           <Link href={`tel:02141630500`}>
             <p className="cursor-pointer">{homePageText.support}</p>
