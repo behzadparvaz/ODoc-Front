@@ -45,7 +45,7 @@ const RequestDrugsContent = () => {
   }, [drugs]);
 
   return (
-    <>
+    <div className="pb-[84px]">
       <div className="w-full mb-5">
         <Image
           src={'/images/requestDrugsProgressBar.svg'}
@@ -133,7 +133,7 @@ const RequestDrugsContent = () => {
           }}
         </Formik>
       </div>
-    </>
+    </div>
   );
 };
 
