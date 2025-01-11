@@ -17,7 +17,7 @@ export const useGetCarousels = () => {
   return { data: data as any, isLoading };
 };
 
-export const useGetCarouselProduct = (body?: any) => {
+export const useGetCarouselProduct = (body?: any, search?: string) => {
   const {
     data,
     isLoading,
@@ -27,6 +27,7 @@ export const useGetCarouselProduct = (body?: any) => {
     hasPreviousPage,
     isFetchingNextPage,
     isFetchingPreviousPage,
+    refetch
   } = useInfiniteQuery({
     queryKey: ['GetCarouselById', body],
     queryFn: ({ pageParam = 1 }) =>
@@ -52,5 +53,6 @@ export const useGetCarouselProduct = (body?: any) => {
     hasPreviousPage,
     isFetchingNextPage,
     isFetchingPreviousPage,
+    refetch
   };
 };
