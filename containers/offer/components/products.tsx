@@ -41,11 +41,9 @@ const Products = () => {
   );
 
   const onChangeSearchInput = (value: string) => {
-    console.log(value);
-    if (value)
-      push({ query: { ...query, search: value } }, undefined, {
-        shallow: true,
-      });
+    push({ query: { ...query, search: value } }, undefined, {
+      shallow: true,
+    });
   };
 
   useEffect(() => {
@@ -53,25 +51,6 @@ const Products = () => {
       fetchNextPage();
     }
   }, [inView, fetchNextPage]);
-
-  if ((isLoading || isFetchingNextPage) && !productList?.length) {
-    return (
-      <div
-        className={classNames(
-          'h-full w-full grid grid-cols-2 overflow-y-scroll',
-        )}
-      >
-        {[...Array(8).keys()].map((item) => (
-          <div
-            key={item}
-            className="w-full flex justify-center border-border-primary first:!border-t [&:nth-child(2)]:border-t h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
-          >
-            <VerticalProductCardShimmer />
-          </div>
-        ))}
-      </div>
-    );
-  }
 
   return (
     <div className="relative">
@@ -83,48 +62,65 @@ const Products = () => {
           />
         </div>
       </div>
-      <div
-        className={classNames(
-          'h-max w-full grid grid-cols-2 overflow-y-scroll',
-          (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
-            'mb-[86px]',
-        )}
-      >
-        {productList?.map((item) => (
-          <VerticalProductCard
-            onClick={() =>
-              navigateToPdp({ item, ProductTypeId: item.productType })
-            }
-            className="!h-[217px] border-border-primary odd:border odd:border-t-0 first:!border-t even:border-l even:border-b"
-            productData={item}
-            key={item?.irc}
-            hasAddToCart
-          />
-        ))}
+      {(isLoading || isFetchingNextPage) && !productList?.length ? (
+        <div
+          className={classNames(
+            'h-full w-full grid grid-cols-2 overflow-y-scroll',
+          )}
+        >
+          {[...Array(8).keys()].map((item) => (
+            <div
+              key={item}
+              className="w-full flex justify-center border-border-primary first:!border-t [&:nth-child(2)]:border-t h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
+            >
+              <VerticalProductCardShimmer />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          className={classNames(
+            'h-max w-full grid grid-cols-2 overflow-y-scroll',
+            (data?.pages?.at(-1)?.pageNumber >= 10 || query?.pageNumber) &&
+              'mb-[86px]',
+          )}
+        >
+          {productList?.map((item) => (
+            <VerticalProductCard
+              onClick={() =>
+                navigateToPdp({ item, ProductTypeId: item.productType })
+              }
+              className="!h-[217px] border-border-primary odd:border odd:!border-t-0 first:!border-t even:border-l even:border-b"
+              productData={item}
+              key={item?.irc}
+              hasAddToCart
+            />
+          ))}
 
-        {data?.pages?.at(-1)?.pageNumber < 10 && !query?.pageNumber && (
-          <div ref={ref} className="w-full col-start-1 col-end-3">
-            {hasNextPage && isFetchingNextPage && (
-              <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
-                {[...Array(8).keys()].map((item) => (
-                  <div
-                    key={item}
-                    className="w-full flex justify-center border-border-primary h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
-                  >
-                    <VerticalProductCardShimmer />
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+          {data?.pages?.at(-1)?.pageNumber < 10 && !query?.pageNumber && (
+            <div ref={ref} className="w-full col-start-1 col-end-3">
+              {hasNextPage && isFetchingNextPage && (
+                <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
+                  {[...Array(8).keys()].map((item) => (
+                    <div
+                      key={item}
+                      className="w-full flex justify-center border-border-primary h-[217px] odd:border-r odd:border-l odd:border-b even:border-l even:border-b"
+                    >
+                      <VerticalProductCardShimmer />
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
 
-        {isShownPagination && (
-          <Pagination
-            lastPage={Math.floor(data?.pages?.[0]?.totalCount / 10) + 1}
-          />
-        )}
-      </div>
+          {isShownPagination && (
+            <Pagination
+              lastPage={Math.floor(data?.pages?.[0]?.totalCount / 10) + 1}
+            />
+          )}
+        </div>
+      )}
     </div>
   );
 };
