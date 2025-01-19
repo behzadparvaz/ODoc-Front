@@ -19,12 +19,17 @@ import useModal from '@hooks/useModal';
 
 type VendorDetailModalProps = {
   data: any;
+  workingHourData: any;
 };
 
-const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
+const VendorDetailModal = ({
+  data,
+  workingHourData,
+}: VendorDetailModalProps) => {
   const { removeLastModal } = useModal();
   const [staffColapseOpen, setStaffColapseOpen] = useState(true);
-  const [contactColapseOpen, setcontactColapseOpen] = useState(true);
+  const [contactColapseOpen, setContactColapseOpen] = useState(true);
+  const [workingHourColapseOpen, setWorkingHourColapseOpen] = useState(true);
 
   const staffAnimate = {
     transition: { type: 'tween' },
@@ -34,6 +39,11 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
     transition: { type: 'tween' },
     height: contactColapseOpen ? 'auto' : 0,
   };
+  const workingHourAnimate = {
+    transition: { type: 'tween' },
+    height: workingHourColapseOpen ? 'auto' : 0,
+  };
+
   return (
     <FullModalContainer animation={FullModalAnimations.none}>
       <MainLayout>
@@ -102,7 +112,54 @@ const VendorDetailModal = ({ data }: VendorDetailModalProps) => {
           <div className="flex flex-col justify-center">
             <div
               className="flex items-center justify-between px-4 py-3 cursor-pointer"
-              onClick={() => setcontactColapseOpen(!contactColapseOpen)}
+              onClick={() => setWorkingHourColapseOpen(!workingHourColapseOpen)}
+            >
+              <span className="text-sm font-semibold">ساعت کاری هفتگی</span>
+
+              {workingHourColapseOpen ? (
+                <ChevronUpIcon width={20} height={20} fill={colors.gray[400]} />
+              ) : (
+                <ChevronLeftIconOutline
+                  width={20}
+                  height={20}
+                  fill={colors.gray[400]}
+                />
+              )}
+            </div>
+
+            <motion.div
+              style={{ overflow: 'hidden', padding: '0 20px' }}
+              initial={{ height: 0, opacity: 1 }}
+              animate={workingHourAnimate}
+              exit={{ height: 0, opacity: 1 }}
+            >
+              <div className="flex flex-col gap-y-3 pb-3">
+                {workingHourData?.vendorWorkingHours?.map((item, index) => {
+                  if (!item?.openingTime && !item?.closingTime) {
+                    return (
+                      <span
+                        key={item?.dayOfWeek}
+                        className="flex items-center gap-x-2"
+                      >{`${item?.dayOfWeekNameFa}: تعطیل`}</span>
+                    );
+                  }
+                  return (
+                    <span
+                      key={item?.dayOfWeek}
+                      className={`flex items-center gap-x-2 ${index === workingHourData?.vendorWorkingHours?.length - 1 ? '-order-2' : ''}`}
+                    >{`${item?.dayOfWeekNameFa}: ${parseInt(item?.openingTime.split(':')[0], 10)} - ${parseInt(item?.closingTime.split(':')[0], 10)}`}</span>
+                  );
+                })}
+              </div>
+            </motion.div>
+          </div>
+
+          <Divider className="h-[0.5px]" />
+
+          <div className="flex flex-col justify-center">
+            <div
+              className="flex items-center justify-between px-4 py-3 cursor-pointer"
+              onClick={() => setContactColapseOpen(!contactColapseOpen)}
             >
               <span className="text-sm font-semibold">شماره تماس</span>
 

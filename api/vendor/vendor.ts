@@ -5,3 +5,6 @@ export const GetVendors = (): Promise<any> =>
 
 export const GetVendorDatails = (vendorCode: string): Promise<any> =>
   request.get(`/Vendor/management/GetVendor?vendorCode=${vendorCode}`);
+
+export const GetVendorWorkingHours = (vendorCode: string): Promise<any> =>
+  request.get(`Vendor/GetVendorWorkingHours?vendorCode=${vendorCode}`);
