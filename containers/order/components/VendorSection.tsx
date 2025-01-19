@@ -17,7 +17,7 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
 
   const { data: vendorData } = useGetVendorDetails(vendorCode);
   const { data: workingHourData, isLoading: workingHourIsLoading } =
-    useGetVendorWorkingHours('v00005');
+    useGetVendorWorkingHours(vendorCode);
 
   const handleVendorDetailModal = () => {
     if (vendorData?.isShowName) {
