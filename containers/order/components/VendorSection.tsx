@@ -1,7 +1,10 @@
 import { CircleInfromationIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import { useGetVendorDetails } from '@api/vendor/vendor.rq';
+import {
+  useGetVendorDetails,
+  useGetVendorWorkingHours,
+} from '@api/vendor/vendor.rq';
 
 import VendorDetailModal from './VendorDetailModal';
 
@@ -12,8 +15,9 @@ type VendorSectionProps = {
 const VendorSection = ({ vendorCode }: VendorSectionProps) => {
   const { addModal } = useModal();
 
-  const { data: vendorData, isLoading: vendorIsLoading } =
-    useGetVendorDetails(vendorCode);
+  const { data: vendorData } = useGetVendorDetails(vendorCode);
+  const { data: workingHourData, isLoading: workingHourIsLoading } =
+    useGetVendorWorkingHours('v00005');
 
   const handleVendorDetailModal = () => {
     if (vendorData?.isShowName) {
@@ -21,6 +25,7 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
         modal: VendorDetailModal,
         props: {
           data: vendorData,
+          workingHourData: workingHourData,
         },
       });
     }
@@ -34,9 +39,13 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
             ? vendorData?.vendorName
             : vendorData?.secondaryName}
         </span>
-        <span className="text-content-tertiary text-sm">
-          {`ساعت کاری ${parseInt(vendorData?.fromTimeActive.split(':')[0], 10)} - ${parseInt(vendorData?.toTimeActive.split(':')[0], 10)}`}
-        </span>
+        {workingHourIsLoading ? (
+          <div className="bg-surface-secondary w-20 h-6 rounded-full animate-pulse" />
+        ) : (
+          <span className="text-content-tertiary text-sm">
+            {`ساعت کاری ${parseInt(workingHourData?.fromTimeActive.split(':')[0], 10)} - ${parseInt(workingHourData?.toTimeActive.split(':')[0], 10)}`}
+          </span>
+        )}
       </div>
 
       <span
