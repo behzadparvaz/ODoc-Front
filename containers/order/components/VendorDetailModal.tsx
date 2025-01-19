@@ -57,7 +57,9 @@ const VendorDetailModal = ({
             </div>
           </div>
 
-          <NextImage alt="vendor-page" src={'/images/vendor-page.png'} fill />
+          <div className="w-full h-full">
+            <NextImage alt="vendor-page" src={'/images/vendor-page.png'} fill />
+          </div>
         </div>
 
         <div className="w-full flex justify-end px-[20px] -translate-y-[46px]">
@@ -133,7 +135,7 @@ const VendorDetailModal = ({
               animate={workingHourAnimate}
               exit={{ height: 0, opacity: 1 }}
             >
-              <div className="flex flex-col gap-y-3 pb-3">
+              <div className="flex flex-col gap-y-3 pb-3 text-content-tertiary">
                 {workingHourData?.vendorWorkingHours?.map((item, index) => {
                   if (!item?.openingTime && !item?.closingTime) {
                     return (
