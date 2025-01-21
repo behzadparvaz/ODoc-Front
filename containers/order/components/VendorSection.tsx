@@ -43,7 +43,7 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
           <div className="bg-surface-secondary w-20 h-6 rounded-full animate-pulse" />
         ) : (
           <span className="text-content-tertiary text-sm">
-            {`ساعت کاری ${parseInt(workingHourData?.fromTimeActive.split(':')[0], 10)} - ${parseInt(workingHourData?.toTimeActive.split(':')[0], 10)}`}
+            {`ساعت کاری ${parseInt(workingHourData?.fromTimeActive?.split(':')[0], 10)} - ${parseInt(workingHourData?.toTimeActive?.split(':')[0], 10)}`}
           </span>
         )}
       </div>
