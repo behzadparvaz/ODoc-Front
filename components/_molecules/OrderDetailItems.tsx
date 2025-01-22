@@ -15,6 +15,7 @@ import OrderItemCard from './OrderItemCard';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import Divider from '@com/_atoms/Divider';
 import Icon from '@utilities/icon';
+import classNames from 'classnames';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -85,13 +86,27 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
 
                     <div className="col-start-2 w-full flex items-center justify-between">
                       <div className="flex flex-col gap-y-2">
-                        <span className="text-sm font-medium">
+                        <span
+                          className={classNames(
+                            'text-sm font-medium',
+                            !item?.price &&
+                              !data?.isSpecialPatient &&
+                              'text-content-disabled',
+                          )}
+                        >
                           {data?.isSpecialPatient
                             ? 'نسخه بیماری خاص'
                             : 'دارو با نسخه'}
                         </span>
 
-                        <span className="text-sm">
+                        <span
+                          className={classNames(
+                            'text-sm',
+                            !item?.price &&
+                              !data?.isSpecialPatient &&
+                              'text-content-disabled',
+                          )}
+                        >
                           {`کد نسخه ${item?.referenceNumber}`}
                         </span>
                       </div>
@@ -102,8 +117,19 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                               item?.price,
                             ).toLocaleString('fa-IR')
                           : ''}
-                        <span className="text-xs">
-                          {item?.price ? 'تومان' : ''}
+                        <span
+                          className={classNames(
+                            'text-xs',
+                            !item?.price &&
+                              !data?.isSpecialPatient &&
+                              'text-content-disabled',
+                          )}
+                        >
+                          {item?.price
+                            ? 'تومان'
+                            : !data?.isSpecialPatient
+                              ? 'ناموجود'
+                              : ''}
                         </span>
                       </span>
                     </div>
