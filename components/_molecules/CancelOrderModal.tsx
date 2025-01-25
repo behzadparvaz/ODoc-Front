@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { useCancelOrder, useGetDeclineTypes } from '@api/order/orderApis.rq';
 import { Button } from '@com/_atoms/NewButton';
@@ -13,7 +13,6 @@ import {
 } from '@com/modal/containers/fullMobileContainer';
 import useModal from '@hooks/useModal';
 import { CancelOrderSchema } from '@utilities/validationSchemas';
-import Divider from '@com/_atoms/Divider';
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 type CancelOrderModalProps = {
@@ -27,6 +26,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
   const { data, isLoading } = useGetDeclineTypes();
 
   const [isShownInput, setIsShownInput] = useState(false);
+  const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
   const initialValues = {
     cancelReasonValue: '',
@@ -60,7 +60,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
       if (values?.cancelReasonId === 18 && !values?.cancelReasonValue) {
         formik.setFieldError(
           'cancelReasonValue',
-          'لطفا دلیل خود را انتخاب کنید',
+          'لطفا دلیل لغو سفارش خود را بنویسید',
         );
       } else {
         handleCancelOrder(values?.cancelReasonValue, values?.cancelReasonId);
@@ -101,6 +101,12 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
                     setIsShownInput(true);
                     formik?.setFieldValue('cancelReasonValue', '');
                     formik?.setFieldValue('cancelReasonId', item?.id);
+                    setTimeout(() => {
+                      textAreaRef.current?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center',
+                      });
+                    }, 100);
                   } else {
                     setIsShownInput(false);
                     formik?.setFieldValue('cancelReasonId', item?.id);
@@ -139,6 +145,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
 
           {isShownInput && (
             <TextAreaInput
+              inputRef={textAreaRef}
               placeholder={'توضیحات خود را برای لغو سفارش بنویسید'}
               id="cancelReasonValue"
               name="cancelReasonValue"
@@ -167,10 +174,6 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               className="w-full"
               onClick={formik.handleSubmit}
               isLoading={isLoadingCancelOrder}
-              disabled={
-                formik?.values?.cancelReasonId === 18 &&
-                !formik.values.cancelReasonValue
-              }
             >
               لغو سفارش
             </Button>
