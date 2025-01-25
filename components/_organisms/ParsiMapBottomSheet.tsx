@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import dynamic from 'next/dynamic';
 import { RootState } from '@utilities/types';
-import { setLogMapStateAction } from '@redux/map/mapActions';
+import { setLogMapStateAction, setMapStateAction } from '@redux/map/mapActions';
 import {
   setCurrentLocation,
   setCurrentPosition,
@@ -128,6 +128,11 @@ export default function ParsiMapBottomSheet({
               dispatch,
               addModal,
               enableAutoLocationButton,
+            );
+            dispatch(
+              setMapStateAction({
+                mapIsTouched: true,
+              }),
             );
           }}
           icon={<Discovery width={16} height={16} fill={colors.grey[800]} />}

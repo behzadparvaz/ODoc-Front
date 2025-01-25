@@ -57,6 +57,7 @@ const Products = () => {
       <div className="sticky top-0 z-10 bg-white border-b">
         <div className="mx-4 mb-4">
           <SearchBox
+            isActiveEnterButton={false}
             handleChange={onChangeSearchInput}
             defualtValue={query?.search}
           />
