@@ -39,11 +39,10 @@ const VendorSection = ({ vendorCode }: VendorSectionProps) => {
             ? vendorData?.vendorName
             : vendorData?.secondaryName}
         </span>
-        {workingHourIsLoading ? (
-          <div className="bg-surface-secondary w-20 h-6 rounded-full animate-pulse" />
-        ) : (
-          <span className="text-content-tertiary text-sm">
-            {`ساعت کاری ${parseInt(workingHourData?.fromTimeActive.split(':')[0], 10)} - ${parseInt(workingHourData?.toTimeActive.split(':')[0], 10)}`}
+
+        {workingHourData?.fromTimeActive && workingHourData?.toTimeActive && (
+          <span>
+            {`ساعت کاری ${parseInt(workingHourData?.fromTimeActive?.split(':')[0], 10)} - ${parseInt(workingHourData?.toTimeActive?.split(':')[0], 10)}`}
           </span>
         )}
       </div>
