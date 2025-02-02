@@ -11,6 +11,7 @@ interface Props {
   handleChange?: (value: string) => void;
   defualtValue: string | string[];
   autoFocus?: boolean;
+  isActiveEnterButton?: boolean;
 }
 
 const SearchBox = ({
@@ -19,6 +20,7 @@ const SearchBox = ({
   handleChange,
   defualtValue,
   autoFocus = false,
+  isActiveEnterButton = true,
 }: Props) => {
   const inputRef = useRef(null);
   const [value, setValue] = useState<any>(inputRef?.current?.value);
@@ -61,7 +63,7 @@ const SearchBox = ({
         defaultValue={defualtValue}
         ref={inputRef}
         onKeyUp={(e: any) => {
-          e?.key === 'Enter'
+          e?.key === 'Enter' && isActiveEnterButton
             ? push({
                 pathname: routeList?.search,
                 query: {

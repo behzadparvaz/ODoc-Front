@@ -6,15 +6,14 @@ import { homePageText } from '@com/texts/homePage';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
 import { useSelectAddressByCurrentLocation } from '@hooks/useSelectAddressByCurrentLocation';
+import useStorage from '@hooks/useStorage';
 import { setUserAction } from '@redux/user/userActions';
-import Icon from '@utilities/icon';
-import { RootState } from '@utilities/types';
-import getFutureTime from '@utilities/getFutureTime';
 import {
   isExpiredLastSelectedAddressTimeStamp,
   setLocalStoragelastSelectedAddressTimeStamp,
 } from '@utilities/addressUtils';
-import useStorage from '@hooks/useStorage';
+import Icon from '@utilities/icon';
+import { RootState } from '@utilities/types';
 
 interface Address {
   name: string;
@@ -59,7 +58,6 @@ const AddressBox = ({ data, className = '' }: Props) => {
             addressSelected,
           );
           dispatch(setUserAction({ defaultAddress: null }));
-          addModal({ modal: SelectAddress });
         }
       }
     }

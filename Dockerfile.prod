@@ -1,9 +1,10 @@
-# production : Build
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS builder
+# Stage : Build
+FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
-COPY package.json ./
+# Copy only package.json and package-lock.json to install dependencies
+COPY package.json package-lock.json .npmrc ./
 
 RUN npm install --force
 
@@ -11,11 +12,11 @@ COPY . .
 
 COPY .env.production .env
 
-RUN rm -f .env.*
+RUN rm -f .env.* 
 
 RUN npm run build
 
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
+FROM node:20.14.0-alpine
 
 WORKDIR /app
 

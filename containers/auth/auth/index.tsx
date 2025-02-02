@@ -68,7 +68,10 @@ const AuthContainer = () => {
             error.response?.data?.errors?.fieldErrors?.[0]?.error ||
             error.response?.data?.error?.message ||
             'مشکلی پیش آمده است لطفا مجدد تلاش کنید';
-
+          setState((prev) => ({
+            ...prev,
+            step: 'phone',
+          }));
           return openNotification({
             type: 'error',
             message: errorMessage,
