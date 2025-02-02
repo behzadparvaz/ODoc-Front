@@ -182,6 +182,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
               className="w-full"
               onClick={formik.handleSubmit}
               isLoading={isLoadingCancelOrder}
+              disabled={!formik?.values?.cancelReasonId}
             >
               لغو سفارش
             </Button>
