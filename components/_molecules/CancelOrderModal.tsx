@@ -12,7 +12,7 @@ import {
   FullModalContainer,
 } from '@com/modal/containers/fullMobileContainer';
 import useModal from '@hooks/useModal';
-import { CancelOrderSchema } from '@utilities/validationSchemas';
+import useNotification from '@hooks/useNotification';
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 type CancelOrderModalProps = {
@@ -22,6 +22,7 @@ type CancelOrderModalProps = {
 const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
   const { mutate: mutateCancelOrder, isPending: isLoadingCancelOrder } =
     useCancelOrder();
+  const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
   const { data, isLoading } = useGetDeclineTypes();
 
@@ -30,7 +31,7 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
 
   const initialValues = {
     cancelReasonValue: '',
-    cancelReasonId: 9,
+    cancelReasonId: null,
   };
 
   const handleCancelOrder = (reasonValue?: string, reasonId?: number) => {
@@ -55,8 +56,15 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
 
   const formik = useFormik({
     initialValues,
-    validationSchema: CancelOrderSchema,
     onSubmit: (values) => {
+      if (!values?.cancelReasonId) {
+        openNotification({
+          type: 'error',
+          message: 'لطفا دلیل لغو سفارش خود را انتخاب کنید',
+          notifType: 'successOrFailedMessage',
+        });
+        return;
+      }
       if (values?.cancelReasonId === 18 && !values?.cancelReasonValue) {
         formik.setFieldError(
           'cancelReasonValue',
