@@ -372,7 +372,10 @@ const OrderItem = ({ data, isPreOrder }: OrderItemProps) => {
         {(data.orderStatus?.name === 'draft' ||
           data.orderStatus?.name === 'ack') &&
           acceptExpirationTime &&
-          !isPreOrder && <Countdown expirationTime={acceptExpirationTime} />}
+          !isPreOrder &&
+          !data?.isSpecialPatient && (
+            <Countdown expirationTime={acceptExpirationTime} />
+          )}
       </div>
 
       {renderTimeLine}

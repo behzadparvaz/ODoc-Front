@@ -4,8 +4,8 @@ import {
 } from '@api/basket/basketApis.rq';
 import NextImage from '@com/_core/NextImage';
 import { colors } from '@configs/Theme';
-import specialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
-import prescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
+import specialPatients from '@public/images/newTiles/specialPatients.webp';
+import prescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
 import Icon from '@utilities/icon';
 
 interface NotOtcProps {
@@ -40,6 +40,7 @@ const PrescriptionItem = ({
           alt="rx-image"
           width={72}
           height={72}
+          style={{ width: 72, height: 72, objectFit: 'contain' }}
         />
         <div className="w-full flex flex-col gap-y-1">
           <span className="text-base font-semibold">
