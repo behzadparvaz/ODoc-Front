@@ -4,12 +4,13 @@ import classNames from 'classnames';
 import CategoryItem from '@com/_atoms/CategoryItem';
 import { routeList } from '@routes/routeList';
 
-import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.webp';
-import NonPrescriptionMedicine from '@public/images/tiles/specialPatients.webp';
-import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.webp';
-import Supplement from '@public/images/tiles/supplement.webp';
-import MotherChildSupplement from '@public/images/tiles/mother&Baby.webp';
-import MedicineEquipment from '@public/images/tiles/medicineEquipment.webp';
+import PrescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
+import NonPrescriptionMedicine from '@public/images/newTiles/nonPrescriptionMedicine.webp';
+import SpecialPatients from '@public/images/newTiles/specialPatients.webp';
+import Supplement from '@public/images/newTiles/supplement.webp';
+
+import MotherChildSupplement from '@public/images/newTiles/motherBaby.webp';
+import MedicineEquipment from '@public/images/newTiles/medicineEquipment.webp';
 
 import ScrollSlider from './ScrollSlider.nd';
 
@@ -36,21 +37,21 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       title: ' داروی بدون نسخه',
       link: routeList?.otcMedicine,
       image: NonPrescriptionMedicine,
-      imageHeight: 68,
-      imageWidth: 68,
+      imageHeight: isHomePage ? 64 : 68,
+      imageWidth: isHomePage ? 64 : 68,
       ratio: '33.3333%',
     },
     {
       title: 'داروی با نسخه ',
       link: routeList?.prescriptionRegisteration,
       image: PrescriptionMedicine,
-      imageHeight: 68,
-      imageWidth: 68,
+      imageHeight: isHomePage ? 64 : 68,
+      imageWidth: isHomePage ? 64 : 68,
       ratio: '33.3333%',
       query: `${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
-      title: 'داروی بیماران خاص',
+      title: 'داروخانه های ۱۳ آبان',
       link: routeList?.prescriptionRegisteration,
       image: SpecialPatients,
       imageHeight: isHomePage ? 64 : 68,

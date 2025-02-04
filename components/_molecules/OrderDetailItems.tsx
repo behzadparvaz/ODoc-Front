@@ -1,21 +1,21 @@
-import { motion } from 'framer-motion';
 import { useState } from 'react';
+import { motion } from 'framer-motion';
+import classNames from 'classnames';
 
-import PrescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
-import SpecialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
+import PrescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
+import SpecialPatients from '@public/images/newTiles/specialPatients.webp';
 import { colors } from '@configs/Theme';
 import {
   TenderItemsListDataModel,
   TenderItemsOrderDataModel,
 } from '@utilities/interfaces/tender';
-import { ChevronDownIcon, ChevronUpIcon } from '@com/icons';
+
 import NextImage from '@com/_core/NextImage';
 
 import OrderItemCard from './OrderItemCard';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import Divider from '@com/_atoms/Divider';
 import Icon from '@utilities/icon';
-import classNames from 'classnames';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -80,6 +80,11 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                           alt="Rx-image"
                           width={40}
                           height={40}
+                          style={{
+                            width: 40,
+                            height: 40,
+                            objectFit: 'contain',
+                          }}
                         />
                       </div>
                     </div>
@@ -91,6 +96,8 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                             'text-sm font-medium',
                             !item?.price &&
                               !data?.isSpecialPatient &&
+                              data?.orderStatus?.name !== 'ack' &&
+                              data?.orderStatus?.name !== 'draft' &&
                               'text-content-disabled',
                           )}
                         >
@@ -104,6 +111,8 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                             'text-sm',
                             !item?.price &&
                               !data?.isSpecialPatient &&
+                              data?.orderStatus?.name !== 'ack' &&
+                              data?.orderStatus?.name !== 'draft' &&
                               'text-content-disabled',
                           )}
                         >
@@ -111,27 +120,31 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                         </span>
                       </div>
 
-                      <span className="text-sm font-medium leading-5 flex items-center gap-x-1">
-                        {item?.price
-                          ? convertRialToTomanNumber(
-                              item?.price,
-                            ).toLocaleString('fa-IR')
-                          : ''}
-                        <span
-                          className={classNames(
-                            'text-xs',
-                            !item?.price &&
-                              !data?.isSpecialPatient &&
-                              'text-content-disabled',
-                          )}
-                        >
-                          {item?.price
-                            ? 'تومان'
-                            : !data?.isSpecialPatient
-                              ? 'ناموجود'
+                      {data?.orderStatus?.name !== 'ack' &&
+                        data?.orderStatus?.name !== 'draft' && (
+                          <span className="text-sm font-medium leading-5 flex items-center gap-x-1">
+                            {item?.price
+                              ? convertRialToTomanNumber(
+                                  item?.price,
+                                ).toLocaleString('fa-IR')
                               : ''}
-                        </span>
-                      </span>
+
+                            <span
+                              className={classNames(
+                                'text-xs bg-red-400',
+                                !item?.price &&
+                                  !data?.isSpecialPatient &&
+                                  'text-content-disabled',
+                              )}
+                            >
+                              {item?.price
+                                ? 'تومان'
+                                : !data?.isSpecialPatient
+                                  ? 'ناموجود'
+                                  : ''}
+                            </span>
+                          </span>
+                        )}
                     </div>
                   </div>
 

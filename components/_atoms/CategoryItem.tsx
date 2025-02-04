@@ -57,18 +57,24 @@ const CategoryItem = ({
           }
           ${className}`}
       >
-        <div
-          className={classNames(
-            `flex bg-grey-50 rounded-xl ${alignmentType === 'center' ? 'justify-center' : 'justify-end px-3'}`,
-            imageClassName,
-          )}
-        >
-          <NextImage
-            width={imgWidth}
-            height={imgHeight}
-            src={imageUrl}
-            alt={name}
-          />
+        <div className="w-full flex items-center justify-center">
+          <div
+            className={classNames(
+              'w-[64px] h-[64px] flex justify-center items-center rounded-xl object-contain aspect-square overflow-hidden',
+              alignmentType === 'center'
+                ? 'justify-center'
+                : 'justify-end px-3',
+              imageClassName,
+            )}
+          >
+            <NextImage
+              width={64}
+              height={64}
+              src={imageUrl}
+              alt={name}
+              style={{ width: '64px', height: '64px', objectFit: 'contain' }}
+            />
+          </div>
         </div>
         <p
           className={classNames(

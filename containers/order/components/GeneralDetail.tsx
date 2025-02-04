@@ -1,4 +1,6 @@
 import { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import moment from 'jalali-moment';
 
 import Countdown from '@com/_molecules/Countdows';
 import OrderHistoryProgress from '@com/_molecules/OrderHistoryProgress';
@@ -6,9 +8,7 @@ import { CircleCheckFillIcon, CircleCrossFillIcon } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { getOrderStatusMessage } from '@utilities/getOrderStatusMessage';
 import { persianDate } from '@utilities/persianDate';
-import moment from 'jalali-moment';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
 import Icon from '@utilities/icon';
 
 type GeneralDetailProps = {
@@ -121,7 +121,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
 
-            {!prepartionTimeData?.isPreOrder && (
+            {!prepartionTimeData?.isPreOrder && !data?.isSpecialPatient && (
               <Countdown
                 expirationTime={acceptExpirationTime}
                 className="bg-surface-secondary text-content-secondary rounded-none w-[56px] p-0"
@@ -133,8 +133,6 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
       case 'nfc':
       case 'pick':
       case 'accept':
-      case 'adelivery':
-      case 'senddelivery':
         return (
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
@@ -144,6 +142,13 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
                 {prepartionTimeData?.message}
               </span>
             )}
+          </div>
+        );
+      case 'adelivery':
+      case 'senddelivery':
+        return (
+          <div className="h-10 flex items-center justify-between px-4">
+            {getOrderStatusMessage(data?.orderStatus?.name)}
           </div>
         );
       case 'deliverd':
@@ -163,7 +168,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
       case 'nfc':
         return (
           <span className="text-xs text-content-tertiary">
-            {persianDate({ date: data?.createDateTime, isShownTime: true })}
+            {`زمان ثبت سفارش: ${persianDate({ date: data?.createDateTime, isShownTime: true })}`}
           </span>
         );
       case 'pick':
