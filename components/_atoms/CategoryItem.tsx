@@ -26,8 +26,8 @@ const CategoryItem = ({
   alignmentType = 'center',
   isSoon = false,
   handleClick = null,
-  imgWidth = 70,
-  imgHeight = 70,
+  imgWidth,
+  imgHeight,
   link,
   isHomePage,
 }: Props) => {
@@ -45,7 +45,7 @@ const CategoryItem = ({
                 }
               : null
         }
-        className={`block py-1.5 rounded-base
+        className={`block pb-2 pt-3 rounded-md
           ${
             isSoon &&
             "after:content-[''] after:inline-block after:absolute  after:rounded-base after:bg-gray-50 after:opacity-50 cursor-default after:rounded-xl"
@@ -60,7 +60,7 @@ const CategoryItem = ({
         <div className="w-full flex items-center justify-center">
           <div
             className={classNames(
-              'w-[64px] h-[64px] flex justify-center items-center rounded-xl object-contain aspect-square overflow-hidden',
+              'w-[64px] h-[64px] flex justify-center items-center object-contain aspect-square overflow-hidden',
               alignmentType === 'center'
                 ? 'justify-center'
                 : 'justify-end px-3',
@@ -68,8 +68,8 @@ const CategoryItem = ({
             )}
           >
             <NextImage
-              width={64}
-              height={64}
+              width={imgWidth}
+              height={imgHeight}
               src={imageUrl}
               alt={name}
               style={{ width: '64px', height: '64px', objectFit: 'contain' }}

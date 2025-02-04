@@ -23,6 +23,7 @@ import { TextInput } from '@com/_atoms/NewTextInput';
 import ActionBar from '@com/Layout/ActionBar';
 import Accordion from '@com/_molecules/Accordion';
 import { Button } from '@com/_atoms/NewButton';
+import Icon from '@utilities/icon';
 
 type RxRegistrationProps = {
   userInfo?: any;
@@ -105,6 +106,12 @@ const RxRegistration = ({ userInfo }: RxRegistrationProps) => {
 
   return (
     <form onSubmit={formik.handleSubmit} className="w-full px-4 pb-[84px]">
+      {isSpecialPatient && (
+        <span className="line-clamp-2 text-xs text-content-secondary bg-surface-warning rounded-xl p-4 bg-opacity-50">
+          در صورت ثبت سفارش قبل از ساعت ۱ ارسال روز بعد٬ و پس از آن تحویل دو روز
+          دیگر میباشد.
+        </span>
+      )}
       <div className="flex flex-col gap-y-3">
         <TextInput
           type="number"

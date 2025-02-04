@@ -131,7 +131,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
 
                             <span
                               className={classNames(
-                                'text-xs bg-red-400',
+                                'text-xs',
                                 !item?.price &&
                                   !data?.isSpecialPatient &&
                                   'text-content-disabled',
