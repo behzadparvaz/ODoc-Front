@@ -2,8 +2,8 @@ import NextImage from '@com/_core/NextImage';
 import { TenderItemsOrderDataModel } from '@utilities/interfaces/tender';
 import TenderProductItem from './TenderProductItem';
 import { convertRialToToman } from '@utilities/mainUtils';
-import prescriptionMedicine from '@public/images/tiles/prescriptionMedicine.png';
-import specialPatients from '@public/images/tiles/nonPrescriptionMedicine.png';
+import prescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
+import specialPatients from '@public/images/newTiles/specialPatients.webp';
 
 type TenderProductListProps = {
   orderItems: TenderItemsOrderDataModel[];
@@ -35,6 +35,7 @@ const TenderProductList = ({
                 alt="Rx-image"
                 width={68}
                 height={68}
+                style={{ width: 68, height: 68, objectFit: 'contain' }}
               />
             </div>
             <div className="flex flex-col gap-y-2">
