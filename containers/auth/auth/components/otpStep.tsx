@@ -56,9 +56,11 @@ const OtpStep: React.FC<OtpStepProps> = ({
             }),
           );
 
-          query?.from_url
-            ? push(`${query?.from_url}`)
-            : push(routeList.homeRoute);
+          const redirectPath =
+            query?.redirect && typeof query.redirect === 'string'
+              ? query.redirect
+              : routeList.homeRoute;
+          push(redirectPath);
 
           openNotification({
             message: 'ورود با موفقیت انجام شد',
