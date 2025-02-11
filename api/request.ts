@@ -143,7 +143,10 @@ class Request {
                 } else {
                   // If no token is returned, redirect to login
                   clearLastSelectedAddressTimeStamp();
-                  router.push(routeList.loginRoute);
+                  router.push({
+                    pathname: routeList.loginRoute,
+                    query: { redirect: router.asPath },
+                  });
                 }
               } catch (refreshError) {
                 clearLastSelectedAddressTimeStamp();
