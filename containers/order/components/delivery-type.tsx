@@ -91,7 +91,6 @@ const DeliveryType = ({ onChangeDeliveryType }: DeliveryTypeProps) => {
             }
             className="w-max"
           />
-
           <div className="flex items-center gap-x-1 bg-surface-warning rounded-full px-[6px]">
             <Icon name="HelmetsRtl" width={1} height={1} fill={colors.black} />
             <span className="text-md">رایگان</span>
