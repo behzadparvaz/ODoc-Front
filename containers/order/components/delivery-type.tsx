@@ -97,7 +97,6 @@ const DeliveryType = ({ onChangeDeliveryType }: DeliveryTypeProps) => {
           </div>
         </div>
       </div>
-
       {selectedDeliveryType?.value === 2 && (
         <div className="flex gap-x-2 items-center">
           {dates?.map((item, index) => (
