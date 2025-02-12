@@ -9,6 +9,7 @@ import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import { convertRialToToman } from '@utilities/mainUtils';
 import { Button } from '@com/_atoms/NewButton';
 import ActionBar from '@com/Layout/ActionBar';
+import DeliveryType from '../components/delivery-type';
 
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const VendorDescriptionDetail = dynamic(
@@ -18,6 +19,11 @@ const OrderDetailItems = dynamic(
   () => import('@com/_molecules/OrderDetailItems'),
 );
 const VendorSection = dynamic(() => import('../components/VendorSection'));
+
+export enum DeliveryTypeEnum {
+  onDemand = 'onDemand',
+  schedule = 'schedule',
+}
 
 const OfferPreviewContainer = () => {
   const { query } = useRouter();
@@ -30,6 +36,12 @@ const OfferPreviewContainer = () => {
   const [selectedOffer, setSelectedOffer] =
     useState<TenderItemsListDataModel | null>(null);
 
+  const [selectedDeliveryType, setSelectedDeliveryType] = useState<{
+    type: DeliveryTypeEnum;
+    date?: string;
+    time?: string;
+  } | null>(null);
+
   const handleClickOnPaymentButton = (orderCode, finalPrice, vendorCode) => {
     const body = {
       orderCode: orderCode,
@@ -38,6 +50,10 @@ const OfferPreviewContainer = () => {
     };
 
     mutatePayment(body);
+  };
+
+  const handleUpdateDeliveryType = (deliveryType) => {
+    setSelectedDeliveryType(deliveryType);
   };
 
   useEffect(() => {
@@ -56,6 +72,10 @@ const OfferPreviewContainer = () => {
     >
       <div className="w-full pb-[120px] flex flex-col overflow-y-scroll">
         <VendorSection vendorCode={selectedOffer?.vendorCode} />
+
+        {selectedOffer?.vendorCode === 'V0051' && (
+          <DeliveryType onChangeDeliveryType={handleUpdateDeliveryType} />
+        )}
 
         <OrderDetailItems data={selectedOffer} />
 
