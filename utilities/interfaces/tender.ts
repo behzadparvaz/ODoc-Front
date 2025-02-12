@@ -68,12 +68,21 @@ export type TenderItemsCustomerDataModel = {
 };
 
 export type TenderItemsDeliveryDataModel = {
+  discount: {
+    amount: number;
+    percentage: number;
+    createDateTime: string | null;
+    modifiedDateTime: string | null;
+    createBy: string | null;
+    modifiedBy: string | null;
+  };
   createBy: string | null;
   createDateTime: string | null;
   deliveryPrice: number;
   deliveryTime: string;
   modifiedBy: string | null;
   modifiedDateTime: string | null;
+  finalPrice: number;
 };
 
 export type TenderItemsDescriptionDataModel = {
