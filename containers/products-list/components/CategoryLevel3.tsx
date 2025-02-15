@@ -12,7 +12,7 @@ const CategoryLevel4 = dynamic(() => import('./CategoryLevel4'));
 type CategoryLevel3Props = {
   categoryCodeLevel2?: string;
 };
-const shimerItems = [1, 2, 3, 4];
+const shimerItems = [1, 2];
 
 const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
   const { query, pathname, push } = useRouter();
@@ -83,18 +83,15 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
 
   if (categoryLevel3IsLoading) {
     return (
-      <div className="flex flex-col h-[100px] sticky top-0 left-0 w-full bg-surface-primary z-50">
-        <div className="w-full h-[32px] flex flex-col gap-0">
-          <div className="h-full w-full flex gap-x-2 px-4">
-            <FilterAndSort />
-            {shimerItems.map((item) => (
-              <div
-                key={item}
-                className="h-full w-1/4 border border-border-primary rounded-full animate-pulse bg-surface-secondary"
-              />
-            ))}
-          </div>
-          <div className="h-[8px] w-full bg-surface-secondary" />
+      <div className="flex flex-col h-max sticky top-0 left-0 w-full bg-surface-primary z-50 overflow-hidden pb-4">
+        <div className="h-[32px] flex gap-x-2 px-4">
+          <FilterAndSort />
+          {shimerItems.map((item) => (
+            <div
+              key={item}
+              className="h-full w-1/2 border border-border-primary rounded-full animate-pulse bg-surface-secondary"
+            />
+          ))}
         </div>
       </div>
     );
@@ -118,7 +115,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
       </ScrollSlider>
 
       {!!selectedCategory?.categoryCodeLevel3 && (
-        <div className="pb-4">
+        <div className="pb-2">
           <CategoryLevel4
             categoryCodeLevel3={selectedCategory?.categoryCodeLevel3}
           />
