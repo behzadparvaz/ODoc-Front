@@ -38,9 +38,9 @@ const Filter = () => {
   };
 
   return (
-    <div className="w-full h-[56px] flex items-center px-4 py-3 gap-3">
+    <div className="w-max h-8 flex items-center gap-x-2">
       <div
-        className="flex items-center gap-[6px] cursor-pointer"
+        className="h-8 px-3 flex items-center rounded-full cursor-pointer bg-surface-tertiary gap-x-2 w-max"
         onClick={handleSortModal}
       >
         <ArrowUpArrowDownIcon width={20} height={20} fill={'black'} />
@@ -50,13 +50,20 @@ const Filter = () => {
 
       {query?.categoryCodeLevel1 !== '11' &&
         query?.categoryCodeLevel1 !== '15' && (
-          <div
-            className="flex items-center gap-[6px] cursor-pointer"
-            onClick={handleFilterModal}
-          >
-            <SliderHorizontalIcon width={24} height={24} fill={'black'} />
-            <span>{`فیلتر ${filterItemsNumber ? `(${filterItemsNumber})` : ''}`}</span>
-            <ChevronDownIcon width={20} height={20} stroke={'black'} />
+          <div className="relative w-max h-8 flex items-center gap-x-2">
+            {!!filterItemsNumber && (
+              <div className="absolute left-0 top-0 h-3 w-3 flex items-center justify-center rounded-full bg-surface-primary">
+                <div className="w-2 h-2 bg-surface-negative rounded-full" />
+              </div>
+            )}
+
+            <div
+              className="h-8 px-3 flex items-center rounded-full cursor-pointer bg-surface-tertiary gap-x-2"
+              onClick={handleFilterModal}
+            >
+              <SliderHorizontalIcon width={24} height={24} fill={'black'} />
+              <span>فیلتر</span>
+            </div>
           </div>
         )}
     </div>
