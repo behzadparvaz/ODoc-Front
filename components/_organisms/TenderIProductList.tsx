@@ -40,7 +40,9 @@ const TenderProductList = ({
             </div>
             <div className="flex flex-col gap-y-2">
               <span className="text-xs font-semibold">
-                {isSpecialPatient ? 'نسخه بیماری خاص' : 'دارو با نسخه'}
+                {isSpecialPatient
+                  ? 'نسخه داروخانه های ۱۳ آبان'
+                  : 'دارو با نسخه'}
               </span>
               {referenceNumber ? (
                 <span className="text-xs font-semibold">
