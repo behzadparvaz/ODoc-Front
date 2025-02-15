@@ -102,7 +102,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                           )}
                         >
                           {data?.isSpecialPatient
-                            ? 'نسخه بیماری خاص'
+                            ? 'نسخه داروخانه های ۱۳ آبان'
                             : 'دارو با نسخه'}
                         </span>
 

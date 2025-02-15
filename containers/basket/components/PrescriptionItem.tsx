@@ -44,7 +44,7 @@ const PrescriptionItem = ({
         />
         <div className="w-full flex flex-col gap-y-1">
           <span className="text-base font-semibold">
-            {isSpecialPatient ? 'نسخه بیماری خاص' : 'دارو با نسخه'}
+            {isSpecialPatient ? 'نسخه داروخانه های ۱۳ آبان' : 'دارو با نسخه'}
           </span>
           <span className="text-base font-semibold">{`کد نسخه ${refrenceNumber}`}</span>
         </div>
