@@ -86,15 +86,15 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
             <NextImage
               alt="supplement-category-l4"
               src={item?.iconLink}
-              width={48}
-              height={48}
+              width={56}
+              height={56}
             />
           </div>
         </div>
 
         <span
           className={classNames(
-            'min-w-max w-full text-content-primary text-xs font-medium text-center leading-6 line-clamp-2',
+            'w-[70px] text-content-primary text-xs font-medium text-center leading-6 line-clamp-2',
           )}
         >
           {item?.categoryNameLevel4}

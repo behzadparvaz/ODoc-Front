@@ -7,7 +7,7 @@ import { useGetCategories } from '@api/category/categoryApis.rq';
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const Filter = dynamic(() => import('./Filter'));
 
-const shimerItems = [1, 2, 3, 4];
+const shimerItems = [1, 2];
 
 const Categories = () => {
   const { pathname, query, push } = useRouter();
@@ -43,20 +43,15 @@ const Categories = () => {
 
   if (isLoading) {
     return (
-      <div className="flex flex-col h-[96px] sticky top-0 left-0 w-full bg-surface-primary z-50">
-        <div className="w-full h-[40px] flex flex-col gap-0">
-          <div className="h-full w-full flex">
-            <Filter />
+      <div className="flex items-center gap-x-2 h-max sticky top-0 left-0 w-full bg-surface-primary z-50 p-4">
+        <Filter />
 
-            {shimerItems.map((item) => (
-              <div
-                key={item}
-                className="h-full w-1/4 border border-border-primary rounded-full animate-pulse bg-surface-secondary"
-              />
-            ))}
-          </div>
-          <div className="h-[8px] w-full bg-surface-secondary" />
-        </div>
+        {shimerItems.map((item) => (
+          <div
+            key={item}
+            className="h-[32px] w-1/2 border border-border-primary rounded-full animate-pulse bg-surface-secondary"
+          />
+        ))}
       </div>
     );
   }

@@ -118,7 +118,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
       </ScrollSlider>
 
       {!!selectedCategory?.categoryCodeLevel3 && (
-        <div className="pb-4">
+        <div className="pb-2">
           <CategoryLevel4
             categoryCodeLevel3={selectedCategory?.categoryCodeLevel3}
           />

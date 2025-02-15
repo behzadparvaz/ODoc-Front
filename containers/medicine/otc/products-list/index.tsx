@@ -15,6 +15,8 @@ const ProductsListContainer = () => {
     <MainLayout
       hasHeader
       headerType="withoutLogo"
+      title="داروی بدون نسخه"
+      backIconHandler={() => push(routeList?.otcMedicine)}
       hasBackButton
       hasBasketIcon
       leftSection={
