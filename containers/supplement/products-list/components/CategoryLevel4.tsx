@@ -73,11 +73,11 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           );
         }}
         key={item?.categoryCodeLevel4}
-        className="w-[70px] h-[116px] grid grid-rows-[68px_1fr] cursor-pointer"
+        className="w-[70px] h-[116px] flex flex-col cursor-pointer"
       >
         <div
           className={classNames(
-            'flex items-center justify-center overflow-hidden rounded-lg bg-surface-secondary row-start-1',
+            'flex items-center justify-center overflow-hidden rounded-lg bg-surface-secondary',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
               'border border-border-inversePrimary',
           )}
@@ -92,13 +92,13 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           </div>
         </div>
 
-        <div
+        <span
           className={classNames(
-            'w-full text-xs text-center text-content-primary row-start-2 line-clamp-2',
+            'w-full text-content-primary text-xs font-medium text-center leading-6 line-clamp-2',
           )}
         >
           {item?.categoryNameLevel4}
-        </div>
+        </span>
       </div>
     );
   };
