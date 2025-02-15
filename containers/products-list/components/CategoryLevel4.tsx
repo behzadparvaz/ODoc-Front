@@ -94,7 +94,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
 
         <span
           className={classNames(
-            'min-w-max w-full text-content-primary text-xs font-medium text-center leading-6',
+            'min-w-max w-full text-content-primary text-xs font-medium text-center leading-6 line-clamp-2',
           )}
         >
           {item?.categoryNameLevel4}
