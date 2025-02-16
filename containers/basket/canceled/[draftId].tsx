@@ -3,6 +3,7 @@ import NextImage from '@com/_core/NextImage';
 import { MainLayout } from '@com/Layout';
 import ActionBar from '@com/Layout/ActionBar';
 import { colors } from '@configs/Theme';
+import useNotification from '@hooks/useNotification';
 import { routeList } from '@routes/routeList';
 import { encodeString } from '@utilities/encodeString';
 import Icon from '@utilities/icon';
@@ -12,6 +13,7 @@ import { useRef } from 'react';
 
 const CanceledContainer = () => {
   const { push } = useRouter();
+  const { openNotification } = useNotification();
   const contentRef = useRef(null);
   const widgetContainerRef = useRef(null);
   const serialRef = useRef(null);
@@ -41,6 +43,21 @@ const CanceledContainer = () => {
       await html2pdf().set(options).from(element).save();
       widgetContainerRef.current.style.display = 'flex';
       serialRef.current.style.display = 'none';
+    }
+  };
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: 'جزییات پرداخت',
+        text: 'متن جزییات پرداخت',
+        url: window.location.href,
+      });
+    } else {
+      openNotification({
+        type: 'error',
+        message: 'خطا در اشتراک گذاری متن',
+        notifType: 'successOrFailedMessage',
+      });
     }
   };
   return (
@@ -79,7 +96,10 @@ const CanceledContainer = () => {
                     fill={colors.red[400]}
                   />
                 </div>
-                <div className="flex justify-center items-start cursor-pointer">
+                <div
+                  onClick={handleShare}
+                  className="flex justify-center items-start cursor-pointer"
+                >
                   <Icon
                     name="ShareFill"
                     width={1.2}
