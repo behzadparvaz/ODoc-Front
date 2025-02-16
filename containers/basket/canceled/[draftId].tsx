@@ -10,7 +10,7 @@ import html2pdf from 'html2pdf.js';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
 
-const SuccessContainer = () => {
+const CanceledContainer = () => {
   const { push } = useRouter();
   const contentRef = useRef(null);
   const widgetContainerRef = useRef(null);
@@ -157,4 +157,4 @@ const SuccessContainer = () => {
   );
 };
 
-export default SuccessContainer;
+export default CanceledContainer;
