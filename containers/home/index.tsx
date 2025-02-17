@@ -59,13 +59,13 @@ const HomeContainer = () => {
           </div>
         }
       >
-        {/* <NextImage
+        <NextImage
           src={'/images/banner-delay.svg'}
-          alt={''}
+          alt="banner-delay"
           width={360}
           height={40}
           style={{ width: '100%', height: 'auto' }}
-        /> */}
+        />
         <HomeOrderSlider />
 
         <Categories isHomePage />
