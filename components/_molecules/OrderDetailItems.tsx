@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 
@@ -64,11 +64,8 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
           {data?.orderDetails?.map((item: TenderItemsOrderDataModel) => {
             if (!!item?.referenceNumber) {
               return (
-                <>
-                  <div
-                    key={item?.referenceNumber}
-                    className="grid justify-start items-center gap-x-2 pb-3 grid-cols-[64px_1fr]"
-                  >
+                <Fragment key={item?.referenceNumber}>
+                  <div className="grid justify-start items-center gap-x-2 pb-3 grid-cols-[64px_1fr]">
                     <div className="w-[64px] h-full flex justify-center items-center">
                       <div className="col-start-1 w-[40px] h-[40px] rounded-xl overflow-hidden flex justify-center items-center ">
                         <NextImage
@@ -149,11 +146,11 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                   </div>
 
                   <Divider className="h-[1px]" padding={0} />
-                </>
+                </Fragment>
               );
             } else {
               return (
-                <>
+                <Fragment key={item.irc}>
                   <OrderItemCard
                     key={item.irc}
                     item={item}
@@ -193,7 +190,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     )}
 
                   <Divider className="h-[1px]" />
-                </>
+                </Fragment>
               );
             }
           })}

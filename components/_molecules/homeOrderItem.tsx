@@ -49,6 +49,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
       case 'ack':
+      case 'auction':
       case 'apay':
       case 'nfc':
         return (
@@ -82,6 +83,7 @@ const HomeOrderItem = ({ data }: HomeOrderItemProps) => {
             isHasQuickOrder={isHasQuickOrder}
           />
         );
+      case 'auction':
       case 'ack':
         return (
           <OrderHistoryProgress

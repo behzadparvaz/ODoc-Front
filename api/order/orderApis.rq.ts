@@ -39,6 +39,7 @@ import {
 } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
 import useStorage from '@hooks/useStorage';
+import { useEffect } from 'react';
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -193,9 +194,10 @@ export const useGetOrderDetails = (orderCode: string) => {
     queryKey: ['getOrderDetails', orderCode],
     queryFn: () => getOrderDetails(orderCode),
     refetchOnMount: 'always',
-    refetchInterval: 120000,
+    refetchInterval: 60000,
     enabled: !!orderCode,
   });
+
   return { data: data as any, isLoading };
 };
 

@@ -43,4 +43,5 @@ export const routeList = {
   equipment: `${baseUrl}/equipment`,
   equipmentProductsList: `${baseUrl}/products-list/equipment`,
   motherKidProductsList: `${baseUrl}/products-list/mother-kid`,
+  forbidden: `/403`,
 };
