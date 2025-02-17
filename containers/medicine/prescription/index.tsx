@@ -26,7 +26,7 @@ const PrescriptionContainer = () => {
   };
   return (
     <MainLayout
-      title={query?.type === 'SP' ? 'داروی بیماری خاص' : 'داروی با نسخه'}
+      title={query?.type === 'SP' ? 'داروخانه های ۱۳ آبان' : 'داروی با نسخه'}
       hasHeader
       headerType="withoutLogo"
       hasBackButton

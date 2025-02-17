@@ -131,12 +131,12 @@ const AddNewRequestDrugForm = ({
                   {...field}
                   labelClassName="text-sm font-medium"
                   type="number"
-                  placeholder="تعداد دارو (حداکثر 10 عدد)"
+                  placeholder="تعداد دارو (حداکثر 100 عدد)"
                   onChange={(e) => {
                     const value =
                       Number(e.target.value) === 0
                         ? ''
-                        : `${Math.min(Number(e.target.value), 10)}`;
+                        : `${Math.min(Number(e.target.value), 100)}`;
                     setFieldValue(`drugs.${index}.quantity`, value);
                   }}
                 />

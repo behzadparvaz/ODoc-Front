@@ -27,7 +27,7 @@ export const useGetCarouselProduct = (body?: any, search?: string) => {
     hasPreviousPage,
     isFetchingNextPage,
     isFetchingPreviousPage,
-    refetch
+    refetch,
   } = useInfiniteQuery({
     queryKey: ['GetCarouselById', body],
     queryFn: ({ pageParam = 1 }) =>
@@ -37,11 +37,10 @@ export const useGetCarouselProduct = (body?: any, search?: string) => {
       }),
     initialPageParam: 1,
     getNextPageParam: (data: any) => {
-      return data?.totalCount === data?.pageNumber
+      return Math.floor(data?.totalCount / 10) + 1 === data?.pageNumber
         ? undefined
         : data?.pageNumber + 1;
     },
-    enabled: !!body && !!body.carouselId,
   });
 
   return {
@@ -53,6 +52,6 @@ export const useGetCarouselProduct = (body?: any, search?: string) => {
     hasPreviousPage,
     isFetchingNextPage,
     isFetchingPreviousPage,
-    refetch
+    refetch,
   };
 };

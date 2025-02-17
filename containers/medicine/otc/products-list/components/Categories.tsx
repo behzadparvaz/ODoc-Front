@@ -7,7 +7,7 @@ import { useGetCategories } from '@api/category/categoryApis.rq';
 const ScrollSlider = dynamic(() => import('@com/_molecules/ScrollSlider.nd'));
 const Filter = dynamic(() => import('./Filter'));
 
-const shimerItems = [1, 2, 3, 4];
+const shimerItems = [1, 2];
 
 const Categories = () => {
   const { pathname, query, push } = useRouter();
@@ -30,55 +30,41 @@ const Categories = () => {
             { shallow: true },
           );
         }}
-        className="w-full flex flex-col cursor-pointer"
+        className={classNames(
+          'h-8 rounded-full border border-border-primary whitespace-nowrap text-nowrap w-full flex justify-center px-3 flex-nowrap text-content-primary font-normal text-sm items-center cursor-pointer',
+          query?.categoryCodeLevel1 === item?.categoryCodeLevel1 &&
+            '!bg-surface-secondary !border-border-inversePrimary',
+        )}
       >
-        <div
-          className={classNames(
-            'whitespace-nowrap text-nowrap w-full flex justify-center px-4 pt-2 pb-1 flex-nowrap text-content-tertiary font-medium',
-            query?.categoryCodeLevel1 === item?.categoryCodeLevel1 &&
-              '!text-content-primary',
-          )}
-        >
-          {item?.categoryNameLevel1}
-        </div>
-        <div className="relative h-1 w-full bg-surface-secondary ">
-          {query?.categoryCodeLevel1 === item?.categoryCodeLevel1 && (
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-full w-[calc(100%-32px)] bg-surface-Gradient.brand transition-all duration-300 rounded-full" />
-          )}
-        </div>
+        {item?.categoryNameLevel1}
       </div>
     );
   };
 
   if (isLoading) {
     return (
-      <div className="flex flex-col h-[96px] sticky top-0 left-0 w-full bg-surface-primary z-50">
-        <div className="w-full h-[40px] flex flex-col gap-0">
-          <div className="h-full w-full flex">
-            {shimerItems.map((item) => (
-              <div
-                key={item}
-                className="h-full w-1/3 bg-surface-secondary animate-pulse px-4"
-              />
-            ))}
-          </div>
-          <div className="h-[8px] w-full bg-surface-secondary" />
-        </div>
-
+      <div className="flex items-center gap-x-2 h-max sticky top-0 left-0 w-full bg-surface-primary z-50 p-4">
         <Filter />
+
+        {shimerItems.map((item) => (
+          <div
+            key={item}
+            className="h-[32px] w-1/2 border border-border-primary rounded-full animate-pulse bg-surface-secondary"
+          />
+        ))}
       </div>
     );
   }
 
   return (
     <div className="flex flex-col sticky top-0 left-0 w-full bg-surface-primary z-50">
-      <ScrollSlider className="flex flex-col">
-        <div className="w-max min-w-full flex">
+      <ScrollSlider className="flex flex-col py-4">
+        <div className="w-max min-w-full flex items-center gap-x-2 px-4">
+          <Filter />
+
           {data?.queryResult?.map((item) => renderCategoryItem(item))}
         </div>
       </ScrollSlider>
-
-      <Filter />
     </div>
   );
 };

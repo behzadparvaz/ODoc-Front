@@ -9,10 +9,5 @@ export const GetCarousels = async () =>
 
 export const GetCarouselById = async (body: any) => {
   const params = builder(body);
-  const res: any = await request.get(
-    `/Promotion/GetProductCarousel${params}`,
-  );
-  if (res?.statusCode === 200) {
-    return res?.value;
-  } else return res;
+  return await request.get(`/Promotion/GetProductCarousel${params}`, body);
 };

@@ -73,30 +73,28 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
           );
         }}
         key={item?.categoryCodeLevel4}
-        className="w-full flex flex-col items-center cursor-pointer px-4 gap-y-1"
+        className="w-[70px] h-[116px] flex flex-col cursor-pointer"
       >
         <div
           className={classNames(
-            'w-[50px] h-[50px] flex items-center justify-center overflow-hidden rounded-full',
+            'flex items-center justify-center overflow-hidden rounded-lg bg-surface-secondary',
             selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
-              'bg-surface-Gradient.brand',
+              'border border-border-inversePrimary',
           )}
         >
-          <div className="h-[48px] w-[48px] flex justify-center items-center overflow-hidden rounded-full object-fill">
+          <div className="h-[68px] w-[70px] flex justify-center items-center  object-fill rounded-lg">
             <NextImage
               alt="supplement-category-l4"
               src={item?.iconLink}
-              width={48}
-              height={48}
+              width={56}
+              height={56}
             />
           </div>
         </div>
 
         <span
           className={classNames(
-            'min-w-max w-full text-content-tertiary text-xs text-center',
-            selectedCategory?.categoryCodeLevel4 === item?.categoryCodeLevel4 &&
-              '!text-content-primary font-medium',
+            'w-full text-content-primary text-xs font-medium text-center leading-6 line-clamp-2',
           )}
         >
           {item?.categoryNameLevel4}
@@ -116,7 +114,7 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
 
   if (categoryLevel4IsLoading) {
     return (
-      <div className="w-full h-[80px] flex justify-center items-center">
+      <div className="w-full h-[116px] flex justify-center items-center">
         {shimerItems?.map((item) => (
           <div
             key={item}
@@ -128,9 +126,9 @@ const CategoryLevel4 = ({ categoryCodeLevel3 }: CategoryLevel4Props) => {
   }
 
   return (
-    <div className="h-[80px] bg-surface-secondary flex flex-col justify-center items-center">
+    <div className="h-[116px] flex flex-col justify-center items-center px-4 overflow-hidden">
       <ScrollSlider className="flex flex-col justify-center h-full">
-        <div className="w-max min-w-full flex items-center bg-surface-secondary">
+        <div className="w-max min-w-full flex items-center gap-x-4">
           {categoryLevel4.length > 0 &&
             categoryLevel4?.map((item) => (
               <>{item?.categoryCodeLevel4 && renderCategoryItem(item)}</>
