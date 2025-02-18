@@ -34,6 +34,15 @@ const OtpStep: React.FC<OtpStepProps> = ({
   const { mutate: mutateVerifyOtp, isPending: pendingVerifyOtp } =
     useVerifyOtp();
 
+  const isValidRedirect = (url: string) => {
+    return (
+      url &&
+      (url.startsWith('/') ||
+        url.startsWith('http://') ||
+        url.startsWith('https://'))
+    );
+  };
+
   const onCompleteAction = (pin: string) => {
     if (pin.length !== 6) {
       return openNotification({
@@ -57,9 +66,12 @@ const OtpStep: React.FC<OtpStepProps> = ({
           );
 
           const redirectPath =
-            query?.redirect && typeof query.redirect === 'string'
+            query?.redirect &&
+            typeof query.redirect === 'string' &&
+            isValidRedirect(query.redirect)
               ? query.redirect
               : routeList.homeRoute;
+
           push(redirectPath);
 
           openNotification({
