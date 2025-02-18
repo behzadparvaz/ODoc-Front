@@ -35,12 +35,7 @@ const OtpStep: React.FC<OtpStepProps> = ({
     useVerifyOtp();
 
   const isValidRedirect = (url: string) => {
-    return (
-      url &&
-      (url.startsWith('/') ||
-        url.startsWith('http://') ||
-        url.startsWith('https://'))
-    );
+    return url && url.startsWith('/');
   };
 
   const onCompleteAction = (pin: string) => {
