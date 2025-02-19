@@ -1,15 +1,10 @@
-import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
-import {
-  ArrowUpArrowDownIcon,
-  ChevronDownIcon,
-  SliderHorizontalIcon,
-} from '@com/icons';
+import { SliderHorizontalIcon } from '@com/icons';
 import useModal from '@hooks/useModal';
 
 import FilterBottomsheet from './FilterBottomsheet';
-import SortBottomsheet from './SortBottomsheet';
 
 const Filter = () => {
   const { addModal } = useModal();
@@ -20,15 +15,10 @@ const Filter = () => {
   useEffect(() => {
     const brandQuantity = query?.brand ? 1 : 0;
     const shapeQuantity = query?.shapeCode ? 1 : 0;
-    setFilterItemsNumber(brandQuantity + shapeQuantity);
-  }, [query]);
+    const shapeSort = query?.sortName ? 1 : 0;
 
-  const handleSortModal = () => {
-    addModal({
-      modal: SortBottomsheet,
-      props: { plpQuery: query },
-    });
-  };
+    setFilterItemsNumber(brandQuantity + shapeQuantity + shapeSort);
+  }, [query]);
 
   const handleFilterModal = () => {
     addModal({
@@ -39,15 +29,6 @@ const Filter = () => {
 
   return (
     <div className="w-max h-8 flex items-center gap-x-2">
-      <div
-        className="h-8 px-3 w-max flex items-center rounded-full cursor-pointer bg-surface-tertiary gap-x-2"
-        onClick={handleSortModal}
-      >
-        <ArrowUpArrowDownIcon width={20} height={20} fill={'black'} />
-        <span>{query?.sortName ?? 'مرتب سازی'}</span>
-        <ChevronDownIcon width={20} height={20} stroke={'black'} />
-      </div>
-
       {query?.categoryCodeLevel1 !== '11' &&
         query?.categoryCodeLevel1 !== '15' && (
           <div className="relative w-max h-8 flex items-center gap-x-2">
