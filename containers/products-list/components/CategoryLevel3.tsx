@@ -101,7 +101,7 @@ const CategoryLevel3 = ({ categoryCodeLevel2 }: CategoryLevel3Props) => {
     <div className="flex flex-col sticky top-0 left-0 w-full bg-surface-primary z-50">
       <ScrollSlider className="flex flex-col py-4">
         <div className="w-max min-w-full flex items-center gap-x-2 px-4">
-          <FilterAndSort />
+          {/* <FilterAndSort /> */}
           <>
             {renderCategoryItem({
               categoryCodeLevel3: '',
