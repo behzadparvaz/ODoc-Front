@@ -14,7 +14,7 @@ const EditAddressContainer = () => {
   const addressId = query?.addressId;
   const dispatch = useDispatch();
 
-  const { data, isLoadingz } = useGetUserLocation(addressId as string);
+  const { data, isLoading } = useGetUserLocation(addressId as string);
 
   const handleSetViewport = () => {
     dispatch(
