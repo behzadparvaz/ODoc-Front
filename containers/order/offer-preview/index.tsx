@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useEffect, useMemo, useRef, useState } from 'react';
 
-import { MainLayout } from '@com/Layout';
 import { useFinishOrderPayment } from '@api/order/orderApis.rq';
 import { useGetTenderItems } from '@api/tender/tenderApis.rq';
+import { Button } from '@com/_atoms/NewButton';
+import { MainLayout } from '@com/Layout';
+import ActionBar from '@com/Layout/ActionBar';
 import { TenderItemsListDataModel } from '@utilities/interfaces/tender';
 import { convertRialToToman } from '@utilities/mainUtils';
-import { Button } from '@com/_atoms/NewButton';
-import ActionBar from '@com/Layout/ActionBar';
+import DeliveryType from '../components/delivery-type';
 
 const PaymentDetail = dynamic(() => import('../components/PaymentDetail'));
 const VendorDescriptionDetail = dynamic(
@@ -19,8 +20,26 @@ const OrderDetailItems = dynamic(
 );
 const VendorSection = dynamic(() => import('../components/VendorSection'));
 
+export enum DeliveryTypeEnum {
+  onDemand = 'onDemand',
+  schedule = 'schedule',
+}
+interface IRefDeliveryType {
+  type: { name: string; value: number };
+  date: {
+    date: string;
+    dayOfWeek: string;
+    timeSlots: { id: number; timeRange: string }[];
+  };
+  time: { id: number; timeRange: string };
+}
+
 const OfferPreviewContainer = () => {
+  const vendorCodeHasSchedule = ['V00012'];
+  const royalDelivaryPrice = 75000;
   const { query } = useRouter();
+  const refDeliveryType = useRef<IRefDeliveryType | null>(null);
+
   const { mutate: mutatePayment, isPending: isLoadingPayment } =
     useFinishOrderPayment();
 
@@ -30,15 +49,7 @@ const OfferPreviewContainer = () => {
   const [selectedOffer, setSelectedOffer] =
     useState<TenderItemsListDataModel | null>(null);
 
-  const handleClickOnPaymentButton = (orderCode, finalPrice, vendorCode) => {
-    const body = {
-      orderCode: orderCode,
-      finalPrice: finalPrice,
-      vendorCode: vendorCode,
-    };
-
-    mutatePayment(body);
-  };
+  const [deliveryType, setDeliveryType] = useState<number>(1);
 
   useEffect(() => {
     if (tenderIsLoading) return;
@@ -46,6 +57,75 @@ const OfferPreviewContainer = () => {
       tenderData?.queryResult?.find((item) => item?.id === query?.offerId),
     );
   }, [tenderData]);
+
+  const onChangeDeliveryType = (value: number) => {
+    setDeliveryType(value);
+  };
+  const calcDelivaryPrice = useMemo(() => {
+    if (vendorCodeHasSchedule.includes(selectedOffer?.vendorCode)) {
+      if (deliveryType === 1) {
+        return {
+          ...selectedOffer,
+          delivery: {
+            ...selectedOffer?.delivery,
+            deliveryPrice: royalDelivaryPrice * 10,
+            discount: {
+              ...selectedOffer?.delivery.discount,
+              amount: 0,
+            },
+          },
+        };
+      }
+      if (deliveryType === 2) {
+        return {
+          ...selectedOffer,
+          delivery: {
+            ...selectedOffer?.delivery,
+            deliveryPrice: royalDelivaryPrice * 10,
+            discount: {
+              ...selectedOffer?.delivery.discount,
+              amount: royalDelivaryPrice * 10,
+            },
+          },
+        };
+      }
+    }
+    return selectedOffer;
+  }, [deliveryType, selectedOffer]);
+
+  const calcFinalPrice = useMemo(() => {
+    if (vendorCodeHasSchedule.includes(selectedOffer?.vendorCode)) {
+      if (deliveryType === 1) {
+        return (
+          selectedOffer?.finalPrice -
+          selectedOffer?.delivery?.finalPrice +
+          royalDelivaryPrice * 10
+        );
+      }
+      if (deliveryType === 2) {
+        console.log(selectedOffer?.delivery?.deliveryPrice);
+        return selectedOffer?.finalPrice - selectedOffer?.delivery?.finalPrice;
+      }
+    }
+    return selectedOffer?.finalPrice;
+  }, [deliveryType, selectedOffer]);
+
+  const handleClickOnPaymentButton = () => {
+    const body = {
+      orderCode: query?.orderCode,
+      finalPrice: calcFinalPrice,
+      vendorCode: selectedOffer?.vendorCode,
+      ...(vendorCodeHasSchedule.includes(selectedOffer?.vendorCode) && {
+        isSchedule: deliveryType === 2,
+      }),
+      ...(vendorCodeHasSchedule.includes(selectedOffer?.vendorCode) &&
+        deliveryType === 2 && {
+          deliveryDate: refDeliveryType?.current?.date?.date,
+          deliveryTimeId: refDeliveryType?.current?.time?.id,
+        }),
+    };
+    mutatePayment(body);
+  };
 
   return (
     <MainLayout
@@ -64,8 +144,13 @@ const OfferPreviewContainer = () => {
             description={selectedOffer?.description?.comment}
           />
         )}
-
-        <PaymentDetail data={selectedOffer} isPaymentPage />
+        {vendorCodeHasSchedule.includes(selectedOffer?.vendorCode) && (
+          <DeliveryType
+            ref={refDeliveryType}
+            onChangeDeliveryType={onChangeDeliveryType}
+          />
+        )}
+        <PaymentDetail data={calcDelivaryPrice} isPaymentPage />
       </div>
 
       <ActionBar type="price" hasDivider>
@@ -73,9 +158,9 @@ const OfferPreviewContainer = () => {
           <div className="w-full flex items-center justify-between">
             <span className="text-md">قابل پرداخت</span>
 
-            {selectedOffer?.finalPrice ? (
+            {calcFinalPrice ? (
               <span className="text-sm font-semibold">
-                {`${convertRialToToman(selectedOffer?.finalPrice)}`}
+                {`${convertRialToToman(calcFinalPrice)}`}
               </span>
             ) : (
               <span className="text-sm font-semibold">رایگان</span>
@@ -86,13 +171,7 @@ const OfferPreviewContainer = () => {
             variant="brand"
             className="w-full"
             size="large"
-            onClick={() =>
-              handleClickOnPaymentButton(
-                query?.orderCode,
-                selectedOffer?.finalPrice,
-                selectedOffer?.vendorCode,
-              )
-            }
+            onClick={handleClickOnPaymentButton}
             isLoading={isLoadingPayment}
           >
             تأیید و پرداخت

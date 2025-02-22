@@ -91,3 +91,11 @@ export const getCurrentOrder = async () => {
 export const getDeclineTypes = async () => {
   return await request.get(`/Order/GetDeclineTypes`);
 };
+
+export const getRoyalOrderDeliveryScheduleTime = async () => {
+  return await request.get(`/Order/DeliveryScheduleTime`);
+};
+
+export const setDeliveryScheduleTimeRoyal = async (data: any) => {
+  return await request.post(`/Order/DeliveryPriceRoyal`, data);
+};
