@@ -1,10 +1,10 @@
-import { Fragment, useState } from 'react';
-import { motion } from 'framer-motion';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
+import { Fragment, useState } from 'react';
 
+import { colors } from '@configs/Theme';
 import PrescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
 import SpecialPatients from '@public/images/newTiles/specialPatients.webp';
-import { colors } from '@configs/Theme';
 import {
   TenderItemsListDataModel,
   TenderItemsOrderDataModel,
@@ -12,10 +12,10 @@ import {
 
 import NextImage from '@com/_core/NextImage';
 
-import OrderItemCard from './OrderItemCard';
-import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import Divider from '@com/_atoms/Divider';
 import Icon from '@utilities/icon';
+import { convertRialToTomanNumber } from '@utilities/mainUtils';
+import OrderItemCard from './OrderItemCard';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -152,7 +152,6 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
               return (
                 <Fragment key={item.irc}>
                   <OrderItemCard
-                    key={item.irc}
                     item={item}
                     dataLength={data?.orderDetails?.length}
                     orderStatus={data?.orderStatus?.name}

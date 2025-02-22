@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 import { Button } from '@com/_atoms/NewButton';
 import { ArrowRightIconOutline, ChevronLeftIconOutline } from '@com/icons';
@@ -7,8 +7,9 @@ import ActionBar from '@com/Layout/ActionBar';
 import { BottomModalContainer } from '@com/modal/containers/bottomMobileContainer';
 import { colors } from '@configs/Theme';
 import useModal from '@hooks/useModal';
-import ShapesFilter from './ShapesFilter';
 import BrandFilter from './BrandFilter';
+import ShapesFilter from './ShapesFilter';
+import SortFilter, { Sort } from './SortFilter';
 
 type Shapes = {
   shapeName?: string;
@@ -21,10 +22,10 @@ type FilterBottomsheetProps = {
 
 const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
   const { push, query, pathname } = useRouter();
-  const { removeLastModal } = useModal();
+  const { addModal, removeLastModal } = useModal();
 
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<
-    'brand' | 'shape' | null
+    'brand' | 'shape' | 'sort' | null
   >(null);
 
   const [selectedShape, setSelectedShape] = useState<Shapes | null>(() => {
@@ -35,6 +36,9 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
       };
     } else null;
   });
+  const [selectedSort, setSelectedSort] = useState<string>(
+    () => plpQuery?.sortName as string,
+  );
   const [selectedBrand, setSelectedBrand] = useState<string>(() =>
     plpQuery?.shapeCode ? (plpQuery?.brand as string) : '',
   );
@@ -49,12 +53,18 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
     setSelectedFilterCategory(null);
   };
 
+  const handleSelectSort = (item: Sort) => {
+    setSelectedSort(item.sortName);
+    setSelectedFilterCategory(null);
+  };
+
   const handleConfirmFilter = () => {
     const filterQuery = {
       ...query,
       brand: selectedBrand,
       shapeCode: selectedShape?.shapeCode,
       shapeName: selectedShape?.shapeName,
+      sortName: selectedSort,
     };
 
     push(
@@ -80,7 +90,8 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
               !!value &&
               key !== 'brand' &&
               key !== 'shapeName' &&
-              key !== 'shapeCode',
+              key !== 'shapeCode' &&
+              key !== 'sortName',
           ),
         ),
       },
@@ -101,6 +112,9 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
       return (
         <ShapesFilter onSelectShape={handleSelectShape} plpQuery={plpQuery} />
       );
+    }
+    if (selectedFilterCategory === 'sort') {
+      return <SortFilter onSelectSort={handleSelectSort} plpQuery={plpQuery} />;
     }
   };
 
@@ -176,6 +190,29 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
                 fill={colors.gray[400]}
               />
             </div>
+
+            {/* <div className="mr-4 bg-border-primary h-[0.5px] w-full" />
+
+            <div
+              className="w-full h-full flex items-center justify-between cursor-pointer py-3"
+              onClick={() => setSelectedFilterCategory('sort')}
+            >
+              <div className="flex flex-col">
+                <span className="text-content-primary text-base leading-6">
+                  مرتب سازی
+                </span>
+
+                <span className="text-sm text-content-tertiary">
+                  {selectedSort}
+                </span>
+              </div>
+
+              <ChevronLeftIconOutline
+                width={24}
+                height={24}
+                fill={colors.gray[400]}
+              />
+            </div> */}
 
             <ActionBar type="twoActionHorizontal" className="">
               <Button

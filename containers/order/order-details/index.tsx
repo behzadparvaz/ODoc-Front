@@ -150,7 +150,9 @@ const OrderDetailsContainer = () => {
           {(data?.orderStatus?.name === 'draft' ||
             data?.orderStatus?.name === 'ack' ||
             data?.orderStatus?.name === 'apay' ||
-            data?.orderStatus?.name === 'nfc') && <CancelOrder />}
+            data?.orderStatus?.name === 'nfc') && (
+            <CancelOrder orderDetail={data?.orderDetails} />
+          )}
         </div>
       )}
     </MainLayout>

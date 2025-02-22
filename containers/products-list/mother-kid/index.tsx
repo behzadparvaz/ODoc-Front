@@ -33,9 +33,9 @@ const MotherKidProductsContainer = () => {
         </span>
       }
     >
-      <div className="sticky top-0 right-0 w-full bg-surface-primary z-50 p-4">
+      {/* <div className="sticky top-0 right-0 w-full bg-surface-primary z-50 p-4">
         <FilterAndSort />
-      </div>
+      </div> */}
 
       <Products />
     </MainLayout>
