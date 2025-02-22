@@ -79,7 +79,7 @@ const FilterBottomsheet = ({ plpQuery }: FilterBottomsheetProps) => {
     );
     removeLastModal();
   };
-  console.log(selectedSort);
+
   const handleClearFilters = () => {
     push(
       {

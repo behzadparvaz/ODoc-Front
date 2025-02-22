@@ -103,7 +103,6 @@ const OfferPreviewContainer = () => {
         );
       }
       if (deliveryType === 2) {
-        console.log(selectedOffer?.delivery?.deliveryPrice);
         return selectedOffer?.finalPrice - selectedOffer?.delivery?.finalPrice;
       }
     }
