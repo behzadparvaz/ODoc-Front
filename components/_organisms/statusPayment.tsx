@@ -6,17 +6,27 @@ import { colors } from '@configs/Theme';
 import { routeList } from '@routes/routeList';
 import { encodeString } from '@utilities/encodeString';
 import Icon from '@utilities/icon';
+import classNames from 'classnames';
 import html2pdf from 'html2pdf.js';
 import { useRouter } from 'next/router';
-import { useRef } from 'react';
+import { useMemo, useRef } from 'react';
 
-const SuccessContainer = ({ status }) => {
+interface IData {
+  vendorCode: string;
+  isSuccess: boolean;
+  trackId: string;
+  dateTime: string;
+  amount: number;
+}
+interface IProps {
+  data: IData;
+  isLoading: boolean;
+}
+const StatusPayment = ({ data, isLoading }: IProps) => {
   const { push } = useRouter();
-  const isLoading = false;
   const contentRef = useRef(null);
   const widgetContainerRef = useRef(null);
   const serialRef = useRef(null);
-
   const showSerial = async () => {
     serialRef.current.style.display = 'block';
     return true;
@@ -45,6 +55,37 @@ const SuccessContainer = ({ status }) => {
     }
   };
 
+  const content = useMemo(() => {
+    if (data?.isSuccess) {
+      return {
+        icon: (
+          <Icon
+            name="CheckFill"
+            width={2}
+            height={2}
+            fill={colors.green[400]}
+          />
+        ),
+        title: 'پرداخت شما با موفقیت انجام شد',
+        description: 'جهت پیگیری سفارش به صفحه جزییات مراجع نمایید.',
+      };
+    }
+    if (!data?.isSuccess) {
+      return {
+        icon: (
+          <Icon
+            name="ExclamationFill"
+            width={2}
+            height={2}
+            fill={colors.red[400]}
+          />
+        ),
+        title: 'پرداخت ناموفق',
+        description:
+          'در صورت کسر وجه، تا ۷۲ ساعت آینده، مبلغ به حساب شما برگردانده خواهد شد.',
+      };
+    }
+  }, [data]);
   return (
     <MainLayout
       hasHeader
@@ -54,7 +95,7 @@ const SuccessContainer = ({ status }) => {
     >
       <div ref={contentRef} className="m-4">
         {isLoading ? (
-          <ShimmerBasketDraftStatus />
+          <StatusPaymentShimmer />
         ) : (
           <div className="border rounded-lg p-2 flex flex-col gap-y-4">
             <div className="flex justify-center items-center relative flex-col">
@@ -86,50 +127,48 @@ const SuccessContainer = ({ status }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center items-center bg-surface-positiveLight w-14 h-14 rounded-full">
-                <Icon
-                  name="ExclamationFill"
-                  width={2}
-                  height={2}
-                  fill={colors.green[400]}
-                />
+              <div
+                className={classNames(
+                  'flex justify-center items-center w-14 h-14 rounded-full',
+                  data?.isSuccess && 'bg-surface-positiveLight',
+                  !data?.isSuccess && 'bg-surface-negativeLight',
+                )}
+              >
+                {content?.icon}
               </div>
             </div>
             <div className="text-center">
               <h1 className="text-content-primary font-semibold text-xl">
-                پرداخت شما با موفقیت انجام شد
+                {content?.title}
               </h1>
               <p className="font-normal text-content-tertiary text-sm mt-4">
-                در صورت کسر وجه، تا ۷۲ ساعت آینده، مبلغ به حساب شما برگردانده
-                خواهد شد.
+                {content?.description}
               </p>
             </div>
             <div className="flex flex-col gap-y-4 mt-4 font-normal text-content-tertiary text-sm mb-4">
               <div className="flex justify-between items-center">
-                <span>شماره موبایل</span>
-                <span>۰۹۱۲۰۷۸۰۱۹۲۴</span>
-              </div>
-              <div className="flex justify-between items-center">
                 <span>مبلغ</span>
-                <span>۱۷٬۲۰۰ تومان</span>
+                <span>{data?.amount / 10} تومان</span>
               </div>
               <div className="flex justify-between items-center">
                 <span>تاریخ</span>
-                <span>۲۰ اردیبهشت ۱۴۰۲ - ۱۹:۳۲</span>
+                <span>{data?.dateTime}</span>
               </div>
               <div className="flex justify-between items-center">
                 <span>کد پیگیری</span>
-                <span>CX32RE5478</span>
+                <span>{data?.trackId}</span>
               </div>
             </div>
           </div>
         )}
-        <p
-          ref={serialRef}
-          className="hidden text-content-tertiary h-5 font-thin text-xs overflow-hidden text-nowrap text-left ltr"
-        >
-          {encodeString('CX32RE5478')}
-        </p>
+        {!isLoading && data?.trackId && (
+          <p
+            ref={serialRef}
+            className="hidden text-content-tertiary h-5 font-thin text-xs overflow-hidden text-nowrap text-left ltr"
+          >
+            {encodeString(data?.trackId)}
+          </p>
+        )}
       </div>
       {!isLoading && (
         <ActionBar type="twoActionVertical">
@@ -157,9 +196,9 @@ const SuccessContainer = ({ status }) => {
   );
 };
 
-export default SuccessContainer;
+export default StatusPayment;
 
-const ShimmerBasketDraftStatus = () => (
+const StatusPaymentShimmer = () => (
   <div className="border rounded-md w-full p-4">
     <div className="flex flex-col justify-center items-center w-full gap-y-4">
       <div className="w-[80px] h-[80px] bg-gray-300 animate-pulse rounded-full" />
