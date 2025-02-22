@@ -9,8 +9,9 @@ import Icon from '@utilities/icon';
 import html2pdf from 'html2pdf.js';
 import { useRouter } from 'next/router';
 import { useRef } from 'react';
+import ShimmerBasketDraftStatus from '../components/shimmerbasketDraftStatus';
 
-const SuccessContainer = ({ status }) => {
+const CanceledContainer = () => {
   const { push } = useRouter();
   const isLoading = false;
   const contentRef = useRef(null);
@@ -86,22 +87,22 @@ const SuccessContainer = ({ status }) => {
                   </div>
                 </div>
               </div>
-              <div className="flex justify-center items-center bg-surface-positiveLight w-14 h-14 rounded-full">
+              <div className="flex justify-center items-center bg-yellow-100 w-14 h-14 rounded-full">
                 <Icon
-                  name="ExclamationFill"
+                  name="Clock"
                   width={2}
                   height={2}
-                  fill={colors.green[400]}
+                  fill={colors.yellow[500]}
                 />
               </div>
             </div>
             <div className="text-center">
               <h1 className="text-content-primary font-semibold text-xl">
-                پرداخت شما با موفقیت انجام شد
+                وضعیت پرداخت نامشخص
               </h1>
               <p className="font-normal text-content-tertiary text-sm mt-4">
                 در صورت کسر وجه، تا ۷۲ ساعت آینده، مبلغ به حساب شما برگردانده
-                خواهد شد.
+                خواهد شد .
               </p>
             </div>
             <div className="flex flex-col gap-y-4 mt-4 font-normal text-content-tertiary text-sm mb-4">
@@ -157,35 +158,4 @@ const SuccessContainer = ({ status }) => {
   );
 };
 
-export default SuccessContainer;
-
-const ShimmerBasketDraftStatus = () => (
-  <div className="border rounded-md w-full p-4">
-    <div className="flex flex-col justify-center items-center w-full gap-y-4">
-      <div className="w-[80px] h-[80px] bg-gray-300 animate-pulse rounded-full" />
-      <div className="w-3/4 h-6 bg-gray-300 animate-pulse mb-4 rounded" />
-      <div className="flex flex-col w-full justify-center items-center">
-        <div className="w-full h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-        <div className="w-3/4 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-      </div>
-      <div className="flex flex-col w-full">
-        <div className="flex justify-between items-center gap-x-10">
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-        </div>
-        <div className="flex justify-between items-center gap-x-10">
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-        </div>
-        <div className="flex justify-between items-center gap-x-10">
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-        </div>
-        <div className="flex justify-between items-center gap-x-10">
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-          <div className="w-1/2 h-4 bg-gray-300 animate-pulse mb-4 rounded" />
-        </div>
-      </div>
-    </div>
-  </div>
-);
+export default CanceledContainer;
