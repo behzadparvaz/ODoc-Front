@@ -41,6 +41,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
         return 0;
+      case 'auction':
       case 'ack':
         return 1;
       case 'apay':
@@ -67,6 +68,7 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
     switch (data?.orderStatus?.name) {
       case 'draft':
       case 'ack':
+      case 'auction':
       case 'apay':
       case 'nfc':
       case 'pick':

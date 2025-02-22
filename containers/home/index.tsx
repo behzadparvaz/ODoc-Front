@@ -8,7 +8,6 @@ import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
 import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
-import NextImage from '@com/_core/NextImage';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
