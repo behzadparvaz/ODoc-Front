@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
 import { useGetOrdersHistory } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
@@ -9,7 +10,6 @@ import { MainLayout } from '@com/Layout';
 import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
 import { routeList } from '@routes/routeList';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
 
 const OrderHistoryContainer = () => {
   const { push, query } = useRouter();
