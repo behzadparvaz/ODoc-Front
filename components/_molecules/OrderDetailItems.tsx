@@ -16,6 +16,7 @@ import Divider from '@com/_atoms/Divider';
 import Icon from '@utilities/icon';
 import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import OrderItemCard from './OrderItemCard';
+import OrderItemDescription from '@containers/order/components/itemDescription';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -145,6 +146,12 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     </div>
                   </div>
 
+                  {item?.doctorInstruction && (
+                    <OrderItemDescription
+                      ItemDescription={item?.doctorInstruction}
+                    />
+                  )}
+
                   <Divider className="h-[1px]" padding={0} />
                 </Fragment>
               );
@@ -165,6 +172,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                       data?.orderStatus?.name !== 'nfc' &&
                       !item?.price
                     }
+                    discountPercentage={item?.discount?.percentage}
                   />
 
                   {data?.orderStatus?.name !== 'draft' &&
@@ -176,17 +184,19 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     data?.orderStatus?.name !== 'nfc' &&
                     !item?.price &&
                     item?.alternatives[0]?.price && (
-                      <>
-                        <span className="text-xs pr-4 flex items-center gap-x-2">
-                          داروی جایگزین مشابه
-                        </span>
-
-                        <OrderItemCard
-                          key={item?.alternatives[0]?.irc}
-                          item={item?.alternatives[0]}
-                        />
-                      </>
+                      <OrderItemCard
+                        key={item?.alternatives[0]?.irc}
+                        item={item?.alternatives[0]}
+                        isAlternative
+                        discountPercentage={item?.discount?.percentage}
+                      />
                     )}
+
+                  {item?.doctorInstruction && (
+                    <OrderItemDescription
+                      ItemDescription={item?.doctorInstruction}
+                    />
+                  )}
 
                   <Divider className="h-[1px]" />
                 </Fragment>
