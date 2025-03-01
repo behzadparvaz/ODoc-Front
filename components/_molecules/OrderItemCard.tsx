@@ -82,9 +82,9 @@ const OrderItemCard = ({
                 ) : (
                   <span className="text-sm font-medium leading-5 flex items-center gap-x-1 pr-4">
                     {item?.price
-                      ? convertRialToTomanNumber(item?.price)?.toLocaleString(
-                          'fa-IR',
-                        )
+                      ? convertRialToTomanNumber(
+                          item?.price * item?.quantity,
+                        )?.toLocaleString('fa-IR')
                       : ''}
                     <span className="text-xs">
                       {item?.price ? 'تومان' : ''}
