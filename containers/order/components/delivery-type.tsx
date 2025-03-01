@@ -1,14 +1,13 @@
 import { forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
+import moment from 'jalali-moment';
 
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Radio } from '@com/_atoms/Radio';
 import { colors } from '@configs/Theme';
 import Icon from '@utilities/icon';
 
-import { DeliveryTypeEnum } from '../offer-preview';
 import { useGetRoyalOrderDeliveryScheduleTime } from '@api/order/orderApis.rq';
-import moment from 'jalali-moment';
 
 type DeliveryTypeProps = {
   onChangeDeliveryType: (value: number) => void;
@@ -19,7 +18,7 @@ const DeliveryType = forwardRef(
     const [selectedDeliveryType, setSelectedDeliveryType] = useState<{
       name: string;
       value: number;
-    }>({ name: 'تحویل آنی', value: 1 });
+    }>({ name: 'انتخاب زمان ارسال', value: 2 });
 
     const { data: royalOrderDeliveryScheduleTime } =
       useGetRoyalOrderDeliveryScheduleTime();

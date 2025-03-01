@@ -42,6 +42,7 @@ export type TenderItemsOrderDataModel = {
   unit: string;
   referenceNumber?: string;
   type: { name: string; id: number };
+  doctorInstruction?: string;
 };
 
 export type TenderCustomerAddressDataModel = {
