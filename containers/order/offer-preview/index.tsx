@@ -152,7 +152,7 @@ const OfferPreviewContainer = () => {
         <PaymentDetail data={calcDelivaryPrice} isPaymentPage />
       </div>
 
-      <ActionBar type="price" hasDivider>
+      <ActionBar type="price" hasDivider className="z-20">
         <div className="w-full flex flex-col gap-y-2">
           <div className="w-full flex items-center justify-between">
             <span className="text-md">قابل پرداخت</span>
