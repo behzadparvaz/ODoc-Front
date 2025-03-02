@@ -1,6 +1,5 @@
-import { forwardRef, useImperativeHandle, useState } from 'react';
 import classNames from 'classnames';
-import moment from 'jalali-moment';
+import { forwardRef, useImperativeHandle, useState } from 'react';
 
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Radio } from '@com/_atoms/Radio';
@@ -8,17 +7,26 @@ import { colors } from '@configs/Theme';
 import Icon from '@utilities/icon';
 
 import { useGetRoyalOrderDeliveryScheduleTime } from '@api/order/orderApis.rq';
+import moment from 'jalali-moment';
 
 type DeliveryTypeProps = {
   onChangeDeliveryType: (value: number) => void;
+  defaultSelectedIndex?: number;
 };
 
 const DeliveryType = forwardRef(
-  ({ onChangeDeliveryType }: DeliveryTypeProps, ref) => {
+  (
+    { onChangeDeliveryType, defaultSelectedIndex = 1 }: DeliveryTypeProps,
+    ref,
+  ) => {
+    const items = [
+      { name: 'تحویل آنی', value: 1 },
+      { name: 'انتخاب زمان ارسال', value: 2 },
+    ];
     const [selectedDeliveryType, setSelectedDeliveryType] = useState<{
       name: string;
       value: number;
-    }>({ name: 'انتخاب زمان ارسال', value: 2 });
+    }>(items[defaultSelectedIndex]);
 
     const { data: royalOrderDeliveryScheduleTime } =
       useGetRoyalOrderDeliveryScheduleTime();
@@ -87,10 +95,7 @@ const DeliveryType = forwardRef(
               label="انتخاب زمان ارسال"
               checked={selectedDeliveryType?.value === 2}
               handleChange={() => {
-                setSelectedDeliveryType({
-                  name: 'انتخاب زمان ارسال',
-                  value: 2,
-                });
+                setSelectedDeliveryType(items[1]);
                 onChangeDeliveryType(2);
               }}
               className="w-max"
