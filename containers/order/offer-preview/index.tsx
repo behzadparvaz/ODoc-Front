@@ -49,7 +49,7 @@ const OfferPreviewContainer = () => {
   const [selectedOffer, setSelectedOffer] =
     useState<TenderItemsListDataModel | null>(null);
 
-  const [deliveryType, setDeliveryType] = useState<number>(1);
+  const [deliveryType, setDeliveryType] = useState<number>(2);
 
   useEffect(() => {
     if (tenderIsLoading) return;
