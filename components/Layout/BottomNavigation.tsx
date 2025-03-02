@@ -17,7 +17,7 @@ const tabs: Record<string, string> = {
 
 enum Routes {
   HOME = '/app',
-  ORDERS = '/app/orders-history',
+  ORDERS = '/app/orders-history?statusId=0',
   PROFILE = '/app/profile',
 }
 

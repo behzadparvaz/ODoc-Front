@@ -43,11 +43,17 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
         <Shop height={24} width={24} fill={colors.gray[600]} />
 
         <div className="flex flex-col justify-center gap-2 h-full w-full">
-          <h3 className="text-base font-medium">
-            {vendorData?.isShowName
-              ? vendorData?.vendorName
-              : vendorData?.secondaryName}
-          </h3>
+          <div className="flex items-center gap-x-2">
+            <h3 className="text-base font-medium">
+              {vendorData?.isShowName
+                ? vendorData?.vendorName
+                : vendorData?.secondaryName}
+            </h3>
+
+            <span className="bg-surface-warning text-content-primary  text-xs px-2 py-1 rounded-full">
+              ارسال‌زمان‌بندی/فوری
+            </span>
+          </div>
           {vendorData?.isShowName && (
             <span className="text-sm text-content-tertiary line-clamp-2">
               {vendorData?.location?.address}
