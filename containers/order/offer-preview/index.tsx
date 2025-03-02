@@ -147,13 +147,14 @@ const OfferPreviewContainer = () => {
           <DeliveryType
             ref={refDeliveryType}
             onChangeDeliveryType={onChangeDeliveryType}
+            defaultSelectedIndex={1}
           />
         )}
         <PaymentDetail data={calcDelivaryPrice} isPaymentPage />
       </div>
 
-      <ActionBar type="price" hasDivider className="z-20">
-        <div className="w-full flex flex-col gap-y-2">
+      <ActionBar type="price" hasDivider className="z-10">
+        <div className="w-full flex flex-col gap-y-2 z-20">
           <div className="w-full flex items-center justify-between">
             <span className="text-md">قابل پرداخت</span>
 
