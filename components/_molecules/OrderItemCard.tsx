@@ -13,12 +13,16 @@ type OrderItemCardProps = {
   isUnavaiable?: boolean;
   dataLength?: number;
   orderStatus?: string;
+  isAlternative?: boolean;
+  discountPercentage?: number;
 };
 
 const OrderItemCard = ({
   item,
   isUnavaiable,
   orderStatus,
+  isAlternative,
+  discountPercentage,
 }: OrderItemCardProps) => {
   const { navigateToPdp } = useProductNavigation();
 
@@ -76,20 +80,64 @@ const OrderItemCard = ({
             ) : (
               <>
                 {isUnavaiable ? (
-                  <span className="text-xs text-content-disabled leading-5 h-5">
+                  <span className="text-xs leading-5 h-6 rounded-full bg-surface-negativeLight text-content-negative px-2 py-1 flex items-center">
                     عدم موجودی
                   </span>
                 ) : (
-                  <span className="text-sm font-medium leading-5 flex items-center gap-x-1 pr-4">
-                    {item?.price
-                      ? convertRialToTomanNumber(item?.price)?.toLocaleString(
-                          'fa-IR',
-                        )
-                      : ''}
-                    <span className="text-xs">
-                      {item?.price ? 'تومان' : ''}
-                    </span>
-                  </span>
+                  <div className="flex flex-col items-end gap-y-[6px]">
+                    {isAlternative && (
+                      <span className="text-content-accent bg-surface-accentLight text-xs leading-5 h-6 rounded-full px-2 py-1 flex items-center">
+                        دارو جایگزین
+                      </span>
+                    )}
+                    <div className="flex flex-col gap-y-1">
+                      <div className="flex items-center gap-x-[6px]">
+                        {discountPercentage ? (
+                          <span className="text-xs text-content-onWarning bg-surface-warning px-2 py-1 rounded-full min-w-8">{`${discountPercentage}%`}</span>
+                        ) : (
+                          <></>
+                        )}
+
+                        <span
+                          className={classNames(
+                            'text-sm font-medium leading-5 flex items-center gap-x-1',
+                            discountPercentage
+                              ? 'line-through text-content-disabled'
+                              : 'pr-4',
+                          )}
+                        >
+                          {item?.price
+                            ? convertRialToTomanNumber(
+                                item?.price * item?.quantity,
+                              )?.toLocaleString('fa-IR')
+                            : ''}
+                          {!discountPercentage && (
+                            <span className="text-xs">
+                              {item?.price ? 'تومان' : ''}
+                            </span>
+                          )}
+                        </span>
+                      </div>
+
+                      {discountPercentage ? (
+                        <span
+                          className={
+                            'text-sm font-medium leading-5 flex items-center gap-x-1 pr-4'
+                          }
+                        >
+                          {convertRialToTomanNumber(
+                            (item?.price -
+                              (item?.price * discountPercentage) / 100) *
+                              item?.quantity,
+                          )?.toLocaleString('fa-IR')}
+
+                          <span className="text-xs">{'تومان'}</span>
+                        </span>
+                      ) : (
+                        <></>
+                      )}
+                    </div>
+                  </div>
                 )}
               </>
             )}

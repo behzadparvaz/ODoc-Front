@@ -16,14 +16,20 @@ const TenderProductItem = ({
     <>
       <OrderItemCard
         item={item}
-        isUnavaiable={item?.alternatives?.length > 0}
+        isUnavaiable={item?.isunavailable}
+        discountPercentage={item?.discount?.percentage}
       />
 
       {item?.alternatives?.length > 0 && (
         <div className="flex flex-col gap-y-2">
           <p className="text-2xs font-bold">پیشنهاد داروخانه</p>
 
-          <OrderItemCard key={index} item={item?.alternatives[0]} />
+          <OrderItemCard
+            key={index}
+            item={item?.alternatives[0]}
+            isAlternative
+            discountPercentage={item?.discount?.percentage}
+          />
         </div>
       )}
 

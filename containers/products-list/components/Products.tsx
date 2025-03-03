@@ -110,7 +110,7 @@ const Products = () => {
 
       {data?.pages?.at(-1)?.pageNumber < 10 && !query?.pageNumber && (
         <div ref={ref} className="w-full col-start-1 col-end-3">
-          {hasNextPage && isFetchingNextPage && (
+          {hasNextPage && (
             <div className="h-full w-full grid grid-cols-2 overflow-y-scroll">
               {[...Array(8).keys()].map((item) => (
                 <div

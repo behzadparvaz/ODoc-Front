@@ -38,25 +38,9 @@ const AddressBox = ({ data, className = '' }: Props) => {
     if (data && token) {
       if (isExpiredLastSelectedAddressTimeStamp() || !defaultAddress) {
         if (addressSelected) {
-          console.log(
-            'why Open Modal',
-            data,
-            token,
-            isExpiredLastSelectedAddressTimeStamp(),
-            defaultAddress,
-            addressSelected,
-          );
           dispatch(setUserAction({ defaultAddress: addressSelected }));
           setLocalStoragelastSelectedAddressTimeStamp();
         } else {
-          console.log(
-            'why dont Open Modal',
-            data,
-            token,
-            isExpiredLastSelectedAddressTimeStamp(),
-            defaultAddress,
-            addressSelected,
-          );
           dispatch(setUserAction({ defaultAddress: null }));
         }
       }

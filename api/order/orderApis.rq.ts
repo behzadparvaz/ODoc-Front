@@ -30,6 +30,8 @@ import {
   getCurrentOrder,
   getDeclineTypes,
   getBikerDetail,
+  getRoyalOrderDeliveryScheduleTime,
+  setDeliveryScheduleTimeRoyal,
 } from './orderApis';
 import { useRouter } from 'next/router';
 import useNotification from '@hooks/useNotification';
@@ -39,6 +41,7 @@ import {
 } from '@utilities/interfaces/order';
 import { routeList } from '@routes/routeList';
 import useStorage from '@hooks/useStorage';
+import { useEffect } from 'react';
 export const useCreateOrderInsurance = () => {
   const { push } = useRouter();
   const queryClient = useQueryClient();
@@ -193,9 +196,10 @@ export const useGetOrderDetails = (orderCode: string) => {
     queryKey: ['getOrderDetails', orderCode],
     queryFn: () => getOrderDetails(orderCode),
     refetchOnMount: 'always',
-    refetchInterval: 120000,
+    refetchInterval: 60000,
     enabled: !!orderCode,
   });
+
   return { data: data as any, isLoading };
 };
 
@@ -261,4 +265,17 @@ export const useGetDeclineTypes = () => {
   });
 
   return { data: data as any, isLoading: isLoading };
+};
+
+export const useGetRoyalOrderDeliveryScheduleTime = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['getRoyalOrderDeliveryScheduleTime'],
+    queryFn: () => getRoyalOrderDeliveryScheduleTime(),
+  });
+
+  return { data: data as any, isLoading: isLoading };
+};
+
+export const useSetDelivaryScheduleTimeRoyal = () => {
+  return useMutation({ mutationFn: setDeliveryScheduleTimeRoyal });
 };

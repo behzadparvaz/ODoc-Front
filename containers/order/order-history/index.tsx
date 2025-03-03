@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
 
 import { useGetOrdersHistory } from '@api/order/orderApis.rq';
 import Spinner from '@com/_atoms/Spinner';
@@ -9,11 +10,10 @@ import { MainLayout } from '@com/Layout';
 import ScrollSlider from '@com/_molecules/ScrollSlider.nd';
 import { routeList } from '@routes/routeList';
 import { useGetOrderPrepartionTime } from '@api/tender/tenderApis.rq';
-import { useSelector } from 'react-redux';
 
 const OrderHistoryContainer = () => {
   const { push, query } = useRouter();
-  const statusId = Number(query?.statusId ?? '-1');
+  const statusId = Number(query?.statusId ?? '0');
   const { data: orderHistoryData, isLoading } = useGetOrdersHistory(statusId);
 
   const userLatLng = useSelector(
@@ -67,10 +67,6 @@ const OrderHistoryContainer = () => {
 
   const filterOptions = [
     {
-      id: -1,
-      name: 'همه',
-    },
-    {
       id: 0,
       name: 'جاری',
     },
@@ -92,7 +88,7 @@ const OrderHistoryContainer = () => {
     }
     return (
       <div className="w-full flex flex-col gap-y-3">
-        {currentOrders?.length > 0 && (statusId === -1 || statusId === 0) && (
+        {currentOrders?.length > 0 && statusId === 0 && (
           <div className="flex flex-col gap-y-4 bg-background-gradient.white-to-gray p-4">
             <span className="text-xs text-content-tertiary">{`سفارش فعال ${currentOrders?.length}`}</span>
             {currentOrders?.map((item) => {
@@ -107,17 +103,16 @@ const OrderHistoryContainer = () => {
           </div>
         )}
 
-        {previousOrders?.length > 0 &&
-          (statusId === -1 || statusId === 1 || statusId === 2) && (
-            <div className="flex flex-col gap-y-4 p-4">
-              <span className="text-xs text-content-tertiary">
-                سفارش‌های پیشین
-              </span>
-              {previousOrders?.map((item) => {
-                return <OrderItem key={item?.id} data={item} />;
-              })}
-            </div>
-          )}
+        {previousOrders?.length > 0 && (statusId === 1 || statusId === 2) && (
+          <div className="flex flex-col gap-y-4 p-4">
+            <span className="text-xs text-content-tertiary">
+              سفارش‌های پیشین
+            </span>
+            {previousOrders?.map((item) => {
+              return <OrderItem key={item?.id} data={item} />;
+            })}
+          </div>
+        )}
       </div>
     );
   };
@@ -140,8 +135,7 @@ const OrderHistoryContainer = () => {
                 onClick={() => handleChangeFilter(item)}
                 className={classNames(
                   'w-max h-8 flex items-center px-3 bg-white text-xs rounded-full cursor-pointer border border-grey-200',
-                  (item?.id === Number(query?.statusId) ||
-                    (item?.id === -1 && !query?.statusId)) &&
+                  (item?.id === Number(query?.statusId) || !query?.statusId) &&
                     '!bg-grey-50 border-1.5 !border-black',
                 )}
               >

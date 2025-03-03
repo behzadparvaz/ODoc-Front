@@ -2,14 +2,21 @@ import CancelOrderModal from '@com/_molecules/CancelOrderModal';
 import useModal from '@hooks/useModal';
 import { useRouter } from 'next/router';
 
-const CancelOrder = () => {
+type CancelOrderProps = {
+  orderDetail?: any;
+};
+
+const CancelOrder = ({ orderDetail }: CancelOrderProps) => {
   const { query } = useRouter();
   const { addModal } = useModal();
 
   const handleCancelOrder = () => {
     addModal({
       modal: CancelOrderModal,
-      props: { orderCode: query?.orderCode as string },
+      props: {
+        orderCode: query?.orderCode as string,
+        orderDetail: orderDetail,
+      },
     });
   };
 

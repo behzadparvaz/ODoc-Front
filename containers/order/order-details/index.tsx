@@ -40,7 +40,7 @@ const OrderDetailsContainer = () => {
         push(
           query?.previousPage === 'home' || query?.previousPage === 'basket'
             ? `${routeList.homeRoute}`
-            : `${routeList.ordersHistory}`,
+            : `${routeList.ordersHistory}?statusId=0`,
         )
       }
     >
@@ -150,7 +150,9 @@ const OrderDetailsContainer = () => {
           {(data?.orderStatus?.name === 'draft' ||
             data?.orderStatus?.name === 'ack' ||
             data?.orderStatus?.name === 'apay' ||
-            data?.orderStatus?.name === 'nfc') && <CancelOrder />}
+            data?.orderStatus?.name === 'nfc') && (
+            <CancelOrder orderDetail={data?.orderDetails} />
+          )}
         </div>
       )}
     </MainLayout>

@@ -19,6 +19,8 @@ type TenderCardProps = {
   offerId: string;
 };
 
+const vendorCodeHasSchedule = ['V00012'];
+
 const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
   const { push } = useRouter();
 
@@ -37,19 +39,39 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
       )}
       onClick={handleProccessOrder}
     >
-      <div className="h-max px-4 pt-4 pb-2 flex items-center gap-2 justify-between">
+      <div className="h-max px-4 pt-4 pb-2 flex items-center gap-4 justify-between">
         <Shop height={24} width={24} fill={colors.gray[600]} />
 
-        <div className="flex flex-col justify-center gap-4 h-full w-full">
-          <h3 className="text-base font-medium">
-            {vendorData?.isShowName
-              ? vendorData?.vendorName
-              : vendorData?.secondaryName}
-          </h3>
+        <div className="flex flex-col justify-center gap-2 h-full w-full">
+          <div className="flex items-center gap-x-2">
+            <h3 className="text-base font-medium">
+              {vendorData?.isShowName
+                ? vendorData?.vendorName
+                : vendorData?.secondaryName}
+            </h3>
+
+            {vendorCodeHasSchedule.includes(data?.vendorCode) && (
+              <span className="bg-surface-warning text-content-primary  text-xs px-2 py-1 rounded-full">
+                ارسال‌زمان‌بندی/فوری
+              </span>
+            )}
+          </div>
           {vendorData?.isShowName && (
             <span className="text-sm text-content-tertiary line-clamp-2">
               {vendorData?.location?.address}
             </span>
+          )}
+
+          {vendorCodeHasSchedule.includes(data?.vendorCode) && (
+            <div className="flex items-center gap-x-2">
+              <span className="bg-surface-negativeLight text-brand-tapsi text-xs px-2 py-1 rounded-full">
+                تخفیف ویژه
+              </span>
+
+              <span className="bg-surface-positiveLight text-content-positive text-xs px-2 py-1 rounded-full">
+                تضمین تاریخ کالا
+              </span>
+            </div>
           )}
         </div>
 

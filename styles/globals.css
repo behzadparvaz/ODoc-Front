@@ -5,6 +5,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .ltr {
+    direction: ltr;
+  }
+}
+
 html,
 body {
   padding: 0;

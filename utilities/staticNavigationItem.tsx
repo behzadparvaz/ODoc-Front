@@ -4,7 +4,7 @@ import {
   LocationIcon,
   MyOrderOutline,
   NewPlusIconOutline,
-  ProfileCircleOutline
+  ProfileCircleOutline,
 } from '@com/icons';
 import { colors } from '@configs/Theme';
 import { isEmpty } from './isEmptyObject';
@@ -17,25 +17,25 @@ export const ProfileNavigationMenuItems = () => {
     {
       id: 1,
       icon: (
-        <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]}/>
+        <LocationIcon width={24} height={24} stroke={colors?.teal?.[600]} />
       ),
       text: 'آدرس ها',
-      link: routeList.profileAddresses
+      link: routeList.profileAddresses,
     },
     {
       id: 2,
       icon: (
-        <HelmetIconOutline width={24} height={24} fill={colors?.teal?.[600]}/>
+        <HelmetIconOutline width={24} height={24} fill={colors?.teal?.[600]} />
       ),
       text: 'افراد تحت تکفل',
-      link: routeList.profileFamilyMembers
+      link: routeList.profileFamilyMembers,
     },
     {
       id: 3,
-      icon: <CloseEyeIconFill width={24} height={24} fill={colors.teal[600]}/>,
+      icon: <CloseEyeIconFill width={24} height={24} fill={colors.teal[600]} />,
       text: 'تنظیمات رمز عبور',
-      link: routeList.profilePasswordSetting
-    }
+      link: routeList.profilePasswordSetting,
+    },
   ];
 };
 export const BottomNavigationMenuItems = () => {
@@ -43,24 +43,32 @@ export const BottomNavigationMenuItems = () => {
   return [
     {
       id: 4,
-      icon: ({ color = colors?.grey?.[400] }) => <MyOrderOutline width={24} height={24} fill={color}/>,
+      icon: ({ color = colors?.grey?.[400] }) => (
+        <MyOrderOutline width={24} height={24} fill={color} />
+      ),
       text: 'سفارشات من',
-      link: isEmpty(user) ? routeList?.loginRoute : routeList.ordersHistory,
-      hasSubRouet: false
+      link: isEmpty(user)
+        ? routeList?.loginRoute
+        : `${routeList.ordersHistory}?statusId=0`,
+      hasSubRouet: false,
     },
     {
       id: 3,
-      icon: ({ color = 'white' }) => <NewPlusIconOutline width={24} height={24} fill={color}/>,
+      icon: ({ color = 'white' }) => (
+        <NewPlusIconOutline width={24} height={24} fill={color} />
+      ),
       text: 'سفارش',
       link: isEmpty(user) ? routeList?.loginRoute : routeList.homeRoute,
-      hasSubRouet: false
+      hasSubRouet: false,
     },
     {
       id: 5,
-      icon: ({ color = colors?.grey?.[400] }) => <ProfileCircleOutline width={24} height={24} stroke={color}/>,
+      icon: ({ color = colors?.grey?.[400] }) => (
+        <ProfileCircleOutline width={24} height={24} stroke={color} />
+      ),
       text: isEmpty(user) ? 'ورود' : 'پروفایل',
       link: isEmpty(user) ? routeList?.loginRoute : routeList.profile,
-      hasSubRouet: true
-    }
+      hasSubRouet: true,
+    },
   ];
 };

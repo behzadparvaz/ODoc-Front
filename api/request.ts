@@ -126,7 +126,9 @@ class Request {
           console.log(
             `Frontend log: API error occurred with status of ${error?.response?.status}`,
           );
-
+          if (error?.response?.status === 403) {
+            router.push(routeList.forbidden);
+          }
           // Handle unauthorized access
           if (error?.response?.status === 401) {
             if (!this.isRefreshing) {

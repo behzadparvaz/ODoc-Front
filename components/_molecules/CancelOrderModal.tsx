@@ -13,15 +13,24 @@ import {
 } from '@com/modal/containers/fullMobileContainer';
 import useModal from '@hooks/useModal';
 import useNotification from '@hooks/useNotification';
+import { useAddListToBasket } from '@api/basket/basketApis.rq';
 
 const shimerItems = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 type CancelOrderModalProps = {
   orderCode: string;
+  orderDetail: any;
 };
 
-const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
+const CancelOrderModal = ({
+  orderCode,
+  orderDetail,
+}: CancelOrderModalProps) => {
   const { mutate: mutateCancelOrder, isPending: isLoadingCancelOrder } =
     useCancelOrder();
+
+  const { mutate: mutateAddListToBasket, isPending: isAddListToBasketLoading } =
+    useAddListToBasket();
+
   const { openNotification } = useNotification();
   const { removeLastModal } = useModal();
   const { data, isLoading } = useGetDeclineTypes();
@@ -32,6 +41,45 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
   const initialValues = {
     cancelReasonValue: '',
     cancelReasonId: null,
+  };
+
+  const handleAddItemsToBasket = () => {
+    const filteredItems = orderDetail?.filter((item) => !item?.referenceNumber);
+    const items = filteredItems?.map((item) => {
+      if (!!item?.alternatives?.length) {
+        return {
+          description: item?.alternatives?.[0]?.description,
+          irc: item?.alternatives?.[0]?.irc,
+          quantity: item?.alternatives?.[0]?.quantity,
+          imageLink: item?.alternatives?.[0]?.imageLink,
+          productName: item?.alternatives?.[0]?.productName,
+          unit: item?.alternatives?.[0]?.unit,
+          productType: item?.alternatives?.[0]?.productType,
+        };
+      } else {
+        return {
+          description: item?.description,
+          irc: item?.irc,
+          quantity: item?.quantity,
+          imageLink: item?.imageLink,
+          productName: item?.productName,
+          unit: item?.unit,
+          productType: item?.type?.id,
+        };
+      }
+    });
+
+    mutateAddListToBasket(
+      {
+        nationalCode: data?.customer?.nationalCode,
+        items: items,
+      },
+      {
+        onSuccess: () => {
+          removeLastModal();
+        },
+      },
+    );
   };
 
   const handleCancelOrder = (reasonValue?: string, reasonId?: number) => {
@@ -49,7 +97,11 @@ const CancelOrderModal = ({ orderCode }: CancelOrderModalProps) => {
 
     mutateCancelOrder(cancelOrderBody, {
       onSuccess: () => {
-        removeLastModal();
+        if (formik.values?.cancelReasonId === 25) {
+          handleAddItemsToBasket();
+        } else {
+          removeLastModal();
+        }
       },
     });
   };

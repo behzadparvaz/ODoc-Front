@@ -59,7 +59,7 @@ const TenderContainer = () => {
           push(
             query?.previousPage === 'home' || query?.previousPage === 'basket'
               ? `${routeList.homeRoute}`
-              : `${routeList.ordersHistory}`,
+              : `${routeList.ordersHistory}?statusId=0`,
           )
         }
       >

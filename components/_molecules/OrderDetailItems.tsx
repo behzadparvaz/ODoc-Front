@@ -1,10 +1,10 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
+import { Fragment, useState } from 'react';
 
+import { colors } from '@configs/Theme';
 import PrescriptionMedicine from '@public/images/newTiles/prescriptionMedicine.webp';
 import SpecialPatients from '@public/images/newTiles/specialPatients.webp';
-import { colors } from '@configs/Theme';
 import {
   TenderItemsListDataModel,
   TenderItemsOrderDataModel,
@@ -12,10 +12,11 @@ import {
 
 import NextImage from '@com/_core/NextImage';
 
-import OrderItemCard from './OrderItemCard';
-import { convertRialToTomanNumber } from '@utilities/mainUtils';
 import Divider from '@com/_atoms/Divider';
 import Icon from '@utilities/icon';
+import { convertRialToTomanNumber } from '@utilities/mainUtils';
+import OrderItemCard from './OrderItemCard';
+import OrderItemDescription from '@containers/order/components/itemDescription';
 
 type OrderDetailItemsProps = {
   data: TenderItemsListDataModel;
@@ -64,11 +65,8 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
           {data?.orderDetails?.map((item: TenderItemsOrderDataModel) => {
             if (!!item?.referenceNumber) {
               return (
-                <>
-                  <div
-                    key={item?.referenceNumber}
-                    className="grid justify-start items-center gap-x-2 pb-3 grid-cols-[64px_1fr]"
-                  >
+                <Fragment key={item?.referenceNumber}>
+                  <div className="grid justify-start items-center gap-x-2 pb-3 grid-cols-[64px_1fr]">
                     <div className="w-[64px] h-full flex justify-center items-center">
                       <div className="col-start-1 w-[40px] h-[40px] rounded-xl overflow-hidden flex justify-center items-center ">
                         <NextImage
@@ -148,14 +146,19 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     </div>
                   </div>
 
+                  {item?.doctorInstruction && (
+                    <OrderItemDescription
+                      ItemDescription={item?.doctorInstruction}
+                    />
+                  )}
+
                   <Divider className="h-[1px]" padding={0} />
-                </>
+                </Fragment>
               );
             } else {
               return (
-                <>
+                <Fragment key={item.irc}>
                   <OrderItemCard
-                    key={item.irc}
                     item={item}
                     dataLength={data?.orderDetails?.length}
                     orderStatus={data?.orderStatus?.name}
@@ -167,8 +170,9 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                       data?.orderStatus?.name !== 'return' &&
                       data?.orderStatus?.name !== 'reject' &&
                       data?.orderStatus?.name !== 'nfc' &&
-                      !item?.price
+                      item?.isunavailable
                     }
+                    discountPercentage={item?.discount?.percentage}
                   />
 
                   {data?.orderStatus?.name !== 'draft' &&
@@ -180,20 +184,22 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                     data?.orderStatus?.name !== 'nfc' &&
                     !item?.price &&
                     item?.alternatives[0]?.price && (
-                      <>
-                        <span className="text-xs pr-4 flex items-center gap-x-2">
-                          داروی جایگزین مشابه
-                        </span>
-
-                        <OrderItemCard
-                          key={item?.alternatives[0]?.irc}
-                          item={item?.alternatives[0]}
-                        />
-                      </>
+                      <OrderItemCard
+                        key={item?.alternatives[0]?.irc}
+                        item={item?.alternatives[0]}
+                        isAlternative
+                        discountPercentage={item?.discount?.percentage}
+                      />
                     )}
 
+                  {item?.doctorInstruction && (
+                    <OrderItemDescription
+                      ItemDescription={item?.doctorInstruction}
+                    />
+                  )}
+
                   <Divider className="h-[1px]" />
-                </>
+                </Fragment>
               );
             }
           })}

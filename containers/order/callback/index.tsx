@@ -1,21 +1,30 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
-
 import { useVerifyPaymentOrder } from '@api/order/orderApis.rq';
-import Spinner from '@com/_atoms/Spinner';
-import FailurePayment from '@com/_organisms/FailurePayment';
-import SuccessPayment from '@com/_organisms/SuccessPayment';
 import { MainLayout } from '@com/Layout';
 import { isEmpty } from '@utilities/isEmptyObject';
-
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import { routeList } from '@routes/routeList';
+const StatusPayment = dynamic(() => import('@com/_organisms/statusPayment'), {
+  ssr: false,
+});
+interface IData {
+  vendorCode: string;
+  isSuccess: boolean;
+  trackId: string;
+  dateTime: string;
+  amount: number;
+}
 const CallBackContainer = () => {
-  const { query } = useRouter();
-
-  const [paymentStatus, setPaymentStatus] = useState<
-    'failed' | 'success' | null
-  >(null);
-
   const { mutate, isPending } = useVerifyPaymentOrder();
+  const [data, setData] = useState<IData>({
+    vendorCode: '',
+    isSuccess: false,
+    trackId: '',
+    dateTime: '',
+    amount: 0,
+  });
+  const { query, push } = useRouter();
 
   useEffect(() => {
     const body = {
@@ -25,31 +34,20 @@ const CallBackContainer = () => {
     if (!isEmpty(query)) {
       mutate(body, {
         onSuccess: (data: any) => {
-          setPaymentStatus('success');
+          setData(data);
         },
         onError: (error: any) => {
-          setPaymentStatus('failed');
+          console.error(error);
+          push(routeList.ordersHistory);
         },
       });
     }
   }, [query]);
 
-  const renderContent = () => {
-    if (isPending) {
-      return (
-        <Spinner className="h-[calc(100vh-180px)] w-full flex justify-center items-center" />
-      );
-    }
-
-    if (!isPending && paymentStatus === 'success') {
-      return <SuccessPayment className="w-full flex flex-col items-center" />;
-    }
-
-    if (!isPending && paymentStatus === 'failed') {
-      return <FailurePayment className="w-full flex flex-col items-center" />;
-    }
-  };
-
-  return <MainLayout>{renderContent()}</MainLayout>;
+  return (
+    <MainLayout>
+      <StatusPayment data={data} isLoading={isPending} />
+    </MainLayout>
+  );
 };
 export default CallBackContainer;
