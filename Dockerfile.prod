@@ -3,6 +3,8 @@ FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
+RUN echo “nameserver 8.8.8.8” > /etc/resolve.conf
+
 RUN apk add --no-cache git
 
 # Copy only package.json and package-lock.json to install dependencies
@@ -21,8 +23,6 @@ RUN npm run build
 FROM node:20.14.0-alpine
 
 WORKDIR /app
-
-RUN apk add --no-cache git
 
 COPY --from=builder /app ./
 
