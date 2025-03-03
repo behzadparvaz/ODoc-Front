@@ -50,9 +50,11 @@ const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
                 : vendorData?.secondaryName}
             </h3>
 
-            <span className="bg-surface-warning text-content-primary  text-xs px-2 py-1 rounded-full">
-              ارسال‌زمان‌بندی/فوری
-            </span>
+            {vendorCodeHasSchedule.includes(data?.vendorCode) && (
+              <span className="bg-surface-warning text-content-primary  text-xs px-2 py-1 rounded-full">
+                ارسال‌زمان‌بندی/فوری
+              </span>
+            )}
           </div>
           {vendorData?.isShowName && (
             <span className="text-sm text-content-tertiary line-clamp-2">
