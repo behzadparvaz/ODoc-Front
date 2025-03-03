@@ -170,7 +170,7 @@ const OrderDetailItems = ({ data }: OrderDetailItemsProps) => {
                       data?.orderStatus?.name !== 'return' &&
                       data?.orderStatus?.name !== 'reject' &&
                       data?.orderStatus?.name !== 'nfc' &&
-                      !item?.price
+                      item?.isunavailable
                     }
                     discountPercentage={item?.discount?.percentage}
                   />

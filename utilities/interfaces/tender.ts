@@ -43,6 +43,7 @@ export type TenderItemsOrderDataModel = {
   referenceNumber?: string;
   type: { name: string; id: number };
   doctorInstruction?: string;
+  isunavailable?: boolean;
 };
 
 export type TenderCustomerAddressDataModel = {

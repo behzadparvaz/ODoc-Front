@@ -5,6 +5,7 @@ type RenderPriceRowProps = {
   value: number;
   deliveryFinalPrice?: number;
   deliveryDiscountAmount?: number;
+  priceColor?: string;
 };
 
 const RenderPriceRow = ({
@@ -12,12 +13,21 @@ const RenderPriceRow = ({
   value,
   deliveryFinalPrice,
   deliveryDiscountAmount = 0,
+  priceColor,
 }: RenderPriceRowProps) => {
   return (
     <div className="flex items-center justify-between">
-      <span className="text-content-tertiary text-sm font-normal">{name}</span>
+      <span
+        className="text-content-tertiary text-sm font-normal"
+        style={{ color: priceColor }}
+      >
+        {name}
+      </span>
       <div className="flex items-center flex-col gap-x-1">
-        <span className="flex items-center text-content-primary text-base font-normal gap-x-1">
+        <span
+          className="flex items-center text-content-primary text-base font-normal gap-x-1"
+          style={{ color: priceColor }}
+        >
           {!!value ? (
             <>
               {deliveryDiscountAmount > 0 ? (
@@ -31,7 +41,12 @@ const RenderPriceRow = ({
               ) : (
                 convertRialToTomanNumber(value)?.toLocaleString('fa-IR')
               )}
-              <span className="text-xs text-content-primary"> تومان</span>
+              <span
+                className="text-xs text-content-primary"
+                style={{ color: priceColor }}
+              >
+                تومان
+              </span>
             </>
           ) : (
             <span className="text-xs text-content-primary">رایگان</span>

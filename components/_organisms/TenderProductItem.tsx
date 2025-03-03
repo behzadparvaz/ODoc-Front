@@ -16,7 +16,7 @@ const TenderProductItem = ({
     <>
       <OrderItemCard
         item={item}
-        isUnavaiable={item?.alternatives?.length > 0}
+        isUnavaiable={item?.isunavailable}
         discountPercentage={item?.discount?.percentage}
       />
 

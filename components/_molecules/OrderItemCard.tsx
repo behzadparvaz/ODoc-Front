@@ -25,7 +25,7 @@ const OrderItemCard = ({
   discountPercentage,
 }: OrderItemCardProps) => {
   const { navigateToPdp } = useProductNavigation();
-  console.log('discountPercentage', discountPercentage);
+
   return (
     <>
       <div
