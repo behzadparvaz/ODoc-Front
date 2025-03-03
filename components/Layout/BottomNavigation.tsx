@@ -17,7 +17,7 @@ const tabs: Record<string, string> = {
 
 enum Routes {
   HOME = '/app',
-  ORDERS = '/app/orders-history',
+  ORDERS = '/app/orders-history?statusId=0',
   PROFILE = '/app/profile',
 }
 
@@ -29,7 +29,7 @@ const BottomNavigation: React.FC = () => {
     label: string,
     Icon: React.FC<{ width?: number; height?: number; fill?: string }>,
   ) => {
-    const isActive = pathname === route;
+    const isActive = pathname === route.split('?')[0];
     const iconColor = isActive ? colors.black : colors.grey[300];
 
     return (
