@@ -3,10 +3,10 @@ FROM node:20.14.0-alpine AS builder
 
 WORKDIR /app
 
+RUN apk add --no-cache git
+
 # Copy only package.json and package-lock.json to install dependencies
 COPY package.json ./
-
-RUN apt-get update && apt-get install -y git
 
 RUN npm install --force
 
@@ -21,6 +21,8 @@ RUN npm run build
 FROM node:20.14.0-alpine
 
 WORKDIR /app
+
+RUN apk add --no-cache git
 
 COPY --from=builder /app ./
 
