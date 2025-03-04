@@ -26,7 +26,9 @@ const PrescriptionContainer = () => {
   };
   return (
     <MainLayout
-      title={query?.type === 'SP' ? 'داروخانه های ۱۳ آبان' : 'داروی با نسخه'}
+      title={
+        query?.type === 'SP' ? 'داروخانه ایثار بیماران MS' : 'داروی با نسخه'
+      }
       hasHeader
       headerType="withoutLogo"
       hasBackButton
