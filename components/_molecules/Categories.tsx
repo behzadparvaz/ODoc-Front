@@ -23,6 +23,7 @@ interface ICategory {
   isSoon?: boolean;
   ratio: string;
   query?: string;
+  className?: string;
 }
 
 type CategoriesProps = {
@@ -51,13 +52,14 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
       query: `${'?title=داروی با نسخه&type=withPr'}`,
     },
     {
-      title: 'داروخانه های ۱۳ آبان',
+      title: 'داروخانه ایثار بیماران MS',
       link: routeList?.prescriptionRegisteration,
       image: SpecialPatients,
       imageHeight: isHomePage ? 64 : 68,
       imageWidth: isHomePage ? 64 : 68,
       ratio: '33.3333%',
       query: `${'?title=داروی با نسخه&type=SP'}`,
+      className: '!text-2xs',
     },
     {
       title: 'مادر و کودک',
@@ -102,6 +104,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
               <CategoryItem
                 isSoon={item?.isSoon}
                 className=" bg-grey-50 w-full rounded-md overflow-hidden"
+                titleClassName={item?.className}
                 link={`${item?.link}${item?.query ? item?.query : ''}`}
                 imgHeight={item?.imageHeight}
                 alignmentType={`${item?.ratio === '50%' ? 'between' : 'center'}`}
@@ -132,7 +135,7 @@ const Categories = ({ isHomePage }: CategoriesProps) => {
             <CategoryItem
               isSoon={item?.isSoon}
               className={'w-full rounded-base'}
-              titleClassName="!text-[9px] !p-0 whitespace-nowrap"
+              titleClassName="!text-[9px] !p-0 whitespace-wrap"
               imageClassName={
                 pathname === item?.link && 'border border-border-selected'
               }
