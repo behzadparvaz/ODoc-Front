@@ -67,7 +67,6 @@ const HomeContainer = () => {
           height={40}
           style={{ width: '100%', height: 'auto' }}
         />
-
         <HomeOrderSlider />
 
         <Categories isHomePage />

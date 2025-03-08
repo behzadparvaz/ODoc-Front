@@ -1,16 +1,19 @@
 import { useRouter } from 'next/router';
 
-import { useGetSupplementCategoryLevel3 } from '@api/supplement/supplementApis.rq';
+import { useGetSupplementCategoryLevel2 } from '@api/supplement/supplementApis.rq';
 import NextImage from '@com/_core/NextImage';
 import { routeList } from '@routes/routeList';
 
-const shimerItems = [1, 2, 3, 4, 5, 6];
+const shimerItems = [1, 2];
 
-const CategoryLevel3 = () => {
-  const { query, push } = useRouter();
+const CategoryLevel2 = () => {
+  const { push } = useRouter();
 
-  const { data: categoriesLevel3, isLoading: categoriesIsLoading } =
-    useGetSupplementCategoryLevel3(query?.categoryCodeLevel2 as string);
+  const body = {
+    CategoryCodeLevel1: 11,
+  };
+  const { data: categoriesLevel2, isLoading: categoriesIsLoading } =
+    useGetSupplementCategoryLevel2(body);
 
   if (categoriesIsLoading) {
     return (
@@ -27,14 +30,14 @@ const CategoryLevel3 = () => {
 
   return (
     <div className="grid grid-cols-2 gap-4 px-4 py-2">
-      {categoriesLevel3?.map((category) => (
+      {categoriesLevel2?.map((category) => (
         <div
           onClick={() =>
             push(
-              `${routeList.equipmentProductsList}?categoryCodeLevel1=${11}&categoryCodeLevel2=${query?.categoryCodeLevel2}&categoryNameLevel2=${query?.categoryNameLevel2}&categoryCodeLevel3=${category?.categoryCodeLevel3}&categoryNameLevel3=${category?.categoryNameLevel3}`,
+              `${routeList.equipmentProductsList}?categoryCodeLevel1=${11}&categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
-          key={category?.categoryCodeLevel3}
+          key={category?.categoryCodeLevel2}
           className="relative flex flex-col h-full bg-surface-secondary pr-4 pl-2 pt-1 pb-3 rounded-lg cursor-pointer"
         >
           <div className="self-end h-[72px] w-[72px] flex items-center justify-center overflow-hidde">
@@ -45,11 +48,11 @@ const CategoryLevel3 = () => {
               src={category?.iconLink}
             />
           </div>
-          {category?.categoryNameLevel3}
+          {category?.categoryNameLevel2}
         </div>
       ))}
     </div>
   );
 };
 
-export default CategoryLevel3;
+export default CategoryLevel2;
