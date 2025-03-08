@@ -68,11 +68,7 @@ const EquipmentContainer = () => {
         </span>
       }
     >
-      {query?.categoryCodeLevel2 && query?.categoryNameLevel2 ? (
-        <CategoryLevel3 />
-      ) : (
-        <CategoryLevel2 />
-      )}
+      <CategoryLevel2 />
 
       <div className="cursor-pointer" onClick={handleBannerClick}>
         <Banner data={bannerData} className="py-6" />

@@ -34,7 +34,7 @@ const CategoryLevel2 = () => {
         <div
           onClick={() =>
             push(
-              `${routeList.equipment}?categoryCodeLevel1=${11}&categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
+              `${routeList.equipmentProductsList}?categoryCodeLevel1=${11}&categoryCodeLevel2=${category?.categoryCodeLevel2}&categoryNameLevel2=${category?.categoryNameLevel2}`,
             )
           }
           key={category?.categoryCodeLevel2}
