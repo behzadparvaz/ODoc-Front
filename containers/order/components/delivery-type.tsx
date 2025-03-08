@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { forwardRef, useImperativeHandle, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useState } from 'react';
 
 import CheckBox from '@com/_atoms/CheckBox.nd';
 import { Radio } from '@com/_atoms/Radio';
@@ -62,12 +62,16 @@ const DeliveryType = forwardRef(
       setSelectedTime(royalOrderDeliveryScheduleTime?.[0]?.timeSlots?.[0]);
       onChangeDeliveryType(1);
     };
+    useEffect(() => {
+      setSelectedDate(royalOrderDeliveryScheduleTime?.[0]);
+      setSelectedTime(royalOrderDeliveryScheduleTime?.[0]?.timeSlots?.[0]);
+    }, [royalOrderDeliveryScheduleTime]);
     return (
       <div className="flex flex-col gap-y-3 px-4 min-h-[160px] h-max p-4">
         <span className="text-md">زمان و هزینه ارسال</span>
 
         <div className="flex flex-col gap-y-2">
-          <div className="h-10 flex gap-x-2 items-center">
+          {/* <div className="h-10 flex gap-x-2 items-center">
             <Radio
               id="all"
               label="تحویل آنی"
@@ -87,7 +91,7 @@ const DeliveryType = forwardRef(
               />
               <span className="text-md">۷۵٬۰۰۰ تومان</span>
             </div>
-          </div>
+          </div> */}
 
           <div className="h-10 flex gap-x-2 items-center">
             <Radio
