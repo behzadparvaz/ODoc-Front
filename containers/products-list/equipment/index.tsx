@@ -14,10 +14,14 @@ const EquipmentProductsContainer = () => {
   return (
     <MainLayout
       headerType="withoutLogo"
-      title="تجهیزات پزشکی"
+      title={query?.categoryNameLevel2}
       hasHeader
       hasBackButton
-      backIconHandler={() => push(routeList?.equipment)}
+      backIconHandler={() =>
+        push(
+          `${routeList?.equipment}?categoryCodeLevel1=11&categoryCodeLevel2=${query?.categoryCodeLevel2}&categoryNameLevel2=${query?.categoryNameLevel2}`,
+        )
+      }
       hasBasketIcon
       leftSection={
         <span
@@ -33,7 +37,9 @@ const EquipmentProductsContainer = () => {
         </span>
       }
     >
-      <CategoryLevel3 categoryCodeLevel2="11_1270" />
+      <CategoryLevel3
+        categoryCodeLevel2={query?.categoryCodeLevel2 as string}
+      />
 
       <Products />
     </MainLayout>
