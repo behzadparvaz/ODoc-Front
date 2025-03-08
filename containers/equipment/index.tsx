@@ -3,9 +3,9 @@ import { useRouter } from 'next/router';
 
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
-import { useCallback } from 'react';
 
 const Icon = dynamic(() => import('@utilities/icon'));
+const CategoryLevel2 = dynamic(() => import('./components/CategoryLevel2'));
 const CategoryLevel3 = dynamic(() => import('./components/CategoryLevel3'));
 const Banner = dynamic(() => import('@com/_molecules/Banner'));
 
@@ -28,28 +28,34 @@ const bannerData = [
 const EquipmentContainer = () => {
   const { query, push } = useRouter();
 
-  const handleBackButtonClick = useCallback(() => {
-    push(routeList.homeRoute);
-  }, [push]);
+  const handleBackButtonClick = () => {
+    if (query?.categoryCodeLevel2 && query?.categoryNameLevel2) {
+      push(routeList.equipment);
+    } else {
+      push(routeList.homeRoute);
+    }
+  };
 
-  const handleSearchClick = useCallback(() => {
+  const handleSearchClick = () => {
     push({
       pathname: routeList.search,
       query: { ...query, section: 'equipment' },
     });
-  }, [push, query]);
+  };
 
-  const handleBannerClick = useCallback(() => {
+  const handleBannerClick = () => {
     push(
       `${routeList.equipmentProductsList}?categoryCodeLevel1=11&categoryCodeLevel2=11_1270&categoryNameLevel2=تجهیزات%20پزشکی&categoryCodeLevel3=11_1270_92&categoryNameLevel3=دستگاه%20های%20خانگی`,
     );
-  }, [push]);
+  };
 
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
-      title="تجهیزات پزشکی"
+      title={
+        query?.categoryCodeLevel2 ? query?.categoryNameLevel2 : 'تجهیزات پزشکی'
+      }
       hasBackButton
       backIconHandler={handleBackButtonClick}
       hasBasketIcon
@@ -62,7 +68,11 @@ const EquipmentContainer = () => {
         </span>
       }
     >
-      <CategoryLevel3 />
+      {query?.categoryCodeLevel2 && query?.categoryNameLevel2 ? (
+        <CategoryLevel3 />
+      ) : (
+        <CategoryLevel2 />
+      )}
 
       <div className="cursor-pointer" onClick={handleBannerClick}>
         <Banner data={bannerData} className="py-6" />
