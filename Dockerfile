@@ -6,8 +6,6 @@ WORKDIR /app
 # Copy only package.json and package-lock.json to install dependencies
 COPY package.json package-lock.json .npmrc ./
 
-RUN apt-get update && apt-get install -y git
-
 RUN npm install --force
 
 COPY . .
