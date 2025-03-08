@@ -9,22 +9,44 @@ import AddressDetailsModal from '@com/_organisms/AddressDetailsModal';
 import { useGetParsiMapLocation } from '@api/map/mapApis.rq';
 import { Location } from '@utilities/interfaces/location';
 
+const activeCities = [
+  // تهران
+  {
+    shahrestan: '2301',
+    bakhsh: '230102',
+    shahr: '2301021576',
+  },
+  // مشهد
+  {
+    shahrestan: '916',
+    bakhsh: '91605',
+    shahr: '916051392',
+  },
+];
+
 function useMapApiCalls(addressId: number | string, initialData?: Location) {
   const { openNotification } = useNotification();
   const { replaceLastModal } = useModal();
   const [mapAddressesText, setMapAddressesText] = useState<string>();
   const { viewport } = useSelector((state: RootState) => state.mapInfo);
-
   const { data: ParsiMapAddressData, isLoading: parsiIsLoadingMapAddress } =
     useGetParsiMapLocation(`${[viewport.longitude, viewport.latitude]}`);
+
   const handleClickOnSaveMyLocation = async () => {
     if (
-      ParsiMapAddressData?.subdivisions?.shahrestan?.code !== '2301' ||
-      ParsiMapAddressData?.subdivisions?.shahr?.code !== '2301021576' ||
-      ParsiMapAddressData?.subdivisions?.bakhsh?.code !== '230102'
+      activeCities?.every((item) => {
+        const isActiveCity =
+          ParsiMapAddressData?.subdivisions?.shahrestan?.code !==
+            item?.shahrestan ||
+          ParsiMapAddressData?.subdivisions?.bakhsh?.code !== item?.bakhsh ||
+          ParsiMapAddressData?.subdivisions?.shahr?.code !== item?.shahr;
+
+        return isActiveCity;
+      })
     ) {
       openNotification({
-        message: 'در حال حاضر خدمات این سرویس تنها در شهر تهران فعال میباشد.',
+        message:
+          'در حال حاضر خدمات این سرویس تنها در شهرهای تهران و مشهد فعال میباشد.',
         type: 'error',
         notifType: 'successOrFailedMessage',
       });
