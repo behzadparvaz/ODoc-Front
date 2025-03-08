@@ -59,6 +59,7 @@ const HomeContainer = () => {
           </div>
         }
       >
+        {/* bad weather condition */}
         <NextImage
           src={'/images/banner-delay.svg'}
           alt="banner-delay"
