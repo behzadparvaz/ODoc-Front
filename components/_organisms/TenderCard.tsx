@@ -19,7 +19,7 @@ type TenderCardProps = {
   offerId: string;
 };
 
-const vendorCodeHasSchedule = ['V00051'];
+const vendorCodeHasSchedule = [''];
 
 const TenderCard = ({ data, orderCode, offerId }: TenderCardProps) => {
   const { push } = useRouter();

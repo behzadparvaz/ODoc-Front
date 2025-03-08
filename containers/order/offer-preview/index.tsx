@@ -35,7 +35,7 @@ interface IRefDeliveryType {
 }
 
 const OfferPreviewContainer = () => {
-  const vendorCodeHasSchedule = ['V00051'];
+  const vendorCodeHasSchedule = [''];
   const royalDelivaryPrice = 75000;
   const { query } = useRouter();
   const refDeliveryType = useRef<IRefDeliveryType | null>(null);
