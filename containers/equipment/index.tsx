@@ -54,7 +54,9 @@ const EquipmentContainer = () => {
       hasHeader
       headerType="withoutLogo"
       title={
-        query?.categoryCodeLevel2 ? query?.categoryNameLevel2 : 'تجهیزات پزشکی'
+        query?.categoryCodeLevel2
+          ? query?.categoryNameLevel2
+          : 'تجهیزات پزشکی و لوازم بهداشتی'
       }
       hasBackButton
       backIconHandler={handleBackButtonClick}
