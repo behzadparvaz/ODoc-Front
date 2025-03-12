@@ -5,14 +5,6 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-# Fix DNS and certificate issues
-RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf && \
-    echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
-    apk add --no-cache --update ca-certificates && \
-    update-ca-certificates
-
-# Install git and other dependencies
-RUN apk add --no-cache git
 
 # Copy package files for better caching
 COPY package*.json ./
