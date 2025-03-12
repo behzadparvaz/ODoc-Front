@@ -10,7 +10,8 @@ WORKDIR /app
 COPY package.json ./
 
 # Install dependencies in a single layer
-RUN apk add --no-cache git
+RUN apk update && apk add --no-cache ca-certificates && apk add --no-cache git
+
 RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
