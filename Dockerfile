@@ -5,14 +5,20 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
+# Fix DNS and certificate issues
+RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf && \
+    echo "nameserver 8.8.8.8" >> /etc/resolv.conf && \
+    apk add --no-cache --update ca-certificates && \
+    update-ca-certificates
+
+# Install git and other dependencies
+RUN apk add --no-cache git
+
 # Copy package files for better caching
-COPY package.json ./
+COPY package*.json ./
 
-# Install dependencies in a single layer
-RUN apk update && apk add --no-cache ca-certificates && apk add --no-cache git
-
-RUN npm install --legacy-peer-deps
+# Install npm dependencies
+RUN npm ci --legacy-peer-deps
 
 # Stage 2: Builder
 FROM base AS builder
