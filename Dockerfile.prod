@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY package.json ./
 
-RUN apk add --no-cache git libc6-compat
+RUN apk add --no-cache git
 RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
