@@ -5,12 +5,12 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
+# RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
 # Copy package files for better caching
 COPY package.json ./
 
 # Install dependencies in a single layer
-RUN apk add --no-cache git libc6-compat
+RUN apk add --no-cache git
 RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
