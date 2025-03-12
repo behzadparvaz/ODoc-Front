@@ -66,6 +66,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 });
 
 const nextConfig = {
+  output: 'standalone',
   distDir: 'build',
   swcMinify: true,
   reactStrictMode: false,
@@ -88,7 +89,14 @@ const nextConfig = {
     });
     return config;
   },
-
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
+      },
+    ];
+  },
   async headers() {
     return [
       {

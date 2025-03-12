@@ -1,29 +1,54 @@
-# Stage : Build
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS builder
+# stage 0 : base
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 
+# Stage 1: Dependencies
+FROM base AS deps
 WORKDIR /app
 
-# Copy only package.json and package-lock.json to install dependencies
-COPY package.json package-lock.json .npmrc ./
 
-RUN npm install --force
+# Copy package files for better caching
+COPY package*.json ./
 
+# Install npm dependencies
+RUN npm ci --legacy-peer-deps
+
+# Stage 2: Builder
+FROM base AS builder
+WORKDIR /app
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 COPY .env.staging .env
-
 RUN rm -f .env.* 
 
+# Build the application
 RUN npm run build
 
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine
-
+# Stage 3: Runner
+FROM base AS runner
 WORKDIR /app
 
-COPY --from=builder /app ./
+ENV NEXT_TELEMETRY_DISABLED=1
 
-ENV PORT 3000
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+RUN mkdir -p build/cache && \
+    chown -R nextjs:nodejs .
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/build/standalone ./
+COPY --from=builder /app/build/static ./build/static
+
+RUN chmod -R 550 /app && \
+    chmod -R 770 build/cache && \
+    chown -R nextjs:nodejs .
+
+USER nextjs
+
+ENV PORT=3000
 
 EXPOSE $PORT
 
-CMD ["sh", "-c", "npm run start"]
+CMD ["node", "server.js"]

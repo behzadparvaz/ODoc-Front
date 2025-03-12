@@ -8,5 +8,5 @@ export const getTenderItems = async (orderCode: string) => {
 export const getTenderPrepartionTime = async (body: any): Promise<any> => {
   const params = builder(body);
 
-  return await request.get(`Tender/PrepartionTime${params}`, body);
+  return await request.get(`/Tender/PrepartionTime${params}`, body);
 };
