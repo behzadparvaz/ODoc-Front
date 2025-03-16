@@ -4,6 +4,7 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true',
 });
 const { version: application_version } = require('./package.json');
+
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
   register: true,
@@ -16,7 +17,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
     skipWaiting: true,
     cleanupOutdatedCaches: true,
     disableDevLogs: true,
-    cacheId: `web-app-${application_version}`,
+    cacheId: `tapsi-doctor-web-app-${application_version}`,
     runtimeCaching: [
       {
         urlPattern: /\.(jpg|jpeg|gif|png|svg|ico|webp)$/,
@@ -25,7 +26,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
           cacheName: 'image-cache',
           expiration: {
             maxEntries: 100,
-            maxAgeSeconds: 3 * 24 * 60 * 60, // Cache for 3 days
+            maxAgeSeconds: 3 * 24 * 60 * 60,
           },
           cacheableResponse: {
             statuses: [0, 200],
@@ -39,7 +40,7 @@ const withPWA = require('@ducanh2912/next-pwa').default({
           cacheName: 'font-cache',
           expiration: {
             maxEntries: 30,
-            maxAgeSeconds: 3 * 24 * 60 * 60, // Cache for 3 days
+            maxAgeSeconds: 3 * 24 * 60 * 60,
           },
           cacheableResponse: {
             statuses: [0, 200],
@@ -53,20 +54,10 @@ const withPWA = require('@ducanh2912/next-pwa').default({
           cacheName: 'css-cache',
           expiration: {
             maxEntries: 30,
-            maxAgeSeconds: 3 * 24 * 60 * 60, // Cache for 3 days
+            maxAgeSeconds: 3 * 24 * 60 * 60,
           },
           cacheableResponse: {
             statuses: [0, 200],
-          },
-        },
-      },
-      {
-        urlPattern: /_next\/static\/chunks\/.*\.js$/,
-        handler: 'NetworkFirst',
-        options: {
-          cacheName: 'next-chunks',
-          expiration: {
-            maxAgeSeconds: 60 * 60 * 24, // Cache for one day
           },
         },
       },
@@ -79,18 +70,18 @@ const nextConfig = {
   distDir: 'build',
   swcMinify: true,
   reactStrictMode: false,
-
   compiler: {
-    removeConsole: process.env.NODE_ENV === 'production', // Remove console logs in production
+    removeConsole: process.env.NODE_ENV === 'production',
   },
-
   images: {
     domains: [
-      'example.com', // Add your image domains here
+      'trustseal.eNamad.ir',
+      'logo.samandehi.ir',
+      '5.34.204.173',
+      's3.ir-thr-at1.arvanstorage.ir',
     ],
     minimumCacheTTL: 60,
   },
-
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,
@@ -98,32 +89,33 @@ const nextConfig = {
     });
     return config;
   },
-
   async rewrites() {
     return [
       {
         source: '/api/:path*',
-        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`, // Rewrite API calls
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/:path*`,
       },
     ];
   },
-
   async headers() {
     return [
       {
-        source: '/(.*)', // Apply headers globally
+        source: '/(.*)',
         headers: [
-          { key: 'X-Frame-Options', value: 'SAMEORIGIN' }, // Security header
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
         ],
       },
       {
-        source: '/_next/static/chunks/**',
+        source: '/(.*).(jpg|png|svg|webp)',
         headers: [
           {
             key: 'Cache-Control',
-            value: 'public, max-age=31536000, immutable',
+            value: 'public, max-age=259200, immutable',
           },
-        ], // Cache static chunks
+        ],
       },
     ];
   },

@@ -9,7 +9,7 @@ import { routeList } from '@routes/routeList';
 import Icon from '@utilities/icon';
 import Link from 'next/link';
 import { useCallback, useMemo } from 'react';
-
+import pkg from '../../../package.json';
 interface ILinkItem {
   iconName: string;
   label: string;
@@ -174,7 +174,7 @@ const ProfileContainer = () => {
     if (!data?.queryResult) return null;
 
     return (
-      <div className="w-full h-full">
+      <>
         <div className="w-full h-20 flex gap-x-3 items-center px-4">
           <div className="w-12 h-12 rounded-full flex items-center justify-center bg-grey-200 overflow-hidden">
             {renderProfileImage(data.queryResult[0]?.imageUrl)}
@@ -215,13 +215,24 @@ const ProfileContainer = () => {
             </span>
           </div>
         </Button>
-      </div>
+      </>
     );
   };
 
   return (
     <MainLayout hasBottomNavigation>
-      <div className="w-full h-full">{renderContent()}</div>
+      <div className="w-full h-[calc(100%-35px)]">{renderContent()}</div>
+      <div>
+        <div className="flex flex-row-reverse justify-center items-center w-full text-center gap-2">
+          <div className="flex flex-col tracking-[4px] leading-[15px] text-xs text-gray-300">
+            <span>TAPSI</span>
+            <span>DOCTOR</span>
+          </div>
+          <span className="font-sans text-xs text-orange-400 tracking-[3.25px]">
+            V{pkg?.version}
+          </span>
+        </div>
+      </div>
     </MainLayout>
   );
 };
