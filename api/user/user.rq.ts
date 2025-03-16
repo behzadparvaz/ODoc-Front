@@ -217,8 +217,7 @@ export const useUserSetPassword = () => {
   });
 };
 
-export const useLoginWithTapsiSSO = () => useMutation({
-  mutationFn: LoginWithTapsiSSO,
-
-});
-
+export const useLoginWithTapsiSSO = () =>
+  useMutation({
+    mutationFn: LoginWithTapsiSSO,
+  });

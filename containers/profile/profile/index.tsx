@@ -30,7 +30,10 @@ interface IMenuItem {
 }
 
 const ProfileContainer = () => {
-  const { data, isLoading } = useGetProfile({ enabled: true });
+  const { data, isLoading } = useGetProfile({
+    enabled: true,
+    refetchOnMount: true,
+  });
   const { addModal } = useModal();
   const menuItems: IMenuItem[] = useMemo(
     () => [
