@@ -5,7 +5,7 @@ export function encodeString(
   let encodedArray = [];
   for (let i = 0; i < inputString.length; i++) {
     encodedArray.push(
-      inputString.charCodeAt(i) ^ key.charCodeAt(i % key.length),
+      inputString?.charCodeAt(i) ^ key?.charCodeAt(i % key?.length),
     );
   }
   // Convert the encoded array to a Base64 string
@@ -20,7 +20,7 @@ export function decodeString(
   let decodedString = atob(encodedString); // Decode from Base64
   for (let i = 0; i < decodedString.length; i++) {
     decodedArray.push(
-      decodedString.charCodeAt(i) ^ key.charCodeAt(i % key.length),
+      decodedString?.charCodeAt(i) ^ key?.charCodeAt(i % key?.length),
     );
   }
   return String.fromCharCode(...decodedArray);
