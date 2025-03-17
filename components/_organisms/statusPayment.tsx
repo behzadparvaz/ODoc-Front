@@ -85,6 +85,7 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
       };
     }
   }, [data]);
+
   return (
     <MainLayout
       hasHeader
