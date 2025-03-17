@@ -35,10 +35,9 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
     widgetContainerRef.current.style.display = 'none';
     return true;
   };
-
   const handledownloadAsPdf = async () => {
     if (typeof window !== 'undefined') {
-      const element = contentRef.current;
+      const element = contentRef?.current;
 
       const options = {
         margin: 10,
@@ -63,7 +62,7 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
             name="CheckFill"
             width={2}
             height={2}
-            fill={colors.green[400]}
+            fill={colors?.green[400]}
           />
         ),
         title: 'پرداخت شما با موفقیت انجام شد',
@@ -77,7 +76,7 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
             name="ExclamationFill"
             width={2}
             height={2}
-            fill={colors.red[400]}
+            fill={colors?.red[400]}
           />
         ),
         title: 'پرداخت ناموفق',
@@ -86,12 +85,13 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
       };
     }
   }, [data]);
+
   return (
     <MainLayout
       hasHeader
       headerType="withoutLogo"
       hasBackButton
-      backIconHandler={() => push(routeList.homeRoute)}
+      backIconHandler={() => push(routeList?.homeRoute)}
     >
       <div ref={contentRef} className="m-4">
         {isLoading ? (
@@ -122,7 +122,7 @@ const StatusPayment = ({ data, isLoading }: IProps) => {
                       name="ArrowDownLine"
                       width={1.2}
                       height={1.2}
-                      fill={colors.red[400]}
+                      fill={colors?.red[400]}
                     />
                   </div>
                 </div>
