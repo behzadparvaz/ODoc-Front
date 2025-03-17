@@ -53,7 +53,7 @@ const ModalCreator = forwardRef<HTMLDivElement, any>((prop, ref) => {
     window.document.body.style.paddingRight = modals.length
       ? document.body.offsetWidth - document.body.clientWidth + 'px'
       : '0';
-    html.style.overflowY = modals.length ? 'hidden' : 'auto';
+    html.style.overflowY = 'hidden';
     window.document.body.style.overflowY = modals.length ? 'hidden' : 'auto';
     nextDiv.setAttribute('aria-hidden', modals.length ? 'true' : 'false');
     if (modals.length && hardwareBackHistory) {
