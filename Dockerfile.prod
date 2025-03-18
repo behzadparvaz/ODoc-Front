@@ -1,5 +1,5 @@
 # stage 0 : base
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
+FROM node:20.14.0-alpine AS base
 
 # Stage 1: Dependencies
 FROM base AS deps
