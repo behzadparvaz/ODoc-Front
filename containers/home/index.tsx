@@ -60,7 +60,7 @@ const HomeContainer = () => {
           </div>
         }
       >
-        <SituationBanners bannersName="chaharshanbe-soori" />
+        {/* <SituationBanners bannersName="chaharshanbe-soori" /> */}
         <HomeOrderSlider />
 
         <Categories isHomePage />
