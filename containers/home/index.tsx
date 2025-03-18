@@ -9,6 +9,7 @@ import Banner from '@com/_molecules/Banner';
 import { MainLayout } from '@com/Layout';
 import { routeList } from '@routes/routeList';
 import NextImage from '@com/_core/NextImage';
+import SituationBanners from '@com/_organisms/SituationBanners';
 
 const MainSlider = dynamic(() => import('@com/_molecules/MainSlider'));
 const Categories = dynamic(() => import('@com/_molecules/Categories'));
@@ -59,14 +60,7 @@ const HomeContainer = () => {
           </div>
         }
       >
-        {/* bad weather condition */}
-        {/* <NextImage
-          src={'/images/banner-delay.svg'}
-          alt="banner-delay"
-          width={360}
-          height={40}
-          style={{ width: '100%', height: 'auto' }}
-        /> */}
+        <SituationBanners bannersName="chaharshanbe-soori" />
         <HomeOrderSlider />
 
         <Categories isHomePage />
