@@ -15,11 +15,6 @@ interface optionsLayout {
   returnError?: boolean;
 }
 
-const API_BASE_URLS: { [key: string]: string | undefined } = {
-  default: '/api', // This will use the local proxy
-};
-
-// export const API_URL = API_BASE_URLS.default;
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0';
 
