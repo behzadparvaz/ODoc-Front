@@ -139,11 +139,11 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
           <div className="h-10 flex items-center justify-between px-4">
             {getOrderStatusMessage(data?.orderStatus?.name)}
 
-            {!prepartionTimeData?.isPreOrder && !data?.isSpecialPatient && (
+            {/* {!prepartionTimeData?.isPreOrder && !data?.isSpecialPatient && (
               <span className="text-sm text-content-tertiary">
                 {prepartionTimeData?.message}
               </span>
-            )}
+            )} */}
           </div>
         );
       case 'adelivery':
@@ -183,16 +183,16 @@ const GeneralDetail = ({ data }: GeneralDetailProps) => {
               <span className="text-xs text-content-tertiary flex gap-1">
                 <span>تحویل تا ساعت</span>
                 <span>
-                  {moment(data?.createDateTime, 'MM/DD/YYYY hh:mm:ss A')
-                    .add(1, 'hours')
-                    .format('HH:mm')}
+                  {moment(data?.prepartionTime, 'YYYY/MM/DD hh:mm:ss').format(
+                    'HH:mm',
+                  )}
                 </span>
               </span>
             )}
           </>
         );
     }
-  }, [data?.orderStatus?.name, data?.createDateTime]);
+  }, [data?.orderStatus?.name, data?.createDateTime, data?.prepartionTime]);
 
   return (
     <div className="w-full h-[104px] flex flex-col bg-background-gradient.white-to-gray">
