@@ -20,7 +20,7 @@ WORKDIR /app
 # Set build-time environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max_old_space_size=8192 --gc-interval=100"
+ENV NODE_OPTIONS="--max_old_space_size=8192"
 ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 
 # Create necessary directories
