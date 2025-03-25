@@ -12,7 +12,7 @@ RUN apk add --no-cache git
 COPY package*.json .npmrc ./
 
 # Install dependencies with specific flags for production
-RUN npm ci --only=production --force --verbose
+RUN npm ci --force --verbose
 
 # Copy source code
 COPY . .
