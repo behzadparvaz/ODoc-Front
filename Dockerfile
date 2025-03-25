@@ -8,7 +8,7 @@ WORKDIR /app
 RUN apk add --no-cache git
 
 # Copy package files for better caching
-COPY package.json ./
+COPY package*.json ./
 
 # Install npm dependencies
 RUN npm install --force
@@ -20,7 +20,8 @@ WORKDIR /app
 # Set build-time environment variables
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max_old_space_size=4096"
+ENV NODE_OPTIONS="--max_old_space_size=8192 --gc-interval=100"
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
 
 # Create necessary directories
 RUN mkdir -p .next
@@ -31,7 +32,7 @@ COPY . .
 COPY .env.staging .env
 RUN rm -f .env.* 
 
-# Build the application
+# Build the application with increased memory
 RUN npm run build
 
 # Stage 3: Runner
