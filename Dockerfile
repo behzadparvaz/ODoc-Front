@@ -1,6 +1,7 @@
 # stage 0 : base
 FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 
+# stage 1 : builder
 FROM base AS builder
 WORKDIR /app
 

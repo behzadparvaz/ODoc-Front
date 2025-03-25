@@ -1,12 +1,13 @@
 # stage 0 : base
 FROM node:20.14.0-alpine AS base
 
+# stage 1 : builder
 FROM base AS builder
 WORKDIR /app
 
 RUN apk add --no-cache git
 
-COPY package.json .npmrc ./
+COPY package.json ./
 
 RUN npm install --force
 
