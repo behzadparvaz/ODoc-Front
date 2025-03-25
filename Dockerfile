@@ -38,8 +38,8 @@ RUN mkdir -p build/cache && \
     chown -R nextjs:nodejs .
 
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/build/standalone ./
-COPY --from=builder /app/build/static ./build/static
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./build/static
 
 RUN chmod -R 550 /app && \
     chmod -R 770 build/cache && \
