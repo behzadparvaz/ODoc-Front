@@ -5,19 +5,20 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
-# Copy package files for better caching
-COPY package*.json ./
-
 RUN apk add --no-cache git
 
+# Copy package files for better caching
+COPY package.json ./
+
 # Install npm dependencies
-RUN npm ci --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
 FROM base AS builder
 WORKDIR /app
 
 # Set build-time environment variables
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_OPTIONS="--max_old_space_size=4096"
 
@@ -38,6 +39,7 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
