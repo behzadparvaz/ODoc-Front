@@ -10,7 +10,7 @@ WORKDIR /app
 COPY package*.json ./
 
 # Install npm dependencies
-RUN npm ci --legacy-peer-deps
+RUN npm install --force
 
 # Stage 2: Builder
 FROM base AS builder
