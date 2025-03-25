@@ -24,7 +24,7 @@ RUN rm -f .env.*
 # Add a step to clean up npm cache if needed
 # RUN npm cache clean --force
 
-RUN npm run build --no-audit # Try disabling audit for build
+RUN npm run build --no-audit
 
 # Stage 3: Runner
 FROM base AS runner
