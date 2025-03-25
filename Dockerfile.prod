@@ -1,5 +1,5 @@
 # stage 0 : base
-FROM node:20.14.0-alpine AS base
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 
 # Stage 1: Dependencies
 FROM base AS deps
@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json ./
 
 # Install npm dependencies
-RUN npm ci --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
 FROM base AS builder

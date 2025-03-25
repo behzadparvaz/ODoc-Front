@@ -6,10 +6,10 @@ FROM base AS deps
 WORKDIR /app
 
 # Copy package files for better caching
-COPY package*.json ./
+COPY package.json ./
 
 # Install npm dependencies
-RUN npm ci --legacy-peer-deps
+RUN npm install --legacy-peer-deps
 
 # Stage 2: Builder
 FROM base AS builder
