@@ -13,8 +13,7 @@ RUN npm ci --force
 
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1 \
-    NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY .env.staging .env
 RUN rm -f .env.* 
@@ -25,8 +24,7 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
-ENV NODE_ENV=production \
-    NEXT_TELEMETRY_DISABLED=1 \
+ENV NEXT_TELEMETRY_DISABLED=1 \
     PORT=3000
 
 RUN addgroup --system --gid 1001 nodejs && \
