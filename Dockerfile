@@ -1,13 +1,12 @@
-# stage 0 : base
+# Stage 0: Base
 FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 
 # Stage 1: Dependencies
 FROM base AS deps
 WORKDIR /app
 
-# RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
-
 COPY package.json ./
+COPY package-lock.json ./
 
 RUN apk add --no-cache git
 RUN npm install --legacy-peer-deps
@@ -22,7 +21,10 @@ COPY . .
 COPY .env.staging .env
 RUN rm -f .env.* 
 
-RUN npm run build
+# Add a step to clean up npm cache if needed
+# RUN npm cache clean --force
+
+RUN npm run build --no-audit # Try disabling audit for build
 
 # Stage 3: Runner
 FROM base AS runner
