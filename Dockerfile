@@ -11,7 +11,7 @@ RUN apk add --no-cache git
 COPY package.json ./
 
 # Install npm dependencies
-RUN npm install --legacy-peer-deps
+RUN npm install --force
 
 # Stage 2: Builder
 FROM base AS builder
