@@ -8,6 +8,8 @@ WORKDIR /app
 # Copy package files for better caching
 COPY package*.json ./
 
+RUN apk add --no-cache git
+
 # Install npm dependencies
 RUN npm ci --legacy-peer-deps
 
