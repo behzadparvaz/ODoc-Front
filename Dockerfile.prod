@@ -1,65 +1,61 @@
-# stage 0 : base
-FROM node:20.14.0-alpine AS base
-
-# Stage 1: Dependencies
-FROM base AS deps
+# Build stage
+FROM node:20.14.0-alpine AS builder
 WORKDIR /app
 
+# Install dependencies
 RUN apk add --no-cache git
 
-# Copy package files for better caching
-COPY package*.json ./
+# Copy package files
+COPY package.json ./
 
-# Install npm dependencies
-RUN npm install --force
+# Install dependencies
+RUN npm install --force --verbose
 
-# Stage 2: Builder
-FROM base AS builder
-WORKDIR /app
-
-# Set build-time environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max_old_space_size=8192"
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
-
-# Create necessary directories
-RUN mkdir -p .next
-
-COPY --from=deps /app/node_modules ./node_modules
+# Copy source code
 COPY . .
 
+# Set environment variables
+ENV NEXT_TELEMETRY_DISABLED=1
+
+# Copy environment file
 COPY .env.production .env
 RUN rm -f .env.* 
 
-# Build the application with increased memory
+# Build application
 RUN npm run build
 
-# Stage 3: Runner
-FROM base AS runner
+# Production stage
+FROM node:20.14.0-alpine AS runner
 WORKDIR /app
 
-ENV NEXT_TELEMETRY_DISABLED=1
+# Set environment variables
 ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
+# Create necessary directories
 RUN mkdir -p .next/cache && \
     chown -R nextjs:nodejs .
 
+# Copy built application
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Set permissions
 RUN chmod -R 550 /app && \
     chmod -R 770 .next/cache && \
     chown -R nextjs:nodejs .
 
+# Switch to non-root user
 USER nextjs
 
+# Set port
 ENV PORT=3000
-
 EXPOSE $PORT
 
+# Start the application
 CMD ["node", "server.js"]

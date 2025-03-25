@@ -1,65 +1,63 @@
 # stage 0 : base
 FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 
-# Stage 1: Dependencies
-FROM base AS deps
-WORKDIR /app
-
-RUN apk add --no-cache git
-
-# Copy package files for better caching
-COPY package*.json ./
-
-# Install npm dependencies
-RUN npm install --force
-
-# Stage 2: Builder
+# stage 1 : builder
 FROM base AS builder
 WORKDIR /app
 
-# Set build-time environment variables
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_OPTIONS="--max_old_space_size=8192"
-ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+# Install dependencies
+RUN apk add --no-cache git
 
-# Create necessary directories
-RUN mkdir -p .next
+# Copy package files
+COPY package*.json .npmrc ./
 
-COPY --from=deps /app/node_modules ./node_modules
+# Install dependencies with specific flags for production
+RUN npm ci --only=production --force --verbose
+
+# Copy source code
 COPY . .
 
+# Set environment variables
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    NODE_ENV=production
+
+# Copy environment file
 COPY .env.staging .env
 RUN rm -f .env.* 
 
-# Build the application with increased memory
+# Build application with production optimization
 RUN npm run build
 
-# Stage 3: Runner
+# stage 2 : runner
 FROM base AS runner
 WORKDIR /app
 
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV NODE_ENV=production
+# Set environment variables
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3000
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-RUN mkdir -p .next/cache && \
+# Create non-root user with specific UID/GID
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs && \
+    mkdir -p .next/cache && \
     chown -R nextjs:nodejs .
 
+# Copy built application with specific ownership
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
+# Set strict permissions
 RUN chmod -R 550 /app && \
     chmod -R 770 .next/cache && \
     chown -R nextjs:nodejs .
 
+# Switch to non-root user
 USER nextjs
 
-ENV PORT=3000
-
+# Expose port
 EXPOSE $PORT
 
+# Start the application
 CMD ["node", "server.js"]
