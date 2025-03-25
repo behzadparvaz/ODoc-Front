@@ -5,16 +5,26 @@ FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
 FROM base AS deps
 WORKDIR /app
 
+RUN apk add --no-cache git
 
 # Copy package files for better caching
 COPY package*.json ./
 
 # Install npm dependencies
-RUN npm ci --legacy-peer-deps
+RUN npm install --force
 
 # Stage 2: Builder
 FROM base AS builder
 WORKDIR /app
+
+# Set build-time environment variables
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_OPTIONS="--max_old_space_size=8192"
+ENV NEXT_SHARP_PATH=/app/node_modules/sharp
+
+# Create necessary directories
+RUN mkdir -p .next
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
@@ -22,7 +32,7 @@ COPY . .
 COPY .env.staging .env
 RUN rm -f .env.* 
 
-# Build the application
+# Build the application with increased memory
 RUN npm run build
 
 # Stage 3: Runner
@@ -30,19 +40,20 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-RUN mkdir -p build/cache && \
+RUN mkdir -p .next/cache && \
     chown -R nextjs:nodejs .
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/build/standalone ./
-COPY --from=builder /app/build/static ./build/static
+COPY --from=builder --chown=nextjs:nodejs /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
 RUN chmod -R 550 /app && \
-    chmod -R 770 build/cache && \
+    chmod -R 770 .next/cache && \
     chown -R nextjs:nodejs .
 
 USER nextjs
