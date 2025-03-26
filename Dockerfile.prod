@@ -5,7 +5,7 @@ FROM node:20.14.0-alpine AS base
 FROM base AS builder
 WORKDIR /app
 
-# RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
+RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
 
 RUN apk add --no-cache git
 
