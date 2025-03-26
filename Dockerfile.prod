@@ -7,6 +7,8 @@ WORKDIR /app
 
 # RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
 
+RUN apk add --no-cache git
+
 COPY package.json ./
 
 RUN npm install --force
