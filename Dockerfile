@@ -1,24 +1,28 @@
 # Stage 1: Base
-FROM jfrog.tapsi.doctor/containers/node:20.14.0-alpine AS base
+FROM jfrog.tapsi.doctor/containers/node:20.14.0-slim AS base
 
 # Stage 2: Builder
 FROM base AS builder
 WORKDIR /app
 
-# RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
+# Configure DNS (if needed for your network)
+#RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
 
-RUN apk add --no-cache git
+# Install required system dependencies
+RUN apt-get update && \
+    apt-get install -y ca-certificates git && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY package*.json .npmrc ./
+COPY package.json ./
 
-RUN npm ci --force
+RUN npm install --force
 
 # Copy source code
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY .env.production .env
+COPY .env.staging .env
 RUN rm -f .env.* 
 
 RUN npm run build
@@ -30,8 +34,8 @@ WORKDIR /app
 ENV NEXT_TELEMETRY_DISABLED=1
 
 # Create non-root user
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+RUN groupadd --system --gid 1001 nodejs && \
+    useradd --system --uid 1001 --gid nodejs nextjs
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./

@@ -1,2 +1,23 @@
-./build
-./node_modules
+# Node.js dependencies
+**/node_modules/
+
+# Build output
+**/out/
+**/.next/
+
+# Logs and coverage
+**/coverage
+**/*.log
+
+# Environment files
+**/.env
+
+# Git and IDE files
+**/.git
+**/.gitignore
+**/.idea
+**/.vscode
+
+# Miscellaneous
+**/README.md
+**/Dockerfile
