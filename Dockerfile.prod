@@ -7,6 +7,8 @@ COPY . .
 
 RUN rm -f package-lock.json
 
+RUN echo "nameserver 4.2.2.4" > /etc/resolv.conf
+
 RUN apt-get update && \
     apt-get install -y ca-certificates git && \
     rm -rf /var/lib/apt/lists/*
