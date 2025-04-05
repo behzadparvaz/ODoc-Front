@@ -59,7 +59,7 @@ const HomeContainer = () => {
           </div>
         }
       >
-        {/* <SituationBanners bannersName="rainy" /> */}
+        <SituationBanners bannersName="rainy" />
 
         <HomeOrderSlider />
 
